@@ -9,19 +9,20 @@
 
 ## One-time Google sign-in setup
 
-1. Attach a custom domain that you own to the Cloudflare Pages project. Google requires the app's production home page, privacy policy, and OAuth origins to use domains you own or are explicitly authorized to use; the shared `pages.dev` domain cannot establish your ownership for production verification.
-2. In Google Cloud Console, configure the DCR Card Vault consent screen, provide a support email, set the homepage to `https://<your-domain>/`, and set the privacy policy to `https://<your-domain>/privacy/`.
-3. Publish the OAuth app to In production and create a Web application OAuth client with authorized JavaScript origins `https://<your-domain>` and `http://localhost:5173`. Testing status is limited to listed test users and is not public self-registration.
-4. Add the client ID as the GitHub Actions repository variable `GOOGLE_CLIENT_ID`. It is a public identifier, not a client secret. No Gmail API scope or client secret is used.
-5. The login page uses Google Identity Services. Each valid Google account creates its own DCR Vault account on first sign-in.
+1. In Google Cloud Console, configure an External OAuth app for DCR Card Vault and select a support email. The current app is in Testing status.
+2. Create a Web application OAuth client with authorized JavaScript origins `https://dcr-vault.pages.dev` and `http://localhost:5173`.
+3. Add the client ID as the GitHub Actions repository variable `GOOGLE_CLIENT_ID`. It is a public identifier, not a client secret. The app requests only the basic sign-in scopes `openid`, `email`, and `profile`; it does not request Gmail API access.
+Google's current OAuth app-state documentation says external apps in Testing are generally limited to test users, but apps that request only `openid`, `email`, and `profile` are an exception and can be accessed by any Google account. Users may still see a testing notice. This setup is intended to allow self-registration with those basic scopes.
+
+The `pages.dev` origin is the production site and is used directly for sign-in. Publishing the app and verifying its branding requires completing the Branding page and verifying the domains in Google Search Console. The shared `pages.dev` domain does not prove ownership; use a custom domain you control if you later need published, verified branding. The current basic-identity sign-in does not require publishing or a custom domain.
 
 Google's ID token is verified by the server before account creation. Do not replace this with browser-only checks or store the token in local storage.
 
 ## One-time D1 setup
 
-1. Create a Cloudflare D1 database named `dcr-vault` in the account used by Pages. Use the `apac` location hint for this Thailand-based deployment, or choose the location required by your data residency needs.
+1. Create a Cloudflare D1 database named `dcr-vault` in the account used by Pages. This deployment uses Cloudflare's automatic nearest-region placement.
 2. Add the returned database UUID as the GitHub Actions repository variable `CLOUDFLARE_D1_DATABASE_ID`.
-3. Create a separate Cloudflare API token with only Account `D1: Edit` permission and add it as the GitHub Actions secret `CLOUDFLARE_D1_API_TOKEN`. Keep the existing `CLOUDFLARE_API_TOKEN` Pages deployment token limited to Pages Edit.
+3. Create a separate Cloudflare API token with only Account `D1: Edit` permission and add it as the GitHub Actions secret `CLOUDFLARE_D1_API_TOKEN`. This token expires on 2027-11-19. Keep the existing `CLOUDFLARE_API_TOKEN` Pages deployment token limited to Pages Edit.
 4. Keep `CLOUDFLARE_ACCOUNT_ID` configured as a GitHub Actions secret.
 5. Once all values are present, the next push applies `migrations/0001_users_sessions_cards.sql`, adds the D1 binding `DB` and `GOOGLE_CLIENT_ID` to the Pages deployment, then publishes the site.
 

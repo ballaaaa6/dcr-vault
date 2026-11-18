@@ -7,6 +7,7 @@
 - Add an explicit legacy-data import choice; retain the browser copy and omit card images.
 - Add the initial D1 migration and gate automatic Pages publishing until Google OAuth and D1 deployment settings are present.
 - Document account data, privacy boundaries, and Cloudflare/Google setup.
+- Clarify that External/Testing sign-in can allow all Google accounts with only basic identity scopes; verified Published branding still requires domain ownership.
 
 ## 2026-11-19
 
