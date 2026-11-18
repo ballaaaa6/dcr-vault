@@ -1,5 +1,52 @@
-// Header - RED + WHITE only, real DCR logo only
-export function header(active){
-  const items=[['#/','Home'],['#/search','Search Cards'],['#/vault','My Vault'],['#/label','Label']];
-  return `<header class="header no-print"><div class="wrap header-in"><a class="logo-wrap" href="#/"><img class="logo" src="/assets/logo/dcr-mark.svg" alt="DCR Logo"><span>DCR Card Vault</span></a><nav class="nav">${items.map(([h,l])=>`<a href="${h}" class="${location.hash.replace('#','')===h.replace('#','')||(h==='#/'&&location.hash==='' )?'active':''}">${l}</a>`).join('')}</nav><a href="#/login" style="margin-left:auto;font-weight:600;color:var(--dcr-red)">Account</a></div></header><nav class="bottom-nav no-print">${items.map(([h,l])=>`<a href="${h}">${l}</a>`).join('')}</nav>`;
+// Shared navigation for all DCR Card Vault pages.
+const items = [
+  ['#/', 'Home'],
+  ['#/search', 'Add Card'],
+  ['#/vault', 'My Vault'],
+  ['#/label', 'Labels']
+];
+
+export function header(activePath) {
+  const links = items.map(([href, label]) => {
+    const active = href === activePath;
+    return `<a href="${href}" class="${active ? 'active' : ''}" ${active ? 'aria-current="page"' : ''}>${label}</a>`;
+  }).join('');
+  const accountActive = activePath === '#/login';
+
+  return `
+    <header class="site-header no-print">
+      <div class="header-inner wrap">
+        <a class="logo-wrap" href="#/" aria-label="DCR Card Vault home">
+          <img class="logo" src="/assets/logo/dcr-mark.svg" alt="">
+          <span>DCR Card Vault</span>
+        </a>
+        <button class="menu-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Open navigation">
+          <span></span><span></span><span></span>
+        </button>
+        <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+          ${links}
+          <a class="account-link ${accountActive ? 'active' : ''}" href="#/login" ${accountActive ? 'aria-current="page"' : ''}>Account</a>
+        </nav>
+      </div>
+    </header>`;
+}
+
+export function bindHeader() {
+  const headerElement = document.querySelector('.site-header');
+  const toggle = document.querySelector('.menu-toggle');
+  if (!headerElement || !toggle) return;
+
+  const closeMenu = () => {
+    headerElement.classList.remove('menu-open');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Open navigation');
+  };
+
+  toggle.addEventListener('click', () => {
+    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+    headerElement.classList.toggle('menu-open', !expanded);
+    toggle.setAttribute('aria-expanded', String(!expanded));
+    toggle.setAttribute('aria-label', expanded ? 'Open navigation' : 'Close navigation');
+  });
+  document.querySelectorAll('.site-nav a').forEach(link => link.addEventListener('click', closeMenu));
 }

@@ -1,6 +1,38 @@
-import {getCards} from '../store/cards.js';
-import {cardItem} from '../components/card-item.js';
-export function home(){
-  const cards=getCards().slice(0,4);
-  return `<main class="wrap" style="padding:20px 20px 80px"><section class="hero"><h1>Protect Your Collection<br>Verify Your Cards</h1><p>Certify and protect your trading cards with DCR's trusted verification & vault.</p><div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px"><a class="btn btn-white" href="#/verify">Verify a Cert</a><a class="btn btn-white" href="#/search">Start Scanning</a></div></section><div style="margin:20px 0"><form class="search-bar" onsubmit="event.preventDefault(); const v=this.querySelector('input').value; location.hash='#/verify?cert='+encodeURIComponent(v)"><input placeholder="Search by cert number... e.g. 01234567"><button>Search</button></form></div><h2>Featured Cards in Your Vault</h2><div class="grid4">${cards.map(cardItem).join('')}</div><div style="margin-top:20px;background:var(--dcr-red-light);border-radius:16px;padding:16px"><b>How it works:</b> <span class="muted">1. Search / Scan → 2. Confirm → 3. Save to Vault → 4. Print Label 70x20mm</span></div></main>`;
+export function home() {
+  return `
+    <main class="home-page">
+      <section class="home-hero" aria-labelledby="home-title">
+        <div class="home-copy">
+          <div class="home-kicker"><span aria-hidden="true"></span>DCR CARD VAULT</div>
+          <h1 class="home-title" id="home-title">Your collection,<br><span>kept together.</span></h1>
+          <p class="home-description">Find a DCR card record with its certificate number and keep your collection close at hand.</p>
+          <form class="home-search-form" onsubmit="window.__searchCertificate(event)">
+            <label class="search-label" for="certificate-search">Search by certificate number</label>
+            <div class="search-bar">
+              <input id="certificate-search" name="cert" type="text" inputmode="numeric" autocomplete="off" maxlength="8" pattern="[0-9]{8}" placeholder="Enter 8-digit Cert number" aria-describedby="certificate-search-hint" required>
+              <button class="search-button" type="submit">
+                <span>Search</span>
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><circle cx="10.8" cy="10.8" r="6.3"></circle><path d="m15.5 15.5 4.2 4.2"></path></svg>
+              </button>
+            </div>
+            <p class="search-hint" id="certificate-search-hint">Enter the 8-digit certificate number printed on your DCR label.</p>
+          </form>
+        </div>
+        <div class="home-art" aria-hidden="true">
+          <div class="art-orbit"></div>
+          <div class="art-card art-card-back"></div>
+          <div class="art-card art-card-front">
+            <div class="art-card-header"><span>DCR CERTIFIED</span><span class="art-seal">DCR</span></div>
+            <div class="art-card-center"><img src="/assets/logo/dcr-mark.svg" alt=""></div>
+            <div class="art-card-footer"><span>COLLECTION RECORD</span><strong>CARD VAULT</strong></div>
+          </div>
+        </div>
+      </section>
+    </main>`;
 }
+
+window.__searchCertificate = event => {
+  event.preventDefault();
+  const cert = document.getElementById('certificate-search').value.trim();
+  location.hash = '#/verify?cert=' + encodeURIComponent(cert);
+};

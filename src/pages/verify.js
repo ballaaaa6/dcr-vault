@@ -1,7 +1,46 @@
 import {findByCert} from '../store/cards.js';
-export function verify(){
-  const params=new URLSearchParams(location.hash.split('?')[1]||'');
-  const cert=params.get('cert')||'';
-  const card=cert?findByCert(cert):null;
-  return `<main class="wrap" style="max-width:640px;padding:30px 20px 80px;text-align:center"><h1>Verify a Cert</h1><p class="muted">Public page - no login needed. Shows only name, set, grade, cert. No price.</p><form class="search-bar" onsubmit="event.preventDefault(); location.hash='#/verify?cert='+encodeURIComponent(this.querySelector('input').value)"><input placeholder="Enter cert e.g. 01234567" value="${cert}"><button>Verify</button></form>${cert? (card? `<div class="card" style="padding:20px;margin-top:20px"><span class="badge">Verified Authentic</span><h2>${card.name}</h2><p>${card.setName} • ${card.year} • ${card.cardNumber} • ${card.rarity}</p><p><b>${card.gradeLabel}</b> • Cert: ${card.certNumber}</p><img src="/assets/logo/dcr-mark.svg" style="height:36px;margin-top:10px"></div>` : `<div class="card" style="padding:20px;margin-top:20px"><b>Not Found</b><p class="muted">Cert ${cert} not found. Check number and try again.</p></div>` ) : ''}</main>`;
+import {escapeHTML} from '../utils/format.js';
+
+function resultMarkup(cert) {
+  if (!/^[0-9]{8}$/.test(cert)) {
+    return `<div class="lookup-result lookup-error" role="status"><strong>Enter an 8-digit certificate number.</strong><p>Check the number on your DCR label and try again.</p></div>`;
+  }
+
+  const card = findByCert(cert);
+  if (!card) {
+    return `<div class="lookup-result lookup-error" role="status"><strong>No record found</strong><p>Certificate ${escapeHTML(cert)} is not in this browser's collection.</p></div>`;
+  }
+
+  const details = [card.setName, card.year, card.cardNumber, card.rarity].map(escapeHTML).filter(Boolean).join(' • ');
+  return `
+    <section class="lookup-result lookup-found" aria-label="Certificate record">
+      <div class="lookup-result-heading">
+        <span class="record-status">Certificate record found</span>
+        <img src="/assets/logo/dcr-mark.svg" alt="DCR">
+      </div>
+      <h2>${escapeHTML(card.name)}</h2>
+      <p class="record-details">${details}</p>
+      <div class="record-cert"><span>Grade</span><strong>${escapeHTML(card.gradeLabel)}</strong><span>Cert</span><strong>${escapeHTML(card.certNumber)}</strong></div>
+    </section>`;
+}
+
+export function verify() {
+  const params = new URLSearchParams(location.hash.split('?')[1] || '');
+  const hasCert = params.has('cert');
+  const cert = params.get('cert') || '';
+  const result = hasCert ? resultMarkup(cert) : '';
+
+  return `
+    <main class="lookup-page">
+      <section class="lookup-panel" aria-labelledby="lookup-title">
+        <div class="lookup-kicker">DCR CARD VAULT</div>
+        <h1 id="lookup-title">Certificate lookup</h1>
+        <p class="lookup-description">Search your collection using the 8-digit certificate number.</p>
+        <form class="search-bar lookup-search" onsubmit="window.__searchCertificate(event)">
+          <input id="certificate-search" name="cert" type="text" inputmode="numeric" autocomplete="off" maxlength="8" pattern="[0-9]{8}" placeholder="Enter 8-digit Cert number" value="${escapeHTML(cert)}" required>
+          <button class="search-button" type="submit">Search</button>
+        </form>
+        ${result}
+      </section>
+    </main>`;
 }

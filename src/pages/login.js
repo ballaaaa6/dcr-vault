@@ -1,9 +1,22 @@
 import {login} from '../auth.js';
 export function loginPage(){
-  return `<main class="wrap" style="max-width:420px;padding:40px 20px 80px"><div class="card" style="padding:24px;text-align:center"><img src="/assets/logo/dcr-mark.svg" style="height:54px"><h1>Login</h1><p class="muted">Temporary: admin / admin1234</p><input id="u" placeholder="Username - admin" style="width:100%;padding:12px;border-radius:999px;border:1px solid var(--dcr-border);margin:6px 0"><input id="p" type="password" placeholder="Password - admin1234" style="width:100%;padding:12px;border-radius:999px;border:1px solid var(--dcr-border);margin:6px 0"><button class="btn btn-primary" style="width:100%;margin-top:10px" onclick="window.__doLogin()">Login</button><p id="login-err" style="color:var(--dcr-red);display:none">Wrong username or password</p></div></main>`;
+  return `
+    <main class="auth-page">
+      <section class="auth-card" aria-labelledby="login-title">
+        <img class="auth-logo" src="/assets/logo/dcr-mark.svg" alt="DCR">
+        <div class="page-eyebrow">YOUR COLLECTION</div>
+        <h1 id="login-title">Sign in to your vault</h1>
+        <p class="muted">Manage your saved cards and collection details.</p>
+        <label class="form-field"><span>Username</span><input class="form-control" id="u" autocomplete="username" placeholder="Username"></label>
+        <label class="form-field"><span>Password</span><input class="form-control" id="p" type="password" autocomplete="current-password" placeholder="Password"></label>
+        <button class="btn btn-primary auth-submit" type="button" onclick="window.__doLogin()">Login</button>
+        <p class="auth-demo-note">Demo login: admin / admin1234</p>
+        <p id="login-err" class="login-error" role="alert" hidden>Wrong username or password.</p>
+      </section>
+    </main>`;
 }
 window.__doLogin=()=>{
   const u=document.getElementById('u').value.trim();
   const p=document.getElementById('p').value.trim();
-  import('../auth.js').then(m=>{ if(m.login(u,p)){ location.hash='#/'; } else { document.getElementById('login-err').style.display='block'; } });
+  if(login(u,p)){ location.hash='#/'; } else { document.getElementById('login-err').hidden=false; }
 };

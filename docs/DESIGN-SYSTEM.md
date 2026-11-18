@@ -22,8 +22,11 @@ No dark blue background. No green/yellow/blue buttons.
 - Use regular and medium weights for body text and semibold headings and controls. Do not change the typography inside the approved printed label master.
 
 ## Layout
-- Desktop: White header, logo left, menu center, Account right. Content max 1200px centered.
-- Mobile: White header, red rounded hero, vertical list, bottom nav 4 items fixed.
+- Desktop: Sticky white header, DCR mark left, primary navigation right, content centered.
+- Mobile: Compact header with an accessible expandable navigation menu.
+- Home: Split hero with a short collection message, one certificate search field and Search button, and a static DCR card illustration.
+- Keep search as the only call-to-action in the Home content. Do not show featured-card buttons or extra promotional sections there.
+- Use the Mochi Space layout as a structural reference; retain DCR colors, logo, and locally hosted typography.
 
 ## Card display on Home
-Show only: image, name, set, grade badge (red), cert number. No price, no barcode large, no QR large.
+Home is focused on certificate lookup and does not show collection cards or prices. In other card summaries, show only image, name, set, grade badge (red), and certificate number. No large barcode or QR code.

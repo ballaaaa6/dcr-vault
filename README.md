@@ -18,10 +18,10 @@ You can also open `index.html` directly for a limited static preview.
 
 ## Main menus
 
-- Home / Verify
-- Search Cards
+- Home / Certificate Search
+- Add Card
 - My Vault
-- Label
+- Labels
 
 The app has no mobile app download page or real-time pricing.
 

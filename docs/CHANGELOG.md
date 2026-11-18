@@ -1,4 +1,9 @@
 # Changelog
+## Card vault UX refresh - 2026-11-19
+- Reworked the shared navigation and responsive menu around the DCR Card Vault identity.
+- Replaced the Home featured-card and promotion sections with a focused certificate search and DCR card illustration.
+- Updated certificate lookup result states, clarified local record behavior, styled the core app pages, and made Vault filters work.
+
 ## Logo and typography refresh - 2026-11-18
 - Added a transparent SVG DCR mark extracted from the approved label artwork and switched the site logo placements to it.
 - Self-hosted Inter and Noto Sans Thai variable fonts and standardized shared interface typography while keeping the printed label master unchanged.

@@ -1,6 +1,37 @@
 import {addCard} from '../store/cards.js';
 export function search(){
-  return `<main class="wrap" style="padding:20px 20px 80px"><h1>Search Cards</h1><p class="muted">Upload front + back. AI assists only. If confidence &lt; 85%, you must review.</p><div class="card" style="padding:16px"><label>Front Image <input type="file" id="f-front" accept="image/*"></label><div style="height:10px"></div><label>Back Image <input type="file" id="f-back" accept="image/*"></label><div style="display:flex;gap:10px;margin-top:14px"><button class="btn btn-primary" onclick="window.__scan()">Scan Card</button><button class="btn btn-ghost" onclick="location.hash='#/'">Cancel</button></div><div id="scan-result" style="margin-top:16px"></div></div><div class="card" style="padding:16px;margin-top:16px"><b>Manual Entry</b><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px"><input id="m-name" placeholder="Name e.g. Charizard"><input id="m-set" placeholder="Set e.g. Base Set"><input id="m-year" placeholder="Year e.g. 1999"><input id="m-num" placeholder="Card Number e.g. #4"></div><button class="btn btn-primary" style="margin-top:12px" onclick="window.__manual()">Add to Vault</button></div></main>`;
+  return `
+    <main class="app-page">
+      <header class="page-heading">
+        <div class="page-eyebrow">COLLECTION INTAKE</div>
+        <h1>Add a card to your vault</h1>
+        <p class="page-description">Scan a card or enter its details to add it to your collection.</p>
+      </header>
+      <div class="intake-grid">
+        <section class="surface-card intake-card" aria-labelledby="scan-title">
+          <div class="section-heading"><span class="section-number">01</span><div><h2 id="scan-title">Scan a card</h2><p>Upload clear images of both sides.</p></div></div>
+          <div class="upload-grid">
+            <label class="upload-field"><span>Front image</span><input type="file" id="f-front" accept="image/*"></label>
+            <label class="upload-field"><span>Back image</span><input type="file" id="f-back" accept="image/*"></label>
+          </div>
+          <div class="panel-actions">
+            <button class="btn btn-primary" type="button" onclick="window.__scan()">Scan Card</button>
+            <a class="btn btn-ghost" href="#/">Cancel</a>
+          </div>
+          <div id="scan-result" class="scan-result" aria-live="polite"></div>
+        </section>
+        <section class="surface-card intake-card" aria-labelledby="manual-title">
+          <div class="section-heading"><span class="section-number">02</span><div><h2 id="manual-title">Manual entry</h2><p>Add the card details directly.</p></div></div>
+          <div class="field-grid">
+            <label class="form-field"><span>Name</span><input class="form-control" id="m-name" placeholder="e.g. Charizard"></label>
+            <label class="form-field"><span>Set</span><input class="form-control" id="m-set" placeholder="e.g. Base Set"></label>
+            <label class="form-field"><span>Year</span><input class="form-control" id="m-year" placeholder="e.g. 1999"></label>
+            <label class="form-field"><span>Card number</span><input class="form-control" id="m-num" placeholder="e.g. #4"></label>
+          </div>
+          <button class="btn btn-primary manual-submit" type="button" onclick="window.__manual()">Add to Vault</button>
+        </section>
+      </div>
+    </main>`;
 }
 window.__scan = ()=>{
   const el=document.getElementById('scan-result');

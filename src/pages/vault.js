@@ -1,24 +1,84 @@
 import {getCards, updateCard} from '../store/cards.js';
 import {listRow} from '../components/card-item.js';
 import {isLoggedIn} from '../auth.js';
-export function vault(){
-  if(!isLoggedIn()){ location.hash='#/login'; return '<p>Redirect to login...</p>'; }
-  const params=new URLSearchParams(location.hash.split('?')[1]||'');
-  const focusId=params.get('id');
-  const cards=getCards();
-  const focus=cards.find(c=>c.id===focusId)||cards[0];
-  return `<main class="wrap" style="padding:20px 20px 90px"><h1>My Vault</h1><p class="muted">${cards.length} cards • Prices visible only here, never on label.</p><div style="display:flex;gap:8px;flex-wrap:wrap;margin:12px 0"><input id="vault-q" placeholder="Search name / cert / set" style="flex:1;padding:10px;border-radius:999px;border:1px solid var(--dcr-border)"><select id="vault-status" style="padding:10px;border-radius:999px"><option value="">All Status</option><option>in-vault</option><option>for-sale</option><option>sold</option><option>grading</option></select><button class="btn btn-primary" onclick="window.__filterVault()">Filter</button></div><div style="display:grid;grid-template-columns:1fr 340px;gap:16px" class="vault-grid"><div id="vault-list" style="display:flex;flex-direction:column;gap:10px">${cards.map(listRow).join('')}</div><aside class="card" style="padding:16px;height:fit-content"><h3>${focus?focus.name:'No card'}</h3><div class="muted">${focus?focus.setName+' • '+focus.year+' • '+focus.cardNumber:''}</div><div style="margin:10px 0"><span class="badge">${focus?focus.gradeLabel:''}</span> <span class="muted">Cert: ${focus?focus.certNumber:''}</span></div><label>Buy Price (THB)<input id="d-buy" value="${focus?focus.buyPrice||'':''}" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--dcr-border)"></label><div style="height:8px"></div><label>Sell Price (THB)<input id="d-sell" value="${focus?focus.sellPrice||'':''}" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--dcr-border)"></label><div style="height:8px"></div><label>Status<select id="d-status" style="width:100%;padding:10px;border-radius:10px"><option ${focus&&focus.status==='in-vault'?'selected':''}>in-vault</option><option ${focus&&focus.status==='for-sale'?'selected':''}>for-sale</option><option ${focus&&focus.status==='sold'?'selected':''}>sold</option><option ${focus&&focus.status==='grading'?'selected':''}>grading</option></select></label><div style="height:8px"></div><label>Bought From<input id="d-from" value="${focus?focus.boughtFrom||'':''}" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--dcr-border)"></label><div style="display:flex;gap:8px;margin-top:12px"><button class="btn btn-primary" onclick="window.__saveDetail('${focus?focus.id:''}')">Save</button><a class="btn btn-ghost" href="#/label?cert=${focus?focus.certNumber:''}">Print Label</a></div><p class="muted" style="font-size:12px">Buy/Sell price is Vault only. Never printed on label.</p></aside></div></main>`;
+import {escapeHTML} from '../utils/format.js';
+
+const statuses = ['in-vault', 'for-sale', 'sold', 'grading'];
+
+function statusOptions(selected) {
+  return statuses.map(status => {
+    const label = status.replace('-', ' ');
+    const active = status === selected ? ' selected' : '';
+    return `<option value="${status}"${active}>${label}</option>`;
+  }).join('');
 }
-window.__filterVault=()=>{
-  const q=(document.getElementById('vault-q').value||'').toLowerCase();
-  const st=document.getElementById('vault-status').value;
-  const {getCards}=window.__vaultDeps||{};
-};
-window.__saveDetail=(id)=>{
-  const {updateCard}=window.__vaultDeps||{};
-  // fallback direct
-  import('../store/cards.js').then(m=>{
-    m.updateCard(id,{buyPrice:document.getElementById('d-buy').value,sellPrice:document.getElementById('d-sell').value,status:document.getElementById('d-status').value,boughtFrom:document.getElementById('d-from').value});
-    alert('Saved'); location.reload();
+
+export function vault() {
+  if (!isLoggedIn()) {
+    location.hash = '#/login';
+    return '<main class="app-page"><p class="muted">Redirecting to login...</p></main>';
+  }
+
+  const params = new URLSearchParams(location.hash.split('?')[1] || '');
+  const cards = getCards();
+  const focus = cards.find(card => card.id === params.get('id')) || cards[0];
+  const rows = cards.length ? cards.map(listRow).join('') : '<div class="empty-state">No cards in your vault yet.</div>';
+  const name = escapeHTML(focus?.name || 'No card selected');
+  const summary = focus ? [focus.setName, focus.year, focus.cardNumber].map(escapeHTML).filter(Boolean).join(' • ') : '';
+  const grade = escapeHTML(focus?.gradeLabel || '');
+  const cert = escapeHTML(focus?.certNumber || '');
+
+  return `
+    <main class="app-page">
+      <header class="page-heading vault-heading">
+        <div class="page-eyebrow">YOUR COLLECTION</div>
+        <h1>My Vault</h1>
+        <p id="vault-count" class="page-description">${cards.length} ${cards.length === 1 ? 'card' : 'cards'} · Buy and sell prices stay in Vault and never appear on labels.</p>
+      </header>
+      <div class="vault-toolbar">
+        <label class="vault-query"><span class="sr-only">Search your cards</span><input id="vault-q" class="form-control" placeholder="Search name, set or Cert number"></label>
+        <label class="vault-status"><span class="sr-only">Filter by status</span><select id="vault-status" class="form-control"><option value="">All status</option>${statusOptions('')}</select></label>
+        <button class="btn btn-primary" type="button" onclick="window.__filterVault()">Filter</button>
+      </div>
+      <div class="vault-layout">
+        <section class="vault-list" id="vault-list" aria-label="Cards in your vault">${rows}</section>
+        <aside class="surface-card vault-detail" aria-label="Selected card details">
+          <div class="detail-heading"><div class="page-eyebrow">CARD DETAILS</div><h2>${name}</h2><p class="muted">${summary}</p></div>
+          <div class="detail-identity"><span class="badge">${grade}</span><span class="muted">Cert: ${cert}</span></div>
+          <label class="form-field"><span>Buy price (THB)</span><input class="form-control" id="d-buy" inputmode="decimal" value="${escapeHTML(focus?.buyPrice ?? '')}"></label>
+          <label class="form-field"><span>Sell price (THB)</span><input class="form-control" id="d-sell" inputmode="decimal" value="${escapeHTML(focus?.sellPrice ?? '')}"></label>
+          <label class="form-field"><span>Status</span><select class="form-control" id="d-status"><option value="">Select status</option>${statusOptions(focus?.status || '')}</select></label>
+          <label class="form-field"><span>Bought from</span><input class="form-control" id="d-from" value="${escapeHTML(focus?.boughtFrom || '')}"></label>
+          <div class="detail-actions">
+            <button class="btn btn-primary" type="button" onclick="window.__saveDetail('${escapeHTML(focus?.id || '')}')">Save details</button>
+            <a class="btn btn-ghost" href="#/label?cert=${encodeURIComponent(focus?.certNumber || '')}">Print label</a>
+          </div>
+          <p class="detail-note">Prices are stored in this browser and stay off printed labels.</p>
+        </aside>
+      </div>
+    </main>`;
+}
+
+window.__filterVault = () => {
+  const query = (document.getElementById('vault-q').value || '').trim().toLowerCase();
+  const status = document.getElementById('vault-status').value;
+  const matches = getCards().filter(card => {
+    const searchable = [card.name, card.setName, card.certNumber, card.cardNumber].join(' ').toLowerCase();
+    return (!query || searchable.includes(query)) && (!status || card.status === status);
   });
+  const list = document.getElementById('vault-list');
+  const count = document.getElementById('vault-count');
+  list.innerHTML = matches.length ? matches.map(listRow).join('') : '<div class="empty-state">No cards match those filters.</div>';
+  count.textContent = `${matches.length} ${matches.length === 1 ? 'card' : 'cards'} shown · Buy and sell prices stay in Vault and never appear on labels.`;
+};
+
+window.__saveDetail = id => {
+  if (!id) return;
+  updateCard(id, {
+    buyPrice: document.getElementById('d-buy').value,
+    sellPrice: document.getElementById('d-sell').value,
+    status: document.getElementById('d-status').value,
+    boughtFrom: document.getElementById('d-from').value
+  });
+  location.reload();
 };

@@ -1,1 +1,56 @@
-.header{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--dcr-border);backdrop-filter:blur(8px)}.header-in{display:flex;align-items:center;gap:24px;height:68px}.logo{height:42px;width:auto;object-fit:contain}.logo-wrap{display:flex;align-items:center;gap:10px;font-weight:700;font-size:22px}.logo-wrap span{color:var(--dcr-red)}.nav{display:flex;gap:18px;margin-left:auto}.nav a{padding:8px 12px;border-radius:999px;font-weight:600}.nav a.active,.nav a:hover{background:var(--dcr-red-light);color:var(--dcr-red)}.hero{background:linear-gradient(135deg,#E30613,#9B0B22);color:#fff;border-radius:24px;padding:36px;text-align:center;position:relative;overflow:hidden}.hero h1{font-size:42px;line-height:1.1;margin:0}.hero p{opacity:.95}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.card{background:#fff;border:1px solid var(--dcr-border);border-radius:16px;overflow:hidden}.card img{width:100%;aspect-ratio:63/88;object-fit:cover;background:#f3f3f3}.card-body{padding:12px}.badge{display:inline-block;background:var(--dcr-red);color:#fff;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700}.list-row{display:flex;gap:14px;align-items:center;border:1px solid var(--dcr-border);border-radius:16px;padding:12px;background:#fff}.list-row img{width:64px;height:88px;object-fit:cover;border-radius:8px}.bottom-nav{display:none}@media(max-width:820px){.grid4{grid-template-columns:repeat(2,1fr)}.nav{display:none}.bottom-nav{display:flex;position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--dcr-border);z-index:30;padding:8px}.bottom-nav a{flex:1;text-align:center;font-weight:600;color:var(--dcr-red);padding:6px 0}.hero h1{font-size:32px}}
+.site-header{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.94);border-bottom:1px solid var(--dcr-border);backdrop-filter:blur(14px)}
+.header-inner{position:relative;display:flex;align-items:center;justify-content:space-between;min-height:76px;gap:28px}
+.logo-wrap{display:inline-flex;align-items:center;gap:11px;flex-shrink:0;font-size:19px;font-weight:750;letter-spacing:-.03em}
+.logo-wrap .logo{width:42px;height:42px;object-fit:contain}
+.logo-wrap span{color:var(--dcr-red)}
+.site-nav{display:flex;align-items:center;gap:8px;margin-left:auto}
+.site-nav a{padding:10px 14px;border-radius:999px;font-size:14px;font-weight:650;transition:background .18s,color .18s}
+.site-nav a:hover,.site-nav a.active{background:var(--dcr-red-light);color:var(--dcr-red)}
+.site-nav .account-link{margin-left:8px;border:1px solid var(--dcr-border)}
+.menu-toggle{display:none}
+.card{background:var(--dcr-white);border:1px solid var(--dcr-border);border-radius:16px;overflow:hidden}
+.card img{width:100%;aspect-ratio:63/88;object-fit:cover;background:var(--dcr-red-light)}
+.card-body{padding:12px}
+.badge{display:inline-block;background:var(--dcr-red);color:var(--dcr-white);padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700}
+.list-row{display:flex;gap:14px;align-items:center;border:1px solid var(--dcr-border);border-radius:16px;padding:12px;background:var(--dcr-white)}
+.list-row img{width:64px;height:88px;object-fit:cover;border-radius:8px}
+.site-footer{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1240px;margin:0 auto;padding:18px 24px 24px;color:var(--dcr-gray);font-size:12px}
+.lookup-page{min-height:calc(100vh - 132px);display:grid;place-items:start center;padding:72px 20px 60px}
+.lookup-panel{width:min(100%,680px);padding:clamp(24px,5vw,48px);border:1px solid var(--dcr-border);border-radius:28px;background:var(--dcr-white);box-shadow:var(--shadow)}
+.lookup-kicker{margin-bottom:10px;color:var(--dcr-red);font-size:12px;font-weight:750;letter-spacing:.12em}
+.lookup-panel h1{margin-bottom:8px}
+.lookup-description{margin:0 0 24px;color:var(--dcr-gray)}
+.lookup-search{margin-bottom:20px}
+.lookup-result{padding:22px;border:1px solid var(--dcr-border);border-radius:20px;background:var(--dcr-white)}
+.lookup-result-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}
+.lookup-result-heading img{width:38px;height:38px;object-fit:contain}
+.record-status{display:inline-flex;align-items:center;min-height:32px;padding:5px 12px;border-radius:999px;background:var(--dcr-red-light);color:var(--dcr-red);font-size:13px;font-weight:700}
+.lookup-found h2{margin:0 0 6px}
+.record-details{margin:0;color:var(--dcr-gray)}
+.record-cert{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:20px;padding-top:16px;border-top:1px solid var(--dcr-border)}
+.record-cert span{color:var(--dcr-gray);font-size:13px}
+.record-cert strong{margin-right:8px}
+.lookup-error{border-color:var(--dcr-red-light);background:var(--dcr-red-light)}
+.lookup-error strong{color:var(--dcr-red)}
+.lookup-error p{margin:6px 0 0}
+@media(max-width:820px){
+  .menu-toggle{display:flex;width:42px;height:42px;flex-direction:column;align-items:center;justify-content:center;gap:5px;border:1px solid var(--dcr-border);border-radius:50%;background:var(--dcr-white);color:var(--dcr-black)}
+  .menu-toggle span{display:block;width:17px;height:2px;border-radius:2px;background:currentColor;transition:transform .18s,opacity .18s}
+  .menu-toggle[aria-expanded="true"] span:first-child{transform:translateY(7px) rotate(45deg)}
+  .menu-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+  .menu-toggle[aria-expanded="true"] span:last-child{transform:translateY(-7px) rotate(-45deg)}
+  .site-nav{position:absolute;top:calc(100% - 1px);left:0;right:0;display:none;align-items:stretch;flex-direction:column;gap:4px;margin:0;padding:12px 20px 18px;border:1px solid var(--dcr-border);border-top:0;border-radius:0 0 18px 18px;background:var(--dcr-white);box-shadow:var(--shadow)}
+  .site-header.menu-open .site-nav{display:flex}
+  .site-nav a{padding:12px 14px}
+  .site-nav .account-link{margin:6px 0 0}
+  .site-footer{padding:16px 20px 22px}
+  .lookup-page{min-height:calc(100vh - 120px);padding:38px 16px 44px}
+}
+@media(max-width:480px){
+  .header-inner{min-height:68px}
+  .logo-wrap{font-size:17px}
+  .logo-wrap .logo{width:38px;height:38px}
+  .site-footer{align-items:flex-start;flex-direction:column;gap:4px}
+  .lookup-panel{border-radius:22px}
+  .lookup-result{padding:18px}
+}
