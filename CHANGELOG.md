@@ -8,6 +8,7 @@
 - Add the initial D1 migration and gate automatic Pages publishing until Google OAuth and D1 deployment settings are present.
 - Document account data, privacy boundaries, and Cloudflare/Google setup.
 - Clarify that External/Testing sign-in can allow all Google accounts with only basic identity scopes; verified Published branding still requires domain ownership.
+- Fix Pages deployment to use the root Wrangler configuration without the unsupported custom config path option.
 
 ## 2026-11-19
 

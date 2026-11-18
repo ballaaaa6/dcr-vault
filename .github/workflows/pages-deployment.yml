@@ -78,7 +78,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=dcr-vault --branch=main --config wrangler.toml
+          command: pages deploy dist --project-name=dcr-vault --branch=main
 
       - name: Report skipped deployment
         if: ${{ steps.cloudflare-config.outputs.configured != 'true' }}
