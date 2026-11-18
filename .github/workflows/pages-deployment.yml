@@ -1,0 +1,64 @@
+name: Deploy Cloudflare Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cloudflare-pages-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site
+        run: npm run build
+
+      - name: Check Cloudflare credentials
+        id: cloudflare-credentials
+        shell: bash
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [[ -n "$CLOUDFLARE_ACCOUNT_ID" && -n "$CLOUDFLARE_API_TOKEN" ]]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Deploy to Cloudflare Pages
+        if: ${{ steps.cloudflare-credentials.outputs.configured == 'true' }}
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=dcr-vault --branch=main
+
+      - name: Report skipped deployment
+        if: ${{ steps.cloudflare-credentials.outputs.configured != 'true' }}
+        shell: bash
+        run: |
+          echo "::warning::Cloudflare credentials are not configured; the build completed but deployment was skipped."
+          {
+            echo "## Cloudflare Pages deployment skipped"
+            echo "Add the CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN repository secrets to enable deployment."
+          } >> "$GITHUB_STEP_SUMMARY"
