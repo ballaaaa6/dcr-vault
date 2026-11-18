@@ -1,4 +1,8 @@
 # Changelog
+## Logo and typography refresh - 2026-11-18
+- Added a transparent SVG DCR mark extracted from the approved label artwork and switched the site logo placements to it.
+- Self-hosted Inter and Noto Sans Thai variable fonts and standardized shared interface typography while keeping the printed label master unchanged.
+
 ## Asset loading fix - 2026-11-18
 - Corrected DCR logo and shield URLs to use Vite's public asset paths so they load on Cloudflare Pages.
 

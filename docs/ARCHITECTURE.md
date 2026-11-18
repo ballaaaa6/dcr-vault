@@ -14,4 +14,5 @@ Auth -> auth.js -> sessionStorage (dcr-session)
 - One page = one file in src/pages/
 - One component = one file in src/components/
 - One style topic = one file in src/styles/
+- Inter and Noto Sans Thai are self-hosted under public/assets/fonts/ to keep UI typography consistent without a runtime font CDN request; their OFL licenses ship alongside the font files.
 - No framework, no heavy lib.

@@ -12,9 +12,14 @@
 No dark blue background. No green/yellow/blue buttons.
 
 ## Logo
-- Use only real DCR logo file: public/assets/logo/dcr-logo.png
+- Use the approved transparent DCR vector mark: public/assets/logo/dcr-mark.svg.
+- The mark is extracted from the editable vector logo already embedded in the approved label master; preserve its paths and colors. The original composite PNG remains as a source reference.
 - Never invent a new logo. Never use full 70x20 label on Home page.
 - Logo on header left, small. Logo on label only in Label page.
+
+## Typography
+- Use locally hosted Inter for Latin text and Noto Sans Thai for Thai glyphs through the shared `--font-sans` token.
+- Use regular and medium weights for body text and semibold headings and controls. Do not change the typography inside the approved printed label master.
 
 ## Layout
 - Desktop: White header, logo left, menu center, Account right. Content max 1200px centered.
