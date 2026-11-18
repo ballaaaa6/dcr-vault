@@ -44,3 +44,4 @@ Google Identity Services
 - D1 schema history lives in `migrations/` and is applied by the deployment workflow before publishing new code.
 - Google token verification uses the Workers Web Crypto API and Google's published JWK set. No authentication library is added, so runtime dependencies stay small.
 - Inter and Noto Sans Thai are self-hosted under `public/assets/fonts/` with their OFL licenses.
+- Label rendering imports the approved SVG masters from `dcr-tag-70x20/` and uses the browser-side `qrcode` and `jsbarcode` packages to create test QR and Code 128 symbols without sending certificate values to an external service.

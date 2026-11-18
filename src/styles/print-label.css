@@ -1,1 +1,13 @@
-@media print{body{background:#fff}.no-print{display:none!important}.print-sheet{width:210mm;min-height:297mm;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(8,1fr);gap:0}.label-70x20{width:70mm;height:20mm;border:1px dashed #ccc;overflow:hidden;position:relative;background:#fff;font-family:Arial,sans-serif}.label-70x20 .front{width:100%;height:100%;border:2.5mm solid var(--dcr-red);padding:2mm;box-sizing:border-box}.label-70x20 .back{width:100%;height:100%;background:#0A1F6B;color:#fff;padding:2mm;box-sizing:border-box}}
+.print-sheet-output{display:none}
+
+@media print{
+  @page{size:A4 portrait;margin:0}
+  html,body{width:210mm;margin:0!important;background:var(--dcr-white)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body>*{display:none!important}
+  body>#app{display:block!important;width:210mm;margin:0!important;padding:0!important}
+  #app>*{display:none!important}
+  #app>.print-sheet-output{display:block!important}
+  .print-sheet-page{width:210mm;height:297mm;overflow:hidden;break-after:page;page-break-after:always}
+  .print-sheet-page:last-child{break-after:auto;page-break-after:auto}
+  .print-sheet-page img{display:block;width:210mm;height:297mm}
+}

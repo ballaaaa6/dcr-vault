@@ -2,6 +2,8 @@
 
 ## 2026-11-19
 
+- Render label previews and A4 duplex print sheets from the approved 70 × 20 mm SVG masters, with live field updates and generated DCR test QR/Code 128 codes.
+- Align the A4 sheet guide with the approved 10 × 4 portrait layout and long-edge duplex instructions.
 - Replace demo credentials with Google Identity Services and automatic self-registration, server-verified sessions, and owner-scoped D1 card APIs.
 - Redesign sign-in as a responsive DCR split layout and remove the global site navigation from the login screen.
 - Add an explicit legacy-data import choice; retain the browser copy and omit card images.

@@ -45,20 +45,29 @@
 .detail-note{margin:14px 0 0;color:var(--dcr-gray);font-size:12px}
 .empty-state{padding:24px;border:1px dashed var(--dcr-border);border-radius:18px;color:var(--dcr-gray);text-align:center}
 .label-layout{display:grid;grid-template-columns:350px minmax(0,1fr);align-items:start;gap:18px}
-.label-editor .form-field{margin-bottom:14px}
+.label-fields{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+.label-fields .form-field{margin-bottom:12px}
+.label-fields [data-label-field="certNumber"]{grid-column:1/-1}
 .label-editor>.btn{width:100%;margin-top:2px}
+.label-status{min-height:20px;margin:12px 0 0;color:var(--dcr-gray);font-size:12px}
 .label-previews{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .preview-card{min-width:0;padding:18px}
 .preview-card h2{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 14px;font-size:15px}
 .preview-card h2 span{color:var(--dcr-gray);font-size:11px;font-weight:500}
-.label-preview-frame{width:min(100%,350px);aspect-ratio:3.5/1;overflow:hidden;border:1px solid var(--dcr-border);border-radius:6px;background:var(--dcr-white)}
+.label-preview-frame{width:min(100%,350px);aspect-ratio:3.5/1;overflow:hidden;background:var(--dcr-white)}
+.label-preview-svg,.label-preview-placeholder{display:block;width:100%;height:100%}
+.label-preview-svg svg{display:block;width:100%;height:100%}
+.label-preview-placeholder{display:grid;place-items:center;padding:10px;color:var(--dcr-gray);font-size:12px;text-align:center}
 .label-print-actions{grid-column:1/-1;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
 .label-print-actions p{margin:0 auto 0 0;font-size:13px}
-.label-sheet-preview{margin-top:28px;padding:24px;border:1px solid var(--dcr-border);border-radius:22px;background:var(--dcr-white)}
+.label-sheet-preview{margin-top:28px;padding:24px}
 .label-sheet-preview .section-heading{margin-bottom:16px}
-.sheet-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px}
-.sheet-cell{display:flex;min-height:42px;align-items:center;justify-content:center;gap:4px;flex-wrap:wrap;border:1px dashed var(--dcr-border);border-radius:5px;color:var(--dcr-gray);font-size:9px}
-.sheet-cell span{font-variant-numeric:tabular-nums}
+.sheet-preview-pages{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.sheet-page{min-width:0;margin:0}
+.sheet-page figcaption{margin-bottom:8px;color:var(--dcr-gray);font-size:12px;font-weight:650}
+.sheet-page-image{display:block;width:100%;height:auto;border:1px solid var(--dcr-border);background:var(--dcr-white)}
+.label-print-note{margin:14px 0;color:var(--dcr-gray);font-size:12px}
+.print-sheet-output{display:none}
 .import-page{max-width:920px}
 .import-card{max-width:760px}
 .import-card>p:first-child{margin-top:0;color:var(--dcr-gray)}
@@ -84,7 +93,7 @@
   .vault-detail{position:static}
   .label-editor{max-width:none}
   .label-previews{grid-template-columns:1fr 1fr}
-  .sheet-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .sheet-preview-pages{grid-template-columns:1fr}
 }
 @media(max-width:540px){
   .surface-card{padding:19px;border-radius:18px}
@@ -97,8 +106,10 @@
   .vault-row img{width:50px;height:68px;flex-basis:50px}
   .vault-row .badge{font-size:10px;padding:4px 7px}
   .vault-row-main .muted{font-size:11px}
+  .label-fields{grid-template-columns:1fr}
+  .label-fields [data-label-field="certNumber"]{grid-column:auto}
   .label-print-actions{align-items:stretch;flex-direction:column}
   .label-print-actions p{margin:0}
   .label-sheet-preview{padding:18px}
-  .sheet-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .sheet-preview-pages{grid-template-columns:1fr}
 }
