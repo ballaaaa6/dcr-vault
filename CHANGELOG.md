@@ -10,6 +10,7 @@
 - Clarify that External/Testing sign-in can allow all Google accounts with only basic identity scopes; verified Published branding still requires domain ownership.
 - Fix Pages deployment to use the root Wrangler configuration without the unsupported custom config path option.
 - Fix the logout Function to import the session cookie helper from the sessions module.
+- Set the Pages compatibility date to the latest date accepted by Cloudflare's UTC deployment runtime.
 
 ## 2026-11-19
 

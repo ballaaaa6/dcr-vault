@@ -1,6 +1,6 @@
 name = "dcr-vault"
 pages_build_output_dir = "./dist"
-compatibility_date = "2026-11-19"
+compatibility_date = "2026-11-18"
 
 [[d1_databases]]
 binding = "DB"
