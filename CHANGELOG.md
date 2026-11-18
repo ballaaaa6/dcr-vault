@@ -9,6 +9,7 @@
 - Document account data, privacy boundaries, and Cloudflare/Google setup.
 - Clarify that External/Testing sign-in can allow all Google accounts with only basic identity scopes; verified Published branding still requires domain ownership.
 - Fix Pages deployment to use the root Wrangler configuration without the unsupported custom config path option.
+- Fix the logout Function to import the session cookie helper from the sessions module.
 
 ## 2026-11-19
 

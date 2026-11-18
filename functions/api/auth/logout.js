@@ -1,5 +1,5 @@
-import {clearSessionCookie, cookie, json, sameOrigin} from '../../_utils/http.js';
-import {deleteSession} from '../../_utils/sessions.js';
+import {cookie, json, sameOrigin} from '../../_utils/http.js';
+import {clearSessionCookie, deleteSession} from '../../_utils/sessions.js';
 
 export async function onRequestPost({request, env}) {
   if (!sameOrigin(request)) return json({error: 'Invalid request origin.'}, 403);
