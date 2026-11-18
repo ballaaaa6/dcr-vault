@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "language_names": {
+    "en": "English",
+    "th": "Thai",
+    "ko": "Korean",
+    "zh-tw": "Chinese Traditional",
+    "zh-cn": "Chinese Simplified",
+    "ja": "Japanese"
+  },
+  "display_name_overrides": {
+    "pl2-95": {"en": "TEAM GALACTIC'S INVENTION G-107 TM G"},
+    "neo4-96": {"en": "THOUGHT WAVE MACHINE (ROCKET'S)"},
+    "bw6-118": {"en": "BLEND ENERGY (W/L/F/M)"},
+    "swsh1-178": {"en": "PROF'S RESEARCH (MAGNOLIA)"},
+    "swsh1-201": {"en": "PROF'S RESEARCH (MAGNOLIA)"},
+    "swsh1-209": {"en": "PROF'S RESEARCH (MAGNOLIA)"},
+    "swsh3.5-62": {"en": "PROF'S RESEARCH (MAGNOLIA)"},
+    "pl1-117": {"en": "GALACTIC'S INVENTION G-103 P. SPRAY"},
+    "pl1-116": {"en": "GALACTIC'S INVENTION G-101 E. GAIN"},
+    "swsh7-158": {"en": "S. STRIKE SCROLL: FANGED DRAGON"},
+    "swsh4.5-60": {"en": "PROF'S RESEARCH (JUNIPER)"},
+    "bw6-117": {"en": "BLEND ENERGY (G/F/P/D)"},
+    "pl1-118": {"en": "GALACTIC'S INV. G-105 POKÉ TURN"},
+    "swsh7-153": {"en": "RAPID STRIKE SCROLL: FLYING DRAGON"},
+    "pl2-96": {"en": "GALACTIC'S INVENTION G-109 SP RADAR"},
+    "cel25-23": {"en": "PROF'S RESEARCH (OAK)"},
+    "cel25-24": {"en": "PROF'S RESEARCH (OAK)"},
+    "xy4-92": {"en": "BATTLE COMP. TEAM FLARE GEAR"},
+    "neo4-94": {"en": "IMPOSTOR PROF. OAK'S INVENTION"},
+    "sm2-116": {"en": "AETHER PARADISE CONSERV. AREA"},
+    "sma-SV87": {"en": "AETHER PARADISE CONSERV. AREA"}
+  },
+  "series_labels": {
+    "adv": "ADVANCED GENERATION",
+    "base": "BASE",
+    "bw": "BLACK & WHITE",
+    "col": "CALL OF LEGENDS",
+    "dp": "DIAMOND & PEARL",
+    "ecard": "E-CARD",
+    "ex": "EX",
+    "gym": "GYM",
+    "hgss": "HEARTGOLD & SOULSILVER",
+    "l": "LEGEND",
+    "lc": "LEGENDARY COLLECTION",
+    "m": "MEGA EVOLUTION",
+    "me": "MEGA EVOLUTION",
+    "neo": "NEO",
+    "pcg": "POKÉMON CARD GAME",
+    "pl": "PLATINUM",
+    "pop": "POP",
+    "pmcg": "POKÉMON CARD GAME",
+    "s": "SWORD & SHIELD",
+    "sm": "SUN & MOON",
+    "sv": "SCARLET & VIOLET",
+    "swsh": "SWORD & SHIELD",
+    "tcgp": "POKÉMON TCG POCKET",
+    "tk": "TRAINER KITS",
+    "vs": "VS",
+    "web": "WEB",
+    "xy": "XY",
+    "xyb": "XY BREAK"
+  },
+  "set_overrides": {
+    "2015xy": {
+      "year_series": "2015 POKÉMON · SPECIAL RELEASE",
+      "collection": "McDonald's Collection"
+    },
+    "2021swsh": {
+      "year_series": "2021 POKÉMON · SPECIAL RELEASE",
+      "collection": "McDonald's Collection"
+    }
+  },
+  "rarity_codes": {
+    "common": "C",
+    "uncommon": "UC",
+    "shiny rare": "S",
+    "rare": "R",
+    "holo rare": "R",
+    "rare holo": "R",
+    "promo": "P",
+    "double rare": "DR",
+    "ultra rare": "UR",
+    "illustration rare": "IR",
+    "special illustration rare": "SIR",
+    "hyper rare": "HR"
+  },
+  "language_rarity_codes": {
+    "ja": {
+      "special illustration rare": "SAR"
+    }
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "slug": "mudkip-crystal-guardians-57",
+  "name": "Mudkip",
+  "language": "English",
+  "year_series": "2006 POKÉMON EX",
+  "collection": "Crystal Guardians",
+  "display_number": "#57",
+  "full_number": "57/100",
+  "rarity": "C",
+  "rarity_name": "Common",
+  "finish_note": "The supplied card-face image does not establish the physical copy’s finish. Official checklist notes cards 14–88 have foil and non-holo versions; finish left unverified.",
+  "catalog_metadata": {
+    "provider": "TCGdex",
+    "card_id": "ex14-57",
+    "source_path": "data/EX/Crystal Guardians/57.ts",
+    "release_date": "2006-08-30",
+    "series": "EX",
+    "set": "Crystal Guardians",
+    "raw_card_data": {
+      "name": {
+        "en": "Mudkip",
+        "fr": "Gobou",
+        "de": "Hydropi"
+      },
+      "illustrator": "Hisao Nakamura",
+      "rarity": "Common",
+      "category": "Pokemon",
+      "dexId": [
+        258
+      ],
+      "hp": 50,
+      "types": [
+        "Water"
+      ],
+      "stage": "Basic",
+      "abilities": [
+        {
+          "type": "Poke-BODY",
+          "name": {
+            "en": "Submerge",
+            "fr": "Submerger",
+            "de": "Untertauchen"
+          },
+          "effect": {
+            "en": "As long as Mudkip is on your Bench, prevent all damage done to Mudkip by attacks (both yours and your opponent's).",
+            "fr": "Tant que Gobou est sur votre Banc, prévenez tous les dégâts qui lui sont infligés par des attaques (les vôtres et celles de votre adversaire).",
+            "de": "Solange sich Hydropi auf deiner Bank befindet, verhindere allen Schaden, der Hydropi durch Angriffe zugefügt wird (eigene und gegnerische Angriffe)."
+          }
+        }
+      ],
+      "attacks": [
+        {
+          "cost": [
+            "Colorless"
+          ],
+          "name": {
+            "en": "Mud Slap",
+            "fr": "Coud'boue",
+            "de": "Lehmschelle"
+          },
+          "damage": 10
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Grass",
+          "value": "×2"
+        }
+      ],
+      "retreat": 1,
+      "thirdParty": {
+        "cardmarket": 277138,
+        "tcgplayer": 87611
+      },
+      "variants": [
+        {
+          "type": "normal"
+        },
+        {
+          "type": "normal",
+          "stamp": [
+            "set-logo"
+          ]
+        }
+      ]
+    }
+  },
+  "sources": [
+    "https://api.tcgdex.net/v2/en/cards/ex14-57 (TCGdex metadata matched against the scan: HP, Water type, Basic stage, Submerge, Mud Slap 10, Hisao Nakamura)",
+    "https://assets.pokemon.com/assets/cms/pdf/tcg/checklists/crystalguardians_checklist.pdf (official Pokémon checklist: EX Crystal Guardians #57 Mudkip, Common; cards 14–88 have foil and non-holo versions)"
+  ]
+}

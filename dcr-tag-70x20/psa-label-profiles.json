@@ -1,0 +1,289 @@
+{
+  "schema_version": 1,
+  "profiles": {
+    "ja:SV2a": {
+      "language": "ja",
+      "set_id": "SV2a",
+      "status": "verified",
+      "psa_brand_title": "POKEMON JAPANESE SV2a-POKEMON CARD 151",
+      "tag_fields": {
+        "year_series": "2023 POKEMON JAPANESE SV2a",
+        "collection": "POKEMON CARD 151"
+      },
+      "evidence": [
+        {
+          "kind": "PSA cert",
+          "reference": "83692473",
+          "url": "https://www.psacard.com/cert/83692473/psa",
+          "fields": ["Year", "Brand/Title"]
+        }
+      ],
+      "rarity_terms": {
+        "special illustration rare": {
+          "psa_variety_pedigree": "SPECIAL ART RARE",
+          "dcr_rarity_code": "SAR",
+          "status": "verified",
+          "evidence": [
+            {
+              "kind": "PSA cert",
+              "reference": "83692473",
+              "url": "https://www.psacard.com/cert/83692473/psa",
+              "fields": ["Variety/Pedigree"]
+            }
+          ]
+        }
+      }
+    },
+    "ko:SV2a": {
+      "language": "ko",
+      "set_id": "SV2a",
+      "status": "verified",
+      "psa_brand_title": "POKEMON KOREAN SV2a-POKEMON CARD 151",
+      "tag_fields": {
+        "year_series": "2023 POKEMON KOREAN SV2a",
+        "collection": "POKEMON CARD 151"
+      },
+      "evidence": [
+        {
+          "kind": "PSA cert",
+          "reference": "119316965",
+          "url": "https://www.psacard.com/cert/119316965/psa",
+          "fields": ["Year", "Brand/Title"]
+        }
+      ],
+      "rarity_terms": {
+        "special illustration rare": {
+          "psa_variety_pedigree": "SPECIAL ART RARE",
+          "dcr_rarity_code": "SAR",
+          "status": "verified",
+          "evidence": [
+            {
+              "kind": "PSA cert",
+              "reference": "119316965",
+              "url": "https://www.psacard.com/cert/119316965/psa",
+              "fields": ["Variety/Pedigree"]
+            }
+          ]
+        }
+      }
+    },
+    "th:SV2a": {
+      "language": "th",
+      "set_id": "SV2a",
+      "status": "partial",
+      "psa_brand_title": "POKEMON THAI SV2a T-POKEMON CARD 151",
+      "tag_fields": {
+        "year_series": "2023 POKEMON THAI SV2a",
+        "collection": "T-POKEMON CARD 151"
+      },
+      "evidence": [
+        {
+          "kind": "PSA Set Registry gallery",
+          "url": "https://www.psacard.com/psasetregistry/showcase/rookies/processor-s-oak-collection/imagegallery/35645",
+          "fields": ["Thai SV2a label-title example"],
+          "note": "Registry/gallery evidence; an individual Thai cert was not found for the matching Charizard card."
+        },
+        {
+          "kind": "PSA Set Registry checklist",
+          "url": "https://www.psacard.com/psasetregistry/tcg/kanto-generation-1-sets/bulbasaur-international-master-set/composition/22155",
+          "fields": ["Thai SV2a set naming pattern"],
+          "note": "The checklist issue title uses T-POKEMON 151, while label images for Thai SV2a use T-POKEMON CARD 151; keep this profile partial until a matching individual cert confirms the label text."
+        }
+      ],
+      "rarity_terms": {
+        "special illustration rare": {
+          "psa_variety_pedigree": "SPECIAL ART RARE",
+          "dcr_rarity_code": "SAR",
+          "status": "draft",
+          "evidence": [
+            {
+              "kind": "PSA Set Registry gallery",
+              "url": "https://www.psacard.com/psasetregistry/showcase/rookies/processor-s-oak-collection/imagegallery/35645",
+              "fields": ["Thai SPECIAL ART RARE example"],
+              "note": "PSA registry/gallery example from another Thai expansion."
+            }
+          ]
+        }
+      }
+    },
+    "th:SV4a": {
+      "language": "th",
+      "set_id": "SV4a",
+      "status": "verified",
+      "psa_brand_title": "POKEMON THAI SV4a T-SHINY TREASURE ex",
+      "tag_fields": {
+        "year_series": "2024 POKEMON THAI SV4a",
+        "collection": "T-SHINY TREASURE ex"
+      },
+      "evidence": [
+        {
+          "kind": "PSA cert",
+          "reference": "129844648",
+          "url": "https://www.psacard.com/cert/129844648/psa",
+          "fields": ["Year", "Brand/Title"],
+          "note": "Thai SV4a T-Shiny Treasure ex Charizard ex #331 cert; supports the set title/year, not another card's Subject or Variety/Pedigree."
+        },
+        {
+          "kind": "PSA Set Registry gallery",
+          "url": "https://www.psacard.com/psasetregistry/showcase/rookies/processor-s-oak-collection/imagegallery/35645",
+          "fields": ["Thai SV4a label-title example"],
+          "note": "Gallery shows Thai SV4a T-Shiny Treasure ex Mew ex #347 with the same set-title wording."
+        }
+      ],
+      "rarity_terms": {
+        "shiny rare": {
+          "psa_variety_pedigree": "S",
+          "dcr_rarity_code": "S",
+          "status": "draft",
+          "evidence": [
+            {
+              "kind": "PSA Auction Prices entry",
+              "url": "https://www.psacard.com/auctionprices/tcg-cards/2023-pokemon-japanese-sv4a-shiny-treasure-ex/MAUSHOLD/10041067",
+              "fields": ["Subject", "Card Number", "Variety/Pedigree"],
+              "note": "Exact Japanese Maushold #318 record has Variety S; the Thai version's PSA Variety/Pedigree has not been confirmed by a Thai cert."
+            }
+          ]
+        }
+      }
+    },
+    "th:AS6b": {
+      "language": "th",
+      "set_id": "AS6b",
+      "status": "verified",
+      "psa_brand_title": "POKEMON THAI SUN & MOON LEGENDARY CLASH",
+      "tag_fields": {
+        "year_series": "2020 POKEMON THAI SUN & MOON",
+        "collection": "LEGENDARY CLASH-SET B"
+      },
+      "evidence": [
+        {
+          "kind": "PSA cert",
+          "reference": "74143786",
+          "url": "https://www.psacard.com/ja-JP/cert/74143786/psa",
+          "fields": ["Year", "Brand/Title", "Variety/Pedigree"],
+          "note": "Thai Set B Pikachu cert; it verifies set-wide wording and fields only, not the Slowpoke & Psyduck Subject."
+        }
+      ]
+    },
+    "zh-tw:SV2a": {
+      "language": "zh-tw",
+      "set_id": "SV2a",
+      "status": "verified",
+      "psa_brand_title": "POKEMON TRADITIONAL CHINESE SV2a F-POKEMON CARD 151",
+      "tag_fields": {
+        "year_series": "2023 POKEMON TRADITIONAL CHINESE SV2a",
+        "collection": "F-POKEMON CARD 151"
+      },
+      "evidence": [
+        {
+          "kind": "PSA cert",
+          "reference": "83837976",
+          "url": "https://www.psacard.com/cert/83837976/psa",
+          "fields": ["Year", "Brand/Title"]
+        }
+      ],
+      "rarity_terms": {
+        "special illustration rare": {
+          "psa_variety_pedigree": "SPECIAL ART RARE",
+          "dcr_rarity_code": "SAR",
+          "status": "verified",
+          "evidence": [
+            {
+              "kind": "PSA cert",
+              "reference": "83837976",
+              "url": "https://www.psacard.com/cert/83837976/psa",
+              "fields": ["Variety/Pedigree"]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "card_labels": {
+    "ja:SV2a-201": {
+      "status": "verified",
+      "subject": "CHARIZARD ex",
+      "variety_pedigree": "SPECIAL ART RARE",
+      "dcr_rarity_code": "SAR",
+      "evidence": [
+        {
+          "kind": "PSA cert",
+          "reference": "83692473",
+          "url": "https://www.psacard.com/cert/83692473/psa",
+          "fields": ["Subject", "Card Number", "Variety/Pedigree"]
+        }
+      ]
+    },
+    "ko:SV2a-201": {
+      "status": "verified",
+      "subject": "CHARIZARD ex",
+      "variety_pedigree": "SPECIAL ART RARE",
+      "dcr_rarity_code": "SAR",
+      "evidence": [
+        {
+          "kind": "PSA cert",
+          "reference": "119316965",
+          "url": "https://www.psacard.com/cert/119316965/psa",
+          "fields": ["Subject", "Card Number", "Variety/Pedigree"]
+        }
+      ]
+    },
+    "th:SV2a-201": {
+      "status": "draft",
+      "subject": "CHARIZARD ex",
+      "variety_pedigree": "SPECIAL ART RARE",
+      "dcr_rarity_code": "SAR",
+      "evidence": [
+        {
+          "kind": "Cross-language PSA cert corroboration",
+          "url": "https://www.psacard.com/cert/83692473/psa",
+          "fields": ["Subject", "Variety/Pedigree"],
+          "note": "The Japanese, Korean, and Traditional Chinese certs agree; this exact card has not been checked against a Thai cert."
+        },
+        {
+          "kind": "Cross-language PSA cert corroboration",
+          "url": "https://www.psacard.com/cert/119316965/psa",
+          "fields": ["Subject", "Variety/Pedigree"]
+        },
+        {
+          "kind": "Cross-language PSA cert corroboration",
+          "url": "https://www.psacard.com/cert/83837976/psa",
+          "fields": ["Subject", "Variety/Pedigree"]
+        }
+      ]
+    },
+    "th:SV4a-318": {
+      "status": "draft",
+      "subject": "MAUSHOLD",
+      "evidence": [
+        {
+          "kind": "PSA Auction Prices entry",
+          "url": "https://www.psacard.com/auctionprices/tcg-cards/2023-pokemon-japanese-sv4a-shiny-treasure-ex/MAUSHOLD/10041067",
+          "fields": ["Subject", "Card Number"],
+          "note": "Exact Japanese-language Maushold #318 record supports the English Subject name; no Thai cert for this exact card was located."
+        },
+        {
+          "kind": "PSA cert",
+          "reference": "90968648",
+          "url": "https://www.psacard.com/cert/90968648/psa",
+          "fields": ["Subject"],
+          "note": "English Maushold card cert corroborates the English PSA Subject spelling; it is a different printing and card number."
+        }
+      ]
+    },
+    "zh-tw:SV2a-201": {
+      "status": "verified",
+      "subject": "CHARIZARD ex",
+      "variety_pedigree": "SPECIAL ART RARE",
+      "dcr_rarity_code": "SAR",
+      "evidence": [
+        {
+          "kind": "PSA cert",
+          "reference": "83837976",
+          "url": "https://www.psacard.com/cert/83837976/psa",
+          "fields": ["Subject", "Card Number", "Variety/Pedigree"]
+        }
+      ]
+    }
+  }
+}

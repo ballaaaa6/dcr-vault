@@ -1,0 +1,6 @@
+import {getCards} from '../store/cards.js';
+import {cardItem} from '../components/card-item.js';
+export function home(){
+  const cards=getCards().slice(0,4);
+  return `<main class="wrap" style="padding:20px 20px 80px"><section class="hero"><h1>Protect Your Collection<br>Verify Your Cards</h1><p>Certify and protect your trading cards with DCR's trusted verification & vault.</p><div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px"><a class="btn btn-white" href="#/verify">Verify a Cert</a><a class="btn btn-white" href="#/search">Start Scanning</a></div></section><div style="margin:20px 0"><form class="search-bar" onsubmit="event.preventDefault(); const v=this.querySelector('input').value; location.hash='#/verify?cert='+encodeURIComponent(v)"><input placeholder="Search by cert number... e.g. 01234567"><button>Search</button></form></div><h2>Featured Cards in Your Vault</h2><div class="grid4">${cards.map(cardItem).join('')}</div><div style="margin-top:20px;background:var(--dcr-red-light);border-radius:16px;padding:16px"><b>How it works:</b> <span class="muted">1. Search / Scan → 2. Confirm → 3. Save to Vault → 4. Print Label 70x20mm</span></div></main>`;
+}

@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dcr-tag:sheet-manifest:v1",
+  "title": "DCR 40-up sheet data manifest",
+  "description": "Snapshot of card facts and mockup values used to render an A4 front/back sheet directly from the approved SVG masters.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "sheet", "cards"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "sheet": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["profile", "duplex_flip"],
+      "properties": {
+        "profile": { "const": "a4-40up-portrait" },
+        "duplex_flip": { "const": "long-edge" },
+        "selection_seed": { "type": ["integer", "string", "null"] },
+        "selection_source": { "type": ["string", "null"] },
+        "created_at": { "type": ["string", "null"] }
+      }
+    },
+    "cards": {
+      "type": "array",
+      "minItems": 40,
+      "maxItems": 40,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["front_row", "front_col", "card_id", "mockup_serial", "mockup_condition", "card"],
+        "properties": {
+          "front_row": { "type": "integer", "minimum": 1, "maximum": 4 },
+          "front_col": { "type": "integer", "minimum": 1, "maximum": 10 },
+          "card_id": { "type": "string", "minLength": 1 },
+          "mockup_serial": { "type": "string", "pattern": "^[0-9]{8}$" },
+          "mockup_condition": {
+            "enum": ["GEM MT", "MINT", "NM-MT+", "NM-MT", "NM+", "NM", "EX-MT+", "EX-MT", "EX+", "EX", "VG-EX+", "VG-EX", "VG+", "VG", "GOOD+", "GOOD", "FR", "PR"]
+          },
+          "card": { "$ref": "#/$defs/cardData" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "cardData": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["name", "year_series", "display_number", "full_number", "collection", "rarity", "rarity_name", "language", "finish_note", "sources"],
+      "properties": {
+        "slug": { "type": "string", "minLength": 1 },
+        "name": { "type": "string", "minLength": 1 },
+        "display_name": { "type": "string", "minLength": 1 },
+        "year_series": { "type": "string", "minLength": 1 },
+        "display_number": { "type": "string", "minLength": 1 },
+        "full_number": { "type": "string", "minLength": 1 },
+        "collection": { "type": "string", "minLength": 1 },
+        "rarity": { "type": "string", "minLength": 1 },
+        "rarity_name": { "type": "string", "minLength": 1 },
+        "language": { "type": "string", "minLength": 1 },
+        "finish_note": { "type": "string" },
+        "sources": { "type": "array", "items": { "type": "string" } },
+        "catalog_metadata": { "type": "object" }
+      }
+    }
+  }
+}

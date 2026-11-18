@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "scan_id": "bayleef-neo-genesis-29-111",
+  "keys": {
+    "language": "en",
+    "name": "Bayleef",
+    "collector_number": "29/111",
+    "hp": 80,
+    "types": ["Grass"],
+    "stage": "Stage1",
+    "evolves_from": "Chikorita",
+    "illustrator": "Ken Sugimori",
+    "attacks": [
+      {"name": "Sweet Scent"},
+      {"name": "Double Razor Leaf", "damage": "40x"}
+    ],
+    "weaknesses": [
+      {"type": "Fire", "value": "×2"}
+    ],
+    "retreat": 2
+  },
+  "confidence": {
+    "language": 1.0,
+    "name": 1.0,
+    "collector_number": 1.0,
+    "hp": 1.0,
+    "types": 1.0,
+    "stage": 1.0,
+    "evolves_from": 1.0,
+    "illustrator": 1.0,
+    "attacks": 0.98,
+    "weaknesses": 0.98,
+    "retreat": 1.0
+  }
+}

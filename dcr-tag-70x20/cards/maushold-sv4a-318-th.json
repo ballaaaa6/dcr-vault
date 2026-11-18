@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "slug": "maushold-sv4a-318-th",
+  "name": "อิกคาเนซูมิ",
+  "display_name": "MAUSHOLD",
+  "display_name_kind": "psa_subject",
+  "display_name_source": "PSA exact-card Japanese SV4a #318 record; exact Thai PSA cert not located.",
+  "language": "Thai",
+  "year_series": "2024 POKEMON THAI SV4a",
+  "collection": "T-SHINY TREASURE ex",
+  "display_number": "#318",
+  "full_number": "318/190",
+  "rarity": "S",
+  "rarity_name": "Shiny Rare (S printed on the card; Thai PSA Variety/Pedigree not confirmed)",
+  "finish_note": "The supplied image shows the S rarity mark and shiny foil treatment; physical surface and condition were not assessed.",
+  "sources": [
+    "User-provided Thai card image: Thai name อิกคาเนซูมิ, HP 70, collector number 318/190 S, and illustrator Shigenori Negishi are visible.",
+    "https://www.pokemon-card.com/card-search/details.php/card/45104/regu/XY (official Japanese card database; exact SV4a #318 Maushold card identity, HP 70, and illustrator Shigenori Negishi).",
+    "https://www.psacard.com/cert/129844648/psa (PSA Thai SV4a cert #129844648; confirms the 2024 year and Brand/Title POKEMON THAI SV4a T-SHINY TREASURE ex for the set, but is a different card).",
+    "https://www.psacard.com/auctionprices/tcg-cards/2023-pokemon-japanese-sv4a-shiny-treasure-ex/MAUSHOLD/10041067 (PSA exact Japanese Maushold #318 entry; Subject Maushold and Variety S).",
+    "https://www.psacard.com/cert/90968648/psa (PSA English Maushold cert; corroborates English Subject MAUSHOLD, but is a different printing and card number).",
+    "https://github.com/tcgdex/cards-database/blob/41953489e378742169064a60e1dd8ef62a6e7d29/data-asia/SV/SV4a/318.ts (TCGdex snapshot for the same Japanese SV4a card; the local snapshot has Japanese and Traditional Chinese locales, not Thai)."
+  ],
+  "catalog_metadata": {
+    "provider": "TCGdex local snapshot; Japanese exact-card record used because Thai locale is absent",
+    "snapshot_commit": "41953489e378742169064a60e1dd8ef62a6e7d29",
+    "card_id": "SV4a-318",
+    "source_path": "data-asia/SV/SV4a/318.ts",
+    "set_id": "SV4a",
+    "local_id": "318",
+    "thai_locale_available": false,
+    "japanese_locale_record": {
+      "card_name": "イッカネズミ",
+      "english_name": "Maushold",
+      "illustrator": "Shigenori Negishi",
+      "hp": 70,
+      "rarity": null,
+      "variants": ["holo"]
+    },
+    "traditional_chinese_locale_record": {
+      "card_name": "一家鼠",
+      "set_name": "閃色寶藏ex"
+    }
+  },
+  "psa_label_profile": {
+    "profile_id": "th:SV4a",
+    "status": "draft",
+    "profile_status": "verified",
+    "brand_title": "POKEMON THAI SV4a T-SHINY TREASURE ex",
+    "subject": "MAUSHOLD",
+    "subject_status": "draft",
+    "subject_source": "PSA exact-card Japanese SV4a #318 record; no Thai cert for this exact card was located.",
+    "variety_pedigree": "S",
+    "variety_status": "draft",
+    "dcr_rarity_code": "S",
+    "evidence": [
+      {
+        "kind": "PSA cert",
+        "reference": "129844648",
+        "url": "https://www.psacard.com/cert/129844648/psa",
+        "fields": ["Year", "Brand/Title"],
+        "note": "Cert for a different Thai SV4a card; verifies only the set-level title and year."
+      },
+      {
+        "kind": "PSA Auction Prices entry",
+        "url": "https://www.psacard.com/auctionprices/tcg-cards/2023-pokemon-japanese-sv4a-shiny-treasure-ex/MAUSHOLD/10041067",
+        "fields": ["Subject", "Card Number", "Variety/Pedigree"],
+        "note": "Exact Japanese-language Maushold #318 PSA record lists Subject Maushold and Variety S; Thai label fields remain draft until a Thai cert for this card is found."
+      },
+      {
+        "kind": "PSA cert",
+        "reference": "90968648",
+        "url": "https://www.psacard.com/cert/90968648/psa",
+        "fields": ["Subject"],
+        "note": "English-language Maushold card corroborates the English Subject spelling; it is a different printing."
+      }
+    ]
+  }
+}

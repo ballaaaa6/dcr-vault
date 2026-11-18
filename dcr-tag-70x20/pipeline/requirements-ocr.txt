@@ -1,0 +1,4 @@
+# Verified local CPU runtime on Windows / Python 3.10.
+paddleocr==3.7.0
+paddlepaddle==3.2.0
+Pillow>=10.0

@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+*.log
+__pycache__/
+*.py[cod]
+/dcr-tag-70x20/outputs/
+/dcr-tag-70x20/lookup-results/
+/dcr-tag-70x20/scan-results/
+/dcr-tag-70x20/catalog/cards.sqlite
+/dcr-tag-70x20/catalog/image-cache/

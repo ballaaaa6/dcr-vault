@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "scan_id": "charizard-jp-sv2a-201",
+  "keys": {
+    "language": "ja",
+    "name": "リザードンex",
+    "collector_number": "201/165",
+    "set_id": "SV2a",
+    "hp": 330,
+    "types": ["Fire"],
+    "stage": "Stage2",
+    "illustrator": "miki kudo",
+    "attacks": [
+      {"name": "ブレイブウイング", "damage": "60+"},
+      {"name": "ばくえんのうず", "damage": 330}
+    ]
+  },
+  "confidence": {
+    "language": 1.0,
+    "name": 1.0,
+    "collector_number": 1.0,
+    "set_id": 1.0,
+    "hp": 1.0,
+    "types": 1.0,
+    "stage": 1.0,
+    "illustrator": 1.0,
+    "attacks": 0.98
+  },
+  "source_urls": [
+    "https://api.tcgdex.net/v2/ja/cards/SV2a-201",
+    "https://www.psacard.com/cert/83692473/psa"
+  ]
+}

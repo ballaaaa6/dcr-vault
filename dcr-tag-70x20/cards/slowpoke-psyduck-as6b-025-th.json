@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "slug": "slowpoke-psyduck-as6b-025-th",
+  "name": "ยาดง&โคดัก GX",
+  "display_name": "SLOWPOKE & PSYDUCK GX",
+  "display_name_kind": "psa_subject",
+  "display_name_source": "Draft English PSA Subject wording, based on PSA's English Slowpoke & Psyduck GX entry; no Thai cert for this exact card was found.",
+  "language": "Thai",
+  "year_series": "2020 POKEMON THAI SUN & MOON",
+  "collection": "LEGENDARY CLASH-SET B",
+  "display_number": "#25",
+  "full_number": "025/194",
+  "rarity": "RR",
+  "rarity_name": "Double rare (RR printed on the Thai card)",
+  "finish_note": "The card image does not establish the physical copy's finish variant; left unverified.",
+  "sources": [
+    "User-provided Thai card image: Slowpoke & Psyduck GX, AS6b, 025/194, RR; used as the primary source for the visible Thai card fields.",
+    "https://www.psacard.com/ja-JP/cert/74143786/psa (PSA Thai Legendary Clash Set B cert #74143786; confirms Year 2020, Brand/Title POKEMON THAI SUN & MOON LEGENDARY CLASH, and Variety LEGENDARY CLASH-SET B; this is a different card).",
+    "https://www.psacard.com/priceguide/non-sports-tcg-card-values/2019-poke-mon-sun-moon-unified-minds/3923 (PSA English Unified Minds checklist; lists Slowpoke & Psyduck GX as card #35, supporting English Subject wording only).",
+    "https://bulbapedia.bulbagarden.net/wiki/AS6b (set checklist cross-check: 025/194 Slowpoke & Psyduck).",
+    "https://assets.pokemon.com/assets/cms2/ru-ru/pdf/trading-card-game/tcg_sun_moon_11_card_translation.pdf (official Pokémon card-text translation cross-check for the Slowpoke & Psyduck GX name; different language/print)."
+  ],
+  "psa_label_profile": {
+    "profile_id": "th:AS6b",
+    "status": "draft",
+    "profile_status": "verified",
+    "brand_title": "POKEMON THAI SUN & MOON LEGENDARY CLASH",
+    "subject": "SLOWPOKE & PSYDUCK GX",
+    "subject_status": "draft",
+    "subject_source": "PSA English Unified Minds #35; the exact Thai card has no located PSA cert.",
+    "variety_pedigree": "LEGENDARY CLASH-SET B",
+    "variety_status": "verified",
+    "evidence": [
+      {
+        "kind": "PSA cert",
+        "url": "https://www.psacard.com/ja-JP/cert/74143786/psa",
+        "fields": ["Year", "Brand/Title", "Variety/Pedigree"],
+        "note": "Different Thai Set B card; supports the set profile and Variety only."
+      },
+      {
+        "kind": "PSA Price Guide",
+        "url": "https://www.psacard.com/priceguide/non-sports-tcg-card-values/2019-poke-mon-sun-moon-unified-minds/3923",
+        "fields": ["Subject"],
+        "note": "English print entry for Slowpoke & Psyduck GX #35; supports the English name only."
+      }
+    ]
+  }
+}

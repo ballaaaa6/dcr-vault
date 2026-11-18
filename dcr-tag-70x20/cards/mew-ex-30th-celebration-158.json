@@ -1,0 +1,19 @@
+{
+  "slug": "mew-ex-30th-celebration-158-compact",
+  "name": "Mew ex",
+  "language": "English",
+  "year_series": "2026 POKÉMON",
+  "series": "Mega Evolution",
+  "collection": "30th Celebration",
+  "display_number": "#158",
+  "full_number": "158/128",
+  "rarity": "FUR",
+  "rarity_name": "Futuristic Rare",
+  "finish_note": "TCGdex reports the normal variant as available; the exact finish of a physical copy was not inspected and remains unverified.",
+  "sources": [
+    "https://api.tcgdex.net/v2/en/cards/30th-158 (card ID, name, local number, illustrator YOSHIROTTEN, rarity Futuristic Rare, image, card attributes)",
+    "https://api.tcgdex.net/v2/en/sets/30th (set name 30th Celebration, Mega Evolution series, release date 2026-09-16, official count 128, total count 158)",
+    "https://bulbapedia.bulbagarden.net/wiki/Mew_ex_(30th_Celebration_158) (cross-check: English card number 158/128 and YOSHIROTTEN Futuristic Rare printing)",
+    "https://www.pokeos.com/tcg/eng/mega/580/30th%20Celebration/158 (cross-check: set name, release date, card number, and rarity)"
+  ]
+}

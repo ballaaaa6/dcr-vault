@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="210mm" height="297mm" viewBox="0 0 210 297" version="1.1">
+  <title>DCR tag A4 40-up portrait master</title>
+  <desc>Forty portrait cells for approved 70 by 20 mm labels rotated 90 degrees clockwise. Cut registration ticks are generated only in the page margins.</desc>
+  <metadata id="sheet-spec"
+    page-width-mm="210" page-height-mm="297"
+    rows="4" columns="10"
+    margin-left-mm="5" margin-right-mm="5"
+    margin-top-mm="8.5" margin-bottom-mm="8.5"
+    cell-width-mm="20" cell-height-mm="70"
+    source-label-width-mm="70" source-label-height-mm="20"
+    source-png-width-px="1400" source-png-height-px="400"
+    rotation-deg="-90" duplex-flip="long-edge" cut-guides="external-registration-ticks"
+    guide-length-mm="4" guide-outer-width-mm="0.15" guide-internal-width-mm="0.30" guide-color="#202020"
+    source-resolution-dpi="508"/>
+  <rect id="page-background" x="0" y="0" width="210" height="297" fill="#ffffff"/>
+  <g id="slots">
+  <g id="slot-r01-c01" data-slot="true" data-row="1" data-col="1" data-x-mm="5.000" data-y-mm="8.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(5.000 8.500)"><title>Row 1, column 1</title></g>
+  <g id="slot-r01-c02" data-slot="true" data-row="1" data-col="2" data-x-mm="25.000" data-y-mm="8.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(25.000 8.500)"><title>Row 1, column 2</title></g>
+  <g id="slot-r01-c03" data-slot="true" data-row="1" data-col="3" data-x-mm="45.000" data-y-mm="8.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(45.000 8.500)"><title>Row 1, column 3</title></g>
+  <g id="slot-r01-c04" data-slot="true" data-row="1" data-col="4" data-x-mm="65.000" data-y-mm="8.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(65.000 8.500)"><title>Row 1, column 4</title></g>
+  <g id="slot-r01-c05" data-slot="true" data-row="1" data-col="5" data-x-mm="85.000" data-y-mm="8.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(85.000 8.500)"><title>Row 1, column 5</title></g>
+  <g id="slot-r01-c06" data-slot="true" data-row="1" data-col="6" data-x-mm="105.000" data-y-mm="8.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(105.000 8.500)"><title>Row 1, column 6</title></g>
+  <g id="slot-r01-c07" data-slot="true" data-row="1" data-col="7" data-x-mm="125.000" data-y-mm="8.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(125.000 8.500)"><title>Row 1, column 7</title></g>
+  <g id="slot-r01-c08" data-slot="true" data-row="1" data-col="8" data-x-mm="145.000" data-y-mm="8.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(145.000 8.500)"><title>Row 1, column 8</title></g>
+  <g id="slot-r01-c09" data-slot="true" data-row="1" data-col="9" data-x-mm="165.000" data-y-mm="8.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(165.000 8.500)"><title>Row 1, column 9</title></g>
+  <g id="slot-r01-c10" data-slot="true" data-row="1" data-col="10" data-x-mm="185.000" data-y-mm="8.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(185.000 8.500)"><title>Row 1, column 10</title></g>
+  <g id="slot-r02-c01" data-slot="true" data-row="2" data-col="1" data-x-mm="5.000" data-y-mm="78.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(5.000 78.500)"><title>Row 2, column 1</title></g>
+  <g id="slot-r02-c02" data-slot="true" data-row="2" data-col="2" data-x-mm="25.000" data-y-mm="78.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(25.000 78.500)"><title>Row 2, column 2</title></g>
+  <g id="slot-r02-c03" data-slot="true" data-row="2" data-col="3" data-x-mm="45.000" data-y-mm="78.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(45.000 78.500)"><title>Row 2, column 3</title></g>
+  <g id="slot-r02-c04" data-slot="true" data-row="2" data-col="4" data-x-mm="65.000" data-y-mm="78.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(65.000 78.500)"><title>Row 2, column 4</title></g>
+  <g id="slot-r02-c05" data-slot="true" data-row="2" data-col="5" data-x-mm="85.000" data-y-mm="78.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(85.000 78.500)"><title>Row 2, column 5</title></g>
+  <g id="slot-r02-c06" data-slot="true" data-row="2" data-col="6" data-x-mm="105.000" data-y-mm="78.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(105.000 78.500)"><title>Row 2, column 6</title></g>
+  <g id="slot-r02-c07" data-slot="true" data-row="2" data-col="7" data-x-mm="125.000" data-y-mm="78.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(125.000 78.500)"><title>Row 2, column 7</title></g>
+  <g id="slot-r02-c08" data-slot="true" data-row="2" data-col="8" data-x-mm="145.000" data-y-mm="78.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(145.000 78.500)"><title>Row 2, column 8</title></g>
+  <g id="slot-r02-c09" data-slot="true" data-row="2" data-col="9" data-x-mm="165.000" data-y-mm="78.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(165.000 78.500)"><title>Row 2, column 9</title></g>
+  <g id="slot-r02-c10" data-slot="true" data-row="2" data-col="10" data-x-mm="185.000" data-y-mm="78.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(185.000 78.500)"><title>Row 2, column 10</title></g>
+  <g id="slot-r03-c01" data-slot="true" data-row="3" data-col="1" data-x-mm="5.000" data-y-mm="148.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(5.000 148.500)"><title>Row 3, column 1</title></g>
+  <g id="slot-r03-c02" data-slot="true" data-row="3" data-col="2" data-x-mm="25.000" data-y-mm="148.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(25.000 148.500)"><title>Row 3, column 2</title></g>
+  <g id="slot-r03-c03" data-slot="true" data-row="3" data-col="3" data-x-mm="45.000" data-y-mm="148.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(45.000 148.500)"><title>Row 3, column 3</title></g>
+  <g id="slot-r03-c04" data-slot="true" data-row="3" data-col="4" data-x-mm="65.000" data-y-mm="148.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(65.000 148.500)"><title>Row 3, column 4</title></g>
+  <g id="slot-r03-c05" data-slot="true" data-row="3" data-col="5" data-x-mm="85.000" data-y-mm="148.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(85.000 148.500)"><title>Row 3, column 5</title></g>
+  <g id="slot-r03-c06" data-slot="true" data-row="3" data-col="6" data-x-mm="105.000" data-y-mm="148.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(105.000 148.500)"><title>Row 3, column 6</title></g>
+  <g id="slot-r03-c07" data-slot="true" data-row="3" data-col="7" data-x-mm="125.000" data-y-mm="148.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(125.000 148.500)"><title>Row 3, column 7</title></g>
+  <g id="slot-r03-c08" data-slot="true" data-row="3" data-col="8" data-x-mm="145.000" data-y-mm="148.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(145.000 148.500)"><title>Row 3, column 8</title></g>
+  <g id="slot-r03-c09" data-slot="true" data-row="3" data-col="9" data-x-mm="165.000" data-y-mm="148.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(165.000 148.500)"><title>Row 3, column 9</title></g>
+  <g id="slot-r03-c10" data-slot="true" data-row="3" data-col="10" data-x-mm="185.000" data-y-mm="148.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(185.000 148.500)"><title>Row 3, column 10</title></g>
+  <g id="slot-r04-c01" data-slot="true" data-row="4" data-col="1" data-x-mm="5.000" data-y-mm="218.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(5.000 218.500)"><title>Row 4, column 1</title></g>
+  <g id="slot-r04-c02" data-slot="true" data-row="4" data-col="2" data-x-mm="25.000" data-y-mm="218.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(25.000 218.500)"><title>Row 4, column 2</title></g>
+  <g id="slot-r04-c03" data-slot="true" data-row="4" data-col="3" data-x-mm="45.000" data-y-mm="218.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(45.000 218.500)"><title>Row 4, column 3</title></g>
+  <g id="slot-r04-c04" data-slot="true" data-row="4" data-col="4" data-x-mm="65.000" data-y-mm="218.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(65.000 218.500)"><title>Row 4, column 4</title></g>
+  <g id="slot-r04-c05" data-slot="true" data-row="4" data-col="5" data-x-mm="85.000" data-y-mm="218.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(85.000 218.500)"><title>Row 4, column 5</title></g>
+  <g id="slot-r04-c06" data-slot="true" data-row="4" data-col="6" data-x-mm="105.000" data-y-mm="218.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(105.000 218.500)"><title>Row 4, column 6</title></g>
+  <g id="slot-r04-c07" data-slot="true" data-row="4" data-col="7" data-x-mm="125.000" data-y-mm="218.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(125.000 218.500)"><title>Row 4, column 7</title></g>
+  <g id="slot-r04-c08" data-slot="true" data-row="4" data-col="8" data-x-mm="145.000" data-y-mm="218.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(145.000 218.500)"><title>Row 4, column 8</title></g>
+  <g id="slot-r04-c09" data-slot="true" data-row="4" data-col="9" data-x-mm="165.000" data-y-mm="218.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(165.000 218.500)"><title>Row 4, column 9</title></g>
+  <g id="slot-r04-c10" data-slot="true" data-row="4" data-col="10" data-x-mm="185.000" data-y-mm="218.500" data-width-mm="20.000" data-height-mm="70.000" transform="translate(185.000 218.500)"><title>Row 4, column 10</title></g>
+  </g>
+  <g id="cut-guides" data-guide-layer="external-registration-ticks" aria-label="Short cut ticks in page margins only">
+    <line data-guide-id="vertical-01-top" data-axis="vertical" data-boundary="outer" x1="5" y1="4.5" x2="5" y2="8.425" stroke="#202020" stroke-width="0.15" stroke-linecap="butt" fill="none"/>
+    <line data-guide-id="vertical-01-bottom" data-axis="vertical" data-boundary="outer" x1="5" y1="288.575" x2="5" y2="292.5" stroke="#202020" stroke-width="0.15" stroke-linecap="butt" fill="none"/>
+    <line data-guide-id="vertical-02-top" data-axis="vertical" data-boundary="internal" x1="25" y1="4.5" x2="25" y2="8.35" stroke="#202020" stroke-width="0.3" stroke-linecap="butt" fill="none"/>
+    <line data-guide-id="vertical-02-bottom" data-axis="vertical" data-boundary="internal" x1="25" y1="288.65" x2="25" y2="292.5" stroke="#202020" stroke-width="0.3" stroke-linecap="butt" fill="none"/>
+    <line data-guide-id="vertical-03-top" data-axis="vertical" data-boundary="internal" x1="45" y1="4.5" x2="45" y2="8.35" stroke="#202020" stroke-width="0.3" stroke-linecap="butt" fill="none"/>
+    <line data-guide-id="vertical-03-bottom" data-axis="vertical" data-boundary="internal" x1="45" y1="288.65" x2="45" y2="292.5" stroke="#202020" stroke-width="0.3" stroke-linecap="butt" fill="none"/>
+    <line data-guide-id="vertical-04-top" data-axis="vertical" data-boundary="internal" x1="65" y1="4.5" x2="65" y2="8.35" stroke="#202020" stroke-width="0.3" stroke-linecap="butt" fill="none"/>
+    <line data-guide-id="vertical-04-bottom" data-axis="vertical" data-boundary="internal" x1="65" y1="288.65" x2="65" y2="292.5" stroke="#202020" stroke-width="0.3" stroke-linecap="butt" fill="none"/>
+    <line data-guide-id="vertical-05-top" data-axis="vertical" data-boundary="internal" x1="85" y1="4.5" x2="85" y2="8.35" stroke="#202020" stroke-width="0.3" stroke-linecap="butt" fill="none"/>
+    <line data-guide-id="vertical-05-bottom" data-axis="vertical" data-boundary="internal" x1="85" y1="288.65" x2="85" y2="292.5" stroke="#202020" stroke-width="0.3" stroke-linecap="butt" fill="none"/>
+    <line data-guide-id="vertical-06-top" data-axis="vertical" data-boundary="internal" x1="105" y1="4.5" x2="105" y2="8.35" stroke="#202020" stroke-width="0.3" stroke-linecap="butt" fill="none"/>
+    <line data-guide-id="vertical-06-bottom" data-axis="vertical" data-boundary="internal" x1="105" y1="288.65" x2="105" y2="292.5" stroke="#202020" stroke-width="0.3" stroke-linecap="butt" fill="none"/>
+    <line data-guide-id="vertical-07-top" data-axis="vertical" data-boundary="internal" x1="125" y1="4.5" x2="125" y2="8.35" stroke="#202020" stroke-width="0.3" stroke-linecap="butt" fill="none"/>
+    <line data-guide-id="vertical-07-bottom" data-axis="vertical" data-boundary="internal" x1="125" y1="288.65" x2="125" y2="292.5" stroke="#202020" stroke-width="0.3" stroke-linecap="butt" fill="none"/>
+    <line data-guide-id="vertical-08-top" data-axis="vertical" data-boundary="internal" x1="145" y1="4.5" x2="145" y2="8.35" stroke="#202020" stroke-width="0.3" stroke-linecap="butt" fill="none"/>
+    <line data-guide-id="vertical-08-bottom" data-axis="vertical" data-boundary="internal" x1="145" y1="288.65" x2="145" y2="292.5" stroke="#202020" stroke-width="0.3" stroke-linecap="butt" fill="none"/>
+    <line data-guide-id="vertical-09-top" data-axis="vertical" data-boundary="internal" x1="165" y1="4.5" x2="165" y2="8.35" stroke="#202020" stroke-width="0.3" stroke-linecap="butt" fill="none"/>
+    <line data-guide-id="vertical-09-bottom" data-axis="vertical" data-boundary="internal" x1="165" y1="288.65" x2="165" y2="292.5" stroke="#202020" stroke-width="0.3" stroke-linecap="butt" fill="none"/>
+    <line data-guide-id="vertical-10-top" data-axis="vertical" data-boundary="internal" x1="185" y1="4.5" x2="185" y2="8.35" stroke="#202020" stroke-width="0.3" stroke-linecap="butt" fill="none"/>
+    <line data-guide-id="vertical-10-bottom" data-axis="vertical" data-boundary="internal" x1="185" y1="288.65" x2="185" y2="292.5" stroke="#202020" stroke-width="0.3" stroke-linecap="butt" fill="none"/>
+    <line data-guide-id="vertical-11-top" data-axis="vertical" data-boundary="outer" x1="205" y1="4.5" x2="205" y2="8.425" stroke="#202020" stroke-width="0.15" stroke-linecap="butt" fill="none"/>
+    <line data-guide-id="vertical-11-bottom" data-axis="vertical" data-boundary="outer" x1="205" y1="288.575" x2="205" y2="292.5" stroke="#202020" stroke-width="0.15" stroke-linecap="butt" fill="none"/>
+    <line data-guide-id="horizontal-01-left" data-axis="horizontal" data-boundary="outer" x1="1" y1="8.5" x2="4.925" y2="8.5" stroke="#202020" stroke-width="0.15" stroke-linecap="butt" fill="none"/>
+    <line data-guide-id="horizontal-01-right" data-axis="horizontal" data-boundary="outer" x1="205.075" y1="8.5" x2="209" y2="8.5" stroke="#202020" stroke-width="0.15" stroke-linecap="butt" fill="none"/>
+    <line data-guide-id="horizontal-02-left" data-axis="horizontal" data-boundary="internal" x1="1" y1="78.5" x2="4.85" y2="78.5" stroke="#202020" stroke-width="0.3" stroke-linecap="butt" fill="none"/>
+    <line data-guide-id="horizontal-02-right" data-axis="horizontal" data-boundary="internal" x1="205.15" y1="78.5" x2="209" y2="78.5" stroke="#202020" stroke-width="0.3" stroke-linecap="butt" fill="none"/>
+    <line data-guide-id="horizontal-03-left" data-axis="horizontal" data-boundary="internal" x1="1" y1="148.5" x2="4.85" y2="148.5" stroke="#202020" stroke-width="0.3" stroke-linecap="butt" fill="none"/>
+    <line data-guide-id="horizontal-03-right" data-axis="horizontal" data-boundary="internal" x1="205.15" y1="148.5" x2="209" y2="148.5" stroke="#202020" stroke-width="0.3" stroke-linecap="butt" fill="none"/>
+    <line data-guide-id="horizontal-04-left" data-axis="horizontal" data-boundary="internal" x1="1" y1="218.5" x2="4.85" y2="218.5" stroke="#202020" stroke-width="0.3" stroke-linecap="butt" fill="none"/>
+    <line data-guide-id="horizontal-04-right" data-axis="horizontal" data-boundary="internal" x1="205.15" y1="218.5" x2="209" y2="218.5" stroke="#202020" stroke-width="0.3" stroke-linecap="butt" fill="none"/>
+    <line data-guide-id="horizontal-05-left" data-axis="horizontal" data-boundary="outer" x1="1" y1="288.5" x2="4.925" y2="288.5" stroke="#202020" stroke-width="0.15" stroke-linecap="butt" fill="none"/>
+    <line data-guide-id="horizontal-05-right" data-axis="horizontal" data-boundary="outer" x1="205.075" y1="288.5" x2="209" y2="288.5" stroke="#202020" stroke-width="0.15" stroke-linecap="butt" fill="none"/>
+  </g>
+</svg>

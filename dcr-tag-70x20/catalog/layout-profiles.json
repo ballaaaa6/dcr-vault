@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "description": "Local layout references. Only profiles with calibrated visual families may be applied at runtime; series groupings are advisory.",
+  "profiles": {
+    "en:xy": {
+      "profile_id": "en:xy",
+      "language": "en",
+      "series_id": "xy",
+      "series_name": "XY",
+      "status": "reference_only",
+      "attack_y_min": 0.5,
+      "attack_y_max": 0.8,
+      "source_examples": [
+        {
+          "api_id": "xy7-10",
+          "set_id": "xy7",
+          "card_name": "Vespiquen",
+          "evidence_path": "scan-results/20261020T094147Z-829ca40a/field-evidence.json",
+          "observed_attack_name_y1_max": 0.73834,
+          "observed_flavor_text_y0_min": 0.84584
+        }
+      ],
+      "notes": "Single-card reference from xy7-10. Not applied at runtime because a series-wide y boundary does not describe every XY card; retain until visual family annotations support a narrower profile."
+    }
+  }
+}

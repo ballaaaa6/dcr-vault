@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "scan_id": "mudkip-crystal-guardians-57",
+  "keys": {
+    "language": "en",
+    "name": "Mudkip",
+    "collector_number": "57/100",
+    "set_name": "Crystal Guardians",
+    "hp": 50,
+    "types": ["Water"],
+    "stage": "Basic",
+    "illustrator": "Hisao Nakamura",
+    "ability_names": ["Submerge"],
+    "attacks": [
+      {
+        "name": "Mud Slap",
+        "damage": 10
+      }
+    ]
+  },
+  "confidence": {
+    "language": 1.0,
+    "name": 1.0,
+    "collector_number": 1.0,
+    "set_name": 1.0,
+    "hp": 1.0,
+    "types": 1.0,
+    "stage": 1.0,
+    "illustrator": 1.0,
+    "ability_names": 1.0,
+    "attacks": 1.0
+  },
+  "source_urls": [
+    "https://assets.pokemon.com/assets/cms/pdf/tcg/checklists/crystalguardians_checklist.pdf"
+  ]
+}

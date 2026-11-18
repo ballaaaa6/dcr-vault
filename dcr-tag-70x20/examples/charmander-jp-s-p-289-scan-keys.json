@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "scan_id": "charmander-jp-s-p-289",
+  "keys": {
+    "language": "ja",
+    "name": "ヒトカゲ",
+    "collector_number": "289/S-P",
+    "set_id": "S-P",
+    "hp": 60,
+    "types": [
+      "Fire"
+    ],
+    "stage": "Basic",
+    "attacks": [
+      {
+        "name": "もえるしっぽ",
+        "damage": 10
+      }
+    ]
+  },
+  "confidence": {
+    "language": 1.0,
+    "name": 1.0,
+    "collector_number": 1.0,
+    "set_id": 1.0,
+    "hp": 1.0,
+    "types": 1.0,
+    "stage": 1.0,
+    "attacks": 0.95
+  },
+  "source_urls": []
+}
