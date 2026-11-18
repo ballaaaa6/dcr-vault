@@ -1,5 +1,4 @@
-import {findByCert, getCards} from '../store/cards.js';
-import {isLoggedIn} from '../auth.js';
+import {findByCert} from '../store/cards.js';
 import {escapeHTML} from '../utils/format.js';
 
 function a4Preview(cert) {
@@ -23,23 +22,16 @@ function safeCardData(card) {
 }
 
 function labelFaces(card) {
-  const front = `<div style="border:3px solid var(--dcr-red);background:#fff;font-family:Arial,sans-serif;padding:8px;width:100%;height:100%;box-sizing:border-box"><div style="display:flex;justify-content:space-between"><div><b>${card.year} POKEMON GAME<br>${card.name}<br>${card.setName}</b></div><div style="text-align:right"><b>${card.cardNumber}<br>${card.gradeLabel}<br>${card.rarity}<br>${card.certNumber}</b></div></div><div style="display:flex;justify-content:space-between;align-items:end;margin-top:8px"><span style="font-family:monospace;letter-spacing:2px">|||| |||| ||||</span><img src="/assets/logo/dcr-mark.svg" style="height:22px"></div></div>`;
-  const back = `<div style="background:#0A1F6B;color:#fff;font-family:Arial,sans-serif;padding:8px;width:100%;height:100%;box-sizing:border-box;display:flex;justify-content:space-between;align-items:center"><span style="font-weight:900;font-size:22px;opacity:.7">DCR</span><img src="/assets/logo/dcr-shield.png" style="height:44px;background:#ccc;border-radius:6px;padding:2px"><span style="background:#fff;color:#000;padding:6px;font-size:10px">QR ${card.certNumber}</span></div>`;
+  const front = `<div style="border:3px solid var(--dcr-red);background:var(--dcr-white);font-family:Arial,sans-serif;padding:8px;width:100%;height:100%;box-sizing:border-box"><div style="display:flex;justify-content:space-between"><div><b>${card.year} POKEMON GAME<br>${card.name}<br>${card.setName}</b></div><div style="text-align:right"><b>${card.cardNumber}<br>${card.gradeLabel}<br>${card.rarity}<br>${card.certNumber}</b></div></div><div style="display:flex;justify-content:space-between;align-items:end;margin-top:8px"><span style="font-family:monospace;letter-spacing:2px">|||| |||| ||||</span><img src="/assets/logo/dcr-mark.svg" style="height:22px"></div></div>`;
+  const back = `<div style="background:var(--dcr-red-dark);color:var(--dcr-white);font-family:Arial,sans-serif;padding:8px;width:100%;height:100%;box-sizing:border-box;display:flex;justify-content:space-between;align-items:center"><span style="font-weight:900;font-size:22px;opacity:.7">DCR</span><img src="/assets/logo/dcr-shield.png" style="height:44px;background:var(--dcr-red-light);border-radius:6px;padding:2px"><span style="background:var(--dcr-white);color:var(--dcr-black);padding:6px;font-size:10px">QR ${card.certNumber}</span></div>`;
   return {front, back};
 }
 
-export function label() {
-  if (!isLoggedIn()) {
-    location.hash = '#/login';
-    return '<main class="app-page"><p class="muted">Redirecting to login...</p></main>';
-  }
-
+export function label(cards = []) {
   const params = new URLSearchParams(location.hash.split('?')[1] || '');
-  const cert = params.get('cert') || '01234567';
-  const card = findByCert(cert) || getCards()[0] || {
-    name: 'Charizard', setName: 'Base Set', year: '1999', cardNumber: '#4',
-    rarity: 'R', gradeLabel: 'GEM MT 10', certNumber: cert
-  };
+  const cert = params.get('cert');
+  const card = cert ? findByCert(cards, cert) : cards[0];
+  if (!card) return '<main class="app-page"><section class="surface-card empty-state"><h1>Card not found in your vault</h1><p>Choose a saved card or add it to your account first.</p><a class="btn btn-primary" href="#/vault">Open My Vault</a></section></main>';
   const safe = safeCardData(card);
   const {front, back} = labelFaces(safe);
   return `

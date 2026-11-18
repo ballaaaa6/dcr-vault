@@ -1,9 +1,9 @@
-import {getCards, updateCard} from '../store/cards.js';
+import {updateCard} from '../store/cards.js';
 import {listRow} from '../components/card-item.js';
-import {isLoggedIn} from '../auth.js';
 import {escapeHTML} from '../utils/format.js';
 
 const statuses = ['in-vault', 'for-sale', 'sold', 'grading'];
+let activeCards = [];
 
 function statusOptions(selected) {
   return statuses.map(status => {
@@ -13,14 +13,10 @@ function statusOptions(selected) {
   }).join('');
 }
 
-export function vault() {
-  if (!isLoggedIn()) {
-    location.hash = '#/login';
-    return '<main class="app-page"><p class="muted">Redirecting to login...</p></main>';
-  }
-
+export function vault(cards = []) {
+  activeCards = cards;
+  if (!cards.length) return '<main class="app-page"><section class="surface-card empty-state"><div class="page-eyebrow">YOUR COLLECTION</div><h1>My Vault</h1><p>Your private vault is ready for its first card.</p><a class="btn btn-primary" href="#/search">Add a card</a></section></main>';
   const params = new URLSearchParams(location.hash.split('?')[1] || '');
-  const cards = getCards();
   const focus = cards.find(card => card.id === params.get('id')) || cards[0];
   const rows = cards.length ? cards.map(listRow).join('') : '<div class="empty-state">No cards in your vault yet.</div>';
   const name = escapeHTML(focus?.name || 'No card selected');
@@ -33,7 +29,7 @@ export function vault() {
       <header class="page-heading vault-heading">
         <div class="page-eyebrow">YOUR COLLECTION</div>
         <h1>My Vault</h1>
-        <p id="vault-count" class="page-description">${cards.length} ${cards.length === 1 ? 'card' : 'cards'} · Buy and sell prices stay in Vault and never appear on labels.</p>
+        <p id="vault-count" class="page-description">${cards.length} ${cards.length === 1 ? 'card' : 'cards'} · Prices stay private to your account and never appear on labels.</p>
       </header>
       <div class="vault-toolbar">
         <label class="vault-query"><span class="sr-only">Search your cards</span><input id="vault-q" class="form-control" placeholder="Search name, set or Cert number"></label>
@@ -53,7 +49,7 @@ export function vault() {
             <button class="btn btn-primary" type="button" onclick="window.__saveDetail('${escapeHTML(focus?.id || '')}')">Save details</button>
             <a class="btn btn-ghost" href="#/label?cert=${encodeURIComponent(focus?.certNumber || '')}">Print label</a>
           </div>
-          <p class="detail-note">Prices are stored in this browser and stay off printed labels.</p>
+          <p class="detail-note">Prices are private to your account and stay off printed labels.</p>
         </aside>
       </div>
     </main>`;
@@ -62,23 +58,30 @@ export function vault() {
 window.__filterVault = () => {
   const query = (document.getElementById('vault-q').value || '').trim().toLowerCase();
   const status = document.getElementById('vault-status').value;
-  const matches = getCards().filter(card => {
+  const matches = activeCards.filter(card => {
     const searchable = [card.name, card.setName, card.certNumber, card.cardNumber].join(' ').toLowerCase();
     return (!query || searchable.includes(query)) && (!status || card.status === status);
   });
   const list = document.getElementById('vault-list');
   const count = document.getElementById('vault-count');
   list.innerHTML = matches.length ? matches.map(listRow).join('') : '<div class="empty-state">No cards match those filters.</div>';
-  count.textContent = `${matches.length} ${matches.length === 1 ? 'card' : 'cards'} shown · Buy and sell prices stay in Vault and never appear on labels.`;
+  count.textContent = `${matches.length} ${matches.length === 1 ? 'card' : 'cards'} shown · Prices stay private to your account and never appear on labels.`;
 };
 
-window.__saveDetail = id => {
+window.__saveDetail = async id => {
   if (!id) return;
-  updateCard(id, {
-    buyPrice: document.getElementById('d-buy').value,
-    sellPrice: document.getElementById('d-sell').value,
-    status: document.getElementById('d-status').value,
-    boughtFrom: document.getElementById('d-from').value
-  });
-  location.reload();
+  const button = document.querySelector('.detail-actions .btn-primary');
+  button.disabled = true;
+  try {
+    await updateCard(id, {
+      buyPrice: document.getElementById('d-buy').value,
+      sellPrice: document.getElementById('d-sell').value,
+      status: document.getElementById('d-status').value,
+      boughtFrom: document.getElementById('d-from').value
+    });
+    location.hash = `#/vault?id=${encodeURIComponent(id)}`;
+  } catch (error) {
+    document.querySelector('.detail-note').textContent = error.message || 'Details could not be saved.';
+    button.disabled = false;
+  }
 };

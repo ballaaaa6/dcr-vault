@@ -6,7 +6,7 @@
 4. One function = one job, max 50 lines.
 5. One file max 300 lines, split if larger.
 6. English only for file names (kebab-case), variables (camelCase), comments.
-7. No hardcoded password. Use env / auth.js constant marked TEMP.
+7. Never hardcode passwords or ship demo credentials. Use a server-verified identity provider and secure session cookies.
 8. Full label only in Label page / Print page, never on Home.
 9. No realtime price. Price only in Vault Card Detail.
 10. Update CHANGELOG.md on every change.

@@ -1,21 +1,47 @@
-# Deployment
+# Deployment and Authentication Setup
 
-## Local
-npm install && npm run dev
+## Current production target
 
-## Cloudflare Pages
-- Production site: https://dcr-vault.pages.dev
-- Cloudflare Pages project: `dcr-vault`; production branch: `main`.
-- The existing project uses Direct Upload, which cannot be converted to Cloudflare's native Git integration. The GitHub Actions workflow at `.github/workflows/pages-deployment.yml` builds the app and uploads `dist` to this existing project with Wrangler.
-- Pushes to `main` trigger deployment. The workflow can also be started manually from GitHub Actions.
-- Add repository secrets `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN` in GitHub. The token needs the account permission `Cloudflare Pages: Edit`. Until both secrets are configured, the workflow builds the site and reports that deployment was skipped.
-- The current Pages deployment token expires on 2027-11-19. Rotate it before that date and update the `CLOUDFLARE_API_TOKEN` repository secret.
-- Do NOT push `.env`, `node_modules`, `dist`, large photos, or private collection exports.
-- This app currently builds as a static front end. Its demo login is client-side and the card data stays in each browser's local storage; Pages environment variables do not secure that login or sync data.
-- For private use, put Cloudflare Access in front of the site or implement server-side authentication before storing personal collection data.
-- For cross-device sync, connect a backend such as D1 and update the app data layer; creating a D1 database alone does not enable sync.
-- D1 schema reference: [DATA-MODEL.md](DATA-MODEL.md)
+- Site: https://dcr-vault.pages.dev
+- Pages project: `dcr-vault`
+- The project uses Direct Upload. `.github/workflows/pages-deployment.yml` builds the site and deploys with Wrangler; Functions are included from the root `functions/` directory.
+- The workflow applies pending D1 migrations before deployment. It skips publishing until Google OAuth and D1 credentials are configured, so an incomplete login setup is not pushed to production.
 
-## Oracle Object Storage
-- Bucket: dcr-card-images, public read for card images only
-- Store URL in D1, not base64 in DB for prod.
+## One-time Google sign-in setup
+
+1. Attach a custom domain that you own to the Cloudflare Pages project. Google requires the app's production home page, privacy policy, and OAuth origins to use domains you own or are explicitly authorized to use; the shared `pages.dev` domain cannot establish your ownership for production verification.
+2. In Google Cloud Console, configure the DCR Card Vault consent screen, provide a support email, set the homepage to `https://<your-domain>/`, and set the privacy policy to `https://<your-domain>/privacy/`.
+3. Publish the OAuth app to In production and create a Web application OAuth client with authorized JavaScript origins `https://<your-domain>` and `http://localhost:5173`. Testing status is limited to listed test users and is not public self-registration.
+4. Add the client ID as the GitHub Actions repository variable `GOOGLE_CLIENT_ID`. It is a public identifier, not a client secret. No Gmail API scope or client secret is used.
+5. The login page uses Google Identity Services. Each valid Google account creates its own DCR Vault account on first sign-in.
+
+Google's ID token is verified by the server before account creation. Do not replace this with browser-only checks or store the token in local storage.
+
+## One-time D1 setup
+
+1. Create a Cloudflare D1 database named `dcr-vault` in the account used by Pages. Use the `apac` location hint for this Thailand-based deployment, or choose the location required by your data residency needs.
+2. Add the returned database UUID as the GitHub Actions repository variable `CLOUDFLARE_D1_DATABASE_ID`.
+3. Create a separate Cloudflare API token with only Account `D1: Edit` permission and add it as the GitHub Actions secret `CLOUDFLARE_D1_API_TOKEN`. Keep the existing `CLOUDFLARE_API_TOKEN` Pages deployment token limited to Pages Edit.
+4. Keep `CLOUDFLARE_ACCOUNT_ID` configured as a GitHub Actions secret.
+5. Once all values are present, the next push applies `migrations/0001_users_sessions_cards.sql`, adds the D1 binding `DB` and `GOOGLE_CLIENT_ID` to the Pages deployment, then publishes the site.
+
+The workflow generates a temporary `wrangler.toml` from `wrangler.template.toml`. The generated file is ignored by Git; do not commit account-specific IDs or credentials.
+
+## Automatic deployments
+
+- Pushes to `main` trigger build, D1 migration, then Cloudflare Pages deployment.
+- Workflow dispatch remains available in GitHub Actions.
+- Before OAuth and D1 setup is complete, CI builds the app and reports that production deployment was skipped.
+- The Pages deployment token expires on 2027-11-19. Rotate it before that date and update `CLOUDFLARE_API_TOKEN`.
+
+## Data and local development
+
+- Pages Functions and D1 are required for Google sign-in and private card storage; `npm run dev` alone serves only the Vite front end.
+- Once D1 is configured, use Wrangler Pages local development with the D1 binding, for example `npx wrangler pages dev dist --d1 DB=<database-id>`.
+- The legacy `dcr-cards-v1` browser data is offered for an explicit import after sign-in. Import does not delete the local copy, and images are excluded.
+- Do not commit `.env`, `.dev.vars`, credentials, `node_modules`, `dist`, card scans, or private collection exports.
+
+## References
+
+- D1 schema and ownership rules: [DATA-MODEL.md](DATA-MODEL.md)
+- Project runtime and auth flow: [ARCHITECTURE.md](ARCHITECTURE.md)

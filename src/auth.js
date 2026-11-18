@@ -1,15 +1,27 @@
-// TEMP AUTH - admin / admin1234 - Change before production. Do NOT commit real secrets.
-const KEY='dcr-session';
-export function login(user, pass){
-  if(user==='admin' && pass==='admin1234'){
-    const s={user, exp: Date.now()+24*3600*1000};
-    sessionStorage.setItem(KEY, JSON.stringify(s));
-    return true;
-  }
-  return false;
+async function requestJson(path, options = {}) {
+  const response = await fetch(path, {credentials: 'same-origin', ...options});
+  const result = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(result.error || 'The request could not be completed.');
+  return result;
 }
-export function isLoggedIn(){
-  try{ const s=JSON.parse(sessionStorage.getItem(KEY)||'null'); return s && s.exp>Date.now(); }catch{ return false; }
+
+export async function getCurrentUser() {
+  const result = await requestJson('/api/auth/session');
+  return result.user || null;
 }
-export function logout(){ sessionStorage.removeItem(KEY); location.hash='#/login'; }
-export function requireAuth(){ if(!isLoggedIn()){ location.hash='#/login'; return false; } return true; }
+
+export async function getGoogleConfig() {
+  return requestJson('/api/auth/config');
+}
+
+export async function signInWithGoogle(credential) {
+  return requestJson('/api/auth/google', {
+    method: 'POST', headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({credential})
+  });
+}
+
+export async function signOut() {
+  await requestJson('/api/auth/logout', {method: 'POST'});
+  location.hash = '#/';
+}

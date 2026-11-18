@@ -1,0 +1,43 @@
+import {cardResponse, cardValues, normalizeCard} from '../_utils/cards.js';
+import {error, json, readJson, requireDatabase, sameOrigin} from '../_utils/http.js';
+import {currentUser} from '../_utils/sessions.js';
+
+const INSERT_CARD = `INSERT INTO cards (id, user_id, game, name, set_name, year, card_number, rarity, grade_label,
+  cert_number, status, buy_price, sell_price, buy_date, sold_date, bought_from, sold_to, notes, created_at, updated_at)
+  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+export async function onRequestGet({request, env}) {
+  const session = await currentUser(request, env);
+  if (session.response) return session.response;
+  const rows = await env.DB.prepare('SELECT * FROM cards WHERE user_id = ? ORDER BY created_at DESC')
+    .bind(session.user.id).all();
+  return json({cards: (rows.results || []).map(cardResponse)});
+}
+
+export async function onRequestPost({request, env}) {
+  if (!sameOrigin(request)) return json({error: 'Invalid request origin.'}, 403);
+  const unavailable = requireDatabase(env);
+  if (unavailable) return unavailable;
+  const session = await currentUser(request, env);
+  if (session.response) return session.response;
+  const card = normalizeCard(await readJson(request));
+  if (!card) return error('Enter a card name and an 8-digit certificate number.');
+  return insertCard(env.DB, session.user.id, card);
+}
+
+async function insertCard(db, userId, card) {
+  const now = Math.floor(Date.now() / 1000);
+  const id = crypto.randomUUID();
+  let result;
+  try { result = await db.prepare(INSERT_CARD).bind(id, userId, ...cardValues(card), now, now).run(); }
+  catch (error) {
+    if (String(error.message).includes('UNIQUE')) return errorResponse();
+    throw error;
+  }
+  if (!result.success) return error('A card with this Cert number may already be in your vault.', 409);
+  return json({card: {...card, id, createdAt: now, updatedAt: now}}, 201);
+}
+
+function errorResponse() {
+  return error('A card with this Cert number may already be in your vault.', 409);
+}

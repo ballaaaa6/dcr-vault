@@ -44,16 +44,6 @@
 .detail-actions .btn{flex:1}
 .detail-note{margin:14px 0 0;color:var(--dcr-gray);font-size:12px}
 .empty-state{padding:24px;border:1px dashed var(--dcr-border);border-radius:18px;color:var(--dcr-gray);text-align:center}
-.auth-page{display:grid;min-height:calc(100vh - 132px);place-items:center;padding:40px 20px 60px}
-.auth-card{width:min(100%,440px);padding:clamp(24px,5vw,42px);border:1px solid var(--dcr-border);border-radius:26px;background:var(--dcr-white);box-shadow:var(--shadow);text-align:center}
-.auth-logo{width:58px;height:58px;object-fit:contain;margin-bottom:16px}
-.auth-card .form-field{text-align:left}
-.auth-card .page-eyebrow{margin-bottom:8px}
-.auth-card h1{margin-bottom:8px}
-.auth-card>.muted{margin:0 0 24px}
-.auth-submit{width:100%;margin-top:3px}
-.auth-demo-note{margin:17px 0 0;color:var(--dcr-gray);font-size:12px}
-.login-error{margin:12px 0 0;color:var(--dcr-red);font-size:13px}
 .label-layout{display:grid;grid-template-columns:350px minmax(0,1fr);align-items:start;gap:18px}
 .label-editor .form-field{margin-bottom:14px}
 .label-editor>.btn{width:100%;margin-top:2px}
@@ -69,6 +59,20 @@
 .sheet-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px}
 .sheet-cell{display:flex;min-height:42px;align-items:center;justify-content:center;gap:4px;flex-wrap:wrap;border:1px dashed var(--dcr-border);border-radius:5px;color:var(--dcr-gray);font-size:9px}
 .sheet-cell span{font-variant-numeric:tabular-nums}
+.import-page{max-width:920px}
+.import-card{max-width:760px}
+.import-card>p:first-child{margin-top:0;color:var(--dcr-gray)}
+.import-list{display:grid;gap:8px;margin:18px 0;padding:0;list-style:none}
+.import-list li{border:1px solid var(--dcr-border);border-radius:14px}
+.import-entry{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;cursor:pointer}
+.import-entry input{width:17px;height:17px;flex:0 0 17px;accent-color:var(--dcr-red)}
+.import-entry>span:nth-of-type(1){display:grid;flex:1;gap:2px;min-width:0}
+.import-list strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.import-list small{color:var(--dcr-gray);font-size:11px}
+.import-notice{display:grid;gap:5px;padding:14px 16px;border-radius:14px;background:var(--dcr-red-light);font-size:12px}
+.import-notice span,.import-privacy{color:var(--dcr-gray);font-size:12px}
+.import-privacy{margin:14px 0 0}
+.import-status{min-height:20px;margin:12px 0 0;color:var(--dcr-gray);font-size:12px}
 @media(max-width:980px){
   .vault-layout{grid-template-columns:minmax(0,1fr) 320px}
   .label-layout{grid-template-columns:300px minmax(0,1fr)}

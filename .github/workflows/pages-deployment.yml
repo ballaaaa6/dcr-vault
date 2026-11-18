@@ -32,33 +32,60 @@ jobs:
       - name: Build site
         run: npm run build
 
-      - name: Check Cloudflare credentials
-        id: cloudflare-credentials
+      - name: Check production auth and database configuration
+        id: cloudflare-config
         shell: bash
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_PAGES_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_D1_API_TOKEN: ${{ secrets.CLOUDFLARE_D1_API_TOKEN }}
+          CLOUDFLARE_D1_DATABASE_ID: ${{ vars.CLOUDFLARE_D1_DATABASE_ID }}
+          GOOGLE_CLIENT_ID: ${{ vars.GOOGLE_CLIENT_ID }}
         run: |
-          if [[ -n "$CLOUDFLARE_ACCOUNT_ID" && -n "$CLOUDFLARE_API_TOKEN" ]]; then
+          if [[ -n "$CLOUDFLARE_ACCOUNT_ID" && -n "$CLOUDFLARE_PAGES_API_TOKEN" && -n "$CLOUDFLARE_D1_API_TOKEN" && -n "$CLOUDFLARE_D1_DATABASE_ID" && -n "$GOOGLE_CLIENT_ID" ]]; then
             echo "configured=true" >> "$GITHUB_OUTPUT"
           else
             echo "configured=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Deploy to Cloudflare Pages
-        if: ${{ steps.cloudflare-credentials.outputs.configured == 'true' }}
+      - name: Prepare Wrangler runtime configuration
+        if: ${{ steps.cloudflare-config.outputs.configured == 'true' }}
+        env:
+          D1_DATABASE_ID: ${{ vars.CLOUDFLARE_D1_DATABASE_ID }}
+          GOOGLE_CLIENT_ID: ${{ vars.GOOGLE_CLIENT_ID }}
+        run: |
+          python - <<'PY'
+          import os
+          from pathlib import Path
+
+          config = Path("wrangler.template.toml").read_text(encoding="utf-8")
+          config = config.replace("__CLOUDFLARE_D1_DATABASE_ID__", os.environ["D1_DATABASE_ID"])
+          config = config.replace("__GOOGLE_CLIENT_ID__", os.environ["GOOGLE_CLIENT_ID"])
+          Path("wrangler.toml").write_text(config, encoding="utf-8")
+          PY
+
+      - name: Apply D1 migrations
+        if: ${{ steps.cloudflare-config.outputs.configured == 'true' }}
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_D1_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: d1 migrations apply dcr-vault --remote --config wrangler.toml
+
+      - name: Deploy Cloudflare Pages
+        if: ${{ steps.cloudflare-config.outputs.configured == 'true' }}
         uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=dcr-vault --branch=main
+          command: pages deploy dist --project-name=dcr-vault --branch=main --config wrangler.toml
 
       - name: Report skipped deployment
-        if: ${{ steps.cloudflare-credentials.outputs.configured != 'true' }}
+        if: ${{ steps.cloudflare-config.outputs.configured != 'true' }}
         shell: bash
         run: |
-          echo "::warning::Cloudflare credentials are not configured; the build completed but deployment was skipped."
+          echo "::warning::Google OAuth and Cloudflare D1 configuration are incomplete; the production deployment was skipped."
           {
             echo "## Cloudflare Pages deployment skipped"
-            echo "Add the CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN repository secrets to enable deployment."
+            echo "Configure the GOOGLE_CLIENT_ID and CLOUDFLARE_D1_DATABASE_ID repository variables, plus CLOUDFLARE_D1_API_TOKEN, before production deployment."
           } >> "$GITHUB_STEP_SUMMARY"

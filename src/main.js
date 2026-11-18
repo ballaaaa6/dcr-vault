@@ -1,7 +1,5 @@
 // DCR Card Vault - Entry - English only
 import {render} from './router.js';
-import {seedIfEmpty} from './store/db.js';
-seedIfEmpty();
 render();
 // 3D tilt for cards
 document.addEventListener('mousemove', (e)=>{

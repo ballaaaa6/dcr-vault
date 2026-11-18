@@ -1,4 +1,7 @@
 // Shared navigation for all DCR Card Vault pages.
+import {escapeHTML} from '../utils/format.js';
+import {signOut} from '../auth.js';
+
 const items = [
   ['#/', 'Home'],
   ['#/search', 'Add Card'],
@@ -6,12 +9,14 @@ const items = [
   ['#/label', 'Labels']
 ];
 
-export function header(activePath) {
+export function header(activePath, user = null) {
   const links = items.map(([href, label]) => {
     const active = href === activePath;
     return `<a href="${href}" class="${active ? 'active' : ''}" ${active ? 'aria-current="page"' : ''}>${label}</a>`;
   }).join('');
-  const accountActive = activePath === '#/login';
+  const account = user
+    ? `<span class="account-email">${escapeHTML(user.displayName || user.email)}</span><button class="account-link" type="button" data-sign-out>Sign out</button>`
+    : '<a class="account-link" href="#/login">Sign in</a>';
 
   return `
     <header class="site-header no-print">
@@ -25,7 +30,7 @@ export function header(activePath) {
         </button>
         <nav class="site-nav" id="site-nav" aria-label="Main navigation">
           ${links}
-          <a class="account-link ${accountActive ? 'active' : ''}" href="#/login" ${accountActive ? 'aria-current="page"' : ''}>Account</a>
+          ${account}
         </nav>
       </div>
     </header>`;
@@ -49,4 +54,9 @@ export function bindHeader() {
     toggle.setAttribute('aria-label', expanded ? 'Open navigation' : 'Close navigation');
   });
   document.querySelectorAll('.site-nav a').forEach(link => link.addEventListener('click', closeMenu));
+  const signOutButton = document.querySelector('[data-sign-out]');
+  if (signOutButton) signOutButton.addEventListener('click', async () => {
+    signOutButton.disabled = true;
+    try { await signOut(); } catch { signOutButton.disabled = false; }
+  });
 }

@@ -5,7 +5,7 @@ export function home() {
         <div class="home-copy">
           <div class="home-kicker"><span aria-hidden="true"></span>DCR CARD VAULT</div>
           <h1 class="home-title" id="home-title">Your collection,<br><span>kept together.</span></h1>
-          <p class="home-description">Find a DCR card record with its certificate number and keep your collection close at hand.</p>
+          <p class="home-description">Keep your DCR certified collection organized, then find a saved card with its certificate number.</p>
           <form class="home-search-form" onsubmit="window.__searchCertificate(event)">
             <label class="search-label" for="certificate-search">Search by certificate number</label>
             <div class="search-bar">
@@ -15,7 +15,7 @@ export function home() {
                 <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><circle cx="10.8" cy="10.8" r="6.3"></circle><path d="m15.5 15.5 4.2 4.2"></path></svg>
               </button>
             </div>
-            <p class="search-hint" id="certificate-search-hint">Enter the 8-digit certificate number printed on your DCR label.</p>
+            <p class="search-hint" id="certificate-search-hint">Sign in to search certificate numbers in your private collection.</p>
           </form>
         </div>
         <div class="home-art" aria-hidden="true">
