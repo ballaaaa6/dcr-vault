@@ -4,3 +4,4 @@
 
 - Add a GitHub Actions workflow to build and deploy the site to the existing Cloudflare Pages project.
 - Document the production deployment flow and required GitHub repository secrets.
+- Document the Cloudflare Pages deployment token rotation date.
