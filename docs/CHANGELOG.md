@@ -1,4 +1,7 @@
 # Changelog
+## Asset loading fix - 2026-11-18
+- Corrected DCR logo and shield URLs to use Vite's public asset paths so they load on Cloudflare Pages.
+
 ## Workspace organization - 2026-11-18
 - Moved the DCR Card Vault app to the workspace root and grouped its documentation under docs/.
 - Added the DCR label toolkit under dcr-tag-70x20/, retained its source bundle under archive/source-packages/, and added workspace file-placement rules.
