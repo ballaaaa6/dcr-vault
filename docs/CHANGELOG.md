@@ -1,4 +1,9 @@
 # Changelog
+## Card identification reliability - 2026-11-20
+- Kept printed card fields as the required AI response and made English equivalents optional to reduce response-format pressure while preserving English catalog matching.
+- Separated image-reading failures from catalog-loading failures in the match dialog.
+- Added privacy-safe Worker diagnostics for empty or unparseable AI responses; logs include response shape and recognized field names, never card text or image data.
+
 ## English card intake and match picker - 2026-11-19
 - Moved image-reading matches into a centered modal with compact card previews and larger hover previews.
 - Resolved localized image matches to English catalog names and sets, and made rarity and grade selectable dropdowns.

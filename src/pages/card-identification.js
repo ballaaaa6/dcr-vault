@@ -107,11 +107,21 @@ async function analyzeFront() {
   button.disabled = true;
   button.textContent = 'Identifying card…';
   try {
-    const result = await identifyCardImage(file);
-    const candidates = await findImageCandidates(result.fields);
+    let result;
+    try {
+      result = await identifyCardImage(file);
+    } catch (error) {
+      if (version === analysisVersion) showError(safeReadingErrorMessage(error), canRetryIdentification(error));
+      return;
+    }
+    let candidates;
+    try {
+      candidates = await findImageCandidates(result.fields);
+    } catch {
+      if (version === analysisVersion) showError('The card catalog could not be loaded. Try again later.', true);
+      return;
+    }
     if (version === analysisVersion) showCandidates(result.fields, candidates);
-  } catch (error) {
-    if (version === analysisVersion) showError(safeErrorMessage(error), canRetryIdentification(error));
   } finally {
     analysisBusy = false;
     button.textContent = 'Identify card';
@@ -119,7 +129,7 @@ async function analyzeFront() {
   }
 }
 
-function safeErrorMessage(error) {
+function safeReadingErrorMessage(error) {
   const message = error?.message || '';
   if (/not configured/i.test(message)) return 'Card reading is not configured for this deployment.';
   if (error?.status === 503 || /temporarily unavailable/i.test(message)) return 'Card reading is temporarily unavailable. Try again in a moment.';
