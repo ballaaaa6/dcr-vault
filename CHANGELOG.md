@@ -2,6 +2,7 @@
 
 ## 2026-11-19
 
+- Extract the local TCGdex card-image library under `dcr-tag-70x20/catalog/card-image-library/` and keep its downloaded images and SQLite index out of Git.
 - Upgrade Vite to 8.3.8, which includes the upstream security fixes, and refresh the lockfile; the Pages workflow already selects Node.js 22 for the supported runtime.
 - Render label previews and A4 duplex print sheets from the approved 70 × 20 mm SVG masters, with live field updates and generated DCR test QR/Code 128 codes.
 - Align the A4 sheet guide with the approved 10 × 4 portrait layout and long-edge duplex instructions.
