@@ -40,14 +40,22 @@ export function resetCardIdentificationState() {
 }
 
 function candidateMarkup(card, index) {
-  const image = card.previewImage || card.imageUrl;
+  const image = Object.hasOwn(card, 'previewImage') ? card.previewImage : card.imageUrl;
   const imageMarkup = image ? `<img class="identification-option-image" src="${escapeHTML(image)}" alt="" loading="eager">` : '';
   const metadata = cardLabelMetadata(card);
   const details = [metadata.setName || card.setName, card.year, card.cardNumber && `#${card.cardNumber}`, card.rarity].filter(Boolean);
-  const fallback = card.previewImageFallback || '';
+  const attacks = (card.metadata?.attacks || []).map(attack => {
+    const name = attack.names?.find(Boolean) || '';
+    return [name, attack.damage].filter(Boolean).join(' ');
+  }).filter(Boolean);
+  const sourcePrint = card.sourceCardNumber ? `${String(card.sourceLanguage || '').toUpperCase()} print #${card.sourceCardNumber}` : '';
+  const evidence = [sourcePrint, card.metadata?.hp && `${card.metadata.hp} HP`, card.metadata?.illustrator && `Illus. ${card.metadata.illustrator}`,
+    attacks.length && attacks.join(' · ')].filter(Boolean);
+  const fallback = card.previewImageFallback || card.imageUrlFallback || '';
   const previewAttrs = image ? `data-preview-src="${escapeHTML(image)}" data-preview-alt="${escapeHTML(card.name)}" data-has-image="true" ${fallback ? `data-preview-fallback="${escapeHTML(fallback)}"` : ''}` : '';
   return `<button class="identification-option" data-image-candidate="${index}" ${previewAttrs} type="button">${imageMarkup}
-    <span class="identification-option-copy"><strong>${escapeHTML(card.name)}</strong><span>${escapeHTML(details.join(' · '))}</span></span></button>`;
+    <span class="identification-option-copy"><strong>${escapeHTML(card.name)}</strong><span>${escapeHTML(details.join(' · '))}</span>
+    ${evidence.length ? `<small>${escapeHTML(evidence.join(' · '))}</small>` : ''}</span></button>`;
 }
 
 function showCandidates(fields, cards) {
@@ -74,10 +82,8 @@ function chooseCandidate(index) {
   document.getElementById('m-name').value = card.name;
   document.getElementById('m-setName').value = metadata.setName || card.setName;
   document.getElementById('m-year').value = card.year;
-  const observedNumber = String(extractedFields.cardNumber || '').trim();
-  const localNumber = value => value.replace(/^#/, '').split('/')[0].replace(/\s+/g, '').replace(/^0+(?=\d)/, '');
-  document.getElementById('m-cardNumber').value = observedNumber && localNumber(observedNumber) === localNumber(card.cardNumber)
-    ? observedNumber : card.cardNumber;
+  const observedNumber = String(extractedFields.cardNumber || card.sourceCardNumber || '').trim();
+  document.getElementById('m-cardNumber').value = observedNumber || card.cardNumber;
   populateRarityOptions({setId: card.setId, setName: card.setName, selectedRarity: card.rarity});
   window.__intakeCatalogGame = 'pokemon';
   hideAllCatalogSuggestions();
@@ -119,6 +125,12 @@ async function analyzeFront() {
       candidates = await findImageCandidates(result.fields);
     } catch {
       if (version === analysisVersion) showError('The card catalog could not be loaded. Try again later.', true);
+      return;
+    }
+    if (version === analysisVersion && candidates.length === 1 && candidates[0].autoSelect) {
+      candidateCards = candidates;
+      extractedFields = result.fields;
+      chooseCandidate(0);
       return;
     }
     if (version === analysisVersion) showCandidates(result.fields, candidates);

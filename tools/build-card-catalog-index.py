@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Export the searchable, public TCGdex fields used by the Add Card form."""
+"""Export public TCGdex fields for Add Card search and identification."""
 
 import json
 import sqlite3
@@ -17,12 +17,52 @@ def normalize_rarity(value):
     return "" if rarity.casefold() in {"", "none", "null", "undefined"} else rarity
 
 
+def string_values(value, language):
+    if isinstance(value, dict):
+        values = [value[key] for key in (language, "en", "id") if key in value]
+    elif isinstance(value, list):
+        values = value
+    else:
+        values = [value]
+    return list(dict.fromkeys(str(item).strip() for item in values if isinstance(item, str) and item.strip()))
+
+
+def card_metadata(raw_card, raw_set, language):
+    card = json.loads(raw_card or "{}")
+    card_set = json.loads(raw_set or "{}")
+    attacks = []
+    for attack in card.get("attacks") or []:
+        if not isinstance(attack, dict):
+            continue
+        attacks.append([
+            string_values(attack.get("name"), language),
+            str(attack.get("damage") or "").strip(),
+            string_values(attack.get("cost"), language),
+        ])
+    abilities = [
+        string_values(ability.get("name"), language)
+        for ability in card.get("abilities") or [] if isinstance(ability, dict)
+    ]
+    count = card_set.get("cardCount", {})
+    if isinstance(count, dict):
+        count = count.get("official") or count.get("total") or ""
+    relations = lambda key: [[str(item.get("type") or "").strip(), str(item.get("value") or "").strip()]
+                             for item in card.get(key) or [] if isinstance(item, dict)]
+    return [string_values(card.get("name"), language), str(count or "").strip(),
+            str(card.get("hp") or "").strip(), str(card.get("illustrator") or "").strip(),
+            str(card.get("stage") or "").strip(), string_values(card.get("types"), language),
+            attacks, abilities, relations("weaknesses"), relations("resistances"),
+            str(card.get("retreat") or "").strip(),
+            string_values(card.get("evolveFrom") or card.get("evolvesFrom"), language)]
+
+
 def read_catalog():
     query = """
         SELECT c.api_id, l.language, l.card_name, l.set_name,
                substr(COALESCE(l.release_date, ''), 1, 4), l.local_id, COALESCE(c.rarity, ''),
                COALESCE(se.series_id, ''), COALESCE(l.set_id, ''),
-               COALESCE(json_extract(se.raw_json, '$.name.en'), '')
+               COALESCE(json_extract(se.raw_json, '$.name.en'), ''),
+               COALESCE(c.raw_json, '{}'), COALESCE(s.raw_json, '{}')
         FROM card_locales l
         JOIN cards c USING (source_path)
         LEFT JOIN sets s ON s.source_path = c.set_path
@@ -34,6 +74,8 @@ def read_catalog():
         cards = [list(row) for row in db.execute(query)]
     for card in cards:
         card[6] = normalize_rarity(card[6])
+        card[10] = card_metadata(card[10], card[11], card[1])
+        del card[11]
     return commit, cards
 
 
@@ -61,7 +103,7 @@ def main():
     commit, cards = read_catalog()
     overrides = read_rarity_overrides()
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    payload = {"schemaVersion": 4, "source": "TCGdex", "sourceCommit": commit, "cards": cards,
+    payload = {"schemaVersion": 5, "source": "TCGdex", "sourceCommit": commit, "cards": cards,
                "setRarityOverrides": overrides}
     OUTPUT.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
     print(json.dumps({"output": str(OUTPUT), "cards": len(cards), "sourceCommit": commit,

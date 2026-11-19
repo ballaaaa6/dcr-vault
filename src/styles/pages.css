@@ -38,6 +38,7 @@
 .identification-option-copy{display:grid;min-width:0;gap:5px}
 .identification-option-copy strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px}
 .identification-option-copy>span{color:var(--dcr-gray);font-size:12px}
+.identification-option-copy small{color:var(--dcr-gray);font-size:11px;line-height:1.4}
 .identification-hover-preview{position:fixed;z-index:1000;max-width:220px;max-height:304px;padding:4px;border:1px solid var(--dcr-border);border-radius:12px;background:var(--dcr-white);box-shadow:var(--shadow-lg);object-fit:contain;pointer-events:none}
 .identification-hover-preview[hidden]{display:none}
 .panel-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:20px}

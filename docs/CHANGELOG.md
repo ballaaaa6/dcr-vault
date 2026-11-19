@@ -1,4 +1,11 @@
 # Changelog
+## Metadata-first card identification - 2026-11-20
+- Expanded the compact catalog index with the printed-card metadata used by the documented identification workflow, including HP, illustrator, stage, types, attacks, weaknesses, and set card counts.
+- Replaced fuzzy name-first English suggestions with exact source-language card lookup followed by metadata corroboration against English catalog records.
+- Auto-filled only a unique high-confidence match, kept ambiguous credible matches in the picker, and preserved the printed source collector number.
+- Added exact source-card art thumbnails, hover previews, match evidence, and a same-card CDN fallback when the image proxy cannot load the thumbnail.
+- Expanded card reading to capture metadata used to confirm a match.
+
 ## Card identification reliability - 2026-11-20
 - Kept printed card fields as the required AI response and made English equivalents optional to reduce response-format pressure while preserving English catalog matching.
 - Separated image-reading failures from catalog-loading failures in the match dialog.
