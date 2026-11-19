@@ -10,12 +10,17 @@ function price(value) {
   return Number.isFinite(number) && number >= 0 ? number : null;
 }
 
+export function normalizeCertNumber(value) {
+  const digits = String(value ?? '').trim();
+  return /^[0-9]{1,8}$/.test(digits) ? digits.padStart(8, '0') : '';
+}
+
 export function normalizeCard(input) {
   if (!input || typeof input !== 'object') return null;
-  const certNumber = text(input.certNumber, 8);
+  const certNumber = normalizeCertNumber(input.certNumber);
   const name = text(input.name, 120);
   const status = statuses.has(input.status) ? input.status : 'in-vault';
-  if (!name || !/^[0-9]{8}$/.test(certNumber)) return null;
+  if (!name || !certNumber) return null;
   return {
     game: text(input.game, 30) || 'other', name, setName: text(input.setName, 120),
     year: text(input.year, 4), cardNumber: text(input.cardNumber, 30), rarity: text(input.rarity, 40),
@@ -33,7 +38,9 @@ export function cardResponse(row) {
     certNumber: row.cert_number, status: row.status, buyPrice: row.buy_price,
     sellPrice: row.sell_price, buyDate: row.buy_date, soldDate: row.sold_date,
     boughtFrom: row.bought_from, soldTo: row.sold_to, notes: row.notes,
-    frontImage: '', backImage: '', createdAt: row.created_at, updatedAt: row.updated_at
+    frontImage: row.front_object_key ? `/api/cards/${encodeURIComponent(row.id)}/images/front` : '',
+    backImage: row.back_object_key ? `/api/cards/${encodeURIComponent(row.id)}/images/back` : '',
+    createdAt: row.created_at, updatedAt: row.updated_at
   };
 }
 

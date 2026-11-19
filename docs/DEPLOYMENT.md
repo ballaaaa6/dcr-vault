@@ -24,7 +24,7 @@ Google's ID token is verified by the server before account creation. Do not repl
 2. Add the returned database UUID as the GitHub Actions repository variable `CLOUDFLARE_D1_DATABASE_ID`.
 3. Create a separate Cloudflare API token with only Account `D1: Edit` permission and add it as the GitHub Actions secret `CLOUDFLARE_D1_API_TOKEN`. This token expires on 2027-11-19. Keep the existing `CLOUDFLARE_API_TOKEN` Pages deployment token limited to Pages Edit.
 4. Keep `CLOUDFLARE_ACCOUNT_ID` configured as a GitHub Actions secret.
-5. Once all values are present, the next push applies `migrations/0001_users_sessions_cards.sql`, adds the D1 binding `DB` and `GOOGLE_CLIENT_ID` to the Pages deployment, then publishes the site.
+5. Once all values are present, the next push applies pending migrations, adds the D1 binding `DB`, `GOOGLE_CLIENT_ID`, and `ORCL_MEDIA_ORIGIN` to the Pages deployment, then publishes the site.
 
 The workflow generates a temporary `wrangler.toml` from `wrangler.template.toml`. The generated file is ignored by Git; do not commit account-specific IDs or credentials.
 
@@ -39,6 +39,8 @@ The workflow generates a temporary `wrangler.toml` from `wrangler.template.toml`
 
 - Pages Functions and D1 are required for Google sign-in and private card storage; `npm run dev` alone serves only the Vite front end.
 - Once D1 is configured, use Wrangler Pages local development with the D1 binding, for example `npx wrangler pages dev dist --d1 DB=<database-id>`.
+- The `ORCL_MEDIA_ORIGIN` variable points to the HTTPS reverse proxy on the Oracle VM. Keep the Node image service on loopback; enable the VM endpoint only after its public TLS certificate renews automatically and the OCI VCN permits the required web traffic.
+- The Add Card suggestions are a static TCGdex metadata index. Refresh it by running `npm ci --prefix dcr-tag-70x20/catalog`, `python dcr-tag-70x20/catalog/import_tcgdex_catalog.py`, and `python tools/build-card-catalog-index.py`.
 - The legacy `dcr-cards-v1` browser data is offered for an explicit import after sign-in. Import does not delete the local copy, and images are excluded.
 - Do not commit `.env`, `.dev.vars`, credentials, `node_modules`, `dist`, card scans, or private collection exports.
 

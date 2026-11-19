@@ -9,7 +9,10 @@ const INSERT_CARD = `INSERT INTO cards (id, user_id, game, name, set_name, year,
 export async function onRequestGet({request, env}) {
   const session = await currentUser(request, env);
   if (session.response) return session.response;
-  const rows = await env.DB.prepare('SELECT * FROM cards WHERE user_id = ? ORDER BY created_at DESC')
+  const rows = await env.DB.prepare(`SELECT cards.*,
+    (SELECT object_key FROM card_images WHERE card_id = cards.id AND side = 'front') AS front_object_key,
+    (SELECT object_key FROM card_images WHERE card_id = cards.id AND side = 'back') AS back_object_key
+    FROM cards WHERE user_id = ? ORDER BY created_at DESC`)
     .bind(session.user.id).all();
   return json({cards: (rows.results || []).map(cardResponse)});
 }

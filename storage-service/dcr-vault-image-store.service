@@ -1,0 +1,31 @@
+[Unit]
+Description=DCR Card Vault private image store
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=dcr-image-store
+Group=dcr-image-store
+WorkingDirectory=/opt/dcr-vault-image-store
+Environment=DCR_IMAGE_ROOT=/srv/dcr-vault-media
+Environment=DCR_AUTHORIZATION_URL=https://dcr-vault.pages.dev/api/media/authorize
+Environment=DCR_BIND_HOST=127.0.0.1
+Environment=DCR_PORT=8788
+ExecStart=/usr/local/bin/node /opt/dcr-vault-image-store/server.mjs
+Restart=on-failure
+RestartSec=3
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+ReadWritePaths=/srv/dcr-vault-media
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+LockPersonality=true
+
+[Install]
+WantedBy=multi-user.target

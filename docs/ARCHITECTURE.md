@@ -20,10 +20,17 @@
 
 - Every card query and update includes the authenticated D1 user ID.
 - Certificate numbers are unique inside one user's vault, not across all users.
+- Cert input accepts one to eight digits; the server pads and stores the canonical eight-digit value before checking the per-user unique index.
 - The homepage is public, while vault, add, label, and certificate lookup routes require a session.
 - Card details, certificate numbers, prices, purchase/sale dates, sources, and notes are stored in D1 and are returned only to that card's owner.
-- Card photos are not uploaded or stored by the current app. Browser migration excludes images.
+- Front and back photos are stored on the Oracle VM under opaque owner/card UUIDs. D1 stores each side's object key, MIME type, size, and digest; the browser only receives same-origin image routes.
+- Pages Functions check the card owner before issuing one-use, short-lived image capabilities. The Oracle service consumes each capability by calling the private-card API and never receives the user's DCR session cookie or a long-lived storage token.
 - Existing `dcr-cards-v1` browser records are never uploaded automatically. After first sign-in on a browser, the user reviews every card name and Cert number and selects which records to import. The legacy copy is retained either way, and images are excluded.
+
+## Card suggestions
+
+- `public/data/card-catalog.json` is a compact TCGdex metadata index generated from the pinned local catalog snapshot. It contains names, sets, years, collector numbers, languages, and rarity; it contains no card images or collection records.
+- Add Card filters that static index in the browser as the user types. Selecting a candidate fills the identifying fields while keeping Cert and grade independent.
 
 ## Data flow
 
@@ -33,7 +40,8 @@ Google Identity Services
   -> users + sessions in D1
   -> HttpOnly session cookie
   -> authenticated Pages Function APIs
-  -> owner-scoped card queries in D1
+  -> owner-scoped card and image metadata in D1
+  -> one-use capability -> Oracle image service on the VM
   -> src/store/cards.js -> vault, search, verify, and label pages
 ```
 
@@ -42,6 +50,7 @@ Google Identity Services
 - One page per file in `src/pages/`; reusable UI in `src/components/`.
 - API shared modules live in `functions/_utils/`; underscore-prefixed folders are not routes.
 - D1 schema history lives in `migrations/` and is applied by the deployment workflow before publishing new code.
+- The Oracle image service is a separate, loopback-only Node process under `storage-service/`; a public TLS reverse proxy is required for Pages-to-VM traffic.
 - Google token verification uses the Workers Web Crypto API and Google's published JWK set. No authentication library is added, so runtime dependencies stay small.
 - Inter and Noto Sans Thai are self-hosted under `public/assets/fonts/` with their OFL licenses.
 - Label rendering imports the approved SVG masters from `dcr-tag-70x20/` and uses the browser-side `qrcode` and `jsbarcode` packages to create test QR and Code 128 symbols without sending certificate values to an external service.

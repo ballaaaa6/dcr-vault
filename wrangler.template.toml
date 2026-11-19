@@ -10,3 +10,4 @@ migrations_dir = "migrations"
 
 [vars]
 GOOGLE_CLIENT_ID = "__GOOGLE_CLIENT_ID__"
+ORCL_MEDIA_ORIGIN = "https://217.142.238.24"

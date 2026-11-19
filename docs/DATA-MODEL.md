@@ -22,20 +22,33 @@ All timestamps are Unix seconds unless noted otherwise. D1 is the source of trut
 - `game`: pokemon | yugioh | other
 - `name`, `set_name`, `year`, `card_number`, `rarity`
 - `grade_label`: GEM MT 10 | GEM MT 9 | RAW, or another DCR grade label
-- `cert_number`: 8 digits; unique within the owner's vault
+- `cert_number`: stored as 8 digits; input accepts one to eight digits and is left-padded with zeroes; unique within the owner's vault
 - `status`: in-vault | for-sale | sold | grading
 - `buy_price`, `sell_price`: private D1 values, shown only in Vault detail
 - `buy_date`, `sold_date`, `bought_from`, `sold_to`, `notes`
 - `created_at`, `updated_at`
-- Images are not stored by this release. Legacy browser imports omit image data.
+- Front/back images are stored on the Oracle VM. D1 keeps an opaque object key, content type, byte size, SHA-256 digest, and update time per card side. Legacy browser imports omit image data.
+
+## Card image
+
+- Primary key: `card_id`, `side` (`front` or `back`)
+- `user_id`: owner used for server-side access checks
+- `object_key`: `<owner-uuid>/<card-uuid>/<side>.<jpg|png|webp>`
+- `content_type`, `byte_size` (1 to 10 MiB), `sha256`, `updated_at`
+
+## Image capability
+
+- A random token hash authorizes one card side and one operation (`put`, `get`, or `delete`) for 120 seconds.
+- The capability is consumed atomically by the Pages authorization endpoint and is never the user's DCR session token.
 
 ## Privacy boundaries
 
 - API requests use the session's server-resolved `user_id`; clients cannot choose an owner ID.
-- Certificate lookup searches only the signed-in user's cards. There is no public cross-account lookup endpoint.
+- Certificate lookup searches only the signed-in user's cards. Short and full numeric input normalize to the same eight-digit value. There is no public cross-account lookup endpoint.
+- Image upload, replacement, retrieval, and deletion check the signed-in user's ownership before reaching Oracle storage.
 - `buy_price`, `sell_price`, purchase sources, and notes are not returned on the public homepage or printed label.
 - Migration from `dcr-cards-v1` is user-confirmed per selected card and keeps the original browser copy in place.
 
 ## Schema
 
-The initial schema is in [`migrations/0001_users_sessions_cards.sql`](../migrations/0001_users_sessions_cards.sql).
+Schema history is in [`migrations/`](../migrations/), including the image metadata and one-use capability tables.

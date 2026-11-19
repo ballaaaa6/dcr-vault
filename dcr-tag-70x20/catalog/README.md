@@ -5,7 +5,7 @@
 ## Imported snapshot
 
 - Source: [`tcgdex/cards-database`](https://github.com/tcgdex/cards-database), MIT license.
-- Imported commit: `41953489e378742169064a60e1dd8ef62a6e7d29`.
+- Imported commit: `4218f64dcbf3de6e7b7548530f938fb0b9ebbe2a`.
 - Languages indexed: English (`en`), Thai (`th`), Korean (`ko`), Traditional Chinese (`zh-tw`), Simplified Chinese (`zh-cn`), and Japanese (`ja`).
 - The `cards.raw_json` and `sets.raw_json` columns retain source fields without flattening away nested variants, card text, third-party reference IDs, or fields this label workflow does not currently use.
 - `card_locales` provides fast lookup by printed card name, set, and collector number. Its source rows can be incomplete; inspect `raw_json` before treating a record as verified label data.
@@ -64,6 +64,10 @@ python dcr-tag-70x20/catalog/build_layout_training_index.py
 ```
 
 The export deliberately marks layout boxes and text roles as unannotated until they are reviewed. See [the survey and calibration plan](layout-references/layout-survey-2026-10-20.md) and the [Wurmple XY6 parser regression case](layout-references/failure-cases/wurmple-xy6-3-20261020.json).
+
+## Web-app search index
+
+The web app builds a small metadata-only suggestions asset from this snapshot. Run `python tools/build-card-catalog-index.py` after importing the pinned source snapshot. It writes `public/data/card-catalog.json` with card names, set names, release years, collector numbers, language codes, and rarity; card artwork remains in the local image library.
 
 To select a small, varied set of local card images for parser/layout annotation, run:
 

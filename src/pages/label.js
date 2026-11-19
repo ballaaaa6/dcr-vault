@@ -1,5 +1,6 @@
 import {findByCert} from '../store/cards.js';
 import {escapeHTML} from '../utils/format.js';
+import {normalizeCert} from '../utils/cert.js';
 
 const RARITY_OPTIONS = ['C', 'UC', 'R', 'P', 'DR', 'UR', 'IR', 'SIR', 'HR', 'S', 'SAR'];
 let printSheet = [];
@@ -29,7 +30,7 @@ function labelForm(data, conditionOptions) {
     ${inputField('cardNumber', 'Card number', data.cardNumber, 'autocomplete="off"')}
     <label class="form-field"><span>Condition</span><select class="form-control" id="condition" data-label-field="condition">${selectOptions(conditionOptions, data.condition, 'Choose condition')}</select></label>
     <label class="form-field"><span>Rarity code</span><select class="form-control" id="rarity" data-label-field="rarity">${selectOptions(RARITY_OPTIONS, data.rarity, 'Choose rarity')}</select></label>
-    ${inputField('certNumber', 'Cert number', data.certNumber, 'inputmode="numeric" maxlength="8" pattern="[0-9]{8}" autocomplete="off"')}`;
+    ${inputField('certNumber', 'Cert number', data.certNumber, 'inputmode="numeric" maxlength="8" pattern="[0-9]{1,8}" placeholder="1 to 8 digits" autocomplete="off"')}`;
 }
 
 function previewMarkup(svg, side) {
@@ -98,7 +99,9 @@ export async function label(cards = []) {
 }
 
 function currentDraft() {
-  return Object.fromEntries([...document.querySelectorAll('[data-label-field]')].map(input => [input.dataset.labelField, input.value]));
+  const draft = Object.fromEntries([...document.querySelectorAll('[data-label-field]')].map(input => [input.dataset.labelField, input.value]));
+  draft.certNumber = normalizeCert(draft.certNumber) || draft.certNumber;
+  return draft;
 }
 
 function showPreview(side, svg) {
@@ -200,6 +203,11 @@ document.addEventListener('input', event => {
 });
 document.addEventListener('change', event => {
   if (event.target.matches('[data-label-field]')) updateDraftPreview();
+});
+document.addEventListener('focusout', event => {
+  if (event.target.dataset.labelField !== 'certNumber') return;
+  event.target.value = normalizeCert(event.target.value) || event.target.value;
+  updateDraftPreview();
 });
 document.addEventListener('click', event => {
   const action = event.target.closest('[data-label-action]')?.dataset.labelAction;

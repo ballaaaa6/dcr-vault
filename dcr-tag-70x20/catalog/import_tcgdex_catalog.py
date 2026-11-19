@@ -21,18 +21,12 @@ HERE = Path(__file__).resolve().parent
 PARSER = HERE / "parse_tcgdex_source.mjs"
 DEFAULT_DB = HERE / "cards.sqlite"
 LANGUAGES = ("en", "th", "ko", "zh-tw", "zh-cn", "ja")
-REPO_API = "https://api.github.com/repos/tcgdex/cards-database"
+PINNED_COMMIT = "4218f64dcbf3de6e7b7548530f938fb0b9ebbe2a"
 USER_AGENT = "DCR-Pokemon-Tag-Catalog-Importer/1.0"
 
 
-def get_json(url: str) -> dict:
-    request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Accept": "application/vnd.github+json"})
-    with urllib.request.urlopen(request, timeout=60) as response:
-        return json.load(response)
-
-
 def download_snapshot(work: Path) -> tuple[Path, str]:
-    commit = get_json(f"{REPO_API}/commits/master")["sha"]
+    commit = PINNED_COMMIT
     archive_url = f"https://codeload.github.com/tcgdex/cards-database/zip/{commit}"
     archive_path = work / "tcgdex-source.zip"
     request = urllib.request.Request(archive_url, headers={"User-Agent": USER_AGENT})
