@@ -24,7 +24,14 @@ Google's ID token is verified by the server before account creation. Do not repl
 2. Add the returned database UUID as the GitHub Actions repository variable `CLOUDFLARE_D1_DATABASE_ID`.
 3. Create a separate Cloudflare API token with only Account `D1: Edit` permission and add it as the GitHub Actions secret `CLOUDFLARE_D1_API_TOKEN`. This token expires on 2027-11-19. Keep the existing `CLOUDFLARE_API_TOKEN` Pages deployment token limited to Pages Edit.
 4. Keep `CLOUDFLARE_ACCOUNT_ID` configured as a GitHub Actions secret.
-5. Once all values are present, the next push applies pending migrations, adds the D1 binding `DB`, `GOOGLE_CLIENT_ID`, and `ORCL_MEDIA_ORIGIN` to the Pages deployment, then publishes the site.
+5. Once all values are present, the next push applies pending migrations, adds the D1 binding `DB`, Workers AI binding `AI`, `GOOGLE_CLIENT_ID`, and `ORCL_MEDIA_ORIGIN` to the Pages deployment, then publishes the site.
+
+## Workers AI image reading
+
+- The root `wrangler.template.toml` declares the Pages Workers AI binding as `AI`; the deployment workflow includes it in the generated Wrangler configuration. Enable Workers AI for the Cloudflare account used by the Pages project.
+- The Add Card page calls Gemma 4 only after the user selects a front photo and clicks the analysis button. Each request is authenticated, accepts JPEG/PNG/WebP up to 10 MB, and uses `@cf/google/gemma-4-26b-a4b-it`. The photo is sent to Cloudflare for inference and is not persisted by the analysis Function; Oracle storage happens only through the separate Add to Vault save flow.
+- The current [Gemma 4 model page](https://developers.cloudflare.com/workers-ai/models/gemma-4-26b-a4b-it/) lists $0.10 per million input tokens and $0.30 per million output tokens. Image token use varies with the photo; check the current model page and account allocation before large batches.
+- For local Pages Function development, use Wrangler with the AI binding (for example, `npx wrangler pages dev dist --ai AI`) and the configured D1 binding. `npm run dev` alone runs only Vite and does not provide the analysis API.
 
 The workflow generates a temporary `wrangler.toml` from `wrangler.template.toml`. The generated file is ignored by Git; do not commit account-specific IDs or credentials.
 

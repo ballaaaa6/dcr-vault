@@ -1,12 +1,12 @@
 import {findCatalogCandidates} from '../store/catalog.js';
 import {escapeHTML} from '../utils/format.js';
 
-const FIELDS = ['name', 'setName', 'year', 'cardNumber'];
+const FIELDS = ['name', 'setName', 'year', 'cardNumber', 'rarity'];
 let version = 0;
 let timer;
 
 export function catalogField(id, label, placeholder) {
-  const maxLength = id === 'year' ? 4 : id === 'cardNumber' ? 30 : 120;
+  const maxLength = id === 'year' ? 4 : id === 'cardNumber' ? 30 : id === 'rarity' ? 60 : 120;
   return `<div class="form-field"><label for="m-${id}">${label}</label><div class="catalog-control" data-catalog-control="${id}">
     <input class="form-control" id="m-${id}" data-catalog-field="${id}" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="m-${id}-suggestions" autocomplete="off" maxlength="${maxLength}" placeholder="${placeholder}">
     <div class="catalog-suggestions" id="m-${id}-suggestions" role="listbox" hidden></div>
@@ -69,6 +69,7 @@ function selectCard(button, onSelect) {
   document.getElementById('m-setName').value = card.setName;
   document.getElementById('m-year').value = card.year;
   document.getElementById('m-cardNumber').value = card.cardNumber;
+  document.getElementById('m-rarity').value = card.rarity;
   hideAllCatalogSuggestions();
   onSelect(card);
 }

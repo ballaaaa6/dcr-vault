@@ -2,6 +2,7 @@ import {addCard, checkCert, deleteCardImage, uploadCardImage} from '../store/car
 import {catalogField, hideAllCatalogSuggestions, installCatalogSuggestions} from './search-catalog.js';
 import {escapeHTML} from '../utils/format.js';
 import {makeCert, normalizeCert} from '../utils/cert.js';
+import {resetCardIdentificationState} from './card-identification.js';
 
 const IMAGE_LIMIT = 10 * 1024 * 1024;
 const IMAGE_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp']);
@@ -19,6 +20,7 @@ function photoField(side, label) {
 
 export function search() {
   releaseObjectUrls();
+  resetCardIdentificationState();
   uploadedSides = new Set();
   window.__intakeSavedCard = null;
   window.__intakeCatalogGame = '';
@@ -29,6 +31,9 @@ export function search() {
         <section class="surface-card intake-card" aria-labelledby="scan-title">
           <div class="section-heading"><span class="section-number">01</span><div><h2 id="scan-title">Card images</h2><p>Choose a front and/or back photo to store in your private image vault.</p></div></div>
           <div class="upload-grid">${photoField('front', 'Front image')}${photoField('back', 'Back image')}</div>
+          <div class="identification-actions"><button class="btn btn-ghost" id="identify-card" type="button" disabled>Read front with Gemma 4</button></div>
+          <p class="identification-notice">The selected front photo is sent to Cloudflare Workers AI for reading. The analysis is not saved; the photo is stored in your Oracle image vault only when you save the card.</p>
+          <div id="identification-result" class="identification-result" aria-live="polite" hidden></div>
           <p id="photo-status" class="import-status" role="status" aria-live="polite"></p>
         </section>
         <section class="surface-card intake-card" aria-labelledby="manual-title">
@@ -44,6 +49,7 @@ export function search() {
             ${catalogField('setName', 'Set', 'e.g. Base Set')}
             ${catalogField('year', 'Year', 'e.g. 1999')}
             ${catalogField('cardNumber', 'Card number', 'e.g. 4')}
+            ${catalogField('rarity', 'Rarity', 'e.g. Double rare')}
             <label class="form-field"><span>Grade</span><input class="form-control" id="m-grade" maxlength="60" placeholder="e.g. GEM MT 10"></label>
           </div>
           <button class="btn btn-primary manual-submit" id="manual-submit" type="button">Add to Vault</button>
@@ -153,6 +159,7 @@ async function clearPhoto(side) {
   }
   input.value = '';
   updatePhotoPreview(side, null);
+  if (side === 'front') window.dispatchEvent(new Event('intake-front-image-cleared'));
   document.getElementById('photo-status').textContent = 'Photo selection cleared.';
 }
 
@@ -176,7 +183,8 @@ function formCard(certNumber) {
   return {
     game: window.__intakeCatalogGame || 'other', name: document.getElementById('m-name').value.trim(), certNumber,
     setName: document.getElementById('m-setName').value.trim(), year: document.getElementById('m-year').value.trim(),
-    cardNumber: document.getElementById('m-cardNumber').value.trim(), gradeLabel: document.getElementById('m-grade').value.trim(), status: 'in-vault'
+    cardNumber: document.getElementById('m-cardNumber').value.trim(), rarity: document.getElementById('m-rarity').value.trim(),
+    gradeLabel: document.getElementById('m-grade').value.trim(), status: 'in-vault'
   };
 }
 
@@ -229,7 +237,12 @@ document.addEventListener('change', event => {
   const input = event.target.closest('[data-upload-side]');
   if (!input) return;
   try { updatePhotoPreview(input.dataset.uploadSide, validatePhoto(input)); document.getElementById('photo-status').textContent = ''; }
-  catch (error) { input.value = ''; updatePhotoPreview(input.dataset.uploadSide, null); document.getElementById('photo-status').textContent = error.message; }
+  catch (error) {
+    input.value = '';
+    updatePhotoPreview(input.dataset.uploadSide, null);
+    if (input.dataset.uploadSide === 'front') window.dispatchEvent(new Event('intake-front-image-cleared'));
+    document.getElementById('photo-status').textContent = error.message;
+  }
 });
 
 document.addEventListener('click', event => {

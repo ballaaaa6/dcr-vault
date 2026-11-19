@@ -33,6 +33,12 @@ export async function uploadCardImage(id, side, file) {
   });
 }
 
+export async function identifyCardImage(file) {
+  return requestJson('/api/cards/identify', {
+    method: 'POST', headers: {'Content-Type': file.type}, body: file
+  });
+}
+
 export async function deleteCardImage(id, side) {
   return requestJson(`/api/cards/${encodeURIComponent(id)}/images/${side}`, {method: 'DELETE'});
 }

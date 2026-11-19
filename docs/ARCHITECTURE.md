@@ -32,6 +32,13 @@
 - `public/data/card-catalog.json` is a compact TCGdex metadata index generated from the pinned local catalog snapshot. It contains names, sets, years, collector numbers, languages, and rarity; it contains no card images or collection records.
 - Add Card filters that static index in the browser as the user types. Selecting a candidate fills the identifying fields while keeping Cert and grade independent.
 
+## AI-assisted image intake
+
+- On explicit button click, the authenticated `/api/cards/identify` Pages Function sends only the selected front image to the fixed `@cf/google/gemma-4-26b-a4b-it` Workers AI model. It does not write the image or model result to D1 or Oracle storage.
+- The Function returns bounded text fields only. The browser ranks those fields against the static TCGdex index using name, set, year, collector number, rarity, and language evidence. A person selects a catalog candidate; the result is only a draft and nothing is saved until Add to Vault is clicked.
+- The web label editor reads the saved D1 card and does not call Gemma. The separate offline label toolkit already has its own image/OCR-to-catalog lookup and ambiguity checks; it is not part of this Add Card AI path.
+- Catalog rows may omit the full collector-number denominator or rarity. A missing catalog value stays blank for manual review; the app does not fill it from model guesses.
+
 ## Data flow
 
 ```text
@@ -40,6 +47,7 @@ Google Identity Services
   -> users + sessions in D1
   -> HttpOnly session cookie
   -> authenticated Pages Function APIs
+  -> Gemma 4 image reading -> static catalog candidate ranking -> user selection
   -> owner-scoped card and image metadata in D1
   -> one-use capability -> Oracle image service on the VM
   -> src/store/cards.js -> vault, search, verify, and label pages
