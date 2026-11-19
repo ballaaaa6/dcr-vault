@@ -67,7 +67,15 @@ The export deliberately marks layout boxes and text roles as unannotated until t
 
 ## Web-app search index
 
-The web app builds a small metadata-only suggestions asset from this snapshot. Run `python tools/build-card-catalog-index.py` after importing the pinned source snapshot. It writes `public/data/card-catalog.json` with card names, set names, release years, collector numbers, language codes, rarity, and series IDs used to locate optional picker thumbnails; card artwork remains in the local image library.
+The web app builds a small metadata-only suggestions asset from this snapshot. Run `python tools/build-card-catalog-index.py` after importing the pinned source snapshot. It writes `public/data/card-catalog.json` with card names, set names, release years, collector numbers, language codes, rarity, and series/set IDs and names. The Add Card rarity selector groups English rarity values by the selected set ID (or exact set name for manual entry), across the whole set rather than by release year. It preselects the card's recorded rarity, or a source-verified uniform set default when that card has no rarity value. The web picker loads low-resolution artwork through a same-origin catalog image route; the offline image cache remains outside the web bundle.
+
+### Set rarity reference
+
+The selected set's English catalog rows are the source for the rarity dropdown. It filters across that complete set, not by year, and never offers rarities from unrelated sets. `None`, null, and missing per-card rarity values remain blank unless a reviewed set override supplies a verified set-wide rarity. Overrides include their evidence URL and review date. Use `noPrintedRarity: true` with an empty `rarities` list when an exact-print source confirms no rarity is recorded. Do not infer rarity from artwork, finish, price, or a different printing. The label renderer separately maps the recorded source rarity to a supported DCR code using `catalog-label-rules.json`; an unsupported mapping blocks the label until an explicit rule is reviewed.
+
+Year / series metadata uses an exact set override first, then the English catalog series ID in `catalog-label-rules.json`'s `series_labels`. It does not use the upstream display series name as a label value. If no approved series mapping exists, leave the field unavailable until an exact rule is reviewed. English card and expansion names come from the English catalog; verified non-English PSA profiles supply their reviewed English label wording.
+
+Regenerate the readable per-set list with `python dcr-tag-70x20/catalog/build_rarity_reference.py`. Review the “No rarity recorded” sets against sources for the exact print before adding any override.
 
 To select a small, varied set of local card images for parser/layout annotation, run:
 

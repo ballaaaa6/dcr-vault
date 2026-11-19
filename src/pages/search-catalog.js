@@ -18,16 +18,44 @@ function fieldValues() {
   return Object.fromEntries(FIELDS.map(field => [field, document.getElementById(`m-${field}`).value]));
 }
 
-export async function populateRarityOptions() {
+export async function populateRarityOptions({setId = '', setName = '', selectedRarity = ''} = {}) {
   const select = document.getElementById('m-rarity');
-  if (!select || select.dataset.optionsLoaded === 'true') return;
+  if (!select) return;
+  const version = Number(select.dataset.optionsVersion || 0) + 1;
+  select.dataset.optionsVersion = String(version);
+  const hasSet = Boolean(setId || setName.trim());
+  if (!hasSet) {
+    select.innerHTML = '<option value="">Choose a set first</option>';
+    select.value = '';
+    select.disabled = true;
+    select.dataset.setId = '';
+    select.dataset.setName = '';
+    return;
+  }
+  select.innerHTML = '<option value="">Loading set rarities…</option>';
+  select.value = '';
+  select.disabled = true;
   try {
-    const rarities = await getCatalogRarities();
-    if (!select.isConnected) return;
-    select.innerHTML = `<option value="">No rarity recorded</option>${rarities.map(value =>
-      `<option value="${escapeHTML(value)}">${escapeHTML(value)}</option>`).join('')}`;
-    select.dataset.optionsLoaded = 'true';
+    const rarityInfo = await getCatalogRarities({setId, setName});
+    if (!select.isConnected || select.dataset.optionsVersion !== String(version)) return;
+    const {rarities, noPrintedRarity} = rarityInfo;
+    const available = rarities.includes(selectedRarity) ? selectedRarity : '';
+    const prompt = rarities.length ? 'Choose rarity' : noPrintedRarity ? 'No printed rarity for this set' : 'No catalog rarity recorded';
+    select.innerHTML = `<option value="">${prompt}</option>${rarities.map(value =>
+      `<option value="${escapeHTML(value)}"${value === available ? ' selected' : ''}>${escapeHTML(value)}</option>`).join('')}`;
+    select.value = available;
+    select.disabled = rarities.length === 0;
+    select.dataset.setId = setId;
+    select.dataset.setName = setName;
+    if (selectedRarity && !available) {
+      const status = document.getElementById('manual-status');
+      if (status) status.textContent = 'This card’s rarity is not recorded for the selected set. Choose only a verified value.';
+    }
   } catch (error) {
+    if (!select.isConnected || select.dataset.optionsVersion !== String(version)) return;
+    select.innerHTML = '<option value="">Rarity options unavailable</option>';
+    select.value = '';
+    select.disabled = true;
     const status = document.getElementById('manual-status');
     if (status) status.textContent = error.message || 'Rarity options are unavailable.';
   }
@@ -85,7 +113,6 @@ function selectCard(button, onSelect) {
   document.getElementById('m-setName').value = card.setName;
   document.getElementById('m-year').value = card.year;
   document.getElementById('m-cardNumber').value = card.cardNumber;
-  document.getElementById('m-rarity').value = card.rarity;
   hideAllCatalogSuggestions();
   onSelect(card);
 }
@@ -100,10 +127,11 @@ function moveSelection(input, direction) {
   input.setAttribute('aria-activedescendant', options[next].id);
 }
 
-export function installCatalogSuggestions(onSelect) {
+export function installCatalogSuggestions(onSelect, onEdit = () => {}) {
   document.addEventListener('input', event => {
     const input = event.target.closest('[data-catalog-field]');
     if (!input) return;
+    onEdit(input.dataset.catalogField);
     clearTimeout(timer);
     timer = setTimeout(() => refreshSuggestions(input.dataset.catalogField), 160);
   });

@@ -30,8 +30,8 @@
 ## Card suggestions
 
 - `public/data/card-catalog.json` is a compact TCGdex metadata index generated from the pinned local catalog snapshot. It contains names, sets, years, collector numbers, languages, rarity, and series IDs; it contains no card images or collection records.
-- Add Card suggestions and saved card names/sets use English (`en`) catalog entries so printed labels stay in English. Image reading can rank localized catalog records, then resolves candidates to their English entry by catalog ID. Intake and label printing reject non-Latin name/set text.
-- Candidate previews derive low-resolution image URLs from the TCGdex series, set, card, and language IDs. The browser loads a thumbnail only for the picker; unavailable images stay hidden, and artwork is not bundled into the app.
+- Add Card suggestions and saved card names/sets use English (`en`) catalog entries so printed labels stay in English. Image reading uses an exact catalog-ID translation when available; when language versions have different IDs, it matches the explicit English name, set, and collector number fields against English catalog rows. It retains the source language/set key for label-profile checks. The English catalog identity supplies year and series through the approved label rules and rarity choices scoped to that set; intake and label printing reject non-Latin name/set text.
+- Candidate previews resolve low-resolution TCGdex artwork through a same-origin image endpoint using catalog language, series, set, and card IDs. Missing source-language artwork falls back to that same catalog card's English image; no unrelated sample card is shown.
 
 ## AI-assisted image intake
 

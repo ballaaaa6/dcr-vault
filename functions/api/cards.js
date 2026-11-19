@@ -2,9 +2,10 @@ import {cardResponse, cardValues, normalizeCard} from '../_utils/cards.js';
 import {error, json, readJson, requireDatabase, sameOrigin} from '../_utils/http.js';
 import {currentUser} from '../_utils/sessions.js';
 
-const INSERT_CARD = `INSERT INTO cards (id, user_id, game, name, set_name, year, card_number, rarity, grade_label,
+const INSERT_CARD = `INSERT INTO cards (id, user_id, game, name, set_name, year, year_series, catalog_card_id,
+  source_language, source_set_id, card_number, rarity, grade_label,
   cert_number, status, buy_price, sell_price, buy_date, sold_date, bought_from, sold_to, notes, created_at, updated_at)
-  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
 export async function onRequestGet({request, env}) {
   const session = await currentUser(request, env);

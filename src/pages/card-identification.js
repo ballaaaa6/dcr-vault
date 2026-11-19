@@ -1,7 +1,8 @@
 import {identifyCardImage} from '../store/cards.js';
 import {findImageCandidates} from '../store/catalog.js';
 import {escapeHTML} from '../utils/format.js';
-import {hideAllCatalogSuggestions} from './search-catalog.js';
+import {hideAllCatalogSuggestions, populateRarityOptions} from './search-catalog.js';
+import {cardLabelMetadata} from '../utils/label-metadata.js';
 
 let candidateCards = [];
 let extractedFields = {};
@@ -41,8 +42,10 @@ export function resetCardIdentificationState() {
 function candidateMarkup(card, index) {
   const image = card.previewImage || card.imageUrl;
   const imageMarkup = image ? `<img class="identification-option-image" src="${escapeHTML(image)}" alt="" loading="eager">` : '';
-  const details = [card.setName, card.year, card.cardNumber && `#${card.cardNumber}`, card.rarity].filter(Boolean);
-  const previewAttrs = image ? `data-preview-src="${escapeHTML(image)}" data-preview-alt="${escapeHTML(card.name)}" data-has-image="true"` : '';
+  const metadata = cardLabelMetadata(card);
+  const details = [metadata.setName || card.setName, card.year, card.cardNumber && `#${card.cardNumber}`, card.rarity].filter(Boolean);
+  const fallback = card.previewImageFallback || '';
+  const previewAttrs = image ? `data-preview-src="${escapeHTML(image)}" data-preview-alt="${escapeHTML(card.name)}" data-has-image="true" ${fallback ? `data-preview-fallback="${escapeHTML(fallback)}"` : ''}` : '';
   return `<button class="identification-option" data-image-candidate="${index}" ${previewAttrs} type="button">${imageMarkup}
     <span class="identification-option-copy"><strong>${escapeHTML(card.name)}</strong><span>${escapeHTML(details.join(' · '))}</span></span></button>`;
 }
@@ -66,18 +69,23 @@ function showDialog(content) {
 function chooseCandidate(index) {
   const card = candidateCards[index];
   if (!card) return;
+  const metadata = cardLabelMetadata(card);
+  window.__intakeCatalogCard = {...card, ...metadata};
   document.getElementById('m-name').value = card.name;
-  document.getElementById('m-setName').value = card.setName;
+  document.getElementById('m-setName').value = metadata.setName || card.setName;
   document.getElementById('m-year').value = card.year;
   const observedNumber = String(extractedFields.cardNumber || '').trim();
   const localNumber = value => value.replace(/^#/, '').split('/')[0].replace(/\s+/g, '').replace(/^0+(?=\d)/, '');
   document.getElementById('m-cardNumber').value = observedNumber && localNumber(observedNumber) === localNumber(card.cardNumber)
     ? observedNumber : card.cardNumber;
-  document.getElementById('m-rarity').value = card.rarity;
+  populateRarityOptions({setId: card.setId, setName: card.setName, selectedRarity: card.rarity});
   window.__intakeCatalogGame = 'pokemon';
   hideAllCatalogSuggestions();
-  const rarityNote = card.rarity ? '' : ' The catalog has no rarity for this card; leave it blank or choose a value from the dropdown.';
-  document.getElementById('manual-status').textContent = `English catalog details selected. Check the details, then enter Cert and Grade.${rarityNote}`;
+  const rarityNote = card.rarity ? '' : ' The catalog has no rarity for this card; leave it blank or choose a recorded value for this set if available.';
+  const profileNote = !metadata.labelMetadataReady
+    ? ' This language/set has no verified label profile yet, so label printing will stay unavailable until one is added.'
+    : !metadata.yearSeries ? ' This set has no approved Year / series mapping yet, so label printing will stay unavailable until one is added.' : '';
+  document.getElementById('manual-status').textContent = `English catalog details selected. Check the details, then enter Cert and Grade.${rarityNote}${profileNote}`;
   document.getElementById('identification-result').close();
   hideHoverPreview();
   document.getElementById('m-grade').focus();
@@ -94,7 +102,7 @@ async function analyzeFront() {
   const version = ++analysisVersion;
   analysisBusy = true;
   button.disabled = true;
-  button.textContent = 'Reading card details…';
+  button.textContent = 'Identifying card…';
   try {
     const result = await identifyCardImage(file);
     const candidates = await findImageCandidates(result.fields);
@@ -103,7 +111,7 @@ async function analyzeFront() {
     if (version === analysisVersion) showError(safeErrorMessage(error));
   } finally {
     analysisBusy = false;
-    button.textContent = 'Read card details';
+    button.textContent = 'Identify card';
     updateButton();
   }
 }
@@ -169,6 +177,13 @@ document.addEventListener('scroll', hideHoverPreview, true);
 document.addEventListener('error', event => {
   if (event.target.matches('.identification-option-image')) {
     const option = event.target.closest('[data-image-candidate]');
+    const fallback = option?.dataset.previewFallback;
+    if (fallback) {
+      option.dataset.previewSrc = fallback;
+      option.removeAttribute('data-preview-fallback');
+      event.target.src = fallback;
+      return;
+    }
     option?.removeAttribute('data-preview-src');
     option?.removeAttribute('data-has-image');
     event.target.remove();

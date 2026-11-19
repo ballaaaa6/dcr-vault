@@ -15,7 +15,8 @@ function cardSummary(card, index) {
 }
 
 function importPayload(records) {
-  const fields = ['game', 'name', 'setName', 'year', 'cardNumber', 'rarity', 'gradeLabel', 'certNumber',
+  const fields = ['game', 'name', 'setName', 'year', 'yearSeries', 'catalogCardId', 'sourceLanguage', 'sourceSetId',
+    'cardNumber', 'rarity', 'gradeLabel', 'certNumber',
     'status', 'buyPrice', 'sellPrice', 'buyDate', 'soldDate', 'boughtFrom', 'soldTo', 'notes'];
   return records.map(record => Object.fromEntries(fields.map(field => [field, record[field]])));
 }

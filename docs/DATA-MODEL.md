@@ -21,7 +21,9 @@ All timestamps are Unix seconds unless noted otherwise. D1 is the source of trut
 - `user_id`: owner, references `users.id`
 - `game`: pokemon | yugioh | other
 - `name`, `set_name`, `year`, `card_number`, `rarity`
-- `grade_label`: GEM MT 10 | GEM MT 9 | RAW, or another DCR grade label
+- `year_series`: approved year and series wording captured at intake; label generation resolves the selected English catalog identity through the approved year/series rules again so stale values are not printed
+- `catalog_card_id`, `source_language`, `source_set_id`: selected catalog identity and printed-language context used to keep Add Card and label values synchronized
+- `grade_label`: one of the DCR condition terms when assessed; the label prints the condition term without a numeric grade
 - `cert_number`: stored as 8 digits; input accepts one to eight digits and is left-padded with zeroes; unique within the owner's vault
 - `status`: in-vault | for-sale | sold | grading
 - `buy_price`, `sell_price`: private D1 values, shown only in Vault detail

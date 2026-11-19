@@ -23,6 +23,9 @@ export function vault(cards = []) {
   const summary = focus ? [focus.setName, focus.year, focus.cardNumber].map(escapeHTML).filter(Boolean).join(' • ') : '';
   const grade = escapeHTML(focus?.gradeLabel || '');
   const cert = escapeHTML(focus?.certNumber || '');
+  const frontPhoto = focus?.frontImage
+    ? `<img class="vault-detail-image" src="${escapeHTML(focus.frontImage)}" alt="Front of ${name}" loading="lazy" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><div class="vault-detail-photo-empty" hidden>Photo unavailable</div>`
+    : '<div class="vault-detail-photo-empty">No front photo saved</div>';
 
   return `
     <main class="app-page">
@@ -39,6 +42,7 @@ export function vault(cards = []) {
       <div class="vault-layout">
         <section class="vault-list" id="vault-list" aria-label="Cards in your vault">${rows}</section>
         <aside class="surface-card vault-detail" aria-label="Selected card details">
+          <div class="vault-detail-photo">${frontPhoto}</div>
           <div class="detail-heading"><div class="page-eyebrow">CARD DETAILS</div><h2>${name}</h2><p class="muted">${summary}</p></div>
           <div class="detail-identity"><span class="badge">${grade}</span><span class="muted">Cert: ${cert}</span></div>
           <label class="form-field"><span>Buy price (THB)</span><input class="form-control" id="d-buy" inputmode="decimal" value="${escapeHTML(focus?.buyPrice ?? '')}"></label>

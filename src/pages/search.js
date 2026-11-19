@@ -1,5 +1,7 @@
 import {addCard, checkCert, deleteCardImage, uploadCardImage} from '../store/cards.js';
 import {catalogField, hideAllCatalogSuggestions, installCatalogSuggestions, populateRarityOptions} from './search-catalog.js';
+import {CONDITION_OPTIONS} from '../utils/label-options.js';
+import {cardLabelMetadata} from '../utils/label-metadata.js';
 import {escapeHTML} from '../utils/format.js';
 import {hasNonLatinScript} from '../utils/language.js';
 import {makeCert, normalizeCert} from '../utils/cert.js';
@@ -25,6 +27,7 @@ export function search() {
   uploadedSides = new Set();
   window.__intakeSavedCard = null;
   window.__intakeCatalogGame = '';
+  window.__intakeCatalogCard = null;
   return `
     <main class="app-page">
       <header class="page-heading"><div class="page-eyebrow">COLLECTION INTAKE</div><h1>Add a card to your vault</h1><p class="page-description">Card details and photos stay private to your signed-in account.</p></header>
@@ -32,8 +35,8 @@ export function search() {
         <section class="surface-card intake-card" aria-labelledby="scan-title">
           <div class="section-heading"><span class="section-number">01</span><div><h2 id="scan-title">Card images</h2><p>Choose a front and/or back photo to store in your private image vault.</p></div></div>
           <div class="upload-grid">${photoField('front', 'Front image')}${photoField('back', 'Back image')}</div>
-          <div class="identification-actions"><button class="btn btn-ghost" id="identify-card" type="button" disabled>Read card details</button></div>
-          <p class="identification-notice">The selected front photo is sent to Cloudflare Workers AI for reading. The analysis is not saved; the photo is stored in your Oracle image vault only when you save the card.</p>
+          <div class="identification-actions"><button class="btn btn-ghost" id="identify-card" type="button" disabled>Identify card</button></div>
+          <p class="identification-notice">Read the front photo to suggest matching card details. Photos are stored only when you save the card.</p>
           <p id="photo-status" class="import-status" role="status" aria-live="polite"></p>
         </section>
         <section class="surface-card intake-card" aria-labelledby="manual-title">
@@ -49,8 +52,8 @@ export function search() {
             ${catalogField('setName', 'Set', 'e.g. Base Set')}
             ${catalogField('year', 'Year', 'e.g. 1999')}
             ${catalogField('cardNumber', 'Card number', 'e.g. 4')}
-            <div class="form-field"><label for="m-rarity">Rarity</label><select class="form-control" id="m-rarity"><option value="">No rarity recorded</option></select></div>
-            <div class="form-field"><label for="m-grade">Grade</label><select class="form-control" id="m-grade"><option value="">Choose grade</option><option value="GEM MT 10">GEM MT 10</option><option value="GEM MT 9">GEM MT 9</option><option value="RAW">RAW</option></select></div>
+            <div class="form-field"><label for="m-rarity">Rarity</label><select class="form-control" id="m-rarity" disabled><option value="">Choose a set first</option></select></div>
+            <div class="form-field"><label for="m-grade">Grade / Condition</label><select class="form-control" id="m-grade"><option value="">Choose condition</option>${CONDITION_OPTIONS.map(value => `<option value="${value}">${value}</option>`).join('')}</select></div>
           </div>
           <button class="btn btn-primary manual-submit" id="manual-submit" type="button">Add to Vault</button>
           <p id="manual-status" class="import-status" role="status" aria-live="polite"></p>
@@ -185,9 +188,13 @@ async function uploadPhotos(card) {
 }
 
 function formCard(certNumber) {
+  const selected = window.__intakeCatalogCard || {};
+  const metadata = cardLabelMetadata(selected);
   return {
     game: window.__intakeCatalogGame || 'other', name: document.getElementById('m-name').value.trim(), certNumber,
     setName: document.getElementById('m-setName').value.trim(), year: document.getElementById('m-year').value.trim(),
+    yearSeries: metadata.yearSeries, catalogCardId: metadata.catalogCardId,
+    sourceLanguage: metadata.sourceLanguage, sourceSetId: metadata.sourceSetId,
     cardNumber: document.getElementById('m-cardNumber').value.trim(), rarity: document.getElementById('m-rarity').value.trim(),
     gradeLabel: document.getElementById('m-grade').value.trim(), status: 'in-vault'
   };
@@ -270,7 +277,21 @@ document.addEventListener('focusout', event => {
   if (normalized) event.target.value = normalized;
 });
 
-installCatalogSuggestions(() => {
+installCatalogSuggestions(card => {
+  const selected = {...card, sourceLanguage: 'en', sourceSetId: card.setId};
+  window.__intakeCatalogCard = selected;
   window.__intakeCatalogGame = 'pokemon';
+  populateRarityOptions({setId: card.setId, setName: card.setName, selectedRarity: card.rarity});
+  const metadata = cardLabelMetadata(selected);
+  document.getElementById('manual-status').textContent = !metadata.labelMetadataReady
+    ? 'This language/set has no verified label profile yet, so label printing will stay unavailable until one is added.'
+    : !metadata.yearSeries
+      ? 'This set has no approved Year / series mapping yet, so label printing will stay unavailable until one is added.'
+      : 'Catalog card selected. Check the details, then enter Cert and Grade.';
   document.getElementById('m-grade').focus();
+}, field => {
+  window.__intakeCatalogCard = null;
+  if (field === 'setName') {
+    populateRarityOptions({setName: document.getElementById('m-setName').value.trim()});
+  }
 });

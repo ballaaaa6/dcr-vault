@@ -5,6 +5,8 @@ import frontMasterUrl from '../../dcr-tag-70x20/source/dcr-tag-front.svg?url';
 import backMasterUrl from '../../dcr-tag-70x20/source/dcr-tag-back.svg?url';
 import sheetMasterUrl from '../../dcr-tag-70x20/source/a4-40up-portrait.svg?url';
 import {hasNonLatinScript} from './language.js';
+import {CONDITION_OPTIONS} from './label-options.js';
+import {cardLabelMetadata, cardLabelRarity} from './label-metadata.js';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 const XLINK_NS = 'http://www.w3.org/1999/xlink';
@@ -15,10 +17,7 @@ const frontMaster = loadTemplate(frontMasterUrl);
 const backMaster = loadTemplate(backMasterUrl);
 const sheetMaster = loadTemplate(sheetMasterUrl);
 
-export const CONDITION_OPTIONS = [
-  'GEM MT', 'MINT', 'NM-MT+', 'NM-MT', 'NM+', 'NM', 'EX-MT+', 'EX-MT',
-  'EX+', 'EX', 'VG-EX+', 'VG-EX', 'VG+', 'VG', 'GOOD+', 'GOOD', 'FR', 'PR'
-];
+export {CONDITION_OPTIONS};
 
 async function loadTemplate(url) {
   const response = await fetch(url, {credentials: 'same-origin'});
@@ -47,15 +46,16 @@ function conditionFromGrade(value) {
 }
 
 export function cardLabelData(card) {
-  const year = String(card.year ?? '').trim();
+  const metadata = cardLabelMetadata(card);
   return {
-    yearSeries: card.yearSeries || (year ? `${year} POKÉMON GAME` : ''),
+    yearSeries: metadata.yearSeries,
     name: String(card.name ?? '').trim(),
-    setName: String(card.setName ?? '').trim(),
+    setName: metadata.setName,
     cardNumber: normalizeCardNumber(card.cardNumber),
     condition: conditionFromGrade(card.gradeLabel),
-    rarity: normalizeRarity(card.rarity),
-    certNumber: String(card.certNumber ?? '').trim()
+    rarity: normalizeRarity(cardLabelRarity(card)),
+    certNumber: String(card.certNumber ?? '').trim(),
+    labelMetadataReady: metadata.labelMetadataReady
   };
 }
 
@@ -67,7 +67,8 @@ function cleanLabelData(data) {
     cardNumber: normalizeCardNumber(data.cardNumber).toLocaleUpperCase('en-US'),
     condition: String(data.condition ?? '').trim().toLocaleUpperCase('en-US'),
     rarity: normalizeRarity(data.rarity),
-    certNumber: String(data.certNumber ?? '').trim()
+    certNumber: String(data.certNumber ?? '').trim(),
+    labelMetadataReady: data.labelMetadataReady !== false
   };
 }
 
@@ -89,6 +90,7 @@ function pairFitError(left, right, leftValue, rightValue) {
 
 export function validateLabelData(data) {
   const value = cleanLabelData(data);
+  if (!value.labelMetadataReady) return ['This language/set needs a verified label profile before printing.'];
   const required = ['yearSeries', 'name', 'setName', 'cardNumber', 'condition', 'rarity', 'certNumber'];
   const missing = required.find(key => !value[key]);
   if (missing) return [`${missing.replace(/[A-Z]/g, letter => ` ${letter.toLowerCase()}`)} is required.`];

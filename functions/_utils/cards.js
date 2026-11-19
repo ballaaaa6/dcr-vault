@@ -23,7 +23,9 @@ export function normalizeCard(input) {
   if (!name || !certNumber) return null;
   return {
     game: text(input.game, 30) || 'other', name, setName: text(input.setName, 120),
-    year: text(input.year, 4), cardNumber: text(input.cardNumber, 30), rarity: text(input.rarity, 40),
+    year: text(input.year, 4), yearSeries: text(input.yearSeries, 160),
+    catalogCardId: text(input.catalogCardId, 80), sourceLanguage: text(input.sourceLanguage, 20),
+    sourceSetId: text(input.sourceSetId, 80), cardNumber: text(input.cardNumber, 30), rarity: text(input.rarity, 80),
     gradeLabel: text(input.gradeLabel, 60), certNumber, status,
     buyPrice: price(input.buyPrice), sellPrice: price(input.sellPrice), buyDate: text(input.buyDate, 20),
     soldDate: text(input.soldDate, 20), boughtFrom: text(input.boughtFrom, 120),
@@ -34,6 +36,8 @@ export function normalizeCard(input) {
 export function cardResponse(row) {
   return {
     id: row.id, game: row.game, name: row.name, setName: row.set_name, year: row.year,
+    yearSeries: row.year_series || '', catalogCardId: row.catalog_card_id || '',
+    sourceLanguage: row.source_language || '', sourceSetId: row.source_set_id || '',
     cardNumber: row.card_number, rarity: row.rarity, gradeLabel: row.grade_label,
     certNumber: row.cert_number, status: row.status, buyPrice: row.buy_price,
     sellPrice: row.sell_price, buyDate: row.buy_date, soldDate: row.sold_date,
@@ -45,7 +49,8 @@ export function cardResponse(row) {
 }
 
 export function cardValues(card) {
-  return [card.game, card.name, card.setName, card.year, card.cardNumber, card.rarity,
+  return [card.game, card.name, card.setName, card.year, card.yearSeries, card.catalogCardId,
+    card.sourceLanguage, card.sourceSetId, card.cardNumber, card.rarity,
     card.gradeLabel, card.certNumber, card.status, card.buyPrice, card.sellPrice,
     card.buyDate, card.soldDate, card.boughtFrom, card.soldTo, card.notes];
 }

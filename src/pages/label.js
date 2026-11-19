@@ -1,4 +1,5 @@
 import {findByCert} from '../store/cards.js';
+import {findCatalogCandidates, findCatalogCardById} from '../store/catalog.js';
 import {escapeHTML} from '../utils/format.js';
 import {normalizeCert} from '../utils/cert.js';
 
@@ -50,6 +51,27 @@ function emptyLabelPage(message) {
   return `<main class="app-page"><section class="surface-card empty-state"><h1>${message}</h1><p>Choose a saved Pokémon card from your vault first.</p><a class="btn btn-primary" href="#/vault">Open My Vault</a></section></main>`;
 }
 
+function numberKey(value) {
+  return String(value || '').trim().replace(/^#/, '').split('/')[0].replace(/^0+(?=\d)/, '').toLowerCase();
+}
+
+async function enrichFromExactCatalogMatch(card) {
+  if (card.catalogCardId) {
+    const match = await findCatalogCardById(card.catalogCardId);
+    return match ? {...card, name: match.name, setName: match.setName, year: match.year,
+      cardNumber: match.cardNumber, setId: match.setId, seriesId: match.seriesId, seriesName: match.seriesName} : card;
+  }
+  if (!card.name || !card.setName || !card.year || !card.cardNumber) return card;
+  const matches = await findCatalogCandidates({name: card.name, setName: card.setName, year: card.year, cardNumber: card.cardNumber});
+  const exact = matches.filter(match => match.name.toLowerCase() === card.name.toLowerCase()
+    && match.setName.toLowerCase() === card.setName.toLowerCase() && match.year === card.year
+    && numberKey(match.cardNumber) === numberKey(card.cardNumber));
+  if (exact.length !== 1) return card;
+  const match = exact[0];
+  return {...card, catalogCardId: match.id, sourceLanguage: card.sourceLanguage || 'en',
+    sourceSetId: card.sourceSetId || match.setId, setId: match.setId, seriesId: match.seriesId, seriesName: match.seriesName};
+}
+
 export async function label(cards = []) {
   const params = new URLSearchParams(location.hash.split('?')[1] || '');
   const cert = params.get('cert');
@@ -58,14 +80,15 @@ export async function label(cards = []) {
   if (String(card.game).toLowerCase() !== 'pokemon') return emptyLabelPage('This label template supports Pokémon cards only');
 
   const api = await labelRenderer();
-  const data = api.cardLabelData(card);
+  const labelCard = await enrichFromExactCatalogMatch(card);
+  const data = api.cardLabelData(labelCard);
   const errors = api.validateLabelData(data);
   const pair = errors.length ? null : await api.renderLabelSvgPair(data);
   const [frontSheet, backSheet] = await Promise.all([
     api.renderSheetSvg(printSheet, 'front'), api.renderSheetSvg(printSheet, 'back')
   ]);
   return `
-    <main class="app-page label-page" data-card-id="${escapeHTML(card.id || card.certNumber)}">
+    <main class="app-page label-page" data-card-id="${escapeHTML(card.id || card.certNumber)}" data-label-metadata-ready="${data.labelMetadataReady}">
       <header class="page-heading">
         <div class="page-eyebrow">PRINT WORKSPACE</div>
         <h1>Label settings</h1>
@@ -100,6 +123,7 @@ export async function label(cards = []) {
 
 function currentDraft() {
   const draft = Object.fromEntries([...document.querySelectorAll('[data-label-field]')].map(input => [input.dataset.labelField, input.value]));
+  draft.labelMetadataReady = document.querySelector('.label-page')?.dataset.labelMetadataReady !== 'false';
   draft.certNumber = normalizeCert(draft.certNumber) || draft.certNumber;
   return draft;
 }

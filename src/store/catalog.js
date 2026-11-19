@@ -1,4 +1,5 @@
 let catalogPromise;
+let catalogSetRarityOverrides = {};
 
 function normalize(value) {
   return String(value ?? '').trim().normalize('NFKC').toLocaleLowerCase();
@@ -16,9 +17,11 @@ function catalogRarity(value) {
 
 function imageUrl(card) {
   const separator = card.id.lastIndexOf('-');
-  if (!card.seriesId || separator < 1 || separator === card.id.length - 1) return '';
-  const parts = [card.language, card.seriesId, card.id.slice(0, separator), card.id.slice(separator + 1)];
-  return `https://assets.tcgdex.net/${parts.map(encodeURIComponent).join('/')}/low.webp`;
+  const setId = card.setId || (separator > 0 ? card.id.slice(0, separator) : '');
+  const localId = card.localId || (separator > 0 ? card.id.slice(separator + 1) : '');
+  if (!card.language || !card.seriesId || !setId || !localId) return '';
+  const query = new URLSearchParams({language: card.language, series: card.seriesId, set: setId, card: localId});
+  return `/api/catalog/image?${query}`;
 }
 
 async function loadCatalog() {
@@ -28,10 +31,16 @@ async function loadCatalog() {
       return response.json();
     })
     .then(data => {
-      if (!Array.isArray(data.cards) || ![1, 2].includes(data.schemaVersion)) throw new Error('Card catalog format is invalid.');
-      return data.cards.map(([id, language, name, setName, year, cardNumber, rarity, seriesId]) =>
-        ({id: String(id ?? ''), language: String(language ?? ''), name: String(name ?? ''), setName: String(setName ?? ''),
-          year: String(year ?? ''), cardNumber: String(cardNumber ?? ''), rarity: catalogRarity(rarity), seriesId: String(seriesId ?? '')}))
+      if (!Array.isArray(data.cards) || ![1, 2, 3, 4].includes(data.schemaVersion)) throw new Error('Card catalog format is invalid.');
+      catalogSetRarityOverrides = data.setRarityOverrides || {};
+      return data.cards.map(([id, language, name, setName, year, cardNumber, rarity, seriesId, setId, seriesName]) => {
+        const catalogSetId = String(setId ?? '');
+        const recordedRarity = catalogRarity(rarity);
+        const defaultRarity = language === 'en' ? catalogRarity(catalogSetRarityOverrides[catalogSetId]?.defaultRarity) : '';
+        return {id: String(id ?? ''), language: String(language ?? ''), name: String(name ?? ''), setName: String(setName ?? ''),
+          year: String(year ?? ''), cardNumber: String(cardNumber ?? ''), rarity: recordedRarity || defaultRarity,
+          seriesId: String(seriesId ?? ''), setId: catalogSetId, seriesName: String(seriesName ?? '')};
+      })
         .map(card => ({...card, imageUrl: imageUrl(card)}));
     });
   return catalogPromise;
@@ -68,10 +77,22 @@ export async function findCatalogCandidates(values, limit = 12) {
   }).slice(0, limit);
 }
 
-export async function getCatalogRarities() {
+export async function findCatalogCardById(id) {
   const cards = await loadCatalog();
-  return [...new Set(cards.filter(card => card.language === 'en').map(card => card.rarity).filter(Boolean))]
+  return cards.find(card => card.language === 'en' && card.id === String(id || '')) || null;
+}
+
+export async function getCatalogRarities({setId = '', setName = ''} = {}) {
+  const cards = await loadCatalog();
+  const normalizedSet = normalize(setName);
+  const scoped = cards.filter(card => card.language === 'en'
+    && (setId ? card.setId === setId : normalizedSet && normalize(card.setName) === normalizedSet));
+  const selectedSetId = setId || scoped[0]?.setId || '';
+  const setOverride = catalogSetRarityOverrides[selectedSetId] || {};
+  const override = Array.isArray(setOverride.rarities) ? setOverride.rarities : [];
+  const rarities = [...new Set([...scoped.map(card => card.rarity).filter(Boolean), ...override.map(catalogRarity).filter(Boolean)])]
     .sort((left, right) => left.localeCompare(right, 'en', {sensitivity: 'base'}));
+  return {rarities, noPrintedRarity: setOverride.noPrintedRarity === true};
 }
 
 function characterGrams(value) {
@@ -99,22 +120,67 @@ function imageMatch(card, fields) {
   const year = fields.year && card.year === fields.year ? 1 : 0;
   const language = fields.language && card.language === fields.language ? 1 : 0;
   const rarity = textSimilarity(card.rarity, fields.rarity);
-  const hasEvidence = name >= 0.24 || set >= 0.3 || number === 1;
+  const hasNameAndContext = name >= 0.5 && (set >= 0.3 || number === 1);
+  const hasSetAndNumber = set >= 0.5 && number === 1;
+  const hasEvidence = hasNameAndContext || hasSetAndNumber;
   return hasEvidence ? name * 12 + set * 7 + number * 11 + year * 4 + language * 1.5 + rarity : 0;
+}
+
+function englishImageMatch(card, fields) {
+  const name = textSimilarity(card.name, fields.englishName || (fields.language === 'en' ? fields.name : ''));
+  const set = textSimilarity(card.setName, fields.englishSetName || (fields.language === 'en' ? fields.setName : ''));
+  const number = numberKey(card.cardNumber) && numberKey(card.cardNumber) === numberKey(fields.cardNumber) ? 1 : 0;
+  const year = fields.year && card.year === fields.year ? 1 : 0;
+  const rarity = textSimilarity(card.rarity, fields.rarity);
+  const hasSetEvidence = !fields.englishSetName || set >= 0.5;
+  const hasNumberEvidence = !fields.cardNumber || number === 1;
+  const hasEvidence = name >= 0.65 && hasSetEvidence && hasNumberEvidence;
+  return hasEvidence ? name * 12 + set * 7 + number * 11 + year * 4 + rarity : 0;
+}
+
+function bestSourceCard(cards, fields) {
+  let best = null;
+  cards.forEach(card => {
+    if (fields.language && card.language !== fields.language) return;
+    const name = textSimilarity(card.name, fields.name);
+    const set = textSimilarity(card.setName, fields.setName);
+    const number = numberKey(card.cardNumber) && numberKey(card.cardNumber) === numberKey(fields.cardNumber);
+    if (name < 0.24 && !(set >= 0.3 && number)) return;
+    const score = imageMatch(card, fields);
+    if (score > 0 && (!best || score > best.score)) best = {card, score};
+  });
+  return best;
 }
 
 export async function findImageCandidates(fields, limit = 8) {
   const cards = await loadCatalog();
   const englishById = new Map(cards.filter(card => card.language === 'en').map(card => [card.id, card]));
   const bestMatches = new Map();
+  const sourceMatch = bestSourceCard(cards, fields);
   cards.forEach(source => {
-    const score = imageMatch(source, fields);
+    if (fields.language && source.language !== fields.language) return;
+    const sourceScore = imageMatch(source, fields);
     const english = englishById.get(source.id);
+    const score = fields.language === 'en' ? englishImageMatch(english || {}, fields) : sourceScore;
     if (score <= 0 || !english) return;
     const current = bestMatches.get(english.id);
     if (!current || score > current.score) {
-      bestMatches.set(english.id, {...english, previewImage: source.imageUrl || english.imageUrl, score});
+      bestMatches.set(english.id, {...english, catalogCardId: english.id,
+        previewImage: source.imageUrl || english.imageUrl,
+        previewImageFallback: source.imageUrl && source.imageUrl !== english.imageUrl ? english.imageUrl : '',
+        sourceLanguage: source.language, sourceSetId: source.setId, score});
     }
+  });
+  cards.filter(card => card.language === 'en').forEach(english => {
+    const matchScore = englishImageMatch(english, fields);
+    if (matchScore <= 0) return;
+    const score = matchScore + (sourceMatch?.score || 0) * 0.25;
+    const current = bestMatches.get(english.id);
+    if (current && current.score >= score) return;
+    bestMatches.set(english.id, {...english, catalogCardId: english.id,
+      previewImage: english.imageUrl, previewImageFallback: '',
+      sourceLanguage: fields.language || 'en',
+      sourceSetId: sourceMatch?.card.setId || (fields.language === 'en' ? english.setId : ''), score});
   });
   return [...bestMatches.values()].sort((left, right) => right.score - left.score
     || right.year.localeCompare(left.year) || left.name.localeCompare(right.name)).slice(0, limit);

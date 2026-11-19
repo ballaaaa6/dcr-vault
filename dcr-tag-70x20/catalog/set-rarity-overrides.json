@@ -1,0 +1,181 @@
+{
+  "schemaVersion": 1,
+  "sets": {
+    "30th-c": {
+      "rarities": ["Classic Collection"],
+      "defaultRarity": "Classic Collection",
+      "sources": [
+        "https://www.pokemon.com/static-assets/content-assets/cms2/pdf/trading-card-game/checklist/30c_web_cardlist_en.pdf"
+      ],
+      "reviewedAt": "2026-11-19"
+    },
+    "bog": {
+      "rarities": ["Promo"],
+      "defaultRarity": "Promo",
+      "sources": ["https://www.trainerdesk.net/tcg/best-of-game"],
+      "reviewedAt": "2026-11-19"
+    },
+    "fut2020": {
+      "rarities": ["Promo"],
+      "defaultRarity": "Promo",
+      "sources": ["https://bulbapedia.bulbagarden.net/wiki/FUT20"],
+      "reviewedAt": "2026-11-19"
+    },
+    "2021swsh": {
+      "rarities": ["Promo"],
+      "defaultRarity": "Promo",
+      "sources": ["https://bulbapedia.bulbagarden.net/wiki/MCD21"],
+      "reviewedAt": "2026-11-19"
+    },
+    "2022swsh": {
+      "rarities": ["Promo"],
+      "defaultRarity": "Promo",
+      "sources": ["https://bulbapedia.bulbagarden.net/wiki/MCD22"],
+      "reviewedAt": "2026-11-19"
+    },
+    "2023sv": {
+      "rarities": ["Promo"],
+      "defaultRarity": "Promo",
+      "sources": ["https://bulbapedia.bulbagarden.net/wiki/McDonald%27s_Collection_2023_%28TCG%29"],
+      "reviewedAt": "2026-11-19"
+    },
+    "2024sv": {
+      "rarities": ["Promo"],
+      "defaultRarity": "Promo",
+      "sources": ["https://bulbapedia.bulbagarden.net/wiki/McDonalds_Collection_2024_%28TCG%29"],
+      "reviewedAt": "2026-11-19"
+    },
+    "tk-bw-e": {
+      "rarities": [],
+      "noPrintedRarity": true,
+      "sources": ["https://bulbapedia.bulbagarden.net/wiki/Black_%26_White_Trainer_Kit"],
+      "reviewedAt": "2026-11-19"
+    },
+    "tk-bw-z": {
+      "rarities": [],
+      "noPrintedRarity": true,
+      "sources": ["https://bulbapedia.bulbagarden.net/wiki/Black_%26_White_Trainer_Kit"],
+      "reviewedAt": "2026-11-19"
+    },
+    "tk-dp-l": {
+      "rarities": [],
+      "noPrintedRarity": true,
+      "sources": ["https://bulbapedia.bulbagarden.net/wiki/Diamond_%26_Pearl_Trainer_Kit_(TCG)"],
+      "reviewedAt": "2026-11-19"
+    },
+    "tk-dp-m": {
+      "rarities": [],
+      "noPrintedRarity": true,
+      "sources": ["https://bulbapedia.bulbagarden.net/wiki/Diamond_%26_Pearl_Trainer_Kit_(TCG)"],
+      "reviewedAt": "2026-11-19"
+    },
+    "tk-ex-latia": {
+      "rarities": [],
+      "noPrintedRarity": true,
+      "sources": ["https://bulbapedia.bulbagarden.net/wiki/EX_Trainer_Kit"],
+      "reviewedAt": "2026-11-19"
+    },
+    "tk-ex-latio": {
+      "rarities": [],
+      "noPrintedRarity": true,
+      "sources": ["https://bulbapedia.bulbagarden.net/wiki/EX_Trainer_Kit"],
+      "reviewedAt": "2026-11-19"
+    },
+    "tk-ex-m": {
+      "rarities": [],
+      "noPrintedRarity": true,
+      "sources": ["https://bulbapedia.bulbagarden.net/wiki/Plusle_Half_Deck_(TCG)"],
+      "reviewedAt": "2026-11-19"
+    },
+    "tk-ex-p": {
+      "rarities": [],
+      "noPrintedRarity": true,
+      "sources": ["https://bulbapedia.bulbagarden.net/wiki/Plusle_Half_Deck_(TCG)"],
+      "reviewedAt": "2026-11-19"
+    },
+    "xy0": {
+      "rarities": [],
+      "noPrintedRarity": true,
+      "sources": ["https://www.codedyellow.com/kalos-starter-set-card-list/"],
+      "reviewedAt": "2026-11-19"
+    },
+    "2012bw": {
+      "rarities": [],
+      "noPrintedRarity": true,
+      "sources": ["https://bulbapedia.bulbagarden.net/wiki/McDonald%27s_Collection_2012"],
+      "reviewedAt": "2026-11-19"
+    },
+    "mfb": {
+      "rarities": [],
+      "noPrintedRarity": true,
+      "sources": ["https://checkpokemoncard.com/set/mfb/"],
+      "reviewedAt": "2026-11-19"
+    },
+    "ex5.5": {
+      "rarities": [],
+      "noPrintedRarity": true,
+      "sources": ["https://bulbapedia.bulbagarden.net/wiki/CC"],
+      "reviewedAt": "2026-11-19"
+    },
+    "2011bw": {
+      "rarities": [],
+      "noPrintedRarity": true,
+      "sources": ["https://cardmavin.com/pokemon/mcdonalds/mcdonalds-collection-2011"],
+      "reviewedAt": "2026-11-19"
+    },
+    "2014xy": {
+      "rarities": [],
+      "noPrintedRarity": true,
+      "sources": ["https://cardmavin.com/pokemon/mcdonalds/mcdonalds-collection-2014"],
+      "reviewedAt": "2026-11-19"
+    },
+    "2015xy": {
+      "rarities": [],
+      "noPrintedRarity": true,
+      "sources": ["https://cardmavin.com/pokemon/mcdonalds/mcdonalds-collection-2015"],
+      "reviewedAt": "2026-11-19"
+    },
+    "2016xy": {
+      "rarities": [],
+      "noPrintedRarity": true,
+      "sources": ["https://cardmavin.com/pokemon/mcdonalds/mcdonalds-collection-2016"],
+      "reviewedAt": "2026-11-19"
+    },
+    "2017sm": {
+      "rarities": [],
+      "noPrintedRarity": true,
+      "sources": ["https://cardmavin.com/pokemon/mcdonalds/mcdonalds-collection-2017"],
+      "reviewedAt": "2026-11-19"
+    },
+    "2018sm": {
+      "rarities": [],
+      "noPrintedRarity": true,
+      "sources": ["https://cardmavin.com/pokemon/mcdonalds/mcdonalds-collection-2018"],
+      "reviewedAt": "2026-11-19"
+    },
+    "2019sm": {
+      "rarities": [],
+      "noPrintedRarity": true,
+      "sources": ["https://cardmavin.com/pokemon/mcdonalds/mcdonalds-collection-2019"],
+      "reviewedAt": "2026-11-19"
+    },
+    "tk-hs-g": {
+      "rarities": [],
+      "noPrintedRarity": true,
+      "sources": ["https://pennysleeve.app/sets/english/hs-trainer-kit-raichu"],
+      "reviewedAt": "2026-11-19"
+    },
+    "tk-hs-r": {
+      "rarities": [],
+      "noPrintedRarity": true,
+      "sources": ["https://pennysleeve.app/sets/english/hs-trainer-kit-raichu"],
+      "reviewedAt": "2026-11-19"
+    },
+    "ru1": {
+      "rarities": [],
+      "noPrintedRarity": true,
+      "sources": ["https://www.codedyellow.com/pokemon-rumble-card-list/"],
+      "reviewedAt": "2026-11-19"
+    }
+  }
+}
