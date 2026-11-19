@@ -132,8 +132,10 @@ function englishImageMatch(card, fields) {
   const number = numberKey(card.cardNumber) && numberKey(card.cardNumber) === numberKey(fields.cardNumber) ? 1 : 0;
   const year = fields.year && card.year === fields.year ? 1 : 0;
   const rarity = textSimilarity(card.rarity, fields.rarity);
+  const translatedNumberFallback = fields.language !== 'en' && name >= 0.95
+    && (!fields.englishSetName || set >= 0.5);
   const hasSetEvidence = !fields.englishSetName || set >= 0.5;
-  const hasNumberEvidence = !fields.cardNumber || number === 1;
+  const hasNumberEvidence = !fields.cardNumber || number === 1 || translatedNumberFallback;
   const hasEvidence = name >= 0.65 && hasSetEvidence && hasNumberEvidence;
   return hasEvidence ? name * 12 + set * 7 + number * 11 + year * 4 + rarity : 0;
 }

@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-20
+
+- Keep English catalog candidates for translated cards when their printed collector number differs from the English printing; use strong name evidence and let the user confirm the match.
+
 ## 2026-11-19
 
 - Give card-reading failures a clear explanation and a retry action for temporary service errors.
