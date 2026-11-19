@@ -160,12 +160,27 @@ function cleanReading(value) {
 }
 
 function responseDiagnostics(output, parsed) {
-  const content = output?.choices?.[0]?.message?.content;
+  const choices = Array.isArray(output?.choices) ? output.choices : [];
+  const choice = choices[0];
+  const message = choice?.message;
+  const content = message?.content;
+  const usage = output?.usage;
   const keysIn = value => isObject(value) ? READING_KEYS.filter(key => key in value) : [];
   return {
     outputKeys: isObject(output) ? Object.keys(output).slice(0, 12) : [],
+    choiceCount: choices.length,
+    finishReason: choice?.finish_reason || null,
     contentType: Array.isArray(content) ? 'array' : typeof content,
-    contentKeys: keysIn(content), parsedKeys: keysIn(parsed), textLength: outputText(output).length
+    contentKeys: keysIn(content),
+    parsedKeys: keysIn(parsed),
+    textLength: outputText(output).length,
+    refusalPresent: Boolean(message?.refusal),
+    toolCallCount: Array.isArray(message?.tool_calls) ? message.tool_calls.length : 0,
+    usage: usage ? {
+      promptTokens: Number.isFinite(usage.prompt_tokens) ? usage.prompt_tokens : null,
+      completionTokens: Number.isFinite(usage.completion_tokens) ? usage.completion_tokens : null,
+      totalTokens: Number.isFinite(usage.total_tokens) ? usage.total_tokens : null
+    } : null
   };
 }
 
@@ -186,9 +201,14 @@ export async function onRequestPost({request, env}) {
   if (image.body.byteLength > IMAGE_MAX_BYTES) return error('Each photo must be 10 MB or smaller.', 413);
   try {
     const dataUrl = 'data:' + contentType + ';base64,' + base64(image.body);
-    const output = await env.AI.run(MODEL, {messages: [{role: 'user', content: [
-      {type: 'text', text: PROMPT}, {type: 'image_url', image_url: {url: dataUrl}}
-    ]}], max_tokens: 1200, temperature: 0});
+    const output = await env.AI.run(MODEL, {
+      messages: [{role: 'user', content: [
+        {type: 'text', text: PROMPT}, {type: 'image_url', image_url: {url: dataUrl}}
+      ]}],
+      max_completion_tokens: 2048,
+      temperature: 0,
+      chat_template_kwargs: {enable_thinking: false}
+    });
     const parsed = parseOutput(output);
     const fields = cleanReading(parsed);
     if (!fields) {
