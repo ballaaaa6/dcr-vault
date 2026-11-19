@@ -126,18 +126,29 @@ function imageMatch(card, fields) {
   return hasEvidence ? name * 12 + set * 7 + number * 11 + year * 4 + language * 1.5 + rarity : 0;
 }
 
+function collectorNumberProximity(cardNumber, sourceNumber) {
+  const cardKey = numberKey(cardNumber);
+  const sourceKey = numberKey(sourceNumber);
+  if (!cardKey || !sourceKey) return 0;
+  const card = Number(cardKey);
+  const source = Number(sourceKey);
+  if (!Number.isFinite(card) || !Number.isFinite(source)) return 0;
+  return Math.max(0, 2 - Math.abs(card - source) / 10);
+}
+
 function englishImageMatch(card, fields) {
   const name = textSimilarity(card.name, fields.englishName || (fields.language === 'en' ? fields.name : ''));
-  const set = textSimilarity(card.setName, fields.englishSetName || (fields.language === 'en' ? fields.setName : ''));
+  const englishSetName = fields.englishSetName || (fields.language === 'en' ? fields.setName : '');
+  const set = textSimilarity(card.setName, englishSetName);
+  const broadTranslatedSet = fields.language !== 'en' && normalize(englishSetName) === normalize(card.seriesName);
+  const specificSet = broadTranslatedSet ? 0 : set;
   const number = numberKey(card.cardNumber) && numberKey(card.cardNumber) === numberKey(fields.cardNumber) ? 1 : 0;
   const year = fields.year && card.year === fields.year ? 1 : 0;
   const rarity = textSimilarity(card.rarity, fields.rarity);
-  const translatedNumberFallback = fields.language !== 'en' && name >= 0.95
-    && (!fields.englishSetName || set >= 0.5);
-  const hasSetEvidence = !fields.englishSetName || set >= 0.5;
-  const hasNumberEvidence = !fields.cardNumber || number === 1 || translatedNumberFallback;
-  const hasEvidence = name >= 0.65 && hasSetEvidence && hasNumberEvidence;
-  return hasEvidence ? name * 12 + set * 7 + number * 11 + year * 4 + rarity : 0;
+  const translatedNameEvidence = fields.language !== 'en' && name >= 0.95;
+  const hasEvidence = translatedNameEvidence || (name >= 0.65 && (specificSet >= 0.3 || number === 1));
+  const numberHint = translatedNameEvidence ? collectorNumberProximity(card.cardNumber, fields.cardNumber) : 0;
+  return hasEvidence ? name * 12 + specificSet * 7 + number * 11 + year * 4 + rarity + numberHint : 0;
 }
 
 function bestSourceCard(cards, fields) {
@@ -154,7 +165,7 @@ function bestSourceCard(cards, fields) {
   return best;
 }
 
-export async function findImageCandidates(fields, limit = 8) {
+export async function findImageCandidates(fields, limit = 12) {
   const cards = await loadCatalog();
   const englishById = new Map(cards.filter(card => card.language === 'en').map(card => [card.id, card]));
   const bestMatches = new Map();
