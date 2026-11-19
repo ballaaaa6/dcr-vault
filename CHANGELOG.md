@@ -1,12 +1,9 @@
 # Changelog
-
 ## 2026-11-20
-
+- Harden the Gemma reader to accept nested and alternate response shapes, preserve numeric identity values, recover JSON from fenced or prose-wrapped responses, and prioritize identity fields with a smaller output budget.
 - Keep English catalog candidates for translated cards when their printed collector number differs from the English printing; use strong name evidence and let the user confirm the match.
 - Treat a series name as broad context, not an exact set match; rank translated-card candidates by English name, observed year and rarity, and nearby collector numbers so a localized printing does not get replaced by an unrelated same-name card.
-
 ## 2026-11-19
-
 - Give card-reading failures a clear explanation and a retry action for temporary service errors.
 - Scope rarity choices to the selected set, add source-verified uniform rarity values for McDonald's collections, document the verified no-rarity sets, use the approved year/series map for existing cards, and pair non-English scans with English catalog cards even when catalog IDs differ.
 - Route candidate artwork through a same-origin catalog image endpoint, add same-card English artwork fallback, and show saved front photos in My Vault without unrelated sample-card placeholders.
@@ -28,9 +25,7 @@
 - Fix Pages deployment to use the root Wrangler configuration without the unsupported custom config path option.
 - Fix the logout Function to import the session cookie helper from the sessions module.
 - Set the Pages compatibility date to the latest date accepted by Cloudflare's UTC deployment runtime.
-
 ## 2026-11-19
-
 - Add a GitHub Actions workflow to build and deploy the site to the existing Cloudflare Pages project.
 - Document the production deployment flow and required GitHub repository secrets.
 - Document the Cloudflare Pages deployment token rotation date.
