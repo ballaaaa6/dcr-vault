@@ -28,6 +28,7 @@
 .identification-dialog-header p{margin:0;color:var(--dcr-gray);font-size:12px}
 .identification-close{width:40px;height:40px;flex:0 0 40px;padding:0;font-size:24px}
 .identification-dialog-content{min-height:0;overflow:auto;padding:18px 24px 24px}
+.identification-error-actions{display:flex;justify-content:flex-start;margin-top:14px}
 .identification-match-note{margin:0;color:var(--dcr-gray);font-size:11px}
 .identification-options{display:grid;gap:7px;margin-top:14px}
 .identification-option{display:grid;grid-template-columns:58px minmax(0,1fr);align-items:center;gap:14px;width:100%;min-height:82px;padding:8px 12px;border:1px solid var(--dcr-border);border-radius:14px;background:var(--dcr-white);color:var(--dcr-black);text-align:left;cursor:pointer}

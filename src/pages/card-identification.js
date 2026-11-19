@@ -91,8 +91,11 @@ function chooseCandidate(index) {
   document.getElementById('m-grade').focus();
 }
 
-function showError(message) {
-  showDialog(`<p class="catalog-empty">${escapeHTML(message)}</p>`);
+function showError(message, retryable) {
+  const retryButton = retryable
+    ? '<div class="identification-error-actions"><button class="btn btn-primary" data-retry-identification type="button">Try again</button></div>'
+    : '';
+  showDialog(`<div><p class="catalog-empty">${escapeHTML(message)}</p>${retryButton}</div>`);
 }
 
 async function analyzeFront() {
@@ -108,7 +111,7 @@ async function analyzeFront() {
     const candidates = await findImageCandidates(result.fields);
     if (version === analysisVersion) showCandidates(result.fields, candidates);
   } catch (error) {
-    if (version === analysisVersion) showError(safeErrorMessage(error));
+    if (version === analysisVersion) showError(safeErrorMessage(error), canRetryIdentification(error));
   } finally {
     analysisBusy = false;
     button.textContent = 'Identify card';
@@ -118,8 +121,16 @@ async function analyzeFront() {
 
 function safeErrorMessage(error) {
   const message = error?.message || '';
-  return /gemma/i.test(message) ? 'Card reading is unavailable. Try another front photo or enter the details manually.'
-    : message || 'Card reading is unavailable. Try another front photo or enter the details manually.';
+  if (/not configured/i.test(message)) return 'Card reading is not configured for this deployment.';
+  if (error?.status === 503 || /temporarily unavailable/i.test(message)) return 'Card reading is temporarily unavailable. Try again in a moment.';
+  if (error?.status === 502 || /could not read/i.test(message) || /gemma/i.test(message)) return 'Card details could not be read from this photo. Try a clearer front image or try again.';
+  if (!error?.status) return 'Could not connect to card reading. Check your connection and try again.';
+  return message || 'Card reading could not be completed. Try again in a moment.';
+}
+
+function canRetryIdentification(error) {
+  if (/not configured/i.test(error?.message || '')) return false;
+  return !error?.status || error.status >= 500;
 }
 
 function hideHoverPreview() {
@@ -156,6 +167,11 @@ window.addEventListener('intake-front-image-cleared', () => {
 
 document.addEventListener('click', event => {
   if (event.target.closest('#identify-card')) { analyzeFront(); return; }
+  if (event.target.closest('[data-retry-identification]')) {
+    document.getElementById('identification-result')?.close();
+    analyzeFront();
+    return;
+  }
   if (event.target.closest('[data-close-identification]')) { document.getElementById('identification-result')?.close(); return; }
   if (event.target.id === 'identification-result') { event.target.close(); return; }
   const candidate = event.target.closest('[data-image-candidate]');
