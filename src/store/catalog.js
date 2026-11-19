@@ -14,6 +14,13 @@ function catalogRarity(value) {
   return ['none', 'null', 'undefined'].includes(rarity.toLowerCase()) ? '' : rarity;
 }
 
+function imageUrl(card) {
+  const separator = card.id.lastIndexOf('-');
+  if (!card.seriesId || separator < 1 || separator === card.id.length - 1) return '';
+  const parts = [card.language, card.seriesId, card.id.slice(0, separator), card.id.slice(separator + 1)];
+  return `https://assets.tcgdex.net/${parts.map(encodeURIComponent).join('/')}/low.webp`;
+}
+
 async function loadCatalog() {
   catalogPromise ||= fetch('/data/card-catalog.json', {cache: 'force-cache'})
     .then(response => {
@@ -21,10 +28,11 @@ async function loadCatalog() {
       return response.json();
     })
     .then(data => {
-      if (!Array.isArray(data.cards)) throw new Error('Card catalog format is invalid.');
-      return data.cards.map(([id, language, name, setName, year, cardNumber, rarity]) =>
+      if (!Array.isArray(data.cards) || ![1, 2].includes(data.schemaVersion)) throw new Error('Card catalog format is invalid.');
+      return data.cards.map(([id, language, name, setName, year, cardNumber, rarity, seriesId]) =>
         ({id: String(id ?? ''), language: String(language ?? ''), name: String(name ?? ''), setName: String(setName ?? ''),
-          year: String(year ?? ''), cardNumber: String(cardNumber ?? ''), rarity: catalogRarity(rarity)}));
+          year: String(year ?? ''), cardNumber: String(cardNumber ?? ''), rarity: catalogRarity(rarity), seriesId: String(seriesId ?? '')}))
+        .map(card => ({...card, imageUrl: imageUrl(card)}));
     });
   return catalogPromise;
 }
@@ -49,7 +57,7 @@ export async function findCatalogCandidates(values, limit = 12) {
   const filters = Object.entries(values).filter(([, value]) => String(value ?? '').trim());
   if (!filters.length) return [];
   const cards = await loadCatalog();
-  const ordered = cards.filter(card => matches(card, filters))
+  const ordered = cards.filter(card => card.language === 'en' && matches(card, filters))
     .sort((left, right) => relevance(right, filters) - relevance(left, filters)
       || right.year.localeCompare(left.year) || left.name.localeCompare(right.name));
   const seen = new Set();
@@ -58,6 +66,12 @@ export async function findCatalogCandidates(values, limit = 12) {
     seen.add(card.id);
     return true;
   }).slice(0, limit);
+}
+
+export async function getCatalogRarities() {
+  const cards = await loadCatalog();
+  return [...new Set(cards.filter(card => card.language === 'en').map(card => card.rarity).filter(Boolean))]
+    .sort((left, right) => left.localeCompare(right, 'en', {sensitivity: 'base'}));
 }
 
 function characterGrams(value) {
@@ -79,8 +93,8 @@ function textSimilarity(leftValue, rightValue) {
 }
 
 function imageMatch(card, fields) {
-  const name = textSimilarity(card.name, fields.name);
-  const set = textSimilarity(card.setName, fields.setName);
+  const name = Math.max(textSimilarity(card.name, fields.name), textSimilarity(card.name, fields.englishName));
+  const set = Math.max(textSimilarity(card.setName, fields.setName), textSimilarity(card.setName, fields.englishSetName));
   const number = numberKey(card.cardNumber) && numberKey(card.cardNumber) === numberKey(fields.cardNumber) ? 1 : 0;
   const year = fields.year && card.year === fields.year ? 1 : 0;
   const language = fields.language && card.language === fields.language ? 1 : 0;
@@ -91,8 +105,17 @@ function imageMatch(card, fields) {
 
 export async function findImageCandidates(fields, limit = 8) {
   const cards = await loadCatalog();
-  return cards.map(card => ({card, score: imageMatch(card, fields)}))
-    .filter(item => item.score > 0)
-    .sort((left, right) => right.score - left.score || right.card.year.localeCompare(left.card.year))
-    .slice(0, limit).map(item => item.card);
+  const englishById = new Map(cards.filter(card => card.language === 'en').map(card => [card.id, card]));
+  const bestMatches = new Map();
+  cards.forEach(source => {
+    const score = imageMatch(source, fields);
+    const english = englishById.get(source.id);
+    if (score <= 0 || !english) return;
+    const current = bestMatches.get(english.id);
+    if (!current || score > current.score) {
+      bestMatches.set(english.id, {...english, previewImage: source.imageUrl || english.imageUrl, score});
+    }
+  });
+  return [...bestMatches.values()].sort((left, right) => right.score - left.score
+    || right.year.localeCompare(left.year) || left.name.localeCompare(right.name)).slice(0, limit);
 }

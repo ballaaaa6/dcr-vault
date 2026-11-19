@@ -3,12 +3,19 @@ import {findImageCandidates} from '../store/catalog.js';
 import {escapeHTML} from '../utils/format.js';
 import {hideAllCatalogSuggestions} from './search-catalog.js';
 
-const FIELDS = [['name', 'Name'], ['setName', 'Set'], ['year', 'Year'], ['cardNumber', 'Card number'],
-  ['language', 'Language'], ['rarity', 'Rarity']];
 let candidateCards = [];
 let extractedFields = {};
 let analysisVersion = 0;
 let analysisBusy = false;
+
+export function identificationDialogMarkup() {
+  return `<dialog id="identification-result" class="identification-dialog" aria-labelledby="identification-title">
+    <header class="identification-dialog-header"><div><div class="page-eyebrow">CARD MATCH</div><h2 id="identification-title">Choose the matching card</h2><p>Card names and set names are shown in English for label printing.</p></div>
+      <button class="btn btn-ghost identification-close" type="button" data-close-identification aria-label="Close card matches">×</button></header>
+    <div id="identification-dialog-content" class="identification-dialog-content" aria-live="polite"></div>
+    <img id="identification-hover-preview" class="identification-hover-preview" alt="" hidden>
+  </dialog>`;
+}
 
 function updateButton() {
   const button = document.getElementById('identify-card');
@@ -19,8 +26,11 @@ function updateButton() {
 function clearResult() {
   candidateCards = [];
   extractedFields = {};
-  const panel = document.getElementById('identification-result');
-  if (panel) { panel.innerHTML = ''; panel.hidden = true; }
+  const dialog = document.getElementById('identification-result');
+  if (dialog?.open) dialog.close();
+  const content = document.getElementById('identification-dialog-content');
+  if (content) content.innerHTML = '';
+  hideHoverPreview();
 }
 
 export function resetCardIdentificationState() {
@@ -28,25 +38,29 @@ export function resetCardIdentificationState() {
   clearResult();
 }
 
-function readingMarkup(fields) {
-  return FIELDS.map(([key, label]) => `<span class="identification-value"><strong>${label}:</strong> ${escapeHTML(fields[key] || 'Not read')}</span>`).join('');
-}
-
 function candidateMarkup(card, index) {
-  const details = [card.setName, card.year, card.cardNumber, card.rarity, card.language?.toUpperCase()].filter(Boolean);
-  return `<button class="catalog-option" data-image-candidate="${index}" type="button"><strong>${escapeHTML(card.name)}</strong><span>${escapeHTML(details.join(' · '))}</span></button>`;
+  const image = card.previewImage || card.imageUrl;
+  const imageMarkup = image ? `<img class="identification-option-image" src="${escapeHTML(image)}" alt="" loading="eager">` : '';
+  const details = [card.setName, card.year, card.cardNumber && `#${card.cardNumber}`, card.rarity].filter(Boolean);
+  const previewAttrs = image ? `data-preview-src="${escapeHTML(image)}" data-preview-alt="${escapeHTML(card.name)}" data-has-image="true"` : '';
+  return `<button class="identification-option" data-image-candidate="${index}" ${previewAttrs} type="button">${imageMarkup}
+    <span class="identification-option-copy"><strong>${escapeHTML(card.name)}</strong><span>${escapeHTML(details.join(' · '))}</span></span></button>`;
 }
 
 function showCandidates(fields, cards) {
   candidateCards = cards;
   extractedFields = fields;
-  const panel = document.getElementById('identification-result');
-  if (!panel) return;
-  const options = cards.length ? cards.map(candidateMarkup).join('') : '<p class="catalog-empty">No close catalog match. Review the reading and enter the details manually.</p>';
-  panel.innerHTML = `<strong>Gemma 4 reading · review before saving</strong><div class="identification-values">${readingMarkup(fields)}</div>
-    <p class="identification-match-note">Choose the catalog record that matches this card. This only fills the form; it does not save the card.</p>
-    <div class="identification-options">${options}</div>`;
-  panel.hidden = false;
+  const options = cards.length ? cards.map(candidateMarkup).join('') : '<p class="catalog-empty">No English catalog match was found. Enter the English card name and set manually.</p>';
+  showDialog(`<p class="identification-match-note">Select a card to fill the English catalog details in Block 2. This will not save the card.</p><div class="identification-options">${options}</div>`);
+}
+
+function showDialog(content) {
+  const dialog = document.getElementById('identification-result');
+  const panel = document.getElementById('identification-dialog-content');
+  if (!dialog || !panel) return;
+  hideHoverPreview();
+  panel.innerHTML = content;
+  if (!dialog.open) dialog.showModal();
 }
 
 function chooseCandidate(index) {
@@ -62,16 +76,15 @@ function chooseCandidate(index) {
   document.getElementById('m-rarity').value = card.rarity;
   window.__intakeCatalogGame = 'pokemon';
   hideAllCatalogSuggestions();
-  const rarityNote = card.rarity ? '' : ' The catalog has no rarity for this card; verify it manually.';
-  document.getElementById('manual-status').textContent = `Catalog candidate selected. Check the details, then enter Cert and Grade.${rarityNote}`;
+  const rarityNote = card.rarity ? '' : ' The catalog has no rarity for this card; leave it blank or choose a value from the dropdown.';
+  document.getElementById('manual-status').textContent = `English catalog details selected. Check the details, then enter Cert and Grade.${rarityNote}`;
+  document.getElementById('identification-result').close();
+  hideHoverPreview();
   document.getElementById('m-grade').focus();
 }
 
 function showError(message) {
-  const panel = document.getElementById('identification-result');
-  if (!panel) return;
-  panel.innerHTML = `<p class="catalog-empty">${escapeHTML(message)}</p>`;
-  panel.hidden = false;
+  showDialog(`<p class="catalog-empty">${escapeHTML(message)}</p>`);
 }
 
 async function analyzeFront() {
@@ -81,21 +94,43 @@ async function analyzeFront() {
   const version = ++analysisVersion;
   analysisBusy = true;
   button.disabled = true;
-  button.textContent = 'Reading with Gemma 4…';
-  const panel = document.getElementById('identification-result');
-  panel.innerHTML = '<p class="catalog-empty">Reading the front image and comparing it with the card catalog…</p>';
-  panel.hidden = false;
+  button.textContent = 'Reading card details…';
   try {
     const result = await identifyCardImage(file);
     const candidates = await findImageCandidates(result.fields);
     if (version === analysisVersion) showCandidates(result.fields, candidates);
   } catch (error) {
-    if (version === analysisVersion) showError(error.message || 'Card image analysis is unavailable.');
+    if (version === analysisVersion) showError(safeErrorMessage(error));
   } finally {
     analysisBusy = false;
-    button.textContent = 'Read front with Gemma 4';
+    button.textContent = 'Read card details';
     updateButton();
   }
+}
+
+function safeErrorMessage(error) {
+  const message = error?.message || '';
+  return /gemma/i.test(message) ? 'Card reading is unavailable. Try another front photo or enter the details manually.'
+    : message || 'Card reading is unavailable. Try another front photo or enter the details manually.';
+}
+
+function hideHoverPreview() {
+  const preview = document.getElementById('identification-hover-preview');
+  if (preview) { preview.hidden = true; preview.removeAttribute('src'); }
+}
+
+function showHoverPreview(option, event) {
+  const preview = document.getElementById('identification-hover-preview');
+  if (!preview || !option.dataset.previewSrc || event.pointerType === 'touch') return;
+  preview.src = option.dataset.previewSrc;
+  preview.alt = `${option.dataset.previewAlt} card preview`;
+  const bounds = option.getBoundingClientRect();
+  const width = 220;
+  const height = 304;
+  const left = bounds.right + width + 14 < window.innerWidth ? bounds.right + 14 : bounds.left - width - 14;
+  preview.style.left = `${Math.max(12, left)}px`;
+  preview.style.top = `${Math.max(12, Math.min(window.innerHeight - height - 12, bounds.top))}px`;
+  preview.hidden = false;
 }
 
 document.addEventListener('change', event => {
@@ -113,6 +148,30 @@ window.addEventListener('intake-front-image-cleared', () => {
 
 document.addEventListener('click', event => {
   if (event.target.closest('#identify-card')) { analyzeFront(); return; }
+  if (event.target.closest('[data-close-identification]')) { document.getElementById('identification-result')?.close(); return; }
+  if (event.target.id === 'identification-result') { event.target.close(); return; }
   const candidate = event.target.closest('[data-image-candidate]');
   if (candidate) chooseCandidate(Number(candidate.dataset.imageCandidate));
 });
+
+document.addEventListener('pointerover', event => {
+  const option = event.target.closest('[data-preview-src]');
+  if (option && !option.contains(event.relatedTarget)) showHoverPreview(option, event);
+});
+
+document.addEventListener('pointerout', event => {
+  const option = event.target.closest('[data-preview-src]');
+  if (option && !option.contains(event.relatedTarget)) hideHoverPreview();
+});
+
+document.addEventListener('scroll', hideHoverPreview, true);
+
+document.addEventListener('error', event => {
+  if (event.target.matches('.identification-option-image')) {
+    const option = event.target.closest('[data-image-candidate]');
+    option?.removeAttribute('data-preview-src');
+    option?.removeAttribute('data-has-image');
+    event.target.remove();
+  }
+  if (event.target.id === 'identification-hover-preview') hideHoverPreview();
+}, true);

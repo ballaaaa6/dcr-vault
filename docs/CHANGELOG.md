@@ -1,4 +1,11 @@
 # Changelog
+## English card intake and match picker - 2026-11-19
+- Moved image-reading matches into a centered modal with compact card previews and larger hover previews.
+- Resolved localized image matches to English catalog names and sets, and made rarity and grade selectable dropdowns.
+- Added English-equivalent reading fields for catalog matching while keeping selected and displayed names in English.
+- Prevented non-Latin card names or set names from being saved or printed on labels.
+- Aligned Add Card form fields and documented the English label-text flow.
+
 ## Multi-user sign-in and private storage - 2026-11-19
 - Added Google self-registration, server-verified sessions, owner-scoped D1 storage, and a responsive DCR login screen.
 - Added an explicit selected-card import from legacy browser storage without uploading photos or removing the local copy.

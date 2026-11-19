@@ -29,13 +29,14 @@
 
 ## Card suggestions
 
-- `public/data/card-catalog.json` is a compact TCGdex metadata index generated from the pinned local catalog snapshot. It contains names, sets, years, collector numbers, languages, and rarity; it contains no card images or collection records.
-- Add Card filters that static index in the browser as the user types. Selecting a candidate fills the identifying fields while keeping Cert and grade independent.
+- `public/data/card-catalog.json` is a compact TCGdex metadata index generated from the pinned local catalog snapshot. It contains names, sets, years, collector numbers, languages, rarity, and series IDs; it contains no card images or collection records.
+- Add Card suggestions and saved card names/sets use English (`en`) catalog entries so printed labels stay in English. Image reading can rank localized catalog records, then resolves candidates to their English entry by catalog ID. Intake and label printing reject non-Latin name/set text.
+- Candidate previews derive low-resolution image URLs from the TCGdex series, set, card, and language IDs. The browser loads a thumbnail only for the picker; unavailable images stay hidden, and artwork is not bundled into the app.
 
 ## AI-assisted image intake
 
 - On explicit button click, the authenticated `/api/cards/identify` Pages Function sends only the selected front image to the fixed `@cf/google/gemma-4-26b-a4b-it` Workers AI model. It does not write the image or model result to D1 or Oracle storage.
-- The Function returns bounded text fields only. The browser ranks those fields against the static TCGdex index using name, set, year, collector number, rarity, and language evidence. A person selects a catalog candidate; the result is only a draft and nothing is saved until Add to Vault is clicked.
+- The Function returns bounded printed text and, when confident, English-equivalent name/set fields. The browser ranks them against the multilingual TCGdex index using name, set, year, collector number, rarity, and language evidence, then presents English catalog candidates with optional artwork previews in a modal. A person selects a catalog candidate; the result is only a draft and nothing is saved until Add to Vault is clicked.
 - The web label editor reads the saved D1 card and does not call Gemma. The separate offline label toolkit already has its own image/OCR-to-catalog lookup and ambiguity checks; it is not part of this Add Card AI path.
 - Catalog rows may omit the full collector-number denominator or rarity. A missing catalog value stays blank for manual review; the app does not fill it from model guesses.
 

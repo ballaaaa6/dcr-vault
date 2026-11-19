@@ -1,8 +1,9 @@
 import {addCard, checkCert, deleteCardImage, uploadCardImage} from '../store/cards.js';
-import {catalogField, hideAllCatalogSuggestions, installCatalogSuggestions} from './search-catalog.js';
+import {catalogField, hideAllCatalogSuggestions, installCatalogSuggestions, populateRarityOptions} from './search-catalog.js';
 import {escapeHTML} from '../utils/format.js';
+import {hasNonLatinScript} from '../utils/language.js';
 import {makeCert, normalizeCert} from '../utils/cert.js';
-import {resetCardIdentificationState} from './card-identification.js';
+import {identificationDialogMarkup, resetCardIdentificationState} from './card-identification.js';
 
 const IMAGE_LIMIT = 10 * 1024 * 1024;
 const IMAGE_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp']);
@@ -31,13 +32,12 @@ export function search() {
         <section class="surface-card intake-card" aria-labelledby="scan-title">
           <div class="section-heading"><span class="section-number">01</span><div><h2 id="scan-title">Card images</h2><p>Choose a front and/or back photo to store in your private image vault.</p></div></div>
           <div class="upload-grid">${photoField('front', 'Front image')}${photoField('back', 'Back image')}</div>
-          <div class="identification-actions"><button class="btn btn-ghost" id="identify-card" type="button" disabled>Read front with Gemma 4</button></div>
+          <div class="identification-actions"><button class="btn btn-ghost" id="identify-card" type="button" disabled>Read card details</button></div>
           <p class="identification-notice">The selected front photo is sent to Cloudflare Workers AI for reading. The analysis is not saved; the photo is stored in your Oracle image vault only when you save the card.</p>
-          <div id="identification-result" class="identification-result" aria-live="polite" hidden></div>
           <p id="photo-status" class="import-status" role="status" aria-live="polite"></p>
         </section>
         <section class="surface-card intake-card" aria-labelledby="manual-title">
-          <div class="section-heading"><span class="section-number">02</span><div><h2 id="manual-title">Card details</h2><p>Type or choose a card; suggestions narrow as details are entered.</p></div></div>
+          <div class="section-heading"><span class="section-number">02</span><div><h2 id="manual-title">Card details</h2><p>Choose English card details for label printing; Cert and Grade stay independent.</p></div></div>
           <div class="field-grid">
             ${catalogField('name', 'Name', 'e.g. Charizard')}
             <div class="form-field cert-field"><label for="m-cert">Cert number</label><span class="cert-input-row">
@@ -49,14 +49,19 @@ export function search() {
             ${catalogField('setName', 'Set', 'e.g. Base Set')}
             ${catalogField('year', 'Year', 'e.g. 1999')}
             ${catalogField('cardNumber', 'Card number', 'e.g. 4')}
-            ${catalogField('rarity', 'Rarity', 'e.g. Double rare')}
-            <label class="form-field"><span>Grade</span><input class="form-control" id="m-grade" maxlength="60" placeholder="e.g. GEM MT 10"></label>
+            <div class="form-field"><label for="m-rarity">Rarity</label><select class="form-control" id="m-rarity"><option value="">No rarity recorded</option></select></div>
+            <div class="form-field"><label for="m-grade">Grade</label><select class="form-control" id="m-grade"><option value="">Choose grade</option><option value="GEM MT 10">GEM MT 10</option><option value="GEM MT 9">GEM MT 9</option><option value="RAW">RAW</option></select></div>
           </div>
           <button class="btn btn-primary manual-submit" id="manual-submit" type="button">Add to Vault</button>
           <p id="manual-status" class="import-status" role="status" aria-live="polite"></p>
         </section>
       </div>
+      ${identificationDialogMarkup()}
     </main>`;
+}
+
+export function initializeSearchPage() {
+  populateRarityOptions();
 }
 
 function setCertState(available, message, state = '') {
@@ -199,6 +204,12 @@ async function saveIntake() {
   const status = document.getElementById('manual-status');
   const certInput = document.getElementById('m-cert');
   const certNumber = normalizeCert(certInput.value);
+  const englishFields = ['m-name', 'm-setName'].map(id => document.getElementById(id).value.trim());
+  if (englishFields.some(hasNonLatinScript)) {
+    status.textContent = 'Use English card and set names from the catalog before saving.';
+    document.getElementById('m-name').focus();
+    return;
+  }
   if (!document.getElementById('m-name').value.trim()) { status.textContent = 'Enter a card name.'; document.getElementById('m-name').focus(); return; }
   if (!certNumber) { setCertState(false, 'Enter 1 to 8 digits.', 'error'); certInput.focus(); return; }
   if (certInput.dataset.certAvailable !== 'true' && !await checkCertInput()) { certInput.focus(); return; }

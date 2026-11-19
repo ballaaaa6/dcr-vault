@@ -67,7 +67,7 @@ The export deliberately marks layout boxes and text roles as unannotated until t
 
 ## Web-app search index
 
-The web app builds a small metadata-only suggestions asset from this snapshot. Run `python tools/build-card-catalog-index.py` after importing the pinned source snapshot. It writes `public/data/card-catalog.json` with card names, set names, release years, collector numbers, language codes, and rarity; card artwork remains in the local image library.
+The web app builds a small metadata-only suggestions asset from this snapshot. Run `python tools/build-card-catalog-index.py` after importing the pinned source snapshot. It writes `public/data/card-catalog.json` with card names, set names, release years, collector numbers, language codes, rarity, and series IDs used to locate optional picker thumbnails; card artwork remains in the local image library.
 
 To select a small, varied set of local card images for parser/layout annotation, run:
 

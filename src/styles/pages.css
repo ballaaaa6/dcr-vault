@@ -19,19 +19,33 @@
 .upload-clear{justify-self:start;padding:7px 12px;font-size:11px}
 .identification-actions{margin-top:14px}
 .identification-notice{margin:10px 0 0;color:var(--dcr-gray);font-size:11px}
-.identification-result{display:grid;gap:10px;margin-top:14px;padding:14px;border:1px solid var(--dcr-border);border-radius:14px}
-.identification-result[hidden]{display:none}
-.identification-result>strong{font-size:13px}
-.identification-values{display:flex;flex-wrap:wrap;gap:6px}
-.identification-value{padding:5px 8px;border-radius:8px;background:var(--dcr-red-light);font-size:11px}
+.identification-dialog{position:fixed;width:min(820px,calc(100% - 32px));max-width:none;max-height:min(86vh,900px);margin:auto;padding:0;overflow:hidden;border:1px solid var(--dcr-border);border-radius:22px;background:var(--dcr-white);color:var(--dcr-black);box-shadow:var(--shadow-lg)}
+.identification-dialog[open]{display:grid;grid-template-rows:auto minmax(0,1fr)}
+.identification-dialog::backdrop{background:rgba(0,0,0,.45);backdrop-filter:blur(3px)}
+.identification-dialog-header{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;padding:22px 24px 16px;border-bottom:1px solid var(--dcr-border)}
+.identification-dialog-header .page-eyebrow{margin-bottom:5px}
+.identification-dialog-header h2{margin:0 0 5px;font-size:21px}
+.identification-dialog-header p{margin:0;color:var(--dcr-gray);font-size:12px}
+.identification-close{width:40px;height:40px;flex:0 0 40px;padding:0;font-size:24px}
+.identification-dialog-content{min-height:0;overflow:auto;padding:18px 24px 24px}
 .identification-match-note{margin:0;color:var(--dcr-gray);font-size:11px}
-.identification-options{display:grid;gap:5px;max-height:260px;overflow:auto}
+.identification-options{display:grid;gap:7px;margin-top:14px}
+.identification-option{display:grid;grid-template-columns:58px minmax(0,1fr);align-items:center;gap:14px;width:100%;min-height:82px;padding:8px 12px;border:1px solid var(--dcr-border);border-radius:14px;background:var(--dcr-white);color:var(--dcr-black);text-align:left;cursor:pointer}
+.identification-option:not([data-has-image]){grid-template-columns:minmax(0,1fr)}
+.identification-option:hover,.identification-option:focus-visible{border-color:var(--dcr-red);outline:0;background:var(--dcr-red-light)}
+.identification-option-image{display:block;width:54px;height:74px;object-fit:contain;border-radius:6px;background:var(--dcr-white)}
+.identification-option-copy{display:grid;min-width:0;gap:5px}
+.identification-option-copy strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px}
+.identification-option-copy>span{color:var(--dcr-gray);font-size:12px}
+.identification-hover-preview{position:fixed;z-index:100;max-width:220px;max-height:304px;padding:4px;border:1px solid var(--dcr-border);border-radius:12px;background:var(--dcr-white);box-shadow:var(--shadow-lg);object-fit:contain;pointer-events:none}
+.identification-hover-preview[hidden]{display:none}
 .panel-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:20px}
 .scan-result{margin-top:18px}
 .scan-result:empty{display:none}
 .scan-result .list-row{flex-wrap:wrap}
-.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.field-grid{display:grid;grid-template-columns:1fr 1fr;align-items:start;gap:15px}
 .form-field{display:grid;gap:7px;margin-bottom:16px;color:var(--dcr-black);font-size:13px;font-weight:650}
+.field-grid .form-field{align-self:start;margin-bottom:0}
 .form-field>label{color:inherit;font-size:inherit;font-weight:inherit}
 .form-control{width:100%;min-width:0;min-height:46px;padding:10px 13px;border:1px solid var(--dcr-border);border-radius:12px;background:var(--dcr-white);color:var(--dcr-black);font-weight:450}
 .form-control:focus{border-color:var(--dcr-red);outline:0;box-shadow:0 0 0 3px var(--dcr-red-light)}
@@ -127,6 +141,11 @@
 @media(max-width:540px){
   .surface-card{padding:19px;border-radius:18px}
   .upload-grid,.field-grid,.label-previews{grid-template-columns:1fr}
+  .identification-dialog{width:calc(100% - 20px);max-height:90vh;border-radius:18px}
+  .identification-dialog-header{padding:18px 18px 14px}
+  .identification-dialog-header h2{font-size:18px}
+  .identification-dialog-content{padding:15px 16px 18px}
+  .identification-hover-preview{display:none}
   .vault-toolbar{align-items:stretch;flex-wrap:wrap}
   .vault-query{flex:1 1 100%}
   .vault-status{flex:1;width:auto}

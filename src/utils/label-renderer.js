@@ -4,6 +4,7 @@ import labelRules from '../../dcr-tag-70x20/catalog-label-rules.json';
 import frontMasterUrl from '../../dcr-tag-70x20/source/dcr-tag-front.svg?url';
 import backMasterUrl from '../../dcr-tag-70x20/source/dcr-tag-back.svg?url';
 import sheetMasterUrl from '../../dcr-tag-70x20/source/a4-40up-portrait.svg?url';
+import {hasNonLatinScript} from './language.js';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 const XLINK_NS = 'http://www.w3.org/1999/xlink';
@@ -91,6 +92,7 @@ export function validateLabelData(data) {
   const required = ['yearSeries', 'name', 'setName', 'cardNumber', 'condition', 'rarity', 'certNumber'];
   const missing = required.find(key => !value[key]);
   if (missing) return [`${missing.replace(/[A-Z]/g, letter => ` ${letter.toLowerCase()}`)} is required.`];
+  if ([value.name, value.setName].some(hasNonLatinScript)) return ['Card name and set must use English text.'];
   if (!/^\d{8}$/.test(value.certNumber)) return ['Cert number must contain exactly 8 digits.'];
   if (!CONDITION_OPTIONS.includes(value.condition)) return ['Choose a condition from the DCR list.'];
   if (!RARITY_CODES.has(value.rarity)) return ['Enter a supported DCR rarity code.'];

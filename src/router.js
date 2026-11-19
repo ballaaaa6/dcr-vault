@@ -1,7 +1,7 @@
 import {header, bindHeader} from './components/header.js';
 import {getCurrentUser} from './auth.js';
 import {home} from './pages/home.js';
-import {search} from './pages/search.js';
+import {initializeSearchPage, search} from './pages/search.js';
 import {vault} from './pages/vault.js';
 import {label} from './pages/label.js';
 import {loginPage, initializeLogin} from './pages/login.js';
@@ -50,6 +50,7 @@ export async function render() {
   if (version !== renderVersion || (location.hash || '#/') !== hash) return;
   app.innerHTML = header(path, user) + content + footer();
   bindHeader();
+  if (path === '#/search') initializeSearchPage();
   window.scrollTo(0, 0);
 }
 
