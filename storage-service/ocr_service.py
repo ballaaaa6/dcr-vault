@@ -7,6 +7,7 @@ import hmac
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -101,12 +102,13 @@ def run_pipeline(image: Path, work: Path) -> dict[str, Any]:
     command = [
         sys.executable, str(PIPELINE), str(image),
         "--strategy", "ocr-first", "--disable-image-recovery", "--lookup-only",
+        "--language", "auto",
         "--scan-root", str(scan_root), "--output-root", str(output_root),
         "--ocr-timeout", os.environ.get("DCR_OCR_TIMEOUT_SECONDS", "150"),
         "--match-timeout", os.environ.get("DCR_MATCH_TIMEOUT_SECONDS", "45"),
     ]
     try:
-        process = subprocess.run(command, capture_output=True, text=True, timeout=205, check=False)
+        process = subprocess.run(command, capture_output=True, text=True, timeout=205, check=False, cwd=TOOLKIT_ROOT)
     except subprocess.TimeoutExpired as exc:
         raise ServiceError(504, "The OCR pipeline timed out.") from exc
     run_dirs = list(scan_root.iterdir()) if scan_root.exists() else []
@@ -146,7 +148,11 @@ class Handler(BaseHTTPRequestHandler):
             require_token(self)
             if self.path != "/v1/health":
                 raise ServiceError(404, "Route not found.")
-            send_json(self, 200, {"ok": True, "catalogReady": (TOOLKIT_ROOT / "catalog" / "cards.sqlite").is_file()})
+            send_json(self, 200, {
+                "ok": True,
+                "catalogReady": (TOOLKIT_ROOT / "catalog" / "cards.sqlite").is_file(),
+                "tesseractFallbackReady": bool(shutil.which("tesseract")),
+            })
         except ServiceError as exc:
             send_json(self, exc.status, {"error": str(exc)})
 

@@ -18,7 +18,7 @@ Use --lookup-only to inspect candidates without generating a label:
 python dcr-tag-70x20/lookup_card.py --scan-json dcr-tag-70x20/examples/mudkip-scan-keys.json --lookup-only
 ~~~
 
-The matcher reads catalog/cards.sqlite in read-only mode. It generates a mockup only when the printed language, card name, and collector number match and enough independent evidence is present. A clearly read set key must agree with the candidate. Ambiguous printings, high-confidence conflicts, missing rarity mappings, or unsupported label layouts stop before rendering.
+The matcher reads catalog/cards.sqlite in read-only mode. It generates a mockup only when the printed language, card name, and collector number match. A single clean catalog record can be accepted from a confident exact card name plus complete collector number, including a matching denominator; otherwise it needs independent card details. A clearly read set key must agree with the candidate. Ambiguous printings, high-confidence conflicts, missing rarity mappings, or unsupported label layouts stop before rendering.
 
 Match-report states include:
 

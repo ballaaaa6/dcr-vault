@@ -28,6 +28,7 @@ PIPELINE_DIR = Path(__file__).resolve().parent
 CARD_ROOT = PIPELINE_DIR.parent
 WORKSPACE_ROOT = CARD_ROOT.parent
 PADDLE_READER = PIPELINE_DIR / "paddle_reader.py"
+TESSERACT_READER = PIPELINE_DIR / "tesseract_reader.py"
 LOOKUP_SCRIPT = CARD_ROOT / "lookup_card.py"
 LAYOUT_PROFILES_PATH = CARD_ROOT / "catalog" / "layout-profiles.json"
 IMAGE_INDEX_PATH = CARD_ROOT / "catalog" / "card-image-library" / "image-index.sqlite"
@@ -47,7 +48,7 @@ def write_json(path: Path, payload: dict[str, Any]) -> None:
 def resolve_ocr_python(argument: str | None) -> Path:
     configured = argument or os.environ.get("DCR_PADDLE_PYTHON")
     if configured:
-        candidate = Path(configured).expanduser().resolve()
+        candidate = Path(os.path.abspath(Path(configured).expanduser()))
         if not candidate.is_file():
             raise FileNotFoundError(f"Configured PaddleOCR Python was not found: {candidate}")
         return candidate
@@ -58,8 +59,35 @@ def resolve_ocr_python(argument: str | None) -> Path:
     ]
     for candidate in candidates:
         if candidate.is_file():
-            return candidate.resolve()
-    return Path(sys.executable).resolve()
+            return Path(os.path.abspath(candidate))
+    return Path(os.path.abspath(sys.executable))
+
+
+def run_tesseract_fallback(
+    ocr_python: Path,
+    image_path: Path,
+    output_path: Path,
+    work_dir: Path,
+    timeout: int,
+) -> tuple[dict[str, Any] | None, dict[str, Any]]:
+    command = [str(ocr_python), str(TESSERACT_READER), "--image", str(image_path),
+               "--output-json", str(output_path), "--work-dir", str(work_dir)]
+    try:
+        output_path.unlink(missing_ok=True)
+        process = subprocess.run(command, capture_output=True, text=True, check=False, timeout=timeout)
+        details = {"command": command, "return_code": process.returncode,
+                   "stdout": process.stdout, "stderr": process.stderr}
+    except (OSError, subprocess.TimeoutExpired) as exc:
+        details = {"command": command, "return_code": None, "error": f"{type(exc).__name__}: {exc}"}
+        return None, details
+    if process.returncode != 0 or not output_path.is_file():
+        return None, details
+    try:
+        result = json.loads(output_path.read_text(encoding="utf-8-sig"))
+    except (OSError, json.JSONDecodeError) as exc:
+        details["error"] = f"Invalid Tesseract output: {type(exc).__name__}"
+        return None, details
+    return (result if isinstance(result, dict) else None), details
 
 
 def find_match_report(report_root: Path) -> Path | None:
@@ -1346,32 +1374,33 @@ def run_pipeline(args: argparse.Namespace) -> tuple[int, dict[str, Any]]:
         ocr_start = time.perf_counter()
         try:
             ocr_process = subprocess.run(command, capture_output=True, text=True, check=False, timeout=args.ocr_timeout)
+            primary_details = {"command": command, "return_code": ocr_process.returncode,
+                               "stdout": ocr_process.stdout, "stderr": ocr_process.stderr}
         except subprocess.TimeoutExpired as exc:
-            timings["ocr_seconds"] = round(time.perf_counter() - ocr_start, 4)
-            result.update(status="ocr_timeout", reason=f"PaddleOCR exceeded {args.ocr_timeout}s")
-            result["ocr_error"] = str(exc)
-            timings["total_seconds"] = round(time.perf_counter() - started, 4)
-            write_json(run_dir / "ocr-process.json", {"command": command, "stdout": exc.stdout, "stderr": exc.stderr})
-            write_json(result_path, result)
-            return 10, result
+            ocr_process = subprocess.CompletedProcess(command, 124, "", "")
+            primary_details = {"command": command, "return_code": 124, "timeout": args.ocr_timeout,
+                               "stdout": str(exc.stdout or ""), "stderr": str(exc.stderr or "")}
+
+        raw_ocr = None
+        if ocr_process.returncode == 0 and raw_ocr_path.is_file():
+            try:
+                raw_ocr = json.loads(raw_ocr_path.read_text(encoding="utf-8-sig"))
+            except (OSError, json.JSONDecodeError) as exc:
+                primary_details["output_error"] = f"{type(exc).__name__}: invalid OCR JSON"
+        reader_details = {"paddle": primary_details}
+        if not isinstance(raw_ocr, dict):
+            raw_ocr, fallback_details = run_tesseract_fallback(
+                ocr_python, image_path, raw_ocr_path, reader_work_dir, min(args.ocr_timeout, 45),
+            )
+            reader_details["tesseract_fallback"] = fallback_details
+            result["identity_source"] = "tesseract_fallback"
+        else:
+            result["identity_source"] = "ocr"
         timings["ocr_seconds"] = round(time.perf_counter() - ocr_start, 4)
-        result["identity_source"] = "ocr"
-        write_json(run_dir / "ocr-process.json", {
-            "command": command,
-            "return_code": ocr_process.returncode,
-            "stdout": ocr_process.stdout,
-            "stderr": ocr_process.stderr,
-        })
-        if ocr_process.returncode != 0 or not raw_ocr_path.is_file():
-            result.update(status="ocr_error", reason="PaddleOCR did not produce a result", ocr_exit_code=ocr_process.returncode)
-            result["ocr_stderr"] = (ocr_process.stderr or "")[-4000:]
-            timings["total_seconds"] = round(time.perf_counter() - started, 4)
-            write_json(result_path, result)
-            return 10, result
-        try:
-            raw_ocr = json.loads(raw_ocr_path.read_text(encoding="utf-8-sig"))
-        except (OSError, json.JSONDecodeError) as exc:
-            result.update(status="ocr_error", reason=f"Invalid OCR result JSON: {exc}")
+        write_json(run_dir / "ocr-process.json", reader_details)
+        if not isinstance(raw_ocr, dict):
+            result.update(status="ocr_error", reason="PaddleOCR and Tesseract could not produce OCR data",
+                          ocr_exit_code=ocr_process.returncode)
             timings["total_seconds"] = round(time.perf_counter() - started, 4)
             write_json(result_path, result)
             return 10, result

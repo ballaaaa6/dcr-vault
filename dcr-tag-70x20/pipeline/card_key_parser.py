@@ -42,6 +42,42 @@ def _number_digits(value: str) -> str:
     return re.sub(r"\D", "", value.translate(table))
 
 
+def _detect_language(lines: list[dict[str, Any]]) -> str:
+    text = " ".join(line["text"] for line in lines)
+    if re.search(r"[\u0e00-\u0e7f]", text):
+        return "th"
+    if re.search(r"[\uac00-\ud7af]", text):
+        return "ko"
+    if re.search(r"[\u3040-\u30ff]", text):
+        return "ja"
+    if re.search(r"[\u4e00-\u9fff]", text):
+        simplified = set("这门车马龙云国学书东万与为后发台边叶电气体长实听见说过还让进对开关点线区书飞万张风号旧")
+        traditional = set("這門車馬龍雲國學書東與為後發臺邊葉電氣體長實聽見說過還讓進對開關點線區飛張風號舊")
+        if any(character in simplified for character in text):
+            return "zh-cn"
+        if any(character in traditional for character in text):
+            return "zh-tw"
+        return "zh-tw"
+    return "en"
+
+
+def _stage_value(text: str, language: str) -> str:
+    match = STAGE_RE.search(text.upper().replace("STAGEI", "STAGE1").replace("STAGE L", "STAGE1"))
+    if match:
+        token = re.sub(r"\s+", "", match.group(1).upper())
+        return "Basic" if token == "BASIC" else "Stage1" if token.endswith("1") else "Stage2"
+    compact = "".join(character for character in text.casefold()
+                      if character.isalnum() or unicodedata.category(character).startswith("M"))
+    stages = {
+        "th": {"พื้นฐาน": "Basic", "ระยะ1": "Stage1", "ระยะที่1": "Stage1", "ระยะ2": "Stage2", "ระยะที่2": "Stage2"},
+        "ja": {"たね": "Basic", "1進化": "Stage1", "2進化": "Stage2"},
+        "ko": {"기본": "Basic", "1진화": "Stage1", "2진화": "Stage2"},
+        "zh-tw": {"基礎": "Basic", "1階進化": "Stage1", "2階進化": "Stage2"},
+        "zh-cn": {"基础": "Basic", "1阶进化": "Stage1", "2阶进化": "Stage2"},
+    }
+    return stages.get(language, {}).get(compact, "")
+
+
 def flatten_lines(payload: dict[str, Any]) -> list[dict[str, Any]]:
     width, height = (payload.get("image_size") or [0, 0])[:2]
     if not width or not height:
@@ -87,6 +123,7 @@ def parse_card_keys(
         raise ValueError(f"Unsupported attack parser mode: {attack_mode}")
 
     lines = flatten_lines(payload)
+    language = _detect_language(lines) if language == "auto" else language
     width, height = payload.get("image_size", [0, 0])[:2]
     keys: dict[str, Any] = {"language": language}
     confidence: dict[str, float] = {"language": 1.0}
@@ -130,7 +167,9 @@ def parse_card_keys(
     for line in lines:
         x0, y0, x1, y1 = line["bbox_normalized"]
         raw = line["text"].strip()
-        if y0 > 0.18 or not re.search(r"[A-Za-z]", raw):
+        if y0 > 0.18 or not any(character.isalpha() for character in raw):
+            continue
+        if _stage_value(raw, language):
             continue
         if DELTA_SPECIES_RE.search(raw):
             delta_species_markers.append(line)
@@ -144,8 +183,12 @@ def parse_card_keys(
         if cleaned and len(cleaned) <= 32:
             # Prefer a centered title line over stage text or a corner symbol.
             center_x = (x0 + x1) / 2
+            if language != "en" and not 0.24 <= center_x <= 0.86:
+                continue
             center_penalty = abs(center_x - 0.48)
-            title_candidates.append((line["confidence"] - center_penalty * 0.3, int(y0 * 10000), line, cleaned))
+            title_band_bonus = 0.12 if line.get("pass_id") == "title_band_3x" else 0.0
+            title_candidates.append((line["confidence"] + title_band_bonus - center_penalty * 0.3,
+                                     int(y0 * 10000), line, cleaned))
     if title_candidates:
         _, _, line, name = max(title_candidates, key=lambda item: item[0])
         delta_marker = max(delta_species_markers, key=lambda item: item["confidence"], default=None)
@@ -184,12 +227,9 @@ def parse_card_keys(
 
     stage_candidates: list[tuple[float, dict[str, Any], str]] = []
     for line in lines:
-        match = STAGE_RE.search(line["text"].upper().replace("STAGEI", "STAGE1").replace("STAGE L", "STAGE1"))
-        if not match:
-            continue
-        token = re.sub(r"\s+", "", match.group(1).upper())
-        value = "Basic" if token == "BASIC" else "Stage1" if token.endswith("1") else "Stage2"
-        stage_candidates.append((line["confidence"], line, value))
+        value = _stage_value(line["text"], language)
+        if value:
+            stage_candidates.append((line["confidence"], line, value))
     if stage_candidates:
         score, line, value = max(stage_candidates, key=lambda item: item[0])
         add("stage", line["text"], value, score, line)
@@ -267,7 +307,7 @@ def parse_card_keys(
             reason = "sentence_or_description_too_long"
         elif reason is None and ignored_attack_lines.search(candidate_name):
             reason = "contains_non_attack_marker"
-        elif reason is None and not re.search(r"[A-Za-z]", candidate_name):
+        elif reason is None and not any(character.isalpha() for character in candidate_name):
             reason = "no_name_text"
         elif reason is None and attack_mode == "layout_recovery" and sentence_like.search(candidate_name):
             reason = "sentence_like_text"

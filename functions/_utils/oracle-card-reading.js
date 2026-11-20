@@ -11,11 +11,18 @@ async function postOracle(endpoint, path, body, contentType, timeoutMs) {
       method: 'POST', headers: {'Content-Type': contentType, 'X-DCR-OCR-Token': endpoint.token},
       body, redirect: 'error', signal: AbortSignal.timeout(timeoutMs)
     });
-    if (!response.ok) return null;
+    if (!response.ok) {
+      console.warn('Oracle OCR request returned an error.', {path, status: response.status});
+      return {status: 'unavailable', reason: `Oracle OCR returned HTTP ${response.status}.`};
+    }
     const result = await response.json().catch(() => null);
-    return result && typeof result === 'object' && !Array.isArray(result) ? result : null;
-  } catch {
-    return null;
+    return result && typeof result === 'object' && !Array.isArray(result)
+      ? result : {status: 'unavailable', reason: 'Oracle OCR returned an invalid response.'};
+  } catch (cause) {
+    const timedOut = cause?.name === 'TimeoutError' || cause?.name === 'AbortError';
+    console.warn('Oracle OCR request could not complete.', {path, reason: timedOut ? 'timeout' : 'network'});
+    return {status: 'unavailable', reason: timedOut
+      ? 'Oracle OCR timed out.' : 'Oracle OCR service could not be reached.'};
   }
 }
 

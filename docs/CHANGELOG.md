@@ -1,4 +1,10 @@
 # Changelog
+## ARM64 OCR recovery - 2026-11-20
+- Added a Tesseract OCR fallback for the Oracle ARM64 service when Paddle native inference fails, while preserving the existing card-key parser and catalog lookup flow.
+- Added script detection and Thai name/stage parsing, including a title-band OCR pass for split Thai glyphs.
+- Accepted one clean catalog record when the OCR name and complete collector number (including denominator) match confidently.
+- Made the service health response report Tesseract fallback availability and exposed privacy-safe Oracle OCR failure reasons to the Add Card picker.
+
 ## OCR-first production rollout - 2026-11-20
 - Installed and enabled the OCR service on the Ubuntu ARM64 Oracle VM with the pinned PaddleOCR runtime and the private 42,599-card catalog.
 - Added the HTTPS OCR proxy while preserving the existing media-store route and stored the shared token in Oracle's protected environment file and the Cloudflare Pages production secret.

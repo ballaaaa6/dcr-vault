@@ -22,6 +22,8 @@ Install the repository under `/opt/dcr-vault-ocr`, then provision the private ca
 
 ~~~sh
 npm ci --prefix /opt/dcr-vault-ocr/dcr-tag-70x20/catalog
+sudo apt-get update
+sudo apt-get install -y tesseract-ocr tesseract-ocr-tha
 python3 -m venv /opt/dcr-vault-ocr/.venv-ocr
 /opt/dcr-vault-ocr/.venv-ocr/bin/python -m pip install -r /opt/dcr-vault-ocr/dcr-tag-70x20/pipeline/requirements-ocr.txt
 /opt/dcr-vault-ocr/.venv-ocr/bin/python /opt/dcr-vault-ocr/dcr-tag-70x20/catalog/import_tcgdex_catalog.py
@@ -33,7 +35,7 @@ sudoedit /etc/dcr-vault-ocr.env
 
 Put `DCR_OCR_TOKEN=<64-character random hex secret>` in the environment file, then copy the same value into the Cloudflare Pages secret `ORCL_OCR_TOKEN`. Keep this value out of shell history and source control. Install the `/ocr/v1/` location from `nginx-ip-origin.conf` in the active TLS server block, then run `systemctl daemon-reload`, `systemctl enable --now dcr-vault-ocr.service`, `nginx -t`, and `systemctl reload nginx`. The OCR unit is separate from `dcr-vault-image-store.service` and does not change its port, account, or media directory.
 
-The requirements file was verified on Windows/Python 3.10; Oracle is ARM64. Verify PaddlePaddle 3.2.0 and PaddleOCR 3.7.0 install and import on the VM before enabling the OCR unit. If the ARM64 runtime is unsupported, use a supported Python CPU host and keep the same private HTTPS API contract.
+PaddlePaddle 3.2.0 and PaddleOCR 3.7.0 import on ARM64, but native inference can segfault on this architecture. Paddle remains the primary reader; if its subprocess crashes, times out, or returns invalid output, `image_to_label.py` invokes `pipeline/tesseract_reader.py`. The adapter emits the same OCR line schema, then the existing parser detects the printed script and runs the same catalog recovery and lookup. The service passes `--language auto`; the standalone CLI keeps its English default. `/v1/health` reports `tesseractFallbackReady` so a missing system binary is visible. Tesseract is an OCR fallback only; Gemma still runs only when OCR cannot resolve the card.
 
 ## Data model and cleanup
 

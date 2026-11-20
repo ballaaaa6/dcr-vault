@@ -903,6 +903,13 @@ def choose_match(
     if len(clean_core) == 1 and clean_core[0]["match"]["secondary_matches"]:
         return "matched", clean_core[0], "One exact name/number record also matches independent card details."
     if len(clean_core) == 1:
+        candidate = clean_core[0]
+        complete_number = "denominator" in candidate["match"]["matches"]
+        reliable_name = confidence_for(confidence, "name") >= 0.75
+        reliable_number = confidence_for(confidence, "collector_number") >= 0.80
+        if complete_number and reliable_name and reliable_number:
+            return "matched", candidate, "Exact name and complete collector number identify one clean catalog record."
+    if len(clean_core) == 1:
         return "ambiguous", None, "One name/number candidate exists, but no independent detail confirms its printing."
     return "ambiguous", None, "Several records share the scanned name and number; provide a set or more card details."
 
