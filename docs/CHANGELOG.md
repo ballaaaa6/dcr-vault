@@ -1,4 +1,10 @@
 # Changelog
+## Gemini card identification - 2026-11-21
+- Replaced the Oracle OCR-first / Gemma-fallback identification route with a single server-side Gemini `gemini-3.5-flash-lite` request.
+- Added structured JSON extraction, confidence-gated unique catalog matching, and ranked review candidates that never auto-select.
+- Disclosed Gemini image processing in the Add Card intake flow.
+- Kept Oracle image storage for saved photos and documented the Pages `GEMINI_API_KEY` secret and Gemini privacy boundary.
+
 ## ARM64 OCR recovery - 2026-11-20
 - Added a Tesseract OCR fallback for the Oracle ARM64 service when Paddle native inference fails, while preserving the existing card-key parser and catalog lookup flow.
 - Added script detection and Thai name/stage parsing, including a title-band OCR pass for split Thai glyphs.

@@ -42,6 +42,16 @@ function numberMatches(card, observed) {
   return !input.denominator || !!count && input.denominator === String(Number(count));
 }
 
+function confidentIdentity(fields) {
+  const confidence = fields.fieldConfidence || {};
+  if (fields.language !== 'en' && !fields.setName && !/\/\s*\d+/.test(fields.cardNumber || '')) return false;
+  const identityFields = ['name', 'language'];
+  if (fields.cardNumber) identityFields.push('cardNumber');
+  if (fields.setName) identityFields.push('setName');
+  if (!fields.cardNumber && !fields.setName) return false;
+  return identityFields.every(field => Number(confidence[field] || 0) >= 0.82);
+}
+
 function attacks(card) {
   if (Array.isArray(card.metadata?.attacks)) return card.metadata.attacks;
   return Array.isArray(card.attacks) ? card.attacks : [];
@@ -183,14 +193,51 @@ function directEnglishCandidates(cards, fields) {
     && (!fields.year || card.year === fields.year))
     .map(card => ({...card, catalogCardId: card.id, previewImage: card.imageUrl, previewImageFallback: card.imageUrlFallback || '',
       sourceLanguage: 'en', sourceSetId: card.setId, sourceCardNumber: fields.cardNumber,
-      matchScore: 100, matchEvidence: ['name', 'set', 'collector number']}));
+      matchScore: 100, matchEvidence: ['name', 'set', 'collector number'], autoSelect: confidentIdentity(fields)}));
+}
+
+function sameIdEnglishCandidate(cards, source, fields, autoSelect = false) {
+  const english = cards.find(card => card.language === 'en' && card.id === source.id);
+  if (!english) return null;
+  return {...english, catalogCardId: english.id, previewImage: source.imageUrl || english.imageUrl,
+    previewImageFallback: source.imageUrl ? source.imageUrlFallback || '' : english.imageUrlFallback || '',
+    sourceCardId: source.id, sourceCardNumber: fields.cardNumber || source.cardNumber,
+    sourceLanguage: source.language, sourceSetId: source.setId, matchScore: 100,
+    matchEvidence: ['exact localized catalog identity'], autoSelect};
+}
+
+function reviewCandidates(cards, fields, limit) {
+  const query = fields.englishName || (fields.language === 'en' ? fields.name : '');
+  const needle = compact(query);
+  if (!needle) return [];
+  return cards.filter(card => card.language === 'en' && cardNames(card).has(needle))
+    .map(card => {
+      const features = cardFeatures(fields, card);
+      const setMatch = fields.englishSetName && setNames(card).has(compact(fields.englishSetName));
+      const numberMatch = fields.language === 'en' && numberMatches(card, fields.cardNumber);
+      const yearMatch = fields.year && card.year === fields.year;
+      const score = 35 + features.score + (setMatch ? 18 : 0) + (numberMatch ? 18 : 0) + (yearMatch ? 8 : 0);
+      const evidence = [setMatch && 'English set', numberMatch && 'collector number', yearMatch && 'year',
+        features.hpExact && 'HP', features.artistExact && 'illustrator', features.damages > 0 && 'attack damage']
+        .filter(Boolean);
+      return {...card, catalogCardId: card.id, previewImage: card.imageUrl,
+        previewImageFallback: card.imageUrlFallback || '', sourceLanguage: fields.language || 'en',
+        sourceSetId: card.setId, matchScore: score, matchEvidence: evidence, autoSelect: false};
+    })
+    .sort((left, right) => right.matchScore - left.matchScore || right.year.localeCompare(left.year)
+      || left.name.localeCompare(right.name))
+    .slice(0, limit);
 }
 
 export function findImageCandidatesFromCatalog(cards, fields, limit = 8) {
   const direct = directEnglishCandidates(cards, fields);
-  if (direct.length) return direct.slice(0, limit).map(card => ({...card, autoSelect: direct.length === 1}));
+  if (direct.length) return direct.slice(0, limit).map(card => ({...card,
+    autoSelect: direct.length === 1 && confidentIdentity(fields)}));
   const sourceMatches = sourceCards(cards, fields);
   if (!sourceMatches.length) return [];
+  const exactCounterparts = sourceMatches.map(({card}) => sameIdEnglishCandidate(cards, card, fields,
+    sourceMatches.length === 1 && confidentIdentity(fields))).filter(Boolean);
+  if (exactCounterparts.length) return exactCounterparts.slice(0, limit);
   const english = cards.filter(card => card.language === 'en');
   const candidates = new Map();
   sourceMatches.forEach(({card: source}) => english.forEach(card => {
@@ -203,8 +250,13 @@ export function findImageCandidatesFromCatalog(cards, fields, limit = 8) {
   if (!ranked.length) return [];
   const credible = ranked.filter(card => card.matchScore >= Math.max(58, ranked[0].matchScore - 20)).slice(0, limit);
   const margin = credible.length > 1 ? credible[0].matchScore - credible[1].matchScore : Infinity;
-  if (credible[0].matchScore >= 80 && (credible.length === 1 || credible[0].matchScore >= 88 && margin >= 15)) {
+  if (credible[0].matchScore >= 80 && confidentIdentity(fields)
+      && (credible.length === 1 || credible[0].matchScore >= 88 && margin >= 15)) {
     return [{...credible[0], autoSelect: true}];
   }
   return credible.map(card => ({...card, autoSelect: false}));
+}
+
+export function findImageReviewCandidatesFromCatalog(cards, fields, limit = 12) {
+  return reviewCandidates(cards, fields, limit);
 }

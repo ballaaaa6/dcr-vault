@@ -1,4 +1,10 @@
 # Changelog
+## 2026-11-21 - Gemini card identification
+- Replaced Oracle OCR and Gemma fallback calls in Add Card with one server-side `gemini-3.5-flash-lite` image-reading request.
+- Added structured field parsing, safe quota/configuration errors, confidence-gated catalog auto-fill, and non-automatic English catalog review suggestions when an exact match is unavailable.
+- Disclosed Gemini image processing in the Add Card intake flow and kept the API key out of Git and browser code.
+- Kept Oracle media storage for saved card photos, removed unused OCR/Gemma Pages adapters and Workers AI binding, and documented the Gemini Pages secret requirement.
+
 ## 2026-11-20 - Oracle hostname routing
 - Routed the Oracle OCR and media origins through `https://217-142-238-24.sslip.io` with a trusted hostname certificate and deployed the Pages configuration successfully.
 - Added deployment validation that skips production publishing when the hostname or other required settings are missing or invalid.

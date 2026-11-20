@@ -2,9 +2,6 @@ name = "dcr-vault"
 pages_build_output_dir = "./dist"
 compatibility_date = "2026-11-18"
 
-[ai]
-binding = "AI"
-
 [[d1_databases]]
 binding = "DB"
 database_name = "dcr-vault"
@@ -14,4 +11,3 @@ migrations_dir = "migrations"
 [vars]
 GOOGLE_CLIENT_ID = "__GOOGLE_CLIENT_ID__"
 ORCL_MEDIA_ORIGIN = "__ORCL_SERVICE_ORIGIN__"
-ORCL_OCR_ORIGIN = "__ORCL_SERVICE_ORIGIN__"

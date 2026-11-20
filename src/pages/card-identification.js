@@ -1,5 +1,5 @@
 import {identifyCardImage} from '../store/cards.js';
-import {findImageCandidates, findPipelineEnglishCandidates} from '../store/catalog.js';
+import {findImageCandidates, findImageReviewCandidates} from '../store/catalog.js';
 import {escapeHTML} from '../utils/format.js';
 import {hideAllCatalogSuggestions, populateRarityOptions} from './search-catalog.js';
 import {cardLabelMetadata} from '../utils/label-metadata.js';
@@ -58,23 +58,13 @@ function candidateMarkup(card, index) {
     ${evidence.length ? `<small>${escapeHTML(evidence.join(' · '))}</small>` : ''}</span></button>`;
 }
 
-function showCandidates(fields, cards, pipeline = null) {
+function showCandidates(fields, cards) {
   candidateCards = cards;
   extractedFields = fields;
-  const summary = pipeline?.selected;
-  const fallbackExplanation = pipeline?.resolutionStatus === 'unavailable'
-    ? 'Gemma read the card, but Oracle could not verify that reading against its catalog.'
-    : pipeline?.fallbackUsed
-      ? pipeline.ocrStatus === 'unavailable'
-        ? 'Oracle OCR was unavailable. Gemma fallback did not identify a unique English catalog card.'
-        : 'Gemma fallback did not identify a unique English catalog card.'
-      : pipeline?.ocrReason || pipeline?.reason || '';
-  const explanation = summary
-    ? 'The OCR pipeline matched ' + (summary.name || 'a source card') + ' (#' + (summary.local_id || '?') + ') but its exact English catalog record is unavailable.'
-    : fallbackExplanation;
-  const emptyMessage = explanation
-    ? escapeHTML(explanation) + ' Enter the English card name and set manually.'
-    : 'No English catalog match was found. Enter the English card name and set manually.';
+  const knownFields = [fields.name, fields.englishName, fields.cardNumber, fields.setName, fields.englishSetName].filter(Boolean).length;
+  const emptyMessage = knownFields >= 2
+    ? 'Gemini read card details, but the catalog could not confirm a safe English match. Enter the English card name and set manually.'
+    : 'Gemini could not read enough identity details to find catalog choices. Enter the English card name and set manually.';
   const options = cards.length ? cards.map(candidateMarkup).join('') : '<p class="catalog-empty">' + emptyMessage + '</p>';
   showDialog(`<p class="identification-match-note">Select a card to fill the English catalog details in Block 2. This will not save the card.</p><div class="identification-options">${options}</div>`);
 }
@@ -88,6 +78,13 @@ function showDialog(content) {
   if (!dialog.open) dialog.showModal();
 }
 
+function observedCollectorNumber(fields) {
+  const number = String(fields.cardNumber || '').trim();
+  if (!number || Number(fields.fieldConfidence?.cardNumber || 0) < 0.82) return '';
+  if (fields.language !== 'en' && !fields.setName && !/\/\s*\d+/.test(number)) return '';
+  return number;
+}
+
 function chooseCandidate(index) {
   const card = candidateCards[index];
   if (!card) return;
@@ -96,7 +93,7 @@ function chooseCandidate(index) {
   document.getElementById('m-name').value = card.name;
   document.getElementById('m-setName').value = metadata.setName || card.setName;
   document.getElementById('m-year').value = card.year;
-  const observedNumber = String(extractedFields.cardNumber || card.sourceCardNumber || '').trim();
+  const observedNumber = observedCollectorNumber(extractedFields) || String(card.sourceCardNumber || '').trim();
   document.getElementById('m-cardNumber').value = observedNumber || card.cardNumber;
   populateRarityOptions({setId: card.setId, setName: card.setName, selectedRarity: card.rarity});
   window.__intakeCatalogGame = 'pokemon';
@@ -136,8 +133,8 @@ async function analyzeFront() {
     }
     let candidates;
     try {
-      const pipelineCandidates = await findPipelineEnglishCandidates(result.pipeline, result.fields);
-      candidates = pipelineCandidates.length ? pipelineCandidates : await findImageCandidates(result.fields);
+      candidates = await findImageCandidates(result.fields);
+      if (!candidates.length) candidates = await findImageReviewCandidates(result.fields);
     } catch {
       if (version === analysisVersion) showError('The card catalog could not be loaded. Try again later.', true);
       return;
@@ -148,7 +145,7 @@ async function analyzeFront() {
       chooseCandidate(0);
       return;
     }
-    if (version === analysisVersion) showCandidates(result.fields, candidates, result.pipeline);
+    if (version === analysisVersion) showCandidates(result.fields, candidates);
   } finally {
     analysisBusy = false;
     button.textContent = 'Identify card';
@@ -159,15 +156,17 @@ async function analyzeFront() {
 function safeReadingErrorMessage(error) {
   const message = error?.message || '';
   if (/not configured/i.test(message)) return 'Card reading is not configured for this deployment.';
+  if (error?.status === 429 || /quota/i.test(message)) return 'Gemini request quota was reached. Try again later.';
+  if (/Gemini API configuration is invalid/i.test(message)) return 'Gemini API settings need to be fixed by the site administrator.';
   if (error?.status === 503 || /temporarily unavailable/i.test(message)) return 'Card reading is temporarily unavailable. Try again in a moment.';
-  if (error?.status === 502 || /could not read/i.test(message) || /gemma/i.test(message)) return 'Card details could not be read from this photo. Try a clearer front image or try again.';
+  if (error?.status === 422 || error?.status === 502 || /could not read/i.test(message)) return 'Gemini could not read enough card details from this photo. Try a clearer front image or enter the details manually.';
   if (!error?.status) return 'Could not connect to card reading. Check your connection and try again.';
   return message || 'Card reading could not be completed. Try again in a moment.';
 }
 
 function canRetryIdentification(error) {
-  if (/not configured/i.test(error?.message || '')) return false;
-  return !error?.status || error.status >= 500;
+  if (/not configured|configuration is invalid/i.test(error?.message || '')) return false;
+  return !error?.status || error.status === 429 || error.status >= 500;
 }
 
 function hideHoverPreview() {
