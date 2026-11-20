@@ -221,10 +221,27 @@ function retryableFailure(cause) {
   return cause?.code === 'network_error' || cause?.code === 'upstream' && cause.upstreamStatus >= 500;
 }
 
+function safeDiagnosticMessage(value) {
+  return String(value || '').replace(/[\r\n\t]+/g, ' ').replace(/AIza[\w-]{20,}/g, '[redacted]').slice(0, 180);
+}
+
+function fetchDiagnostics(cause, elapsedMs) {
+  return {
+    errorName: String(cause?.name || 'Error').slice(0, 80),
+    errorCode: String(cause?.code || '').slice(0, 80),
+    causeName: String(cause?.cause?.name || '').slice(0, 80),
+    causeCode: String(cause?.cause?.code || '').slice(0, 80),
+    errorMessage: safeDiagnosticMessage(cause?.message),
+    causeMessage: safeDiagnosticMessage(cause?.cause?.message),
+    elapsedMs
+  };
+}
+
 async function postGemini(apiKey, payload, requestId) {
   for (let attempt = 0; attempt < 2; attempt += 1) {
     let response;
     let failure;
+    const startedAt = Date.now();
     try {
       response = await fetch(ENDPOINT, {
         method: 'POST',
@@ -237,10 +254,12 @@ async function postGemini(apiKey, payload, requestId) {
       failure = upstreamError(response.status);
     } catch (cause) {
       failure = readingError(cause?.name === 'TimeoutError' || cause?.name === 'AbortError' ? 'timeout' : 'network_error', 503);
+      failure.diagnostics = fetchDiagnostics(cause, Date.now() - startedAt);
     }
     if (attempt === 1 || !retryableFailure(failure)) throw failure;
     console.warn('Gemini request retrying after a transient failure.', {model: MODEL, requestId,
-      reasonCode: failure.code, upstreamStatus: failure.upstreamStatus || null});
+      reasonCode: failure.code, upstreamStatus: failure.upstreamStatus || null,
+      failureDiagnostics: failure.diagnostics || null});
     await new Promise(resolve => setTimeout(resolve, RETRY_DELAY_MS));
   }
 }

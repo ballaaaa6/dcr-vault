@@ -58,13 +58,14 @@ function candidateMarkup(card, index) {
     ${evidence.length ? `<small>${escapeHTML(evidence.join(' · '))}</small>` : ''}</span></button>`;
 }
 
-function showCandidates(fields, cards) {
+function showCandidates(fields, cards, source) {
   candidateCards = cards;
   extractedFields = fields;
+  const reader = source === 'oracle_ocr' ? 'DCR OCR' : 'Gemini';
   const knownFields = [fields.name, fields.englishName, fields.cardNumber, fields.setName, fields.englishSetName].filter(Boolean).length;
   const emptyMessage = knownFields >= 2
-    ? 'Gemini read card details, but the catalog could not confirm a safe English match. Enter the English card name and set manually.'
-    : 'Gemini could not read enough identity details to find catalog choices. Enter the English card name and set manually.';
+    ? `${reader} read card details, but the catalog could not confirm a safe English match. Enter the English card name and set manually.`
+    : `${reader} could not read enough identity details to find catalog choices. Enter the English card name and set manually.`;
   const options = cards.length ? cards.map(candidateMarkup).join('') : '<p class="catalog-empty">' + emptyMessage + '</p>';
   showDialog(`<p class="identification-match-note">Select a card to fill the English catalog details in Block 2. This will not save the card.</p><div class="identification-options">${options}</div>`);
 }
@@ -145,7 +146,7 @@ async function analyzeFront() {
       chooseCandidate(0);
       return;
     }
-    if (version === analysisVersion) showCandidates(result.fields, candidates);
+    if (version === analysisVersion) showCandidates(result.fields, candidates, result.source);
   } finally {
     analysisBusy = false;
     button.textContent = 'Identify card';

@@ -1,4 +1,9 @@
 # Changelog
+## 2026-11-21 - Gemini network failure fallback
+- Use the deployed Oracle OCR pipeline when Gemini cannot be reached or returns no usable identity fields.
+- Preserve safe fetch failure diagnostics (error name/code and elapsed time) without logging request data or credentials.
+- Disclose the Oracle OCR fallback in Add Card and documentation.
+
 ## 2026-11-21 - Gemini transient failure recovery
 - Retry Gemini once after a network error or upstream 5xx, without retrying quota, configuration, or timeout failures.
 - Return a privacy-safe request reference for reading failures and log it with the failure class and upstream status for diagnosis.

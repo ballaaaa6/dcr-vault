@@ -35,10 +35,10 @@
 
 ## Gemini image intake
 
-- On explicit button click, the authenticated `/api/cards/identify` Pages Function validates the front image and sends it once to the Gemini Developer API using the server-only `GEMINI_API_KEY` secret and the fixed `gemini-3.5-flash-lite` model. The response requests structured JSON containing the printed identity, language, collector number, and visible card details. The key is never sent to the browser or written to D1.
-- The browser matches Gemini's reading against the local catalog. Exact English identity or a unique source-language record mapped to its English catalog counterpart can auto-fill only when the card identity and field confidence are strong. Localized matches can also use metadata corroboration such as HP, illustrator, stage, types, attack names, and damage. Catalog matching, not a model-only guess, controls auto-fill.
+- On explicit button click, the authenticated `/api/cards/identify` Pages Function validates the front image and sends it to the Gemini Developer API using the server-only `GEMINI_API_KEY` secret and the fixed `gemini-3.5-flash-lite` model. If Gemini fails or returns no identity fields, Pages sends the same image to the DCR OCR service on the Oracle VM using `ORCL_OCR_TOKEN`. Neither key is sent to the browser or written to D1.
+- The browser matches the successful reading against the local catalog. Exact English identity or a unique source-language record mapped to its English catalog counterpart can auto-fill only when the card identity and field confidence are strong. Localized matches can also use metadata corroboration such as HP, illustrator, stage, types, attack names, and damage. Catalog matching, not a model-only guess, controls auto-fill.
 - If a safe unique match is not established, the app shows credible English records for the user to choose. A looser name-based review list may help when the image reading is incomplete, but these suggestions are never auto-selected. If there is no useful match, the user enters the English card and set manually.
-- Identification is a draft. The image and model response are not written to D1 or Oracle image storage; no card is saved until Add to Vault is clicked. The separate image-save flow still uses the Oracle media service.
+- Identification is a draft. The image and reading response are not written to D1 or Oracle image storage; the OCR service removes its temporary scan files after each request. No card is saved until Add to Vault is clicked. The separate image-save flow uses the Oracle media service.
 - Catalog denominators are checked when visible. Missing or conflicting identity evidence blocks a confident match. Missing rarity stays blank unless the verified English catalog counterpart supplies a set-scoped rarity.
 
 ## Data flow
@@ -49,7 +49,8 @@ Google Identity Services
   -> users + sessions in D1
   -> HttpOnly session cookie
   -> authenticated Pages Function APIs
-  -> Gemini 3.5 Flash-Lite reads the front image once
+  -> Gemini 3.5 Flash-Lite reads the front image
+  -> Oracle OCR fallback if Gemini fails or returns no identity fields
   -> deterministic local catalog match and confidence checks
   -> exact English card fill or review picker/manual entry
   -> owner-scoped card and image metadata in D1
@@ -62,7 +63,7 @@ Google Identity Services
 - One page per file in `src/pages/`; reusable UI in `src/components/`.
 - API shared modules live in `functions/_utils/`; underscore-prefixed folders are not routes.
 - D1 schema history lives in `migrations/` and is applied by the deployment workflow before publishing new code.
-- The Oracle image service is a loopback-only process under `storage-service/`; Nginx exposes its explicit HTTPS media route to Pages through a validated hostname-backed origin. The separate Oracle OCR service is retained as legacy infrastructure documentation but is no longer in the Add Card identification path.
+- The Oracle image and OCR services are loopback-only processes under `storage-service/`; Nginx exposes their explicit HTTPS routes to Pages through the validated `ORCL_MEDIA_ORIGIN` hostname. Card identification uses OCR only as a fallback after Gemini fails or returns no identity fields.
 - Google token verification uses the Workers Web Crypto API and Google's published JWK set. No authentication library is added, so runtime dependencies stay small.
 - Inter and Noto Sans Thai are self-hosted under `public/assets/fonts/` with their OFL licenses.
 - Label rendering imports the approved SVG masters from `dcr-tag-70x20/` and uses the browser-side `qrcode` and `jsbarcode` packages to create test QR and Code 128 symbols without sending certificate values to an external service.

@@ -14,7 +14,7 @@ Certbot 5.10 from the official Snap publisher is installed, and its automatic re
 
 The OCR service was deployed on 2026-11-20 from repository commit `2dab7213513f1d063b12d92b3a183698a55e4c9a`. It is enabled as `dcr-vault-ocr.service`, runs as the locked `dcr-vault-ocr` account, and listens only on `127.0.0.1:8790`. Its pinned PaddlePaddle 3.2.0 and PaddleOCR 3.7.0 packages import successfully on this Ubuntu 22.04 ARM64 host. The private catalog was built from TCGdex commit `4218f64dcbf3de6e7b7548530f938fb0b9ebbe2a`; SQLite integrity passed for 42,599 cards and 50,394 localized records. Nginx now proxies `/ocr/v1/` to the OCR service while keeping the existing `/v1/` media proxy unchanged. The OCR health endpoint reports the catalog ready, and requests without the token are rejected. The matching random token is stored in root-only `/etc/dcr-vault-ocr.env` and the production Pages secret `ORCL_OCR_TOKEN`; never print or commit its value.
 
-**Current application status:** the Add Card workflow now sends images to Gemini and no longer calls this OCR service. The service and Nginx route remain installed as legacy infrastructure; they can be retired separately after confirming no other clients use `/ocr/v1/`. Oracle media storage remains active for saved card photos.
+**Current application status:** Add Card tries Gemini first and calls this OCR service if Gemini fails or returns no identity fields. Pages uses `ORCL_OCR_TOKEN` and reuses `ORCL_MEDIA_ORIGIN` for the HTTPS hostname. The OCR service holds scan files only for the request and removes them afterward. Oracle media storage remains active for saved-card photos.
 
 ## Cloudflare Workers hostname
 
@@ -29,7 +29,7 @@ sudo certbot certonly --webroot -w /var/www/letsencrypt --cert-name dcr-vault-or
 
 The installed `nginx-origin.conf` template uses the stable Certbot lineage `dcr-vault-origin`; `sudo nginx -t` passed before the active Nginx configuration was reloaded. The Certbot renewal hook reloads Nginx after certificate renewal.
 
-The deployment workflow validates that `ORCL_SERVICE_ORIGIN` is an HTTPS DNS hostname rather than an IP literal, then assigns it to `ORCL_MEDIA_ORIGIN`. The production deploy is skipped if the variable is missing or invalid. The hostname deployment completed successfully on 2026-11-20. `ORCL_OCR_TOKEN` belongs only to the legacy OCR service and is no longer needed by the Pages card-identification route.
+The deployment workflow validates that `ORCL_SERVICE_ORIGIN` is an HTTPS DNS hostname rather than an IP literal, then assigns it to `ORCL_MEDIA_ORIGIN`. The production deploy is skipped if the variable is missing or invalid. The hostname deployment completed successfully on 2026-11-20. Pages uses the `ORCL_OCR_TOKEN` secret for fallback requests; never print or commit its value.
 
 ## OCR-first identification service
 

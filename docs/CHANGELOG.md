@@ -1,4 +1,9 @@
 # Changelog
+## Gemini network failure fallback - 2026-11-21
+- Fall back to the deployed Oracle OCR pipeline when Gemini fails or returns no identity fields.
+- Log safe network exception metadata and preserve request references without logging images, OCR text, or credentials.
+- Disclose both image processing paths in the Add Card intake and deployment documentation.
+
 ## Gemini transient failure recovery - 2026-11-21
 - Retry Gemini once after network errors or upstream 5xx responses; quota, configuration, and timeout failures are not retried.
 - Add privacy-safe request references to server diagnostics and the Add Card error state.
