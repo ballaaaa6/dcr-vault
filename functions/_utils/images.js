@@ -51,5 +51,5 @@ export async function readImageBody(request) {
 export async function imageServiceRequest(env, path, options = {}) {
   const origin = httpsHostnameOrigin(env.ORCL_MEDIA_ORIGIN);
   if (!origin) throw new Error('Oracle image storage requires an HTTPS origin with a DNS hostname.');
-  return fetch(`${origin}${path}`, {...options, redirect: 'error', signal: AbortSignal.timeout(30000)});
+  return fetch(`${origin}${path}`, {...options, redirect: 'manual', signal: AbortSignal.timeout(30000)});
 }

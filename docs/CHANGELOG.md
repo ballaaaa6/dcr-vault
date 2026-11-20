@@ -1,4 +1,8 @@
 # Changelog
+## Cloudflare fetch redirect compatibility - 2026-11-21
+- Use the redirect mode supported by Cloudflare Workers for Gemini, Oracle OCR, and Oracle media fetches, preventing identify requests from failing before reaching upstream services.
+- Keep upstream redirects manual so service credentials are not forwarded to another origin.
+
 ## Gemini network failure fallback - 2026-11-21
 - Fall back to the deployed Oracle OCR pipeline when Gemini fails or returns no identity fields.
 - Log safe network exception metadata and preserve request references without logging images, OCR text, or credentials.

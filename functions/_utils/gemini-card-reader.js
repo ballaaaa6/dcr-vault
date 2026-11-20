@@ -247,7 +247,7 @@ async function postGemini(apiKey, payload, requestId) {
         method: 'POST',
         headers: {'Content-Type': 'application/json', 'x-goog-api-key': apiKey},
         body: payload,
-        redirect: 'error',
+        redirect: 'manual',
         signal: AbortSignal.timeout(API_TIMEOUT_MS)
       });
       if (response.ok) return response;

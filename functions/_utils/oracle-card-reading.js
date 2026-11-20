@@ -26,7 +26,7 @@ async function postOracle(endpoint, body, contentType, requestId) {
   try {
     const response = await fetch(`${endpoint.origin}/ocr/v1/identify`, {
       method: 'POST', headers: {'Content-Type': contentType, 'X-DCR-OCR-Token': endpoint.token},
-      body, redirect: 'error', signal: AbortSignal.timeout(OCR_TIMEOUT_MS)
+      body, redirect: 'manual', signal: AbortSignal.timeout(OCR_TIMEOUT_MS)
     });
     if (!response.ok) {
       console.warn('Oracle OCR fallback returned an error.', {requestId, upstreamStatus: response.status});

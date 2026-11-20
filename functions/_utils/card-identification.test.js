@@ -48,10 +48,13 @@ test('falls back to authenticated Oracle OCR after Gemini network retries fail',
     assert.equal(result.source, 'oracle_ocr');
     assert.equal(result.fields.name, 'Mew');
     assert.equal(result.fields.cardNumber, '10/62');
-    assert.equal(calls.filter(call => call.url.includes('generativelanguage.googleapis.com')).length, 2);
+    const geminiCalls = calls.filter(call => call.url.includes('generativelanguage.googleapis.com'));
+    assert.equal(geminiCalls.length, 2);
+    assert.ok(geminiCalls.every(call => call.init.redirect === 'manual'));
     const oracleCall = calls.find(call => call.url.endsWith('/ocr/v1/identify'));
     assert.ok(oracleCall);
     assert.equal(oracleCall.init.headers['X-DCR-OCR-Token'], OCR_TOKEN);
+    assert.equal(oracleCall.init.redirect, 'manual');
     const logText = JSON.stringify(logs);
     assert.match(logText, /ECONNRESET/);
     assert.doesNotMatch(logText, /test-gemini-key|Mew|10\/62/);
