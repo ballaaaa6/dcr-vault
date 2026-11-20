@@ -1,4 +1,9 @@
 # Changelog
+## OCR-first production rollout - 2026-11-20
+- Installed and enabled the OCR service on the Ubuntu ARM64 Oracle VM with the pinned PaddleOCR runtime and the private 42,599-card catalog.
+- Added the HTTPS OCR proxy while preserving the existing media-store route and stored the shared token in Oracle's protected environment file and the Cloudflare Pages production secret.
+- Verified the OCR health endpoint reports its catalog ready and rejects unauthenticated requests.
+
 ## Metadata-first card identification - 2026-11-20
 - Expanded the compact catalog index with the printed-card metadata used by the documented identification workflow, including HP, illustrator, stage, types, attacks, weaknesses, and set card counts.
 - Replaced fuzzy name-first English suggestions with exact source-language card lookup followed by metadata corroboration against English catalog records.
