@@ -1,0 +1,35 @@
+[Unit]
+Description=DCR Vault OCR-first card identification service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=dcr-vault-ocr
+Group=dcr-vault-ocr
+WorkingDirectory=/opt/dcr-vault-ocr
+Environment=HOME=/var/lib/dcr-vault-ocr
+Environment=PYTHONUNBUFFERED=1
+Environment=DCR_TOOLKIT_ROOT=/opt/dcr-vault-ocr/dcr-tag-70x20
+Environment=DCR_PADDLE_PYTHON=/opt/dcr-vault-ocr/.venv-ocr/bin/python
+Environment=DCR_OCR_BIND_HOST=127.0.0.1
+Environment=DCR_OCR_PORT=8790
+EnvironmentFile=/etc/dcr-vault-ocr.env
+ExecStart=/opt/dcr-vault-ocr/.venv-ocr/bin/python /opt/dcr-vault-ocr/storage-service/ocr_service.py
+Restart=on-failure
+RestartSec=5
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+ReadWritePaths=/var/lib/dcr-vault-ocr
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+LockPersonality=true
+TimeoutStopSec=15
+
+[Install]
+WantedBy=multi-user.target

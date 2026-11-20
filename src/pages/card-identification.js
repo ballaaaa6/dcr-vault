@@ -1,5 +1,5 @@
 import {identifyCardImage} from '../store/cards.js';
-import {findImageCandidates} from '../store/catalog.js';
+import {findImageCandidates, findPipelineEnglishCandidates} from '../store/catalog.js';
 import {escapeHTML} from '../utils/format.js';
 import {hideAllCatalogSuggestions, populateRarityOptions} from './search-catalog.js';
 import {cardLabelMetadata} from '../utils/label-metadata.js';
@@ -58,10 +58,17 @@ function candidateMarkup(card, index) {
     ${evidence.length ? `<small>${escapeHTML(evidence.join(' · '))}</small>` : ''}</span></button>`;
 }
 
-function showCandidates(fields, cards) {
+function showCandidates(fields, cards, pipeline = null) {
   candidateCards = cards;
   extractedFields = fields;
-  const options = cards.length ? cards.map(candidateMarkup).join('') : '<p class="catalog-empty">No English catalog match was found. Enter the English card name and set manually.</p>';
+  const summary = pipeline?.selected;
+  const explanation = summary
+    ? 'The OCR pipeline matched ' + (summary.name || 'a source card') + ' (#' + (summary.local_id || '?') + ') but its exact English catalog record is unavailable.'
+    : pipeline?.reason || '';
+  const emptyMessage = explanation
+    ? escapeHTML(explanation) + ' Enter the English card name and set manually.'
+    : 'No English catalog match was found. Enter the English card name and set manually.';
+  const options = cards.length ? cards.map(candidateMarkup).join('') : '<p class="catalog-empty">' + emptyMessage + '</p>';
   showDialog(`<p class="identification-match-note">Select a card to fill the English catalog details in Block 2. This will not save the card.</p><div class="identification-options">${options}</div>`);
 }
 
@@ -122,7 +129,8 @@ async function analyzeFront() {
     }
     let candidates;
     try {
-      candidates = await findImageCandidates(result.fields);
+      const pipelineCandidates = await findPipelineEnglishCandidates(result.pipeline, result.fields);
+      candidates = pipelineCandidates.length ? pipelineCandidates : await findImageCandidates(result.fields);
     } catch {
       if (version === analysisVersion) showError('The card catalog could not be loaded. Try again later.', true);
       return;
@@ -133,7 +141,7 @@ async function analyzeFront() {
       chooseCandidate(0);
       return;
     }
-    if (version === analysisVersion) showCandidates(result.fields, candidates);
+    if (version === analysisVersion) showCandidates(result.fields, candidates, result.pipeline);
   } finally {
     analysisBusy = false;
     button.textContent = 'Identify card';

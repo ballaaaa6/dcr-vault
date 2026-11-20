@@ -12,6 +12,27 @@ The Pages template points `ORCL_MEDIA_ORIGIN` to `https://217.142.238.24`. Nginx
 
 Certbot 5.10 from the official Snap publisher is installed, and its automatic renewal timer is enabled. The production certificate `dcr-vault-ip` covers `217.142.238.24` and is valid for 160 hours (until 2026-11-25). Its renewal configuration uses the `shortlived` profile, webroot HTTP-01, and `/usr/local/sbin/dcr-vault-reload-nginx` as the deploy hook. The temporary staging certificate was removed after production issuance.
 
+## OCR-first identification service
+
+The separate Python service in `ocr_service.py` runs the existing `dcr-tag-70x20/pipeline/image_to_label.py` workflow with OCR-first, image-recovery-disabled, and lookup-only options. It binds only to `127.0.0.1:8790`. Nginx proxies only `/ocr/v1/` to this listener; the service checks `X-DCR-OCR-Token` before reading an image. The original image and generated scan files are held in a temporary directory and removed after each request.
+
+Install the repository under `/opt/dcr-vault-ocr`, then provision the private catalog and OCR runtime:
+
+~~~sh
+npm ci --prefix /opt/dcr-vault-ocr/dcr-tag-70x20/catalog
+python3 -m venv /opt/dcr-vault-ocr/.venv-ocr
+/opt/dcr-vault-ocr/.venv-ocr/bin/python -m pip install -r /opt/dcr-vault-ocr/dcr-tag-70x20/pipeline/requirements-ocr.txt
+/opt/dcr-vault-ocr/.venv-ocr/bin/python /opt/dcr-vault-ocr/dcr-tag-70x20/catalog/import_tcgdex_catalog.py
+sudo useradd --system --home-dir /var/lib/dcr-vault-ocr --create-home --shell /usr/sbin/nologin dcr-vault-ocr
+sudo install -o root -g root -m 0644 /opt/dcr-vault-ocr/storage-service/dcr-vault-ocr.service /etc/systemd/system/
+sudo install -o root -g root -m 0600 /dev/null /etc/dcr-vault-ocr.env
+sudoedit /etc/dcr-vault-ocr.env
+~~~
+
+Put `DCR_OCR_TOKEN=<64-character random hex secret>` in the environment file, then copy the same value into the Cloudflare Pages secret `ORCL_OCR_TOKEN`. Keep this value out of shell history and source control. Install the `/ocr/v1/` location from `nginx-ip-origin.conf` in the active TLS server block, then run `systemctl daemon-reload`, `systemctl enable --now dcr-vault-ocr.service`, `nginx -t`, and `systemctl reload nginx`. The OCR unit is separate from `dcr-vault-image-store.service` and does not change its port, account, or media directory.
+
+The requirements file was verified on Windows/Python 3.10; Oracle is ARM64. Verify PaddlePaddle 3.2.0 and PaddleOCR 3.7.0 install and import on the VM before enabling the OCR unit. If the ARM64 runtime is unsupported, use a supported Python CPU host and keep the same private HTTPS API contract.
+
 ## Data model and cleanup
 
 D1 stores the opaque object key, MIME type, byte count, SHA-256 digest, and owner/card/side association. A card image is served through the same-origin Pages API, which checks the signed-in owner before requesting a one-use capability. Replacing a side atomically swaps the file. Deleting a side removes its file and D1 row. Do not put scans, keys, session cookies, or service credentials in Git.

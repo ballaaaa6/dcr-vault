@@ -129,3 +129,31 @@ export async function findImageCandidates(fields, limit = 12) {
   const cards = await loadCatalog();
   return findImageCandidatesFromCatalog(cards, fields, limit);
 }
+
+export async function findPipelineEnglishCandidates(pipeline, fields = {}) {
+  const selected = pipeline?.selected || null;
+  const summaries = selected ? [selected] : Array.isArray(pipeline?.candidates) ? pipeline.candidates : [];
+  const apiIds = [...new Set(summaries.map(item => String(item?.api_id || '')).filter(Boolean))];
+  if (!apiIds.length) return [];
+  const cards = await loadCatalog();
+  return apiIds.flatMap(apiId => {
+    const summary = summaries.find(item => String(item?.api_id || '') === apiId) || {};
+    const english = cards.find(card => card.language === 'en' && card.id === apiId);
+    if (!english) return [];
+    const sourceLanguage = String(summary.language || fields.language || 'en').toLowerCase();
+    const source = cards.find(card => card.language === sourceLanguage && card.id === apiId);
+    return [{
+      ...english,
+      catalogCardId: english.id,
+      previewImage: source?.imageUrl || english.imageUrl,
+      previewImageFallback: source?.imageUrl ? source.imageUrlFallback || '' : english.imageUrlFallback || '',
+      sourceCardId: source?.id || apiId,
+      sourceCardNumber: String(fields.cardNumber || summary.local_id || english.cardNumber),
+      sourceLanguage,
+      sourceSetId: String(summary.set_id || source?.setId || english.setId),
+      matchScore: 100,
+      matchEvidence: ['OCR-first pipeline exact catalog match'],
+      autoSelect: Boolean(selected && pipeline?.status === 'matched_preview')
+    }];
+  });
+}

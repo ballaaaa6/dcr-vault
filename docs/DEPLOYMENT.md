@@ -24,14 +24,17 @@ Google's ID token is verified by the server before account creation. Do not repl
 2. Add the returned database UUID as the GitHub Actions repository variable `CLOUDFLARE_D1_DATABASE_ID`.
 3. Create a separate Cloudflare API token with only Account `D1: Edit` permission and add it as the GitHub Actions secret `CLOUDFLARE_D1_API_TOKEN`. This token expires on 2027-11-19. Keep the existing `CLOUDFLARE_API_TOKEN` Pages deployment token limited to Pages Edit.
 4. Keep `CLOUDFLARE_ACCOUNT_ID` configured as a GitHub Actions secret.
-5. Once all values are present, the next push applies pending migrations, adds the D1 binding `DB`, Workers AI binding `AI`, `GOOGLE_CLIENT_ID`, and `ORCL_MEDIA_ORIGIN` to the Pages deployment, then publishes the site.
+5. Once all values are present, the next push applies pending migrations, adds the D1 binding `DB`, Workers AI binding `AI`, `GOOGLE_CLIENT_ID`, `ORCL_MEDIA_ORIGIN`, and `ORCL_OCR_ORIGIN` to the Pages deployment, then publishes the site.
 
-## Workers AI image reading
+## OCR-first card reading
 
-- The root `wrangler.template.toml` declares the Pages Workers AI binding as `AI`; the deployment workflow includes it in the generated Wrangler configuration. Enable Workers AI for the Cloudflare account used by the Pages project.
-- The Add Card page calls Gemma 4 only after the user selects a front photo and clicks the analysis button. Each request is authenticated, accepts JPEG/PNG/WebP up to 10 MB, and uses `@cf/google/gemma-4-26b-a4b-it`. The photo is sent to Cloudflare for inference and is not persisted by the analysis Function; Oracle storage happens only through the separate Add to Vault save flow.
-- The current [Gemma 4 model page](https://developers.cloudflare.com/workers-ai/models/gemma-4-26b-a4b-it/) lists $0.10 per million input tokens and $0.30 per million output tokens. Image token use varies with the photo; check the current model page and account allocation before large batches.
-- For local Pages Function development, use Wrangler with the AI binding (for example, `npx wrangler pages dev dist --ai AI`) and the configured D1 binding. `npm run dev` alone runs only Vite and does not provide the analysis API.
+- Add Card sends the authenticated, 10 MB-bounded front image to Oracle at `ORCL_OCR_ORIGIN` first. Oracle runs the existing `image_to_label.py` OCR-first lookup-only path: PaddleOCR, the card-key parser, catalog recovery, and `lookup_card.py`. The image and per-scan files are held in a temporary directory and deleted when the request ends.
+- Gemma 4 runs only when OCR cannot return a unique matched card. Its visible-text fields supplement missing or low-confidence OCR keys, then Oracle runs the same `lookup_card.py` matcher again. The browser auto-fills when the selected source record has an exact English TCGdex card ID; otherwise it uses the existing evidence-based catalog mapping and review picker.
+- Install `storage-service/ocr_service.py` as the loopback-only `dcr-vault-ocr.service` on the Oracle VM. Install OCR dependencies from `dcr-tag-70x20/pipeline/requirements-ocr.txt`, run `npm ci --prefix dcr-tag-70x20/catalog`, then run `python dcr-tag-70x20/catalog/import_tcgdex_catalog.py` to build the private SQLite catalog from the pinned public snapshot. The generated database stays on the VM and is ignored by Git.
+- The VM is Ubuntu 22.04 ARM64, while the checked-in PaddleOCR requirements are documented as verified on Windows/Python 3.10. Confirm that PaddlePaddle 3.2.0 and PaddleOCR 3.7.0 install and import on the VM before enabling the service. If the ARM64 wheel or runtime is unsupported, the current VM cannot host this pipeline unchanged; use a supported Python CPU host rather than silently substituting a different OCR engine.
+- Bind the Python service to `127.0.0.1:8790` only. Add the `/ocr/v1/` Nginx proxy in `storage-service/nginx-ip-origin.conf` and keep the existing Node image-store listener on `127.0.0.1:8788`. Use the same random 64-character hex `DCR_OCR_TOKEN` in the root-only `/etc/dcr-vault-ocr.env` file and as the Cloudflare Pages secret `ORCL_OCR_TOKEN`. Never put the value in Git or the browser.
+- Enable Workers AI on the Pages account for `@cf/google/gemma-4-26b-a4b-it`. The current [Gemma 4 model page](https://developers.cloudflare.com/workers-ai/models/gemma-4-26b-a4b-it/) lists $0.10 per million input tokens and $0.30 per million output tokens; this cost is incurred only on OCR fallback. The photo is not persisted by the Function; Oracle image storage still happens only through the separate Add to Vault save flow.
+- For local Pages Function development, use Wrangler with the AI binding and configured D1 binding, for example `npx wrangler pages dev dist --ai AI --d1 DB=<database-id>`. `npm run dev` alone serves only the Vite frontend and does not provide the analysis API.
 
 The workflow generates a temporary `wrangler.toml` from `wrangler.template.toml`. The generated file is ignored by Git; do not commit account-specific IDs or credentials.
 
@@ -46,7 +49,7 @@ The workflow generates a temporary `wrangler.toml` from `wrangler.template.toml`
 
 - Pages Functions and D1 are required for Google sign-in and private card storage; `npm run dev` alone serves only the Vite front end.
 - Once D1 is configured, use Wrangler Pages local development with the D1 binding, for example `npx wrangler pages dev dist --d1 DB=<database-id>`.
-- The `ORCL_MEDIA_ORIGIN` variable points to the HTTPS reverse proxy on the Oracle VM. Keep the Node image service on loopback; enable the VM endpoint only after its public TLS certificate renews automatically and the OCI VCN permits the required web traffic.
+- The `ORCL_MEDIA_ORIGIN` and `ORCL_OCR_ORIGIN` variables point to the HTTPS reverse proxy on the Oracle VM. Keep both Oracle services on loopback; configure the Pages secret `ORCL_OCR_TOKEN` only after the OCR endpoint is installed. If that secret or the OCR service is unavailable, Add Card falls back to Gemma.
 - The Add Card suggestions are a static TCGdex metadata index. Refresh it by running `npm ci --prefix dcr-tag-70x20/catalog`, `python dcr-tag-70x20/catalog/import_tcgdex_catalog.py`, and `python tools/build-card-catalog-index.py`.
 - The legacy `dcr-cards-v1` browser data is offered for an explicit import after sign-in. Import does not delete the local copy, and images are excluded.
 - Do not commit `.env`, `.dev.vars`, credentials, `node_modules`, `dist`, card scans, or private collection exports.
