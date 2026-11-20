@@ -1,9 +1,9 @@
 # Changelog
 ## 2026-11-20 - Oracle hostname routing
-- Prepared the Oracle Pages origins to use one validated HTTPS DNS hostname for OCR and media routes.
-- Added deployment validation that skips production publishing until the hostname configuration is valid.
+- Routed the Oracle OCR and media origins through `https://217-142-238-24.sslip.io` with a trusted hostname certificate and deployed the Pages configuration successfully.
+- Added deployment validation that skips production publishing when the hostname or other required settings are missing or invalid.
 - Added safe Oracle request failure codes and separated OCR availability from Gemma fallback status in the card identification response.
-- Updated the Nginx origin template and rollout documentation for hostname TLS.
+- Updated the Nginx origin template and rollout documentation for hostname TLS; verified the authenticated OCR pipeline against a supplied card scan through the production origin.
 
 ## 2026-11-20
 - Restore the existing OCR-first Python card-identification pipeline as the Add Card primary path, call Gemma only after OCR cannot uniquely match, and route Gemma fields back through the same local catalog matcher.
