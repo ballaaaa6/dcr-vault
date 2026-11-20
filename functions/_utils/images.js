@@ -1,4 +1,5 @@
 import {tokenHash} from './sessions.js';
+import {httpsHostnameOrigin} from './origin.js';
 
 export const IMAGE_MAX_BYTES = 10 * 1024 * 1024;
 const IMAGE_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp']);
@@ -48,7 +49,7 @@ export async function readImageBody(request) {
 }
 
 export async function imageServiceRequest(env, path, options = {}) {
-  const origin = String(env.ORCL_MEDIA_ORIGIN || '').replace(/\/+$/, '');
-  if (!origin.startsWith('https://')) throw new Error('Oracle image storage is not configured for HTTPS.');
+  const origin = httpsHostnameOrigin(env.ORCL_MEDIA_ORIGIN);
+  if (!origin) throw new Error('Oracle image storage requires an HTTPS origin with a DNS hostname.');
   return fetch(`${origin}${path}`, {...options, redirect: 'error', signal: AbortSignal.timeout(30000)});
 }

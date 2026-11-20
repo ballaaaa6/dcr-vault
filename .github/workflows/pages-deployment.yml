@@ -41,8 +41,50 @@ jobs:
           CLOUDFLARE_D1_API_TOKEN: ${{ secrets.CLOUDFLARE_D1_API_TOKEN }}
           CLOUDFLARE_D1_DATABASE_ID: ${{ vars.CLOUDFLARE_D1_DATABASE_ID }}
           GOOGLE_CLIENT_ID: ${{ vars.GOOGLE_CLIENT_ID }}
+          ORCL_SERVICE_ORIGIN: ${{ vars.ORCL_SERVICE_ORIGIN }}
         run: |
-          if [[ -n "$CLOUDFLARE_ACCOUNT_ID" && -n "$CLOUDFLARE_PAGES_API_TOKEN" && -n "$CLOUDFLARE_D1_API_TOKEN" && -n "$CLOUDFLARE_D1_DATABASE_ID" && -n "$GOOGLE_CLIENT_ID" ]]; then
+          if [[ -z "$CLOUDFLARE_ACCOUNT_ID" || -z "$CLOUDFLARE_PAGES_API_TOKEN" || -z "$CLOUDFLARE_D1_API_TOKEN" || -z "$CLOUDFLARE_D1_DATABASE_ID" || -z "$GOOGLE_CLIENT_ID" || -z "$ORCL_SERVICE_ORIGIN" ]]; then
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if python - <<'PY'
+          import ipaddress
+          import os
+          import re
+          import sys
+          from urllib.parse import urlsplit
+
+          value = os.environ["ORCL_SERVICE_ORIGIN"]
+          try:
+              parsed = urlsplit(value)
+              hostname = parsed.hostname or ""
+              port = parsed.port
+          except ValueError:
+              sys.exit(1)
+          try:
+              ipaddress.ip_address(hostname)
+              is_ip = True
+          except ValueError:
+              is_ip = bool(re.fullmatch(r"[0-9]+(?:\.[0-9]+){0,3}", hostname))
+          labels = hostname.split(".")
+          valid_hostname = len(labels) >= 2 and all(
+              re.fullmatch(r"[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?", label)
+              for label in labels
+          )
+          valid = (
+              parsed.scheme == "https"
+              and valid_hostname
+              and not is_ip
+              and port in (None, 443)
+              and parsed.username is None
+              and parsed.password is None
+              and parsed.path in ("", "/")
+              and not parsed.query
+              and not parsed.fragment
+          )
+          sys.exit(0 if valid else 1)
+          PY
+          then
             echo "configured=true" >> "$GITHUB_OUTPUT"
           else
             echo "configured=false" >> "$GITHUB_OUTPUT"
@@ -53,6 +95,7 @@ jobs:
         env:
           D1_DATABASE_ID: ${{ vars.CLOUDFLARE_D1_DATABASE_ID }}
           GOOGLE_CLIENT_ID: ${{ vars.GOOGLE_CLIENT_ID }}
+          ORCL_SERVICE_ORIGIN: ${{ vars.ORCL_SERVICE_ORIGIN }}
         run: |
           python - <<'PY'
           import os
@@ -61,6 +104,7 @@ jobs:
           config = Path("wrangler.template.toml").read_text(encoding="utf-8")
           config = config.replace("__CLOUDFLARE_D1_DATABASE_ID__", os.environ["D1_DATABASE_ID"])
           config = config.replace("__GOOGLE_CLIENT_ID__", os.environ["GOOGLE_CLIENT_ID"])
+          config = config.replace("__ORCL_SERVICE_ORIGIN__", os.environ["ORCL_SERVICE_ORIGIN"])
           Path("wrangler.toml").write_text(config, encoding="utf-8")
           PY
 
@@ -84,8 +128,8 @@ jobs:
         if: ${{ steps.cloudflare-config.outputs.configured != 'true' }}
         shell: bash
         run: |
-          echo "::warning::Google OAuth and Cloudflare D1 configuration are incomplete; the production deployment was skipped."
+          echo "::warning::Google OAuth, Cloudflare D1, or a valid HTTPS ORCL_SERVICE_ORIGIN hostname is missing; the production deployment was skipped."
           {
             echo "## Cloudflare Pages deployment skipped"
-            echo "Configure the GOOGLE_CLIENT_ID and CLOUDFLARE_D1_DATABASE_ID repository variables, plus CLOUDFLARE_D1_API_TOKEN, before production deployment."
+            echo "Configure GOOGLE_CLIENT_ID, CLOUDFLARE_D1_DATABASE_ID, and ORCL_SERVICE_ORIGIN repository variables, plus CLOUDFLARE_D1_API_TOKEN, before production deployment. ORCL_SERVICE_ORIGIN must be an HTTPS hostname, not an IP address."
           } >> "$GITHUB_STEP_SUMMARY"

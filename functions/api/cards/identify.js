@@ -53,12 +53,19 @@ function hasResolvableIdentity(scan, fields) {
   return Boolean((keys.name || fields?.name) && (keys.collector_number || fields?.cardNumber) && (keys.language || fields?.language));
 }
 
-function pipelineSummary(initial, resolved) {
+function pipelineSummary(initial, resolved, fallbackUsed = false) {
   const final = resolved || initial;
   return {
     status: final?.status || initial?.status || 'unavailable',
     initialStatus: initial?.status || 'unavailable',
-    reason: final?.reason || initial?.reason || '',
+    reason: final?.reason || (fallbackUsed ? '' : initial?.reason || ''),
+    ocrStatus: initial?.status || 'unavailable',
+    ocrReasonCode: initial?.reasonCode || '',
+    ocrReason: initial?.reason || '',
+    resolutionStatus: resolved?.status || 'not_attempted',
+    resolutionReasonCode: resolved?.reasonCode || '',
+    resolutionReason: resolved?.reason || '',
+    fallbackUsed,
     blockers: initial?.blockers || [],
     selected: selectedSummary(final),
     candidates: final?.candidates || initial?.candidates || []
@@ -97,7 +104,7 @@ export async function onRequestPost({request, env}) {
   }
   if (!fields) {
     const partial = fieldsFromScan(initial?.scanKeys, null);
-    if (partial) return json({source: 'ocr', fields: partial, pipeline: pipelineSummary(initial)});
+    if (partial) return json({source: 'ocr', fields: partial, pipeline: pipelineSummary(initial, null, true)});
     return error('Gemma could not read card identity details from this image.', 502);
   }
   const resolved = initial?.scanKeys && hasResolvableIdentity(initial.scanKeys, fields)
@@ -108,6 +115,6 @@ export async function onRequestPost({request, env}) {
     model: MODEL,
     source: resolved?.status === 'matched_preview' ? 'ocr+gemma' : 'gemma_fallback',
     fields: combineReadings(scannedFields, fields),
-    pipeline: pipelineSummary(initial, resolved)
+    pipeline: pipelineSummary(initial, resolved, true)
   });
 }

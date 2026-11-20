@@ -62,9 +62,16 @@ function showCandidates(fields, cards, pipeline = null) {
   candidateCards = cards;
   extractedFields = fields;
   const summary = pipeline?.selected;
+  const fallbackExplanation = pipeline?.resolutionStatus === 'unavailable'
+    ? 'Gemma read the card, but Oracle could not verify that reading against its catalog.'
+    : pipeline?.fallbackUsed
+      ? pipeline.ocrStatus === 'unavailable'
+        ? 'Oracle OCR was unavailable. Gemma fallback did not identify a unique English catalog card.'
+        : 'Gemma fallback did not identify a unique English catalog card.'
+      : pipeline?.ocrReason || pipeline?.reason || '';
   const explanation = summary
     ? 'The OCR pipeline matched ' + (summary.name || 'a source card') + ' (#' + (summary.local_id || '?') + ') but its exact English catalog record is unavailable.'
-    : pipeline?.reason || '';
+    : fallbackExplanation;
   const emptyMessage = explanation
     ? escapeHTML(explanation) + ' Enter the English card name and set manually.'
     : 'No English catalog match was found. Enter the English card name and set manually.';

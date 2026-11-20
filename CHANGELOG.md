@@ -1,4 +1,10 @@
 # Changelog
+## 2026-11-20 - Oracle hostname routing
+- Prepared the Oracle Pages origins to use one validated HTTPS DNS hostname for OCR and media routes.
+- Added deployment validation that skips production publishing until the hostname configuration is valid.
+- Added safe Oracle request failure codes and separated OCR availability from Gemma fallback status in the card identification response.
+- Updated the Nginx origin template and rollout documentation for hostname TLS.
+
 ## 2026-11-20
 - Restore the existing OCR-first Python card-identification pipeline as the Add Card primary path, call Gemma only after OCR cannot uniquely match, and route Gemma fields back through the same local catalog matcher.
 - Auto-fill the English catalog record when the Python pipeline returns an exact TCGdex card ID; add a private, loopback-only Oracle OCR adapter with temporary scan cleanup and document its ARM64/PaddleOCR deployment preflight.

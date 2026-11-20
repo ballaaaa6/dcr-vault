@@ -8,11 +8,26 @@ Files use opaque IDs under `/srv/dcr-vault-media/<owner-uuid>/<card-uuid>/<side>
 
 The OCI instance is Ubuntu 22.04 ARM64 with Node at `/usr/local/bin/node`. The service is installed and enabled as `dcr-vault-image-store.service`, running as the locked `dcr-image-store` account. Its code is root-owned at `/opt/dcr-vault-image-store`; `/srv/dcr-vault-media` is mode `0700` and owned by the service account. It listens only on `127.0.0.1:8788`. The existing PocketDock gateway on port 8787 is unrelated and was left untouched.
 
-The Pages template points `ORCL_MEDIA_ORIGIN` to `https://217.142.238.24`. Nginx is active on IPv4 ports 80 and 443. Port 80 serves only ACME HTTP-01 challenge files and returns 404 for all other paths. Port 443 uses the Let's Encrypt IP certificate and proxies only `/v1/`; all other paths return 404. OCI ingress allows TCP 80/443 from `0.0.0.0/0`; the VM's persistent INPUT rules allow only those two new TCP ports before the existing reject rule. The original rules are backed up at `/etc/iptables/rules.v4.before-dcr-vault-https`. Keep the Node service loopback-only.
+The VM currently has an IP-based TLS origin at `https://217.142.238.24`, with Nginx active on IPv4 ports 80 and 443. Port 80 serves only ACME HTTP-01 challenge files and returns 404 for all other paths. Port 443 proxies `/v1/` and `/ocr/v1/`; all other paths return 404. Cloudflare Workers cannot make subrequests to IP-literal URLs, so the Pages deployment must use a DNS hostname before either Oracle route is available to Pages Functions. OCI ingress allows TCP 80/443 from `0.0.0.0/0`; the VM's persistent INPUT rules allow only those two new TCP ports before the existing reject rule. The original rules are backed up at `/etc/iptables/rules.v4.before-dcr-vault-https`. Keep both application services loopback-only.
 
-Certbot 5.10 from the official Snap publisher is installed, and its automatic renewal timer is enabled. The production certificate `dcr-vault-ip` covers `217.142.238.24` and is valid for 160 hours (until 2026-11-25). Its renewal configuration uses the `shortlived` profile, webroot HTTP-01, and `/usr/local/sbin/dcr-vault-reload-nginx` as the deploy hook. The temporary staging certificate was removed after production issuance.
+Certbot 5.10 from the official Snap publisher is installed, and its automatic renewal timer is enabled. The current production certificate `dcr-vault-ip` covers `217.142.238.24`; its renewal configuration uses the `shortlived` profile, webroot HTTP-01, and `/usr/local/sbin/dcr-vault-reload-nginx` as the deploy hook. Keep the IP certificate until the hostname certificate is issued, Nginx validates, and the new HTTPS origin has been checked. The temporary staging certificate was removed after production issuance.
 
 The OCR service was deployed on 2026-11-20 from repository commit `2dab7213513f1d063b12d92b3a183698a55e4c9a`. It is enabled as `dcr-vault-ocr.service`, runs as the locked `dcr-vault-ocr` account, and listens only on `127.0.0.1:8790`. Its pinned PaddlePaddle 3.2.0 and PaddleOCR 3.7.0 packages import successfully on this Ubuntu 22.04 ARM64 host. The private catalog was built from TCGdex commit `4218f64dcbf3de6e7b7548530f938fb0b9ebbe2a`; SQLite integrity passed for 42,599 cards and 50,394 localized records. Nginx now proxies `/ocr/v1/` to the OCR service while keeping the existing `/v1/` media proxy unchanged. The OCR health endpoint reports the catalog ready, and requests without the token are rejected. The matching random token is stored in root-only `/etc/dcr-vault-ocr.env` and the production Pages secret `ORCL_OCR_TOKEN`; never print or commit its value.
+
+## Cloudflare Workers hostname migration
+
+Use a hostname under a domain whose DNS you control, for example `ocr.example.com`, and point its A record to `217.142.238.24`. If the zone is in Cloudflare DNS, use a DNS-only record so the Worker reaches the Oracle origin directly. Keep the existing OCI ingress limited to ports 80 and 443.
+
+Issue a hostname certificate while the HTTP-01 challenge server is active:
+
+~~~sh
+ORACLE_HOSTNAME=ocr.example.com
+sudo certbot certonly --webroot -w /var/www/letsencrypt --cert-name dcr-vault-origin -d "$ORACLE_HOSTNAME"
+~~~
+
+After issuance, install `nginx-origin.conf` and run `sudo nginx -t` before reloading Nginx. The template uses the stable Certbot lineage `dcr-vault-origin`; do not replace or remove `dcr-vault-ip` until the new hostname has been verified. The Certbot renewal hook reloads Nginx after certificate renewal.
+
+Set the GitHub Actions repository variable `ORCL_SERVICE_ORIGIN` to `https://<hostname>`. The deployment workflow validates that this is an HTTPS DNS hostname rather than an IP literal, then assigns the same origin to `ORCL_MEDIA_ORIGIN` and `ORCL_OCR_ORIGIN`. The production deploy is skipped if the variable is missing or invalid. Keep `ORCL_OCR_TOKEN` as a separate Pages secret.
 
 ## OCR-first identification service
 
@@ -33,7 +48,7 @@ sudo install -o root -g root -m 0600 /dev/null /etc/dcr-vault-ocr.env
 sudoedit /etc/dcr-vault-ocr.env
 ~~~
 
-Put `DCR_OCR_TOKEN=<64-character random hex secret>` in the environment file, then copy the same value into the Cloudflare Pages secret `ORCL_OCR_TOKEN`. Keep this value out of shell history and source control. Install the `/ocr/v1/` location from `nginx-ip-origin.conf` in the active TLS server block, then run `systemctl daemon-reload`, `systemctl enable --now dcr-vault-ocr.service`, `nginx -t`, and `systemctl reload nginx`. The OCR unit is separate from `dcr-vault-image-store.service` and does not change its port, account, or media directory.
+Put `DCR_OCR_TOKEN=<64-character random hex secret>` in the environment file, then copy the same value into the Cloudflare Pages secret `ORCL_OCR_TOKEN`. Keep this value out of shell history and source control. `nginx-origin.conf` contains both the `/v1/` media proxy and `/ocr/v1/` OCR proxy; install it only after the `dcr-vault-origin` certificate exists, then run `systemctl daemon-reload`, `systemctl enable --now dcr-vault-ocr.service`, `nginx -t`, and `systemctl reload nginx`. The OCR unit is separate from `dcr-vault-image-store.service` and does not change its port, account, or media directory.
 
 PaddlePaddle 3.2.0 and PaddleOCR 3.7.0 import on ARM64, but native inference can segfault on this architecture. Paddle remains the primary reader; if its subprocess crashes, times out, or returns invalid output, `image_to_label.py` invokes `pipeline/tesseract_reader.py`. The adapter emits the same OCR line schema, then the existing parser detects the printed script and runs the same catalog recovery and lookup. The service passes `--language auto`; the standalone CLI keeps its English default. `/v1/health` reports `tesseractFallbackReady` so a missing system binary is visible. Tesseract is an OCR fallback only; Gemma still runs only when OCR cannot resolve the card.
 

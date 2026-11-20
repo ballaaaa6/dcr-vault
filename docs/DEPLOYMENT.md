@@ -24,7 +24,13 @@ Google's ID token is verified by the server before account creation. Do not repl
 2. Add the returned database UUID as the GitHub Actions repository variable `CLOUDFLARE_D1_DATABASE_ID`.
 3. Create a separate Cloudflare API token with only Account `D1: Edit` permission and add it as the GitHub Actions secret `CLOUDFLARE_D1_API_TOKEN`. This token expires on 2027-11-19. Keep the existing `CLOUDFLARE_API_TOKEN` Pages deployment token limited to Pages Edit.
 4. Keep `CLOUDFLARE_ACCOUNT_ID` configured as a GitHub Actions secret.
-5. Once all values are present, the next push applies pending migrations, adds the D1 binding `DB`, Workers AI binding `AI`, `GOOGLE_CLIENT_ID`, `ORCL_MEDIA_ORIGIN`, and `ORCL_OCR_ORIGIN` to the Pages deployment, then publishes the site.
+5. Once all values are present, the next push applies pending migrations, adds the D1 binding `DB`, Workers AI binding `AI`, `GOOGLE_CLIENT_ID`, and the Oracle origins generated from `ORCL_SERVICE_ORIGIN` to the Pages deployment, then publishes the site.
+
+## Oracle origin hostname
+
+Cloudflare Workers cannot make outbound subrequests to IP-literal URLs. Set up a DNS hostname under a domain you control, point its A record to the Oracle VM, issue a TLS certificate for that hostname, and configure the Nginx HTTPS server with that certificate. Keep the media and OCR listeners bound to loopback and expose only the existing HTTPS reverse-proxy routes.
+
+Add `ORCL_SERVICE_ORIGIN=https://<hostname>` as a GitHub Actions repository variable. The workflow rejects IP literals and invalid HTTPS origins, then uses this one origin for both `ORCL_MEDIA_ORIGIN` and `ORCL_OCR_ORIGIN`. Production deployment is intentionally skipped until the variable is valid. `ORCL_OCR_TOKEN` remains a separate secret.
 
 ## OCR-first card reading
 
@@ -49,7 +55,7 @@ The workflow generates a temporary `wrangler.toml` from `wrangler.template.toml`
 
 - Pages Functions and D1 are required for Google sign-in and private card storage; `npm run dev` alone serves only the Vite front end.
 - Once D1 is configured, use Wrangler Pages local development with the D1 binding, for example `npx wrangler pages dev dist --d1 DB=<database-id>`.
-- The `ORCL_MEDIA_ORIGIN` and `ORCL_OCR_ORIGIN` variables point to the HTTPS reverse proxy on the Oracle VM. Keep both Oracle services on loopback. If the Pages secret or OCR service is unavailable, Add Card falls back to Gemma.
+- The `ORCL_MEDIA_ORIGIN` and `ORCL_OCR_ORIGIN` variables point to the same hostname-backed HTTPS reverse proxy on the Oracle VM. Keep both Oracle services on loopback. If OCR is unavailable, Add Card falls back to Gemma and reports the OCR and fallback states separately.
 - The Add Card suggestions are a static TCGdex metadata index. Refresh it by running `npm ci --prefix dcr-tag-70x20/catalog`, `python dcr-tag-70x20/catalog/import_tcgdex_catalog.py`, and `python tools/build-card-catalog-index.py`.
 - The legacy `dcr-cards-v1` browser data is offered for an explicit import after sign-in. Import does not delete the local copy, and images are excluded.
 - Do not commit `.env`, `.dev.vars`, credentials, `node_modules`, `dist`, card scans, or private collection exports.
