@@ -1,4 +1,8 @@
 # Changelog
+## Gemini transient failure recovery - 2026-11-21
+- Retry Gemini once after network errors or upstream 5xx responses; quota, configuration, and timeout failures are not retried.
+- Add privacy-safe request references to server diagnostics and the Add Card error state.
+
 ## Gemini card identification - 2026-11-21
 - Replaced the Oracle OCR-first / Gemma-fallback identification route with a single server-side Gemini `gemini-3.5-flash-lite` request.
 - Added structured JSON extraction, confidence-gated unique catalog matching, and ranked review candidates that never auto-select.

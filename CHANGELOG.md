@@ -1,4 +1,9 @@
 # Changelog
+## 2026-11-21 - Gemini transient failure recovery
+- Retry Gemini once after a network error or upstream 5xx, without retrying quota, configuration, or timeout failures.
+- Return a privacy-safe request reference for reading failures and log it with the failure class and upstream status for diagnosis.
+- Show the short reference in the Add Card error state so a future production failure can be matched to Cloudflare logs.
+
 ## 2026-11-21 - Gemini card identification
 - Replaced Oracle OCR and Gemma fallback calls in Add Card with one server-side `gemini-3.5-flash-lite` image-reading request.
 - Added structured field parsing, safe quota/configuration errors, confidence-gated catalog auto-fill, and non-automatic English catalog review suggestions when an exact match is unavailable.

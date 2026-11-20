@@ -155,10 +155,14 @@ async function analyzeFront() {
 
 function safeReadingErrorMessage(error) {
   const message = error?.message || '';
+  const code = error?.code || '';
   if (/not configured/i.test(message)) return 'Card reading is not configured for this deployment.';
-  if (error?.status === 429 || /quota/i.test(message)) return 'Gemini request quota was reached. Try again later.';
+  if (code === 'gemini_quota' || error?.status === 429 || /quota/i.test(message)) return 'Gemini request quota was reached. Try again later.';
   if (/Gemini API configuration is invalid/i.test(message)) return 'Gemini API settings need to be fixed by the site administrator.';
-  if (error?.status === 503 || /temporarily unavailable/i.test(message)) return 'Card reading is temporarily unavailable. Try again in a moment.';
+  if (['gemini_timeout', 'gemini_network', 'gemini_upstream', 'gemini_unknown'].includes(code) || error?.status === 503) {
+    const requestId = String(error?.requestId || '').match(/^[a-f\d-]{8,}$/i)?.[0]?.slice(0, 8);
+    return `Card reading is temporarily unavailable. Try again in a moment.${requestId ? ` Reference: ${requestId}.` : ''}`;
+  }
   if (error?.status === 422 || error?.status === 502 || /could not read/i.test(message)) return 'Gemini could not read enough card details from this photo. Try a clearer front image or enter the details manually.';
   if (!error?.status) return 'Could not connect to card reading. Check your connection and try again.';
   return message || 'Card reading could not be completed. Try again in a moment.';

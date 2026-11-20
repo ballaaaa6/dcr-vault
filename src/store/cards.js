@@ -6,6 +6,8 @@ async function requestJson(path, options = {}) {
   if (!response.ok) {
     const error = new Error(result.error || 'Card data could not be loaded.');
     error.status = response.status;
+    error.code = result.code || '';
+    error.requestId = result.requestId || '';
     throw error;
   }
   return result;

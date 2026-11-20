@@ -8,12 +8,21 @@ function requestAllowed(request) {
   return sameOrigin(request) && (!fetchSite || ['same-origin', 'none'].includes(fetchSite));
 }
 
-function geminiFailure(cause) {
-  if (cause?.code === 'not_configured') return error('Gemini card reading is not configured for this deployment.', 503);
-  if (cause?.code === 'configuration') return error('Gemini API configuration is invalid. Contact the site administrator.', 503);
-  if (cause?.code === 'quota') return error('Gemini request quota was reached. Try again later.', 429);
-  console.error('Gemini card reading failed.', {model: MODEL, reasonCode: cause?.code || 'unknown'});
-  return error('Gemini card reading is temporarily unavailable. Try again in a moment.', 503);
+function geminiFailure(cause, requestId) {
+  const failures = {
+    not_configured: ['Gemini card reading is not configured for this deployment.', 503, 'gemini_not_configured'],
+    configuration: ['Gemini API configuration is invalid. Contact the site administrator.', 503, 'gemini_configuration'],
+    quota: ['Gemini request quota was reached. Try again later.', 429, 'gemini_quota'],
+    timeout: ['Gemini card reading timed out. Try again.', 503, 'gemini_timeout'],
+    network_error: ['Gemini could not be reached. Try again.', 503, 'gemini_network'],
+    upstream: ['Gemini card reading is temporarily unavailable. Try again in a moment.', 503, 'gemini_upstream']
+  };
+  const [message, status, code] = failures[cause?.code] || [
+    'Gemini card reading is temporarily unavailable. Try again in a moment.', 503, 'gemini_unknown'
+  ];
+  console.error('Gemini card reading failed.', {model: MODEL, requestId, reasonCode: cause?.code || 'unknown',
+    upstreamStatus: cause?.upstreamStatus || null});
+  return json({error: message, code, requestId}, status);
 }
 
 export async function onRequestPost({request, env}) {
@@ -29,11 +38,13 @@ export async function onRequestPost({request, env}) {
 }
 
 async function identifyWithGemini(image, contentType, env) {
+  const requestId = crypto.randomUUID();
   try {
-    const fields = await analyzeWithGemini(env, image, contentType);
-    if (!fields) return error('Gemini could not read enough card identity details from this image.', 422);
+    const fields = await analyzeWithGemini(env, image, contentType, requestId);
+    if (!fields) return json({error: 'Gemini could not read enough card identity details from this image.',
+      code: 'card_unreadable', requestId}, 422);
     return json({source: 'gemini', model: MODEL, fields});
   } catch (cause) {
-    return geminiFailure(cause);
+    return geminiFailure(cause, requestId);
   }
 }
