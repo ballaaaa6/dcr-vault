@@ -72,7 +72,8 @@ async function loadCatalog() {
           year: String(year ?? ''), cardNumber: String(cardNumber ?? ''), rarity: recordedRarity || defaultRarity,
           seriesId: String(seriesId ?? ''), setId: catalogSetId, seriesName: String(seriesName ?? ''),
           metadata: {...catalogMetadata(metadata),
-            verifiedPrintedCodes: data.verifiedPrintedCodes?.[`${language}:${catalogSetId}`] || []}};
+            verifiedPrintedCodes: data.verifiedPrintedCodes?.[`${language}:${catalogSetId}`]?.codes || [],
+            englishSetName: data.verifiedPrintedCodes?.[`${language}:${catalogSetId}`]?.englishSetName || ''}};
       })
         .map(card => ({...card, imageUrl: imageUrl(card), imageUrlFallback: imageFallbackUrl(card)}));
     }).catch(error => { catalogPromise = null; throw error; });

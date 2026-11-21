@@ -67,7 +67,7 @@ test('finds the Japanese 30th anniversary Charizard in the shipped catalog', () 
   const data = JSON.parse(readFileSync(new URL('../../public/data/card-catalog.json', import.meta.url)));
   const cards = data.cards.filter(row => row[1] === 'ja' && row[8] === 'M6a').map(row => ({
     id: row[0], language: row[1], name: row[2], cardNumber: row[5], setId: row[8],
-    metadata: {nameAliases: row[10]?.[0] || [], cardCount: row[10]?.[1] || '', hp: row[10]?.[2] || '', verifiedPrintedCodes: data.verifiedPrintedCodes?.['ja:M6a'] || []}
+    metadata: {nameAliases: row[10]?.[0] || [], cardCount: row[10]?.[1] || '', hp: row[10]?.[2] || '', verifiedPrintedCodes: data.verifiedPrintedCodes?.['ja:M6a']?.codes || []}
   }));
   const found = findSourceCatalogCardFromCatalog(cards,
     {language: 'ja', setCode: 'M6a', cardNumber: '137/103', name: 'リザードン', hp: '120'});

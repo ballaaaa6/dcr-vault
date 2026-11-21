@@ -17,3 +17,11 @@ test('does not put a non-English printed set name in the English form', () => {
   const fields = {language: 'th', name: 'ลิซาร์ดอน', setName: 'ชุดตัวอย่าง', englishName: 'Charizard'};
   assert.equal(intakeValues(fields, {setName: 'ชุดตัวอย่าง'}).setName, '');
 });
+
+
+test('uses a reviewed English set display for a non-English printing', () => {
+  const fields = {language: 'ja', englishName: 'Charizard', cardNumber: '137/103'};
+  const source = {setName: '拡張パック', year: '2026', metadata: {englishSetName: '30th CELEBRATION'}};
+  assert.equal(intakeValues(fields, source).setName, '30th CELEBRATION');
+  assert.equal(intakeValues(fields, source).cardNumber, '137/103');
+});

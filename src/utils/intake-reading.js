@@ -5,7 +5,7 @@ export function intakeValues(fields, source) {
   const latin = value => value && !hasNonLatinScript(value) ? value : '';
   return {
     name: englishSource?.name || fields.englishName || (fields.language === 'en' ? fields.name : '') || '',
-    setName: englishSource?.setName || latin(source?.setName) || '',
+    setName: englishSource?.setName || latin(source?.metadata?.englishSetName) || latin(source?.setName) || '',
     year: source?.year || '',
     cardNumber: fields.cardNumber || '',
     rarity: source?.rarity || ''

@@ -132,7 +132,11 @@ def read_verified_codes():
             raise SystemExit("Printed-code mappings require verification and sources.")
         if not all(source.startswith("https://") for source in item["sources"]):
             raise SystemExit("Printed-code mapping sources must use HTTPS.")
-        result.setdefault(f'{item["language"]}:{item["setId"]}', []).append(item["printedCode"])
+        key = f'{item["language"]}:{item["setId"]}'
+        mapping = result.setdefault(key, {"codes": [], "englishSetName": item.get("englishSetName", "")})
+        if mapping["englishSetName"] != item.get("englishSetName", ""):
+            raise SystemExit("Conflicting display names in verified set mappings.")
+        mapping["codes"].append(item["printedCode"])
     return result
 
 
