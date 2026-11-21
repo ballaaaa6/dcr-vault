@@ -108,3 +108,12 @@ test('a catalog ID alone is not evidence of a printed code', () => {
   const withArtist = {...japaneseCharizard, metadata:{...japaneseCharizard.metadata, illustrator:'Artist'}};
   assert.equal(findSourceCatalogCardFromCatalog([withArtist], {...fields, illustrator:'Wrong Artist'}), null);
 });
+
+
+test('offers number and language candidates for review when the name is missing or differs', () => {
+  const other = {...japaneseCharizard, id: 'other', name: '違う名前'};
+  const fields = {language: 'ja', name: 'リザードン', cardNumber: '137/103'};
+  assert.deepEqual(findReadingCandidates([other, japaneseCharizard], fields), [japaneseCharizard, other]);
+  assert.deepEqual(findReadingCandidates([japaneseCharizard], {...fields, name: ''}), [japaneseCharizard]);
+  assert.equal(findSourceCatalogCardFromCatalog([japaneseCharizard], {...fields, name: 'Different', setCode: 'M6a'}), null);
+});

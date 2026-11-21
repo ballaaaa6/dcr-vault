@@ -93,5 +93,5 @@ export function cleanReading(value) {
     level: cleanText(value.level, 6), finish: cleanText(fieldValue(value, ['finish', 'foil', 'variant']), 32),
     fieldConfidence: cleanFieldConfidence(value.fieldConfidence || value.confidence)
   };
-  return reading.name || reading.englishName || reading.identificationSummary ? reading : null;
+  return reading.name || reading.englishName || reading.identificationSummary || reading.language && reading.cardNumber ? reading : null;
 }

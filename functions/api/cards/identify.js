@@ -53,7 +53,7 @@ async function identifyWithGemini(image, contentType, env, userId) {
   if (!fields) return json({error: 'Gemini could not identify this card from the image.',
     code: 'card_unreadable', requestId}, 422);
   return json({source: 'gemini', model: MODEL, fields,
-    readingAdequate: Boolean(fields.name || fields.englishName), requestId});
+    readingAdequate: Boolean(fields.name || fields.englishName || fields.language && fields.cardNumber), requestId});
 }
 
 function safeRawReading(value) {

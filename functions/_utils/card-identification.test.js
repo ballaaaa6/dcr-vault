@@ -149,3 +149,11 @@ test('does not infer rarity from a promo collector number', async () => {
   assert.equal(cleanReading({name: 'Pikachu', cardNumber: '151/XY-P'}).rarity, '');
   assert.equal(cleanReading({name: 'Pikachu', cardNumber: '151/XY-P', rarity: 'Promo'}).rarity, 'Promo');
 });
+
+
+test('keeps a reading with a language and collector number when the name is unreadable', async () => {
+  const {cleanReading} = await import('./card-reading-normalization.js');
+  const fields = cleanReading({language: 'ja', cardNumber: '151/XY-P', uncertainFields: ['name']});
+  assert.equal(fields.cardNumber, '151/XY-P');
+  assert.equal(fields.language, 'ja');
+});

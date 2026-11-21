@@ -77,12 +77,14 @@ export function findReadingCandidates(cards, fields, limit = 12) {
   const name = normalized(fields.name);
   const number = String(fields.cardNumber || '').trim();
   const uncertain = (fields.uncertainFields || []).join(' ').toLowerCase();
-  if (!language || !name || !number || /collector.?number|card.?number|name|language/.test(uncertain)) return [];
+  if (!language || !number || /collector.?number|card.?number|language/.test(uncertain)) return [];
+  const named = card => name && [card.name, ...(card.metadata?.nameAliases || [])]
+    .some(alias => normalized(alias) === name);
   return cards.filter(card => normalized(card.language) === language
-    && [card.name, ...(card.metadata?.nameAliases || [])].some(alias => normalized(alias) === name)
     && collectorNumbersCompatible(number, card)
     && (!fields.hp || !card.metadata?.hp || String(fields.hp).trim() === String(card.metadata.hp).trim())
     && (!fields.illustrator || !card.metadata?.illustrator
       || normalized(fields.illustrator) === normalized(card.metadata.illustrator)))
+    .sort((a, b) => Number(Boolean(named(b))) - Number(Boolean(named(a))))
     .slice(0, limit);
 }

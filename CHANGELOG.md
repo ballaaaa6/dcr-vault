@@ -10,6 +10,7 @@
 - Show and allow review of printed-language catalog candidates, preserving the printed collector number.
 - Require verified printed-code evidence before automatically matching a catalog set ID.
 - Use reviewed English set names for supported non-English releases.
+- Offer number-and-language candidates for review when a printed name is missing or differs.
 - Keep promo markers separate from rarity and include server reader tests in CI.
 - Record owner-scoped identification diagnostics and schedule deletion of expired records.
 - Store identification status and field provenance with new and imported cards.

@@ -156,7 +156,7 @@ function userValuesConflict(values) {
 function candidateMarkup(candidates) {
   if (!candidates.length) return '';
   const items = candidates.map((card, index) => `<li><button type="button" data-identification-candidate="${index}">${escapeHTML([card.name, card.setName || 'Set unknown', card.cardNumber, card.language].filter(Boolean).join(' · '))}</button></li>`).join('');
-  return `<section><p>Possible printed-language records; compare the set, stamp, and number before using them:</p><ul>${items}</ul></section>`;
+  return `<section><p>Possible printed-language records; names may differ. Compare the name, set, stamp, and number before using them:</p><ul>${items}</ul></section>`;
 }
 
 function selectReadingCandidate(index) {
@@ -210,7 +210,7 @@ async function analyzeFront() {
     }
     if (version !== analysisVersion) return;
     if (!result.fields || !result.readingAdequate) {
-      showError('Gemini could not read the card name clearly enough. Try a clearer front photo or enter the details manually.', true);
+      showError('Gemini could not read enough identity details. Try a clearer front photo or enter the details manually.', true);
       return;
     }
     const resolution = await applyReading(result.fields, version, result.requestId);
