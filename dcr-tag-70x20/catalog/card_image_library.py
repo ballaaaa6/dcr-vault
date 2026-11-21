@@ -347,6 +347,8 @@ def update_set_records(
                 "SELECT * FROM card_images WHERE source_path=? AND language=?",
                 (row["source_path"], language),
             ).fetchone()
+            if file_is_cached(existing, output) and existing["image_url_source"] in {"pokemon_tcg_data", "cardcorpus", "tcgcardprice"}:
+                continue
             if file_is_cached(existing, output):
                 status = "cached_set_api_error"
             else:
@@ -377,6 +379,9 @@ def update_set_records(
             (row["source_path"], language),
         ).fetchone()
         cached = file_is_cached(existing, output)
+        # Preserve reviewed images imported from other sources across TCGdex refreshes.
+        if cached and existing["image_url_source"] in {"pokemon_tcg_data", "cardcorpus", "tcgcardprice"}:
+            continue
         fallback_url = direct_image_base_url(language, row["series_id"], set_id, row["local_id"])
         if card is None:
             same_failed_url = bool(
@@ -528,9 +533,9 @@ def library_summary(connection: sqlite3.Connection, database: Path, output: Path
     payload = {
         "schema_version": 1,
         "generated_at_utc": utc_now(),
-        "source": "TCGdex localized set API and card asset CDN",
+        "source": "TCGdex and indexed external image sources",
         "catalog_database": str(database.resolve()),
-        "image_quality": "low.webp (TCGdex 245x337 asset variant)",
+        "image_quality": "WebP up to 245x337; see image_url_source for provenance",
         "phash": "64-bit DCT perceptual hash, stored as 16 hexadecimal characters",
         "output_root": str(output.resolve()),
         "index_database": "image-index.sqlite",
@@ -554,6 +559,15 @@ def library_summary(connection: sqlite3.Connection, database: Path, output: Path
         },
         "by_language": by_language,
     }
+    previous_manifest = output / "manifest.json"
+    if previous_manifest.is_file():
+        try:
+            previous = json.loads(previous_manifest.read_text(encoding="utf-8"))
+            for key in ("pokemon_tcg_data_commit", "cardcorpus_commit"):
+                if previous.get(key):
+                    payload[key] = previous[key]
+        except (OSError, ValueError):
+            pass
     return payload
 
 

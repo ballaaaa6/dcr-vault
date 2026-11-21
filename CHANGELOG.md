@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Preserve imported card images
+- Add pinned image importers and preserve verified external images across catalog refreshes.
+
 ## 2026-11-22 - Front photo review notice
 - Warn when card details remain after the front photo changes.
 

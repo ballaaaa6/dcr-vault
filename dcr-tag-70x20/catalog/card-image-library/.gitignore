@@ -1,0 +1,5 @@
+images/
+image-index.sqlite
+image-index.sqlite-shm
+image-index.sqlite-wal
+*.tmp

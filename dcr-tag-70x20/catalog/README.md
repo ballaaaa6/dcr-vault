@@ -39,6 +39,8 @@ These are snapshot counts, not coverage guarantees; check `layout-references/man
 
 ## Complete card-image library
 
+The local index can also contain images from PokemonTCG data, CardCorpus, and TCGCardPrice. The source URL and provider are recorded per image; TCGdex sync preserves those cached files. The optional importers `import_pokemon_tcg_images.py` and `import_cardcorpus_images.py` take a pinned `--commit` and `--dry-run`, and only match unambiguous catalog identities. Images are stored locally outside Git. Availability and permission to redistribute images are separate from the license on source metadata.
+
 The layout library above intentionally downloads only a small set of examples. To cache a low-resolution image for every catalog card that TCGdex currently exposes, run:
 
 ```powershell
