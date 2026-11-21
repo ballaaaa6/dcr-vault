@@ -29,6 +29,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Test application
+        run: node --test src/utils/*.test.js src/pages/*.test.js
+
       - name: Build site
         run: npm run build
 

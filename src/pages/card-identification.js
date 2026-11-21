@@ -5,6 +5,7 @@ import {escapeHTML} from '../utils/format.js';
 import {hideAllCatalogSuggestions} from './search-catalog.js';
 import {cardLabelMetadata} from '../utils/label-metadata.js';
 import {readingSummaryMarkup} from './card-identification-view.js';
+import {hasNonLatinScript} from '../utils/language.js';
 
 let analysisVersion = 0;
 let analysisBusy = false;
@@ -44,7 +45,7 @@ function showDialog(content) {
 }
 
 function latinText(value) {
-  return value && !/[^\p{Script=Latin}\p{Common}\p{Inherited}]/u.test(value) ? value : '';
+  return value && !hasNonLatinScript(value) ? value : '';
 }
 
 async function applyReading(fields, version) {

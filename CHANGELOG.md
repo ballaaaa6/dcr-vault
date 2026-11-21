@@ -1,4 +1,8 @@
 # Changelog
+## 2026-11-21 - Restore application startup
+- Reuse the shared language check in card identification to avoid invalid JavaScript syntax that prevented the entire app from loading.
+- Add a JavaScript syntax regression test for the card identification page and run application tests before deployment.
+
 ## 2026-11-21 - Printed card identity review
 - Read printed collector numbers, set codes, symbols, stamps and copyright separately before suggesting a printing.
 - Match the original-language catalog by set and collector number, check known denominators and conflicting card details, and keep unverified English counterparts out of the form.
