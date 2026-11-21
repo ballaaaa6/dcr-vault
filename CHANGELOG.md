@@ -1,4 +1,8 @@
 # Changelog
+
+## 2026-11-22 - Set code research reference
+- Add a multilingual set inventory, pinned English abbreviation source, and guidance distinguishing printed marks, catalog IDs, and promo identifiers.
+
 ## 2026-11-21 - Preserve card reading values
 - Fill available English set and year readings even when the printed-language catalog has no match; mark unmatched readings for review.
 - Distinguish an unavailable catalog from a missing record and show the English set reading in the identification dialog.

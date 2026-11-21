@@ -1,5 +1,7 @@
 # TCGdex local catalog
 
+For set IDs, English deck-list abbreviations, promo formats, and current coverage limits, see the [set code research reference](SET-CODE-REFERENCE.md).
+
 `cards.sqlite` is the local, searchable snapshot of the TCGdex multilingual source database. It contains all static fields present in each imported source record; optional or untranslated fields remain absent. Card-art files are kept outside the SQLite snapshot in the optional `layout-references/` library.
 
 ## Imported snapshot

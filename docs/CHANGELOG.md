@@ -1,5 +1,9 @@
 # Changelog
 
+## Set code research reference - 2026-11-22
+- Document the available multilingual set inventory, source coverage, ambiguity, and remaining printed-code verification.
+
+
 ## Card reading fallback - 2026-11-21
 - Preserve Gemini's available English set and year when no printed-language catalog record is found, while marking those values unverified.
 - Report catalog loading failures separately from missing records.
