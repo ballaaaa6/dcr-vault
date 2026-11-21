@@ -2,9 +2,9 @@ import assert from 'node:assert/strict';
 import {test} from 'node:test';
 import {intakeValues} from './intake-reading.js';
 
-test('keeps Gemini values when the printed-language catalog has no match', () => {
+test('does not silently fill unverified set, year or rarity without a catalog match', () => {
   const fields = {language: 'th', englishName: 'Charizard', englishSetName: 'Example Set', year: '2021', cardNumber: '168/130', rarity: 'Rare'};
-  assert.deepEqual(intakeValues(fields, null), {name: 'Charizard', setName: 'Example Set', year: '2021', cardNumber: '168/130', rarity: 'Rare'});
+  assert.deepEqual(intakeValues(fields, null), {name: 'Charizard', setName: '', year: '', cardNumber: '168/130', rarity: ''});
 });
 
 test('prefers verified catalog data and preserves the printed number', () => {

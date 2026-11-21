@@ -1,7 +1,12 @@
 import assert from 'node:assert/strict';
 import {test} from 'node:test';
 import {readFileSync} from 'node:fs';
-import {findExactCatalogCardFromCatalog, findSourceCatalogCardFromCatalog} from './card-identification-matching.js';
+import {findExactCatalogCardFromCatalog, findSourceCatalogCardFromCatalog, readingConflicts} from './card-identification-matching.js';
+
+test('flags conflicting anniversary descriptions without confusing collector numbers', () => {
+  assert.deepEqual(readingConflicts({stamp: '25th Anniversary Pikachu', evidence: ['Pikachu 30 stamp visible']}), ['anniversary stamp']);
+  assert.deepEqual(readingConflicts({identificationSummary: 'Card 25/30'}), []);
+});
 
 function catalogCard(overrides = {}) {
   return {id: 'sv10-en-5', language: 'en', name: 'Mew', setName: 'Sample Set', year: '2024', cardNumber: '5', rarity: 'Rare Holo', ...overrides};

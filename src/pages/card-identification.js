@@ -6,13 +6,14 @@ import {hideAllCatalogSuggestions} from './search-catalog.js';
 import {cardLabelMetadata} from '../utils/label-metadata.js';
 import {readingSummaryMarkup} from './card-identification-view.js';
 import {intakeValues} from '../utils/intake-reading.js';
+import {readingConflicts} from '../utils/card-identification-matching.js';
 
 let analysisVersion = 0;
 let analysisBusy = false;
 
 export function identificationDialogMarkup() {
   return `<dialog id="identification-result" class="identification-dialog" aria-labelledby="identification-title">
-    <header class="identification-dialog-header"><div><div class="page-eyebrow">GEMINI IDENTIFICATION</div><h2 id="identification-title">Card identified</h2><p>Review the details read from the photo before adding it.</p></div>
+    <header class="identification-dialog-header"><div><div class="page-eyebrow">GEMINI IDENTIFICATION</div><h2 id="identification-title">Review card reading</h2><p>Review the details read from the photo before adding it.</p></div>
       <button class="btn btn-ghost identification-close" type="button" data-close-identification aria-label="Close card result">×</button></header>
     <div id="identification-dialog-content" class="identification-dialog-content" aria-live="polite"></div>
   </dialog>`;
@@ -34,6 +35,12 @@ function clearResult() {
 export function resetCardIdentificationState() {
   analysisVersion += 1;
   clearResult();
+}
+
+function invalidatePhotoIdentity() {
+  resetCardIdentificationState();
+  window.__intakeCatalogCard = null;
+  window.__intakeIdentification = null;
 }
 
 function showDialog(content) {
@@ -62,9 +69,11 @@ async function applyReading(fields, version) {
   for (const key of ['name', 'setName', 'year', 'cardNumber']) document.getElementById(`m-${key}`).value = values[key];
   document.getElementById('m-rarity').value = formatRarity(values.rarity);
   hideAllCatalogSuggestions();
-  const matchNote = source ? 'Printed-language catalog record found. Check stamp and finish; the variant is not verified.'
+  const conflicts = readingConflicts(fields);
+  const matchNote = conflicts.length ? 'Conflicting anniversary stamp readings. Review the image before selecting a set.'
+    : source ? 'Printed-language catalog record found. Check stamp and finish; the variant is not verified.'
     : catalogUnavailable ? 'Catalog unavailable; photo readings are unverified. Try again and review the details.'
-      : 'No verified printed-language record found. Photo readings are unverified; review the set and year before saving.';
+      : 'No verified printed-language record found. Set, year and rarity require review; photo readings are shown above.';
   const englishNote = sourceLanguage !== 'en'
     ? ' Card number is the printed number; English name is a translation to review. English counterpart is not verified.' : '';
   const labelNote = !metadata.labelMetadataReady ? ' A verified label profile is required before printing.' : '';
@@ -123,14 +132,12 @@ function canRetryIdentification(error) {
 
 document.addEventListener('change', event => {
   if (!event.target.matches('[data-upload-side="front"]')) return;
-  analysisVersion += 1;
-  clearResult();
+  invalidatePhotoIdentity();
   updateButton();
 });
 
 window.addEventListener('intake-front-image-cleared', () => {
-  analysisVersion += 1;
-  clearResult();
+  invalidatePhotoIdentity();
   updateButton();
 });
 

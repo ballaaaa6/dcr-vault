@@ -5,9 +5,9 @@ export function intakeValues(fields, source) {
   const latin = value => value && !hasNonLatinScript(value) ? value : '';
   return {
     name: englishSource?.name || fields.englishName || (fields.language === 'en' ? fields.name : '') || '',
-    setName: englishSource?.setName || latin(source?.setName) || fields.englishSetName || (fields.language === 'en' ? fields.setName : '') || '',
-    year: source?.year || fields.year || '',
+    setName: englishSource?.setName || latin(source?.setName) || '',
+    year: source?.year || '',
     cardNumber: fields.cardNumber || '',
-    rarity: source?.rarity || fields.rarity || ''
+    rarity: source?.rarity || ''
   };
 }

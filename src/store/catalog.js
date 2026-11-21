@@ -74,7 +74,7 @@ async function loadCatalog() {
           metadata: catalogMetadata(metadata)};
       })
         .map(card => ({...card, imageUrl: imageUrl(card), imageUrlFallback: imageFallbackUrl(card)}));
-    });
+    }).catch(error => { catalogPromise = null; throw error; });
   return catalogPromise;
 }
 

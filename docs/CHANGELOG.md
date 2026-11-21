@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-11-22 - Card identification safeguards
+- Avoid silently filling unverified set, year, and rarity values; flag conflicting anniversary readings for review.
+- Retry catalog loading after a failure and invalidate the previous photo identity when the front image changes.
+
+
 ## 2026-11-22 - Expand multilingual set reference
 - Add sourced set-name and identifier snapshots across 15 languages, additional Japanese references, and the Thai MA6 example.
 

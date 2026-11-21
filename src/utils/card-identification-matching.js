@@ -29,12 +29,18 @@ export function collectorNumbersCompatible(printed, card) {
   return Boolean(number && number === catalogNumber && (!denominator || !expectedDenominator || denominator === expectedDenominator));
 }
 
+export function readingConflicts(fields) {
+  const text = [fields.stamp, fields.identificationSummary, ...(fields.evidence || [])].join(' ');
+  const anniversary = number => new RegExp(`\\b${number}(?:th\\b|\\s+(?:anniversary|stamp)\\b)`, 'i').test(text);
+  return anniversary(25) && anniversary(30) ? ['anniversary stamp'] : [];
+}
+
 export function findSourceCatalogCardFromCatalog(cards, fields) {
   const language = normalized(fields.language);
   const setCode = normalized(fields.setCode);
   const number = String(fields.cardNumber || '').trim();
   const uncertain = (fields.uncertainFields || []).join(' ').toLowerCase();
-  if (!language || !setCode || !number || /set.?code|collector.?number|card.?number/.test(uncertain)) return null;
+  if (!language || !setCode || !number || readingConflicts(fields).length || /set.?code|collector.?number|card.?number/.test(uncertain)) return null;
   const name = normalized(fields.name);
   const matches = cards.filter(card => normalized(card.language) === language
     && normalized(card.setId) === setCode && collectorNumbersCompatible(number, card)
