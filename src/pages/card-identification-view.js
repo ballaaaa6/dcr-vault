@@ -42,6 +42,8 @@ export function readingSummaryMarkup(fields, source, adequate) {
     fieldMarkup(fields, 'rarity', 'Rarity', fields.rarity),
     fieldMarkup(fields, 'attacks', 'Attacks and effects', attackSummary(fields.attacks))
   ].filter(Boolean).join('');
+  const missing = Object.entries(fields.form || {}).filter(([, value]) => !value).map(([key]) => key);
+  const missingNote = missing.length ? `<p>Fill or check: ${escapeHTML(missing.join(', '))}</p>` : '';
   const status = fields.identificationSummary || (adequate
     ? 'Review the evidence read from the photo.' : 'The photo did not provide enough clear identity details.');
   const evidence = (fields.evidence || []).map(item => `<li>${escapeHTML(item)}</li>`).join('');
@@ -49,7 +51,7 @@ export function readingSummaryMarkup(fields, source, adequate) {
     ? `<p>Needs a check: ${escapeHTML(fields.uncertainFields.join(', '))}</p>` : '';
   return `<section class="identification-read-summary" aria-label="Details read from the photo">
     <div class="identification-read-heading"><b>Read from photo</b><small>${escapeHTML(readerName(source))}</small></div>
-    <p>${escapeHTML(status)}</p>${uncertainty}${evidence ? `<ul class="identification-read-evidence">${evidence}</ul>` : ''}
+    <p>${escapeHTML(status)}</p>${uncertainty}${missingNote}${evidence ? `<ul class="identification-read-evidence">${evidence}</ul>` : ''}
     <div class="identification-read-grid">${rows || '<small>No identity details were read.</small>'}</div>
   </section>`;
 }

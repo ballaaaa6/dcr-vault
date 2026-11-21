@@ -87,14 +87,38 @@ function showDialog(content) {
   if (!dialog.open) dialog.showModal();
 }
 
-async function applyReading(fields, version, requestId) {
-  const immediate = intakeValues(fields, null);
-  for (const key of ['name', 'setName', 'year', 'cardNumber', 'rarity']) {
-    if (fieldProvenance[key] !== 'user') {
-      const input = document.getElementById(`m-${key}`);
-      input.value = key === 'rarity' ? formatRarity(immediate[key]) : immediate[key];
-    }
+function fillGeminiValues(fields, requestId) {
+  const values = intakeValues(fields, null);
+  readingRequestId = requestId || '';
+  identificationStatus = 'unresolved';
+  window.__intakeIdentityReviewRequired = true;
+  window.__intakeIdentification = {...fields, sourceLanguage: fields.language || 'unknown'};
+  window.__intakeCatalogCard = null;
+  window.__intakeCatalogGame = 'pokemon';
+  const userFields = Object.fromEntries(Object.entries(fieldProvenance).filter(([, source]) => source === 'user'));
+  fieldProvenance = Object.fromEntries(Object.entries(values).map(([key, value]) => [key, value ? 'gemini' : 'unknown']));
+  Object.assign(fieldProvenance, userFields);
+  appliedValues = {};
+  for (const [key, value] of Object.entries(values)) {
+    if (fieldProvenance[key] === 'user') continue;
+    const input = document.getElementById(`m-${key}`);
+    input.value = key === 'rarity' ? formatRarity(value) : value;
+    appliedValues[key] = input.value;
   }
+  invalidateCatalogSuggestions();
+  document.getElementById('manual-status').textContent = 'Gemini filled the available details. Checking the catalog; review all fields before saving.';
+  return values;
+}
+
+function catalogDifferences(values, source) {
+  if (!source) return [];
+  const expected = intakeValues({...source, form: {}, language: source.language}, source);
+  return ['name', 'setName', 'year', 'rarity'].filter(key => values[key] && expected[key]
+    && values[key].trim().toLowerCase() !== expected[key].trim().toLowerCase())
+    .map(key => `${key}: Gemini ${values[key]} / catalog ${expected[key]}`);
+}
+
+async function applyReading(fields, version, requestId, values) {
   let catalogUnavailable = false;
   let source = await findSourceCatalogCard(fields).catch(() => { catalogUnavailable = true; return null; });
   let candidates = [];
@@ -102,52 +126,32 @@ async function applyReading(fields, version, requestId) {
     candidates = await findSourceCandidates(fields).catch(() => { catalogUnavailable = true; return []; });
   }
   if (version !== analysisVersion) return null;
-  const sourceLanguage = fields.language || 'unknown';
-  let values = immediate;
-  if (source && userValuesConflict(values)) {
+  const differences = catalogDifferences(values, source);
+  if (source && (userValuesConflict(values) || differences.length)) {
     candidates.unshift(source);
     source = null;
-    values = immediate;
   }
-  const english = sourceLanguage === 'en' ? source : null;
-  readingRequestId = requestId || '';
+  const sourceLanguage = fields.language || 'unknown';
   identificationStatus = source ? 'matched' : 'unresolved';
   window.__intakeIdentityReviewRequired = !source;
-  const userFields = Object.fromEntries(Object.entries(fieldProvenance).filter(([, value]) => value === 'user'));
-  fieldProvenance = {name: values.name ? 'gemini' : 'unknown',
-    setName: values.setName ? 'gemini' : 'unknown', year: values.year ? 'gemini' : 'unknown',
-    cardNumber: 'gemini', rarity: values.rarity ? 'gemini' : 'unknown', ...userFields};
-  const selected = english ? {...english, sourceLanguage, sourceSetId: source.setId, sourceCardId: source.id,
-    sourceFinish: ''} : {...values,
-    language: sourceLanguage, sourceLanguage, sourceSetId: source?.setId || '', sourceCardId: source?.id || '',
-    setCode: fields.setCode || '', sourceFinish: '', catalogCardId: '', id: ''};
+  const selected = sourceLanguage === 'en' && source
+    ? {...source, sourceLanguage, sourceSetId: source.setId, sourceCardId: source.id, sourceFinish: ''}
+    : {...values, language: sourceLanguage, sourceLanguage, sourceSetId: source?.setId || '',
+      sourceCardId: source?.id || '', setCode: fields.setCode || '', sourceFinish: '', catalogCardId: '', id: ''};
   const metadata = cardLabelMetadata(selected);
   window.__intakeCatalogCard = {...selected, ...metadata};
-  window.__intakeIdentification = {...fields, sourceLanguage};
-  window.__intakeCatalogGame = 'pokemon';
-  appliedValues = {};
-  for (const key of ['name', 'setName', 'year', 'cardNumber', 'rarity']) {
-    if (fieldProvenance[key] === 'user') continue;
-    const input = document.getElementById(`m-${key}`);
-    input.value = key === 'rarity' ? formatRarity(values[key]) : values[key];
-    appliedValues[key] = input.value;
-  }
-  invalidateCatalogSuggestions();
   const conflicts = readingConflicts(fields);
-  const matchNote = Object.keys(userFields).length ? 'Your edited fields were kept. Check them against the photo and any candidate.'
-    : conflicts.length ? 'Conflicting anniversary stamp readings. Review the image before selecting a set.'
-    : source ? 'Printed-language catalog record found. Check stamp and finish; the variant is not verified.'
-    : catalogUnavailable ? 'Catalog unavailable; photo readings are unverified. Try again and review the details.'
-      : 'No verified printed-language record found. Set, year and rarity require review; photo readings are shown above.';
+  const matchNote = differences.length ? `Catalog differs: ${differences.join('; ')}. Review the photo and correct the form.`
+    : conflicts.length ? 'Conflicting anniversary stamp readings. Review the photo before selecting a set.'
+      : source ? 'Printed-language catalog record found. Check stamp and finish; the variant is not verified.'
+        : catalogUnavailable ? 'Catalog unavailable; review the Gemini values before saving.'
+          : 'No verified printed-language record found. Review the Gemini values before saving.';
   const englishNote = sourceLanguage !== 'en'
-    ? ' Card number is the printed number; English name is a translation to review. English counterpart is not verified.' : '';
+    ? ' Card number is the printed number; English name is a translation to review.' : '';
   const labelNote = !metadata.labelMetadataReady ? ' A verified label profile is required before printing.' : '';
   document.getElementById('manual-status').textContent = `${matchNote}${englishNote}${labelNote}`;
-  document.getElementById('m-grade').focus();
   logIdentificationStage('browser', {match: source ? 'matched' : catalogUnavailable ? 'catalog_unavailable' : 'unresolved',
-    candidates: candidates.map(card => card.id),
-    values: Object.fromEntries(['name', 'setName', 'year', 'cardNumber', 'rarity'].map(key => [key, document.getElementById(`m-${key}`).value])),
-    provenance: fieldProvenance, conflicts});
+    candidates: candidates.map(card => card.id), provenance: fieldProvenance, conflicts: [...conflicts, ...differences]});
   return {source, candidates, matchNote, englishNote};
 }
 
@@ -229,7 +233,9 @@ async function analyzeFront() {
       showError('Gemini could not read enough identity details. Try a clearer front photo or enter the details manually.', true);
       return;
     }
-    const resolution = await applyReading(result.fields, version, result.requestId);
+    const values = fillGeminiValues(result.fields, result.requestId);
+    showDialog(`${readingSummaryMarkup(result.fields, null, true)}<p class="identification-match-note">Gemini filled the available fields. Checking the catalog…</p>`);
+    const resolution = await applyReading(result.fields, version, result.requestId, values);
     if (resolution && version === analysisVersion) candidateState = {fields: result.fields, candidates: resolution.candidates, version};
     if (resolution && version === analysisVersion) showDialog(`${readingSummaryMarkup(result.fields, result.source, true)}<p class="identification-match-note">${escapeHTML(resolution.matchNote + resolution.englishNote)} Review all details before saving.</p>${candidateMarkup(resolution.candidates)}`);
   } finally {
