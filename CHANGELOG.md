@@ -1,5 +1,7 @@
 # Changelog
 ## 2026-11-21 - Localized card matching and automatic rarity
+- Fail over across configured Gemini keys on non-quota key, configuration, timeout, network, and upstream errors; keep quota/rate-limit responses terminal.
+- Keep the existing single Gemini key as a final fallback when a multi-key pool is configured.
 - Read the full visible card with an English Gemini prompt, including attack/ability effects, printed text, regulation mark, and per-field confidence.
 - Match the printed-language catalog record and metadata first, map it to English label data, auto-fill only a unique high-confidence identity, and show source-language images for review choices.
 - Fill the read-only rarity field from the selected English card record or reviewed uniform set default; keep unknown rarity blank.

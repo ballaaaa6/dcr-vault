@@ -162,6 +162,10 @@ function retryableFailure(cause) {
   return cause?.code === 'network_error' || cause?.code === 'upstream' && cause.upstreamStatus >= 500;
 }
 
+function canFailOver(cause) {
+  return ['key_rejected', 'configuration', 'timeout', 'network_error', 'upstream'].includes(cause?.code);
+}
+
 function safeDiagnosticMessage(value) {
   return String(value || '').replace(/[\r\n\t]+/g, ' ').replace(/AIza[\w-]{20,}/g, '[redacted]').slice(0, 180);
 }
@@ -221,8 +225,8 @@ function upstreamError(status, body) {
 
 function configuredApiKeys(env) {
   const pool = String(env.GEMINI_API_KEYS || '').split(/[\r\n,;]+/).map(key => key.trim()).filter(Boolean);
-  const keys = pool.length ? pool : [String(env.GEMINI_API_KEY || '').trim()].filter(Boolean);
-  return [...new Set(keys)];
+  const legacyKey = String(env.GEMINI_API_KEY || '').trim();
+  return [...new Set([...pool, legacyKey].filter(Boolean))];
 }
 
 function orderedApiKeys(keys) {
@@ -246,10 +250,14 @@ export async function analyzeWithGemini(env, body, contentType, requestId) {
       if (!fields) console.warn('Gemini returned no identity fields.', {model: MODEL, ...responseDiagnostics(output, parsed)});
       return fields;
     } catch (cause) {
-      if (cause?.code !== 'key_rejected') throw cause;
-      preferredApiKey = apiKeys[index + 1] || '';
-      console.warn('Gemini rejected a configured API key; trying the next key.', {model: MODEL, requestId,
-        upstreamStatus: cause.upstreamStatus || null});
+      if (!canFailOver(cause)) throw cause;
+      if (index === apiKeys.length - 1) {
+        if (cause?.code === 'key_rejected') throw readingError('configuration', 503);
+        throw cause;
+      }
+      preferredApiKey = apiKeys[index + 1];
+      console.warn('Gemini request failed; trying the next configured API key.', {model: MODEL, requestId,
+        reasonCode: cause.code, upstreamStatus: cause.upstreamStatus || null});
     }
   }
   throw readingError('configuration', 503);
