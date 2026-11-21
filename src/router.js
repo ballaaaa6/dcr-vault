@@ -8,6 +8,7 @@ import {loginPage, initializeLogin} from './pages/login.js';
 import {verify} from './pages/verify.js';
 import {importPage} from './pages/import.js';
 import {getCards} from './store/cards.js';
+import {addVaultImages} from './store/vault-images.js';
 import {escapeHTML} from './utils/format.js';
 
 let renderVersion = 0;
@@ -56,7 +57,7 @@ export async function render() {
 
 async function privatePage(path) {
   const cards = await getCards();
-  if (path === '#/vault') return vault(cards);
+  if (path === '#/vault') return vault(await addVaultImages(cards));
   if (path === '#/label') return label(cards);
   return verify(cards);
 }

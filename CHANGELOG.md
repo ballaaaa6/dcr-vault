@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-22 - Vault reference images
+- Show matched catalog reference images in My Vault, falling back to the saved front photo when a reference is unavailable.
+- Publish the local image index's public source URLs; image files remain in the local library and the source hosts serve them on demand.
+
 ## 2026-11-22 - On-demand card reading details
 - Keep identification results available from the Card details information button without opening a dialog automatically.
 - Disable and gray out identification while reading and show errors inline.

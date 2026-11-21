@@ -1,5 +1,5 @@
 import {updateCard} from '../store/cards.js';
-import {listRow} from '../components/card-item.js';
+import {listRow, vaultImage} from '../components/card-item.js';
 import {escapeHTML} from '../utils/format.js';
 
 const statuses = ['in-vault', 'for-sale', 'sold', 'grading'];
@@ -23,9 +23,7 @@ export function vault(cards = []) {
   const summary = focus ? [focus.setName, focus.year, focus.cardNumber].map(escapeHTML).filter(Boolean).join(' • ') : '';
   const grade = escapeHTML(focus?.gradeLabel || '');
   const cert = escapeHTML(focus?.certNumber || '');
-  const frontPhoto = focus?.frontImage
-    ? `<img class="vault-detail-image" src="${escapeHTML(focus.frontImage)}" alt="Front of ${name}" loading="lazy" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><div class="vault-detail-photo-empty" hidden>Photo unavailable</div>`
-    : '<div class="vault-detail-photo-empty">No front photo saved</div>';
+  const frontPhoto = vaultImage(focus, 'vault-detail-photo-empty', 'No front photo available', 'vault-detail-image');
 
   return `
     <main class="app-page">

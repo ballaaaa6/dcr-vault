@@ -82,6 +82,7 @@
 .vault-row .card-image-placeholder{width:64px;height:88px;flex:0 0 64px;font-size:10px}
 .vault-detail-photo{display:grid;min-height:150px;place-items:center;margin-bottom:18px;overflow:hidden;border-radius:14px;background:var(--dcr-red-light)}
 .vault-detail-image{display:block;width:100%;max-height:320px;object-fit:contain}
+.vault-detail-image[hidden]{display:none}
 .vault-detail-photo-empty{padding:30px;color:var(--dcr-gray);font-size:13px}
 .vault-row-main{flex:1;min-width:0}
 .vault-row-main b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}

@@ -80,6 +80,10 @@ async function loadCatalog() {
   return catalogPromise;
 }
 
+export async function loadCatalogCards() {
+  return loadCatalog();
+}
+
 function matches(card, filters) {
   return filters.every(([field, query]) => {
     const value = field === 'cardNumber' ? numberKey(card[field]) : normalize(card[field]);
