@@ -68,8 +68,10 @@ async function enrichFromExactCatalogMatch(card) {
     && numberKey(match.cardNumber) === numberKey(card.cardNumber));
   if (exact.length !== 1) return card;
   const match = exact[0];
-  return {...card, catalogCardId: match.id, sourceLanguage: card.sourceLanguage || 'en',
-    sourceSetId: card.sourceSetId || match.setId, setId: match.setId, seriesId: match.seriesId, seriesName: match.seriesName};
+  const sourceLanguage = card.sourceLanguage || 'en';
+  return {...card, catalogCardId: match.id, sourceLanguage,
+    sourceSetId: card.sourceSetId ?? (sourceLanguage === 'en' ? match.setId : ''),
+    setId: match.setId, seriesId: match.seriesId, seriesName: match.seriesName};
 }
 
 export async function label(cards = []) {

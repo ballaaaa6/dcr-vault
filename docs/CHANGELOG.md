@@ -1,4 +1,11 @@
 # Changelog
+## Direct Gemini card identification - 2026-11-21
+- Ask Gemini to identify one card directly from its visible name, artwork, attacks, HP, set code, collector number, and print marks, and return evidence plus fields that need review.
+- Return Gemini's structured reading without requiring OCR or catalog matching to pass; fill the English intake form from that answer and link an exact catalog record only when one is available.
+- Allow rarity to be corrected in the intake form and preserve manual review when Gemini cannot supply English label values.
+- Preserve the scanned card's language when linking an English catalog record, and never treat that English set ID as an approved localized label profile.
+- Remove the former source-print ranking and candidate-picker path; catalog data is now used only for optional exact English record and label metadata lookup.
+
 ## Evidence-based image identification - 2026-11-21
 - Preserve localized attack and ability effects plus card print variants in the web catalog index.
 - Read and display collector number, Pokédex number, level, attack effects, and foil finish separately with field confidence.

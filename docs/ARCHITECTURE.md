@@ -30,17 +30,14 @@
 ## Card suggestions
 
 - `public/data/card-catalog.json` is a compact TCGdex metadata index generated from the pinned local catalog snapshot. It contains names, sets, years, collector numbers, languages, rarity, variants, series IDs, card counts, and localized attack/ability effects; it contains no card images or collection records.
-- Identification first matches a card record in the printed language using name, language, collector number, set name/code, HP, illustrator, attacks/effects, and visible finish. Language-qualified printed set codes such as `SVPEN` resolve to the catalog set ID `svp`. A source candidate needs at least two matching identity anchors (or a confident full collector number); confident HP, artist, type, attack, ability, and finish conflicts are rejected. English candidates are checked directly against the image reading, including translated attack names/effects and variant compatibility. Candidate ranking uses source-print evidence so unrelated target metadata cannot inflate a weak source match.
-- Candidate options show the source-language name, set, number, and exact source-language artwork. Selecting an option fills the form and label from its English catalog counterpart, including the English name, set, year, collector number, and fixed per-card rarity. The source language and set remain attached for label-profile checks. A unique, high-confidence source and English match fills automatically; ambiguous matches stay in the picker.
-- Candidate images use the exact source-language card image through a same-origin image endpoint, with a direct TCGdex URL fallback for that same image only. If the source image is unavailable, no other printing's artwork is substituted. The Add Card rarity field is read-only and filled from the English card record or a reviewed uniform set default; unknown rarity remains blank.
+- Gemini identifies one card directly from the image using its visible name, artwork, attacks, HP, set code, collector number, rarity, and print marks. It returns the read details, short evidence, and fields that need review. The browser fills English form values from Gemini, then links a catalog record only when the exact English name/set/number resolves uniquely. Missing catalog data does not hide Gemini's answer; missing label series/profile data can still require correction before printing.
+- Catalog suggestions use the exact card image for each catalog record through a same-origin image endpoint, with a direct TCGdex URL fallback for that same image only. If an image is unavailable, no other printing's artwork is substituted. The Add Card rarity field can be filled from Gemini or a selected catalog record and remains editable for correction.
 
 ## Gemini image intake
 
-- On explicit button click, the authenticated `/api/cards/identify` Pages Function validates the front image and sends it to the Gemini Developer API using the server-only `GEMINI_API_KEY` secret and the fixed `gemini-3.5-flash-lite` model. Its prompt requests exact source-language text, English attack equivalents when clear, per-field confidence, separate Pokédex/level fields, and visible finish (holo, reverse holo, glossy, or normal). If Gemini fails or has neither a confident full collector number nor two confident identity anchors, Pages sends the same image to the DCR OCR service on the Oracle VM and merges non-conflicting readings. A high-confidence disagreement on identity fields blocks catalog suggestions. Neither key is sent to the browser or written to D1.
-- The browser exposes the recognized fields and confidence before showing candidates. It matches the source-language print from OCR evidence first, rejects confident conflicts, then checks English candidates directly against the read HP, artist, attacks/effects, and finish. A unique high-confidence source and English variant fills automatically; otherwise only candidates with a supported source-to-English mapping are offered. The selected English catalog ID, exact printed-language source card ID/set, and observed finish are stored for review and label resolution.
-- If a safe unique match is not established, the picker shows source-language card images and printed details, alongside the English label mapping. It does not fall back to a broad English name-only list. If no English counterpart can be verified, the user enters the English card and set manually.
-- Identification is a draft. The image and reading response are not written to D1 or Oracle image storage; the OCR service removes its temporary scan files after each request. No card is saved until Add to Vault is clicked. The separate image-save flow uses the Oracle media service.
-- Catalog denominators are checked when visible. Missing or conflicting identity evidence blocks a confident match. Rarity is fixed by the selected English catalog card and fills automatically; missing rarity stays blank unless a reviewed uniform set default supplies it.
+- On explicit button click, the authenticated `/api/cards/identify` Pages Function validates the front image and sends it to the Gemini Developer API using the server-only `GEMINI_API_KEY` secret and the fixed `gemini-3.5-flash-lite` model. Gemini returns a direct identification, visible evidence, English form values where clear, and fields that need review. Pages returns that reading without OCR or catalog gates. Neither key is sent to the browser or written to D1.
+- The browser fills the English name, set, year, card number, and editable rarity from Gemini's answer. It performs one optional exact catalog lookup to attach the card ID and approved label metadata. An absent or ambiguous catalog record leaves the reading visible and the form editable; the app does not substitute a same-name print. Label validation still requires an approved English year/series or a verified localized label profile.
+- Identification is a draft. The image and reading response are not written to D1 or Oracle image storage. No card is saved until Add to Vault is clicked. The separate image-save flow uses the Oracle media service.
 
 ## Data flow
 
@@ -50,12 +47,9 @@ Google Identity Services
   -> users + sessions in D1
   -> HttpOnly session cookie
   -> authenticated Pages Function APIs
-  -> Gemini 3.5 Flash-Lite reads card text and finish with field confidence
-  -> Oracle OCR fallback if Gemini fails or lacks distinct identity evidence
-  -> merge readings and stop on high-confidence disagreement
-  -> source-language catalog match with conflict rejection
-  -> English counterpart and print-variant match
-  -> exact English card fill or review picker/manual entry
+  -> Gemini 3.5 Flash-Lite identifies the card and returns structured evidence
+  -> optional exact English catalog lookup for approved label metadata
+  -> editable intake form for user review
   -> owner-scoped card and image metadata in D1
   -> one-use capability -> Oracle image service on the VM
   -> src/store/cards.js -> vault, search, verify, and label pages
@@ -66,7 +60,7 @@ Google Identity Services
 - One page per file in `src/pages/`; reusable UI in `src/components/`.
 - API shared modules live in `functions/_utils/`; underscore-prefixed folders are not routes.
 - D1 schema history lives in `migrations/` and is applied by the deployment workflow before publishing new code.
-- The Oracle image and OCR services are loopback-only processes under `storage-service/`; Nginx exposes their explicit HTTPS routes to Pages through the validated `ORCL_MEDIA_ORIGIN` hostname. Card identification uses OCR only as a fallback after Gemini fails or returns no identity fields.
+- The Oracle image and OCR services are loopback-only processes under `storage-service/`; Nginx exposes their explicit HTTPS routes through the validated Oracle hostname. Saved-card image storage uses the image service; card identification sends the front image to Gemini and does not call OCR.
 - Google token verification uses the Workers Web Crypto API and Google's published JWK set. No authentication library is added, so runtime dependencies stay small.
 - Inter and Noto Sans Thai are self-hosted under `public/assets/fonts/` with their OFL licenses.
 - Label rendering imports the approved SVG masters from `dcr-tag-70x20/` and uses the browser-side `qrcode` and `jsbarcode` packages to create test QR and Code 128 symbols without sending certificate values to an external service.

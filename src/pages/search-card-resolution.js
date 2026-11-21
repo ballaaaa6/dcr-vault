@@ -1,4 +1,5 @@
 import {findExactCatalogCard} from '../store/catalog.js';
+import {cardLabelMetadata} from '../utils/label-metadata.js';
 
 let resolutionVersion = 0;
 
@@ -11,6 +12,14 @@ export function initializeCardRarity() {
   document.getElementById('m-rarity').value = '';
 }
 
+export function selectCatalogSuggestion(card) {
+  const sourceLanguage = window.__intakeIdentification?.sourceLanguage || window.__intakeIdentification?.language || 'en';
+  const selected = {...card, sourceLanguage, sourceSetId: sourceLanguage === 'en' ? card.setId : ''};
+  window.__intakeCatalogCard = selected;
+  window.__intakeCatalogGame = 'pokemon';
+  return cardLabelMetadata(selected);
+}
+
 export async function resolveExactTypedCard() {
   if (window.__intakeCatalogCard) return window.__intakeCatalogCard;
   const version = ++resolutionVersion;
@@ -19,9 +28,7 @@ export async function resolveExactTypedCard() {
   try {
     const card = await findExactCatalogCard(fields);
     if (version !== resolutionVersion || window.__intakeCatalogCard || !card) return null;
-    const selected = {...card, sourceLanguage: 'en', sourceSetId: card.setId};
-    window.__intakeCatalogCard = selected;
-    window.__intakeCatalogGame = 'pokemon';
+    selectCatalogSuggestion(card);
     document.getElementById('m-rarity').value = card.rarity || '';
     return selected;
   } catch {

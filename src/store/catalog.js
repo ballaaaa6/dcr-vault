@@ -1,4 +1,4 @@
-import {findExactCatalogCardFromCatalog, findImageCandidatesFromCatalog, findImageReviewCandidatesFromCatalog} from '../utils/card-identification-matching.js';
+import {findExactCatalogCardFromCatalog} from '../utils/card-identification-matching.js';
 
 let catalogPromise;
 let catalogSetRarityOverrides = {};
@@ -116,14 +116,4 @@ export async function findCatalogCardById(id) {
 
 export async function findExactCatalogCard(fields) {
   return findExactCatalogCardFromCatalog(await loadCatalog(), fields);
-}
-
-export async function findImageCandidates(fields, limit = 12) {
-  const cards = await loadCatalog();
-  return findImageCandidatesFromCatalog(cards, fields, limit);
-}
-
-export async function findImageReviewCandidates(fields, limit = 12) {
-  const cards = await loadCatalog();
-  return findImageReviewCandidatesFromCatalog(cards, fields, limit);
 }

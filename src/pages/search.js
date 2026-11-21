@@ -1,6 +1,6 @@
 import {addCard, checkCert, deleteCardImage, uploadCardImage} from '../store/cards.js';
 import {catalogField, hideAllCatalogSuggestions, installCatalogSuggestions} from './search-catalog.js';
-import {initializeCardRarity, invalidateCardResolution, resolveExactTypedCard} from './search-card-resolution.js';
+import {initializeCardRarity, invalidateCardResolution, resolveExactTypedCard, selectCatalogSuggestion} from './search-card-resolution.js';
 import {CONDITION_OPTIONS} from '../utils/label-options.js';
 import {cardLabelMetadata} from '../utils/label-metadata.js';
 import {escapeHTML} from '../utils/format.js';
@@ -31,6 +31,7 @@ export function search() {
   window.__intakeSavedCard = null;
   window.__intakeCatalogGame = '';
   window.__intakeCatalogCard = null;
+  window.__intakeIdentification = null;
   return `
     <main class="app-page">
       <header class="page-heading"><div class="page-eyebrow">COLLECTION INTAKE</div><h1>Add a card to your vault</h1><p class="page-description">Saved card details and photos stay private to your signed-in account.</p></header>
@@ -39,7 +40,7 @@ export function search() {
           <div class="section-heading"><span class="section-number">01</span><div><h2 id="scan-title">Card images</h2><p>Choose a front and/or back photo to store in your private image vault.</p></div></div>
           <div class="upload-grid">${photoField('front', 'Front image')}${photoField('back', 'Back image')}</div>
           <div class="identification-actions"><button class="btn btn-ghost" id="identify-card" type="button" disabled>Identify card</button></div>
-          <p class="identification-notice">Click Identify card to send the front photo to Google Gemini. If Gemini is unavailable or cannot read it, DCR may also process it with its private OCR service. Google applies your API tier's data terms; DCR stores the photo only after you click Add to Vault.</p>
+          <p class="identification-notice">Click Identify card to send the front photo to Google Gemini. Gemini identifies the card and fills the form; check or correct the result before saving. Google applies your API tier's data terms; DCR stores the photo only after you click Add to Vault.</p>
           <p id="photo-status" class="import-status" role="status" aria-live="polite"></p>
         </section>
         <section class="surface-card intake-card" aria-labelledby="manual-title">
@@ -55,7 +56,7 @@ export function search() {
             ${catalogField('setName', 'Set', 'e.g. Base Set')}
             ${catalogField('year', 'Year', 'e.g. 1999')}
             ${catalogField('cardNumber', 'Card number', 'e.g. 4')}
-            <div class="form-field"><label for="m-rarity">Rarity</label><input class="form-control" id="m-rarity" readonly aria-readonly="true" placeholder="Filled automatically from the card catalog"></div>
+            <div class="form-field"><label for="m-rarity">Rarity</label><input class="form-control" id="m-rarity" placeholder="Read from card or choose from catalog"></div>
             <div class="form-field"><label for="m-grade">Grade / Condition</label><select class="form-control" id="m-grade"><option value="">Choose condition</option>${CONDITION_OPTIONS.map(value => `<option value="${value}">${value}</option>`).join('')}</select></div>
           </div>
           <button class="btn btn-primary manual-submit" id="manual-submit" type="button">Add to Vault</button>
@@ -187,7 +188,7 @@ async function uploadPhotos(card) {
 }
 
 function formCard(certNumber) {
-  const selected = window.__intakeCatalogCard || {};
+  const selected = window.__intakeCatalogCard || window.__intakeIdentification || {};
   const metadata = cardLabelMetadata(selected);
   return {
     game: window.__intakeCatalogGame || 'other', name: document.getElementById('m-name').value.trim(), certNumber,
@@ -283,11 +284,8 @@ document.addEventListener('focusout', event => {
 
 installCatalogSuggestions(card => {
   invalidateCardResolution();
-  const selected = {...card, sourceLanguage: 'en', sourceSetId: card.setId};
-  window.__intakeCatalogCard = selected;
-  window.__intakeCatalogGame = 'pokemon';
+  const metadata = selectCatalogSuggestion(card);
   document.getElementById('m-rarity').value = card.rarity || '';
-  const metadata = cardLabelMetadata(selected);
   document.getElementById('manual-status').textContent = !metadata.labelMetadataReady
     ? 'This language/set has no verified label profile yet, so label printing will stay unavailable until one is added.'
     : !metadata.yearSeries

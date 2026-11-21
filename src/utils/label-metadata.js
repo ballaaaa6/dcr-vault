@@ -14,7 +14,7 @@ function catalogSetId(card) {
 
 function profileFor(card) {
   const language = String(card.sourceLanguage || card.language || 'en').toLowerCase();
-  const setId = String(card.sourceSetId || card.setId || '');
+  const setId = String(card.sourceSetId ?? (language === 'en' ? card.setId : '') ?? '');
   return psaProfiles.profiles?.[`${language}:${setId}`];
 }
 
@@ -43,7 +43,7 @@ export function cardLabelMetadata(card = {}) {
       || (sourceLanguage !== 'en' && profile?.status === 'verified' ? profile?.tag_fields?.collection : '')
       || card.setName || profile?.tag_fields?.collection || '').trim(),
     sourceLanguage,
-    sourceSetId: String(card.sourceSetId || card.setId || ''),
+    sourceSetId: String(card.sourceSetId ?? (sourceLanguage === 'en' ? card.setId : '') ?? ''),
     catalogCardId: String(card.catalogCardId || card.id || ''), labelMetadataReady
   };
 }

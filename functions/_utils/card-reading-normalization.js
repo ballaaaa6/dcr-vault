@@ -48,7 +48,7 @@ function cleanCardRelations(value) {
 
 function cleanFieldConfidence(value) {
   if (!isObject(value)) return {};
-  const allowed = ['name', 'setName', 'englishName', 'englishSetName', 'year', 'cardNumber', 'language', 'rarity', 'hp',
+  const allowed = ['name', 'setName', 'setCode', 'englishName', 'englishSetName', 'englishCardNumber', 'year', 'cardNumber', 'language', 'rarity', 'hp',
     'illustrator', 'stage', 'types', 'attacks', 'abilities', 'abilityDetails', 'weaknesses', 'resistances',
     'retreat', 'evolvesFrom', 'regulationMark', 'printedText', 'dexNumber', 'level', 'finish'];
   return Object.fromEntries(allowed.flatMap(key => {
@@ -72,8 +72,13 @@ export function cleanReading(value) {
   const reading = {
     name: cleanText(fieldValue(value, ['name', 'cardName', 'card_name', 'pokemonName', 'pokemon_name'])),
     setName: cleanText(fieldValue(value, ['setName', 'set_name', 'set', 'expansion'])),
+    setCode: cleanText(fieldValue(value, ['setCode', 'set_code', 'setAbbreviation', 'set_abbreviation']), 32),
     englishName: cleanText(fieldValue(value, ['englishName', 'english_name'])),
     englishSetName: cleanText(fieldValue(value, ['englishSetName', 'english_set_name'])),
+    englishCardNumber: cleanText(fieldValue(value, ['englishCardNumber', 'english_card_number']), 40),
+    identificationSummary: cleanText(fieldValue(value, ['identificationSummary', 'identification_summary']), 300),
+    identityStatus: ['identified', 'needs_review'].includes(value.identityStatus) ? value.identityStatus : 'needs_review',
+    evidence: cleanList(value.evidence, 8), uncertainFields: cleanList(value.uncertainFields, 12),
     year, cardNumber: cleanText(fieldValue(value, ['cardNumber', 'card_number', 'collectorNumber', 'collector_number', 'number']), 30),
     language: languageCode(value.language), rarity: cleanText(fieldValue(value, ['rarity', 'raritySymbol', 'rarity_symbol', 'rarityCode']), 40),
     hp: cleanText(value.hp, 8), illustrator: cleanText(fieldValue(value, ['illustrator', 'artist']), 80),
@@ -86,5 +91,5 @@ export function cleanReading(value) {
     level: cleanText(value.level, 6), finish: cleanText(fieldValue(value, ['finish', 'foil', 'variant']), 32),
     fieldConfidence: cleanFieldConfidence(value.fieldConfidence || value.confidence)
   };
-  return reading.name || reading.englishName || reading.cardNumber ? reading : null;
+  return reading.name || reading.englishName || reading.identificationSummary ? reading : null;
 }
