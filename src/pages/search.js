@@ -47,7 +47,7 @@ export function search() {
           <p id="photo-status" class="import-status" role="status" aria-live="polite"></p>
         </section>
         <section class="surface-card intake-card" aria-labelledby="manual-title">
-          <div class="section-heading"><span class="section-number">02</span><div><h2 id="manual-title">Card details</h2><p>Review the printed card number and English card details; Cert and Grade stay independent.</p></div></div>
+          <div class="section-heading"><span class="section-number">02</span><div><div class="card-details-title"><h2 id="manual-title">Card details</h2><button id="identification-info" class="identification-info" type="button" aria-label="View card reading details" title="View card reading details" hidden>i</button></div><p>Review the printed card number and English card details; Cert and Grade stay independent.</p></div></div>
           <div class="field-grid">
             ${catalogField('name', 'Name', 'e.g. Charizard')}
             <div class="form-field cert-field"><label for="m-cert">Cert number</label><span class="cert-input-row">

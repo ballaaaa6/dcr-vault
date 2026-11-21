@@ -36,6 +36,8 @@ function clearResult() {
   if (dialog?.open) dialog.close();
   const content = document.getElementById('identification-dialog-content');
   if (content) content.innerHTML = '';
+  const info = document.getElementById('identification-info');
+  if (info) info.hidden = true;
 }
 
 export function resetCardIdentificationState() {
@@ -79,12 +81,13 @@ function invalidatePhotoIdentity() {
   }
 }
 
-function showDialog(content) {
+function setResult(content) {
   const dialog = document.getElementById('identification-result');
   const panel = document.getElementById('identification-dialog-content');
   if (!dialog || !panel) return;
   panel.innerHTML = content;
-  if (!dialog.open) dialog.showModal();
+  const info = document.getElementById('identification-info');
+  if (info) info.hidden = false;
 }
 
 function fillGeminiValues(fields, requestId) {
@@ -179,13 +182,13 @@ function selectReadingCandidate(index) {
   const conflicts = candidateConflicts(state.fields, card);
   if (conflicts.length) {
     document.getElementById('manual-status').textContent = `Candidate conflicts with the photo reading: ${conflicts.join(', ')}. Review the image and enter the details manually.`;
-    clearResult();
+    document.getElementById('identification-result')?.close();
     return;
   }
   const values = intakeValues(state.fields, card);
   if (userValuesConflict(values)) {
     document.getElementById('manual-status').textContent = 'Edited details differ from this candidate. Review and correct the fields before selecting it.';
-    clearResult();
+    document.getElementById('identification-result')?.close();
     return;
   }
   const language = state.fields.language || 'unknown';
@@ -204,19 +207,18 @@ function selectReadingCandidate(index) {
   }
   logIdentificationStage('selection', {selected: card.id, values, provenance: fieldProvenance});
   document.getElementById('manual-status').textContent = 'Candidate selected for review. Verify the printed number, stamp, set, and finish before saving; a verified label profile may still be required.';
-  clearResult();
+  document.getElementById('identification-result')?.close();
 }
 
-function showError(message, retryable) {
-  const retryButton = retryable
-    ? '<div class="identification-error-actions"><button class="btn btn-primary" data-retry-identification type="button">Try again</button></div>' : '';
-  showDialog(`<p class="catalog-empty">${escapeHTML(message)}</p>${retryButton}`);
+function showError(message) {
+  document.getElementById('manual-status').textContent = message;
 }
 
 async function analyzeFront() {
   const button = document.getElementById('identify-card');
   const file = document.getElementById('m-image-front')?.files?.[0];
-  if (!button || !file) return;
+  if (!button || !file || analysisBusy) return;
+  clearResult();
   const version = ++analysisVersion;
   analysisBusy = true;
   button.disabled = true;
@@ -234,10 +236,9 @@ async function analyzeFront() {
       return;
     }
     const values = fillGeminiValues(result.fields, result.requestId);
-    showDialog(`${readingSummaryMarkup(result.fields, null, true)}<p class="identification-match-note">Gemini filled the available fields. Checking the catalog…</p>`);
     const resolution = await applyReading(result.fields, version, result.requestId, values);
     if (resolution && version === analysisVersion) candidateState = {fields: result.fields, candidates: resolution.candidates, version};
-    if (resolution && version === analysisVersion) showDialog(`${readingSummaryMarkup(result.fields, result.source, true)}<p class="identification-match-note">${escapeHTML(resolution.matchNote + resolution.englishNote)} Review all details before saving.</p>${candidateMarkup(resolution.candidates)}`);
+    if (resolution && version === analysisVersion) setResult(`${readingSummaryMarkup(result.fields, result.source, true)}<p class="identification-match-note">${escapeHTML(resolution.matchNote + resolution.englishNote)} Review all details before saving.</p>${candidateMarkup(resolution.candidates)}`);
   } finally {
     analysisBusy = false;
     button.textContent = 'Identify card';
@@ -286,6 +287,7 @@ window.addEventListener('intake-front-image-cleared', () => {
 document.addEventListener('click', event => {
   const candidate = event.target.closest('[data-identification-candidate]');
   if (candidate) { selectReadingCandidate(Number(candidate.dataset.identificationCandidate)); return; }
+  if (event.target.closest('#identification-info')) { document.getElementById('identification-result')?.showModal(); return; }
   if (event.target.closest('#identify-card')) { analyzeFront(); return; }
   if (event.target.closest('[data-retry-identification]')) { clearResult(); analyzeFront(); return; }
   if (event.target.closest('[data-close-identification]')) document.getElementById('identification-result')?.close();

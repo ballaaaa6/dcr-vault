@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-22 - On-demand card reading details
+- Keep identification results available from the Card details information button without opening a dialog automatically.
+- Disable and gray out identification while reading and show errors inline.
+
 ## 2026-11-22 - Prevent conflicting candidate selection
 - Reject catalog candidates that conflict with the printed reading instead of combining their identities.
 - Keep card saving independent of label layout and retain a failed save outcome when a retry succeeds.
