@@ -3,7 +3,6 @@ import {findCatalogCandidates, findCatalogCardById} from '../store/catalog.js';
 import {escapeHTML} from '../utils/format.js';
 import {normalizeCert} from '../utils/cert.js';
 
-const RARITY_OPTIONS = ['C', 'UC', 'R', 'P', 'DR', 'UR', 'IR', 'SIR', 'HR', 'S', 'SAR'];
 let printSheet = [];
 let renderer;
 let previewVersion = 0;
@@ -30,7 +29,7 @@ function labelForm(data, conditionOptions) {
     ${inputField('setName', 'Set', data.setName, 'autocomplete="off"')}
     ${inputField('cardNumber', 'Card number', data.cardNumber, 'autocomplete="off"')}
     <label class="form-field"><span>Condition</span><select class="form-control" id="condition" data-label-field="condition">${selectOptions(conditionOptions, data.condition, 'Choose condition')}</select></label>
-    <label class="form-field"><span>Rarity code</span><select class="form-control" id="rarity" data-label-field="rarity">${selectOptions(RARITY_OPTIONS, data.rarity, 'Choose rarity')}</select></label>
+    ${inputField('rarity', 'Rarity', data.rarity, 'autocomplete="off"')}
     ${inputField('certNumber', 'Cert number', data.certNumber, 'inputmode="numeric" maxlength="8" pattern="[0-9]{1,8}" placeholder="1 to 8 digits" autocomplete="off"')}`;
 }
 

@@ -12,3 +12,5 @@
 10. Update CHANGELOG.md on every change.
 11. No new library without reason in ARCHITECTURE.md.
 12. Test before zip: login works, search works, vault works, label print aligns.
+
+13. All instructions and prompts sent to Gemini must always be written in English.

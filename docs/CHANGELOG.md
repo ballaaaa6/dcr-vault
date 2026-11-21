@@ -1,4 +1,9 @@
 # Changelog
+## Shared rarity values - 2026-11-21
+- Normalize rarity at intake and use the same value on the label, including Promo, RR, AR, and SAR.
+- Resolve unique catalog cards despite a conflicting year and flag the discrepancy.
+- Require English instructions in Gemini prompts.
+
 ## Promo rarity fallback - 2026-11-21
 - Fill rarity as `Promo` when the explicit promo set name, label, or collector/set code identifies the card as a promo and Gemini leaves rarity blank.
 - Ask Gemini to report explicit promo markings as rarity even when the card has no separate rarity symbol.

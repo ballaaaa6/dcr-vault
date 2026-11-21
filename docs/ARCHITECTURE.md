@@ -64,3 +64,8 @@ Google Identity Services
 - Google token verification uses the Workers Web Crypto API and Google's published JWK set. No authentication library is added, so runtime dependencies stay small.
 - Inter and Noto Sans Thai are self-hosted under `public/assets/fonts/` with their OFL licenses.
 - Label rendering imports the approved SVG masters from `dcr-tag-70x20/` and uses the browser-side `qrcode` and `jsbarcode` packages to create test QR and Code 128 symbols without sending certificate values to an external service.
+
+## Rarity display
+
+- Intake converts known rarity names and legacy codes to one shared display value. Saved rarity is used on labels with the same shared conversion for legacy records; Promo remains Promo. Unknown names remain intact, and label width is checked before saving.
+- Localized source rarity is looked up only with a unique matching language, printed name, set code, and collector number. English catalog matches with a conflicting year are flagged for review. English rarity used as a fallback for a localized card is flagged for verification.

@@ -1,5 +1,6 @@
+import {formatRarity} from '../utils/rarity.js';
 import {identifyCardImage} from '../store/cards.js';
-import {findExactCatalogCard} from '../store/catalog.js';
+import {findExactCatalogCard, findSourceCatalogCard} from '../store/catalog.js';
 import {escapeHTML} from '../utils/format.js';
 import {hideAllCatalogSuggestions} from './search-catalog.js';
 import {cardLabelMetadata} from '../utils/label-metadata.js';
@@ -63,29 +64,34 @@ async function exactCatalogCard(fields) {
 }
 
 async function applyReading(fields) {
-  const card = await exactCatalogCard(fields);
+  const [card, source] = await Promise.all([exactCatalogCard(fields), findSourceCatalogCard(fields).catch(() => null)]);
   const sourceLanguage = fields.language || 'unknown';
   const selected = card
-    ? {...card, sourceLanguage, sourceSetId: sourceLanguage === 'en' ? card.setId : '', sourceCardId: '', sourceFinish: fields.finish || ''}
+    ? {...card, sourceLanguage, sourceSetId: source?.setId || (sourceLanguage === 'en' ? card.setId : ''), sourceCardId: source?.id || '', sourceFinish: fields.finish || ''}
     : {name: formName(fields), setName: formSet(fields), year: fields.year || '', cardNumber: formNumber(fields),
-      rarity: fields.rarity || '', language: sourceLanguage, sourceLanguage, sourceSetId: '', setCode: fields.setCode || '', catalogCardId: '', id: ''};
+      rarity: fields.rarity || '', language: sourceLanguage, sourceLanguage, sourceSetId: source?.setId || '', sourceCardId: source?.id || '', setCode: fields.setCode || '', catalogCardId: '', id: ''};
   const metadata = cardLabelMetadata(selected);
   window.__intakeCatalogCard = {...selected, ...metadata};
   window.__intakeIdentification = {...fields, sourceLanguage};
   window.__intakeCatalogGame = 'pokemon';
   document.getElementById('m-name').value = formName(fields);
   document.getElementById('m-setName').value = formSet(fields);
-  document.getElementById('m-year').value = fields.year || card?.year || '';
+  document.getElementById('m-year').value = card?.year || fields.year || '';
   document.getElementById('m-cardNumber').value = formNumber(fields) || card?.cardNumber || '';
-  document.getElementById('m-rarity').value = fields.rarity || card?.rarity || '';
+  document.getElementById('m-rarity').value = formatRarity(fields.rarity || source?.rarity || card?.rarity);
   hideAllCatalogSuggestions();
   const catalogNote = card ? ' An exact catalog record was linked.' : ' No exact catalog record was linked; verify any missing English label details.';
+  const yearNote = card && fields.year && fields.year !== card.year ? ` Catalog year ${card.year} differs from the reading ${fields.year}; verify the printed edition.` : '';
+  const rarityNote = source?.rarity && fields.rarity && formatRarity(source.rarity) !== formatRarity(fields.rarity)
+    ? ` Source catalog rarity ${formatRarity(source.rarity)} differs from Gemini; verify rarity.`
+    : !fields.rarity && !source?.rarity && card?.rarity && sourceLanguage !== 'en'
+      ? ' Rarity comes from the English catalog card; verify it against the printed edition.' : '';
   const uncertainNote = fields.uncertainFields?.length ? ` Check: ${fields.uncertainFields.join(', ')}.` : '';
   const labelNote = !metadata.labelMetadataReady
     ? ' A verified label profile for this printed language/set is required before label printing.'
     : !metadata.yearSeries ? ' Approved set year/series data is missing for label printing.' : '';
   const identityMessage = fields.identityStatus === 'identified' ? 'Gemini identified this card.' : 'Gemini suggested this card; verify the uncertain fields.';
-  document.getElementById('manual-status').textContent = `${identityMessage} Review the English details.${catalogNote}${uncertainNote}${labelNote}`;
+  document.getElementById('manual-status').textContent = `${identityMessage} Review the English details.${catalogNote}${yearNote}${rarityNote}${uncertainNote}${labelNote}`;
   document.getElementById('m-grade').focus();
 }
 

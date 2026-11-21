@@ -1,18 +1,17 @@
 import JsBarcode from 'jsbarcode';
 import QRCode from 'qrcode';
-import labelRules from '../../dcr-tag-70x20/catalog-label-rules.json';
+import {formatRarity} from './rarity.js';
 import frontMasterUrl from '../../dcr-tag-70x20/source/dcr-tag-front.svg?url';
 import backMasterUrl from '../../dcr-tag-70x20/source/dcr-tag-back.svg?url';
 import sheetMasterUrl from '../../dcr-tag-70x20/source/a4-40up-portrait.svg?url';
 import {hasNonLatinScript} from './language.js';
 import {CONDITION_OPTIONS} from './label-options.js';
-import {cardLabelMetadata, cardLabelRarity} from './label-metadata.js';
+import {cardLabelMetadata} from './label-metadata.js';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 const XLINK_NS = 'http://www.w3.org/1999/xlink';
 const FONT_SIZE_MM = 2.57;
 const TEXT_GAP_MM = 0.5;
-const RARITY_CODES = new Set(['C', 'UC', 'R', 'P', 'DR', 'UR', 'IR', 'SIR', 'HR', 'S', 'SAR']);
 const frontMaster = loadTemplate(frontMasterUrl);
 const backMaster = loadTemplate(backMasterUrl);
 const sheetMaster = loadTemplate(sheetMasterUrl);
@@ -25,13 +24,7 @@ async function loadTemplate(url) {
   return response.text();
 }
 
-export function normalizeRarity(value) {
-  const raw = String(value ?? '').trim();
-  const upper = raw.toLocaleUpperCase('en-US');
-  if (RARITY_CODES.has(upper)) return upper;
-  const codes = labelRules.rarity_codes || {};
-  return codes[raw.toLocaleLowerCase('en-US')] || upper;
-}
+export const normalizeRarity = formatRarity;
 
 function normalizeCardNumber(value) {
   const first = String(value ?? '').trim().split('/')[0].trim();
@@ -53,7 +46,7 @@ export function cardLabelData(card) {
     setName: metadata.setName,
     cardNumber: normalizeCardNumber(card.cardNumber),
     condition: conditionFromGrade(card.gradeLabel),
-    rarity: normalizeRarity(cardLabelRarity(card)),
+    rarity: normalizeRarity(card.rarity),
     certNumber: String(card.certNumber ?? '').trim(),
     labelMetadataReady: metadata.labelMetadataReady
   };
@@ -88,6 +81,10 @@ function pairFitError(left, right, leftValue, rightValue) {
     : `${left} is too long for the approved label width.`;
 }
 
+export function rarityFitsLabel(setName, rarity) {
+  return !pairFitError('Set name', 'rarity', String(setName || '').toLocaleUpperCase('en-US'), rarity);
+}
+
 export function validateLabelData(data) {
   const value = cleanLabelData(data);
   if (!value.labelMetadataReady) return ['This language/set needs a verified label profile before printing.'];
@@ -97,7 +94,6 @@ export function validateLabelData(data) {
   if ([value.name, value.setName].some(hasNonLatinScript)) return ['Card name and set must use English text.'];
   if (!/^\d{8}$/.test(value.certNumber)) return ['Cert number must contain exactly 8 digits.'];
   if (!CONDITION_OPTIONS.includes(value.condition)) return ['Choose a condition from the DCR list.'];
-  if (!RARITY_CODES.has(value.rarity)) return ['Enter a supported DCR rarity code.'];
 
   return [
     pairFitError('Year / series', 'card number', value.yearSeries, value.cardNumber),

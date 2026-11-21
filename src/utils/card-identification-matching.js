@@ -15,7 +15,8 @@ export function findExactCatalogCardFromCatalog(cards, fields) {
   if (!name || !setName || !hasYear && !hasNumber) return null;
   const matches = cards.filter(card => card.language === 'en'
     && normalized(card.name) === name && normalized(card.setName) === setName
-    && (!hasYear || String(card.year ?? '').trim() === String(fields.year).trim())
     && (!hasNumber || numberKey(card.cardNumber) === numberKey(fields.cardNumber)));
-  return matches.length === 1 ? matches[0] : null;
+  if (matches.length === 1 && hasNumber) return matches[0];
+  const dated = matches.filter(card => hasYear && String(card.year ?? '').trim() === String(fields.year).trim());
+  return dated.length === 1 ? dated[0] : null;
 }

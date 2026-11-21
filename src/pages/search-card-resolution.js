@@ -1,3 +1,4 @@
+import {formatRarity} from '../utils/rarity.js';
 import {findExactCatalogCard} from '../store/catalog.js';
 import {cardLabelMetadata} from '../utils/label-metadata.js';
 
@@ -29,8 +30,8 @@ export async function resolveExactTypedCard() {
     const card = await findExactCatalogCard(fields);
     if (version !== resolutionVersion || window.__intakeCatalogCard || !card) return null;
     selectCatalogSuggestion(card);
-    document.getElementById('m-rarity').value = card.rarity || '';
-    return selected;
+    document.getElementById('m-rarity').value = formatRarity(card.rarity);
+    return card;
   } catch {
     return null;
   }

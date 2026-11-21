@@ -1,3 +1,4 @@
+import {formatRarity} from '../utils/rarity.js';
 import {addCard, checkCert, deleteCardImage, uploadCardImage} from '../store/cards.js';
 import {catalogField, hideAllCatalogSuggestions, installCatalogSuggestions} from './search-catalog.js';
 import {initializeCardRarity, invalidateCardResolution, resolveExactTypedCard, selectCatalogSuggestion} from './search-card-resolution.js';
@@ -213,6 +214,17 @@ async function saveIntake() {
   const status = document.getElementById('manual-status');
   const certInput = document.getElementById('m-cert');
   const certNumber = normalizeCert(certInput.value);
+  const rarityInput = document.getElementById('m-rarity');
+  rarityInput.value = formatRarity(rarityInput.value);
+  if (rarityInput.value) {
+    const {rarityFitsLabel} = await import('../utils/label-renderer.js');
+    const setName = document.getElementById('m-setName').value.trim();
+    if (!rarityFitsLabel(setName, rarityInput.value)) {
+      status.textContent = 'Set and rarity do not fit on the label. Shorten one before saving.';
+      rarityInput.focus();
+      return;
+    }
+  }
   const englishFields = ['m-name', 'm-setName'].map(id => document.getElementById(id).value.trim());
   if (englishFields.some(hasNonLatinScript)) {
     status.textContent = 'Use English card and set names from the catalog before saving.';
@@ -285,7 +297,7 @@ document.addEventListener('focusout', event => {
 installCatalogSuggestions(card => {
   invalidateCardResolution();
   const metadata = selectCatalogSuggestion(card);
-  document.getElementById('m-rarity').value = card.rarity || '';
+  document.getElementById('m-rarity').value = formatRarity(card.rarity);
   document.getElementById('manual-status').textContent = !metadata.labelMetadataReady
     ? 'This language/set has no verified label profile yet, so label printing will stay unavailable until one is added.'
     : !metadata.yearSeries
@@ -295,5 +307,4 @@ installCatalogSuggestions(card => {
 }, () => {
   invalidateCardResolution();
   window.__intakeCatalogCard = null;
-  document.getElementById('m-rarity').value = '';
 });

@@ -117,3 +117,17 @@ export async function findCatalogCardById(id) {
 export async function findExactCatalogCard(fields) {
   return findExactCatalogCardFromCatalog(await loadCatalog(), fields);
 }
+
+export async function findSourceCatalogCard(fields) {
+  const language = normalize(fields.language);
+  const name = normalize(fields.name);
+  const number = String(fields.cardNumber || '').trim();
+  const parts = number.split('/');
+  const setCode = normalize(fields.setCode || (parts[1] && /[a-z]/i.test(parts[1]) ? parts[1] : ''));
+  if (!language || language === 'en' || !name || !number || !setCode) return null;
+  const cards = await loadCatalog();
+  const matches = cards.filter(card => card.language === language && normalize(card.setId) === setCode
+    && numberKey(card.cardNumber) === numberKey(number)
+    && [card.name, ...(card.metadata.nameAliases || [])].some(alias => normalize(alias) === name));
+  return matches.length === 1 ? matches[0] : null;
+}
