@@ -60,6 +60,7 @@ async function enrichFromExactCatalogMatch(card) {
     return match ? {...card, name: match.name, setName: match.setName, year: match.year,
       cardNumber: match.cardNumber, setId: match.setId, seriesId: match.seriesId, seriesName: match.seriesName} : card;
   }
+  if (card.sourceLanguage && card.sourceLanguage !== 'en') return card;
   if (!card.name || !card.setName || !card.year || !card.cardNumber) return card;
   const matches = await findCatalogCandidates({name: card.name, setName: card.setName, year: card.year, cardNumber: card.cardNumber});
   const exact = matches.filter(match => match.name.toLowerCase() === card.name.toLowerCase()

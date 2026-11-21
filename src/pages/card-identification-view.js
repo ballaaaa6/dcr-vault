@@ -24,12 +24,14 @@ function readerName(source) {
 export function readingSummaryMarkup(fields, source, adequate) {
   const rows = [
     fieldMarkup(fields, 'name', 'Printed name', fields.name),
-    fieldMarkup(fields, 'englishName', 'English name', fields.englishName),
-    fieldMarkup(fields, 'englishSetName', 'English set', fields.englishSetName),
+    fieldMarkup(fields, 'englishName', 'English name (suggested translation)', fields.englishName),
     fieldMarkup(fields, 'language', 'Language', fields.language),
     fieldMarkup(fields, 'setName', 'Printed set', fields.setName),
     fieldMarkup(fields, 'setCode', 'Printed set code', fields.setCode),
-    fieldMarkup(fields, 'cardNumber', 'Collector number', [fields.cardNumber, fields.cardNumberDenominator && `/${fields.cardNumberDenominator}`].filter(Boolean).join('')),
+    fieldMarkup(fields, 'setSymbol', 'Set symbol', fields.setSymbol),
+    fieldMarkup(fields, 'stamp', 'Stamp', fields.stamp),
+    fieldMarkup(fields, 'copyrightText', 'Copyright text', fields.copyrightText),
+    fieldMarkup(fields, 'cardNumber', 'Collector number', fields.cardNumber),
     fieldMarkup(fields, 'dexNumber', 'Pokédex No.', fields.dexNumber),
     fieldMarkup(fields, 'level', 'Level', fields.level),
     fieldMarkup(fields, 'year', 'Year', fields.year),
@@ -40,7 +42,7 @@ export function readingSummaryMarkup(fields, source, adequate) {
     fieldMarkup(fields, 'attacks', 'Attacks and effects', attackSummary(fields.attacks))
   ].filter(Boolean).join('');
   const status = fields.identificationSummary || (adequate
-    ? 'Gemini identified this card from the photo.' : 'The photo did not provide enough clear identity details.');
+    ? 'Review the evidence read from the photo.' : 'The photo did not provide enough clear identity details.');
   const evidence = (fields.evidence || []).map(item => `<li>${escapeHTML(item)}</li>`).join('');
   const uncertainty = (fields.uncertainFields || []).length
     ? `<p>Needs a check: ${escapeHTML(fields.uncertainFields.join(', '))}</p>` : '';

@@ -41,11 +41,11 @@ export function search() {
           <div class="section-heading"><span class="section-number">01</span><div><h2 id="scan-title">Card images</h2><p>Choose a front and/or back photo to store in your private image vault.</p></div></div>
           <div class="upload-grid">${photoField('front', 'Front image')}${photoField('back', 'Back image')}</div>
           <div class="identification-actions"><button class="btn btn-ghost" id="identify-card" type="button" disabled>Identify card</button></div>
-          <p class="identification-notice">Click Identify card to send the front photo to Google Gemini. Gemini identifies the card and fills the form; check or correct the result before saving. Google applies your API tier's data terms; DCR stores the photo only after you click Add to Vault.</p>
+          <p class="identification-notice">Click Identify card to send the front photo to Google Gemini. Gemini reads the card and the catalog checks the printed identity; review or correct the result before saving. Google applies your API tier's data terms; DCR stores the photo only after you click Add to Vault.</p>
           <p id="photo-status" class="import-status" role="status" aria-live="polite"></p>
         </section>
         <section class="surface-card intake-card" aria-labelledby="manual-title">
-          <div class="section-heading"><span class="section-number">02</span><div><h2 id="manual-title">Card details</h2><p>Choose English card details for label printing; Cert and Grade stay independent.</p></div></div>
+          <div class="section-heading"><span class="section-number">02</span><div><h2 id="manual-title">Card details</h2><p>Review the printed card number and English card details; Cert and Grade stay independent.</p></div></div>
           <div class="field-grid">
             ${catalogField('name', 'Name', 'e.g. Charizard')}
             <div class="form-field cert-field"><label for="m-cert">Cert number</label><span class="cert-input-row">

@@ -1,6 +1,6 @@
 import {formatRarity} from '../utils/rarity.js';
 import {identifyCardImage} from '../store/cards.js';
-import {findExactCatalogCard, findSourceCatalogCard} from '../store/catalog.js';
+import {findSourceCatalogCard} from '../store/catalog.js';
 import {escapeHTML} from '../utils/format.js';
 import {hideAllCatalogSuggestions} from './search-catalog.js';
 import {cardLabelMetadata} from '../utils/label-metadata.js';
@@ -43,56 +43,38 @@ function showDialog(content) {
   if (!dialog.open) dialog.showModal();
 }
 
-function formName(fields) {
-  return fields.englishName || (fields.language === 'en' ? fields.name : '');
+function latinText(value) {
+  return value && !/[^\p{Script=Latin}\p{Common}\p{Inherited}]/u.test(value) ? value : '';
 }
 
-function formSet(fields) {
-  return fields.englishSetName || (fields.language === 'en' ? fields.setName : '');
-}
-
-function formNumber(fields) {
-  return fields.englishCardNumber || (fields.language === 'en' ? fields.cardNumber : '');
-}
-
-async function exactCatalogCard(fields) {
-  const name = formName(fields);
-  const setName = formSet(fields);
-  if (!name || !setName) return null;
-  try { return await findExactCatalogCard({name, setName, year: fields.year, cardNumber: formNumber(fields)}); }
-  catch { return null; }
-}
-
-async function applyReading(fields) {
-  const [card, source] = await Promise.all([exactCatalogCard(fields), findSourceCatalogCard(fields).catch(() => null)]);
+async function applyReading(fields, version) {
+  const source = await findSourceCatalogCard(fields).catch(() => null);
+  if (version !== analysisVersion) return null;
   const sourceLanguage = fields.language || 'unknown';
-  const selected = card
-    ? {...card, sourceLanguage, sourceSetId: source?.setId || (sourceLanguage === 'en' ? card.setId : ''), sourceCardId: source?.id || '', sourceFinish: fields.finish || ''}
-    : {name: formName(fields), setName: formSet(fields), year: fields.year || '', cardNumber: formNumber(fields),
-      rarity: fields.rarity || '', language: sourceLanguage, sourceLanguage, sourceSetId: source?.setId || '', sourceCardId: source?.id || '', setCode: fields.setCode || '', catalogCardId: '', id: ''};
+  const english = sourceLanguage === 'en' ? source : null;
+  const selected = english ? {...english, sourceLanguage, sourceSetId: source.setId, sourceCardId: source.id,
+    sourceFinish: fields.finish || ''} : {name: fields.englishName || '', setName: latinText(source?.setName),
+    year: source?.year || '', cardNumber: fields.cardNumber || '', rarity: source?.rarity || '',
+    language: sourceLanguage, sourceLanguage, sourceSetId: source?.setId || '', sourceCardId: source?.id || '',
+    setCode: fields.setCode || '', sourceFinish: fields.finish || '', catalogCardId: '', id: ''};
   const metadata = cardLabelMetadata(selected);
   window.__intakeCatalogCard = {...selected, ...metadata};
   window.__intakeIdentification = {...fields, sourceLanguage};
   window.__intakeCatalogGame = 'pokemon';
-  document.getElementById('m-name').value = formName(fields);
-  document.getElementById('m-setName').value = formSet(fields);
-  document.getElementById('m-year').value = card?.year || fields.year || '';
-  document.getElementById('m-cardNumber').value = formNumber(fields) || card?.cardNumber || '';
-  document.getElementById('m-rarity').value = formatRarity(fields.rarity || source?.rarity || card?.rarity);
+  document.getElementById('m-name').value = english?.name || fields.englishName || (sourceLanguage === 'en' ? fields.name : '') || '';
+  document.getElementById('m-setName').value = english?.setName || latinText(source?.setName) || '';
+  document.getElementById('m-year').value = source?.year || '';
+  document.getElementById('m-cardNumber').value = fields.cardNumber || '';
+  document.getElementById('m-rarity').value = formatRarity(source?.rarity || fields.rarity);
   hideAllCatalogSuggestions();
-  const catalogNote = card ? ' An exact catalog record was linked.' : ' No exact catalog record was linked; verify any missing English label details.';
-  const yearNote = card && fields.year && fields.year !== card.year ? ` Catalog year ${card.year} differs from the reading ${fields.year}; verify the printed edition.` : '';
-  const rarityNote = source?.rarity && fields.rarity && formatRarity(source.rarity) !== formatRarity(fields.rarity)
-    ? ` Source catalog rarity ${formatRarity(source.rarity)} differs from Gemini; verify rarity.`
-    : !fields.rarity && !source?.rarity && card?.rarity && sourceLanguage !== 'en'
-      ? ' Rarity comes from the English catalog card; verify it against the printed edition.' : '';
-  const uncertainNote = fields.uncertainFields?.length ? ` Check: ${fields.uncertainFields.join(', ')}.` : '';
-  const labelNote = !metadata.labelMetadataReady
-    ? ' A verified label profile for this printed language/set is required before label printing.'
-    : !metadata.yearSeries ? ' Approved set year/series data is missing for label printing.' : '';
-  const identityMessage = fields.identityStatus === 'identified' ? 'Gemini identified this card.' : 'Gemini suggested this card; verify the uncertain fields.';
-  document.getElementById('manual-status').textContent = `${identityMessage} Review the English details.${catalogNote}${yearNote}${rarityNote}${uncertainNote}${labelNote}`;
+  const matchNote = source ? 'Printed-language catalog record found. Check stamp and finish; the variant is not verified.'
+    : 'No verified printed-language record found. Check the set code and collector number or use a clearer photo.';
+  const englishNote = sourceLanguage !== 'en'
+    ? ' Card number is the printed number; English name is a translation to review. English counterpart is not verified.' : '';
+  const labelNote = !metadata.labelMetadataReady ? ' A verified label profile is required before printing.' : '';
+  document.getElementById('manual-status').textContent = `${matchNote}${englishNote}${labelNote}`;
   document.getElementById('m-grade').focus();
+  return {source, matchNote, englishNote};
 }
 
 function showError(message, retryable) {
@@ -121,8 +103,8 @@ async function analyzeFront() {
       showError('Gemini could not read the card name clearly enough. Try a clearer front photo or enter the details manually.', true);
       return;
     }
-    await applyReading(result.fields);
-    if (version === analysisVersion) showDialog(`${readingSummaryMarkup(result.fields, result.source, true)}<p class="identification-match-note">The form has been filled from Gemini’s answer. Confirm the details before saving.</p>`);
+    const resolution = await applyReading(result.fields, version);
+    if (resolution && version === analysisVersion) showDialog(`${readingSummaryMarkup(result.fields, result.source, true)}<p class="identification-match-note">${escapeHTML(resolution.matchNote + resolution.englishNote)} Review all details before saving.</p>`);
   } finally {
     analysisBusy = false;
     button.textContent = 'Identify card';

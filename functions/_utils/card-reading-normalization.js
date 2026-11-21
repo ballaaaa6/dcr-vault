@@ -1,4 +1,4 @@
-const LANGUAGES = new Set(['en', 'th', 'ja', 'ko', 'zh-tw', 'zh-cn']);
+const LANGUAGES = new Set(['en', 'th', 'ja', 'ko', 'zh-tw', 'zh-cn', 'de', 'fr', 'es', 'it', 'pt', 'id', 'nl', 'pl', 'ru']);
 
 function isObject(value) {
   return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
@@ -60,7 +60,7 @@ function cleanFieldConfidence(value) {
 function languageCode(value) {
   const language = cleanText(value, 30).toLowerCase();
   const aliases = {english: 'en', thai: 'th', japanese: 'ja', korean: 'ko',
-    'traditional chinese': 'zh-tw', 'simplified chinese': 'zh-cn'};
+    'traditional chinese': 'zh-tw', 'simplified chinese': 'zh-cn', german: 'de', french: 'fr', spanish: 'es', italian: 'it', portuguese: 'pt', indonesian: 'id', dutch: 'nl', polish: 'pl', russian: 'ru'};
   const code = aliases[language] || language;
   return LANGUAGES.has(code) ? code : '';
 }
@@ -101,6 +101,7 @@ export function cleanReading(value) {
     weaknesses: cleanCardRelations(value.weaknesses), resistances: cleanCardRelations(value.resistances),
     retreat: cleanText(value.retreat, 8), evolvesFrom: cleanText(fieldValue(value, ['evolvesFrom', 'evolves_from']), 80),
     regulationMark: cleanText(value.regulationMark, 16), printedText: cleanText(value.printedText, 1200),
+    stamp: cleanText(value.stamp, 80), setSymbol: cleanText(value.setSymbol, 80), copyrightText: cleanText(value.copyrightText, 200),
     dexNumber: cleanText(fieldValue(value, ['dexNumber', 'pokedexNumber', 'pokedex_number']), 6),
     level: cleanText(value.level, 6), finish: cleanText(fieldValue(value, ['finish', 'foil', 'variant']), 32),
     fieldConfidence: cleanFieldConfidence(value.fieldConfidence || value.confidence)

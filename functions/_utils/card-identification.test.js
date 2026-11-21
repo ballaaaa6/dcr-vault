@@ -24,7 +24,7 @@ test('Gemini receives a direct identification prompt and returns structured card
   let requestBody;
   const outputFields = {name: 'ミュウ', setName: 'サンプルセット', setCode: 'SAMPLE', englishName: 'Mew', englishSetName: '', englishCardNumber: '', year: '2024',
     cardNumber: '005/062', language: 'ja', rarity: 'Rare', hp: '60', illustrator: 'Mitsuhiro Arita', stage: 'Basic',
-    types: ['Psychic'], attacks: [{name: 'サイコウェーブ', damage: '30', cost: ['Psychic'], effect: 'Visible attack effect.'}],
+    stamp: '30', setSymbol: 'star', copyrightText: '©2026', types: ['Psychic'], attacks: [{name: 'サイコウェーブ', damage: '30', cost: ['Psychic'], effect: 'Visible attack effect.'}],
     abilities: [], abilityDetails: [{name: 'Ability name', effect: 'Visible ability effect.'}], weaknesses: [],
     resistances: [], retreat: '1', evolvesFrom: '', regulationMark: 'G', printedText: 'Visible footer text.', confidence: {name: 0.98}};
   globalThis.fetch = async (_url, init) => {
@@ -34,7 +34,7 @@ test('Gemini receives a direct identification prompt and returns structured card
   try {
     const result = await analyzeWithGemini({GEMINI_API_KEY: 'test-gemini-key'}, new Uint8Array([1, 2, 3]), 'image/jpeg', 'test-request');
     const prompt = requestBody.contents[0].parts[0].text;
-    assert.match(prompt, /Identify the exact Pokémon TCG printing shown/);
+    assert.match(prompt, /First transcribe the printed name/);
     assert.match(prompt, /Cards with the same Pokémon name may be different cards/);
     assert.match(prompt, /needs_review/);
     assert.match(prompt, /identificationSummary/);
@@ -42,11 +42,14 @@ test('Gemini receives a direct identification prompt and returns structured card
     assert.doesNotMatch(prompt, /[\u0e00-\u0e7f\u3040-\u30ff]/);
     assert.equal(requestBody.generationConfig.maxOutputTokens, 3072);
     const required = requestBody.generationConfig.responseJsonSchema.required;
-    for (const key of ['setCode', 'englishCardNumber', 'identificationSummary', 'identityStatus', 'evidence', 'uncertainFields']) {
+    for (const key of ['setCode', 'englishCardNumber', 'identificationSummary', 'identityStatus', 'evidence', 'uncertainFields', 'stamp', 'setSymbol', 'copyrightText']) {
       assert.ok(required.includes(key), `schema requires ${key}`);
     }
     assert.deepEqual(result.attacks[0].effects, ['Visible attack effect.']);
     assert.equal(result.setCode, 'SAMPLE');
+    assert.equal(result.stamp, '30');
+    assert.equal(result.setSymbol, 'star');
+    assert.equal(result.copyrightText, '©2026');
     assert.deepEqual(result.abilityDetails, [{name: 'Ability name', effect: 'Visible ability effect.'}]);
     assert.equal(result.printedText, 'Visible footer text.');
     assert.equal(result.regulationMark, 'G');

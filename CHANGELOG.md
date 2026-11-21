@@ -1,4 +1,9 @@
 # Changelog
+## 2026-11-21 - Printed card identity review
+- Read printed collector numbers, set codes, symbols, stamps and copyright separately before suggesting a printing.
+- Match the original-language catalog by set and collector number, check known denominators and conflicting card details, and keep unverified English counterparts out of the form.
+- Show the original collector number and make missing catalog matches and unverified translations clear during intake.
+
 ## 2026-11-21 - Localized card matching and automatic rarity
 - Fail over across configured Gemini keys on non-quota key, configuration, timeout, network, and upstream errors; keep quota/rate-limit responses terminal.
 - Keep the existing single Gemini key as a final fallback when a multi-key pool is configured.
