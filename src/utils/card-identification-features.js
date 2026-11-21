@@ -25,7 +25,11 @@ export function cardNames(card) {
 }
 
 export function setNames(card) {
-  return new Set([card.setName, card.setId, ...(card.metadata?.setAliases || [])].map(compact).filter(Boolean));
+  const names = [card.setName, card.setId, ...(card.metadata?.setAliases || [])].map(compact).filter(Boolean);
+  const suffix = {en: 'en', th: 'th', ja: 'jp', ko: 'kr', 'zh-tw': 'tw', 'zh-cn': 'cn'}[card.language];
+  const printedCode = compact(card.setId);
+  if (suffix && printedCode) names.push(`${printedCode}${suffix}`);
+  return new Set(names);
 }
 
 export function observedNameMatches(card, fields) {

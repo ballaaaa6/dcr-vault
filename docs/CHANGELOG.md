@@ -6,6 +6,7 @@
 - Compare compatible bilingual attack readings semantically and only stop on critical disagreements when both readers are confident.
 - Reject source and English catalog candidates that conflict with confident HP, illustrator, type, attack, ability, or finish evidence; rank by source-print evidence.
 - Keep unverified cross-language candidates out of the review picker instead of filling it with same-name cards.
+- Treat printed language-qualified set codes such as `SVPEN` as aliases for their catalog set IDs.
 - Persist the selected source card ID and observed finish alongside the English catalog printing.
 
 ## Localized card matching and automatic rarity - 2026-11-21
