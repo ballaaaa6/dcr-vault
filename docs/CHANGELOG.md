@@ -1,4 +1,8 @@
 # Changelog
+## Promo rarity fallback - 2026-11-21
+- Fill rarity as `Promo` when the explicit promo set name, label, or collector/set code identifies the card as a promo and Gemini leaves rarity blank.
+- Ask Gemini to report explicit promo markings as rarity even when the card has no separate rarity symbol.
+
 ## Gemini API key failover - 2026-11-21
 - Accept a server-side newline-separated `GEMINI_API_KEYS` secret while retaining the legacy single-key setting.
 - Move to another key only after Gemini explicitly rejects the current key; never rotate keys on quota/rate-limit responses.

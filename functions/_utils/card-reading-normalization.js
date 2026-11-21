@@ -65,10 +65,24 @@ function languageCode(value) {
   return LANGUAGES.has(code) ? code : '';
 }
 
+function hasExplicitPromoMarker(value) {
+  const markers = [
+    fieldValue(value, ['setName', 'set_name', 'set']),
+    fieldValue(value, ['englishSetName', 'english_set_name']),
+    fieldValue(value, ['setCode', 'set_code', 'setAbbreviation', 'set_abbreviation']),
+    fieldValue(value, ['cardNumber', 'card_number', 'collectorNumber', 'collector_number', 'number']),
+    fieldValue(value, ['englishCardNumber', 'english_card_number']),
+    fieldValue(value, ['printedText', 'printed_text'])
+  ];
+  return markers.some(marker => /\bpromo(?:tional)?s?\b|プロモ/i.test(String(marker))
+    || /(?:^|[\/\s])\s*[A-Z]{1,5}-P(?:$|[\/\s])/i.test(String(marker)));
+}
+
 export function cleanReading(value) {
   if (!isObject(value)) return null;
   const yearValue = cleanText(fieldValue(value, ['year', 'printedYear', 'printed_year']), 12);
   const year = yearValue.match(/(?:19|20)\d{2}/)?.[0] || '';
+  const rarity = cleanText(fieldValue(value, ['rarity', 'raritySymbol', 'rarity_symbol', 'rarityCode']), 40);
   const reading = {
     name: cleanText(fieldValue(value, ['name', 'cardName', 'card_name', 'pokemonName', 'pokemon_name'])),
     setName: cleanText(fieldValue(value, ['setName', 'set_name', 'set', 'expansion'])),
@@ -80,7 +94,7 @@ export function cleanReading(value) {
     identityStatus: ['identified', 'needs_review'].includes(value.identityStatus) ? value.identityStatus : 'needs_review',
     evidence: cleanList(value.evidence, 8), uncertainFields: cleanList(value.uncertainFields, 12),
     year, cardNumber: cleanText(fieldValue(value, ['cardNumber', 'card_number', 'collectorNumber', 'collector_number', 'number']), 30),
-    language: languageCode(value.language), rarity: cleanText(fieldValue(value, ['rarity', 'raritySymbol', 'rarity_symbol', 'rarityCode']), 40),
+    language: languageCode(value.language), rarity: rarity || (hasExplicitPromoMarker(value) ? 'Promo' : ''),
     hp: cleanText(value.hp, 8), illustrator: cleanText(fieldValue(value, ['illustrator', 'artist']), 80),
     stage: cleanText(value.stage, 40), types: cleanList(value.types, 4), attacks: cleanAttacks(value.attacks),
     abilities: cleanList(value.abilities, 4), abilityDetails: cleanAbilityDetails(value.abilityDetails),
