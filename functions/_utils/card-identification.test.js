@@ -80,6 +80,43 @@ test('returns a Gemini suggestion even when identity details need manual review'
   }
 });
 
+test('moves to the next configured key only when Gemini rejects a key', async () => {
+  const originalFetch = globalThis.fetch;
+  const calls = [];
+  globalThis.fetch = async (_url, init) => {
+    calls.push(init.headers['x-goog-api-key']);
+    if (calls.length === 1) return Response.json({error: {status: 'INVALID_ARGUMENT', message: 'API key not valid.', details: [{reason: 'API_KEY_INVALID'}]}}, {status: 400});
+    return Response.json({candidates: [{content: {parts: [{text: JSON.stringify({name: 'Pikachu', language: 'en'})}]}}]});
+  };
+  try {
+    const result = await analyzeWithGemini({GEMINI_API_KEYS: 'bad-test-key\ngood-test-key'}, new Uint8Array([1]), 'image/jpeg', 'key-failover-test');
+    assert.equal(result.name, 'Pikachu');
+    assert.deepEqual(calls, ['bad-test-key', 'good-test-key']);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test('does not switch keys when Gemini reports quota exhaustion', async () => {
+  const originalFetch = globalThis.fetch;
+  try {
+    for (const status of [429, 403]) {
+      const calls = [];
+      globalThis.fetch = async (_url, init) => {
+        calls.push(init.headers['x-goog-api-key']);
+        return Response.json({error: {status: 'RESOURCE_EXHAUSTED', message: 'Project quota exceeded.'}}, {status});
+      };
+      await assert.rejects(
+        analyzeWithGemini({GEMINI_API_KEYS: 'first-test-key\nsecond-test-key'}, new Uint8Array([1]), 'image/jpeg', 'quota-test'),
+        cause => cause.code === 'quota' && cause.status === 429
+      );
+      assert.deepEqual(calls, ['first-test-key']);
+    }
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
 test('returns the correlated Gemini error without calling OCR when Gemini is unavailable', async () => {
   const originalFetch = globalThis.fetch;
   const originalError = console.error;

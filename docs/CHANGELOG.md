@@ -1,4 +1,9 @@
 # Changelog
+## Gemini API key failover - 2026-11-21
+- Accept a server-side newline-separated `GEMINI_API_KEYS` secret while retaining the legacy single-key setting.
+- Move to another key only after Gemini explicitly rejects the current key; never rotate keys on quota/rate-limit responses.
+- Retry transient network and upstream failures once with the same key, and cover invalid-key failover and quota handling in backend tests.
+
 ## Direct Gemini card identification - 2026-11-21
 - Ask Gemini to identify one card directly from its visible name, artwork, attacks, HP, set code, collector number, and print marks, and return evidence plus fields that need review.
 - Return Gemini's structured reading without requiring OCR or catalog matching to pass; fill the English intake form from that answer and link an exact catalog record only when one is available.
