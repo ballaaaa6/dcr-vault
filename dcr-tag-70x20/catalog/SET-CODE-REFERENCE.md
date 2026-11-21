@@ -12,6 +12,12 @@ The CSV contains 528 rows: en 262, ja 131, ko 11, th 32, zh-cn 8, zh-tw 84. It i
 
 `catalog_set_id` is an internal TCGdex ID, not proof of a marking on a particular card. `ptcgo_decklist_code` is an external game/deck-list abbreviation, not automatically a printed code. `printed_code` is deliberately blank and `printed_code_status` is `unverified` throughout: neither input source establishes printed markings per language and printing. A blank is unknown, not evidence that there is no code. Preserve multiple rows per code; do not construct a one-to-one dictionary.
 
+## Expanded multilingual source list (2026-11-22)
+
+[Expanded source list CSV](set-code-multilingual-source.csv) contains 2,191 source rows, preserving multiple source entries rather than merging ambiguous codes. TCGdex API supplied 221 English, 204 Japanese, 72 Thai, 95 Korean, 98 Traditional Chinese, 57 Simplified Chinese, 70 Indonesian, 203 French, 156 German, 160 Spanish, 194 Italian, 126 Portuguese, 3 Dutch, 2 Polish and 9 Russian entries. One additional Thai MA6 row comes from SASOM. The Japanese list also includes 520 source entries from [TCG Collection Tracker](https://github.com/Silencx/Tcg-Collection-Tracker/blob/3ccccb280a2985b15a50a5d84b07604def2023e1/data/jp-cat/sets.json), which credits PokéWallet. Its source code repository is MIT licensed; verify underlying source terms before reuse beyond this research inventory.
+
+The lists are snapshots taken on 2026-11-22, not a claim of full historical or printed-code coverage. `source_id` is the identifier reported by each source, and is not automatically a printed marking. Check language, name, symbol and collector number before matching. Blank or duplicate identifiers must not be treated as unique. Source entries may contain outdated, missing or overlapping sets. TCGdex API URLs in each row identify the corresponding live source, which can change after the snapshot. MA6 identifies a researched Thai set, not evidence that every card's printed code has been inspected.
+
 ## What goes in Set
 
 Use the full name for the **actual printed-language release**, in the agreed English display name where a verified name is available. Keep the series, source-language name, catalog ID, printed code or symbol, collector number, and promo designation in separate fields. The card's original collector number must not be replaced by a number from a different-language counterpart.

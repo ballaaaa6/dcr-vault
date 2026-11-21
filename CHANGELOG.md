@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-22 - Expand multilingual set reference
+- Add sourced set-name and identifier snapshots across 15 languages, additional Japanese references, and the Thai MA6 example.
+
+
 ## 2026-11-22 - Set code research reference
 - Add a multilingual set inventory, pinned English abbreviation source, and guidance distinguishing printed marks, catalog IDs, and promo identifiers.
 
