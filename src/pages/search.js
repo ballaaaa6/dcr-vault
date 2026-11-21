@@ -1,5 +1,6 @@
 import {addCard, checkCert, deleteCardImage, uploadCardImage} from '../store/cards.js';
-import {catalogField, hideAllCatalogSuggestions, installCatalogSuggestions, populateRarityOptions} from './search-catalog.js';
+import {catalogField, hideAllCatalogSuggestions, installCatalogSuggestions} from './search-catalog.js';
+import {initializeCardRarity, invalidateCardResolution, resolveExactTypedCard} from './search-card-resolution.js';
 import {CONDITION_OPTIONS} from '../utils/label-options.js';
 import {cardLabelMetadata} from '../utils/label-metadata.js';
 import {escapeHTML} from '../utils/format.js';
@@ -13,6 +14,8 @@ let certCheckVersion = 0;
 let certCheckTimer;
 let imageUrls = {};
 let uploadedSides = new Set();
+
+export {initializeCardRarity as initializeSearchPage};
 
 function photoField(side, label) {
   return `<div class="upload-item"><label class="upload-field" for="m-image-${side}"><span>${label}</span>
@@ -52,7 +55,7 @@ export function search() {
             ${catalogField('setName', 'Set', 'e.g. Base Set')}
             ${catalogField('year', 'Year', 'e.g. 1999')}
             ${catalogField('cardNumber', 'Card number', 'e.g. 4')}
-            <div class="form-field"><label for="m-rarity">Rarity</label><select class="form-control" id="m-rarity" disabled><option value="">Choose a set first</option></select></div>
+            <div class="form-field"><label for="m-rarity">Rarity</label><input class="form-control" id="m-rarity" readonly aria-readonly="true" placeholder="Filled automatically from the card catalog"></div>
             <div class="form-field"><label for="m-grade">Grade / Condition</label><select class="form-control" id="m-grade"><option value="">Choose condition</option>${CONDITION_OPTIONS.map(value => `<option value="${value}">${value}</option>`).join('')}</select></div>
           </div>
           <button class="btn btn-primary manual-submit" id="manual-submit" type="button">Add to Vault</button>
@@ -61,10 +64,6 @@ export function search() {
       </div>
       ${identificationDialogMarkup()}
     </main>`;
-}
-
-export function initializeSearchPage() {
-  populateRarityOptions();
 }
 
 function setCertState(available, message, state = '') {
@@ -201,6 +200,7 @@ function formCard(certNumber) {
 }
 
 async function createIntakeCard(certNumber) {
+  if (!window.__intakeCatalogCard) await resolveExactTypedCard();
   const card = await addCard(formCard(certNumber));
   window.__intakeSavedCard = card;
   return card;
@@ -272,16 +272,20 @@ document.addEventListener('click', event => {
 });
 
 document.addEventListener('focusout', event => {
-  if (event.target.id !== 'm-cert') return;
-  const normalized = normalizeCert(event.target.value);
-  if (normalized) event.target.value = normalized;
+  const field = event.target.closest('[data-catalog-field]');
+  if (field) resolveExactTypedCard();
+  if (event.target.id === 'm-cert') {
+    const normalized = normalizeCert(event.target.value);
+    if (normalized) event.target.value = normalized;
+  }
 });
 
 installCatalogSuggestions(card => {
+  invalidateCardResolution();
   const selected = {...card, sourceLanguage: 'en', sourceSetId: card.setId};
   window.__intakeCatalogCard = selected;
   window.__intakeCatalogGame = 'pokemon';
-  populateRarityOptions({setId: card.setId, setName: card.setName, selectedRarity: card.rarity});
+  document.getElementById('m-rarity').value = card.rarity || '';
   const metadata = cardLabelMetadata(selected);
   document.getElementById('manual-status').textContent = !metadata.labelMetadataReady
     ? 'This language/set has no verified label profile yet, so label printing will stay unavailable until one is added.'
@@ -289,9 +293,8 @@ installCatalogSuggestions(card => {
       ? 'This set has no approved Year / series mapping yet, so label printing will stay unavailable until one is added.'
       : 'Catalog card selected. Check the details, then enter Cert and Grade.';
   document.getElementById('m-grade').focus();
-}, field => {
+}, () => {
+  invalidateCardResolution();
   window.__intakeCatalogCard = null;
-  if (field === 'setName') {
-    populateRarityOptions({setName: document.getElementById('m-setName').value.trim()});
-  }
+  document.getElementById('m-rarity').value = '';
 });

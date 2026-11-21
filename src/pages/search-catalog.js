@@ -1,4 +1,4 @@
-import {findCatalogCandidates, getCatalogRarities} from '../store/catalog.js';
+import {findCatalogCandidates} from '../store/catalog.js';
 import {escapeHTML} from '../utils/format.js';
 
 const FIELDS = ['name', 'setName', 'year', 'cardNumber'];
@@ -16,49 +16,6 @@ export function catalogField(id, label, placeholder) {
 
 function fieldValues() {
   return Object.fromEntries(FIELDS.map(field => [field, document.getElementById(`m-${field}`).value]));
-}
-
-export async function populateRarityOptions({setId = '', setName = '', selectedRarity = ''} = {}) {
-  const select = document.getElementById('m-rarity');
-  if (!select) return;
-  const version = Number(select.dataset.optionsVersion || 0) + 1;
-  select.dataset.optionsVersion = String(version);
-  const hasSet = Boolean(setId || setName.trim());
-  if (!hasSet) {
-    select.innerHTML = '<option value="">Choose a set first</option>';
-    select.value = '';
-    select.disabled = true;
-    select.dataset.setId = '';
-    select.dataset.setName = '';
-    return;
-  }
-  select.innerHTML = '<option value="">Loading set rarities…</option>';
-  select.value = '';
-  select.disabled = true;
-  try {
-    const rarityInfo = await getCatalogRarities({setId, setName});
-    if (!select.isConnected || select.dataset.optionsVersion !== String(version)) return;
-    const {rarities, noPrintedRarity} = rarityInfo;
-    const available = rarities.includes(selectedRarity) ? selectedRarity : '';
-    const prompt = rarities.length ? 'Choose rarity' : noPrintedRarity ? 'No printed rarity for this set' : 'No catalog rarity recorded';
-    select.innerHTML = `<option value="">${prompt}</option>${rarities.map(value =>
-      `<option value="${escapeHTML(value)}"${value === available ? ' selected' : ''}>${escapeHTML(value)}</option>`).join('')}`;
-    select.value = available;
-    select.disabled = rarities.length === 0;
-    select.dataset.setId = setId;
-    select.dataset.setName = setName;
-    if (selectedRarity && !available) {
-      const status = document.getElementById('manual-status');
-      if (status) status.textContent = 'This card’s rarity is not recorded for the selected set. Choose only a verified value.';
-    }
-  } catch (error) {
-    if (!select.isConnected || select.dataset.optionsVersion !== String(version)) return;
-    select.innerHTML = '<option value="">Rarity options unavailable</option>';
-    select.value = '';
-    select.disabled = true;
-    const status = document.getElementById('manual-status');
-    if (status) status.textContent = error.message || 'Rarity options are unavailable.';
-  }
 }
 
 function hideSuggestions(field) {

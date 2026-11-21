@@ -1,17 +1,16 @@
 import {identifyCardImage} from '../store/cards.js';
 import {findImageCandidates, findImageReviewCandidates} from '../store/catalog.js';
 import {escapeHTML} from '../utils/format.js';
-import {hideAllCatalogSuggestions, populateRarityOptions} from './search-catalog.js';
+import {hideAllCatalogSuggestions} from './search-catalog.js';
 import {cardLabelMetadata} from '../utils/label-metadata.js';
 
 let candidateCards = [];
-let extractedFields = {};
 let analysisVersion = 0;
 let analysisBusy = false;
 
 export function identificationDialogMarkup() {
   return `<dialog id="identification-result" class="identification-dialog" aria-labelledby="identification-title">
-    <header class="identification-dialog-header"><div><div class="page-eyebrow">CARD MATCH</div><h2 id="identification-title">Choose the matching card</h2><p>Card names and set names are shown in English for label printing.</p></div>
+    <header class="identification-dialog-header"><div><div class="page-eyebrow">CARD MATCH</div><h2 id="identification-title">Choose the matching card</h2><p>Card details are shown in the printed language; label values use English.</p></div>
       <button class="btn btn-ghost identification-close" type="button" data-close-identification aria-label="Close card matches">×</button></header>
     <div id="identification-dialog-content" class="identification-dialog-content" aria-live="polite"></div>
     <img id="identification-hover-preview" class="identification-hover-preview" alt="" hidden>
@@ -26,7 +25,6 @@ function updateButton() {
 
 function clearResult() {
   candidateCards = [];
-  extractedFields = {};
   const dialog = document.getElementById('identification-result');
   if (dialog?.open) dialog.close();
   const content = document.getElementById('identification-dialog-content');
@@ -40,34 +38,38 @@ export function resetCardIdentificationState() {
 }
 
 function candidateMarkup(card, index) {
-  const image = Object.hasOwn(card, 'previewImage') ? card.previewImage : card.imageUrl;
+  const sourceCard = card.sourceCard || card;
+  const image = sourceCard.imageUrl || '';
   const imageMarkup = image ? `<img class="identification-option-image" src="${escapeHTML(image)}" alt="" loading="eager">` : '';
-  const metadata = cardLabelMetadata(card);
-  const details = [metadata.setName || card.setName, card.year, card.cardNumber && `#${card.cardNumber}`, card.rarity].filter(Boolean);
-  const attacks = (card.metadata?.attacks || []).map(attack => {
+  const labelMetadata = cardLabelMetadata({...card, sourceLanguage: sourceCard.language, sourceSetId: sourceCard.setId});
+  const sourceNumber = card.sourceCardNumber || sourceCard.cardNumber;
+  const sourceDetails = [sourceCard.setName, sourceCard.year, sourceNumber && `#${sourceNumber}`, sourceCard.rarity].filter(Boolean);
+  const labelDetails = [labelMetadata.setName || card.setName, card.year, card.cardNumber && `#${card.cardNumber}`, card.rarity].filter(Boolean);
+  const attacks = (sourceCard.metadata?.attacks || []).map(attack => {
     const name = attack.names?.find(Boolean) || '';
     return [name, attack.damage].filter(Boolean).join(' ');
   }).filter(Boolean);
-  const sourcePrint = card.sourceCardNumber ? `${String(card.sourceLanguage || '').toUpperCase()} print #${card.sourceCardNumber}` : '';
-  const evidence = [sourcePrint, card.metadata?.hp && `${card.metadata.hp} HP`, card.metadata?.illustrator && `Illus. ${card.metadata.illustrator}`,
+  const sourcePrint = `${String(sourceCard.language || 'en').toUpperCase()} print`;
+  const evidence = [sourcePrint, sourceCard.metadata?.hp && `${sourceCard.metadata.hp} HP`, sourceCard.metadata?.illustrator && `Illus. ${sourceCard.metadata.illustrator}`,
     attacks.length && attacks.join(' · ')].filter(Boolean);
-  const fallback = card.previewImageFallback || card.imageUrlFallback || '';
-  const previewAttrs = image ? `data-preview-src="${escapeHTML(image)}" data-preview-alt="${escapeHTML(card.name)}" data-has-image="true" ${fallback ? `data-preview-fallback="${escapeHTML(fallback)}"` : ''}` : '';
+  const fallback = sourceCard.imageUrlFallback || '';
+  const previewAttrs = image ? `data-preview-src="${escapeHTML(image)}" data-preview-alt="${escapeHTML(sourceCard.name)}" data-has-image="true" ${fallback ? `data-preview-fallback="${escapeHTML(fallback)}"` : ''}` : '';
+  const labelSummary = sourceCard.language === 'en' ? '' : `<small>English label: ${escapeHTML([card.name, ...labelDetails].filter(Boolean).join(' · '))}</small>`;
+  const imageNotice = image ? '' : '<small>The original-language catalog image is unavailable.</small>';
   return `<button class="identification-option" data-image-candidate="${index}" ${previewAttrs} type="button">${imageMarkup}
-    <span class="identification-option-copy"><strong>${escapeHTML(card.name)}</strong><span>${escapeHTML(details.join(' · '))}</span>
-    ${evidence.length ? `<small>${escapeHTML(evidence.join(' · '))}</small>` : ''}</span></button>`;
+    <span class="identification-option-copy"><strong>${escapeHTML(sourceCard.name || card.name)}</strong><span>${escapeHTML(sourceDetails.join(' · '))}</span>
+    ${labelSummary}${imageNotice}${evidence.length ? `<small>${escapeHTML(evidence.join(' · '))}</small>` : ''}</span></button>`;
 }
 
 function showCandidates(fields, cards, source) {
   candidateCards = cards;
-  extractedFields = fields;
   const reader = source === 'oracle_ocr' ? 'DCR OCR' : 'Gemini';
   const knownFields = [fields.name, fields.englishName, fields.cardNumber, fields.setName, fields.englishSetName].filter(Boolean).length;
   const emptyMessage = knownFields >= 2
     ? `${reader} read card details, but the catalog could not confirm a safe English match. Enter the English card name and set manually.`
     : `${reader} could not read enough identity details to find catalog choices. Enter the English card name and set manually.`;
   const options = cards.length ? cards.map(candidateMarkup).join('') : '<p class="catalog-empty">' + emptyMessage + '</p>';
-  showDialog(`<p class="identification-match-note">Select a card to fill the English catalog details in Block 2. This will not save the card.</p><div class="identification-options">${options}</div>`);
+  showDialog(`<p class="identification-match-note">Choose the card in its printed language. The English catalog match fills Block 2 and the label. This will not save the card.</p><div class="identification-options">${options}</div>`);
 }
 
 function showDialog(content) {
@@ -79,27 +81,22 @@ function showDialog(content) {
   if (!dialog.open) dialog.showModal();
 }
 
-function observedCollectorNumber(fields) {
-  const number = String(fields.cardNumber || '').trim();
-  if (!number || Number(fields.fieldConfidence?.cardNumber || 0) < 0.82) return '';
-  if (fields.language !== 'en' && !fields.setName && !/\/\s*\d+/.test(number)) return '';
-  return number;
-}
-
 function chooseCandidate(index) {
   const card = candidateCards[index];
   if (!card) return;
-  const metadata = cardLabelMetadata(card);
-  window.__intakeCatalogCard = {...card, ...metadata};
+  const sourceCard = card.sourceCard || card;
+  const selected = {...card, sourceCardId: sourceCard.id, sourceCardNumber: sourceCard.cardNumber,
+    sourceLanguage: sourceCard.language || 'en', sourceSetId: sourceCard.setId || card.setId, catalogCardId: card.id};
+  const metadata = cardLabelMetadata(selected);
+  window.__intakeCatalogCard = {...selected, ...metadata};
   document.getElementById('m-name').value = card.name;
   document.getElementById('m-setName').value = metadata.setName || card.setName;
   document.getElementById('m-year').value = card.year;
-  const observedNumber = observedCollectorNumber(extractedFields) || String(card.sourceCardNumber || '').trim();
-  document.getElementById('m-cardNumber').value = observedNumber || card.cardNumber;
-  populateRarityOptions({setId: card.setId, setName: card.setName, selectedRarity: card.rarity});
+  document.getElementById('m-cardNumber').value = card.cardNumber;
+  document.getElementById('m-rarity').value = card.rarity || '';
   window.__intakeCatalogGame = 'pokemon';
   hideAllCatalogSuggestions();
-  const rarityNote = card.rarity ? '' : ' The catalog has no rarity for this card; leave it blank or choose a recorded value for this set if available.';
+  const rarityNote = card.rarity ? '' : ' No verified rarity is recorded for this card, so it stays blank.';
   const profileNote = !metadata.labelMetadataReady
     ? ' This language/set has no verified label profile yet, so label printing will stay unavailable until one is added.'
     : !metadata.yearSeries ? ' This set has no approved Year / series mapping yet, so label printing will stay unavailable until one is added.' : '';
@@ -142,7 +139,6 @@ async function analyzeFront() {
     }
     if (version === analysisVersion && candidates.length === 1 && candidates[0].autoSelect) {
       candidateCards = candidates;
-      extractedFields = result.fields;
       chooseCandidate(0);
       return;
     }

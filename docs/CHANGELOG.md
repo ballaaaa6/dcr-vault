@@ -1,4 +1,9 @@
 # Changelog
+## Localized card matching and automatic rarity - 2026-11-21
+- Expand the English Gemini prompt and structured output to capture all visible identity/card details, attack and ability effects, printed text, regulation mark, and field confidence.
+- Match the source-language print against catalog metadata before mapping to English label data; display the original-language card image and skip the picker only for a unique, high-confidence match.
+- Fill label name, set, year, number, and rarity from the English catalog card; make rarity read-only and automatically populated.
+
 ## Cloudflare fetch redirect compatibility - 2026-11-21
 - Use the redirect mode supported by Cloudflare Workers for Gemini, Oracle OCR, and Oracle media fetches, preventing identify requests from failing before reaching upstream services.
 - Keep upstream redirects manual so service credentials are not forwarded to another origin.

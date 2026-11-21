@@ -1,4 +1,9 @@
 # Changelog
+## 2026-11-21 - Localized card matching and automatic rarity
+- Read the full visible card with an English Gemini prompt, including attack/ability effects, printed text, regulation mark, and per-field confidence.
+- Match the printed-language catalog record and metadata first, map it to English label data, auto-fill only a unique high-confidence identity, and show source-language images for review choices.
+- Fill the read-only rarity field from the selected English card record or reviewed uniform set default; keep unknown rarity blank.
+
 ## 2026-11-21 - Cloudflare fetch redirect compatibility
 - Use Cloudflare Workers-supported manual redirects for Gemini, Oracle OCR, and Oracle media requests; upstream redirects are not followed.
 - Cover the supported redirect mode in the card-identification regression test.

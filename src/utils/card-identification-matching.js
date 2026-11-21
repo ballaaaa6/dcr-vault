@@ -1,3 +1,5 @@
+const AUTO_CONFIDENCE = 0.82;
+
 function normalized(value) {
   return String(value ?? '').trim().normalize('NFKC').toLocaleLowerCase('en-US');
 }
@@ -8,6 +10,14 @@ function compact(value) {
 
 function values(value) {
   return (Array.isArray(value) ? value : [value]).map(normalized).filter(Boolean);
+}
+
+function hasValue(value) {
+  return Array.isArray(value) ? value.length > 0 : Boolean(String(value ?? '').trim());
+}
+
+function confidentField(fields, field) {
+  return hasValue(fields[field]) && Number(fields.fieldConfidence?.[field] || 0) >= AUTO_CONFIDENCE;
 }
 
 function cardNames(card) {
@@ -21,11 +31,6 @@ function setNames(card) {
 function observedNameMatches(card, fields) {
   const names = cardNames(card);
   return [fields.name, fields.englishName].some(name => name && names.has(compact(name)));
-}
-
-function observedSetMatches(card, fields) {
-  const sets = setNames(card);
-  return [fields.setName, fields.englishSetName].some(name => name && sets.has(compact(name)));
 }
 
 function numberParts(value) {
@@ -42,14 +47,19 @@ function numberMatches(card, observed) {
   return !input.denominator || !!count && input.denominator === String(Number(count));
 }
 
+function cardNumberMatches(card, observed) {
+  return numberParts(observed) ? numberMatches(card, observed)
+    : compact(card.cardNumber) === compact(String(observed ?? '').split('/')[0]);
+}
+
 function confidentIdentity(fields) {
-  const confidence = fields.fieldConfidence || {};
-  if (fields.language !== 'en' && !fields.setName && !/\/\s*\d+/.test(fields.cardNumber || '')) return false;
-  const identityFields = ['name', 'language'];
-  if (fields.cardNumber) identityFields.push('cardNumber');
-  if (fields.setName) identityFields.push('setName');
-  if (!fields.cardNumber && !fields.setName) return false;
-  return identityFields.every(field => Number(confidence[field] || 0) >= 0.82);
+  if (!confidentField(fields, 'name') || !confidentField(fields, 'language')) return false;
+  const fullNumber = /^#?\d+\s*\/\s*\d+$/.test(String(fields.cardNumber || '').trim())
+    && Number(fields.fieldConfidence?.cardNumber || 0) >= 0.9;
+  const anchors = ['setName', 'englishSetName', 'year', 'rarity', 'hp', 'illustrator', 'stage',
+    'types', 'attacks', 'abilities', 'weaknesses', 'resistances']
+    .filter(field => confidentField(fields, field));
+  return fullNumber || anchors.length >= 2;
 }
 
 function attacks(card) {
@@ -57,8 +67,13 @@ function attacks(card) {
   return Array.isArray(card.attacks) ? card.attacks : [];
 }
 
+function attackLabelNames(attack) {
+  return values(attack.names || attack.name);
+}
+
 function abilities(card) {
   if (Array.isArray(card.metadata?.abilities)) return card.metadata.abilities;
+  if (Array.isArray(card.abilityDetails)) return card.abilityDetails.map(item => ({names: values(item?.name)}));
   return Array.isArray(card.abilities) ? card.abilities.map(names => ({names: values(names)})) : [];
 }
 
@@ -78,8 +93,8 @@ function damageRatio(left, right) {
 
 function attackNameRatio(left, right) {
   if (!left.length || !right.length) return 0;
-  const rightNames = new Set(right.flatMap(attack => attack.names || []).map(compact).filter(Boolean));
-  const matched = left.filter(attack => (attack.names || []).some(name => rightNames.has(compact(name)))).length;
+  const rightNames = new Set(right.flatMap(attackLabelNames).map(compact).filter(Boolean));
+  const matched = left.filter(attack => attackLabelNames(attack).some(name => rightNames.has(compact(name)))).length;
   return matched / Math.max(left.length, right.length);
 }
 
@@ -128,135 +143,152 @@ function cardFeatures(left, right) {
   const resistances = relationRatio(a.resistances, b.resistances);
   const retreatExact = !!a.retreat && normalized(a.retreat) === normalized(b.retreat);
   const evolvesFromExact = overlapRatio(a.evolvesFrom, b.evolvesFrom) === 1 && values(a.evolvesFrom).length > 0;
+  const evidence = [artistExact && 'illustrator', hpExact && 'HP', stageExact && 'stage', typeRatio > 0 && 'types',
+    damages > 0 && 'attack damage', attackNames > 0 && 'attack name', costs > 0 && 'energy cost',
+    weaknesses > 0 && 'weakness', abilityNames > 0 && 'ability', resistances > 0 && 'resistance',
+    retreatExact && 'retreat', evolvesFromExact && 'evolves from'].filter(Boolean);
   const score = (artistExact ? 18 : 0) + (hpExact ? 10 : 0) + (stageExact ? 4 : 0)
     + typeRatio * 6 + damages * 22 + attackNames * 12 + costs * 8 + weaknesses * 4
     + abilityNames * 4 + resistances * 3 + (retreatExact ? 2 : 0) + (evolvesFromExact ? 5 : 0);
-  return {score, artistExact, hpExact, damages, attackNames, corroborated:
-    (artistExact && damages >= 0.75) || (damages === 1 && hpExact && stageExact)
-      || (abilityNames === 1 && hpExact && stageExact && damages >= 0.5)};
+  const corroborated = (artistExact && damages >= 0.75) || (damages === 1 && hpExact && stageExact)
+    || (abilityNames === 1 && hpExact && stageExact && damages >= 0.5) || evidence.length >= 3;
+  return {score, evidence, corroborated};
+}
+
+function sourceSetMatches(card, fields) {
+  const setName = fields.setName || (fields.language === 'en' ? fields.englishSetName : '');
+  return !setName || setNames(card).has(compact(setName));
 }
 
 function sourceScore(card, fields) {
-  return (observedNameMatches(card, fields) ? 30 : 0) + (numberMatches(card, fields.cardNumber) ? 28 : 0)
-    + (observedSetMatches(card, fields) ? 20 : 0) + (fields.year && card.year === fields.year ? 8 : 0)
-    + (fields.language && card.language === fields.language ? 6 : 0) + cardFeatures(fields, card).score;
+  const features = cardFeatures(fields, card);
+  const exactName = [fields.name, fields.englishName].some(name => name && compact(card.name) === compact(name));
+  const numberMatch = fields.cardNumber && cardNumberMatches(card, fields.cardNumber);
+  const setMatch = sourceSetMatches(card, fields);
+  const yearMatch = fields.year && card.year === fields.year;
+  const rarityMatch = fields.rarity && normalized(card.rarity) === normalized(fields.rarity);
+  const evidence = [exactName ? 'printed name' : 'name alias', numberMatch && 'collector number',
+    setMatch && fields.setName && 'printed set', yearMatch && 'year', rarityMatch && 'rarity', ...features.evidence].filter(Boolean);
+  return {score: (observedNameMatches(card, fields) ? 30 : 0) + (numberMatch ? 28 : 0)
+    + (setMatch && fields.setName ? 20 : 0) + (yearMatch ? 8 : 0)
+    + (fields.language && card.language === fields.language ? 6 : 0) + (rarityMatch ? 6 : 0) + features.score,
+  evidence, features};
 }
 
 function sourceCards(cards, fields) {
-  const hasNumber = !!numberParts(fields.cardNumber);
-  const hasSet = !!fields.setName;
-  if (!fields.language || (!hasNumber && !hasSet)) return [];
-  return cards.filter(card => card.language === fields.language
-    && observedNameMatches(card, fields)
-    && (!hasNumber || numberMatches(card, fields.cardNumber))
-    && (!hasSet || observedSetMatches(card, fields))
-    && (!fields.year || card.year === fields.year))
-    .map(card => ({card, score: sourceScore(card, fields)}))
+  if (!fields.language || ![fields.name, fields.englishName].some(Boolean)) return [];
+  return cards.filter(card => card.language === fields.language && observedNameMatches(card, fields)
+    && (!confidentField(fields, 'cardNumber') || cardNumberMatches(card, fields.cardNumber))
+    && (!confidentField(fields, 'setName') || !card.setName || sourceSetMatches(card, fields))
+    && (fields.language !== 'en' || !confidentField(fields, 'englishSetName')
+      || !card.setName || setNames(card).has(compact(fields.englishSetName))))
+    .map(card => ({card, ...sourceScore(card, fields)}))
     .sort((left, right) => right.score - left.score);
+}
+
+export function findExactCatalogCardFromCatalog(cards, fields) {
+  const name = compact(fields.name);
+  const setName = compact(fields.setName);
+  if (!name || !setName || !hasValue(fields.year) && !hasValue(fields.cardNumber)) return null;
+  const matches = cards.filter(card => card.language === 'en' && cardNames(card).has(name)
+    && setNames(card).has(setName) && (!fields.year || card.year === String(fields.year).trim())
+    && (!fields.cardNumber || cardNumberMatches(card, fields.cardNumber)));
+  return matches.length === 1 ? matches[0] : null;
 }
 
 function englishNamesMatch(source, english, fields) {
   const names = cardNames(source);
   const englishNames = cardNames(english);
-  const englishNameExact = !fields.englishName || compact(fields.englishName) === compact(english.name);
-  return englishNameExact && ([...names].some(name => englishNames.has(name))
-    || (fields.englishName && compact(fields.englishName) === compact(english.name)));
+  const sharedName = [...names].some(name => englishNames.has(name));
+  const modelName = fields.englishName && englishNames.has(compact(fields.englishName));
+  if (confidentField(fields, 'englishName') && !modelName) return false;
+  return sharedName || modelName;
 }
 
-function candidateFromSource(source, english, fields) {
-  if (!englishNamesMatch(source, english, fields)) return null;
-  if (fields.englishSetName && !setNames(english).has(compact(fields.englishSetName))) return null;
-  if (fields.year && english.year && fields.year !== english.year) return null;
-  const features = cardFeatures(source, english);
-  const yearBonus = fields.year && fields.year === english.year ? 6 : 0;
-  const explicitSetBonus = fields.englishSetName ? 12 : 0;
-  const score = 28 + features.score + yearBonus + explicitSetBonus;
-  if (!features.corroborated || score < 58) return null;
-  const sourceNumber = fields.cardNumber || (source.metadata?.cardCount
-    ? `${source.cardNumber}/${source.metadata.cardCount}` : source.cardNumber);
-  return {...english, catalogCardId: english.id, previewImage: source.imageUrl || '',
-    previewImageFallback: source.imageUrl ? source.imageUrlFallback || '' : '',
-    sourceCardId: source.id, sourceCardNumber: sourceNumber, sourceLanguage: source.language,
-    sourceSetId: source.setId, matchScore: score,
-    matchEvidence: [features.artistExact && 'illustrator', features.hpExact && 'HP',
-      features.damages === 1 && 'attack damage', features.attackNames > 0 && 'attack name'].filter(Boolean)};
+function englishSetMatches(english, fields) {
+  return !confidentField(fields, 'englishSetName') || setNames(english).has(compact(fields.englishSetName));
 }
 
-function directEnglishCandidates(cards, fields) {
-  if (fields.language !== 'en') return [];
-  const hasName = [fields.name, fields.englishName].some(Boolean);
-  if (!hasName || !numberParts(fields.cardNumber) || !(fields.setName || fields.englishSetName)) return [];
-  return cards.filter(card => card.language === 'en' && observedNameMatches(card, fields)
-    && (!fields.englishName || compact(fields.englishName) === compact(card.name))
-    && (!fields.englishSetName || setNames(card).has(compact(fields.englishSetName)))
-    && numberMatches(card, fields.cardNumber) && observedSetMatches(card, fields)
-    && (!fields.year || card.year === fields.year))
-    .map(card => ({...card, catalogCardId: card.id, previewImage: card.imageUrl, previewImageFallback: card.imageUrlFallback || '',
-      sourceLanguage: 'en', sourceSetId: card.setId, sourceCardNumber: fields.cardNumber,
-      matchScore: 100, matchEvidence: ['name', 'set', 'collector number'], autoSelect: confidentIdentity(fields)}));
+function candidateFromSource(sourceMatch, english, fields, englishNameCount) {
+  const source = sourceMatch.card;
+  if (!englishSetMatches(english, fields)) return null;
+  const features = source.language === 'en' ? cardFeatures(fields, english) : cardFeatures(source, english);
+  const sameSetAndNumber = source.setId === english.setId && cardNumberMatches(english, source.cardNumber);
+  const exactSourceAnchor = sameSetAndNumber && [...cardNames(source)].some(name => cardNames(english).has(name));
+  const counterpartProof = source.language === 'en' || features.corroborated || exactSourceAnchor || englishNameCount === 1;
+  const modelNameBonus = fields.englishName && compact(fields.englishName) === compact(english.name) ? 10 : 0;
+  const englishSetBonus = fields.englishSetName && setNames(english).has(compact(fields.englishSetName)) ? 12 : 0;
+  const sameIdBonus = source.id === english.id && exactSourceAnchor ? 6 : 0;
+  const score = sourceMatch.score + features.score + modelNameBonus + englishSetBonus + sameIdBonus;
+  const matchEvidence = [...new Set([...sourceMatch.evidence, ...features.evidence,
+    modelNameBonus && 'official English name', englishSetBonus && 'English set'].filter(Boolean))];
+  const sourceCardNumber = fields.cardNumber?.includes('/') && cardNumberMatches(source, fields.cardNumber)
+    ? fields.cardNumber.trim()
+    : `${source.cardNumber}${source.metadata?.cardCount && !String(source.cardNumber).includes('/') ? `/${source.metadata.cardCount}` : ''}`;
+  return {...english, catalogCardId: english.id, sourceCard: source,
+    sourceCardId: source.id, sourceCardNumber, sourceLanguage: source.language,
+    sourceSetId: source.setId, matchScore: score, matchEvidence, autoSelect: false,
+    counterpartScore: features.score, counterpartProof, sourceMatchScore: sourceMatch.score};
 }
 
-function sameIdEnglishCandidate(cards, source, fields, autoSelect = false) {
-  const english = cards.find(card => card.language === 'en' && card.id === source.id);
-  if (!english) return null;
-  return {...english, catalogCardId: english.id, previewImage: source.imageUrl || english.imageUrl,
-    previewImageFallback: source.imageUrl ? source.imageUrlFallback || '' : english.imageUrlFallback || '',
-    sourceCardId: source.id, sourceCardNumber: fields.cardNumber || source.cardNumber,
-    sourceLanguage: source.language, sourceSetId: source.setId, matchScore: 100,
-    matchEvidence: ['exact localized catalog identity'], autoSelect};
+function candidateSetKey(card) {
+  const source = card.sourceCard;
+  return `${source.language}:${source.setId}:${source.cardNumber}:${source.id}:${source.name}`;
 }
 
-function reviewCandidates(cards, fields, limit) {
-  const query = fields.englishName || (fields.language === 'en' ? fields.name : '');
-  const needle = compact(query);
-  if (!needle) return [];
-  return cards.filter(card => card.language === 'en' && cardNames(card).has(needle))
-    .map(card => {
-      const features = cardFeatures(fields, card);
-      const setMatch = fields.englishSetName && setNames(card).has(compact(fields.englishSetName));
-      const numberMatch = fields.language === 'en' && numberMatches(card, fields.cardNumber);
-      const yearMatch = fields.year && card.year === fields.year;
-      const score = 35 + features.score + (setMatch ? 18 : 0) + (numberMatch ? 18 : 0) + (yearMatch ? 8 : 0);
-      const evidence = [setMatch && 'English set', numberMatch && 'collector number', yearMatch && 'year',
-        features.hpExact && 'HP', features.artistExact && 'illustrator', features.damages > 0 && 'attack damage']
-        .filter(Boolean);
-      return {...card, catalogCardId: card.id, previewImage: card.imageUrl,
-        previewImageFallback: card.imageUrlFallback || '', sourceLanguage: fields.language || 'en',
-        sourceSetId: card.setId, matchScore: score, matchEvidence: evidence, autoSelect: false};
-    })
-    .sort((left, right) => right.matchScore - left.matchScore || right.year.localeCompare(left.year)
-      || left.name.localeCompare(right.name))
-    .slice(0, limit);
+function rankCandidates(cards, fields, allowWeakCounterparts) {
+  const sources = sourceCards(cards, fields);
+  const englishCards = cards.filter(card => card.language === 'en');
+  const ranked = [];
+  for (const sourceMatch of sources) {
+    const source = sourceMatch.card;
+    const targets = source.language === 'en' ? [source]
+      : englishCards.filter(english => englishNamesMatch(source, english, fields) && englishSetMatches(english, fields));
+    for (const english of targets) {
+      const candidate = candidateFromSource(sourceMatch, english, fields, targets.length);
+      if (candidate && (allowWeakCounterparts || candidate.counterpartProof)) ranked.push(candidate);
+    }
+  }
+  return ranked.sort((left, right) => right.matchScore - left.matchScore
+    || left.name.localeCompare(right.name) || left.setName.localeCompare(right.setName));
+}
+
+function uniqueWinner(items, scoreField, minimumGap = 14) {
+  if (items.length < 2) return items.length === 1;
+  return items[0][scoreField] - items[1][scoreField] >= minimumGap;
+}
+
+function canAutoSelect(fields, candidate, ranked) {
+  if (!confidentIdentity(fields) || !candidate.counterpartProof) return false;
+  const sourceMap = new Map();
+  ranked.forEach(card => {
+    const key = candidateSetKey(card);
+    if (!sourceMap.has(key) || sourceMap.get(key).sourceMatchScore < card.sourceMatchScore) sourceMap.set(key, card);
+  });
+  const sources = [...sourceMap.values()].sort((left, right) => right.sourceMatchScore - left.sourceMatchScore);
+  const sourceUnique = uniqueWinner(sources, 'sourceMatchScore')
+    && candidateSetKey(sources[0] || {}) === candidateSetKey(candidate);
+  const sameSource = ranked.filter(card => candidateSetKey(card) === candidateSetKey(candidate))
+    .sort((left, right) => right.counterpartScore - left.counterpartScore);
+  const counterpartUnique = uniqueWinner(sameSource, 'counterpartScore');
+  return sourceUnique && counterpartUnique && (candidate.counterpartScore >= 18 || candidate.sourceLanguage === 'en');
+}
+
+function credibleCandidates(ranked, limit) {
+  if (!ranked.length) return [];
+  const threshold = Math.max(25, ranked[0].matchScore - 24);
+  return ranked.filter(candidate => candidate.matchScore >= threshold).slice(0, limit);
 }
 
 export function findImageCandidatesFromCatalog(cards, fields, limit = 8) {
-  const direct = directEnglishCandidates(cards, fields);
-  if (direct.length) return direct.slice(0, limit).map(card => ({...card,
-    autoSelect: direct.length === 1 && confidentIdentity(fields)}));
-  const sourceMatches = sourceCards(cards, fields);
-  if (!sourceMatches.length) return [];
-  const exactCounterparts = sourceMatches.map(({card}) => sameIdEnglishCandidate(cards, card, fields,
-    sourceMatches.length === 1 && confidentIdentity(fields))).filter(Boolean);
-  if (exactCounterparts.length) return exactCounterparts.slice(0, limit);
-  const english = cards.filter(card => card.language === 'en');
-  const candidates = new Map();
-  sourceMatches.forEach(({card: source}) => english.forEach(card => {
-    const candidate = candidateFromSource(source, card, fields);
-    if (!candidate) return;
-    candidates.set(`${candidate.id}:${source.id}`, candidate);
-  }));
-  const ranked = [...candidates.values()].sort((left, right) => right.matchScore - left.matchScore
-    || left.name.localeCompare(right.name));
-  if (!ranked.length) return [];
-  const credible = ranked.filter(card => card.matchScore >= Math.max(58, ranked[0].matchScore - 20)).slice(0, limit);
-  const margin = credible.length > 1 ? credible[0].matchScore - credible[1].matchScore : Infinity;
-  if (credible[0].matchScore >= 80 && confidentIdentity(fields)
-      && (credible.length === 1 || credible[0].matchScore >= 88 && margin >= 15)) {
-    return [{...credible[0], autoSelect: true}];
-  }
+  const ranked = rankCandidates(cards, fields, false);
+  const credible = credibleCandidates(ranked, limit);
+  if (!credible.length) return [];
+  if (canAutoSelect(fields, credible[0], ranked)) return [{...credible[0], autoSelect: true}];
   return credible.map(card => ({...card, autoSelect: false}));
 }
 
 export function findImageReviewCandidatesFromCatalog(cards, fields, limit = 12) {
-  return reviewCandidates(cards, fields, limit);
+  return credibleCandidates(rankCandidates(cards, fields, true), limit)
+    .map(card => ({...card, autoSelect: false}));
 }

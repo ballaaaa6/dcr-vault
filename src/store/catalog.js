@@ -1,4 +1,4 @@
-import {findImageCandidatesFromCatalog, findImageReviewCandidatesFromCatalog} from '../utils/card-identification-matching.js';
+import {findExactCatalogCardFromCatalog, findImageCandidatesFromCatalog, findImageReviewCandidatesFromCatalog} from '../utils/card-identification-matching.js';
 
 let catalogPromise;
 let catalogSetRarityOverrides = {};
@@ -112,17 +112,8 @@ export async function findCatalogCardById(id) {
   return cards.find(card => card.language === 'en' && card.id === String(id || '')) || null;
 }
 
-export async function getCatalogRarities({setId = '', setName = ''} = {}) {
-  const cards = await loadCatalog();
-  const normalizedSet = normalize(setName);
-  const scoped = cards.filter(card => card.language === 'en'
-    && (setId ? card.setId === setId : normalizedSet && normalize(card.setName) === normalizedSet));
-  const selectedSetId = setId || scoped[0]?.setId || '';
-  const setOverride = catalogSetRarityOverrides[selectedSetId] || {};
-  const override = Array.isArray(setOverride.rarities) ? setOverride.rarities : [];
-  const rarities = [...new Set([...scoped.map(card => card.rarity).filter(Boolean), ...override.map(catalogRarity).filter(Boolean)])]
-    .sort((left, right) => left.localeCompare(right, 'en', {sensitivity: 'base'}));
-  return {rarities, noPrintedRarity: setOverride.noPrintedRarity === true};
+export async function findExactCatalogCard(fields) {
+  return findExactCatalogCardFromCatalog(await loadCatalog(), fields);
 }
 
 export async function findImageCandidates(fields, limit = 12) {

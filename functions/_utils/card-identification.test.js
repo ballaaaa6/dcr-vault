@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {test} from 'node:test';
 import {onRequestPost} from '../api/cards/identify.js';
+import {analyzeWithGemini} from './gemini-card-reader.js';
 
 const OCR_TOKEN = 'a'.repeat(64);
 
@@ -28,6 +29,36 @@ function oracleMatchResponse() {
     confidence: {name: 0.99, set_name: 0.98, collector_number: 0.99, language: 0.99}
   }});
 }
+
+test('Gemini receives the complete English prompt and returns structured card text', async () => {
+  const originalFetch = globalThis.fetch;
+  let requestBody;
+  const outputFields = {name: 'ミュウ', setName: 'サンプルセット', englishName: 'Mew', englishSetName: '', year: '2024',
+    cardNumber: '005/062', language: 'ja', rarity: 'Rare', hp: '60', illustrator: 'Mitsuhiro Arita', stage: 'Basic',
+    types: ['Psychic'], attacks: [{name: 'サイコウェーブ', damage: '30', cost: ['Psychic'], effect: 'Visible attack effect.'}],
+    abilities: [], abilityDetails: [{name: 'Ability name', effect: 'Visible ability effect.'}], weaknesses: [],
+    resistances: [], retreat: '1', evolvesFrom: '', regulationMark: 'G', printedText: 'Visible footer text.', confidence: {name: 0.98}};
+  globalThis.fetch = async (_url, init) => {
+    requestBody = JSON.parse(init.body);
+    return Response.json({candidates: [{content: {parts: [{text: JSON.stringify(outputFields)}]}}]});
+  };
+  try {
+    const result = await analyzeWithGemini({GEMINI_API_KEY: 'test-gemini-key'}, new Uint8Array([1, 2, 3]), 'image/jpeg', 'test-request');
+    const prompt = requestBody.contents[0].parts[0].text;
+    assert.match(prompt, /Read the entire visible Pokémon card face/);
+    assert.match(prompt, /collector number with its full denominator/);
+    assert.match(prompt, /official English equivalents/);
+    assert.match(prompt, /copyright years in printedText/);
+    assert.doesNotMatch(prompt, /[\u0e00-\u0e7f\u3040-\u30ff]/);
+    assert.equal(requestBody.generationConfig.maxOutputTokens, 3072);
+    assert.equal(result.attacks[0].effect, 'Visible attack effect.');
+    assert.deepEqual(result.abilityDetails, [{name: 'Ability name', effect: 'Visible ability effect.'}]);
+    assert.equal(result.printedText, 'Visible footer text.');
+    assert.equal(result.regulationMark, 'G');
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
 
 test('falls back to authenticated Oracle OCR after Gemini network retries fail', async () => {
   const originalFetch = globalThis.fetch;
