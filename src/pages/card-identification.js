@@ -38,9 +38,14 @@ export function resetCardIdentificationState() {
 }
 
 function invalidatePhotoIdentity() {
+  const prior = window.__intakeIdentification;
   resetCardIdentificationState();
   window.__intakeCatalogCard = null;
   window.__intakeIdentification = null;
+  if (prior) {
+    const status = document.getElementById('manual-status');
+    if (status) status.textContent = 'The front photo changed. Review the existing card details or identify the new photo before saving.';
+  }
 }
 
 function showDialog(content) {

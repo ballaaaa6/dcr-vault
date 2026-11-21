@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-22 - Front photo review notice
+- Warn when card details remain after the front photo changes.
+
+
 ## 2026-11-22 - Promo number matching
 - Interpret an alphanumeric collector suffix as a promo set code rather than a numeric set count.
 
