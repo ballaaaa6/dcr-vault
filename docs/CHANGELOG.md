@@ -1,3 +1,6 @@
+## Gemini direct form values - 2026-11-22
+- Request English intake values per field from Gemini and fill the card form before catalog lookup completes. Catalog matching still supplies identity and label metadata without replacing the reading.
+
 # Changelog
 
 ## 2026-11-22 - Front photo review notice

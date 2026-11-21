@@ -88,6 +88,13 @@ function showDialog(content) {
 }
 
 async function applyReading(fields, version, requestId) {
+  const immediate = intakeValues(fields, null);
+  for (const key of ['name', 'setName', 'year', 'cardNumber', 'rarity']) {
+    if (fieldProvenance[key] !== 'user') {
+      const input = document.getElementById(`m-${key}`);
+      input.value = key === 'rarity' ? formatRarity(immediate[key]) : immediate[key];
+    }
+  }
   let catalogUnavailable = false;
   let source = await findSourceCatalogCard(fields).catch(() => { catalogUnavailable = true; return null; });
   let candidates = [];
@@ -96,20 +103,20 @@ async function applyReading(fields, version, requestId) {
   }
   if (version !== analysisVersion) return null;
   const sourceLanguage = fields.language || 'unknown';
-  let values = intakeValues(fields, source);
+  let values = immediate;
   if (source && userValuesConflict(values)) {
     candidates.unshift(source);
     source = null;
-    values = intakeValues(fields, null);
+    values = immediate;
   }
   const english = sourceLanguage === 'en' ? source : null;
   readingRequestId = requestId || '';
   identificationStatus = source ? 'matched' : 'unresolved';
   window.__intakeIdentityReviewRequired = !source;
   const userFields = Object.fromEntries(Object.entries(fieldProvenance).filter(([, value]) => value === 'user'));
-  fieldProvenance = {name: sourceLanguage === 'en' && source ? 'catalog' : 'gemini',
-    setName: source ? 'catalog' : 'unknown', year: source ? 'catalog' : 'unknown',
-    cardNumber: 'gemini', rarity: source ? 'catalog' : 'unknown', ...userFields};
+  fieldProvenance = {name: values.name ? 'gemini' : 'unknown',
+    setName: values.setName ? 'gemini' : 'unknown', year: values.year ? 'gemini' : 'unknown',
+    cardNumber: 'gemini', rarity: values.rarity ? 'gemini' : 'unknown', ...userFields};
   const selected = english ? {...english, sourceLanguage, sourceSetId: source.setId, sourceCardId: source.id,
     sourceFinish: ''} : {...values,
     language: sourceLanguage, sourceLanguage, sourceSetId: source?.setId || '', sourceCardId: source?.id || '',
