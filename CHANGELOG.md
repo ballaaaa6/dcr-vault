@@ -1,4 +1,8 @@
 # Changelog
+## 2026-11-21 - Preserve card reading values
+- Fill available English set and year readings even when the printed-language catalog has no match; mark unmatched readings for review.
+- Distinguish an unavailable catalog from a missing record and show the English set reading in the identification dialog.
+
 ## 2026-11-21 - Restore application startup
 - Reuse the shared language check in card identification to avoid invalid JavaScript syntax that prevented the entire app from loading.
 - Add a JavaScript syntax regression test for the card identification page and run application tests before deployment.

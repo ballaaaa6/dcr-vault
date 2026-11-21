@@ -27,6 +27,7 @@ export function readingSummaryMarkup(fields, source, adequate) {
     fieldMarkup(fields, 'englishName', 'English name (suggested translation)', fields.englishName),
     fieldMarkup(fields, 'language', 'Language', fields.language),
     fieldMarkup(fields, 'setName', 'Printed set', fields.setName),
+    fieldMarkup(fields, 'englishSetName', 'English set (unverified)', fields.englishSetName),
     fieldMarkup(fields, 'setCode', 'Printed set code', fields.setCode),
     fieldMarkup(fields, 'setSymbol', 'Set symbol', fields.setSymbol),
     fieldMarkup(fields, 'stamp', 'Stamp', fields.stamp),

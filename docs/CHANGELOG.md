@@ -1,4 +1,8 @@
 # Changelog
+
+## Card reading fallback - 2026-11-21
+- Preserve Gemini's available English set and year when no printed-language catalog record is found, while marking those values unverified.
+- Report catalog loading failures separately from missing records.
 ## Shared rarity values - 2026-11-21
 - Normalize rarity at intake and use the same value on the label, including Promo, RR, AR, and SAR.
 - Resolve unique catalog cards despite a conflicting year and flag the discrepancy.

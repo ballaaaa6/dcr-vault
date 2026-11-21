@@ -5,7 +5,7 @@ import {escapeHTML} from '../utils/format.js';
 import {hideAllCatalogSuggestions} from './search-catalog.js';
 import {cardLabelMetadata} from '../utils/label-metadata.js';
 import {readingSummaryMarkup} from './card-identification-view.js';
-import {hasNonLatinScript} from '../utils/language.js';
+import {intakeValues} from '../utils/intake-reading.js';
 
 let analysisVersion = 0;
 let analysisBusy = false;
@@ -44,32 +44,27 @@ function showDialog(content) {
   if (!dialog.open) dialog.showModal();
 }
 
-function latinText(value) {
-  return value && !hasNonLatinScript(value) ? value : '';
-}
-
 async function applyReading(fields, version) {
-  const source = await findSourceCatalogCard(fields).catch(() => null);
+  let catalogUnavailable = false;
+  const source = await findSourceCatalogCard(fields).catch(() => { catalogUnavailable = true; return null; });
   if (version !== analysisVersion) return null;
   const sourceLanguage = fields.language || 'unknown';
   const english = sourceLanguage === 'en' ? source : null;
+  const values = intakeValues(fields, source);
   const selected = english ? {...english, sourceLanguage, sourceSetId: source.setId, sourceCardId: source.id,
-    sourceFinish: fields.finish || ''} : {name: fields.englishName || '', setName: latinText(source?.setName),
-    year: source?.year || '', cardNumber: fields.cardNumber || '', rarity: source?.rarity || '',
+    sourceFinish: fields.finish || ''} : {...values,
     language: sourceLanguage, sourceLanguage, sourceSetId: source?.setId || '', sourceCardId: source?.id || '',
     setCode: fields.setCode || '', sourceFinish: fields.finish || '', catalogCardId: '', id: ''};
   const metadata = cardLabelMetadata(selected);
   window.__intakeCatalogCard = {...selected, ...metadata};
   window.__intakeIdentification = {...fields, sourceLanguage};
   window.__intakeCatalogGame = 'pokemon';
-  document.getElementById('m-name').value = english?.name || fields.englishName || (sourceLanguage === 'en' ? fields.name : '') || '';
-  document.getElementById('m-setName').value = english?.setName || latinText(source?.setName) || '';
-  document.getElementById('m-year').value = source?.year || '';
-  document.getElementById('m-cardNumber').value = fields.cardNumber || '';
-  document.getElementById('m-rarity').value = formatRarity(source?.rarity || fields.rarity);
+  for (const key of ['name', 'setName', 'year', 'cardNumber']) document.getElementById(`m-${key}`).value = values[key];
+  document.getElementById('m-rarity').value = formatRarity(values.rarity);
   hideAllCatalogSuggestions();
   const matchNote = source ? 'Printed-language catalog record found. Check stamp and finish; the variant is not verified.'
-    : 'No verified printed-language record found. Check the set code and collector number or use a clearer photo.';
+    : catalogUnavailable ? 'Catalog unavailable; photo readings are unverified. Try again and review the details.'
+      : 'No verified printed-language record found. Photo readings are unverified; review the set and year before saving.';
   const englishNote = sourceLanguage !== 'en'
     ? ' Card number is the printed number; English name is a translation to review. English counterpart is not verified.' : '';
   const labelNote = !metadata.labelMetadataReady ? ' A verified label profile is required before printing.' : '';
