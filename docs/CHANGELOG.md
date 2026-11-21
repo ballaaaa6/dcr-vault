@@ -1,3 +1,6 @@
+## Work completion rule - 2026-11-22
+- Require the full authorized code change and final diff review before commit and push; leave incomplete work local unless a partial publication is requested.
+
 ## Gemini direct form values - 2026-11-22
 - Request English intake values per field from Gemini and fill the card form before catalog lookup completes. Show missing fields and per-field catalog disagreements; catalog matching supplies identity and label metadata only when values agree.
 
