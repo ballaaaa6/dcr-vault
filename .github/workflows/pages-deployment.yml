@@ -32,6 +32,11 @@ jobs:
       - name: Test application
         run: node --test src/utils/*.test.js functions/_utils/*.test.js src/pages/*.test.js
 
+      - name: Validate metadata evidence
+        run: |
+          python dcr-tag-70x20/catalog/validate-metadata-evidence.py
+          python dcr-tag-70x20/catalog/test-metadata-evidence.py
+
       - name: Build site
         run: npm run build
 

@@ -21,17 +21,29 @@ def metadata(row):
 
 def audit(data):
     languages = {}
+    sets = {}
     for row in data["cards"]:
         lang = str(row[1] or "unknown")
         result = languages.setdefault(lang, {"records": 0, "present": collections.Counter(), "identities": collections.Counter()})
         result["records"] += 1
+        set_id = str(row[8] or "")
+        key = f"{lang}:{set_id}" if set_id else f"{lang}:(unknown)"
+        group = sets.setdefault(key, {"records": 0, "present": collections.Counter(), "identities": collections.Counter()})
+        group["records"] += 1
         fields = {"name": row[2], "setName": row[3], "year": row[4], "number": row[5],
                   "rarity": row[6], "setId": row[8], **metadata(row)}
-        result["present"].update(key for key, value in fields.items() if value)
+        populated = [key for key, value in fields.items() if value]
+        result["present"].update(populated)
+        group["present"].update(populated)
         if row[2] and row[5]:
-            result["identities"][(str(row[2]).strip().casefold(), str(row[5]).strip().casefold())] += 1
+            identity = (str(row[2]).strip().casefold(), str(row[5]).strip().casefold())
+            result["identities"][identity] += 1
+            group["identities"][identity] += 1
     return {"sourceCommit": data.get("sourceCommit"), "schemaVersion": data.get("schemaVersion"),
             "total": len(data["cards"]), "verifiedSetMappings": len(data.get("verifiedPrintedCodes", {})),
+            "sets": {key: {"records": value["records"], "present": dict(value["present"]),
+                "duplicateNameNumberRows": sum(n for n in value["identities"].values() if n > 1)}
+                for key, value in sorted(sets.items())},
             "languages": {lang: {"records": value["records"], "present": dict(value["present"]),
                 "duplicateNameNumberRows": sum(n for n in value["identities"].values() if n > 1)}
                 for lang, value in sorted(languages.items())}}

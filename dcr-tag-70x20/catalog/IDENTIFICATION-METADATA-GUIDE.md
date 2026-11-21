@@ -43,9 +43,11 @@
 
 ## ตรวจคุณภาพและแหล่ง
 
-รัน `python dcr-tag-70x20/catalog/audit-card-metadata.py` เพื่อดูจำนวนช่องที่ไม่ว่างและกลุ่มชื่อ+เลขซ้ำแยกภาษา ตัวเลขเป็นความครอบคลุมของ snapshot ไม่ใช่การยืนยันความถูกต้องหรือความครบถ้วนทั่วโลก HP ไม่ได้บังคับทุกประเภท
+รัน `python dcr-tag-70x20/catalog/audit-card-metadata.py` เพื่อดูจำนวนช่องที่ไม่ว่างและกลุ่มชื่อ+เลขซ้ำแยกภาษาและชุด ตัวเลขเป็นความครอบคลุมของ snapshot ไม่ใช่การยืนยันความถูกต้องหรือความครบถ้วนทั่วโลก HP ไม่ได้บังคับทุกประเภท
 
 TCGdex snapshot ที่ใช้อยู่ระบุใน catalog/README.md; ตรวจ license ของข้อมูลและภาพแยกกัน แหล่งทางการสำหรับตรวจตัวอย่าง: https://asia.pokemon-card.com/th/card-search/list/?expansionCodes=MA6 และ https://www.pokemon-card.com/card-search/details.php/card/31163/regu/all การใช้ข้อมูลจากแหล่งอื่นหรือเผยแพร่ภาพต้องตรวจเงื่อนไขก่อน เก็บข้อมูลที่ไม่แน่ใจเป็น unknown หรือ review-required
+
+ตรวจรูปแบบหลักฐานด้วย `python dcr-tag-70x20/catalog/validate-metadata-evidence.py` และทดสอบตัวตรวจด้วย `python dcr-tag-70x20/catalog/test-metadata-evidence.py`
 
 ตัวอย่างหลักฐานแยกตามช่องอยู่ใน [metadata-evidence.json](metadata-evidence.json) เป็นทะเบียนตรวจสอบ ยังไม่เชื่อมเป็นตัวอนุมัติจับคู่อัตโนมัติ
 

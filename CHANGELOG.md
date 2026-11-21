@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Metadata evidence validation
+- Validate field evidence records and report catalog coverage per set in addition to language.
+
 ## 2026-11-22 - Card metadata audit and workflow
 - Add a reproducible catalog coverage audit, field-level evidence examples, and an identification-to-form guide.
 
