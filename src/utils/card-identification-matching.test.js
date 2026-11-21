@@ -1,7 +1,13 @@
 import assert from 'node:assert/strict';
 import {test} from 'node:test';
 import {readFileSync} from 'node:fs';
-import {findExactCatalogCardFromCatalog, findSourceCatalogCardFromCatalog, readingConflicts} from './card-identification-matching.js';
+import {findExactCatalogCardFromCatalog, findSourceCatalogCardFromCatalog, readingConflicts, collectorNumbersCompatible} from './card-identification-matching.js';
+
+test('matches promo suffix as a set code rather than a numeric card count', () => {
+  const card = {cardNumber: '151', setId: 'XY-P', metadata: {cardCount: '200'}};
+  assert.equal(collectorNumbersCompatible('151/XY-P', card), true);
+  assert.equal(collectorNumbersCompatible('151/SM-P', card), false);
+});
 
 test('flags conflicting anniversary descriptions without confusing collector numbers', () => {
   assert.deepEqual(readingConflicts({stamp: '25th Anniversary Pikachu', evidence: ['Pikachu 30 stamp visible']}), ['anniversary stamp']);

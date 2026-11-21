@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-22 - Promo number matching
+- Interpret an alphanumeric collector suffix as a promo set code rather than a numeric set count.
+
+
 ## 2026-11-22 - Card identification safeguards
 - Avoid silently filling unverified set, year, and rarity values; flag conflicting anniversary readings for review.
 - Retry catalog loading after a failure and invalidate the previous photo identity when the front image changes.

@@ -25,6 +25,9 @@ function numberParts(value) {
 export function collectorNumbersCompatible(printed, card) {
   const [number, denominator] = numberParts(printed);
   const [catalogNumber, catalogDenominator] = numberParts(card.cardNumber);
+  if (denominator && !/^\d+$/.test(denominator)) {
+    return Boolean(number && number === catalogNumber && denominator === (catalogDenominator || normalized(card.setId)));
+  }
   const expectedDenominator = catalogDenominator || numberParts(card.metadata?.cardCount || '')[0];
   return Boolean(number && number === catalogNumber && (!denominator || !expectedDenominator || denominator === expectedDenominator));
 }
