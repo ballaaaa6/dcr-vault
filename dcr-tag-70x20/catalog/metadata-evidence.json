@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-11-22",
+  "policy": "Evidence inventory; it does not independently authorize automatic matching.",
+  "records": [
+    {
+      "id": "curated-ja-xyp-151",
+      "source": "https://www.pokemon-card.com/card-search/details.php/card/31163/regu/all",
+      "fields": {
+        "language": {
+          "value": "ja",
+          "status": "verified"
+        },
+        "name": {
+          "value": "ギャラドスごっこピカチュウ",
+          "status": "verified"
+        },
+        "cardNumber": {
+          "value": "151/XY-P",
+          "status": "verified"
+        },
+        "hp": {
+          "value": "70",
+          "status": "verified"
+        },
+        "illustrator": {
+          "value": "Kouki Saitou",
+          "status": "verified"
+        },
+        "englishSetName": {
+          "value": "",
+          "status": "unknown"
+        },
+        "baseRarity": {
+          "value": "",
+          "status": "unknown"
+        }
+      }
+    },
+    {
+      "id": "curated-th-ma6-168",
+      "source": "https://sasom.co.th/th/collectibles/MA6T-168-130/pokemon-charizard-ma6-168-130-30th-celebration-th",
+      "fields": {
+        "language": {
+          "value": "th",
+          "status": "source-only"
+        },
+        "name": {
+          "value": "ลิซาร์ดอน",
+          "status": "source-only"
+        },
+        "cardNumber": {
+          "value": "168/130",
+          "status": "source-only"
+        },
+        "setName": {
+          "value": "30th CELEBRATION",
+          "status": "source-only"
+        },
+        "year": {
+          "value": "2026",
+          "status": "source-only"
+        },
+        "hp": {
+          "value": "",
+          "status": "unknown"
+        }
+      }
+    }
+  ]
+}

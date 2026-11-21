@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Card metadata audit and workflow
+- Add a reproducible catalog coverage audit, field-level evidence examples, and an identification-to-form guide.
+
 ## 2026-11-22 - Preserve imported card images
 - Add pinned image importers and preserve verified external images across catalog refreshes.
 
