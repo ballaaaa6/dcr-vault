@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import {test} from 'node:test';
 import {readFileSync} from 'node:fs';
-import {findExactCatalogCardFromCatalog, findSourceCatalogCardFromCatalog, readingConflicts, collectorNumbersCompatible, parseCollectorNumber, findReadingCandidates} from './card-identification-matching.js';
+import {findExactCatalogCardFromCatalog, findSourceCatalogCardFromCatalog, readingConflicts, collectorNumbersCompatible, parseCollectorNumber, findReadingCandidates, candidateConflicts} from './card-identification-matching.js';
 
 test('matches promo suffix as a set code rather than a numeric card count', () => {
   const card = {cardNumber: '151', setId: 'XY-P', metadata: {cardCount: '200'}};
@@ -116,4 +116,12 @@ test('offers number and language candidates for review when the name is missing 
   assert.deepEqual(findReadingCandidates([other, japaneseCharizard], fields), [japaneseCharizard, other]);
   assert.deepEqual(findReadingCandidates([japaneseCharizard], {...fields, name: ''}), [japaneseCharizard]);
   assert.equal(findSourceCatalogCardFromCatalog([japaneseCharizard], {...fields, name: 'Different', setCode: 'M6a'}), null);
+});
+
+
+test('detects candidate conflicts rather than combining different card identities', () => {
+  const candidate = {language:'en', name:'Pikachu', setName:'25th Celebration', cardNumber:'5/25', metadata:{hp:'60'}};
+  assert.deepEqual(candidateConflicts({language:'en', name:'Charizard', cardNumber:'5/25', hp:'120', stamp:'30th'}, candidate), ['printed name', 'HP', 'anniversary set']);
+  assert.deepEqual(candidateConflicts({language:'en', name:'Pikachu', cardNumber:'5/25', hp:'60'}, candidate), []);
+  assert.deepEqual(candidateConflicts({stamp:'25th Anniversary', evidence:['30th stamp']}, candidate), ['anniversary stamp', 'anniversary set']);
 });

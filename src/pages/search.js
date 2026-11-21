@@ -224,15 +224,6 @@ async function saveIntake() {
   const certNumber = normalizeCert(certInput.value);
   const rarityInput = document.getElementById('m-rarity');
   rarityInput.value = formatRarity(rarityInput.value);
-  if (rarityInput.value) {
-    const {rarityFitsLabel} = await import('../utils/label-renderer.js');
-    const setName = document.getElementById('m-setName').value.trim();
-    if (!rarityFitsLabel(setName, rarityInput.value)) {
-      status.textContent = 'Set and rarity do not fit on the label. Shorten one before saving.';
-      rarityInput.focus();
-      return;
-    }
-  }
   const englishFields = ['m-name', 'm-setName'].map(id => document.getElementById(id).value.trim());
   if (englishFields.some(hasNonLatinScript)) {
     status.textContent = 'Use English card and set names from the catalog before saving.';

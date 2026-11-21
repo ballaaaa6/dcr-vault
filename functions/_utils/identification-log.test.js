@@ -31,13 +31,16 @@ test('logs are owner-scoped, bounded, and deleted at expiry', async () => {
   assert.equal((await onRequestPost({request: req('other', post), env: {DB}})).status, 404);
   assert.equal((await onRequestPost({request: req('owner', post), env: {DB}})).status, 200);
   const selection = {method: 'POST', body: JSON.stringify({requestId, stage: 'selection', selected: 'candidate-1'})};
+  const failure = {method: 'POST', body: JSON.stringify({requestId, stage: 'save', outcome: 'error'})};
   const save = {method: 'POST', body: JSON.stringify({requestId, stage: 'save', outcome: 'saved', values: {name: 'Edited'}})};
   assert.equal((await onRequestPost({request: req('owner', selection), env: {DB}})).status, 200);
+  assert.equal((await onRequestPost({request: req('owner', failure), env: {DB}})).status, 200);
   assert.equal((await onRequestPost({request: req('owner', save), env: {DB}})).status, 200);
   const found = await (await onRequestGet({request: req('owner'), env: {DB}})).json();
   assert.equal(JSON.parse(found.log.browser_json).values.name, 'Mew');
   assert.equal(JSON.parse(found.log.selection_json).selected, 'candidate-1');
   assert.equal(JSON.parse(found.log.save_json).values.name, 'Edited');
+  assert.equal(JSON.parse(found.log.save_json).priorOutcome, 'error');
   assert.equal((await onRequestPost({request: req('owner', {method: 'POST', body: 'x'.repeat(16001)}), env: {DB}})).status, 413);
   const expiry = sql.prepare('SELECT expires_at FROM identification_logs WHERE request_id = ?').get(requestId).expires_at;
   sql.prepare('DELETE FROM identification_logs WHERE expires_at <= ?').run(expiry);

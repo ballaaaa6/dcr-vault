@@ -27,14 +27,20 @@ export async function onRequestPost({request, env}) {
   const short = value => typeof value === 'string' ? value.slice(0, 120) : '';
   const stage = data.stage || 'browser';
   const column = {browser: 'browser_json', selection: 'selection_json', save: 'save_json'}[stage];
-  if (!column) return json({error: 'Invalid log stage.'}, 400);
+  if (!['browser', 'selection', 'save'].includes(stage)) return json({error: 'Invalid log stage.'}, 400);
   const browser = {stage, match: short(data.match), selected: short(data.selected), outcome: short(data.outcome),
     provenance: Object.fromEntries(['name', 'setName', 'year', 'cardNumber', 'rarity'].map(key => [key, short(data.provenance?.[key])])), candidates: Array.isArray(data.candidates) ? data.candidates.slice(0, 12).map(short) : [],
     values: Object.fromEntries(['name', 'setName', 'year', 'cardNumber', 'rarity'].map(key => [key, short(data.values?.[key])])),
     conflicts: Array.isArray(data.conflicts) ? data.conflicts.slice(0, 8).map(short) : []};
-  const result = await env.DB.prepare(`UPDATE identification_logs SET ${column} = ?
-    WHERE request_id = ? AND user_id = ? AND expires_at > ? AND ${column} = '{}'`)
-    .bind(safeLogPayload(browser), id, session.user.id, Math.floor(Date.now() / 1000)).run();
+  const retry = stage === 'save' && data.outcome === 'saved'
+    ? ` OR (${column} != '{}' AND json_extract(${column}, '$.outcome') = 'error')` : '';
+  const assignment = stage === 'save' && data.outcome === 'saved'
+    ? `CASE WHEN json_extract(${column}, '$.outcome') = 'error' THEN json_set(?, '$.priorOutcome', 'error') ELSE ? END` : '?';
+  const payload = safeLogPayload(browser);
+  const payloadValues = assignment === '?' ? [payload] : [payload, payload];
+  const result = await env.DB.prepare(`UPDATE identification_logs SET ${column} = ${assignment}
+    WHERE request_id = ? AND user_id = ? AND expires_at > ? AND (${column} = '{}'${retry})`)
+    .bind(...payloadValues, id, session.user.id, Math.floor(Date.now() / 1000)).run();
   return result.meta?.changes ? json({ok: true}) : json({error: 'Log not found.'}, 404);
 }
 

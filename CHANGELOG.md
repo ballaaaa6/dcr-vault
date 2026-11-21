@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-22 - Prevent conflicting candidate selection
+- Reject catalog candidates that conflict with the printed reading instead of combining their identities.
+- Keep card saving independent of label layout and retain a failed save outcome when a retry succeeds.
+
 ## 2026-11-22 - Card evidence enrichment
 - Add sourced Thai Charizard HP and illustrator and Japanese promo release year for review.
 

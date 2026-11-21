@@ -88,3 +88,21 @@ export function findReadingCandidates(cards, fields, limit = 12) {
     .sort((a, b) => Number(Boolean(named(b))) - Number(Boolean(named(a))))
     .slice(0, limit);
 }
+
+
+export function candidateConflicts(fields, card) {
+  const conflicts = readingConflicts(fields);
+  const name = normalized(fields.name);
+  const names = [card.name, ...(card.metadata?.nameAliases || [])].map(normalized).filter(Boolean);
+  if (name && names.length && !names.includes(name)) conflicts.push('printed name');
+  if (fields.language && normalized(fields.language) !== normalized(card.language)) conflicts.push('language');
+  if (fields.cardNumber && !collectorNumbersCompatible(fields.cardNumber, card)) conflicts.push('collector number');
+  if (fields.hp && card.metadata?.hp && normalized(fields.hp) !== normalized(card.metadata.hp)) conflicts.push('HP');
+  if (fields.illustrator && card.metadata?.illustrator && normalized(fields.illustrator) !== normalized(card.metadata.illustrator)) conflicts.push('illustrator');
+  const reading = normalized([fields.stamp, fields.identificationSummary, ...(fields.evidence || [])].join(' '));
+  const setName = normalized(card.setName);
+  for (const [a, b] of [['25th', '30th'], ['30th', '25th']]) {
+    if (reading.includes(a) && setName.includes(b)) conflicts.push('anniversary set');
+  }
+  return [...new Set(conflicts)];
+}

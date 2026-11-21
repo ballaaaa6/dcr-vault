@@ -7,7 +7,7 @@ import {invalidateCardResolution} from './search-card-resolution.js';
 import {cardLabelMetadata} from '../utils/label-metadata.js';
 import {readingSummaryMarkup} from './card-identification-view.js';
 import {intakeValues} from '../utils/intake-reading.js';
-import {readingConflicts} from '../utils/card-identification-matching.js';
+import {candidateConflicts, readingConflicts} from '../utils/card-identification-matching.js';
 
 let analysisVersion = 0;
 let analysisBusy = false;
@@ -165,6 +165,12 @@ function selectReadingCandidate(index) {
   const state = candidateState;
   const card = state?.candidates[index];
   if (!card || state.version !== analysisVersion) return;
+  const conflicts = candidateConflicts(state.fields, card);
+  if (conflicts.length) {
+    document.getElementById('manual-status').textContent = `Candidate conflicts with the photo reading: ${conflicts.join(', ')}. Review the image and enter the details manually.`;
+    clearResult();
+    return;
+  }
   const values = intakeValues(state.fields, card);
   if (userValuesConflict(values)) {
     document.getElementById('manual-status').textContent = 'Edited details differ from this candidate. Review and correct the fields before selecting it.';
