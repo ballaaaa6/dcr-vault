@@ -7,7 +7,7 @@ import {cardLabelMetadata} from '../utils/label-metadata.js';
 import {escapeHTML} from '../utils/format.js';
 import {hasNonLatinScript} from '../utils/language.js';
 import {makeCert, normalizeCert} from '../utils/cert.js';
-import {identificationDialogMarkup, resetCardIdentificationState} from './card-identification.js';
+import {clearAppliedReading, identificationDialogMarkup, identificationProvenance, logIdentificationStage, resetCardIdentificationState} from './card-identification.js';
 
 const IMAGE_LIMIT = 10 * 1024 * 1024;
 const IMAGE_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp']);
@@ -28,6 +28,7 @@ function photoField(side, label) {
 export function search() {
   releaseObjectUrls();
   resetCardIdentificationState();
+  clearAppliedReading();
   uploadedSides = new Set();
   window.__intakeSavedCard = null;
   window.__intakeCatalogGame = '';
@@ -192,7 +193,7 @@ function formCard(certNumber) {
   const selected = window.__intakeCatalogCard || window.__intakeIdentification || {};
   const metadata = cardLabelMetadata(selected);
   return {
-    game: window.__intakeCatalogGame || 'other', name: document.getElementById('m-name').value.trim(), certNumber,
+    ...identificationProvenance(), game: window.__intakeCatalogGame || 'other', name: document.getElementById('m-name').value.trim(), certNumber,
     setName: document.getElementById('m-setName').value.trim(), year: document.getElementById('m-year').value.trim(),
     yearSeries: metadata.yearSeries, catalogCardId: metadata.catalogCardId,
     sourceLanguage: metadata.sourceLanguage, sourceSetId: metadata.sourceSetId,
@@ -203,8 +204,14 @@ function formCard(certNumber) {
 }
 
 async function createIntakeCard(certNumber) {
-  if (!window.__intakeCatalogCard) await resolveExactTypedCard();
-  const card = await addCard(formCard(certNumber));
+  const language = window.__intakeIdentification?.sourceLanguage;
+  if (!window.__intakeCatalogCard && (!language || language === 'en')) await resolveExactTypedCard();
+  const input = formCard(certNumber);
+  let card;
+  try { card = await addCard(input); }
+  catch (error) { logIdentificationStage('save', {outcome: 'error'}); throw error; }
+  const values = Object.fromEntries(['name', 'setName', 'year', 'cardNumber', 'rarity'].map(key => [key, input[key]]));
+  logIdentificationStage('save', {outcome: 'saved', values, provenance: input.fieldProvenance});
   window.__intakeSavedCard = card;
   return card;
 }
@@ -307,4 +314,6 @@ installCatalogSuggestions(card => {
 }, () => {
   invalidateCardResolution();
   window.__intakeCatalogCard = null;
+  const language = window.__intakeIdentification?.sourceLanguage;
+  window.__intakeIdentification = language ? {language, sourceLanguage: language} : null;
 });

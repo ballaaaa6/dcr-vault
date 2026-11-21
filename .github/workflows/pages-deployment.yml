@@ -30,7 +30,7 @@ jobs:
         run: npm ci
 
       - name: Test application
-        run: node --test src/utils/*.test.js src/pages/*.test.js
+        run: node --test src/utils/*.test.js functions/_utils/*.test.js src/pages/*.test.js
 
       - name: Build site
         run: npm run build

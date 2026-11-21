@@ -22,6 +22,20 @@ function numberParts(value) {
   return parts.map(key);
 }
 
+export function parseCollectorNumber(value) {
+  const printed = String(value ?? '').trim();
+  const parts = printed.replace(/^#/, '').replace(/\s+/g, '').split('/');
+  const head = parts[0].match(/^([a-z]*)(\d+)$/i);
+  const tail = parts[1] || '';
+  if (!head || parts.length > 2) return {printed, kind: 'unknown', number: '', prefix: '', denominator: '', promo: ''};
+  const prefix = head[1].toUpperCase();
+  const number = String(Number(head[2]));
+  const numericTail = tail.match(/^([a-z]*)(\d+)$/i);
+  const promo = tail && !numericTail ? tail.toUpperCase() : '';
+  return {printed, kind: promo ? 'promo' : prefix ? 'prefixed' : 'numeric', prefix, number,
+    denominator: numericTail ? `${numericTail[1].toUpperCase()}${Number(numericTail[2])}` : '', promo};
+}
+
 export function collectorNumbersCompatible(printed, card) {
   const [number, denominator] = numberParts(printed);
   const [catalogNumber, catalogDenominator] = numberParts(card.cardNumber);
@@ -40,14 +54,35 @@ export function readingConflicts(fields) {
 
 export function findSourceCatalogCardFromCatalog(cards, fields) {
   const language = normalized(fields.language);
-  const setCode = normalized(fields.setCode);
+  const printedNumber = parseCollectorNumber(fields.cardNumber);
+  const rawCode = normalized(fields.setCode);
+  const setCode = rawCode === normalized(fields.cardNumber) && printedNumber.promo
+    ? normalized(printedNumber.promo) : rawCode;
   const number = String(fields.cardNumber || '').trim();
   const uncertain = (fields.uncertainFields || []).join(' ').toLowerCase();
   if (!language || !setCode || !number || readingConflicts(fields).length || /set.?code|collector.?number|card.?number/.test(uncertain)) return null;
   const name = normalized(fields.name);
-  const matches = cards.filter(card => normalized(card.language) === language
-    && normalized(card.setId) === setCode && collectorNumbersCompatible(number, card)
+  const matches = cards.filter(card => !card.metadata?.reviewRequired && normalized(card.language) === language
+    && (card.metadata?.verifiedPrintedCodes || []).some(code => normalized(code) === setCode)
+    && collectorNumbersCompatible(number, card)
     && (!name || [card.name, ...(card.metadata?.nameAliases || [])].some(alias => normalized(alias) === name))
-    && (!fields.hp || !card.metadata?.hp || String(fields.hp).trim() === String(card.metadata.hp).trim()));
+    && (!fields.hp || !card.metadata?.hp || String(fields.hp).trim() === String(card.metadata.hp).trim())
+    && (!fields.illustrator || !card.metadata?.illustrator || normalized(fields.illustrator) === normalized(card.metadata.illustrator)));
   return matches.length === 1 ? matches[0] : null;
+}
+
+
+export function findReadingCandidates(cards, fields, limit = 12) {
+  const language = normalized(fields.language);
+  const name = normalized(fields.name);
+  const number = String(fields.cardNumber || '').trim();
+  const uncertain = (fields.uncertainFields || []).join(' ').toLowerCase();
+  if (!language || !name || !number || /collector.?number|card.?number|name|language/.test(uncertain)) return [];
+  return cards.filter(card => normalized(card.language) === language
+    && [card.name, ...(card.metadata?.nameAliases || [])].some(alias => normalized(alias) === name)
+    && collectorNumbersCompatible(number, card)
+    && (!fields.hp || !card.metadata?.hp || String(fields.hp).trim() === String(card.metadata.hp).trim())
+    && (!fields.illustrator || !card.metadata?.illustrator
+      || normalized(fields.illustrator) === normalized(card.metadata.illustrator)))
+    .slice(0, limit);
 }

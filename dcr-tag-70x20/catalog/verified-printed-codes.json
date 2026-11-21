@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "mappings": [
+    {
+      "language": "ja",
+      "setId": "M6a",
+      "printedCode": "M6a",
+      "status": "verified",
+      "sources": [
+        "https://www.pokemon-card.com/card-search/details.php/card/50714/regu/all",
+        "https://www.pokemon-card.com/card-search/details.php/card/50724"
+      ],
+      "reviewedAt": "2026-11-22"
+    }
+  ]
+}

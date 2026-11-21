@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-11-22",
+  "records": [
+    {
+      "id": "curated-th-ma6-168",
+      "language": "th",
+      "name": "ลิซาร์ดอน",
+      "setName": "30th CELEBRATION",
+      "year": "2026",
+      "cardNumber": "168/130",
+      "rarity": "CC",
+      "setId": "MA6",
+      "cardCount": "130",
+      "sources": [
+        "https://sasom.co.th/th/collectibles/MA6T-168-130/pokemon-charizard-ma6-168-130-30th-celebration-th",
+        "https://www.scanflip.fr/en/pokemon/expansions/ma6",
+        "https://asia.pokemon-card.com/th/archive/special/card/ma6/"
+      ],
+      "status": "review_required"
+    },
+    {
+      "id": "curated-ja-xyp-151",
+      "language": "ja",
+      "name": "ギャラドスごっこピカチュウ",
+      "setName": "",
+      "year": "",
+      "cardNumber": "151/XY-P",
+      "rarity": "",
+      "setId": "XY-P",
+      "hp": "70",
+      "illustrator": "Kouki Saitou",
+      "sources": [
+        "https://www.pokemon-card.com/card-search/details.php/card/31163/regu/all"
+      ],
+      "status": "review_required"
+    }
+  ]
+}

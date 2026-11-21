@@ -1,4 +1,4 @@
-import {findExactCatalogCardFromCatalog, findSourceCatalogCardFromCatalog} from '../utils/card-identification-matching.js';
+import {findExactCatalogCardFromCatalog, findSourceCatalogCardFromCatalog, findReadingCandidates} from '../utils/card-identification-matching.js';
 
 let catalogPromise;
 let catalogSetRarityOverrides = {};
@@ -71,7 +71,8 @@ async function loadCatalog() {
         return {id: String(id ?? ''), language: String(language ?? ''), name: String(name ?? ''), setName: String(setName ?? ''),
           year: String(year ?? ''), cardNumber: String(cardNumber ?? ''), rarity: recordedRarity || defaultRarity,
           seriesId: String(seriesId ?? ''), setId: catalogSetId, seriesName: String(seriesName ?? ''),
-          metadata: catalogMetadata(metadata)};
+          metadata: {...catalogMetadata(metadata),
+            verifiedPrintedCodes: data.verifiedPrintedCodes?.[`${language}:${catalogSetId}`] || []}};
       })
         .map(card => ({...card, imageUrl: imageUrl(card), imageUrlFallback: imageFallbackUrl(card)}));
     }).catch(error => { catalogPromise = null; throw error; });
@@ -120,4 +121,9 @@ export async function findExactCatalogCard(fields) {
 
 export async function findSourceCatalogCard(fields) {
   return findSourceCatalogCardFromCatalog(await loadCatalog(), fields);
+}
+
+
+export async function findSourceCandidates(fields) {
+  return findReadingCandidates(await loadCatalog(), fields);
 }

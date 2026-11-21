@@ -15,6 +15,19 @@ export function normalizeCertNumber(value) {
   return /^[0-9]{1,8}$/.test(digits) ? digits.padStart(8, '0') : '';
 }
 
+const provenanceFields = ['name', 'setName', 'year', 'cardNumber', 'rarity'];
+const provenanceSources = new Set(['unknown', 'user', 'gemini', 'catalog']);
+
+function normalizeProvenance(value) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return {};
+  return Object.fromEntries(provenanceFields.filter(key => provenanceSources.has(value[key]))
+    .map(key => [key, value[key]]));
+}
+
+function parseProvenance(value) {
+  try { return normalizeProvenance(JSON.parse(value || '{}')); } catch { return {}; }
+}
+
 export function normalizeCard(input) {
   if (!input || typeof input !== 'object') return null;
   const certNumber = normalizeCertNumber(input.certNumber);
@@ -22,6 +35,8 @@ export function normalizeCard(input) {
   const status = statuses.has(input.status) ? input.status : 'in-vault';
   if (!name || !certNumber) return null;
   return {
+    identificationStatus: ['unknown', 'unresolved', 'matched', 'user_selected'].includes(input.identificationStatus) ? input.identificationStatus : 'unknown',
+    fieldProvenance: normalizeProvenance(input.fieldProvenance),
     game: text(input.game, 30) || 'other', name, setName: text(input.setName, 120),
     year: text(input.year, 4), yearSeries: text(input.yearSeries, 160),
     catalogCardId: text(input.catalogCardId, 80), sourceLanguage: text(input.sourceLanguage, 20),
@@ -36,6 +51,7 @@ export function normalizeCard(input) {
 
 export function cardResponse(row) {
   return {
+    identificationStatus: row.identification_status || 'unknown', fieldProvenance: parseProvenance(row.field_provenance),
     id: row.id, game: row.game, name: row.name, setName: row.set_name, year: row.year,
     yearSeries: row.year_series || '', catalogCardId: row.catalog_card_id || '',
     sourceLanguage: row.source_language || '', sourceSetId: row.source_set_id || '',
@@ -54,5 +70,6 @@ export function cardValues(card) {
   return [card.game, card.name, card.setName, card.year, card.yearSeries, card.catalogCardId,
     card.sourceLanguage, card.sourceSetId, card.sourceCardId, card.sourceFinish, card.cardNumber, card.rarity,
     card.gradeLabel, card.certNumber, card.status, card.buyPrice, card.sellPrice,
-    card.buyDate, card.soldDate, card.boughtFrom, card.soldTo, card.notes];
+    card.buyDate, card.soldDate, card.boughtFrom, card.soldTo, card.notes,
+    card.identificationStatus, JSON.stringify(card.fieldProvenance)];
 }

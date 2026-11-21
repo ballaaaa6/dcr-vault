@@ -22,6 +22,8 @@ export function selectCatalogSuggestion(card) {
 }
 
 export async function resolveExactTypedCard() {
+  const language = window.__intakeIdentification?.sourceLanguage;
+  if (language && language !== 'en') return null;
   if (window.__intakeCatalogCard) return window.__intakeCatalogCard;
   const version = ++resolutionVersion;
   const fields = Object.fromEntries(['name', 'setName', 'year', 'cardNumber']

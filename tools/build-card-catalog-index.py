@@ -9,6 +9,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DATABASE = ROOT / "dcr-tag-70x20" / "catalog" / "cards.sqlite"
 OUTPUT = ROOT / "public" / "data" / "card-catalog.json"
+PRINTED_CODES = ROOT / "dcr-tag-70x20" / "catalog" / "verified-printed-codes.json"
+CURATED_RECORDS = ROOT / "dcr-tag-70x20" / "catalog" / "curated-identification-records.json"
 RARITY_OVERRIDES = ROOT / "dcr-tag-70x20" / "catalog" / "set-rarity-overrides.json"
 
 
@@ -102,14 +104,50 @@ def read_rarity_overrides():
     return sets
 
 
+def read_curated_records():
+    data = json.loads(CURATED_RECORDS.read_text(encoding="utf-8"))
+    if data.get("schemaVersion") != 1 or not data.get("reviewedAt"):
+        raise SystemExit("Curated catalog must have a schema version and review date.")
+    rows = []
+    for card in data.get("records", []):
+        if card.get("status") != "review_required" or not all(
+            str(card.get(key, "")).strip() for key in ("id", "language", "name", "cardNumber", "setId")
+        ) or not card.get("sources") or not all(url.startswith("https://") for url in card["sources"]):
+            raise SystemExit("Curated records require identity, review status and HTTPS sources.")
+        metadata = {"nameAliases": [], "cardCount": card.get("cardCount", ""), "hp": card.get("hp", ""),
+                    "illustrator": card.get("illustrator", ""), "reviewRequired": True, "sources": card["sources"]}
+        rows.append([card["id"], card["language"], card["name"], card.get("setName", ""), card.get("year", ""),
+                     card["cardNumber"], card.get("rarity", ""), "", card["setId"], "", metadata])
+    return rows
+
+
+def read_verified_codes():
+    data = json.loads(PRINTED_CODES.read_text(encoding="utf-8"))
+    if data.get("schemaVersion") != 1:
+        raise SystemExit("Invalid printed-code reference schema.")
+    result = {}
+    for item in data.get("mappings", []):
+        if item.get("status") != "verified" or not all(item.get(key) for key in
+                ("language", "setId", "printedCode", "reviewedAt", "sources")):
+            raise SystemExit("Printed-code mappings require verification and sources.")
+        if not all(source.startswith("https://") for source in item["sources"]):
+            raise SystemExit("Printed-code mapping sources must use HTTPS.")
+        result.setdefault(f'{item["language"]}:{item["setId"]}', []).append(item["printedCode"])
+    return result
+
+
 def main():
     if not DATABASE.is_file():
         raise SystemExit("Catalog database is missing; run import_tcgdex_catalog.py first.")
     commit, cards = read_catalog()
+    curated = read_curated_records()
+    if {row[0] for row in cards} & {row[0] for row in curated}:
+        raise SystemExit("Curated IDs collide with source catalog IDs.")
+    cards.extend(curated)
     overrides = read_rarity_overrides()
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     payload = {"schemaVersion": 6, "source": "TCGdex", "sourceCommit": commit, "cards": cards,
-               "setRarityOverrides": overrides}
+               "setRarityOverrides": overrides, "verifiedPrintedCodes": read_verified_codes()}
     OUTPUT.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
     print(json.dumps({"output": str(OUTPUT), "cards": len(cards), "sourceCommit": commit,
                       "bytes": OUTPUT.stat().st_size}, ensure_ascii=False))

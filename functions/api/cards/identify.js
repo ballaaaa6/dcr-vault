@@ -2,7 +2,7 @@ import {error, json, sameOrigin} from '../../_utils/http.js';
 import {IMAGE_MAX_BYTES, readImageBody, supportedImageType} from '../../_utils/images.js';
 import {currentUser} from '../../_utils/sessions.js';
 import {analyzeWithGemini, MODEL} from '../../_utils/gemini-card-reader.js';
-import {cleanReading} from '../../_utils/card-reading-normalization.js';
+import {safeRecordIdentification} from '../../_utils/identification-log.js';
 
 function requestAllowed(request) {
   const fetchSite = request.headers.get('Sec-Fetch-Site');
@@ -35,19 +35,31 @@ export async function onRequestPost({request, env}) {
   const image = await readImageBody(request);
   if (image.error) return error(image.error, image.error.includes('10 MB') ? 413 : 400);
   if (image.body.byteLength > IMAGE_MAX_BYTES) return error('Each photo must be 10 MB or smaller.', 413);
-  return identifyWithGemini(image.body, contentType, env);
+  return identifyWithGemini(image.body, contentType, env, session.user.id);
 }
 
-async function identifyWithGemini(image, contentType, env) {
+async function identifyWithGemini(image, contentType, env, userId) {
+  const startedAt = Date.now();
   const requestId = crypto.randomUUID();
   let fields;
+  let rawReading;
   let failure;
   try {
-    fields = await analyzeWithGemini(env, image, contentType, requestId);
+    fields = await analyzeWithGemini(env, image, contentType, requestId, value => { rawReading = value; });
   } catch (cause) { failure = cause; }
+  await safeRecordIdentification(env.DB, userId, {requestId, model: MODEL, durationMs: Date.now() - startedAt,
+    outcome: failure?.code || (fields ? 'success' : 'unreadable'), reading: {raw: safeRawReading(rawReading), normalized: safeRawReading(fields)}});
   if (failure) return geminiFailure(failure, requestId);
   if (!fields) return json({error: 'Gemini could not identify this card from the image.',
     code: 'card_unreadable', requestId}, 422);
   return json({source: 'gemini', model: MODEL, fields,
     readingAdequate: Boolean(fields.name || fields.englishName), requestId});
+}
+
+function safeRawReading(value) {
+  const keys = ['name', 'englishName', 'setName', 'englishSetName', 'setCode', 'cardNumber', 'language', 'year',
+    'rarity', 'hp', 'illustrator', 'stamp', 'setSymbol', 'copyrightText', 'identificationSummary', 'identityStatus', 'evidence', 'uncertainFields'];
+  if (!value || typeof value !== 'object') return {};
+  return Object.fromEntries(keys.filter(key => typeof value[key] === 'string' || Array.isArray(value[key]))
+    .map(key => [key, Array.isArray(value[key]) ? value[key].filter(item => typeof item === 'string').slice(0, 12).map(item => item.slice(0, 300)) : value[key].slice(0, 300)]));
 }

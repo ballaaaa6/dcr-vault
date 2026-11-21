@@ -25,6 +25,12 @@ function hideSuggestions(field) {
   if (list) list.hidden = true;
 }
 
+export function invalidateCatalogSuggestions() {
+  version += 1;
+  clearTimeout(timer);
+  hideAllCatalogSuggestions();
+}
+
 export function hideAllCatalogSuggestions() {
   FIELDS.forEach(hideSuggestions);
 }
@@ -41,7 +47,7 @@ function renderSuggestions(field, cards, currentVersion) {
   input.setAttribute('aria-expanded', 'true');
   list.hidden = false;
   list.innerHTML = cards.length ? cards.map((card, index) => `<button class="catalog-option" role="option" aria-selected="false" id="m-${field}-option-${index}" data-catalog-index="${index}" type="button">
-    <strong>${escapeHTML(card.name)}</strong><span>${escapeHTML([card.setName, card.year, card.cardNumber].filter(Boolean).join(' · '))}</span>
+    <strong>${escapeHTML(card.name)} (English)</strong><span>${escapeHTML([card.setName, card.year, card.cardNumber].filter(Boolean).join(' · '))}</span>
   </button>`).join('') : '<p class="catalog-empty">No matching cards. You can keep entering the details manually.</p>';
   list.__cards = cards;
 }
@@ -65,6 +71,12 @@ function selectCard(button, onSelect) {
   const list = button.closest('[role="listbox"]');
   const card = list?.__cards?.[Number(button.dataset.catalogIndex)];
   if (!card) return;
+  const language = window.__intakeIdentification?.sourceLanguage || window.__intakeIdentification?.language;
+  if (language && language !== 'en') {
+    hideAllCatalogSuggestions();
+    document.getElementById('manual-status').textContent = 'This suggestion is an English printing. Review the original card details and enter them manually.';
+    return;
+  }
   version += 1;
   document.getElementById('m-name').value = card.name;
   document.getElementById('m-setName').value = card.setName;

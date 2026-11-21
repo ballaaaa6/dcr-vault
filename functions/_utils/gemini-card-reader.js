@@ -233,7 +233,7 @@ function orderedApiKeys(keys) {
   return preferredIndex < 0 ? keys : [...keys.slice(preferredIndex), ...keys.slice(0, preferredIndex)];
 }
 
-export async function analyzeWithGemini(env, body, contentType, requestId) {
+export async function analyzeWithGemini(env, body, contentType, requestId, onParsed = () => {}) {
   const apiKeys = orderedApiKeys(configuredApiKeys(env));
   if (!apiKeys.length) throw readingError('not_configured', 503);
   const payload = JSON.stringify({contents: [{role: 'user', parts: [
@@ -245,6 +245,7 @@ export async function analyzeWithGemini(env, body, contentType, requestId) {
       preferredApiKey = apiKeys[index];
       const output = await response.json().catch(() => null);
       const parsed = parseOutput(output);
+      onParsed(parsed);
       const fields = cleanReading(parsed);
       if (!fields) console.warn('Gemini returned no identity fields.', {model: MODEL, ...responseDiagnostics(output, parsed)});
       return fields;

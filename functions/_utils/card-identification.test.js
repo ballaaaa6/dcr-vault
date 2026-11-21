@@ -142,3 +142,10 @@ test('returns the correlated Gemini error without calling OCR when Gemini is una
     console.warn = originalWarn;
   }
 });
+
+
+test('does not infer rarity from a promo collector number', async () => {
+  const {cleanReading} = await import('./card-reading-normalization.js');
+  assert.equal(cleanReading({name: 'Pikachu', cardNumber: '151/XY-P'}).rarity, '');
+  assert.equal(cleanReading({name: 'Pikachu', cardNumber: '151/XY-P', rarity: 'Promo'}).rarity, 'Promo');
+});

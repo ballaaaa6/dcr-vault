@@ -3,6 +3,17 @@
 ## 2026-11-22 - Preserve imported card images
 - Add pinned image importers and preserve verified external images across catalog refreshes.
 
+## 2026-11-22 - Clear outdated photo readings
+- Clear unchanged identification values when the front photo changes, preserving user edits for review.
+- Preserve manually edited values during a new reading and reject candidates that conflict with those values.
+- Prevent stale searches and cross-language suggestions from attaching an unrelated printing.
+- Show and allow review of printed-language catalog candidates, preserving the printed collector number.
+- Require verified printed-code evidence before automatically matching a catalog set ID.
+- Keep promo markers separate from rarity and include server reader tests in CI.
+- Record owner-scoped identification diagnostics and schedule deletion of expired records.
+- Store identification status and field provenance with new and imported cards.
+- Preserve saved card fields when enriching label metadata and avoid relinking unresolved identifications.
+
 ## 2026-11-22 - Front photo review notice
 - Warn when card details remain after the front photo changes.
 
