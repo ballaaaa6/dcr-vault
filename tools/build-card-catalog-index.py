@@ -38,10 +38,15 @@ def card_metadata(raw_card, raw_set, language):
             string_values(attack.get("name"), language),
             str(attack.get("damage") or "").strip(),
             string_values(attack.get("cost"), language),
+            string_values(attack.get("effect"), language),
         ])
     abilities = [
-        string_values(ability.get("name"), language)
+        [string_values(ability.get("name"), language), string_values(ability.get("effect"), language)]
         for ability in card.get("abilities") or [] if isinstance(ability, dict)
+    ]
+    variants = [
+        {key: str(variant[key]).strip() for key in ("type", "subtype") if variant.get(key)}
+        for variant in card.get("variants") or [] if isinstance(variant, dict)
     ]
     count = card_set.get("cardCount", {})
     if isinstance(count, dict):
@@ -53,7 +58,7 @@ def card_metadata(raw_card, raw_set, language):
             str(card.get("stage") or "").strip(), string_values(card.get("types"), language),
             attacks, abilities, relations("weaknesses"), relations("resistances"),
             str(card.get("retreat") or "").strip(),
-            string_values(card.get("evolveFrom") or card.get("evolvesFrom"), language)]
+            string_values(card.get("evolveFrom") or card.get("evolvesFrom"), language), variants]
 
 
 def read_catalog():
@@ -103,7 +108,7 @@ def main():
     commit, cards = read_catalog()
     overrides = read_rarity_overrides()
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    payload = {"schemaVersion": 5, "source": "TCGdex", "sourceCommit": commit, "cards": cards,
+    payload = {"schemaVersion": 6, "source": "TCGdex", "sourceCommit": commit, "cards": cards,
                "setRarityOverrides": overrides}
     OUTPUT.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
     print(json.dumps({"output": str(OUTPUT), "cards": len(cards), "sourceCommit": commit,

@@ -19,12 +19,14 @@ function catalogRarity(value) {
 
 function catalogMetadata(value) {
   if (!Array.isArray(value)) return value && typeof value === 'object' ? value : {};
-  const [nameAliases = [], cardCount = '', hp = '', illustrator = '', stage = '', types = [], attackRows = [], abilities = [],
-    weaknessRows = [], resistanceRows = [], retreat = '', evolvesFrom = ''] = value;
-  const attacks = attackRows.map(([names = [], damage = '', cost = []]) => ({names, damage, cost}));
+  const [nameAliases = [], cardCount = '', hp = '', illustrator = '', stage = '', types = [], attackRows = [], abilityRows = [],
+    weaknessRows = [], resistanceRows = [], retreat = '', evolvesFrom = '', variants = []] = value;
+  const attacks = attackRows.map(([names = [], damage = '', cost = [], effects = []]) => ({names, damage, cost, effects}));
+  const abilities = abilityRows.map(row => Array.isArray(row?.[0])
+    ? {names: row[0], effects: row[1] || []} : {names: row});
   const relations = rows => rows.map(([type = '', relationValue = '']) => ({type, value: relationValue}));
-  return {nameAliases, cardCount, hp, illustrator, stage, types, attacks, abilities: abilities.map(names => ({names})),
-    weaknesses: relations(weaknessRows), resistances: relations(resistanceRows), retreat, evolvesFrom};
+  return {nameAliases, cardCount, hp, illustrator, stage, types, attacks, abilities,
+    weaknesses: relations(weaknessRows), resistances: relations(resistanceRows), retreat, evolvesFrom, variants};
 }
 
 function imageParts(card) {
@@ -60,7 +62,7 @@ async function loadCatalog() {
       return response.json();
     })
     .then(data => {
-      if (!Array.isArray(data.cards) || ![1, 2, 3, 4, 5].includes(data.schemaVersion)) throw new Error('Card catalog format is invalid.');
+      if (!Array.isArray(data.cards) || ![1, 2, 3, 4, 5, 6].includes(data.schemaVersion)) throw new Error('Card catalog format is invalid.');
       catalogSetRarityOverrides = data.setRarityOverrides || {};
       return data.cards.map(([id, language, name, setName, year, cardNumber, rarity, seriesId, setId, seriesName, metadata]) => {
         const catalogSetId = String(setId ?? '');

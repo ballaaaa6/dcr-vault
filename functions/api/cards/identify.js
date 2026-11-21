@@ -1,7 +1,9 @@
 import {error, json, sameOrigin} from '../../_utils/http.js';
 import {IMAGE_MAX_BYTES, readImageBody, supportedImageType} from '../../_utils/images.js';
 import {currentUser} from '../../_utils/sessions.js';
-import {analyzeWithGemini, cleanReading, cleanText, MODEL} from '../../_utils/gemini-card-reader.js';
+import {analyzeWithGemini, MODEL} from '../../_utils/gemini-card-reader.js';
+import {cleanReading, cleanText} from '../../_utils/card-reading-normalization.js';
+import {hasEnoughIdentityReading, mergeReadings} from '../../_utils/card-reading-quality.js';
 import {identifyWithOracle} from '../../_utils/oracle-card-reading.js';
 
 function requestAllowed(request) {
@@ -47,11 +49,13 @@ function fieldsFromOracle(result) {
     stage: keys.stage || summary.stage, types: keys.types || summary.types, attacks,
     abilities: keys.ability_names || summary.ability_names, weaknesses: keys.weaknesses,
     resistances: keys.resistances, retreat: keys.retreat, evolvesFrom: keys.evolves_from,
+    finish: keys.finish || keys.variant, dexNumber: keys.dex_number || keys.pokedex_number, level: keys.level,
     confidence: {name: scan.confidence?.name, setName: scan.confidence?.set_name,
       cardNumber: scan.confidence?.collector_number, language: scan.confidence?.language,
       hp: scan.confidence?.hp, illustrator: scan.confidence?.illustrator,
       stage: scan.confidence?.stage, types: scan.confidence?.types,
-      attacks: scan.confidence?.attacks, abilities: scan.confidence?.ability_names}
+      attacks: scan.confidence?.attacks, abilities: scan.confidence?.ability_names,
+      finish: scan.confidence?.finish}
   });
 }
 
@@ -74,14 +78,17 @@ async function identifyWithGemini(image, contentType, env) {
   try {
     fields = await analyzeWithGemini(env, image, contentType, requestId);
   } catch (cause) { failure = cause; }
-  if (fields) return json({source: 'gemini', model: MODEL, fields});
+  if (hasEnoughIdentityReading(fields)) return json({source: 'gemini', model: MODEL, fields, readingAdequate: true});
 
   const oracleResult = await identifyWithOracle(env, image, contentType, requestId);
   const oracleFields = fieldsFromOracle(oracleResult);
-  if (oracleFields) {
-    console.warn('Card identification used Oracle OCR fallback.', {requestId,
-      geminiReasonCode: failure?.code || 'unreadable', oracleStatus: oracleResult?.status || 'unknown'});
-    return json({source: 'oracle_ocr', fields: oracleFields});
+  const combinedFields = mergeReadings(fields, oracleFields);
+  if (combinedFields) {
+    if (oracleFields) console.warn('Card identification used Oracle OCR fallback.', {requestId,
+      geminiReasonCode: failure?.code || 'insufficient_fields', oracleStatus: oracleResult?.status || 'unknown'});
+    const source = fields && oracleFields ? 'gemini_oracle_ocr' : fields ? 'gemini' : 'oracle_ocr';
+    return json({source, model: source === 'gemini' ? MODEL : undefined,
+      fields: combinedFields, readingAdequate: hasEnoughIdentityReading(combinedFields)});
   }
   if (failure) return geminiFailure(failure, requestId, oracleResult);
   return json({error: 'Gemini and OCR could not read enough card identity details from this image.',

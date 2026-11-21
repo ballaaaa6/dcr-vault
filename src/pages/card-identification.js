@@ -3,6 +3,7 @@ import {findImageCandidates, findImageReviewCandidates} from '../store/catalog.j
 import {escapeHTML} from '../utils/format.js';
 import {hideAllCatalogSuggestions} from './search-catalog.js';
 import {cardLabelMetadata} from '../utils/label-metadata.js';
+import {readingSummaryMarkup, variantSummary} from './card-identification-view.js';
 
 let candidateCards = [];
 let analysisVersion = 0;
@@ -43,8 +44,10 @@ function candidateMarkup(card, index) {
   const imageMarkup = image ? `<img class="identification-option-image" src="${escapeHTML(image)}" alt="" loading="eager">` : '';
   const labelMetadata = cardLabelMetadata({...card, sourceLanguage: sourceCard.language, sourceSetId: sourceCard.setId});
   const sourceNumber = card.sourceCardNumber || sourceCard.cardNumber;
-  const sourceDetails = [sourceCard.setName, sourceCard.year, sourceNumber && `#${sourceNumber}`, sourceCard.rarity].filter(Boolean);
-  const labelDetails = [labelMetadata.setName || card.setName, card.year, card.cardNumber && `#${card.cardNumber}`, card.rarity].filter(Boolean);
+  const sourceDetails = [sourceCard.setName, sourceCard.year, sourceNumber && `#${sourceNumber}`, sourceCard.rarity,
+    variantSummary(sourceCard)].filter(Boolean);
+  const labelDetails = [labelMetadata.setName || card.setName, card.year, card.cardNumber && `#${card.cardNumber}`,
+    card.rarity, variantSummary(card)].filter(Boolean);
   const attacks = (sourceCard.metadata?.attacks || []).map(attack => {
     const name = attack.names?.find(Boolean) || '';
     return [name, attack.damage].filter(Boolean).join(' ');
@@ -52,24 +55,23 @@ function candidateMarkup(card, index) {
   const sourcePrint = `${String(sourceCard.language || 'en').toUpperCase()} print`;
   const evidence = [sourcePrint, sourceCard.metadata?.hp && `${sourceCard.metadata.hp} HP`, sourceCard.metadata?.illustrator && `Illus. ${sourceCard.metadata.illustrator}`,
     attacks.length && attacks.join(' · ')].filter(Boolean);
+  const matchedOn = card.matchEvidence?.length ? `<small>Matched on: ${escapeHTML(card.matchEvidence.join(' · '))}</small>` : '';
   const fallback = sourceCard.imageUrlFallback || '';
   const previewAttrs = image ? `data-preview-src="${escapeHTML(image)}" data-preview-alt="${escapeHTML(sourceCard.name)}" data-has-image="true" ${fallback ? `data-preview-fallback="${escapeHTML(fallback)}"` : ''}` : '';
   const labelSummary = sourceCard.language === 'en' ? '' : `<small>English label: ${escapeHTML([card.name, ...labelDetails].filter(Boolean).join(' · '))}</small>`;
   const imageNotice = image ? '' : '<small>The original-language catalog image is unavailable.</small>';
   return `<button class="identification-option" data-image-candidate="${index}" ${previewAttrs} type="button">${imageMarkup}
     <span class="identification-option-copy"><strong>${escapeHTML(sourceCard.name || card.name)}</strong><span>${escapeHTML(sourceDetails.join(' · '))}</span>
-    ${labelSummary}${imageNotice}${evidence.length ? `<small>${escapeHTML(evidence.join(' · '))}</small>` : ''}</span></button>`;
+    ${labelSummary}${imageNotice}${evidence.length ? `<small>${escapeHTML(evidence.join(' · '))}</small>` : ''}${matchedOn}</span></button>`;
 }
 
-function showCandidates(fields, cards, source) {
+function showCandidates(fields, cards, source, adequate) {
   candidateCards = cards;
-  const reader = source === 'oracle_ocr' ? 'DCR OCR' : 'Gemini';
-  const knownFields = [fields.name, fields.englishName, fields.cardNumber, fields.setName, fields.englishSetName].filter(Boolean).length;
-  const emptyMessage = knownFields >= 2
-    ? `${reader} read card details, but the catalog could not confirm a safe English match. Enter the English card name and set manually.`
-    : `${reader} could not read enough identity details to find catalog choices. Enter the English card name and set manually.`;
+  const emptyMessage = adequate
+    ? 'The catalog could not confirm a safe English match from these details. Enter the English card name and set manually.'
+    : 'More distinct card details are needed before the catalog can suggest a safe match. Use the values above to enter the card manually.';
   const options = cards.length ? cards.map(candidateMarkup).join('') : '<p class="catalog-empty">' + emptyMessage + '</p>';
-  showDialog(`<p class="identification-match-note">Choose the card in its printed language. The English catalog match fills Block 2 and the label. This will not save the card.</p><div class="identification-options">${options}</div>`);
+  showDialog(`${readingSummaryMarkup(fields, source, adequate)}<p class="identification-match-note">Choose the card in its printed language. The English catalog match fills Block 2 and the label. This will not save the card.</p><div class="identification-options">${options}</div>`);
 }
 
 function showDialog(content) {
@@ -129,6 +131,10 @@ async function analyzeFront() {
       if (version === analysisVersion) showError(safeReadingErrorMessage(error), canRetryIdentification(error));
       return;
     }
+    if (!result.readingAdequate) {
+      if (version === analysisVersion) showCandidates(result.fields, [], result.source, false);
+      return;
+    }
     let candidates;
     try {
       candidates = await findImageCandidates(result.fields);
@@ -142,7 +148,7 @@ async function analyzeFront() {
       chooseCandidate(0);
       return;
     }
-    if (version === analysisVersion) showCandidates(result.fields, candidates, result.source);
+    if (version === analysisVersion) showCandidates(result.fields, candidates, result.source, true);
   } finally {
     analysisBusy = false;
     button.textContent = 'Identify card';

@@ -194,6 +194,7 @@ function formCard(certNumber) {
     setName: document.getElementById('m-setName').value.trim(), year: document.getElementById('m-year').value.trim(),
     yearSeries: metadata.yearSeries, catalogCardId: metadata.catalogCardId,
     sourceLanguage: metadata.sourceLanguage, sourceSetId: metadata.sourceSetId,
+    sourceCardId: selected.sourceCardId || '', sourceFinish: selected.sourceFinish || '',
     cardNumber: document.getElementById('m-cardNumber').value.trim(), rarity: document.getElementById('m-rarity').value.trim(),
     gradeLabel: document.getElementById('m-grade').value.trim(), status: 'in-vault'
   };

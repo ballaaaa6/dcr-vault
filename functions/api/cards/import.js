@@ -29,8 +29,8 @@ async function insertLegacyCard(db, userId, card) {
   const now = Math.floor(Date.now() / 1000);
   const id = crypto.randomUUID();
   return db.prepare(`INSERT OR IGNORE INTO cards (id, user_id, game, name, set_name, year, year_series, catalog_card_id,
-    source_language, source_set_id, card_number, rarity, grade_label, cert_number, status, buy_price, sell_price, buy_date, sold_date,
+    source_language, source_set_id, source_card_id, source_finish, card_number, rarity, grade_label, cert_number, status, buy_price, sell_price, buy_date, sold_date,
     bought_from, sold_to, notes, created_at, updated_at)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
     .bind(id, userId, ...cardValues(card), now, now).run();
 }

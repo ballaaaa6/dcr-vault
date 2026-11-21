@@ -1,0 +1,2 @@
+ALTER TABLE cards ADD COLUMN source_card_id TEXT NOT NULL DEFAULT '';
+ALTER TABLE cards ADD COLUMN source_finish TEXT NOT NULL DEFAULT '';

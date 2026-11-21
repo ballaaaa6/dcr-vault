@@ -1,4 +1,13 @@
 # Changelog
+## Evidence-based image identification - 2026-11-21
+- Preserve localized attack and ability effects plus card print variants in the web catalog index.
+- Read and display collector number, Pokédex number, level, attack effects, and foil finish separately with field confidence.
+- Invoke OCR fallback when Gemini has neither a confident full collector number nor two identity anchors; stop candidate matching when both readers confidently disagree on critical fields.
+- Compare compatible bilingual attack readings semantically and only stop on critical disagreements when both readers are confident.
+- Reject source and English catalog candidates that conflict with confident HP, illustrator, type, attack, ability, or finish evidence; rank by source-print evidence.
+- Keep unverified cross-language candidates out of the review picker instead of filling it with same-name cards.
+- Persist the selected source card ID and observed finish alongside the English catalog printing.
+
 ## Localized card matching and automatic rarity - 2026-11-21
 - Expand the English Gemini prompt and structured output to capture all visible identity/card details, attack and ability effects, printed text, regulation mark, and field confidence.
 - Match the source-language print against catalog metadata before mapping to English label data; display the original-language card image and skip the picker only for a unique, high-confidence match.
