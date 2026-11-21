@@ -15,6 +15,7 @@
 ## 2026-11-22 - Clear outdated photo readings
 - Clear unchanged identification values when the front photo changes, preserving user edits for review.
 - Preserve manually edited values during a new reading and reject candidates that conflict with those values.
+- Keep unresolved photo identities from being silently reattached through typed-card lookup.
 - Prevent stale searches and cross-language suggestions from attaching an unrelated printing.
 - Show and allow review of printed-language catalog candidates, preserving the printed collector number.
 - Require verified printed-code evidence before automatically matching a catalog set ID.

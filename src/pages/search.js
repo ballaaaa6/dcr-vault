@@ -34,6 +34,7 @@ export function search() {
   window.__intakeCatalogGame = '';
   window.__intakeCatalogCard = null;
   window.__intakeIdentification = null;
+  window.__intakeIdentityReviewRequired = false;
   return `
     <main class="app-page">
       <header class="page-heading"><div class="page-eyebrow">COLLECTION INTAKE</div><h1>Add a card to your vault</h1><p class="page-description">Saved card details and photos stay private to your signed-in account.</p></header>

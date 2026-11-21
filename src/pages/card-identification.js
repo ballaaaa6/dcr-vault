@@ -62,7 +62,8 @@ function invalidatePhotoIdentity() {
   invalidateCatalogSuggestions();
   window.__intakeCatalogCard = null;
   window.__intakeIdentification = null;
-  identificationStatus = 'unknown';
+  identificationStatus = prior ? 'unresolved' : 'unknown';
+  window.__intakeIdentityReviewRequired = Boolean(prior);
   readingRequestId = '';
   fieldProvenance = Object.fromEntries(Object.entries(fieldProvenance).filter(([, source]) => source === 'user'));
   if (appliedValues) {
@@ -104,6 +105,7 @@ async function applyReading(fields, version, requestId) {
   const english = sourceLanguage === 'en' ? source : null;
   readingRequestId = requestId || '';
   identificationStatus = source ? 'matched' : 'unresolved';
+  window.__intakeIdentityReviewRequired = !source;
   const userFields = Object.fromEntries(Object.entries(fieldProvenance).filter(([, value]) => value === 'user'));
   fieldProvenance = {name: sourceLanguage === 'en' && source ? 'catalog' : 'gemini',
     setName: source ? 'catalog' : 'unknown', year: source ? 'catalog' : 'unknown',
@@ -174,6 +176,7 @@ function selectReadingCandidate(index) {
     sourceSetId: card.setId, sourceCardId: card.id, catalogCardId: language === 'en' ? card.id : '', sourceFinish: ''};
   window.__intakeCatalogCard = {...selected, ...cardLabelMetadata(selected)};
   identificationStatus = 'user_selected';
+  window.__intakeIdentityReviewRequired = false;
   for (const key of ['name', 'setName', 'year', 'cardNumber', 'rarity']) {
     const input = document.getElementById(`m-${key}`);
     if (appliedValues && !Object.hasOwn(appliedValues, key)) continue;
@@ -242,7 +245,10 @@ document.addEventListener('input', event => {
     if (analysisBusy) analysisVersion += 1;
     candidateState = null;
     fieldProvenance[key] = 'user';
-    if (['name', 'setName', 'year', 'cardNumber'].includes(key) && identificationStatus !== 'unknown') identificationStatus = 'unresolved';
+    if (['name', 'setName', 'year', 'cardNumber'].includes(key) && identificationStatus !== 'unknown') {
+      identificationStatus = 'unresolved';
+      window.__intakeIdentityReviewRequired = true;
+    }
   }
   if (appliedValues && Object.hasOwn(appliedValues, key)) delete appliedValues[key];
 });

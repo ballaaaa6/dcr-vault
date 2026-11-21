@@ -39,7 +39,8 @@ test('logs are owner-scoped, bounded, and deleted at expiry', async () => {
   assert.equal(JSON.parse(found.log.selection_json).selected, 'candidate-1');
   assert.equal(JSON.parse(found.log.save_json).values.name, 'Edited');
   assert.equal((await onRequestPost({request: req('owner', {method: 'POST', body: 'x'.repeat(16001)}), env: {DB}})).status, 413);
-  sql.prepare('DELETE FROM identification_logs WHERE expires_at <= ?').run(now + 7 * 86400);
+  const expiry = sql.prepare('SELECT expires_at FROM identification_logs WHERE request_id = ?').get(requestId).expires_at;
+  sql.prepare('DELETE FROM identification_logs WHERE expires_at <= ?').run(expiry);
   assert.equal((await onRequestGet({request: req('owner'), env: {DB}})).status, 404);
   sql.close();
 });
