@@ -30,6 +30,9 @@ def validate(data):
             if not isinstance(field, dict) or field.get("status") not in STATUSES:
                 errors.append(f"{identity}.{name}: invalid status")
                 continue
+            field_source = field.get("source", source)
+            if urlsplit(field_source).scheme != "https" or not urlsplit(field_source).netloc:
+                errors.append(f"{identity}.{name}: invalid field source URL")
             value = field.get("value")
             status = field["status"]
             if status in {"verified", "source-only"} and (value is None or str(value).strip() == ""):

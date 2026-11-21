@@ -15,23 +15,27 @@
       "sources": [
         "https://sasom.co.th/th/collectibles/MA6T-168-130/pokemon-charizard-ma6-168-130-30th-celebration-th",
         "https://www.scanflip.fr/en/pokemon/expansions/ma6",
-        "https://asia.pokemon-card.com/th/archive/special/card/ma6/"
+        "https://asia.pokemon-card.com/th/archive/special/card/ma6/",
+        "https://www.scanflip.fr/en/pokemon/cards/charizard-c-bs-004?print=c8k00sti4tdu1fl0xdr9mtgg"
       ],
-      "status": "review_required"
+      "status": "review_required",
+      "hp": "120",
+      "illustrator": "Mitsuhiro Arita"
     },
     {
       "id": "curated-ja-xyp-151",
       "language": "ja",
       "name": "ギャラドスごっこピカチュウ",
       "setName": "",
-      "year": "",
+      "year": "2015",
       "cardNumber": "151/XY-P",
       "rarity": "",
       "setId": "XY-P",
       "hp": "70",
       "illustrator": "Kouki Saitou",
       "sources": [
-        "https://www.pokemon-card.com/card-search/details.php/card/31163/regu/all"
+        "https://www.pokemon-card.com/card-search/details.php/card/31163/regu/all",
+        "https://www.pokemon-card.com/products/xy/hiroshima.html"
       ],
       "status": "review_required"
     }

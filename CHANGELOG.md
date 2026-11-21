@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Card evidence enrichment
+- Add sourced Thai Charizard HP and illustrator and Japanese promo release year for review.
+
 ## 2026-11-22 - Metadata evidence validation
 - Validate field evidence records and report catalog coverage per set in addition to language.
 

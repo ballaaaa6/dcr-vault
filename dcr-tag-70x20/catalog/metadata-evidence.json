@@ -34,6 +34,11 @@
         "baseRarity": {
           "value": "",
           "status": "unknown"
+        },
+        "year": {
+          "value": "2015",
+          "status": "verified",
+          "source": "https://www.pokemon-card.com/products/xy/hiroshima.html"
         }
       }
     },
@@ -62,8 +67,19 @@
           "status": "source-only"
         },
         "hp": {
-          "value": "",
-          "status": "unknown"
+          "value": "120",
+          "status": "source-only",
+          "source": "https://www.scanflip.fr/en/pokemon/cards/charizard-c-bs-004?print=c8k00sti4tdu1fl0xdr9mtgg"
+        },
+        "illustrator": {
+          "value": "Mitsuhiro Arita",
+          "status": "source-only",
+          "source": "https://www.scanflip.fr/en/pokemon/cards/charizard-c-bs-004?print=c8k00sti4tdu1fl0xdr9mtgg"
+        },
+        "baseRarity": {
+          "value": "CC",
+          "status": "source-only",
+          "source": "https://www.scanflip.fr/en/pokemon/cards/charizard-c-bs-004?print=c8k00sti4tdu1fl0xdr9mtgg"
         }
       }
     }
