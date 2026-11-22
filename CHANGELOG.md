@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Certificate detail page
+- Show a searchable certificate record with card information, uploaded photos or a labeled catalog reference, and an enlarged image viewer.
+
 ## 2026-11-22 - Vault reference images
 - Show matched catalog reference images in My Vault, falling back to the saved front photo when a reference is unavailable.
 - Publish the local image index's public source URLs; image files remain in the local library and the source hosts serve them on demand.

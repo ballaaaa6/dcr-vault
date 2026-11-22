@@ -6,6 +6,7 @@ import {vault} from './pages/vault.js';
 import {label} from './pages/label.js';
 import {loginPage, initializeLogin} from './pages/login.js';
 import {verify} from './pages/verify.js';
+import {initializeCertificateViewer} from './components/certificate-viewer.js';
 import {importPage} from './pages/import.js';
 import {getCards} from './store/cards.js';
 import {addVaultImages} from './store/vault-images.js';
@@ -52,6 +53,7 @@ export async function render() {
   app.innerHTML = header(path, user) + content + footer();
   bindHeader();
   if (path === '#/search') initializeSearchPage();
+  if (path === '#/verify') initializeCertificateViewer();
   window.scrollTo(0, 0);
 }
 
@@ -59,7 +61,7 @@ async function privatePage(path) {
   const cards = await getCards();
   if (path === '#/vault') return vault(await addVaultImages(cards));
   if (path === '#/label') return label(cards);
-  return verify(cards);
+  return verify(await addVaultImages(cards));
 }
 
 window.addEventListener('hashchange', render);

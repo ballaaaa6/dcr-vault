@@ -2,48 +2,50 @@ import {findByCert} from '../store/cards.js';
 import {escapeHTML} from '../utils/format.js';
 import {normalizeCert} from '../utils/cert.js';
 
+export function certificateImages(card) {
+  const actual = [['Front', card.frontImage], ['Back', card.backImage]].filter(([, url]) => url);
+  return actual.length ? actual : (card.referenceImage ? [['Front · catalog reference', card.referenceImage]] : []);
+}
+
+function imageGallery(card) {
+  const images = certificateImages(card);
+  if (!images.length) return '';
+  return `<section class="cert-gallery" aria-label="Card images">${images.map(([label, url]) => `
+    <button class="cert-image" type="button" aria-label="Enlarge ${escapeHTML(label)} image">
+      <img src="${escapeHTML(url)}" alt="${escapeHTML(card.name)} — ${escapeHTML(label)}" referrerpolicy="no-referrer">
+      <span>${escapeHTML(label)}</span></button>`).join('')}</section>
+    <dialog class="cert-viewer" aria-label="Enlarged card image"><div class="cert-viewer-toolbar"><span data-viewer-label></span><button type="button" data-viewer-close aria-label="Close image viewer">×</button></div>
+      <div class="cert-viewer-body"><div class="cert-viewer-thumbs"></div><div class="cert-viewer-image"><img alt="" referrerpolicy="no-referrer"><span class="cert-zoom" aria-hidden="true"></span></div></div>
+      <p class="cert-viewer-hint">Move over the image to magnify. On touch screens, tap the image to zoom.</p></dialog>`;
+}
+
+function itemInformation(card) {
+  const fields = [['Cert Number', card.certNumber], ['Item Grade', card.gradeLabel], ['Year', card.year],
+    ['Game', card.game], ['Set', card.setName], ['Card Name', card.name], ['Card Number', card.cardNumber],
+    ['Rarity', card.rarity], ['Language', card.sourceLanguage], ['Finish', card.sourceFinish]];
+  return `<section class="cert-information"><h2>Item Information</h2><dl>${fields.filter(([, value]) => value).map(([label, value]) =>
+    `<div><dt>${escapeHTML(label)}</dt><dd>${escapeHTML(value)}</dd></div>`).join('')}</dl></section>`;
+}
+
 function resultMarkup(cert, cards) {
   const normalized = normalizeCert(cert);
-  if (!normalized) {
-    return `<div class="lookup-result lookup-error" role="status"><strong>Enter 1 to 8 digits for the certificate number.</strong><p>Check the number on your DCR label and try again.</p></div>`;
-  }
-
+  if (!normalized) return '<div class="lookup-result lookup-error" role="status"><strong>Enter 1 to 8 digits for the certificate number.</strong></div>';
   const card = findByCert(cards, normalized);
-  if (!card) {
-    return `<div class="lookup-result lookup-error" role="status"><strong>No record found</strong><p>Certificate ${escapeHTML(normalized)} is not in your account's collection.</p></div>`;
-  }
-
-  const details = [card.setName, card.year, card.cardNumber, card.rarity].map(escapeHTML).filter(Boolean).join(' • ');
-  return `
-    <section class="lookup-result lookup-found" aria-label="Certificate record">
-      <div class="lookup-result-heading">
-        <span class="record-status">Certificate record found</span>
-        <img src="/assets/logo/dcr-mark.svg" alt="DCR">
-      </div>
-      <h2>${escapeHTML(card.name)}</h2>
-      <p class="record-details">${details}</p>
-      <div class="record-cert"><span>Grade</span><strong>${escapeHTML(card.gradeLabel)}</strong><span>Cert</span><strong>${escapeHTML(card.certNumber)}</strong></div>
-    </section>`;
+  if (!card) return `<div class="lookup-result lookup-error" role="status"><strong>No record found</strong><p>Certificate ${escapeHTML(normalized)} is not in your account’s collection.</p></div>`;
+  const subtitle = [card.year, card.setName, card.cardNumber].filter(Boolean).map(escapeHTML).join(' · ');
+  return `<article class="cert-record"><p class="record-status">Certificate record found</p><h2>${escapeHTML(card.name)}</h2><p class="cert-subtitle">${subtitle}</p>${imageGallery(card)}${itemInformation(card)}</article>`;
 }
 
 export function verify(cards = []) {
   const params = new URLSearchParams(location.hash.split('?')[1] || '');
-  const hasCert = params.has('cert');
   const rawCert = params.get('cert') || '';
   const cert = normalizeCert(rawCert) || rawCert;
-  const result = hasCert ? resultMarkup(cert, cards) : '';
-
-  return `
-    <main class="lookup-page">
-      <section class="lookup-panel" aria-labelledby="lookup-title">
-        <div class="lookup-kicker">DCR CARD VAULT</div>
-        <h1 id="lookup-title">Certificate lookup</h1>
-        <p class="lookup-description">Search with 1 to 8 digits; matching records display the full 8-digit Cert number.</p>
-        <form class="search-bar lookup-search" onsubmit="window.__searchCertificate(event)">
-          <input id="certificate-search" name="cert" type="text" inputmode="numeric" autocomplete="off" maxlength="8" pattern="[0-9]{1,8}" placeholder="Enter 1 to 8 digits" value="${escapeHTML(cert)}" required>
-          <button class="search-button" type="submit">Search</button>
-        </form>
-        ${result}
-      </section>
-    </main>`;
+  return `<main class="lookup-page"><section class="lookup-panel" aria-labelledby="lookup-title">
+    <div class="lookup-kicker">DCR CARD VAULT</div><h1 id="lookup-title">Certificate lookup</h1>
+    <p class="lookup-description">Search your collection by certificate number.</p>
+    <form class="search-bar lookup-search" onsubmit="window.__searchCertificate(event)">
+      <label class="sr-only" for="certificate-search">Certificate number</label>
+      <input id="certificate-search" name="cert" type="text" inputmode="numeric" autocomplete="off" maxlength="8" pattern="[0-9]{1,8}" placeholder="Enter 1 to 8 digits" value="${escapeHTML(cert)}" required>
+      <button class="search-button" type="submit">Search</button></form>
+    ${params.has('cert') ? resultMarkup(cert, cards) : ''}</section></main>`;
 }
