@@ -55,7 +55,7 @@ export function verify(cards = []) {
     <p class="lookup-description">Search any DCR certificate by number.</p>
     <form class="search-bar lookup-search" onsubmit="window.__searchCertificate(event)">
       <label class="sr-only" for="certificate-search">Certificate number</label>
-      <input id="certificate-search" name="cert" type="text" inputmode="numeric" autocomplete="off" maxlength="8" pattern="[0-9]{1,8}" placeholder="Enter 1 to 8 digits" value="${escapeHTML(cert)}" required>
+      <input id="certificate-search" name="cert" type="text" inputmode="numeric" autocomplete="off" maxlength="8" pattern="[0-9]{1,8}" placeholder="Enter a Cert Number" value="${escapeHTML(cert)}" required>
       <button class="search-button" type="submit">Search</button></form>
     ${pathCert !== null || params.has('cert') ? resultMarkup(cert, cards) : ''}</section></main>`;
 }

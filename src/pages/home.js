@@ -10,7 +10,7 @@ export function home() {
           <form class="home-search-form" onsubmit="window.__searchCertificate(event)">
             <label class="search-label" for="certificate-search">Search by certificate number</label>
             <div class="search-bar">
-              <input id="certificate-search" name="cert" type="text" inputmode="numeric" autocomplete="off" maxlength="8" pattern="[0-9]{1,8}" placeholder="Enter 1 to 8 digits" aria-describedby="certificate-search-hint" required>
+              <input id="certificate-search" name="cert" type="text" inputmode="numeric" autocomplete="off" maxlength="8" pattern="[0-9]{1,8}" placeholder="Enter a Cert Number" aria-describedby="certificate-search-hint" required>
               <button class="search-button" type="submit">
                 <span>Search</span>
                 <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><circle cx="10.8" cy="10.8" r="6.3"></circle><path d="m15.5 15.5 4.2 4.2"></path></svg>

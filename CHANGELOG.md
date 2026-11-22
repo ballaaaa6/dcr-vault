@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Certificate search placeholder
+- Match the certificate search placeholder text and typography to the reference.
+
 ## 2026-11-22 - Responsive home headline
 - Scale the home headline to its available width so each phrase fits on its own line.
 
