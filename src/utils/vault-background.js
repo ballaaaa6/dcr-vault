@@ -18,3 +18,16 @@ export function vaultBackground(card = {}) {
   }
   return 'unknown';
 }
+
+const preloadedBackgrounds = new Map();
+
+export function preloadSelectedBackgrounds(cards) {
+  if (typeof Image === 'undefined') return;
+  for (const type of new Set(cards.map(vaultBackground))) {
+    if (preloadedBackgrounds.has(type)) continue;
+    const image = new Image();
+    image.onerror = () => preloadedBackgrounds.delete(type);
+    image.src = `/assets/vault-background/selected/${type}.webp`;
+    preloadedBackgrounds.set(type, image);
+  }
+}

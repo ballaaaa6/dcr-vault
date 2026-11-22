@@ -7,7 +7,7 @@ import {itemInformation} from './verify.js';
 import {escapeHTML} from '../utils/format.js';
 import {normalizeCert} from '../utils/cert.js';
 import {classificationFields, classificationInput} from '../utils/card-classification.js';
-import {vaultBackground} from '../utils/vault-background.js';
+import {vaultBackground, preloadSelectedBackgrounds} from '../utils/vault-background.js';
 
 const sources = ['Facebook', 'Instagram', 'TikTok', 'Shopee', 'Lazada', 'eBay', 'TCGplayer', 'Card shop', 'Card show'];
 const currencies = ['THB', 'USD', 'JPY', 'EUR', 'GBP', 'AUD', 'CAD', 'CNY', 'HKD', 'SGD', 'MYR', 'TWD', 'KRW', 'IDR', 'PHP', 'VND', 'CHF', 'NZD'];
@@ -143,6 +143,7 @@ function closeVaultMenuOnOutsideClick(event) {
 }
 
 export function initializeVault() {
+  preloadSelectedBackgrounds(activeCards);
   document.removeEventListener('click', closeVaultMenuOnOutsideClick);
   document.addEventListener('click', closeVaultMenuOnOutsideClick);
   if (location.search) history.replaceState(history.state, '', '/vault');

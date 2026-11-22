@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Speed up selected Vault artwork
+
+- Compress selected-card artwork and preload only the classifications present in the vault.
+
 ## 2026-11-23 - Restore selected Vault card colors
 
 - Restore the red selected card background and white text while retaining transparent classification artwork.
