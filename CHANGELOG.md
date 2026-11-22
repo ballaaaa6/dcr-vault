@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Read-only label details
+- Show the card year separately from the verified label year / series and make label details read-only.
+
 ## 2026-11-22 - Compact label workspace
 - Arrange certificate entry and the sheet list in side-by-side columns on larger screens, with unobtrusive scrolling.
 
