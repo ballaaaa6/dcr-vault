@@ -25,6 +25,6 @@
 .vault-photo-panel .vault-detail-photo .vault-photo-flipper{height:100%}
 @media(hover:hover){
   .vault-detail-photo>.vault-photo-flip,.vault-detail-photo>.vault-photo-preview{opacity:0;pointer-events:none;transition:opacity .2s ease}
-  .vault-detail-photo:hover>.vault-photo-flip,.vault-detail-photo:hover>.vault-photo-preview,.vault-detail-photo:focus-within>.vault-photo-flip,.vault-detail-photo:focus-within>.vault-photo-preview{opacity:1;pointer-events:auto}
+  .vault-detail-photo:hover>.vault-photo-flip,.vault-detail-photo:hover>.vault-photo-preview,.vault-detail-photo:has(> :focus-visible)>.vault-photo-flip,.vault-detail-photo:has(> :focus-visible)>.vault-photo-preview{opacity:1;pointer-events:auto}
 }
 @media(max-width:760px){.vault-selected{grid-column:auto;grid-template-columns:1fr}.vault-photo-panel{align-self:start;height:auto;min-height:0}.vault-photo-panel .vault-detail-photo{height:auto;min-height:150px}.vault-photo-panel .vault-detail-photo .vault-photo-flipper{height:320px}}

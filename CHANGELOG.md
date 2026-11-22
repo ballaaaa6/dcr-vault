@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Vault photo hover controls
+- Hide photo controls when the pointer leaves while preserving keyboard access.
+
 ## 2026-11-22 - Vault photo fit
 - Fill the padded photo panel and keep the entire card image visible.
 
