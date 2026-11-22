@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Notes field spacing
+- Align the optional Notes field and preserve consistent spacing as it is resized.
+
 ## 2026-11-22 - Compact card intake
 - Reduce desktop form spacing so the intake page and footer fit more comfortably on screen.
 
