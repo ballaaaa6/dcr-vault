@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-22 - Show collecting duration
+
+- Display the number of days since the collecting start date on the profile.
+
 ## 2026-11-22 - Flip profile edit icon
 
 - Flip the pencil icon beside the profile name horizontally.
