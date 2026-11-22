@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Vault card selection
+- Switch selected vault cards in place while keeping the vault URL unchanged.
+
 ## 2026-11-22 - Vault card management
 - Show certificate information in a wider vault detail panel, with owner-only editing and card deletion that releases its certificate number.
 

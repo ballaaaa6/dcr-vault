@@ -2,7 +2,7 @@ import {header, bindHeader} from './components/header.js';
 import {getCurrentUser} from './auth.js';
 import {home} from './pages/home.js';
 import {initializeSearchPage, search} from './pages/search.js';
-import {vault} from './pages/vault.js';
+import {initializeVault, vault} from './pages/vault.js';
 import {label} from './pages/label.js';
 import {loginPage, initializeLogin} from './pages/login.js';
 import {verify} from './pages/verify.js';
@@ -56,6 +56,7 @@ export async function render() {
   app.innerHTML = header(path, user) + content + footer();
   bindHeader();
   if (path === '/register') initializeSearchPage();
+  if (path === '/vault') initializeVault();
   if (path === '/verify' || isCertificate) initializeCertificateViewer();
   window.scrollTo(0, 0);
 }

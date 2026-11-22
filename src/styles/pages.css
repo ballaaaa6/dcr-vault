@@ -234,3 +234,6 @@
 .vault-edit-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px;margin-top:16px}
 .vault-delete{color:var(--dcr-red)}
 @media(max-width:500px){.vault-edit-grid{grid-template-columns:1fr}}
+
+.vault-row{width:100%;text-align:left;cursor:pointer;font:inherit;color:inherit;background:var(--dcr-white)}
+.vault-row[aria-pressed=true]{border-color:var(--dcr-red)}

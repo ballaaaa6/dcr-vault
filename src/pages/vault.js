@@ -5,6 +5,8 @@ import {escapeHTML} from '../utils/format.js';
 
 const statuses = ['in-vault', 'for-sale', 'sold', 'grading'];
 let activeCards = [];
+let selectedId = '';
+let vaultBusy = false;
 
 function statusOptions(selected) {
   return statuses.map(status => {
@@ -30,12 +32,8 @@ export function vault(cards = []) {
   if (!cards.length) return '<main class="app-page"><section class="surface-card empty-state"><div class="page-eyebrow">YOUR COLLECTION</div><h1>My Vault</h1><p>Your private vault is ready for its first card.</p><a class="btn btn-primary" href="/register">Add a card</a></section></main>';
   const params = new URLSearchParams(location.search);
   const focus = cards.find(card => card.id === params.get('id')) || cards[0];
+  selectedId = focus.id;
   const rows = cards.length ? cards.map(listRow).join('') : '<div class="empty-state">No cards in your vault yet.</div>';
-  const name = escapeHTML(focus?.name || 'No card selected');
-  const summary = focus ? [focus.setName, focus.year, focus.cardNumber].map(escapeHTML).filter(Boolean).join(' • ') : '';
-  const grade = escapeHTML(focus?.gradeLabel || '');
-  const cert = escapeHTML(focus?.certNumber || '');
-  const frontPhoto = vaultImage(focus, 'vault-detail-photo-empty', 'No front photo available', 'vault-detail-image');
 
   return `
     <main class="app-page">
@@ -51,8 +49,20 @@ export function vault(cards = []) {
       </div>
       <div class="vault-layout">
         <section class="vault-list" id="vault-list" aria-label="Cards in your vault">${rows}</section>
-        <aside class="surface-card vault-detail" aria-label="Selected card details">
-          <div class="vault-detail-photo">${frontPhoto}</div>
+        <aside class="surface-card vault-detail" aria-label="Selected card details">${detailMarkup(focus)}</aside>
+      </div>
+    </main>`;
+}
+
+function detailMarkup(focus) {
+  const name = escapeHTML(focus?.name || 'No card selected');
+  const summary = focus ? [focus.setName, focus.year, focus.cardNumber].map(escapeHTML).filter(Boolean).join(' • ') : '';
+  const grade = escapeHTML(focus?.gradeLabel || '');
+  const cert = escapeHTML(focus?.certNumber || '');
+  const frontPhoto = vaultImage(focus, 'vault-detail-photo-empty', 'No front photo available', 'vault-detail-image');
+
+  return `
+<div class="vault-detail-photo">${frontPhoto}</div>
           <div class="vault-detail-header"><div class="detail-heading"><div class="page-eyebrow">CARD DETAILS</div><h2>${name}</h2><p class="muted">${summary}</p></div><button class="vault-edit-button" type="button" onclick="window.__editVault()" aria-label="Edit card details" title="Edit card details">⋯</button></div>
           <div class="detail-identity"><span class="badge">${grade}</span><span class="muted">Cert: ${cert}</span></div>
           ${itemInformation(focus)}
@@ -72,10 +82,33 @@ export function vault(cards = []) {
             <button class="btn btn-primary" type="submit">Save details</button><button class="btn btn-ghost" type="button" onclick="window.__editVault(false)">Cancel</button><button class="btn btn-ghost vault-delete" type="button" onclick="window.__deleteVault('${escapeHTML(focus?.id || '')}')">Delete card</button>
           </div>
           <p class="detail-note" id="vault-edit-message" role="status">Prices and vault details are private.</p>
-          </form>
-        </aside>
-      </div>
-    </main>`;
+          </form>`;
+}
+
+function selectCard(id) {
+  const card = activeCards.find(item => item.id === id);
+  if (!card) return;
+  selectedId = id;
+  document.querySelector('.vault-detail').innerHTML = detailMarkup(card);
+  document.querySelectorAll('.vault-row').forEach(row => {
+    row.setAttribute('aria-pressed', String(row.dataset.cardId === id));
+  });
+}
+
+window.__selectVault = id => {
+  if (vaultBusy || selectedId === id) return;
+  const form = document.getElementById('vault-edit');
+  if (form?.dataset.dirty === 'true' && !confirm('Discard unsaved changes?')) return;
+  selectCard(id);
+};
+
+export function initializeVault() {
+  if (location.search) history.replaceState(history.state, '', '/vault');
+  if (selectedId) selectCard(selectedId);
+  document.querySelector('.vault-detail')?.addEventListener('input', event => {
+    const form = event.target.closest('#vault-edit');
+    if (form) form.dataset.dirty = 'true';
+  });
 }
 
 window.__filterVault = () => {
@@ -88,12 +121,15 @@ window.__filterVault = () => {
   const list = document.getElementById('vault-list');
   const count = document.getElementById('vault-count');
   list.innerHTML = matches.length ? matches.map(listRow).join('') : '<div class="empty-state">No cards match those filters.</div>';
+  document.querySelectorAll('.vault-row').forEach(row => row.setAttribute('aria-pressed', String(row.dataset.cardId === selectedId)));
   count.textContent = `${matches.length} ${matches.length === 1 ? 'card' : 'cards'} shown · Prices stay private to your account and never appear on labels.`;
 };
 
 window.__editVault = (open = true) => {
-  document.getElementById('vault-edit').hidden = !open;
-  if (open) document.querySelector('#vault-edit input').focus();
+  if (vaultBusy) return;
+  if (!open) { selectCard(selectedId); return; }
+  document.getElementById('vault-edit').hidden = false;
+  document.querySelector('#vault-edit input').focus();
 };
 
 window.__saveDetail = async (event, id) => {
@@ -101,8 +137,8 @@ window.__saveDetail = async (event, id) => {
   if (!id) return;
   const button = document.querySelector('.detail-actions .btn-primary');
   button.disabled = true;
-  try {
-    await updateCard(id, {
+  vaultBusy = true;
+  const patch = {
       ...Object.fromEntries(publicFields.map(([key]) => [key, event.target.elements[key].value])),
       buyPrice: document.getElementById('d-buy').value,
       sellPrice: document.getElementById('d-sell').value,
@@ -110,23 +146,30 @@ window.__saveDetail = async (event, id) => {
       boughtFrom: document.getElementById('d-from').value,
       artist: document.getElementById('d-artist').value,
       notes: document.getElementById('d-notes').value
-    });
-    location.href = `/vault?id=${encodeURIComponent(id)}`;
+    };
+  try {
+    await updateCard(id, patch);
+    Object.assign(activeCards.find(card => card.id === id), patch);
+    selectCard(id);
+    window.__filterVault();
   } catch (error) {
     document.getElementById('vault-edit-message').textContent = error.message || 'Details could not be saved.';
     button.disabled = false;
-  }
+  } finally { vaultBusy = false; }
 };
 
 window.__deleteVault = async id => {
   if (!confirm('Delete this card and its photos? Its certificate number will become available for another card.')) return;
+  vaultBusy = true;
   const buttons = document.querySelectorAll('#vault-edit button');
   buttons.forEach(button => { button.disabled = true; });
   try {
     await deleteCard(id);
-    location.href = '/vault';
+    activeCards = activeCards.filter(card => card.id !== id);
+    if (activeCards.length) { selectCard(activeCards[0].id); window.__filterVault(); }
+    else location.reload();
   } catch (error) {
     document.getElementById('vault-edit-message').textContent = error.message || 'Card could not be deleted.';
     buttons.forEach(button => { button.disabled = false; });
-  }
+  } finally { vaultBusy = false; }
 };
