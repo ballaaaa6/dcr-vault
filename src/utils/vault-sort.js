@@ -4,9 +4,10 @@ export function compareVaultCards(a, b, sort) {
   const [field, direction] = sort.split('-');
   const sign = direction === 'desc' ? -1 : 1;
   if (field === 'name') return sign * a.name.localeCompare(b.name);
-  const key = field === 'price' ? 'buyPrice' : 'receivedDate';
+  const key = field === 'cert' ? 'certNumber' : field === 'price' ? 'buyPrice' : 'receivedDate';
   const missing = card => card[key] == null || card[key] === '';
   if (missing(a) || missing(b)) return Number(missing(a)) - Number(missing(b));
+  if (field === 'cert') return sign * (Number(a.certNumber) - Number(b.certNumber));
   if (field === 'price') {
     const group = (a.buyCurrency || 'THB').localeCompare(b.buyCurrency || 'THB');
     return group || sign * (Number(a.buyPrice) - Number(b.buyPrice));
@@ -17,6 +18,7 @@ export function compareVaultCards(a, b, sort) {
 
 const sortOptions = [
   ['name-asc', 'Name: A–Z'], ['name-desc', 'Name: Z–A'],
+  ['cert-asc', 'Cert: Low to High'], ['cert-desc', 'Cert: High to Low'],
   ['price-desc', 'Price: High to Low'], ['price-asc', 'Price: Low to High'],
   ['date-asc', 'Date: Oldest First'], ['date-desc', 'Date: Newest First']
 ];

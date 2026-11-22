@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Sort vault cards by Cert number
+
+- Add ascending and descending Cert number sorting in My Vault and the label picker.
+
 ## 2026-11-23 - Share the dropdown component
 
 - Extract the vault sorting dropdown into a reusable component and document its use for future dropdowns.
