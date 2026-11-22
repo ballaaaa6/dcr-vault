@@ -127,11 +127,14 @@ export function initializeVault() {
 }
 
 window.__filterVault = () => {
-  const query = (document.getElementById('vault-q').value || '').trim().toLowerCase();
+  const input = document.getElementById('vault-q');
+  const query = input.value.trim().toLowerCase();
+  const cert = normalizeCert(query);
+  if (cert) input.value = cert;
   const status = document.getElementById('vault-status').value;
   const matches = activeCards.filter(card => {
     const searchable = [card.name, card.setName, card.certNumber, card.cardNumber].join(' ').toLowerCase();
-    return (!query || searchable.includes(query)) && (!status || card.status === status);
+    return (!query || (cert ? normalizeCert(card.certNumber) === cert : searchable.includes(query))) && (!status || card.status === status);
   });
   const list = document.getElementById('vault-list');
   const count = document.getElementById('vault-count');

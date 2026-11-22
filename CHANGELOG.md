@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Certificate search input
+- Pad numeric vault certificate searches to eight digits and restrict home certificate input to numbers.
+
 ## 2026-11-22 - Vault empty search results
 - Show the no-results message across the full vault layout and hide stale card details.
 
