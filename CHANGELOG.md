@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Preserve certificate background proportions
+
+- Scale certificate artwork proportionally from the right and reduce its opacity to 40%.
+
 ## 2026-11-23 - Link Vault photos to certificates
 
 - Add a centered View Cert button beneath Preview on selected Vault cards.
