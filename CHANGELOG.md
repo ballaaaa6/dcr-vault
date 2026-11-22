@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Improve privacy copyright readability
+
+- Use black text with a white glow for the privacy policy copyright.
+
 ## 2026-11-23 - Improve login copyright readability
 
 - Use black text with a white glow for the login page copyright.
