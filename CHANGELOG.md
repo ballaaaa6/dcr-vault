@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-22 - Update home hero label
+
+- Show Secret Rare on the Crimson Peak illustration.
+
 ## 2026-11-22 - Update home hero artwork
 
 - Replace the home illustration with the selected Crimson Peak artwork and its fictional DCR label.
