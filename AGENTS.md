@@ -34,3 +34,7 @@
 - Review the final diff against the user's request and resolve known gaps before publishing. Follow the user's testing instructions; do not add testing requirements that the user has explicitly excluded.
 - If work cannot be completed, clearly report what remains and why. Leave unfinished changes local unless the user explicitly asks for a partial commit or push.
 - Once the change is complete, commit the finished changes and push them to the configured GitHub `origin` as part of the task. Do not publish secrets, private collection data, generated outputs, or local dependencies. If a push cannot complete, report the blocker and leave the commit ready to push.
+
+## Add Card layout freeze
+
+- Keep every part of the Add Card page layout fixed unless the user explicitly requests further changes to it.

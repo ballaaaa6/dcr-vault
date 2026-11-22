@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Fit the add-card page
+- Reduce image upload and form height on desktop to fit the intake page more comfortably within the screen.
+
 ## 2026-11-22 - Simplify card intake
 - Remove the Notes field from the add-card form.
 
