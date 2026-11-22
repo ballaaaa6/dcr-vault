@@ -58,6 +58,7 @@ export function vault(cards = []) {
       <dialog class="vault-delete-dialog" aria-labelledby="delete-card-title" aria-describedby="delete-card-description">
         <h2 id="delete-card-title">Delete this card?</h2>
         <p id="delete-card-description">This will permanently delete the card and its photos. Its certificate number will be available for another card.</p>
+        <p class="detail-note" data-delete-message role="status"></p>
         <div class="vault-delete-actions"><button class="btn btn-ghost" type="button" data-delete-cancel autofocus>Cancel</button><button class="btn btn-primary" type="button" data-delete-confirm>Delete card</button></div>
       </dialog>
     </main>`;
@@ -96,13 +97,13 @@ function detailMarkup(card, mode = 'item') {
   const editing = mode.startsWith('edit-');
   const privateMode = mode === 'private' || mode === 'edit-private';
   return `<div class="vault-detail-controls"><button class="vault-edit-button vault-detail-flip" type="button" onclick="window.__flipVault()" aria-label="${privateMode ? 'Show item information' : 'Show private vault details'}" title="Switch details">${flipIcon}</button>
-    <details class="vault-menu"><summary class="vault-edit-button" aria-label="Edit options" title="Edit options">⋯</summary><div class="vault-menu-options">
-    <button type="button" onclick="window.__editVault('card')">Edit card</button><button type="button" onclick="window.__editVault('private')">Edit private</button></div></details></div>
+    <details class="vault-menu"><summary class="vault-edit-button" aria-label="Card options" title="Card options">⋯</summary><div class="vault-menu-options">
+    <button type="button" onclick="window.__editVault('card')">Edit card</button><button type="button" onclick="window.__editVault('private')">Edit private</button><button class="vault-delete" type="button" onclick="window.__deleteVault('${escapeHTML(card.id)}')">Delete card</button></div></details></div>
     ${editing ? `<form id="vault-edit" class="vault-edit" data-mode="${mode}" onsubmit="window.__saveDetail(event, '${escapeHTML(card.id)}')">
       <h2>${privateMode ? 'Private vault details' : 'Edit card details'}</h2>
       <p class="detail-note">${privateMode ? 'Prices and vault details are private.' : 'These card details appear on the public certificate.'}</p>
       ${privateMode ? privateInputs(card) : `<div class="vault-edit-grid">${editFields(card)}</div>`}
-      <div class="detail-actions"><button class="btn btn-primary" type="submit">Save details</button><button class="btn btn-ghost" type="button" onclick="window.__cancelVault()">Cancel</button><button class="btn btn-ghost vault-delete" type="button" onclick="window.__deleteVault('${escapeHTML(card.id)}')">Delete card</button></div>
+      <div class="detail-actions"><button class="btn btn-primary" type="submit">Save details</button><button class="btn btn-ghost" type="button" onclick="window.__cancelVault()">Cancel</button></div>
       <p class="detail-note" id="vault-edit-message" role="status"></p></form>` : (privateMode ? privateInformation(card) : itemInformation(card))}`;
 }
 
@@ -210,23 +211,31 @@ window.__deleteVault = id => {
   const dialog = document.querySelector('.vault-delete-dialog');
   const cancel = dialog.querySelector('[data-delete-cancel]');
   const confirmButton = dialog.querySelector('[data-delete-confirm]');
+  if (vaultBusy) return;
+  dialog.querySelector('[data-delete-message]').textContent = '';
+  document.querySelector('.vault-menu').open = false;
   cancel.onclick = () => dialog.close();
-  confirmButton.onclick = () => { dialog.close(); removeVaultCard(id); };
-  dialog.onclick = event => { if (event.target === dialog) dialog.close(); };
+  confirmButton.onclick = () => removeVaultCard(id);
+  dialog.oncancel = event => { if (vaultBusy) event.preventDefault(); };
+  dialog.onclick = event => { if (event.target === dialog && !vaultBusy) dialog.close(); };
   dialog.showModal();
 };
 
 async function removeVaultCard(id) {
   vaultBusy = true;
-  const buttons = document.querySelectorAll('#vault-edit button');
+  const dialog = document.querySelector('.vault-delete-dialog');
+  const buttons = dialog.querySelectorAll('button');
   buttons.forEach(button => { button.disabled = true; });
   try {
     await deleteCard(id);
+    dialog.close();
     activeCards = activeCards.filter(card => card.id !== id);
     if (activeCards.length) { selectCard(activeCards[0].id); window.__filterVault(); }
     else location.reload();
   } catch (error) {
-    document.getElementById('vault-edit-message').textContent = error.message || 'Card could not be deleted.';
+    dialog.querySelector('[data-delete-message]').textContent = error.message || 'Card could not be deleted.';
+  } finally {
     buttons.forEach(button => { button.disabled = false; });
-  } finally { vaultBusy = false; }
+    vaultBusy = false;
+  }
 }

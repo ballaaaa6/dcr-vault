@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Quick card deletion
+- Move card deletion to the vault card options menu and keep the confirmation dialog.
+
 ## 2026-11-22 - Review label details from card readings
 - Ask Gemini for card type, language label and series, allow review and editing, and save the fields for label printing.
 
