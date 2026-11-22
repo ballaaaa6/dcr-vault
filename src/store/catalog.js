@@ -1,5 +1,6 @@
 import {findExactCatalogCardFromCatalog, findSourceCatalogCardFromCatalog, findReadingCandidates, collectorNumbersCompatible} from '../utils/card-identification-matching.js';
 import {findEvidenceCatalogCard} from '../utils/card-evidence-matching.js';
+import {displaySetName} from '../utils/set-name.js';
 
 let catalogPromise;
 let catalogSetRarityOverrides = {};
@@ -69,7 +70,7 @@ async function loadCatalog() {
         const catalogSetId = String(setId ?? '');
         const recordedRarity = catalogRarity(rarity);
         const defaultRarity = language === 'en' ? catalogRarity(catalogSetRarityOverrides[catalogSetId]?.defaultRarity) : '';
-        return {id: String(id ?? ''), language: String(language ?? ''), name: String(name ?? ''), setName: String(setName ?? ''),
+        return {id: String(id ?? ''), language: String(language ?? ''), name: String(name ?? ''), setName: displaySetName(setName),
           year: String(year ?? ''), cardNumber: String(cardNumber ?? ''), rarity: recordedRarity || defaultRarity,
           seriesId: String(seriesId ?? ''), setId: catalogSetId, seriesName: String(seriesName ?? ''),
           metadata: {...catalogMetadata(metadata),

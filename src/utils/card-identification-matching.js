@@ -1,15 +1,17 @@
+import {displaySetName} from './set-name.js';
+
 function normalized(value) {
   return String(value ?? '').trim().normalize('NFKC').replace(/\s+/g, ' ').toLocaleLowerCase('en-US');
 }
 
 export function findExactCatalogCardFromCatalog(cards, fields) {
   const name = normalized(fields.name);
-  const setName = normalized(fields.setName);
+  const setName = normalized(displaySetName(fields.setName));
   const hasYear = Boolean(String(fields.year ?? '').trim());
   const hasNumber = Boolean(String(fields.cardNumber ?? '').trim());
   if (!name || !setName || !hasYear && !hasNumber) return null;
   const matches = cards.filter(card => card.language === 'en'
-    && normalized(card.name) === name && normalized(card.setName) === setName
+    && normalized(card.name) === name && normalized(displaySetName(card.setName)) === setName
     && (!hasNumber || collectorNumbersCompatible(fields.cardNumber, card)));
   if (matches.length === 1 && hasNumber) return matches[0];
   const dated = matches.filter(card => hasYear && String(card.year ?? '').trim() === String(fields.year).trim());

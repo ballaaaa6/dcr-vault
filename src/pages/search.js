@@ -1,5 +1,6 @@
 import './search-photo-preview.js';
 import {formatRarity} from '../utils/rarity.js';
+import {displaySetName} from '../utils/set-name.js';
 import {addCard, checkCert, deleteCardImage, uploadCardImage} from '../store/cards.js';
 import {catalogField, hideAllCatalogSuggestions, installCatalogSuggestions} from './search-catalog.js';
 import {initializeCardRarity, invalidateCardResolution, resolveExactTypedCard, selectCatalogSuggestion} from './search-card-resolution.js';
@@ -228,7 +229,7 @@ function formCard(certNumber) {
   const sourceMatches = sourceLanguage && sourceLanguage === metadata.sourceLanguage;
   return {
     ...identificationProvenance(), game: window.__intakeCatalogGame || 'other', name: document.getElementById('m-name').value.trim(), certNumber,
-    setName: document.getElementById('m-setName').value.trim(), year: document.getElementById('m-year').value.trim(),
+    setName: displaySetName(document.getElementById('m-setName').value), year: document.getElementById('m-year').value.trim(),
     cardTypeLabel: document.getElementById('m-cardTypeLabel').value.trim(),
     series: document.getElementById('m-series').value.trim(), languageLabel: document.getElementById('m-languageLabel').value.trim(),
     yearSeries: metadata.yearSeries, catalogCardId: metadata.catalogCardId,

@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Clarify anniversary set names
+- Display and save the 25th and 30th Celebration set names consistently while retaining catalog set identities.
+
 ## 2026-11-22 - Reconcile Gemini readings with catalog
 - Show Gemini readings first and apply differing catalog values for matched cards while preserving user edits and printed numbers.
 
