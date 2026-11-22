@@ -268,8 +268,20 @@ function appendLabelImage(document, slot, svg, side) {
   slot.appendChild(image);
 }
 
+function adjustSheetGuides(document) {
+  for (const guide of document.querySelectorAll('[data-guide-layer] line')) {
+    const id = guide.getAttribute('data-guide-id');
+    guide.setAttribute('stroke-width', '0.10');
+    if (id.endsWith('-top')) guide.setAttribute('y2', '6.5');
+    if (id.endsWith('-bottom')) guide.setAttribute('y1', '290.5');
+    if (id.endsWith('-left')) guide.setAttribute('x2', '3');
+    if (id.endsWith('-right')) guide.setAttribute('x1', '207');
+  }
+}
+
 export async function renderSheetSvg(labels, side) {
   const document = parseSvg(await sheetMaster);
+  adjustSheetGuides(document);
   const slots = [...document.querySelectorAll('[data-slot="true"]')];
   if (slots.length !== 40) throw new Error('The A4 master must contain exactly 40 label positions.');
   const slotByPosition = new Map(slots.map(slot => [`${slot.dataset.row}:${slot.dataset.col}`, slot]));

@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-11-23 - Export vector label sheets
+
+- Assemble front and back labels as SVG artwork and export vector A4 PDF pages without rasterizing the sheet.
+- Center 0.10 mm cut guides on the label boundaries and leave a 2 mm clearance from the label grid.
+
 ## 2026-11-23 - Show back to top on scrollable pages
 
 - Reuse the back-to-top button on the privacy policy and show it whenever a page has been scrolled down.

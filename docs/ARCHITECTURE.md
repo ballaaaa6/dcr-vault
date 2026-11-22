@@ -74,4 +74,6 @@ Google Identity Services
 - Localized source rarity is looked up only with a unique matching language, printed name, set code, and collector number. English catalog matches with a conflicting year are flagged for review. English rarity used as a fallback for a localized card is flagged for verification.
 
 ## Label PDF export
-- Use jsPDF to create a single A4 PDF with alternating front and back pages for each 40-label sheet. Render approved sheet SVGs at 300 dpi so the browser can export their nested SVG artwork consistently.
+- Use jsPDF to create a single A4 PDF with alternating front and back pages for each 40-label sheet. The exporter inlines the label SVGs and uses svg2pdf.js to preserve vector artwork instead of rasterizing the sheet. The back master's constant-color SVG filter is converted to equivalent solid fills because svg2pdf.js does not support that filter. PDF viewers may show fine seams when antialiasing adjacent shapes.
+
+- Sheet cut guides are 0.10 mm wide, centered on cell boundaries, and stop 2 mm outside the label grid.
