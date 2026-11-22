@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Clear search visibility
+- Show search clear buttons only when their fields contain text.
+
 ## 2026-11-22 - Clear search
 - Add clear buttons to vault and certificate searches, restoring vault cards and clearing certificate results immediately.
 
