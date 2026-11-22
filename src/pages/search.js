@@ -100,7 +100,7 @@ async function checkCertInput() {
   try {
     const result = await checkCert(cert);
     if (version !== certCheckVersion || normalizeCert(input.value) !== cert) return false;
-    setCertState(result.available, result.available ? `Available as ${result.certNumber}.` : `${result.certNumber} is already used in your vault. Choose another number.`, result.available ? 'available' : 'error');
+    setCertState(result.available, result.available ? `Available as ${result.certNumber}.` : `${result.certNumber} is already used. Choose another number.`, result.available ? 'available' : 'error');
     return result.available;
   } catch {
     if (version === certCheckVersion) setCertState(false, 'Could not check this Cert number. Try again.', 'error');

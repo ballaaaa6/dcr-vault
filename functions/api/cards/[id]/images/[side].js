@@ -5,19 +5,21 @@ import {createImageCapability, imageServiceRequest, IMAGE_MAX_BYTES, readImageBo
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const SIDES = new Set(['front', 'back']);
 
-async function scope(request, env, params, requireSameOrigin = false) {
+async function scope(request, env, params, requireSameOrigin = false, publicRead = false) {
   const fetchSite = request.headers.get('Sec-Fetch-Site');
   if (requireSameOrigin && (!sameOrigin(request) || fetchSite && !['same-origin', 'none'].includes(fetchSite))) {
     return {response: json({error: 'Invalid request origin.'}, 403)};
   }
-  const session = await currentUser(request, env);
-  if (session.response) return {response: session.response};
+  const session = publicRead ? null : await currentUser(request, env);
+  if (session?.response) return {response: session.response};
   const cardId = String(params.id || '');
   const side = String(params.side || '');
   if (!UUID.test(cardId) || !SIDES.has(side)) return {response: error('Card image not found.', 404)};
-  const card = await env.DB.prepare('SELECT id FROM cards WHERE id = ? AND user_id = ?')
-    .bind(cardId, session.user.id).first();
-  return card ? {db: env.DB, userId: session.user.id, cardId, side} : {response: error('Card not found in your vault.', 404)};
+  if (!env.DB) return {response: error('Database is not configured.', 503)};
+  const card = publicRead
+    ? await env.DB.prepare('SELECT id, user_id FROM cards WHERE id = ?').bind(cardId).first()
+    : await env.DB.prepare('SELECT id, user_id FROM cards WHERE id = ? AND user_id = ?').bind(cardId, session.user.id).first();
+  return card ? {db: env.DB, userId: card.user_id, cardId, side} : {response: error('Card not found in your vault.', 404)};
 }
 
 async function capability(db, details) {
@@ -75,7 +77,7 @@ export async function onRequestPut({request, env, params}) {
 }
 
 export async function onRequestGet({request, env, params}) {
-  const owner = await scope(request, env, params, true);
+  const owner = await scope(request, env, params, true, true);
   if (owner.response) return owner.response;
   const image = await owner.db.prepare('SELECT object_key, content_type FROM card_images WHERE card_id = ? AND user_id = ? AND side = ?')
     .bind(owner.cardId, owner.userId, owner.side).first();

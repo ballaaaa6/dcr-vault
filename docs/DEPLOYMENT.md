@@ -70,3 +70,7 @@ The workflow generates a temporary `wrangler.toml` from `wrangler.template.toml`
 
 - D1 schema and ownership rules: [DATA-MODEL.md](DATA-MODEL.md)
 - Project runtime and auth flow: [ARCHITECTURE.md](ARCHITECTURE.md)
+
+## Global certificate migration
+
+Before applying migration 0007, check for conflicts with `SELECT cert_number, COUNT(*) AS count FROM cards GROUP BY cert_number HAVING COUNT(*) > 1;`. Resolve conflicting records with their owners before deployment. The migration refuses to apply while duplicates remain; it does not renumber or delete records.

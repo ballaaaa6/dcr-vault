@@ -18,6 +18,11 @@ export async function getCards() {
   return result.cards || [];
 }
 
+export async function getCertificate(cert) {
+  const result = await requestJson(`/api/certificates/${encodeURIComponent(cert)}`);
+  return result.card || null;
+}
+
 export async function addCard(card) {
   const result = await requestJson('/api/cards', {
     method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(card)

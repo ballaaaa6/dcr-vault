@@ -8,7 +8,7 @@ export async function onRequestGet({request, env}) {
   if (session.response) return session.response;
   const certNumber = normalizeCertNumber(new URL(request.url).searchParams.get('cert'));
   if (!certNumber) return error('Enter 1 to 8 digits for the Cert number.');
-  const existing = await env.DB.prepare('SELECT 1 FROM cards WHERE user_id = ? AND cert_number = ? LIMIT 1')
-    .bind(session.user.id, certNumber).first();
+  const existing = await env.DB.prepare('SELECT 1 FROM cards WHERE cert_number = ? LIMIT 1')
+    .bind(certNumber).first();
   return json({certNumber, available: !existing});
 }

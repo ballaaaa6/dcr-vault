@@ -12,7 +12,7 @@ export function loginPage() {
         <div class="auth-showcase-copy">
           <div class="auth-eyebrow"><span></span>COLLECT WITH CONFIDENCE</div>
           <h1 id="auth-brand-title">Every card.<br><span>One trusted vault.</span></h1>
-          <p>Keep your DCR certified collection organized, private, and ready whenever you need it.</p>
+          <p>Keep your DCR certified collection organized and ready whenever you need it.</p>
         </div>
         <div class="auth-visual" aria-hidden="true">
           <div class="auth-ring auth-ring-one"></div><div class="auth-ring auth-ring-two"></div>
@@ -36,7 +36,7 @@ export function loginPage() {
           <p id="login-status" class="auth-status" role="status" aria-live="polite">Loading secure sign-in…</p>
           <div class="auth-divider"><span>YOUR ACCOUNT</span></div>
           <div class="auth-benefit"><span class="auth-benefit-icon" aria-hidden="true">✓</span><p><strong>New to DCR Vault?</strong><br>Your account is created automatically the first time you sign in.</p></div>
-          <div class="auth-benefit"><span class="auth-benefit-icon" aria-hidden="true">⌑</span><p><strong>Private by default</strong><br>Only your account can access its saved card records.</p></div>
+          <div class="auth-benefit"><span class="auth-benefit-icon" aria-hidden="true">⌑</span><p><strong>Your vault, your account</strong><br>Your vault details stay private; certificate details and card photos are public.</p></div>
           <p class="auth-privacy">We use your Google name, email, and profile photo for your account. DCR Vault does not access your Gmail inbox. <a href="/privacy/">Read the privacy policy.</a></p>
         </div>
         <div class="auth-panel-foot"><span>© ${new Date().getFullYear()} DCR CARD VAULT</span><a href="/">BACK TO HOME</a></div>

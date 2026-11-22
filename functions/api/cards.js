@@ -38,10 +38,10 @@ async function insertCard(db, userId, card) {
     if (String(error.message).includes('UNIQUE')) return errorResponse();
     throw error;
   }
-  if (!result.success) return error('A card with this Cert number may already be in your vault.', 409);
+  if (!result.success) return error('This Cert number is already used. Choose another number.', 409);
   return json({card: {...card, id, createdAt: now, updatedAt: now}}, 201);
 }
 
 function errorResponse() {
-  return error('A card with this Cert number may already be in your vault.', 409);
+  return error('This Cert number is already used. Choose another number.', 409);
 }

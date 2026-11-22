@@ -8,16 +8,16 @@ import {loginPage, initializeLogin} from './pages/login.js';
 import {verify} from './pages/verify.js';
 import {initializeCertificateViewer} from './components/certificate-viewer.js';
 import {importPage} from './pages/import.js';
-import {getCards} from './store/cards.js';
+import {getCards, getCertificate} from './store/cards.js';
 import {addVaultImages} from './store/vault-images.js';
 import {escapeHTML} from './utils/format.js';
-import {certificateFromPath} from './utils/cert.js';
+import {certificateFromPath, normalizeCert} from './utils/cert.js';
 
 let renderVersion = 0;
-const privatePaths = new Set(['/search', '/vault', '/label', '/verify', '/import']);
+const privatePaths = new Set(['/search', '/vault', '/label', '/import']);
 
 function footer() {
-  return `<footer class="site-footer no-print"><span>© ${new Date().getFullYear()} DCR Card Vault</span><span>Card records are private to your account.</span></footer>`;
+  return `<footer class="site-footer no-print"><span>© ${new Date().getFullYear()} DCR Card Vault</span><span>Certificate details are public. Your vault details remain private.</span></footer>`;
 }
 
 function failurePage(error) {
@@ -43,13 +43,14 @@ export async function render() {
   let user = null;
   try { user = await getCurrentUser(); } catch {}
   if (version !== renderVersion || location.pathname + location.search !== route) return;
-  if ((privatePaths.has(path) || isCertificate) && !user) { requireLogin(route); return; }
+  if (privatePaths.has(path) && !user) { requireLogin(route); return; }
 
   let content = home();
   try {
     if (path === '/search') content = search();
     else if (path === '/import') content = importPage(user);
-    else if (['/vault', '/label', '/verify'].includes(path) || isCertificate) content = await privatePage(path);
+    else if (path === '/verify' || isCertificate) content = await certificatePage();
+    else if (['/vault', '/label'].includes(path)) content = await privatePage(path);
   } catch (error) { content = failurePage(error); }
   if (version !== renderVersion || location.pathname + location.search !== route) return;
   app.innerHTML = header(path, user) + content + footer();
@@ -63,5 +64,10 @@ async function privatePage(path) {
   const cards = await getCards();
   if (path === '/vault') return vault(await addVaultImages(cards));
   if (path === '/label') return label(cards);
-  return verify(await addVaultImages(cards));
+}
+
+async function certificatePage() {
+  const cert = normalizeCert(certificateFromPath(location.pathname) ?? new URLSearchParams(location.search).get('cert'));
+  const card = cert ? await getCertificate(cert) : null;
+  return verify(card ? await addVaultImages([card]) : []);
 }

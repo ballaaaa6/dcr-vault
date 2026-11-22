@@ -31,7 +31,7 @@ function resultMarkup(cert, cards) {
   const normalized = normalizeCert(cert);
   if (!normalized) return '<div class="lookup-result lookup-error" role="status"><strong>Enter 1 to 8 digits for the certificate number.</strong></div>';
   const card = findByCert(cards, normalized);
-  if (!card) return `<div class="lookup-result lookup-error" role="status"><strong>No record found</strong><p>Certificate ${escapeHTML(normalized)} is not in your account’s collection.</p></div>`;
+  if (!card) return `<div class="lookup-result lookup-error" role="status"><strong>No record found</strong><p>Certificate ${escapeHTML(normalized)} was not found.</p></div>`;
   const subtitle = [card.year, card.setName, card.cardNumber].filter(Boolean).map(escapeHTML).join(' · ');
   return `<article class="cert-record"><h2>${escapeHTML(card.name)}</h2><p class="cert-subtitle">${subtitle}</p>${imageGallery(card)}${itemInformation(card)}</article>`;
 }
@@ -43,7 +43,7 @@ export function verify(cards = []) {
   const cert = normalizeCert(rawCert) || rawCert;
   return `<main class="lookup-page"><section class="lookup-panel" aria-labelledby="lookup-title">
     <div class="lookup-kicker">DCR CARD VAULT</div><h1 id="lookup-title">Certificate lookup</h1>
-    <p class="lookup-description">Search your collection by certificate number.</p>
+    <p class="lookup-description">Search any DCR certificate by number.</p>
     <form class="search-bar lookup-search" onsubmit="window.__searchCertificate(event)">
       <label class="sr-only" for="certificate-search">Certificate number</label>
       <input id="certificate-search" name="cert" type="text" inputmode="numeric" autocomplete="off" maxlength="8" pattern="[0-9]{1,8}" placeholder="Enter 1 to 8 digits" value="${escapeHTML(cert)}" required>

@@ -30,7 +30,7 @@ export function importPage(user) {
         <p>Choose which records to copy into your new account. Review every row and uncheck sample cards from the previous version if they are not yours. Your old browser copy will stay where it is until you clear it.</p>
         <ul class="import-list">${preview || '<li>No card records were found in this browser.</li>'}</ul>
         <div class="import-notice"><strong>What gets copied</strong><span>Card details, Cert numbers, status, prices, notes, and dates. Card photos are not included.</span></div>
-        <p class="import-privacy">Imported records are private to this signed-in account. Cert numbers already in your vault are skipped.</p>
+        <p class="import-privacy">Certificate details are public. Cert numbers already used by any account are skipped. Other vault details remain private.</p>
         <div class="panel-actions">
           ${records.length ? '<button class="btn btn-primary" type="button" data-import-cards>Import selected records</button>' : ''}
           <button class="btn btn-ghost" type="button" data-skip-import>Keep old copy for now</button>

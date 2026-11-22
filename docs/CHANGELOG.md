@@ -6,6 +6,10 @@
 
 # Changelog
 
+## 2026-11-22 - Public certificate lookup
+- Allow anyone to search certificate details and photos without signing in, while keeping vault and account information private.
+- Enforce globally unique certificate numbers and skip conflicting imports. The migration stops if existing numbers conflict.
+
 ## 2026-11-22 - Front photo review notice
 - Warn when card details remain after the front photo changes.
 
