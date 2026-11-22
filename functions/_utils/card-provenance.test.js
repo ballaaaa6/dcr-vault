@@ -9,7 +9,7 @@ import {tokenHash} from './sessions.js';
 test('create and import retain provenance; legacy records remain unknown', async () => {
   const sql = new DatabaseSync(':memory:');
   for (const name of ['0001_users_sessions_cards.sql', '0002_card_images.sql', '0003_card_label_metadata.sql',
-    '0004_card_source_print_identity.sql', '0005_identification_logs.sql', '0006_card_identification_provenance.sql', '0008_card_artist.sql']) {
+    '0004_card_source_print_identity.sql', '0005_identification_logs.sql', '0006_card_identification_provenance.sql', '0008_card_artist.sql', '0009_private_vault_details.sql']) {
     sql.exec(readFileSync(new URL(`../../migrations/${name}`, import.meta.url), 'utf8'));
   }
   sql.prepare('INSERT INTO users(id,google_sub,email,created_at,updated_at) VALUES (?,?,?,?,?)').run('u','g','e',0,0);

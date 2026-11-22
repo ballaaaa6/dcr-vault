@@ -270,3 +270,6 @@
 .vault-detail .vault-edit{margin:0;padding:8px 0 0;border:0}
 .vault-edit h2{font-size:1.25rem;margin:0 0 20px}
 .vault-private dd{text-transform:none;white-space:pre-wrap}
+
+.vault-price-input{display:grid;grid-template-columns:minmax(0,1fr) 100px;gap:8px}
+.vault-edit .form-field[hidden]{display:none}

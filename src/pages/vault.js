@@ -5,18 +5,11 @@ import {itemInformation} from './verify.js';
 import {escapeHTML} from '../utils/format.js';
 import {normalizeCert} from '../utils/cert.js';
 
-const statuses = ['in-vault', 'for-sale', 'sold', 'grading'];
+const sources = ['Facebook', 'Instagram', 'TikTok', 'Shopee', 'Lazada', 'eBay', 'TCGplayer', 'Card shop', 'Card show'];
+const currencies = ['THB', 'USD', 'JPY', 'EUR', 'GBP', 'AUD', 'CAD', 'CNY', 'HKD', 'SGD', 'MYR', 'TWD', 'KRW', 'IDR', 'PHP', 'VND', 'CHF', 'NZD'];
 let activeCards = [];
 let selectedId = '';
 let vaultBusy = false;
-
-function statusOptions(selected) {
-  return statuses.map(status => {
-    const label = status.replace('-', ' ');
-    const active = status === selected ? ' selected' : '';
-    return `<option value="${status}"${active}>${label}</option>`;
-  }).join('');
-}
 
 const publicFields = [
   ['certNumber', 'Cert number', 8], ['name', 'Card name', 120], ['game', 'Brand / Title', 30], ['year', 'Year', 4],
@@ -35,7 +28,7 @@ export function vault(cards = []) {
   const params = new URLSearchParams(location.search);
   const focus = cards.find(card => card.id === params.get('id')) || cards[0];
   selectedId = focus.id;
-  const rows = cards.length ? cards.map(listRow).join('') : '<div class="empty-state">No cards in your vault yet.</div>';
+  const rows = cards.length ? [...cards].sort((a, b) => a.name.localeCompare(b.name)).map(listRow).join('') : '<div class="empty-state">No cards in your vault yet.</div>';
 
   return `
     <main class="app-page vault-page">
@@ -45,7 +38,7 @@ export function vault(cards = []) {
         <p id="vault-count" class="page-description">${cards.length} ${cards.length === 1 ? 'card' : 'cards'} · Prices stay private to your account and never appear on labels.</p>
       </header>
       <form class="vault-toolbar" onsubmit="event.preventDefault(); window.__filterVault()">
-        <label class="vault-status"><span class="sr-only">Filter by status</span><select id="vault-status" class="form-control"><option value="">All status</option>${statusOptions('')}</select></label>
+        <label class="vault-status"><span class="sr-only">Sort by</span><select id="vault-sort" class="form-control" onchange="window.__filterVault()"><option value="name-asc">Name: A–Z</option><option value="name-desc">Name: Z–A</option><option value="price-desc">Price: High to Low</option><option value="price-asc">Price: Low to High</option><option value="date-asc">Date: Oldest First</option><option value="date-desc">Date: Newest First</option></select></label>
         <div class="search-bar vault-query">
           <label class="sr-only" for="vault-q">Search your cards</label><input id="vault-q" placeholder="Search name, set or Cert number">
           <button class="search-button" type="submit"><span>Search</span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><circle cx="10.8" cy="10.8" r="6.3"></circle><path d="m15.5 15.5 4.2 4.2"></path></svg></button>
@@ -67,22 +60,33 @@ export function vault(cards = []) {
 }
 
 const flipIcon = '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-5V2M4 17h5v5M20 7a8 8 0 0 0-14-2M4 17a8 8 0 0 0 14 2"/></svg>';
-const privateFields = [['buyPrice', 'Buy price (THB)'], ['sellPrice', 'Sell price (THB)'],
-  ['status', 'Status'], ['boughtFrom', 'Bought from'], ['artist', 'Artist / Illustrator'], ['notes', 'Notes']];
+const privateKeys = ['buyPrice', 'buyCurrency', 'purchaseSource', 'seller', 'receivedDate', 'notes'];
 
 function privateInformation(card) {
-  return `<section class="cert-information vault-private"><h2>Private vault details</h2><dl>${privateFields.map(([key, label]) =>
-    `<div><dt>${label}</dt><dd>${escapeHTML(card[key] === 0 ? '0' : card[key] || '-')}</dd></div>`).join('')}</dl></section>`;
+  const price = card.buyPrice == null || card.buyPrice === '' ? '-' : `${card.buyCurrency || 'THB'} ${card.buyPrice}`;
+  const fields = [['Buy price', price], ['Source', card.purchaseSource], ['Seller', card.seller],
+    ['Date received', card.receivedDate], ['Notes', card.notes]];
+  if (card.boughtFrom) fields.push(['Bought from (previous)', card.boughtFrom]);
+  return `<section class="cert-information vault-private"><h2>Private vault details</h2><dl>${fields.map(([label, value]) =>
+    `<div><dt>${label}</dt><dd>${escapeHTML(value || '-')}</dd></div>`).join('')}</dl></section>`;
 }
 
 function privateInputs(card) {
-  return `<label class="form-field"><span>Buy price (THB)</span><input class="form-control" name="buyPrice" inputmode="decimal" value="${escapeHTML(card.buyPrice ?? '')}"></label>
-    <label class="form-field"><span>Sell price (THB)</span><input class="form-control" name="sellPrice" inputmode="decimal" value="${escapeHTML(card.sellPrice ?? '')}"></label>
-    <label class="form-field"><span>Status</span><select class="form-control" name="status"><option value="">Select status</option>${statusOptions(card.status || '')}</select></label>
-    <label class="form-field"><span>Bought from</span><input class="form-control" name="boughtFrom" value="${escapeHTML(card.boughtFrom || '')}"></label>
-    <label class="form-field"><span>Artist / Illustrator</span><input class="form-control" name="artist" maxlength="120" value="${escapeHTML(card.artist || '')}"></label>
+  const source = card.purchaseSource || '';
+  const custom = source && !sources.includes(source);
+  return `<div class="form-field"><span>Buy price</span><div class="vault-price-input"><input class="form-control" name="buyPrice" type="number" min="0" step="any" aria-label="Buy price" value="${escapeHTML(card.buyPrice ?? '')}">
+    <select class="form-control" name="buyCurrency" aria-label="Currency">${currencies.map(code => `<option value="${code}"${code === (card.buyCurrency || 'THB') ? ' selected' : ''}>${code}</option>`).join('')}</select></div></div>
+    <label class="form-field"><span>Source</span><select class="form-control" name="sourceChoice" onchange="window.__vaultSourceChange(this)"><option value="">Select source</option>${sources.map(value => `<option${value === source ? ' selected' : ''}>${escapeHTML(value)}</option>`).join('')}<option value="Other"${custom ? ' selected' : ''}>Other</option></select></label>
+    <label class="form-field" id="vault-custom-source" ${custom ? '' : 'hidden'}><span>Other source</span><input class="form-control" name="customSource" maxlength="120" value="${escapeHTML(custom ? source : '')}"></label>
+    <label class="form-field"><span>Seller</span><input class="form-control" name="seller" maxlength="120" value="${escapeHTML(card.seller || '')}"></label>
+    ${card.boughtFrom ? `<p class="detail-note">Bought from (previous): ${escapeHTML(card.boughtFrom)}</p>` : ''}
+    <label class="form-field"><span>Date received</span><input class="form-control" name="receivedDate" type="date" value="${escapeHTML(card.receivedDate || '')}"></label>
     <label class="form-field"><span>Notes</span><textarea class="form-control" name="notes" maxlength="2000" rows="3">${escapeHTML(card.notes || '')}</textarea></label>`;
 }
+
+window.__vaultSourceChange = select => {
+  document.getElementById('vault-custom-source').hidden = select.value !== 'Other';
+};
 
 function detailMarkup(card, mode = 'item') {
   const editing = mode.startsWith('edit-');
@@ -131,19 +135,34 @@ window.__filterVault = () => {
   const query = input.value.trim().toLowerCase();
   const cert = normalizeCert(query);
   if (cert) input.value = cert;
-  const status = document.getElementById('vault-status').value;
+  const sort = document.getElementById('vault-sort').value;
   const matches = activeCards.filter(card => {
     const searchable = [card.name, card.setName, card.certNumber, card.cardNumber].join(' ').toLowerCase();
-    return (!query || (cert ? normalizeCert(card.certNumber) === cert : searchable.includes(query))) && (!status || card.status === status);
+    return (!query || (cert ? normalizeCert(card.certNumber) === cert : searchable.includes(query)));
   });
+  matches.sort((a, b) => compareVaultCards(a, b, sort));
   const list = document.getElementById('vault-list');
   const count = document.getElementById('vault-count');
   document.querySelector('.vault-layout').classList.toggle('is-empty', !matches.length);
   if (matches.length && !matches.some(card => card.id === selectedId)) selectCard(matches[0].id);
   list.innerHTML = matches.length ? matches.map(listRow).join('') : '<div class="empty-state">No cards match those filters.</div>';
   document.querySelectorAll('.vault-row').forEach(row => row.setAttribute('aria-pressed', String(row.dataset.cardId === selectedId)));
-  count.textContent = `${matches.length} ${matches.length === 1 ? 'card' : 'cards'} shown · Prices stay private to your account and never appear on labels.`;
+  count.textContent = `${matches.length} ${matches.length === 1 ? 'card' : 'cards'} shown · ${sort.startsWith('price') ? 'Prices are grouped by currency; no conversion is applied.' : 'Prices stay private to your account and never appear on labels.'}`;
 };
+
+function compareVaultCards(a, b, sort) {
+  const [field, direction] = sort.split('-');
+  const sign = direction === 'desc' ? -1 : 1;
+  if (field === 'name') return sign * a.name.localeCompare(b.name);
+  const key = field === 'price' ? 'buyPrice' : 'receivedDate';
+  const missing = card => card[key] == null || card[key] === '';
+  if (missing(a) || missing(b)) return Number(missing(a)) - Number(missing(b));
+  if (field === 'price') {
+    const group = (a.buyCurrency || 'THB').localeCompare(b.buyCurrency || 'THB');
+    return group || sign * (Number(a.buyPrice) - Number(b.buyPrice));
+  }
+  return sign * a.receivedDate.localeCompare(b.receivedDate);
+}
 
 function changeMode(mode) {
   if (vaultBusy) return;
@@ -167,8 +186,9 @@ window.__saveDetail = async (event, id) => {
   button.disabled = true;
   vaultBusy = true;
   const privateMode = event.target.dataset.mode === 'edit-private';
-  const keys = privateMode ? privateFields.map(([key]) => key) : publicFields.map(([key]) => key);
+  const keys = privateMode ? privateKeys.filter(key => key !== 'purchaseSource') : publicFields.map(([key]) => key);
   const patch = Object.fromEntries(keys.map(key => [key, event.target.elements[key].value]));
+  if (privateMode) patch.purchaseSource = event.target.elements.sourceChoice.value === 'Other' ? event.target.elements.customSource.value : event.target.elements.sourceChoice.value;
   if (!privateMode) patch.certNumber = normalizeCert(patch.certNumber);
   try {
     await updateCard(id, patch);

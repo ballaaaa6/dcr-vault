@@ -45,7 +45,8 @@ export function normalizeCard(input) {
     gradeLabel: text(input.gradeLabel, 60), artist: text(input.artist, 120), certNumber, status,
     buyPrice: price(input.buyPrice), sellPrice: price(input.sellPrice), buyDate: text(input.buyDate, 20),
     soldDate: text(input.soldDate, 20), boughtFrom: text(input.boughtFrom, 120),
-    soldTo: text(input.soldTo, 120), notes: text(input.notes, 2000)
+    soldTo: text(input.soldTo, 120), buyCurrency: text(input.buyCurrency, 3) || 'THB',
+    purchaseSource: text(input.purchaseSource, 120), seller: text(input.seller, 120), receivedDate: text(input.receivedDate, 10), notes: text(input.notes, 2000)
   };
 }
 
@@ -59,7 +60,8 @@ export function cardResponse(row) {
     cardNumber: row.card_number, rarity: row.rarity, gradeLabel: row.grade_label, artist: row.artist || '',
     certNumber: row.cert_number, status: row.status, buyPrice: row.buy_price,
     sellPrice: row.sell_price, buyDate: row.buy_date, soldDate: row.sold_date,
-    boughtFrom: row.bought_from, soldTo: row.sold_to, notes: row.notes,
+    boughtFrom: row.bought_from, soldTo: row.sold_to, buyCurrency: row.buy_currency || 'THB',
+    purchaseSource: row.purchase_source || '', seller: row.seller || '', receivedDate: row.received_date || '', notes: row.notes,
     frontImage: row.front_object_key ? `/api/cards/${encodeURIComponent(row.id)}/images/front` : '',
     backImage: row.back_object_key ? `/api/cards/${encodeURIComponent(row.id)}/images/back` : '',
     createdAt: row.created_at, updatedAt: row.updated_at
@@ -71,5 +73,5 @@ export function cardValues(card) {
     card.sourceLanguage, card.sourceSetId, card.sourceCardId, card.sourceFinish, card.cardNumber, card.rarity,
     card.gradeLabel, card.certNumber, card.status, card.buyPrice, card.sellPrice,
     card.buyDate, card.soldDate, card.boughtFrom, card.soldTo, card.notes,
-    card.identificationStatus, JSON.stringify(card.fieldProvenance), card.artist];
+    card.identificationStatus, JSON.stringify(card.fieldProvenance), card.artist, card.buyCurrency, card.purchaseSource, card.seller, card.receivedDate];
 }

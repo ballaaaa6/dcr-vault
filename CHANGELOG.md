@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-22 - Private vault details and sorting
+- Add purchase currency, source, seller and received date; preserve previous private details.
+- Sort vault cards by name, purchase price grouped by currency, or received date.
+
 ## 2026-11-22 - Certificate search input
 - Pad numeric vault certificate searches to eight digits and restrict home certificate input to numbers.
 

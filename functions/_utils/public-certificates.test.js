@@ -11,7 +11,7 @@ import {tokenHash} from './sessions.js';
 function database() {
   const sql = new DatabaseSync(':memory:');
   for (const name of ['0001_users_sessions_cards.sql', '0002_card_images.sql', '0003_card_label_metadata.sql',
-    '0004_card_source_print_identity.sql', '0005_identification_logs.sql', '0006_card_identification_provenance.sql', '0008_card_artist.sql']) {
+    '0004_card_source_print_identity.sql', '0005_identification_logs.sql', '0006_card_identification_provenance.sql', '0008_card_artist.sql', '0009_private_vault_details.sql']) {
     sql.exec(readFileSync(new URL(`../../migrations/${name}`, import.meta.url), 'utf8'));
   }
   const DB = {prepare: query => ({bind: (...values) => ({
@@ -76,9 +76,13 @@ test('only the owner can edit certificate fields or delete and release a certifi
   assert.equal((await patch(context('PATCH', 'b', {name: 'Intruder'}))).status, 404);
   assert.equal((await remove(context('DELETE', 'b'))).status, 404);
   assert.equal((await patch(context('PATCH', 'a', {name: 'After', rarity: 'Rare'}))).status, 200);
+  assert.equal((await patch(context('PATCH', 'a', {buyPrice: '50', buyCurrency: 'USD', purchaseSource: 'Facebook', seller: 'Shop', receivedDate: '2026-11-22'}))).status, 200);
+  const privateRow = sql.prepare('SELECT buy_price, buy_currency, purchase_source, seller, received_date FROM cards WHERE id = ?').get(id);
+  assert.deepEqual({...privateRow}, {buy_price: 50, buy_currency: 'USD', purchase_source: 'Facebook', seller: 'Shop', received_date: '2026-11-22'});
   const result = await (await lookup({env: {DB}, params: {cert: '1'}})).json();
   assert.equal(result.card.name, 'After');
   assert.equal(result.card.rarity, 'Rare');
+  for (const field of ['buyCurrency', 'purchaseSource', 'seller', 'receivedDate']) assert.equal(field in result.card, false);
   assert.equal((await patch(context('PATCH', 'b', {certNumber: '2'}))).status, 404);
   assert.equal((await patch(context('PATCH', 'a', {certNumber: 'bad'}))).status, 400);
   sql.prepare('INSERT INTO cards(id,user_id,name,cert_number,created_at,updated_at) VALUES (?,?,?,?,?,?)')
