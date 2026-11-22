@@ -2,6 +2,9 @@
 
 Times are commit times in Bangkok time (UTC+7); older entries without a time have no matching commit record.
 
+## 2026-11-22 - Enlarge profile photo preview
+- Show the profile photo centered in a nearly full-screen preview.
+
 ## 2026-11-22 - Make personal details read-only by default
 - Show the display name as text until the profile edit button is selected.
 
