@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Align sticky label panels
+
+- Align the sheet list heading with the certificate panel while scrolling on desktop.
+
 ## 2026-11-23 - Style page scrollbar
 
 - Add a slim red page scrollbar and restore its visibility on the Labels page.

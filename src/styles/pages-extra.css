@@ -154,7 +154,7 @@
 .label-edit-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .label-edit-preview{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
 .label-edit-preview svg{width:100%;height:auto}
-@media(min-width:761px){#app:has(.label-page) .site-footer{padding-top:8px;padding-bottom:10px}.label-add{position:sticky;top:92px}}
+@media(min-width:761px){#app:has(.label-page) .site-footer{padding-top:8px;padding-bottom:10px}.label-add{position:sticky;top:92px}.label-list-heading{top:92px}}
 @media(max-width:760px){.label-list-heading{margin:-19px -19px 0;padding:19px 19px 0;border-radius:17px 17px 0 0}.label-workspace{grid-template-columns:1fr}.label-row{flex-wrap:wrap}.label-row-info{flex-basis:calc(100% - 50px)}.label-row-state{margin-left:36px}.label-edit-grid,.label-edit-preview{grid-template-columns:1fr}}
 
 .label-row-actions{display:flex;align-items:center;gap:12px;margin-left:auto}
