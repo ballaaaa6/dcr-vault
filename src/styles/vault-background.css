@@ -1,5 +1,5 @@
 .vault-row[data-vault-art]{position:relative;isolation:isolate;background-color:var(--dcr-white)}
-.vault-layout:not(.is-unselected) .vault-row[data-vault-art]::before{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;background:var(--vault-short) right center / cover no-repeat;mask-image:linear-gradient(to right,transparent 0%,black 70%);-webkit-mask-image:linear-gradient(to right,transparent 0%,black 70%)}
+.vault-layout:not(.is-unselected) .vault-row[data-vault-art]::before{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;background:var(--vault-short) right center / cover no-repeat;filter:brightness(30%);mask-image:linear-gradient(to right,transparent 0%,black 70%);-webkit-mask-image:linear-gradient(to right,transparent 0%,black 70%)}
 .vault-layout.is-unselected .vault-row[data-vault-art]{background-image:var(--vault-long);background-position:center;background-size:auto 180%;background-repeat:no-repeat}
 .vault-row[aria-pressed=true]{background-color:var(--dcr-red);color:var(--dcr-white);border-color:var(--dcr-red)}
 .vault-row[aria-pressed=true] .muted,.vault-row[aria-pressed=true] .row-arrow{color:var(--dcr-white)}

@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Dim short Vault backgrounds
+
+- Set short-row artwork brightness to 30% while keeping its existing fade.
+
 ## 2026-11-23 - Refresh short Vault backgrounds
 
 - Replace the 18 short-row illustrations and fade them in from the left through 70% of the row on both white and selected red backgrounds.
