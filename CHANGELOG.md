@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Stable certificate viewer layout
+- Keep the viewer controls, thumbnails, and text in place when switching between images of different sizes.
+
 ## 2026-11-22 - Larger certificate images
 - Scale certificate viewer images to use the available screen height while preserving their proportions.
 
