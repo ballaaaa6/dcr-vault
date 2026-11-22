@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Recover missing card details
+- Fill the illustrator from Gemini and use corroborated catalog evidence to suggest missing intake details while preserving printed numbers and user edits.
+
 ## 2026-11-22 - Keep card intake stable after reading
 - Show intake status messages without moving the card form or image fields.
 

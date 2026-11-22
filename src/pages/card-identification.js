@@ -1,6 +1,6 @@
 import {formatRarity} from '../utils/rarity.js';
 import {identifyCardImage} from '../store/cards.js';
-import {findSourceCatalogCard, findSourceCandidates} from '../store/catalog.js';
+import {findSourceCatalogCard, findSourceCandidates, findEvidenceCard} from '../store/catalog.js';
 import {escapeHTML} from '../utils/format.js';
 import {invalidateCatalogSuggestions} from './search-catalog.js';
 import {invalidateCardResolution} from './search-card-resolution.js';
@@ -8,6 +8,7 @@ import {cardLabelMetadata} from '../utils/label-metadata.js';
 import {readingSummaryMarkup} from './card-identification-view.js';
 import {intakeValues} from '../utils/intake-reading.js';
 import {candidateConflicts, readingConflicts} from '../utils/card-identification-matching.js';
+import {fillMissingCatalogValues, safeReadingErrorMessage, canRetryIdentification} from './card-identification-helpers.js';
 
 let analysisVersion = 0;
 let analysisBusy = false;
@@ -103,11 +104,12 @@ function fillGeminiValues(fields, requestId) {
   Object.assign(fieldProvenance, userFields);
   appliedValues = {};
   const labelValues = {cardTypeLabel: fields.cardTypeLabel, series: fields.series,
-    sourceLanguage: fields.language, languageLabel: fields.languageLabel};
+    sourceLanguage: fields.language, languageLabel: fields.languageLabel, artist: fields.illustrator};
   for (const [key, value] of Object.entries(labelValues)) {
     if (fieldProvenance[key] === 'user') continue;
     const input = document.getElementById(`m-${key}`);
     input.value = value || '';
+    fieldProvenance[key] = value ? 'gemini' : 'unknown';
     appliedValues[key] = input.value;
   }
   for (const [key, value] of Object.entries(values)) {
@@ -133,6 +135,11 @@ function catalogDifferences(values, source) {
 async function applyReading(fields, version, requestId, values) {
   let catalogUnavailable = false;
   let source = await findSourceCatalogCard(fields).catch(() => { catalogUnavailable = true; return null; });
+  let evidenceMatch = false;
+  if (!source && !catalogUnavailable) {
+    source = await findEvidenceCard(fields).catch(() => { catalogUnavailable = true; return null; });
+    evidenceMatch = Boolean(source);
+  }
   let candidates = [];
   if (!source && !catalogUnavailable) {
     candidates = await findSourceCandidates(fields).catch(() => { catalogUnavailable = true; return []; });
@@ -140,28 +147,30 @@ async function applyReading(fields, version, requestId, values) {
   if (version !== analysisVersion) return null;
   const differences = catalogDifferences(values, source);
   if (source && (userValuesConflict(values) || differences.length)) {
-    candidates.unshift(source);
+    if (!evidenceMatch) candidates.unshift(source);
     source = null;
   }
+  if (source) fillMissingCatalogValues(fields, source, fieldProvenance, appliedValues);
   const sourceLanguage = fields.language || 'unknown';
-  identificationStatus = source ? 'matched' : 'unresolved';
-  window.__intakeIdentityReviewRequired = !source;
-  const selected = sourceLanguage === 'en' && source
+  identificationStatus = source && !evidenceMatch ? 'matched' : 'unresolved';
+  window.__intakeIdentityReviewRequired = !source || evidenceMatch;
+  const selected = sourceLanguage === 'en' && source && !evidenceMatch
     ? {...source, sourceLanguage, sourceSetId: source.setId, sourceCardId: source.id, sourceFinish: ''}
-    : {...values, language: sourceLanguage, sourceLanguage, sourceSetId: source?.setId || '',
+    : {...values, ...Object.fromEntries(['setName', 'year', 'rarity'].map(key => [key, document.getElementById(`m-${key}`).value])), language: sourceLanguage, sourceLanguage, sourceSetId: source?.setId || '',
       sourceCardId: source?.id || '', setCode: fields.setCode || '', sourceFinish: '', catalogCardId: '', id: ''};
   const metadata = cardLabelMetadata(selected);
   window.__intakeCatalogCard = {...selected, ...metadata};
   const conflicts = readingConflicts(fields);
   const matchNote = differences.length ? `Catalog differs: ${differences.join('; ')}. Review the photo and correct the form.`
     : conflicts.length ? 'Conflicting anniversary stamp readings. Review the photo before selecting a set.'
-      : source ? 'Printed-language catalog record found. Check stamp and finish; the variant is not verified.'
+      : source && evidenceMatch ? 'Possible catalog match based on card details. Missing fields were filled for review; verify the set, rarity, stamp and finish.'
+        : source ? 'Printed-language catalog record found. Check stamp and finish; the variant is not verified.'
         : catalogUnavailable ? 'Catalog unavailable; review the Gemini values before saving.'
           : 'No verified printed-language record found. Review the Gemini values before saving.';
   const englishNote = sourceLanguage !== 'en'
     ? ' Card number is the printed number; English name is a translation to review.' : '';
   document.getElementById('manual-status').textContent = `${matchNote}${englishNote}`;
-  logIdentificationStage('browser', {match: source ? 'matched' : catalogUnavailable ? 'catalog_unavailable' : 'unresolved',
+  logIdentificationStage('browser', {match: source ? evidenceMatch ? 'evidence_review' : 'matched' : catalogUnavailable ? 'catalog_unavailable' : 'unresolved',
     candidates: candidates.map(card => card.id), provenance: fieldProvenance, conflicts: [...conflicts, ...differences]});
   return {source, candidates, matchNote, englishNote};
 }
@@ -255,22 +264,9 @@ async function analyzeFront() {
   }
 }
 
-function safeReadingErrorMessage(error) {
-  if (/not configured/i.test(error?.message || '')) return 'Card reading is not configured for this deployment.';
-  if (error?.code === 'gemini_quota' || error?.status === 429) return 'Gemini request quota was reached. Try again later.';
-  if (error?.code === 'gemini_configuration') return 'Gemini API settings need to be fixed by the site administrator.';
-  if (error?.status === 503) return 'Gemini card reading is temporarily unavailable. Try again in a moment.';
-  if (error?.status === 422) return 'Gemini could not identify this card. Try a clearer front image.';
-  return error?.message || 'Card reading could not be completed. Try again in a moment.';
-}
-
-function canRetryIdentification(error) {
-  return error?.status === 429 || error?.status >= 500 || !error?.status;
-}
-
 document.addEventListener('input', event => {
   const key = event.target.id?.replace(/^m-/, '');
-  if (['name', 'setName', 'year', 'cardNumber', 'rarity', 'cardTypeLabel', 'series', 'sourceLanguage', 'languageLabel'].includes(key)) {
+  if (['name', 'setName', 'year', 'cardNumber', 'rarity', 'cardTypeLabel', 'series', 'sourceLanguage', 'languageLabel', 'artist'].includes(key)) {
     if (analysisBusy) analysisVersion += 1;
     candidateState = null;
     fieldProvenance[key] = 'user';

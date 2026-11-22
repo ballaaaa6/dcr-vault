@@ -1,4 +1,5 @@
-import {findExactCatalogCardFromCatalog, findSourceCatalogCardFromCatalog, findReadingCandidates} from '../utils/card-identification-matching.js';
+import {findExactCatalogCardFromCatalog, findSourceCatalogCardFromCatalog, findReadingCandidates, collectorNumbersCompatible} from '../utils/card-identification-matching.js';
+import {findEvidenceCatalogCard} from '../utils/card-evidence-matching.js';
 
 let catalogPromise;
 let catalogSetRarityOverrides = {};
@@ -131,4 +132,8 @@ export async function findSourceCatalogCard(fields) {
 
 export async function findSourceCandidates(fields) {
   return findReadingCandidates(await loadCatalog(), fields);
+}
+
+export async function findEvidenceCard(fields) {
+  return findEvidenceCatalogCard(await loadCatalog(), fields, collectorNumbersCompatible);
 }
