@@ -130,7 +130,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=dcr-vault --branch=main
+          command: pages deploy dist --project-name=dcrcards --branch=main
 
       - name: Report skipped deployment
         if: ${{ steps.cloudflare-config.outputs.configured != 'true' }}

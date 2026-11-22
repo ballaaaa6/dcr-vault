@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-11-22 - Certificate viewer image size
+- Enlarge the viewer image and reduce the footer text size to make better use of the screen.
+
+## 2026-11-22 - Production site address
+- Deploy the site to dcrcards.pages.dev and retain the existing project for image authorization and older links.
+
 ## 2026-11-22 - Certificate viewer copyright text
 - Complete the DCR attribution and copyright text below certificate images.
 

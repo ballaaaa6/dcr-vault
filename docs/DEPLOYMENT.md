@@ -2,15 +2,15 @@
 
 ## Current production target
 
-- Site: https://dcr-vault.pages.dev
-- Pages project: `dcr-vault`
+- Site: https://dcrcards.pages.dev
+- Pages project: `dcrcards`. Keep `dcr-vault` available: the Oracle image service uses its `/api/media/authorize` endpoint, and existing links still point to it.
 - The project uses Direct Upload. `.github/workflows/pages-deployment.yml` builds the site and deploys with Wrangler; Functions are included from the root `functions/` directory.
 - The workflow applies pending D1 migrations before deployment. It skips publishing if Google OAuth, D1, or the validated Oracle origin configuration is missing.
 
 ## One-time Google sign-in setup
 
 1. In Google Cloud Console, configure an External OAuth app for DCR Card Vault and select a support email. The current app is in Testing status.
-2. Create a Web application OAuth client with authorized JavaScript origins `https://dcr-vault.pages.dev` and `http://localhost:5173`.
+2. Create a Web application OAuth client with authorized JavaScript origins `https://dcrcards.pages.dev`, `https://dcr-vault.pages.dev`, and `http://localhost:5173`.
 3. Add the client ID as the GitHub Actions repository variable `GOOGLE_CLIENT_ID`. It is a public identifier, not a client secret. The app requests only the basic sign-in scopes `openid`, `email`, and `profile`; it does not request Gmail API access.
 Google's current OAuth app-state documentation says external apps in Testing are generally limited to test users, but apps that request only `openid`, `email`, and `profile` are an exception and can be accessed by any Google account. Users may still see a testing notice. This setup is intended to allow self-registration with those basic scopes.
 
@@ -28,7 +28,7 @@ Google's ID token is verified by the server before account creation. Do not repl
 
 ## Gemini card-reading secret
 
-The Add Card identification Function calls `gemini-3.5-flash-lite` directly from Cloudflare Pages. Set `GEMINI_API_KEYS` as a Pages secret for the `dcr-vault` project, with one key per line. The server remembers a working key per isolate and advances after key rejection, configuration errors, timeouts, network errors, or upstream failures. A quota/rate-limit response is returned immediately without trying another key. The legacy single-key `GEMINI_API_KEY` secret remains supported and is appended as a final fallback when both secrets exist. Use a newly issued key if a prior key was pasted into a chat or committed by mistake. Do not put keys in source, `wrangler.template.toml`, GitHub Actions logs, or browser code. Wrangler can add the pool with `npx wrangler pages secret put GEMINI_API_KEYS --project-name dcr-vault`, reading the value from secure input; never append key values as command arguments.
+The Add Card identification Function calls `gemini-3.5-flash-lite` directly from Cloudflare Pages. Set `GEMINI_API_KEYS` as a Pages secret for the `dcrcards` project, with one key per line. The server remembers a working key per isolate and advances after key rejection, configuration errors, timeouts, network errors, or upstream failures. A quota/rate-limit response is returned immediately without trying another key. The legacy single-key `GEMINI_API_KEY` secret remains supported and is appended as a final fallback when both secrets exist. Use a newly issued key if a prior key was pasted into a chat or committed by mistake. Do not put keys in source, `wrangler.template.toml`, GitHub Actions logs, or browser code. Wrangler can add the pool with `npx wrangler pages secret put GEMINI_API_KEYS --project-name dcrcards`, reading the value from secure input; never append key values as command arguments.
 
 After a signed-in user clicks Identify card, the Add Card request sends the front image to Google's Gemini API. Gemini returns a direct card identification and evidence; an optional exact English catalog lookup adds catalog and label metadata. The identification endpoint does not save the image or reading. The user reviews the filled form and clicks Add to Vault to save card details and photos.
 
