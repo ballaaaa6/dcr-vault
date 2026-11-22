@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Simplify profile heading
+
+- Remove the Your Account label above My profile.
+
 ## 2026-11-23 - Set short Vault row text colors
 
 - Use black text with a white glow on unselected short rows and white text with a dark glow on the selected row.
