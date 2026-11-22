@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Uppercase certificate information
+- Display all item information in uppercase on certificate records.
+
 ## 2026-11-22 - Certificate information
 - Show the saved condition, full language name, and Brand/Title on certificate records while preserving printed collector numbers.
 
