@@ -34,6 +34,8 @@
 - Review the final diff against the user's request and resolve known gaps before publishing. Follow the user's testing instructions; do not add testing requirements that the user has explicitly excluded.
 - If work cannot be completed, clearly report what remains and why. Leave unfinished changes local unless the user explicitly asks for a partial commit or push.
 - Once the change is complete, commit the finished changes and push them to the configured GitHub `origin` as part of the task. Do not publish secrets, private collection data, generated outputs, or local dependencies. If a push cannot complete, report the blocker and leave the commit ready to push.
+- Before pushing a code change, run the deployment workflow's applicable local tests, validation, and build against the finished changes; fix failures before pushing. Follow any explicit user testing instructions.
+- After pushing, wait for the Cloudflare Pages deployment workflow for the exact pushed commit to finish. Check that the deployment step actually succeeded; a skipped deployment or a successful build alone is not a successful deployment. Fix failures and verify the replacement deployment before reporting the work complete. If verification is impossible or deployment fails for an external reason, report the precise status and blocker instead of claiming success.
 
 ## Add Card layout freeze
 

@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Verify deployments before delivery
+
+- Require local deployment checks before pushing and confirmation that the pushed commit deployed successfully before reporting work complete.
+
 ## 2026-11-23 - Expand the account menu
 
 - Add grouped account menu items and icons, with Profile and Log out connected to their existing actions.
