@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Illustrated login concepts
+- Add five animated login previews with newly generated collector-themed imagery.
+
 ## 2026-11-22 - Login design concepts
 - Add five standalone login design previews for review, with the existing Google sign-in represented as a mockup.
 
