@@ -29,7 +29,6 @@ function requireLogin(route) {
 }
 
 export async function render() {
-  if (location.pathname === '/search') history.replaceState(null, '', `/register${location.search}${location.hash}`);
   const version = ++renderVersion;
   const route = location.pathname + location.search;
   const path = location.pathname;

@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Remove old intake route
+- Remove the unused /search redirect now that card intake uses /register.
+
 ## 2026-11-22 - Register page
 - Rename the Add Card URL to /register, preserve old links, and reduce desktop vertical spacing.
 
