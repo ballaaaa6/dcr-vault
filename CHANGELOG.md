@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Card photo preview sizing
+- Fit the complete photo within the preview popup without a scrollbar.
+
 ## 2026-11-22 - Card photo preview
 - Add a full-size popup preview for both selected card photos.
 
