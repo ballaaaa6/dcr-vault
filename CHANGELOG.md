@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Strengthen copyright glow
+
+- Use white copyright text with a stronger black glow on the login and privacy policy pages.
+
 ## 2026-11-23 - Align privacy return button
 
 - Align Back to Login with the login page's Back to Home button.
