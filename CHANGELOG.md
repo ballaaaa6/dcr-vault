@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-22 - Translate rocket button label
+
+- Display TOP on the original rocket artwork.
+
 ## 2026-11-22 - Add rocket back-to-top button
 
 - Add the TipsBlocks Rocket Return button to scroll back to the top of long pages.

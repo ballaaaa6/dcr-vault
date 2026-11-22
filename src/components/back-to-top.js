@@ -4,7 +4,7 @@ export function initializeBackToTop() {
   button.className = 'back-to-top';
   button.setAttribute('aria-label', 'Back to top');
   button.title = 'Back to top';
-  button.innerHTML = '<img src="/assets/rocket-return.png" alt="">';
+  button.innerHTML = '<span class="back-to-top-art"><img src="/assets/rocket-return.png" alt=""><span class="back-to-top-label" aria-hidden="true">TOP</span></span>';
   document.body.append(button);
 
   function updateVisibility() {
