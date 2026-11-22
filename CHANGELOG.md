@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Sort cards in the label picker
+
+- Add the My Vault sorting dropdown beside Select all, preserving card selections when sorting.
+
 ## 2026-11-23 - Further soften label backgrounds
 
 - Reduce the label panel background images to 15% opacity.

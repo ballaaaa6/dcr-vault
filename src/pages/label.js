@@ -1,3 +1,4 @@
+import {compareVaultCards, vaultSortSelect} from '../utils/vault-sort.js';
 import {getCertificate} from '../store/cards.js';
 import {vaultImage} from '../components/card-item.js';
 import {escapeHTML as esc} from '../utils/format.js';
@@ -104,8 +105,8 @@ function heartCheckbox(attributes) {
 }
 
 function chooseVault() {
-  const cards = vaultCards.filter(card => String(card.game).toLowerCase() === 'pokemon');
-  dialog(`${dialogHead('Choose from My Vault')}<p class="muted label-dialog-description">Select the cards to add to your sheets.</p><label class="label-select-all">${heartCheckbox(`data-label-select-all ${cards.some(card => !entries.some(item => item.cert === normalizeCert(card.certNumber))) ? '' : 'disabled'}`)} Select all</label><div class="label-vault-list">${cards.map(card => `<label>${heartCheckbox(`value="${esc(normalizeCert(card.certNumber))}" ${entries.some(item => item.cert === normalizeCert(card.certNumber)) ? 'disabled' : ''}`)}<span><strong>${esc(card.name)}</strong><small>Cert ${esc(normalizeCert(card.certNumber))}</small></span><span class="label-card-image">${cardPhoto(card)}</span></label>`).join('') || '<p>No Pokémon cards in your vault.</p>'}</div><div class="label-controls"><button class="btn btn-primary" data-label-action="add-vault">Add selected</button></div>`);
+  const cards = vaultCards.filter(card => String(card.game).toLowerCase() === 'pokemon').sort((a, b) => compareVaultCards(a, b, 'date-desc'));
+  dialog(`${dialogHead('Choose from My Vault')}<p class="muted label-dialog-description">Select the cards to add to your sheets.</p><div class="label-vault-toolbar"><label class="label-select-all">${heartCheckbox(`data-label-select-all ${cards.some(card => !entries.some(item => item.cert === normalizeCert(card.certNumber))) ? '' : 'disabled'}`)} Select all</label>${vaultSortSelect('label-vault-sort')}</div><div class="label-vault-list">${cards.map(card => `<label>${heartCheckbox(`value="${esc(normalizeCert(card.certNumber))}" ${entries.some(item => item.cert === normalizeCert(card.certNumber)) ? 'disabled' : ''}`)}<span><strong>${esc(card.name)}</strong><small>Cert ${esc(normalizeCert(card.certNumber))}</small></span><span class="label-card-image">${cardPhoto(card)}</span></label>`).join('') || '<p>No Pokémon cards in your vault.</p>'}</div><div class="label-controls"><button class="btn btn-primary" data-label-action="add-vault">Add selected</button></div>`);
 }
 
 function viewLabel(cert) {
@@ -168,6 +169,11 @@ function updateVaultSelection() {
 
 document.addEventListener('change', event => {
   if (!page()) return;
+  if (event.target.matches('#label-vault-sort')) {
+    const list = document.querySelector('.label-vault-list');
+    const cards = new Map(vaultCards.map(card => [normalizeCert(card.certNumber), card]));
+    [...list.querySelectorAll('label')].sort((a, b) => compareVaultCards(cards.get(a.querySelector('input').value), cards.get(b.querySelector('input').value), event.target.value)).forEach(row => list.append(row));
+  }
   if (event.target.matches('[data-label-select-all]')) {
     document.querySelectorAll('.label-vault-list input:not(:disabled)').forEach(box => { box.checked = event.target.checked; });
   }

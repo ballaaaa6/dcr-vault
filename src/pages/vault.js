@@ -1,3 +1,4 @@
+import {compareVaultCards, vaultSortSelect} from '../utils/vault-sort.js';
 import {searchClearButton} from '../components/search-clear.js';
 import {datePicker, initializeDatePicker} from '../components/date-picker.js';
 import {deleteCard, updateCard} from '../store/cards.js';
@@ -47,7 +48,7 @@ export function vault(cards = []) {
         <p id="vault-count" class="page-description">${cards.length} ${cards.length === 1 ? 'card' : 'cards'} · Prices stay private to your account and never appear on labels.</p>
       </header>
       <form class="vault-toolbar" onsubmit="event.preventDefault(); window.__filterVault()">
-        <label class="vault-status"><span class="sr-only">Sort by</span><select id="vault-sort" class="form-control" onchange="window.__filterVault()"><option value="name-asc">Name: A–Z</option><option value="name-desc">Name: Z–A</option><option value="price-desc">Price: High to Low</option><option value="price-asc">Price: Low to High</option><option value="date-asc">Date: Oldest First</option><option value="date-desc" selected>Date: Newest First</option></select></label>
+        ${vaultSortSelect('vault-sort').replace('<select ', '<select onchange="window.__filterVault()" ')}
         <div class="search-bar vault-query">
           <label class="sr-only" for="vault-q">Search your cards</label><input id="vault-q" placeholder="Search name, set or Cert number">
           ${searchClearButton()}
@@ -180,19 +181,6 @@ window.__filterVault = () => {
   count.textContent = `${matches.length} ${matches.length === 1 ? 'card' : 'cards'} shown · ${sort.startsWith('price') ? 'Prices are grouped by currency; no conversion is applied.' : 'Prices stay private to your account and never appear on labels.'}`;
 };
 
-function compareVaultCards(a, b, sort) {
-  const [field, direction] = sort.split('-');
-  const sign = direction === 'desc' ? -1 : 1;
-  if (field === 'name') return sign * a.name.localeCompare(b.name);
-  const key = field === 'price' ? 'buyPrice' : 'receivedDate';
-  const missing = card => card[key] == null || card[key] === '';
-  if (missing(a) || missing(b)) return Number(missing(a)) - Number(missing(b));
-  if (field === 'price') {
-    const group = (a.buyCurrency || 'THB').localeCompare(b.buyCurrency || 'THB');
-    return group || sign * (Number(a.buyPrice) - Number(b.buyPrice));
-  }
-  return sign * a.receivedDate.localeCompare(b.receivedDate);
-}
 
 function changeMode(mode) {
   if (vaultBusy) return;

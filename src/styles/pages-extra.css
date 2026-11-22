@@ -162,7 +162,10 @@
 .label-remove{border:0;background:transparent;color:var(--dcr-red);font-size:30px;line-height:1;cursor:pointer;padding:6px}
 .label-vault-list label:has(input:checked),.label-vault-list label:has(input:disabled){background:var(--dcr-border)}
 .label-vault-list label > span:not(.label-card-image):not(.label-heart){flex:1;min-width:0}
-.label-select-all{display:flex;align-items:center;gap:12px;margin:0 0 12px;padding:0 13px}
+.label-vault-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.label-vault-toolbar .vault-status{width:auto}
+.label-vault-toolbar .vault-status select{width:auto}
+.label-select-all{display:flex;align-items:center;gap:12px;margin:0;padding:0 13px}
 @media(max-width:760px){.label-row-actions{margin-left:auto}}
 
 .label-heart{position:relative;display:inline-flex!important;width:24px;height:24px;flex:none;align-items:center;justify-content:center}
