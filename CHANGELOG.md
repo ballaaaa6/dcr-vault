@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Record card categories in Gemini readings
+
+- Request structured Pokémon, Trainer, and Energy categories and record the returned Trainer and Energy details in identification logs.
+
 ## 2026-11-23 - Retain Pokémon types in identification logs
 
 - Record Gemini's raw and normalized Pokémon types in the existing identification log.

@@ -12,6 +12,7 @@ const PROMPT = [
   'Cards with the same Pokémon name may be different cards. Reprints may share artwork, HP, attacks and even collector numbers across sets. Do not infer a set, year or English counterpart from a similar card. Never invent a collector number or catalog identity.',
   'Return cardTypeLabel as the full English card game name, languageLabel as the full English printed language name (empty for English), and series as the full English parent series of the exact printed-language set, not the expansion name. Do not guess these fields; leave uncertain values empty and include their names in uncertainFields.',
   'For Pokémon include HP, illustrator, stage, types, attacks and effects, energy costs, abilities, weakness, resistance and retreat. For Trainer or Energy include its category and visible effect.',
+  'Set category to Pokemon, Trainer, or Energy. For Trainer set trainerType to Item, Supporter, Stadium, or Pokemon Tool when supported; preserve a different printed historical Trainer subtype when identifiable. For Energy set energyKind to Basic or Special and energyType to the Energy card type such as Grass or Fire only when identifiable; Special Energy may have no single energyType. Leave fields that do not apply or cannot be determined empty, and do not guess. Keep types for Pokemon types only.',
   'Return printed name and setName only when readable. Provide englishName as a translation when known, but leave englishSetName and englishCardNumber empty unless explicitly supported by the image. A copyright year is not the set release year.',
   'Set identityStatus to needs_review unless the exact printing is supported. Give identificationSummary and evidence, and list each unreadable or uncertain identity field in uncertainFields. Leave unreadable fields empty.',
   'When the card is a promotional printing, including a recognizable promo collector-number code, set formRarity to Promo. Preserve any more specific rarity when supported.',
@@ -36,7 +37,7 @@ const CONFIDENCE_FIELDS = ['name', 'setName', 'setCode', 'englishName', 'english
   'retreat', 'evolvesFrom', 'regulationMark', 'printedText', 'dexNumber', 'level', 'finish'];
 const READING_SCHEMA = {
   type: 'object', properties: {
-    cardTypeLabel: STRING, languageLabel: STRING, series: STRING,
+    cardTypeLabel: STRING, languageLabel: STRING, series: STRING, category: STRING, trainerType: STRING, energyKind: STRING, energyType: STRING,
     formName: STRING, formSetName: STRING, formYear: STRING, formCardNumber: STRING, formRarity: STRING,
     name: STRING, setName: STRING, setCode: STRING, englishName: STRING, englishSetName: STRING, englishCardNumber: STRING, year: STRING,
     identificationSummary: STRING, identityStatus: STRING, evidence: STRING_LIST, uncertainFields: STRING_LIST,
@@ -47,7 +48,7 @@ const READING_SCHEMA = {
     confidence: {type: 'object', properties: Object.fromEntries(CONFIDENCE_FIELDS.map(key => [key, {type: 'number'}])),
       required: CONFIDENCE_FIELDS}
   },
-  required: ['cardTypeLabel', 'languageLabel', 'series', 'formName', 'formSetName', 'formYear', 'formCardNumber', 'formRarity', 'name', 'setName', 'setCode', 'englishName', 'englishSetName', 'englishCardNumber', 'year', 'identificationSummary',
+  required: ['cardTypeLabel', 'languageLabel', 'series', 'category', 'trainerType', 'energyKind', 'energyType', 'formName', 'formSetName', 'formYear', 'formCardNumber', 'formRarity', 'name', 'setName', 'setCode', 'englishName', 'englishSetName', 'englishCardNumber', 'year', 'identificationSummary',
     'identityStatus', 'evidence', 'uncertainFields', 'cardNumber', 'language', 'rarity', 'hp',
     'illustrator', 'stage', 'types', 'attacks', 'abilities', 'abilityDetails', 'weaknesses', 'resistances',
     'retreat', 'evolvesFrom', 'regulationMark', 'printedText', 'dexNumber', 'level', 'finish', 'stamp', 'setSymbol', 'copyrightText', 'confidence']

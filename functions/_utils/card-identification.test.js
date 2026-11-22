@@ -42,7 +42,7 @@ test('Gemini receives a direct identification prompt and returns structured card
     assert.doesNotMatch(prompt, /[\u0e00-\u0e7f\u3040-\u30ff]/);
     assert.equal(requestBody.generationConfig.maxOutputTokens, 3072);
     const required = requestBody.generationConfig.responseJsonSchema.required;
-    for (const key of ['cardTypeLabel', 'languageLabel', 'series', 'setCode', 'englishCardNumber', 'identificationSummary', 'identityStatus', 'evidence', 'uncertainFields', 'stamp', 'setSymbol', 'copyrightText']) {
+    for (const key of ['category', 'trainerType', 'energyKind', 'energyType', 'cardTypeLabel', 'languageLabel', 'series', 'setCode', 'englishCardNumber', 'identificationSummary', 'identityStatus', 'evidence', 'uncertainFields', 'stamp', 'setSymbol', 'copyrightText']) {
       assert.ok(required.includes(key), `schema requires ${key}`);
     }
     assert.deepEqual(result.attacks[0].effects, ['Visible attack effect.']);
@@ -56,6 +56,37 @@ test('Gemini receives a direct identification prompt and returns structured card
     assert.deepEqual(result.abilityDetails, [{name: 'Ability name', effect: 'Visible ability effect.'}]);
     assert.equal(result.printedText, 'Visible footer text.');
     assert.equal(result.regulationMark, 'G');
+    assert.equal(result.category, '');
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test('returns and logs Trainer and Energy categories', async () => {
+  const originalFetch = globalThis.fetch;
+  let logged;
+  const env = testEnvironment();
+  env.DB.prepare = query => ({bind: (...values) => ({
+    first: async () => ({id: 'test-user'}),
+    run: async () => { if (query.includes('INSERT INTO identification_logs')) logged = JSON.parse(values[7]); }
+  })});
+  const samples = [
+    {name: 'Gym Trainer', category: 'Trainer', trainerType: 'Supporter', energyKind: '', energyType: ''},
+    {name: 'Grass Energy', category: 'Energy', trainerType: '', energyKind: 'Basic', energyType: 'Grass'},
+    {name: 'Double Colorless Energy', category: 'Energy', trainerType: '', energyKind: 'Special', energyType: ''}
+  ];
+  try {
+    for (const sample of samples) {
+      globalThis.fetch = async () => Response.json({candidates: [{content: {parts: [{text: JSON.stringify(sample)}]}}]});
+      const response = await onRequestPost({request: identifyRequest(), env});
+      const {fields} = await response.json();
+      assert.equal(response.status, 200);
+      for (const key of ['category', 'trainerType', 'energyKind', 'energyType']) {
+        assert.equal(fields[key], sample[key]);
+        assert.equal(logged.raw[key], sample[key]);
+        assert.equal(logged.normalized[key], sample[key]);
+      }
+    }
   } finally {
     globalThis.fetch = originalFetch;
   }
