@@ -2,6 +2,9 @@
 
 Times are commit times in Bangkok time (UTC+7); older entries without a time have no matching commit record.
 
+## 2026-11-22 - Adjust vault price display
+- Show the purchase amount before its currency in private vault details.
+
 ## 2026-11-22 - Refine vault date picker
 - Replace native month and year menus with a white calendar and selectable year and month grids.
 

@@ -68,7 +68,7 @@ const flipIcon = '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke
 const privateKeys = ['buyPrice', 'buyCurrency', 'purchaseSource', 'seller', 'receivedDate', 'notes'];
 
 function privateInformation(card) {
-  const price = card.buyPrice == null || card.buyPrice === '' ? '-' : `${card.buyCurrency || 'THB'} ${card.buyPrice}`;
+  const price = card.buyPrice == null || card.buyPrice === '' ? '-' : `${card.buyPrice} ${card.buyCurrency || 'THB'}`;
   const fields = [['Buy price', price], ['Acquisition', card.purchaseSource], ['Seller', card.seller],
     ['Date received', card.receivedDate], ['Notes', card.notes]];
   if (card.boughtFrom) fields.push(['Bought from (previous)', card.boughtFrom]);
