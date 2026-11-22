@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Condition grade guidance
+- Show PSA grade equivalents in the Add Card condition selector while retaining the existing saved condition.
+
 ## 2026-11-22 - Add Card section headings
 - Remove the numbered badges from the card image and details sections.
 

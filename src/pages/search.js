@@ -2,7 +2,7 @@ import {formatRarity} from '../utils/rarity.js';
 import {addCard, checkCert, deleteCardImage, uploadCardImage} from '../store/cards.js';
 import {catalogField, hideAllCatalogSuggestions, installCatalogSuggestions} from './search-catalog.js';
 import {initializeCardRarity, invalidateCardResolution, resolveExactTypedCard, selectCatalogSuggestion} from './search-card-resolution.js';
-import {CONDITION_OPTIONS} from '../utils/label-options.js';
+import {CONDITION_OPTIONS, conditionOptionLabel} from '../utils/label-options.js';
 import {cardLabelMetadata} from '../utils/label-metadata.js';
 import {hasNonLatinScript} from '../utils/language.js';
 import {makeCert, normalizeCert} from '../utils/cert.js';
@@ -59,7 +59,7 @@ export function search() {
             ${catalogField('year', 'Year', 'e.g. 1999')}
             ${catalogField('cardNumber', 'Card number', 'e.g. 4')}
             <div class="form-field"><label for="m-rarity">Rarity</label><input class="form-control" id="m-rarity" placeholder="Read from card or choose from catalog"></div>
-            <div class="form-field"><label for="m-grade">Grade / Condition</label><select class="form-control" id="m-grade"><option value="">Choose condition</option>${CONDITION_OPTIONS.map(value => `<option value="${value}">${value}</option>`).join('')}</select></div>
+            <div class="form-field"><label for="m-grade">Condition / Grade</label><select class="form-control" id="m-grade"><option value="">Choose condition</option>${CONDITION_OPTIONS.map(value => `<option value="${value}">${conditionOptionLabel(value)}</option>`).join('')}</select></div>
             <div class="form-field cert-field"><label for="m-cert">Cert number</label><span class="cert-input-row">
               <input class="form-control" id="m-cert" inputmode="numeric" maxlength="8" pattern="[0-9]{1,8}" placeholder="1 to 8 digits" required>
               <button class="btn btn-ghost cert-random" data-cert-random type="button" aria-label="Generate an available Cert number" title="Generate an available Cert number">
