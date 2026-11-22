@@ -33,7 +33,7 @@ function resultMarkup(cert, cards) {
   const card = findByCert(cards, normalized);
   if (!card) return `<div class="lookup-result lookup-error" role="status"><strong>No record found</strong><p>Certificate ${escapeHTML(normalized)} is not in your account’s collection.</p></div>`;
   const subtitle = [card.year, card.setName, card.cardNumber].filter(Boolean).map(escapeHTML).join(' · ');
-  return `<article class="cert-record"><p class="record-status">Certificate record found</p><h2>${escapeHTML(card.name)}</h2><p class="cert-subtitle">${subtitle}</p>${imageGallery(card)}${itemInformation(card)}</article>`;
+  return `<article class="cert-record"><h2>${escapeHTML(card.name)}</h2><p class="cert-subtitle">${subtitle}</p>${imageGallery(card)}${itemInformation(card)}</article>`;
 }
 
 export function verify(cards = []) {

@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Certificate page cleanup
+- Remove the redundant record found badge from certificate details.
+
 ## 2026-11-22 - Certificate detail page
 - Show a searchable certificate record with card information, uploaded photos or a labeled catalog reference, and an enlarged image viewer.
 
