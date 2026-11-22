@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Responsive home headline
+- Scale the home headline to its available width so each phrase fits on its own line.
+
 ## 2026-11-22 - Home page messaging
 - Refresh the home page headline and description, and remove the redundant brand label.
 

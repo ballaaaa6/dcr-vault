@@ -1,7 +1,7 @@
 .home-page{padding:22px 0 36px}
 .home-hero{position:relative;display:grid;grid-template-columns:1.08fr .92fr;align-items:center;gap:32px;width:min(1320px,calc(100% - 48px));min-height:620px;margin:0 auto;overflow:hidden;border:1px solid var(--dcr-border);border-radius:34px;background:linear-gradient(120deg,var(--dcr-white) 50%,var(--dcr-red-light));box-shadow:var(--shadow)}
-.home-copy{position:relative;z-index:2;padding:clamp(36px,6vw,84px)}
-.home-title{max-width:680px;margin:0;font-size:clamp(2.5rem,5vw,4.5rem);line-height:1.03;letter-spacing:-.055em}
+.home-copy{container-type:inline-size;position:relative;z-index:2;padding:clamp(36px,6vw,84px)}
+.home-title{max-width:680px;margin:0;font-size:clamp(1rem,10cqw,3.75rem);line-height:1.03;letter-spacing:-.055em}
 .home-title span{color:var(--dcr-red)}
 .home-description{max-width:540px;margin:22px 0 30px;color:var(--dcr-gray);font-size:19px;line-height:1.7}
 .home-search-form{max-width:570px}
@@ -31,14 +31,12 @@
   .home-page{padding:14px 0 24px}
   .home-hero{grid-template-columns:1fr;width:calc(100% - 28px);min-height:0;border-radius:26px}
   .home-copy{padding:38px 26px 20px}
-  .home-title{font-size:clamp(2.55rem,11vw,4rem)}
   .home-description{margin:18px 0 24px;font-size:17px}
   .home-art{min-height:350px}
   .art-card{width:min(56%,260px)}
 }
 @media(max-width:420px){
   .home-copy{padding:32px 20px 16px}
-  .home-title{font-size:2.45rem}
   .home-search-form .search-button{min-width:0}
   .home-art{min-height:310px}
   .art-card{width:58%}
