@@ -2,6 +2,9 @@
 
 Times are commit times in Bangkok time (UTC+7); older entries without a time have no matching commit record.
 
+## 2026-11-22 - Improve label card selection
+- Show front card photos in label rows and the vault picker, add a red remove icon, and support select all with selected-row shading.
+
 ## 2026-11-22 16:33 - Record changelog times and archive research
 - Add available commit times to changelog entries and retain catalog research and source packages.
 

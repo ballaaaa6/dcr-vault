@@ -320,3 +320,13 @@ html:has(.label-page)::-webkit-scrollbar,.label-dialog::-webkit-scrollbar,.label
 .label-edit-preview svg{width:100%;height:auto}
 @media(min-width:761px){#app:has(.label-page) .site-footer{padding-top:8px;padding-bottom:10px}}
 @media(max-width:760px){.label-workspace{grid-template-columns:1fr}.label-row{flex-wrap:wrap}.label-row-info{flex-basis:calc(100% - 50px)}.label-row-state{margin-left:36px}.label-edit-grid,.label-edit-preview{grid-template-columns:1fr}}
+
+.label-row-actions{display:flex;align-items:center;gap:12px;margin-left:auto}
+.label-card-image{display:flex;align-items:center;justify-content:center;width:48px;height:64px;flex:none;overflow:hidden;border-radius:6px;background:var(--dcr-border)}
+.label-card-image img{width:100%;height:100%;object-fit:contain}
+.label-image-empty{font-size:10px;text-align:center;color:var(--dcr-gray)}
+.label-remove{border:0;background:transparent;color:var(--dcr-red);font-size:30px;line-height:1;cursor:pointer;padding:6px}
+.label-vault-list label:has(input:checked){background:var(--dcr-border)}
+.label-vault-list label > span:not(.label-card-image){flex:1;min-width:0}
+.label-select-all{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+@media(max-width:760px){.label-row-actions{margin-left:auto}}

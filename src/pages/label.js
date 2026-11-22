@@ -1,4 +1,5 @@
 import {getCertificate} from '../store/cards.js';
+import {vaultImage} from '../components/card-item.js';
 import {escapeHTML as esc} from '../utils/format.js';
 import {normalizeCert} from '../utils/cert.js';
 import {parseCertRanges} from '../utils/cert-ranges.js';
@@ -10,6 +11,7 @@ let api;
 let busy = false;
 const page = () => document.querySelector('.label-page');
 const ready = () => entries.filter(entry => !entry.error);
+const cardPhoto = card => vaultImage({...card, referenceImage: card.frontImage || card.referenceImage, frontImage: card.referenceImage}, 'label-image-empty', 'No photo');
 
 export async function label(cards = []) {
   vaultCards = cards;
@@ -53,9 +55,9 @@ async function addCards(cards) {
       data.certNumber = cert;
       error = api.validateLabelData(data)[0] || '';
       const pair = error ? {} : await api.renderLabelSvgPair(data);
-      entries.push({cert, name: card.name, year: card.year, data, error, ...pair});
+      entries.push({cert, name: card.name, year: card.year, frontImage: card.frontImage, referenceImage: card.referenceImage, data, error, ...pair});
     } catch (cause) {
-      entries.push({cert, name: card.name, year: card.year, data, error: cause.message || 'Could not prepare this label.'});
+      entries.push({cert, name: card.name, year: card.year, frontImage: card.frontImage, referenceImage: card.referenceImage, data, error: cause.message || 'Could not prepare this label.'});
     }
     added++;
   }
@@ -67,7 +69,7 @@ function refresh() {
   const valid = ready().length;
   document.getElementById('label-count').textContent = `${valid} ready · ${Math.ceil(valid / 40)} sheets${entries.length - valid ? ` · ${entries.length - valid} need attention` : ''}`;
   const list = document.getElementById('label-list');
-  list.innerHTML = entries.length ? `<div class="label-rows">${entries.map((item, i) => `<div class="label-row"><span class="label-row-number">${i + 1}</span><div class="label-row-info"><strong>${esc(item.name || 'Certificate')}</strong><span>Cert ${esc(item.cert)}</span>${item.error ? `<small>${esc(item.error)}</small>` : ''}</div><span class="label-row-state">${item.error ? 'Needs attention' : 'Ready'}</span><button class="btn btn-ghost" data-label-action="view" data-cert="${item.cert}">View</button><button class="btn btn-ghost" data-label-action="remove" data-cert="${item.cert}" aria-label="Remove ${item.cert}">Remove</button></div>`).join('')}</div>` : '<p class="label-empty">No labels added yet. Enter certificate numbers or choose cards from your vault.</p>';
+  list.innerHTML = entries.length ? `<div class="label-rows">${entries.map((item, i) => `<div class="label-row"><span class="label-row-number">${i + 1}</span><div class="label-row-info"><strong>${esc(item.name || 'Certificate')}</strong><span>Cert ${esc(item.cert)}</span>${item.error ? `<small>${esc(item.error)}</small>` : ''}</div><div class="label-row-actions"><span class="label-card-image">${cardPhoto(item)}</span><button class="btn btn-ghost" data-label-action="view" data-cert="${item.cert}">View</button><button class="label-remove" data-label-action="remove" data-cert="${item.cert}" aria-label="Remove ${item.cert}">×</button></div></div>`).join('')}</div>` : '<p class="label-empty">No labels added yet. Enter certificate numbers or choose cards from your vault.</p>';
   for (const action of ['preview', 'download']) page().querySelector(`[data-label-action="${action}"]`).disabled = !valid || busy;
   page().querySelector('[data-label-action="clear"]').disabled = !entries.length || busy;
   for (const action of ['search', 'vault']) page().querySelector(`[data-label-action="${action}"]`).disabled = busy;
@@ -100,7 +102,7 @@ async function searchCerts() {
 
 function chooseVault() {
   const cards = vaultCards.filter(card => String(card.game).toLowerCase() === 'pokemon');
-  dialog(`${dialogHead('Choose from My Vault')}<p class="muted">Select the cards to add to your sheets.</p><div class="label-vault-list">${cards.map(card => `<label><input type="checkbox" value="${esc(normalizeCert(card.certNumber))}" ${entries.some(item => item.cert === normalizeCert(card.certNumber)) ? 'disabled' : ''}><span><strong>${esc(card.name)}</strong><small>Cert ${esc(normalizeCert(card.certNumber))}</small></span></label>`).join('') || '<p>No Pokémon cards in your vault.</p>'}</div><div class="label-controls"><button class="btn btn-primary" data-label-action="add-vault">Add selected</button></div>`);
+  dialog(`${dialogHead('Choose from My Vault')}<p class="muted">Select the cards to add to your sheets.</p><label class="label-select-all"><input type="checkbox" data-label-select-all ${cards.some(card => !entries.some(item => item.cert === normalizeCert(card.certNumber))) ? '' : 'disabled'}> Select all</label><div class="label-vault-list">${cards.map(card => `<label><input type="checkbox" value="${esc(normalizeCert(card.certNumber))}" ${entries.some(item => item.cert === normalizeCert(card.certNumber)) ? 'disabled' : ''}><span><strong>${esc(card.name)}</strong><small>Cert ${esc(normalizeCert(card.certNumber))}</small></span><span class="label-card-image">${cardPhoto(card)}</span></label>`).join('') || '<p>No Pokémon cards in your vault.</p>'}</div><div class="label-controls"><button class="btn btn-primary" data-label-action="add-vault">Add selected</button></div>`);
 }
 
 function viewLabel(cert) {
@@ -150,4 +152,21 @@ document.addEventListener('click', async event => {
   if (action === 'view') viewLabel(button.dataset.cert);
   if (action === 'preview') await previewSheets();
   if (action === 'download' && !busy) await download();
+});
+
+function updateVaultSelection() {
+  const all = document.querySelector('[data-label-select-all]');
+  if (!all) return;
+  const boxes = [...document.querySelectorAll('.label-vault-list input:not(:disabled)')];
+  const checked = boxes.filter(box => box.checked).length;
+  all.checked = boxes.length > 0 && checked === boxes.length;
+  all.indeterminate = checked > 0 && checked < boxes.length;
+}
+
+document.addEventListener('change', event => {
+  if (!page()) return;
+  if (event.target.matches('[data-label-select-all]')) {
+    document.querySelectorAll('.label-vault-list input:not(:disabled)').forEach(box => { box.checked = event.target.checked; });
+  }
+  if (event.target.matches('[data-label-select-all], .label-vault-list input')) updateVaultSelection();
 });
