@@ -6,7 +6,7 @@ export function home() {
     <main class="home-page">
       <section class="home-hero" aria-labelledby="home-title">
         <div class="home-copy">
-          <div class="home-eyebrow">Your collection, organized</div>
+
           <h1 class="home-title" id="home-title">Your cards.<br>Your collection.<br><span>All in one place.</span></h1>
           <p class="home-description">Organize your DCR-certified cards and find certificate details in seconds.</p>
           <form class="home-search-form" onsubmit="window.__searchCertificate(event)">

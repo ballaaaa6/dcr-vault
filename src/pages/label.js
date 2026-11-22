@@ -22,7 +22,7 @@ export async function label(cards = []) {
     if (card) await addCards([card]);
   }
   return `<main class="app-page label-page">
-    <header class="page-heading"><div class="page-eyebrow">PRINT WORKSPACE</div><h1>Labels</h1><p class="page-description">Add certificates, review your labels, and download your sheets.</p></header>
+    <header class="page-heading"><h1>Labels</h1><p class="page-description">Add certificates, review your labels, and download your sheets.</p></header>
     <div class="label-workspace">
     <section class="surface-card label-add"><h2>Add certificates</h2>
       <label class="form-field" for="label-cert-input"><span>Certificate numbers</span><textarea class="form-control" id="label-cert-input" rows="2" placeholder="1-10, 12-18, 25"></textarea></label>

@@ -27,7 +27,7 @@ function editFields(card) {
 
 export function vault(cards = []) {
   activeCards = cards;
-  if (!cards.length) return '<main class="app-page vault-page"><section class="surface-card empty-state"><div class="page-eyebrow">YOUR COLLECTION</div><h1>My Vault</h1><p>Your private vault is ready for its first card.</p><a class="btn btn-primary" href="/register">Add a card</a></section></main>';
+  if (!cards.length) return '<main class="app-page vault-page"><section class="surface-card empty-state"><h1>My Vault</h1><p>Your private vault is ready for its first card.</p><a class="btn btn-primary" href="/register">Add a card</a></section></main>';
   const params = new URLSearchParams(location.search);
   const focus = cards.find(card => card.id === params.get('id')) || cards[0];
   selectedId = focus.id;
@@ -36,7 +36,7 @@ export function vault(cards = []) {
   return `
     <main class="app-page vault-page">
       <header class="page-heading vault-heading">
-        <div class="page-eyebrow">YOUR COLLECTION</div>
+
         <h1>My Vault</h1>
         <p id="vault-count" class="page-description">${cards.length} ${cards.length === 1 ? 'card' : 'cards'} · Prices stay private to your account and never appear on labels.</p>
       </header>

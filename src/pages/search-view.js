@@ -18,7 +18,7 @@ export function emptyPhotoMarkup() {
 export function searchMarkup() {
   return `
     <main class="app-page intake-page">
-      <header class="page-heading"><div class="page-eyebrow">COLLECTION INTAKE</div><h1>Add a card to your vault</h1><p class="page-description">Saved card details and photos stay private to your signed-in account.</p></header>
+      <header class="page-heading"><h1>Add a card to your vault</h1><p class="page-description">Saved card details and photos stay private to your signed-in account.</p></header>
       <div class="intake-grid">
         <section class="surface-card intake-card" aria-labelledby="scan-title">
           <div class="section-heading"><div><h2 id="scan-title">Card images</h2><p>Choose a front and/or back photo to store in your private image vault.</p></div></div>

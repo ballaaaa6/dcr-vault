@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-22 - Remove page introductory labels
+
+- Remove the introductory labels from Home, Add Card, My Vault, and Labels.
+
 ## 2026-11-22 - Align privacy page footer
 
 - Match the login footer alignment and copyright text glow on the privacy page.
