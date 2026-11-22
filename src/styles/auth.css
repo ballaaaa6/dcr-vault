@@ -31,7 +31,6 @@
 .auth-copyright{color:var(--dcr-white);text-shadow:0 0 3px var(--dcr-black),0 0 8px var(--dcr-black)}
 .auth-footer-links{display:flex;align-items:center;gap:24px;margin-left:auto}
 .auth-footer a:not(.btn){color:var(--dcr-black)}
-.auth-footer-links a:first-child{font-size:12px}
 @media(min-width:761px){.auth-footer{padding-top:8px;padding-bottom:10px}}
 @keyframes auth-line{from{width:48px}to{width:96px}}
 @media(max-width:760px){.auth-page{grid-template-columns:1fr}.auth-showcase{min-height:470px;padding:30px}.auth-showcase-copy h1{font-size:3rem}.auth-showcase-foot{margin-top:26px}.auth-panel{min-height:0;padding:30px}.auth-form-wrap{margin:70px auto}.auth-footer{position:relative;left:auto;grid-column:1;transform:none;background:var(--dcr-white);flex-direction:row;align-items:center;flex-wrap:wrap}.auth-account-note{font-size:clamp(10px,2.5vw,16px)}}

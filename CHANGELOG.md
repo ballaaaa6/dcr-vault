@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-22 - Style privacy navigation
+
+- Match the Privacy Policy button to the outlined Back to Home button.
+
 ## 2026-11-22 - Adjust return button labels
 
 - Use title case for Back to Login and Back to Home.
