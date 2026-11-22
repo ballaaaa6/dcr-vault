@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Vault photo panel sizing
+- Keep the photo panel tied to the selected card details height, including shorter records.
+
 ## 2026-11-22 - Vault photo controls
 - Reveal photo controls on hover and match the photo panel height to the details panel.
 

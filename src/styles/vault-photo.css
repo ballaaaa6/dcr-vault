@@ -20,9 +20,11 @@
 @media(hover:none){.vault-photo-view:hover .cert-zoom{display:none}}
 @media(prefers-reduced-motion:reduce){.vault-photo-flipper{transition:none}}
 .vault-selected{grid-column:span 2;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:18px;min-width:0}
-.vault-photo-panel{align-self:stretch}
+.vault-photo-panel{align-self:stretch;height:0;min-height:100%}
+.vault-photo-panel .vault-detail-photo{height:100%;min-height:0}
+.vault-photo-panel .vault-detail-photo .vault-photo-flipper{height:100%;max-height:320px}
 @media(hover:hover){
   .vault-detail-photo>.vault-photo-flip,.vault-detail-photo>.vault-photo-preview{opacity:0;pointer-events:none;transition:opacity .2s ease}
   .vault-detail-photo:hover>.vault-photo-flip,.vault-detail-photo:hover>.vault-photo-preview,.vault-detail-photo:focus-within>.vault-photo-flip,.vault-detail-photo:focus-within>.vault-photo-preview{opacity:1;pointer-events:auto}
 }
-@media(max-width:760px){.vault-selected{grid-column:auto;grid-template-columns:1fr}.vault-photo-panel{align-self:start}}
+@media(max-width:760px){.vault-selected{grid-column:auto;grid-template-columns:1fr}.vault-photo-panel{align-self:start;height:auto;min-height:0}.vault-photo-panel .vault-detail-photo{height:auto;min-height:150px}.vault-photo-panel .vault-detail-photo .vault-photo-flipper{height:320px}}
