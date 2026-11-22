@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Clarify completed card details
+- Show an English language hint, shade filled intake fields, and focus the first invalid required field when adding a card.
+
 ## 2026-11-22 - Clarify anniversary set names
 - Display and save the 25th and 30th Celebration set names consistently while retaining catalog set identities.
 

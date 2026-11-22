@@ -86,7 +86,7 @@ export function search() {
                 <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="3"></rect><circle cx="8" cy="8" r="1"></circle><circle cx="16" cy="8" r="1"></circle><circle cx="12" cy="12" r="1"></circle><circle cx="8" cy="16" r="1"></circle><circle cx="16" cy="16" r="1"></circle></svg>
               </button>
             </span><small id="m-cert-status" class="field-status" role="status" aria-live="polite"></small></div>
-            <button class="btn btn-primary manual-submit" id="manual-submit" type="button" disabled>Add to Vault</button>
+            <button class="btn btn-primary manual-submit" id="manual-submit" type="button">Add to Vault</button>
             <p id="manual-status" class="import-status intake-wide" role="status" aria-live="polite"></p>
           </div>
         </section>
@@ -111,9 +111,13 @@ function updateSubmitState() {
   const button = document.getElementById('manual-submit');
   const input = document.getElementById('m-cert');
   if (!button || !input) return;
-  const cert = normalizeCert(input.value);
-  const complete = ['name', 'setName', 'year', 'cardNumber', 'rarity', 'grade'].every(key => document.getElementById(`m-${key}`).value.trim());
-  button.disabled = button.dataset.busy === 'true' || !complete || !cert || input.dataset.certAvailable !== 'true';
+  const language = document.getElementById('m-sourceLanguage').value.trim().toLowerCase();
+  const label = document.getElementById('m-languageLabel');
+  label.placeholder = language === 'en' ? 'ENGLISH' : 'THAI or JAPANESE; blank for English';
+  document.querySelectorAll('.intake-page .field-grid .form-control').forEach(field => {
+    field.classList.toggle('has-value', Boolean(field.value.trim()) || field === label && language === 'en');
+  });
+  button.disabled = button.dataset.busy === 'true';
 }
 
 async function checkCertInput() {
@@ -259,6 +263,14 @@ async function saveIntake() {
   const status = document.getElementById('manual-status');
   const certInput = document.getElementById('m-cert');
   const certNumber = normalizeCert(certInput.value);
+  const required = [...document.querySelectorAll('.intake-page .field-grid [required]')];
+  const missing = required.find(field => !field.value.trim() || !field.checkValidity());
+  if (missing) {
+    status.textContent = 'Complete all required fields.';
+    missing.scrollIntoView({behavior: 'smooth', block: 'center'});
+    missing.focus({preventScroll: true});
+    return;
+  }
   const rarityInput = document.getElementById('m-rarity');
   rarityInput.value = formatRarity(rarityInput.value);
   const englishFields = ['m-name', 'm-setName'].map(id => document.getElementById(id).value.trim());
@@ -267,13 +279,11 @@ async function saveIntake() {
     document.getElementById('m-name').focus();
     return;
   }
-  if (['name', 'setName', 'year', 'cardNumber', 'rarity', 'grade'].some(key => !document.getElementById(`m-${key}`).value.trim())) { status.textContent = 'Complete all required fields.'; return; }
-  if (!document.getElementById('m-name').value.trim()) { status.textContent = 'Enter a card name.'; document.getElementById('m-name').focus(); return; }
   if (!certNumber) { setCertState(false, 'Enter 1 to 8 digits.', 'error'); certInput.focus(); return; }
-  if (certInput.dataset.certAvailable !== 'true' && !await checkCertInput()) { certInput.focus(); return; }
   button.dataset.busy = 'true';
   updateSubmitState();
   try {
+    if (certInput.dataset.certAvailable !== 'true' && !await checkCertInput()) { certInput.focus(); return; }
     const card = window.__intakeSavedCard || await createIntakeCard(certNumber);
     if (!selectedPhotos().length) { location.href = '/vault'; return; }
     status.textContent = 'Uploading selected photos…';

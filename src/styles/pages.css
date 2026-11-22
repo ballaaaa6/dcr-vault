@@ -109,6 +109,7 @@
 .intake-page .field-status:empty{display:none}
 .form-field>label{color:inherit;font-size:inherit;font-weight:inherit}
 .form-control{width:100%;min-width:0;min-height:46px;padding:10px 13px;border:1px solid var(--dcr-border);border-radius:12px;background:var(--dcr-white);color:var(--dcr-black);font-weight:450}
+.intake-page .form-control.has-value{background:var(--dcr-border)}
 .form-control:focus{border-color:var(--dcr-red);outline:0;box-shadow:0 0 0 3px var(--dcr-red-light)}
 .cert-input-row{display:flex;align-items:center;gap:8px}
 .cert-input-row .form-control{flex:1}
