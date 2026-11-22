@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Rename certificate heading
+
+- Change the public certificate page heading to Certificate Verification.
+
 ## 2026-11-23 - Restore Labels after deployments
 
 - Load the label renderer with the application and recover once from stale deployment assets.
