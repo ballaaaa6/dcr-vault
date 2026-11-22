@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Global Source Serif 4 font
+- Use the self-hosted Source Serif 4 font throughout the app and privacy policy.
+
 ## 2026-11-22 - Global Playfair Display font
 - Use the self-hosted Playfair Display font throughout the app and privacy policy.
 
