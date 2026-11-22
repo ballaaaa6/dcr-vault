@@ -475,3 +475,6 @@ Times are commit times in Bangkok time (UTC+7); older entries without a time hav
 - Add a source-qualified set name and code index with separate deck-list abbreviations and verified printed-code evidence.
 - Capture an additional English set-code source with its reported on-card status, preserving shared codes and unconfirmed entries.
 - Index official set-mark images and sample card URLs from archived Japanese, Korean, and Traditional Chinese records and the live Thai product filters.
+
+## 2026-11-22 - Separate profile editing
+- Save profile photos independently from personal details and allow positioning photos with a circular crop guide.
