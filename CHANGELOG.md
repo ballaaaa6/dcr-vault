@@ -2,7 +2,7 @@
 
 ## 2026-11-22 - Simplify privacy navigation
 
-- Keep a single return to login link in the privacy page footer.
+- Remove the header navigation and keep a single return to login link in the privacy page footer.
 
 ## 2026-11-22 - Reposition privacy policy content
 
