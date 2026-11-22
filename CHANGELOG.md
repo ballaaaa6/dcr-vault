@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Restore selected Vault card colors
+
+- Restore the red selected card background and white text while retaining transparent classification artwork.
+
 ## 2026-11-23 - Add card classification artwork to Vault
 
 - Display classification backgrounds in Vault lists and selected card panels, with an unknown fallback for unclassified cards.
