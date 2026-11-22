@@ -50,8 +50,10 @@ export function vault(cards = []) {
       </div>
       <div class="vault-layout">
         <section class="vault-list" id="vault-list" aria-label="Cards in your vault">${rows}</section>
+        <div class="vault-selected">
         <aside class="surface-card vault-detail" aria-label="Selected card details">${detailMarkup(focus)}</aside>
         <aside class="surface-card vault-photo-panel" aria-label="Selected card photo">${vaultPhoto(focus)}</aside>
+        </div>
       </div>
       <dialog class="vault-delete-dialog" aria-labelledby="delete-card-title" aria-describedby="delete-card-description">
         <h2 id="delete-card-title">Delete this card?</h2>

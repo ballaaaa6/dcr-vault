@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Vault photo controls
+- Reveal photo controls on hover and match the photo panel height to the details panel.
+
 ## 2026-11-22 - Vault card photo viewer
 - Flip between card sides in the vault and preview, with certificate-style magnification.
 
