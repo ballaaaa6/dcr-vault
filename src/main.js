@@ -1,9 +1,11 @@
 // DCR Card Vault - Entry - English only
 import {render} from './router.js';
 import {legacyRoute} from './utils/routes.js';
+import {initializeBackToTop} from './components/back-to-top.js';
 const oldRoute = legacyRoute(location.hash);
 if (oldRoute) history.replaceState(null, '', oldRoute);
 render();
+initializeBackToTop();
 // 3D tilt for cards
 document.addEventListener('mousemove', (e)=>{
   const card=e.target.closest && e.target.closest('.tilt');

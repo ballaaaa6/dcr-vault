@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-22 - Add rocket back-to-top button
+
+- Add the TipsBlocks Rocket Return button to scroll back to the top of long pages.
+
 ## 2026-11-22 - Keep label controls visible
 
 - Keep the certificate form and label list heading visible while scrolling through long lists.
