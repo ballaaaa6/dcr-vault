@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Home footer alignment
+- Match the home footer position to the register page on desktop.
+
 ## 2026-11-22 - Notes field spacing
 - Align the optional Notes field and preserve consistent spacing as it is resized.
 

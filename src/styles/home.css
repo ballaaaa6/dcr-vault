@@ -1,5 +1,8 @@
 #app:has(.home-page){min-height:100svh;display:flex;flex-direction:column}
 #app:has(.home-page) .site-footer{width:100%;flex-shrink:0;margin:0 auto}
+@media(min-width:761px){
+  #app:has(.home-page) .site-footer{padding-top:8px;padding-bottom:10px}
+}
 .home-page{display:flex;flex:1;padding:22px 0 18px}
 .home-hero{position:relative;display:grid;grid-template-columns:1.08fr .92fr;align-items:center;gap:32px;width:min(1320px,calc(100% - 48px));min-height:0;margin:0 auto;overflow:hidden;border:1px solid var(--dcr-border);border-radius:34px;background:linear-gradient(120deg,var(--dcr-white) 50%,var(--dcr-red-light));box-shadow:var(--shadow)}
 .home-copy{container-type:inline-size;position:relative;z-index:2;padding:clamp(28px,4vw,68px)}
@@ -66,5 +69,4 @@
   .home-benefit img{width:32px;height:32px;margin-bottom:4px}
   .home-art{min-height:340px}
   .art-card{width:min(58%,260px)}
-  #app:has(.home-page) .site-footer{padding-top:10px;padding-bottom:12px}
 }
