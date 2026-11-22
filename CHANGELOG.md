@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-22 - Center login text
+
+- Center the sign-in heading and description with the Google button.
+
 ## 2026-11-22 - Refine login controls and footer
 
 - Enlarge Google sign-in and move the privacy link beside Back to Home.

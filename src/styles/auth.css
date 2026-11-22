@@ -11,7 +11,7 @@
 .auth-panel-top{display:flex;align-items:center;justify-content:space-between;gap:12px;color:var(--dcr-gray);font-size:12px;font-weight:750;letter-spacing:.15em}
 .auth-panel-top a{color:var(--dcr-black);font-size:14px;letter-spacing:0}
 .auth-panel-top a span{color:var(--dcr-red)}
-.auth-form-wrap{width:min(100%,585px);margin:auto}
+.auth-form-wrap{width:min(100%,585px);margin:auto;text-align:center}
 .auth-panel-kicker{margin-bottom:18px;color:var(--dcr-red);font-size:12px;font-weight:800;letter-spacing:.18em}
 .auth-form-wrap h2{margin:0;font-size:clamp(2rem,3.6vw,3.225rem);line-height:1.1;letter-spacing:-.045em}
 .auth-intro{margin:16px 0 30px;color:var(--dcr-gray);font-size:24px;line-height:1.7}
