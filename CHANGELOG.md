@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-22 - Keep Add Card fields steady
+
+- Show Cert number validation without shifting the card details form.
+
 ## 2026-11-22 - Update home hero label
 
 - Show Secret Rare on the Crimson Peak illustration.
