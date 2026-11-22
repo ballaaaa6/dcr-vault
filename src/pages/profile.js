@@ -23,6 +23,7 @@ function renderProfile(form, avatarButton, current) {
   document.querySelector('.account-trigger').innerHTML = `${avatar(current)}<span>${escapeHTML(current.displayName)}</span><span aria-hidden="true">▾</span>`;
   form.querySelector('.profile-identity h2').textContent = current.displayName;
   document.querySelector('.account-popover strong').textContent = current.displayName;
+  document.querySelector('.account-identity .account-avatar').outerHTML = avatar(current);
 }
 
 function initializeNameEditor(form, name, nameEdit, nameStatus, setNameEditing, save, getCurrent) {

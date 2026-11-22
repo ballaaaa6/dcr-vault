@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-11-23 - Expand the account menu
+
+- Add grouped account menu items and icons, with Profile and Log out connected to their existing actions.
+- Reuse and document the shared half-strength red hover color.
+
 ## 2026-11-23 - Sort vault cards by Cert number
 
 - Add ascending and descending Cert number sorting in My Vault and the label picker.

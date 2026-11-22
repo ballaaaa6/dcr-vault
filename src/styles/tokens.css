@@ -4,4 +4,5 @@
 
 :root{--dcr-text-secondary:#435064;--dcr-placeholder:#596678}
 
+/* Main red blended equally with white, for hover surfaces. */
 :root{--dcr-red-hover:#e38897}
