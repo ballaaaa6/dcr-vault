@@ -17,7 +17,7 @@ Vite preview serves the browser UI only. Google sign-in, account sessions, and p
 - My Vault
 - Labels
 
-Private routes require sign-in. Certificate lookup searches only the signed-in user's records. Buy and sell prices stay in Vault and never appear on labels.
+Private routes require sign-in. Certificate lookup is public and displays public certificate details. Buy and sell prices stay in Vault and never appear on labels.
 
 ## Account and data
 

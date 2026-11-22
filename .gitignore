@@ -16,3 +16,7 @@ __pycache__/
 /dcr-tag-70x20/catalog/image-cache/
 /dcr-tag-70x20/catalog/card-image-library/images/
 /dcr-tag-70x20/catalog/card-image-library/image-index.sqlite*
+
+# Local private keys
+*.key
+*.key.pub

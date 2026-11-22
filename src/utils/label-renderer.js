@@ -99,10 +99,6 @@ function shortenToFit(value, rightValue) {
   return result;
 }
 
-export function rarityFitsLabel(setName, rarity) {
-  return !pairFitError('Set name', 'rarity', String(setName || '').toLocaleUpperCase('en-US'), rarity);
-}
-
 const LANGUAGE_LABELS = {en: '', th: 'THAI', ja: 'JAPANESE'};
 const SERIES_SHORT = {'SCARLET & VIOLET': 'SV', 'SWORD & SHIELD': 'SWSH', 'SUN & MOON': 'SM',
   'MEGA EVOLUTION': 'MEGA', 'BLACK & WHITE': 'BW', 'DIAMOND & PEARL': 'DP',

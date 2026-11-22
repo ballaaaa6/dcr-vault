@@ -13,6 +13,28 @@ async function downloadImage(url, cert, side) {
   setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
 }
 
+function initializeThumbnails(buttons, gallery, thumbs, select, open) {
+  buttons.forEach(button => {
+    const source = button.querySelector('img');
+    const hideFailedImage = () => {
+      button.hidden = true;
+      thumb.hidden = true;
+      if (buttons.every(item => item.hidden)) gallery.hidden = true;
+    };
+    const thumb = document.createElement('button');
+    thumb.type = 'button';
+    thumb.setAttribute('aria-label', `Show ${button.querySelector('span').textContent}`);
+    const preview = source.cloneNode();
+    preview.alt = '';
+    thumb.append(preview);
+    thumbs.append(thumb);
+    source.addEventListener('error', hideFailedImage);
+    if (source.complete && !source.naturalWidth) hideFailedImage();
+    thumb.addEventListener('click', () => select(button));
+    button.addEventListener('click', () => open(button));
+  });
+}
+
 export function initializeCertificateViewer() {
   const gallery = document.querySelector('.cert-gallery');
   const dialog = document.querySelector('.cert-viewer');
@@ -40,25 +62,7 @@ export function initializeCertificateViewer() {
     thumbs.querySelectorAll('button').forEach((item, index) => item.setAttribute('aria-pressed', String(buttons[index] === button)));
     frame.classList.remove('is-zoomed');
   }
-  buttons.forEach(button => {
-    const source = button.querySelector('img');
-    const hideFailedImage = () => {
-      button.hidden = true;
-      thumb.hidden = true;
-      if (buttons.every(item => item.hidden)) gallery.hidden = true;
-    };
-    const thumb = document.createElement('button');
-    thumb.type = 'button';
-    thumb.setAttribute('aria-label', `Show ${button.querySelector('span').textContent}`);
-    const preview = source.cloneNode();
-    preview.alt = '';
-    thumb.append(preview);
-    thumbs.append(thumb);
-    source.addEventListener('error', hideFailedImage);
-    if (source.complete && !source.naturalWidth) hideFailedImage();
-    thumb.addEventListener('click', () => select(button));
-    button.addEventListener('click', () => { opener = button; select(button); dialog.showModal(); });
-  });
+  initializeThumbnails(buttons, gallery, thumbs, select, button => { opener = button; select(button); dialog.showModal(); });
   dialog.querySelector('[data-viewer-download]').addEventListener('click', async () => {
     status.textContent = '';
     try {

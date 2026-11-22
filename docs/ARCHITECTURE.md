@@ -62,7 +62,7 @@ Google Identity Services
 - D1 schema history lives in `migrations/` and is applied by the deployment workflow before publishing new code.
 - The Oracle image and OCR services are loopback-only processes under `storage-service/`; Nginx exposes their explicit HTTPS routes through the validated Oracle hostname. Saved-card image storage uses the image service; card identification sends the front image to Gemini and does not call OCR.
 - Google token verification uses the Workers Web Crypto API and Google's published JWK set. No authentication library is added, so runtime dependencies stay small.
-- Inter and Noto Sans Thai are self-hosted under `public/assets/fonts/` with their OFL licenses.
+- Source Serif 4 is self-hosted under `public/assets/fonts/` with its OFL license.
 - Label rendering imports the approved SVG masters from `dcr-tag-70x20/` and uses the browser-side `qrcode` and `jsbarcode` packages to create test QR and Code 128 symbols without sending certificate values to an external service.
 - Label lines reserve a 2 mm gap between the left and right fields. When a line exceeds its available width, rendering abbreviates eligible words to initials from right to left and checks the result before printing; saved card details remain unchanged.
 

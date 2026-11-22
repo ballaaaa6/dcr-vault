@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-11-22 - Organize application code
+
+- Remove unused application helpers and legacy reader code; separate Add Card markup and page styles without changing the layout.
+- Correct catalog and application documentation and ignore local private key files.
+
 ## 2026-11-22 - Keep selected vault card visible
 
 - Keep the selected card details and photo together below the header while scrolling the vault list on desktop.

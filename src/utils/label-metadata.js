@@ -1,10 +1,6 @@
 import labelRules from '../../dcr-tag-70x20/catalog-label-rules.json';
 import psaProfiles from '../../dcr-tag-70x20/psa-label-profiles.json';
 
-function normalized(value) {
-  return String(value ?? '').trim().toLocaleLowerCase('en-US');
-}
-
 function catalogSetId(card) {
   if (card.setId) return String(card.setId);
   const catalogId = String(card.catalogCardId || card.id || '');
@@ -51,21 +47,4 @@ export function cardLabelMetadata(card = {}) {
     sourceSetId: String(card.sourceSetId ?? (sourceLanguage === 'en' ? card.setId : '') ?? ''),
     catalogCardId: String(card.catalogCardId || card.id || ''), labelMetadataReady
   };
-}
-
-export function cardLabelRarity(card = {}) {
-  const rarity = String(card.rarity || '').trim();
-  const key = normalized(rarity);
-  if (!key || ['none', 'null', 'undefined'].includes(key)) return '';
-  const language = String(card.sourceLanguage || card.language || 'en').toLowerCase();
-  const profile = profileFor(card);
-  const cardId = String(card.catalogCardId || card.id || '');
-  const specific = psaProfiles.card_labels?.[`${language}:${cardId}`];
-  const specificCode = specific?.status === 'verified' ? specific.dcr_rarity_code : '';
-  if (specificCode) return specificCode;
-  const profileRarity = profile?.rarity_terms?.[key];
-  const profileCode = profileRarity?.status === 'verified' ? profileRarity.dcr_rarity_code : '';
-  if (profileCode) return profileCode;
-  const languageCode = labelRules.language_rarity_codes?.[language]?.[key];
-  return languageCode || labelRules.rarity_codes?.[key] || rarity.toLocaleUpperCase('en-US');
 }

@@ -1,12 +1,6 @@
 import {hasNonLatinScript} from './language.js';
 import {displaySetName} from './set-name.js';
 
-export function readingUncertain(fields, ...keys) {
-  const normalize = value => String(value || '').toLowerCase().replace(/[^a-z0-9]/g, '').replace(/^form/, '');
-  const uncertain = (fields.uncertainFields || []).map(normalize);
-  return keys.some(key => uncertain.includes(normalize(key)));
-}
-
 function promoRarity(fields) {
   const explicit = [fields.form?.rarity, fields.rarity].some(value => /^(promo|promotional|p)$/i.test(String(value || '').trim()));
   const number = String(fields.form?.cardNumber || fields.cardNumber || '').trim();

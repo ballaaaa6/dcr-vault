@@ -18,6 +18,25 @@ export function profile(user) {
     <section class="surface-card profile-section"><h2>Account</h2><dl><div><dt>Email</dt><dd>${escapeHTML(user.email)}</dd></div><div><dt>Sign-in method</dt><dd>Google</dd></div></dl><button class="profile-text-button" type="button" data-profile-sign-out>Sign out</button></section></form><dialog class="profile-photo-dialog" aria-label="Profile photo"><button type="button" class="profile-photo-close" aria-label="Close photo preview">×</button><img alt="Your profile photo"></dialog><dialog class="profile-crop-dialog" aria-labelledby="crop-title"><button type="button" class="profile-photo-close" data-crop-close aria-label="Close photo editor">×</button><h2 id="crop-title">Adjust profile photo</h2><p>Drag the photo to position it inside the circle.</p><div class="profile-crop-area" hidden><img alt=""><span class="profile-crop-guide"></span></div><div class="profile-actions"><button class="btn btn-primary" type="button" data-crop-save disabled>Save photo</button><button class="btn btn-ghost" type="button" data-crop-close>Cancel</button></div><p class="profile-crop-status" role="status" aria-live="polite"></p></dialog></main>`;
 }
 
+function renderProfile(form, avatarButton, current) {
+  avatarButton.innerHTML = avatar(current, 'profile-avatar'); avatarButton.disabled = !current.avatarUrl;
+  document.querySelector('.account-trigger').innerHTML = `${avatar(current)}<span>${escapeHTML(current.displayName)}</span><span aria-hidden="true">▾</span>`;
+  form.querySelector('.profile-identity h2').textContent = current.displayName;
+  document.querySelector('.account-popover strong').textContent = current.displayName;
+}
+
+function initializeNameEditor(form, name, nameEdit, nameStatus, setNameEditing, save, getCurrent) {
+  name.onkeydown = event => { if (event.key === 'Enter') { event.preventDefault(); form.querySelector('#profile-name-save').click(); } };
+  nameEdit.onclick = () => { setNameEditing(true); nameStatus.textContent = ''; name.focus(); };
+  form.querySelector('#profile-name-cancel').onclick = () => { name.value = getCurrent().displayName; nameStatus.textContent = ''; setNameEditing(false); };
+  form.querySelector('#profile-name-save').onclick = async event => {
+    if (!name.reportValidity()) return;
+    event.currentTarget.disabled = true; nameStatus.textContent = 'Saving…';
+    try { await save({displayName: name.value}); name.value = getCurrent().displayName; setNameEditing(false); nameStatus.textContent = 'Name saved.'; }
+    catch (error) { nameStatus.textContent = error.message; } finally { event.target.disabled = false; }
+  };
+}
+
 export function initializeProfile(user) {
   const form = document.querySelector('#profile-form');
   const name = form.querySelector('#profile-name');
@@ -40,12 +59,7 @@ export function initializeProfile(user) {
   let current = {...user};
   const setNameEditing = active => { editor.hidden = !active; display.hidden = active; nameEdit.hidden = active; nameEdit.setAttribute('aria-expanded', String(active)); };
   const setDetailsEditing = active => { detailsEditor.hidden = !active; details.hidden = active; edit.setAttribute('aria-expanded', String(active)); };
-  const render = () => {
-    avatarButton.innerHTML = avatar(current, 'profile-avatar'); avatarButton.disabled = !current.avatarUrl;
-    document.querySelector('.account-trigger').innerHTML = `${avatar(current)}<span>${escapeHTML(current.displayName)}</span><span aria-hidden="true">▾</span>`;
-    form.querySelector('.profile-identity h2').textContent = current.displayName;
-    document.querySelector('.account-popover strong').textContent = current.displayName;
-  };
+  const render = () => renderProfile(form, avatarButton, current);
   const save = async changes => {
     const response = await fetch('/api/auth/profile', {method: 'PUT', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(changes)});
     const result = await response.json(); if (!response.ok) throw new Error(result.error || 'Could not save profile.');
@@ -54,15 +68,7 @@ export function initializeProfile(user) {
   avatarButton.onclick = () => { dialog.querySelector('img').src = current.avatarUrl; dialog.showModal(); };
   dialog.querySelector('button').onclick = () => dialog.close();
   dialog.onclick = event => { if (event.target === dialog) dialog.close(); };
-  name.onkeydown = event => { if (event.key === 'Enter') { event.preventDefault(); form.querySelector('#profile-name-save').click(); } };
-  nameEdit.onclick = () => { setNameEditing(true); nameStatus.textContent = ''; name.focus(); };
-  form.querySelector('#profile-name-cancel').onclick = () => { name.value = current.displayName; nameStatus.textContent = ''; setNameEditing(false); };
-  form.querySelector('#profile-name-save').onclick = async event => {
-    if (!name.reportValidity()) return;
-    event.currentTarget.disabled = true; nameStatus.textContent = 'Saving…';
-    try { await save({displayName: name.value}); name.value = current.displayName; setNameEditing(false); nameStatus.textContent = 'Name saved.'; }
-    catch (error) { nameStatus.textContent = error.message; } finally { event.target.disabled = false; }
-  };
+  initializeNameEditor(form, name, nameEdit, nameStatus, setNameEditing, save, () => current);
   edit.onclick = () => { if (detailsEditor.hidden) { setDetailsEditing(true); series.focus(); } };
   form.querySelector('#profile-cancel').onclick = () => { series.value = current.favoriteSeries || ''; bio.value = current.bio || ''; since.value = current.collectingSince || ''; form.querySelector('[data-date-value]').textContent = displayDate(since.value); goal.value = current.collectionGoal || ''; status.textContent = ''; setDetailsEditing(false); };
   form.querySelector('#remove-photo').onclick = async event => {

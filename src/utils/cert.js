@@ -3,10 +3,6 @@ export function normalizeCert(value) {
   return /^\d{1,8}$/.test(digits) ? digits.padStart(8, '0') : '';
 }
 
-export function isValidCert(value) {
-  return Boolean(normalizeCert(value));
-}
-
 export function makeCert() {
   const range = 100_000_000;
   const limit = Math.floor(0x100000000 / range) * range;
