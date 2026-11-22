@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Simplify certificate lookup heading
+
+- Remove the DCR Card Vault label above Certificate lookup.
+
 ## 2026-11-23 - Simplify profile heading
 
 - Remove the Your Account label above My profile.

@@ -59,7 +59,7 @@ export function verify(cards = []) {
   return `<main class="lookup-page"><section class="lookup-panel" aria-labelledby="lookup-title">
     ${background ? `<img class="lookup-background" src="/assets/cert-background/${background}.webp" alt="" aria-hidden="true">` : ''}
     <div class="lookup-content">
-    <div class="lookup-kicker">DCR CARD VAULT</div><h1 id="lookup-title">Certificate lookup</h1>
+    <h1 id="lookup-title">Certificate lookup</h1>
     <p class="lookup-description">Search any DCR certificate by number.</p>
     <form class="search-bar lookup-search" onsubmit="window.__searchCertificate(event)">
       <label class="sr-only" for="certificate-search">Certificate number</label>
