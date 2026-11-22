@@ -22,7 +22,7 @@ const sortOptions = [
 export function vaultSortSelect(id) {
   const options = sortOptions.map(([value, label]) => `<option value="${value}"${value === 'date-desc' ? ' selected' : ''}>${label}</option>`).join('');
   const items = sortOptions.map(([value, label]) => `<button type="button" role="menuitemradio" aria-checked="${value === 'date-desc'}" data-sort-value="${value}"><span>${label}</span><span class="vault-sort-check" aria-hidden="true">✓</span></button>`).join('');
-  return `<div class="vault-status"><select id="${id}" class="sr-only" tabindex="-1" aria-hidden="true">${options}</select><details class="vault-sort"><summary aria-label="Sort by: Date: Newest First"><span data-sort-label>Date: Newest First</span><span class="vault-sort-chevron" aria-hidden="true">⌄</span></summary><div class="vault-sort-menu" role="menu" aria-label="Sort by">${items}</div></details></div>`;
+  return `<div class="vault-status"><select id="${id}" class="sr-only" tabindex="-1" aria-hidden="true">${options}</select><details class="vault-sort"><summary aria-label="Sort by: Date: Newest First"><span data-sort-label>Date: Newest First</span><svg class="vault-sort-chevron" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m8 9 4-4 4 4M8 15l4 4 4-4"/></svg></summary><div class="vault-sort-menu" role="menu" aria-label="Sort by">${items}</div></details></div>`;
 }
 
 document.addEventListener('click', event => {

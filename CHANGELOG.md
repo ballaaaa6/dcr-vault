@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Refine vault sort controls
+
+- Add light red up and down chevrons and round the sort controls in My Vault and the label picker.
+
 ## 2026-11-23 - Fix vault sort deployment test
 
 - Handle vault sort changes through the shared dropdown event listener.
