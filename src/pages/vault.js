@@ -61,13 +61,8 @@ export function vault(cards = []) {
 }
 
 function detailMarkup(focus) {
-  const name = escapeHTML(focus?.name || 'No card selected');
-  const summary = focus ? [focus.setName, focus.year, focus.cardNumber].map(escapeHTML).filter(Boolean).join(' • ') : '';
-  const grade = escapeHTML(focus?.gradeLabel || '');
-  const cert = escapeHTML(focus?.certNumber || '');
   return `
-          <div class="vault-detail-header"><div class="detail-heading"><div class="page-eyebrow">CARD DETAILS</div><h2>${name}</h2><p class="muted">${summary}</p></div><button class="vault-edit-button" type="button" onclick="window.__editVault()" aria-label="Edit card details" title="Edit card details">⋯</button></div>
-          <div class="detail-identity"><span class="badge">${grade}</span><span class="muted">Cert: ${cert}</span></div>
+          <button class="vault-edit-button" type="button" onclick="window.__editVault()" aria-label="Edit card details" title="Edit card details">⋯</button>
           ${itemInformation(focus)}
           <a class="btn btn-ghost" href="/label?cert=${encodeURIComponent(focus?.certNumber || '')}">Print label</a>
           <form id="vault-edit" class="vault-edit" hidden onsubmit="window.__saveDetail(event, '${escapeHTML(focus?.id || '')}')">

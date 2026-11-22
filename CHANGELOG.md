@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Vault selection clarity
+- Simplify the card details panel and highlight the selected card in red.
+
 ## 2026-11-22 - Card deletion confirmation
 - Show a branded confirmation dialog before deleting a vault card.
 
