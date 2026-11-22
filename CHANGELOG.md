@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Login design concepts
+- Add five standalone login design previews for review, with the existing Google sign-in represented as a mockup.
+
 ## 2026-11-22 - Certificate URLs
 - Use /cert/<number> links for certificate searches while keeping existing verify links working.
 
