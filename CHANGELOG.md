@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Global Instrument Serif font
+- Use the self-hosted Instrument Serif font throughout the app and privacy policy.
+
 ## 2026-11-22 - Certificate viewer image size
 - Enlarge the viewer image and reduce the footer text size to make better use of the screen.
 
