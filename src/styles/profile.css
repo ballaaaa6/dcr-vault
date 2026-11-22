@@ -11,3 +11,5 @@
 .profile-name-row{display:flex;align-items:center;gap:10px}.profile-name-row h2{margin:0}.profile-pencil{border:0;background:transparent;color:var(--dcr-gray);font-size:22px;cursor:pointer}.profile-pencil:hover{color:var(--dcr-red)}.profile-identity #profile-name{width:min(100%,300px);padding:10px;border:1px solid var(--dcr-border);border-radius:8px;font:inherit}.profile-section textarea{box-sizing:border-box;width:100%;max-width:500px;padding:12px;border:1px solid var(--dcr-border);border-radius:8px;font:inherit;resize:vertical}.profile-name-status:empty{display:none}.profile-section dd{white-space:pre-wrap}#profile-details-editor[hidden],.profile-pencil[hidden]{display:none}
 
 .profile-section .form-field:has(.date-picker){max-width:500px;margin-top:20px}.profile-section .date-picker-trigger{width:100%}.profile-section .date-picker input{display:none}
+
+.profile-section .date-picker-calendar{width:min(100%,320px)}

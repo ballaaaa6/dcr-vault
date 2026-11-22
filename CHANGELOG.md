@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-22 - Resize profile calendar
+
+- Keep the collecting date calendar compact while retaining the existing date field width.
+
 ## 2026-11-22 - Add collector profile details and shared footer alignment
 
 - Add collecting start date and collection goal to personal details.
