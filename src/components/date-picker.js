@@ -21,14 +21,16 @@ export function datePicker(value = '') {
 
 function renderCalendar(picker, view) {
   const selected = picker.querySelector('input').value;
+  const now = new Date();
+  const today = isoDate(now);
   const first = new Date(view.getFullYear(), view.getMonth(), 1);
   const start = new Date(view.getFullYear(), view.getMonth(), 1 - first.getDay());
   const days = Array.from({length: 42}, (_, index) => {
     const date = new Date(start.getFullYear(), start.getMonth(), start.getDate() + index);
     const value = isoDate(date);
-    return `<button type="button" class="date-picker-day${date.getMonth() !== view.getMonth() ? ' is-outside' : ''}${value === selected ? ' is-selected' : ''}" data-date="${value}" aria-label="${displayDate(value)}"${value === selected ? ' aria-current="date"' : ''}>${date.getDate()}</button>`;
+    return `<button type="button" class="date-picker-day${date.getMonth() !== view.getMonth() ? ' is-outside' : ''}${value === selected ? ' is-selected' : ''}" data-date="${value}" aria-label="${displayDate(value)}"${value === selected ? ' aria-current="date"' : ''}${value > today ? ' disabled' : ''}>${date.getDate()}</button>`;
   }).join('');
-  picker.querySelector('.date-picker-calendar').innerHTML = `<div class="date-picker-header"><button type="button" data-month="-1" aria-label="Previous month">←</button><strong>${months[view.getMonth()]} ${view.getFullYear()}</strong><button type="button" data-month="1" aria-label="Next month">→</button></div><div class="date-picker-grid">${weekdays.map(day => `<span>${day}</span>`).join('')}${days}</div><button type="button" class="date-picker-clear" data-clear>Clear date</button>`;
+  picker.querySelector('.date-picker-calendar').innerHTML = `<div class="date-picker-header"><button type="button" data-month="-1" aria-label="Previous month"${view.getFullYear() === 1900 && view.getMonth() === 0 ? ' disabled' : ''}>←</button><div class="date-picker-selectors"><select data-select-month aria-label="Month">${months.map((month, index) => `<option value="${index}"${index === view.getMonth() ? ' selected' : ''}${view.getFullYear() === now.getFullYear() && index > now.getMonth() ? ' disabled' : ''}>${month}</option>`).join('')}</select><select data-select-year aria-label="Year">${Array.from({length: new Date().getFullYear() - 1899}, (_, index) => new Date().getFullYear() - index).map(year => `<option value="${year}"${year === view.getFullYear() ? ' selected' : ''}>${year}</option>`).join('')}</select></div><button type="button" data-month="1" aria-label="Next month"${view.getFullYear() === now.getFullYear() && view.getMonth() >= now.getMonth() ? ' disabled' : ''}>→</button></div><div class="date-picker-grid">${weekdays.map(day => `<span>${day}</span>`).join('')}${days}</div><button type="button" class="date-picker-clear" data-clear>Clear date</button>`;
 }
 
 export function initializeDatePicker(container) {
@@ -38,17 +40,22 @@ export function initializeDatePicker(container) {
   const trigger = picker.querySelector('.date-picker-trigger');
   const calendar = picker.querySelector('.date-picker-calendar');
   let view = parseDate(input.value) || new Date();
+  let rendering = false;
+  const render = () => { rendering = true; renderCalendar(picker, view); rendering = false; };
   const close = () => { calendar.hidden = true; trigger.setAttribute('aria-expanded', 'false'); };
   trigger.addEventListener('click', () => {
     if (!calendar.hidden) return close();
     view = parseDate(input.value) || new Date();
-    renderCalendar(picker, view);
+    render();
+    calendar.classList.remove('opens-up');
     calendar.hidden = false;
+    const bounds = calendar.getBoundingClientRect();
+    if (bounds.bottom > window.innerHeight && trigger.getBoundingClientRect().top > bounds.height) calendar.classList.add('opens-up');
     trigger.setAttribute('aria-expanded', 'true');
   });
   picker.addEventListener('click', event => {
     const month = event.target.closest('[data-month]');
-    if (month) { view = new Date(view.getFullYear(), view.getMonth() + Number(month.dataset.month), 1); renderCalendar(picker, view); return; }
+    if (month) { view = new Date(view.getFullYear(), view.getMonth() + Number(month.dataset.month), 1); render(); (calendar.querySelector(`[data-month="${month.dataset.month}"]:not(:disabled)`) || calendar.querySelector("[data-select-month]")).focus(); return; }
     const day = event.target.closest('[data-date]');
     if (!day && !event.target.closest('[data-clear]')) return;
     input.value = day ? day.dataset.date : '';
@@ -56,6 +63,15 @@ export function initializeDatePicker(container) {
     input.dispatchEvent(new Event('input', {bubbles: true}));
     close(); trigger.focus();
   });
+  calendar.addEventListener('change', event => {
+    if (!event.target.matches('[data-select-month], [data-select-year]')) return;
+    const year = Number(calendar.querySelector('[data-select-year]').value);
+    const month = Number(calendar.querySelector('[data-select-month]').value);
+    const now = new Date();
+    view = new Date(year, year === now.getFullYear() ? Math.min(month, now.getMonth()) : month, 1);
+    render();
+    calendar.querySelector(event.target.matches('[data-select-month]') ? '[data-select-month]' : '[data-select-year]').focus();
+  });
   picker.addEventListener('keydown', event => { if (event.key === 'Escape' && !calendar.hidden) { close(); trigger.focus(); } });
-  picker.addEventListener('focusout', event => { if (!picker.contains(event.relatedTarget)) close(); });
+  picker.addEventListener('focusout', event => { if (!rendering && !picker.contains(event.relatedTarget)) close(); });
 }

@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Improve vault acquisition date
+- Rename Source to Acquisition and improve the date picker with month and year selection, a white theme, adaptive placement, and disabled future dates.
+
 ## 2026-11-22 - Default vault sorting
 - Show cards by newest received date by default in My Vault.
 

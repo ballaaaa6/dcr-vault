@@ -1,15 +1,19 @@
 .date-picker{position:relative;min-width:0}
 .date-picker-trigger{display:flex;align-items:center;justify-content:space-between;text-align:left;cursor:pointer;font:inherit}
-.date-picker-calendar{position:absolute;z-index:10;top:calc(100% + 6px);left:0;box-sizing:border-box;width:100%;padding:16px;border:1px solid var(--calendar-border);border-radius:12px;background:var(--calendar-background);color:var(--dcr-white);box-shadow:var(--shadow);font:14px/1.3 Arial,sans-serif}
+.date-picker-calendar{position:absolute;z-index:10;top:calc(100% + 6px);left:0;box-sizing:border-box;width:100%;padding:16px;border:1px solid var(--calendar-border);border-radius:12px;background:var(--calendar-background);color:var(--dcr-black);box-shadow:var(--shadow);font:14px/1.3 Arial,sans-serif}
+.date-picker-calendar.opens-up{top:auto;bottom:calc(100% + 6px)}
 .date-picker-calendar[hidden]{display:none}
 .date-picker-header{display:grid;grid-template-columns:36px 1fr 36px;align-items:center;text-align:center;margin-bottom:12px}
 .date-picker-header button,.date-picker-day,.date-picker-clear{border:0;background:transparent;color:inherit;cursor:pointer;font:inherit}
 .date-picker-header button{height:36px;color:var(--calendar-muted);font-size:23px}
+.date-picker-selectors{display:flex;justify-content:center;gap:4px;min-width:0}
+.date-picker-selectors select{min-width:0;border:0;background:transparent;color:inherit;font:inherit;font-weight:700;cursor:pointer}
 .date-picker-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));text-align:center;align-items:center}
 .date-picker-grid>span{padding:8px 0;color:var(--calendar-muted)}
 .date-picker-day{width:100%;aspect-ratio:1;border-radius:12px;color:var(--calendar-muted)}
 .date-picker-day.is-outside{color:var(--calendar-outside)}
-.date-picker-day:hover,.date-picker-header button:hover,.date-picker-clear:hover{background:var(--calendar-border)}
+.date-picker-day:disabled{opacity:.3;cursor:not-allowed}
+.date-picker-day:not(:disabled):hover,.date-picker-header button:hover,.date-picker-clear:hover{background:var(--calendar-border)}
 .date-picker-day.is-selected{background:var(--calendar-selected);color:var(--dcr-white);font-weight:700}
-.date-picker-calendar button:focus-visible{outline:2px solid var(--dcr-white);outline-offset:-2px}
+.date-picker-calendar button:focus-visible{outline:2px solid var(--dcr-red);outline-offset:-2px}
 .date-picker-clear{display:block;margin:8px auto 0;padding:6px 10px;border-radius:8px;color:var(--calendar-muted)}

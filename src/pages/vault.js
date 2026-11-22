@@ -69,7 +69,7 @@ const privateKeys = ['buyPrice', 'buyCurrency', 'purchaseSource', 'seller', 'rec
 
 function privateInformation(card) {
   const price = card.buyPrice == null || card.buyPrice === '' ? '-' : `${card.buyCurrency || 'THB'} ${card.buyPrice}`;
-  const fields = [['Buy price', price], ['Source', card.purchaseSource], ['Seller', card.seller],
+  const fields = [['Buy price', price], ['Acquisition', card.purchaseSource], ['Seller', card.seller],
     ['Date received', card.receivedDate], ['Notes', card.notes]];
   if (card.boughtFrom) fields.push(['Bought from (previous)', card.boughtFrom]);
   return `<section class="cert-information vault-private"><h2>Private vault details</h2><dl>${fields.map(([label, value]) =>
@@ -81,8 +81,8 @@ function privateInputs(card) {
   const custom = source && !sources.includes(source);
   return `<div class="form-field"><span>Buy price</span><div class="vault-price-input"><input class="form-control" name="buyPrice" type="number" min="0" step="any" aria-label="Buy price" value="${escapeHTML(card.buyPrice ?? '')}">
     <select class="form-control" name="buyCurrency" aria-label="Currency">${currencies.map(code => `<option value="${code}"${code === (card.buyCurrency || 'THB') ? ' selected' : ''}>${code}</option>`).join('')}</select></div></div>
-    <label class="form-field"><span>Source</span><select class="form-control" name="sourceChoice" onchange="window.__vaultSourceChange(this)"><option value="">Select source</option>${sources.map(value => `<option${value === source ? ' selected' : ''}>${escapeHTML(value)}</option>`).join('')}<option value="Other"${custom ? ' selected' : ''}>Other</option></select></label>
-    <label class="form-field" id="vault-custom-source" ${custom ? '' : 'hidden'}><span>Other source</span><input class="form-control" name="customSource" maxlength="120" value="${escapeHTML(custom ? source : '')}"></label>
+    <label class="form-field"><span>Acquisition</span><select class="form-control" name="sourceChoice" onchange="window.__vaultSourceChange(this)"><option value="">Select acquisition</option>${sources.map(value => `<option${value === source ? ' selected' : ''}>${escapeHTML(value)}</option>`).join('')}<option value="Other"${custom ? ' selected' : ''}>Other</option></select></label>
+    <label class="form-field" id="vault-custom-source" ${custom ? '' : 'hidden'}><span>Other acquisition</span><input class="form-control" name="customSource" maxlength="120" value="${escapeHTML(custom ? source : '')}"></label>
     <label class="form-field"><span>Seller</span><input class="form-control" name="seller" maxlength="120" value="${escapeHTML(card.seller || '')}"></label>
     ${card.boughtFrom ? `<p class="detail-note">Bought from (previous): ${escapeHTML(card.boughtFrom)}</p>` : ''}
     ${datePicker(card.receivedDate)}
