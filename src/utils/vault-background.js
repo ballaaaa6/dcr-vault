@@ -27,7 +27,7 @@ export function preloadSelectedBackgrounds(cards) {
     if (preloadedBackgrounds.has(type)) continue;
     const image = new Image();
     image.onerror = () => preloadedBackgrounds.delete(type);
-    image.src = `/assets/vault-background/selected/${type}.webp`;
+    image.src = `/assets/vault-background/short/${type}.webp`;
     preloadedBackgrounds.set(type, image);
   }
 }

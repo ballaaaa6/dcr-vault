@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Refresh short Vault backgrounds
+
+- Replace the 18 short-row illustrations and fade them in from the left through 70% of the row on both white and selected red backgrounds.
+
 ## 2026-11-23 - Preserve certificate background proportions
 
 - Scale certificate artwork proportionally from the right and reduce its opacity to 40%.
