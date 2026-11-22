@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Improve login copyright readability
+
+- Use black text with a white glow for the login page copyright.
+
 ## 2026-11-23 - Rename certificate heading
 
 - Change the public certificate page heading to Certificate Verification.
