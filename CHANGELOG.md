@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Raise page headings
+
+- Move the My Vault, Labels, and My profile headings closer to the top of their pages.
+
 ## 2026-11-23 - Simplify certificate lookup heading
 
 - Remove the DCR Card Vault label above Certificate lookup.

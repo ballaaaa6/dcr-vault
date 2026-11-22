@@ -32,7 +32,7 @@ function editFields(card) {
 
 export function vault(cards = []) {
   activeCards = cards;
-  if (!cards.length) return '<main class="app-page vault-page"><section class="surface-card empty-state"><h1>My Vault</h1><p>Your private vault is ready for its first card.</p><a class="btn btn-primary" href="/register">Add a card</a></section></main>';
+  if (!cards.length) return '<main class="app-page vault-page"><header class="page-heading"><h1>My Vault</h1></header><section class="surface-card empty-state"><p>Your private vault is ready for its first card.</p><a class="btn btn-primary" href="/register">Add a card</a></section></main>';
   const params = new URLSearchParams(location.search);
   const sortedCards = [...cards].sort((a, b) => compareVaultCards(a, b, 'date-desc'));
   const focus = cards.find(card => card.id === params.get('id')) || sortedCards[0];
