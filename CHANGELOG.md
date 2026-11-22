@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Simplify profile photo controls
+
+- Add hover controls for uploading and removing profile photos, with an in-app removal confirmation.
+
 ## 2026-11-23 - Keep profile name editing on one line
 
 - Keep name editing controls in the name row and limit display names to 20 characters, including imported account names.

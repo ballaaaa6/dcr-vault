@@ -15,7 +15,7 @@ export function initializeCrop(save, photoStatus) {
     image.style.transform = `translate(${x}px, ${y}px)`;
   };
   const reset = () => { if (bitmap) bitmap.close(); bitmap = null; file.value = ''; area.hidden = true; button.disabled = true; status.textContent = ''; };
-  document.querySelector('#change-photo').onclick = () => { reset(); photoStatus.textContent = ''; file.click(); };
+  file.onclick = () => { reset(); photoStatus.textContent = ''; };
   dialog.querySelectorAll('[data-crop-close]').forEach(close => close.onclick = () => dialog.close());
   dialog.onclick = event => { if (event.target === dialog) dialog.close(); };
   dialog.onclose = reset;
