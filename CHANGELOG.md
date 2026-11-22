@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Global Playfair Display font
+- Use the self-hosted Playfair Display font throughout the app and privacy policy.
+
 ## 2026-11-22 - Larger website text
 - Increase text sizes throughout the app and privacy policy for better readability.
 

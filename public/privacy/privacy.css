@@ -1,7 +1,7 @@
-@import url('/assets/fonts/instrument-serif.css');
+@import url('/assets/fonts/playfair-display.css');
 :root{--dcr-red:#C8102E;--dcr-red-dark:#9B0B22;--dcr-red-light:#FFE8EB;--dcr-white:#fff;--dcr-black:#111;--dcr-gray:#6B7280;--dcr-border:#E5E7EB}
 *{box-sizing:border-box}
-body{margin:0;background:var(--dcr-white);color:var(--dcr-black);font-family:"Instrument Serif",serif;font-size:18px;line-height:1.65}
+body{margin:0;background:var(--dcr-white);color:var(--dcr-black);font-family:"Playfair Display",serif;font-size:18px;line-height:1.65}
 .privacy-page{width:min(760px,calc(100% - 36px));margin:0 auto;padding:44px 0 72px}
 .privacy-brand{color:var(--dcr-red);font-size:15px;font-weight:800;letter-spacing:.12em;text-decoration:none}
 .privacy-kicker{margin:54px 0 10px;color:var(--dcr-gray);font-size:12px;font-weight:750;letter-spacing:.13em}
