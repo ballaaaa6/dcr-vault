@@ -42,27 +42,25 @@ function conditionFromGrade(value) {
 export function cardLabelData(card) {
   const metadata = cardLabelMetadata(card);
   return {
-    yearSeries: metadata.yearSeries,
+    year: String(card.year ?? '').trim(),
     name: String(card.name ?? '').trim(),
     setName: metadata.setName,
     cardNumber: normalizeCardNumber(card.cardNumber),
     condition: conditionFromGrade(card.gradeLabel),
     rarity: normalizeRarity(card.rarity),
     certNumber: String(card.certNumber ?? '').trim(),
-    labelMetadataReady: metadata.labelMetadataReady
   };
 }
 
 function cleanLabelData(data) {
   return {
-    yearSeries: String(data.yearSeries ?? '').trim().toLocaleUpperCase('en-US'),
+    year: String(data.year ?? '').trim(),
     name: String(data.name ?? '').trim().toLocaleUpperCase('en-US'),
     setName: String(data.setName ?? '').trim().toLocaleUpperCase('en-US'),
     cardNumber: normalizeCardNumber(data.cardNumber).toLocaleUpperCase('en-US'),
     condition: String(data.condition ?? '').trim().toLocaleUpperCase('en-US'),
     rarity: normalizeRarity(data.rarity),
     certNumber: String(data.certNumber ?? '').trim(),
-    labelMetadataReady: data.labelMetadataReady !== false
   };
 }
 
@@ -88,8 +86,7 @@ export function rarityFitsLabel(setName, rarity) {
 
 export function validateLabelData(data) {
   const value = cleanLabelData(data);
-  if (!value.labelMetadataReady) return ['This language/set needs a verified label profile before printing.'];
-  const required = ['yearSeries', 'name', 'setName', 'cardNumber', 'condition', 'rarity', 'certNumber'];
+  const required = ['year', 'name', 'setName', 'cardNumber', 'condition', 'rarity', 'certNumber'];
   const missing = required.find(key => !value[key]);
   if (missing) return [`${missing.replace(/[A-Z]/g, letter => ` ${letter.toLowerCase()}`)} is required.`];
   if ([value.name, value.setName].some(hasNonLatinScript)) return ['Card name and set must use English text.'];
@@ -97,7 +94,7 @@ export function validateLabelData(data) {
   if (!CONDITION_OPTIONS.includes(value.condition)) return ['Choose a condition from the DCR list.'];
 
   return [
-    pairFitError('Year / series', 'card number', value.yearSeries, value.cardNumber),
+    pairFitError('Year', 'card number', value.year, value.cardNumber),
     pairFitError('Card name', 'condition', value.name, value.condition),
     pairFitError('Set name', 'rarity', value.setName, value.rarity)
   ].filter(Boolean);
@@ -204,7 +201,7 @@ export async function renderLabelSvgPair(data) {
   const value = cleanLabelData(data);
   const [frontSource, backSource] = await Promise.all([frontMaster, backMaster]);
   const front = parseSvg(frontSource);
-  svgText(front, 'front-year-series', value.yearSeries);
+  svgText(front, 'front-year-series', value.year);
   svgText(front, 'front-card-name', value.name);
   svgText(front, 'front-collection', value.setName);
   svgText(front, 'front-card-number', value.cardNumber);

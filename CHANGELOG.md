@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Card year on labels
+- Print the recorded card year and remove the separate year / series display and profile requirement.
+
 ## 2026-11-22 - Promotional card rarity
 - Fill Promo for promotional card readings and record intake-form values in identification diagnostics.
 

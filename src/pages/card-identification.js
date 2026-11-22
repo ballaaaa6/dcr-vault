@@ -152,8 +152,7 @@ async function applyReading(fields, version, requestId, values) {
           : 'No verified printed-language record found. Review the Gemini values before saving.';
   const englishNote = sourceLanguage !== 'en'
     ? ' Card number is the printed number; English name is a translation to review.' : '';
-  const labelNote = !metadata.labelMetadataReady ? ' A verified label profile is required before printing.' : '';
-  document.getElementById('manual-status').textContent = `${matchNote}${englishNote}${labelNote}`;
+  document.getElementById('manual-status').textContent = `${matchNote}${englishNote}`;
   logIdentificationStage('browser', {match: source ? 'matched' : catalogUnavailable ? 'catalog_unavailable' : 'unresolved',
     candidates: candidates.map(card => card.id), provenance: fieldProvenance, conflicts: [...conflicts, ...differences]});
   return {source, candidates, matchNote, englishNote};
@@ -208,7 +207,7 @@ function selectReadingCandidate(index) {
     fieldProvenance[key] = key === 'cardNumber' || key === 'name' && language !== 'en' ? 'gemini' : 'catalog';
   }
   logIdentificationStage('selection', {selected: card.id, values, provenance: fieldProvenance});
-  document.getElementById('manual-status').textContent = 'Candidate selected for review. Verify the printed number, stamp, set, and finish before saving; a verified label profile may still be required.';
+  document.getElementById('manual-status').textContent = 'Candidate selected for review. Verify the printed number, stamp, set, and finish before saving.';
   document.getElementById('identification-result')?.close();
 }
 

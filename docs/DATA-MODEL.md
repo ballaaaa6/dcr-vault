@@ -21,7 +21,7 @@ All timestamps are Unix seconds unless noted otherwise. D1 is the source of trut
 - `user_id`: owner, references `users.id`
 - `game`: pokemon | yugioh | other
 - `name`, `set_name`, `year`, `card_number`, `rarity`
-- `year_series`: approved year and series wording captured at intake; label generation resolves the selected English catalog identity through the approved year/series rules again so stale values are not printed
+- `year_series`: legacy intake metadata; label generation uses the recorded `year` instead
 - `catalog_card_id`: exact English catalog printing used for label values
 - `source_language`, `source_set_id`, `source_card_id`, `source_finish`: exact printed-language source identity and observed finish used to audit the localized-to-English match
 - `grade_label`: one of the DCR condition terms when assessed; the label prints the condition term without a numeric grade

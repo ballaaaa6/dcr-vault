@@ -45,7 +45,7 @@ async function addCards(cards) {
   for (const card of cards) {
     const cert = normalizeCert(card.certNumber);
     if (!cert || entries.some(entry => entry.cert === cert)) { duplicate++; continue; }
-    let data = {labelMetadataReady: false};
+    let data = {};
     let error = '';
     try {
       if (String(card.game).toLowerCase() !== 'pokemon') throw new Error('Only Pokémon labels are supported.');
@@ -106,7 +106,7 @@ function chooseVault() {
 function viewLabel(cert) {
   const item = entries.find(entry => entry.cert === cert);
   if (!item) return;
-  const fields = [['Year', item.year], ['Year / series', item.data.yearSeries], ['Name', item.data.name],
+  const fields = [['Year', item.data.year], ['Name', item.data.name],
     ['Set', item.data.setName], ['Card number', item.data.cardNumber], ['Rarity', item.data.rarity],
     ['Condition', item.data.condition]];
   dialog(`${dialogHead(`Cert ${esc(cert)}`)}<div class="label-edit-grid">${fields.map(([name, value]) => `<div class="form-field"><span>${name}</span><div class="form-control">${esc(value || '—')}</div></div>`).join('')}</div><p class="label-status">${esc(item.error || '')}</p><div class="label-edit-preview">${item.frontSvg || ''}${item.backSvg || ''}</div>`);

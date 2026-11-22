@@ -341,13 +341,9 @@ document.addEventListener('focusout', event => {
 
 installCatalogSuggestions(card => {
   invalidateCardResolution();
-  const metadata = selectCatalogSuggestion(card);
+  selectCatalogSuggestion(card);
   document.getElementById('m-rarity').value = formatRarity(card.rarity);
-  document.getElementById('manual-status').textContent = !metadata.labelMetadataReady
-    ? 'This language/set has no verified label profile yet, so label printing will stay unavailable until one is added.'
-    : !metadata.yearSeries
-      ? 'This set has no approved Year / series mapping yet, so label printing will stay unavailable until one is added.'
-      : 'Catalog card selected. Check the details, then enter Cert and Grade.';
+  document.getElementById('manual-status').textContent = 'Catalog card selected. Check the details, then enter Cert and Grade.';
   updateSubmitState();
   document.getElementById('m-grade').focus();
 }, () => {
