@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Set short Vault row text colors
+
+- Use black text with a white glow on unselected short rows and white text with a dark glow on the selected row.
+
 ## 2026-11-23 - Soften short Vault backgrounds
 
 - Use 30% artwork opacity instead of darkening the image, preserving its colors and existing fade.
