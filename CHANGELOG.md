@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Certificate download filenames
+- Name downloaded images using the certificate number and selected side.
+
 ## 2026-11-22 - Certificate image download
 - Add a download button for the selected image in the certificate viewer.
 

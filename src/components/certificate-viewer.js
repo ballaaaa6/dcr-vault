@@ -1,4 +1,4 @@
-async function downloadImage(url, label) {
+async function downloadImage(url, cert, side) {
   const response = await fetch(url, {referrerPolicy: 'no-referrer'});
   if (!response.ok) throw new Error('Image download failed');
   const blob = await response.blob();
@@ -6,7 +6,7 @@ async function downloadImage(url, label) {
   const objectUrl = URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.href = objectUrl;
-  link.download = `card-${label.toLowerCase().replace(/[^a-z0-9]+/g, '-')}.${extension}`;
+  link.download = `${cert}-${side}.${extension}`;
   link.click();
   setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
 }
@@ -23,8 +23,10 @@ export function initializeCertificateViewer() {
   const label = dialog.querySelector('[data-viewer-label]');
   const status = dialog.querySelector('.cert-viewer-download-status');
   let opener;
+  let selectedSide = 'front';
   function select(button) {
     const source = button.querySelector('img');
+    selectedSide = button.dataset.side;
     image.src = source.src;
     image.alt = source.alt;
     label.textContent = button.querySelector('span').textContent;
@@ -55,7 +57,7 @@ export function initializeCertificateViewer() {
   dialog.querySelector('[data-viewer-download]').addEventListener('click', async () => {
     status.textContent = '';
     try {
-      await downloadImage(image.src, label.textContent);
+      await downloadImage(image.src, dialog.dataset.cert, selectedSide);
     } catch {
       status.textContent = 'Unable to download this image. Please try again.';
     }

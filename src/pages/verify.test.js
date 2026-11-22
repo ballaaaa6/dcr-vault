@@ -17,6 +17,10 @@ test('certificate lookup renders a matching record and handles missing records',
   assert.match(markup, /&lt;Card&gt;/);
   assert.match(markup, /Item Information/);
   assert.match(markup, /cert-gallery/);
+  assert.match(markup, /data-cert="00000012"/);
+  assert.match(markup, /data-side="front"/);
+  const backMarkup = verify([{certNumber: '00000012', name: 'Card', backImage: '/back'}]);
+  assert.match(backMarkup, /data-side="back"/);
   assert.match(verify([]), /No record found/);
   globalThis.location.search = '?cert=invalid';
   assert.match(verify([]), /Enter 1 to 8 digits/);
