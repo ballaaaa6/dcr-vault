@@ -63,33 +63,43 @@ export function vault(cards = []) {
     </main>`;
 }
 
-function detailMarkup(focus) {
-  return `
-          <button class="vault-edit-button" type="button" onclick="window.__editVault()" aria-label="Edit card details" title="Edit card details">⋯</button>
-          ${itemInformation(focus)}
-          <form id="vault-edit" class="vault-edit" hidden onsubmit="window.__saveDetail(event, '${escapeHTML(focus?.id || '')}')">
-            <h3>Edit card details</h3>
-            <p class="detail-note">These card details appear on the public certificate.</p>
-            <div class="vault-edit-grid">${editFields(focus)}</div>
-          <h3>Private vault details</h3>
-          <label class="form-field"><span>Buy price (THB)</span><input class="form-control" id="d-buy" inputmode="decimal" value="${escapeHTML(focus?.buyPrice ?? '')}"></label>
-          <label class="form-field"><span>Sell price (THB)</span><input class="form-control" id="d-sell" inputmode="decimal" value="${escapeHTML(focus?.sellPrice ?? '')}"></label>
-          <label class="form-field"><span>Status</span><select class="form-control" id="d-status"><option value="">Select status</option>${statusOptions(focus?.status || '')}</select></label>
-          <label class="form-field"><span>Bought from</span><input class="form-control" id="d-from" value="${escapeHTML(focus?.boughtFrom || '')}"></label>
-          <label class="form-field"><span>Artist / Illustrator</span><input class="form-control" id="d-artist" maxlength="120" value="${escapeHTML(focus?.artist || '')}"></label>
-          <label class="form-field"><span>Notes</span><textarea class="form-control" id="d-notes" maxlength="2000" rows="3">${escapeHTML(focus?.notes || '')}</textarea></label>
-          <div class="detail-actions">
-            <button class="btn btn-primary" type="submit">Save details</button><button class="btn btn-ghost" type="button" onclick="window.__editVault(false)">Cancel</button><button class="btn btn-ghost vault-delete" type="button" onclick="window.__deleteVault('${escapeHTML(focus?.id || '')}')">Delete card</button>
-          </div>
-          <p class="detail-note" id="vault-edit-message" role="status">Prices and vault details are private.</p>
-          </form>`;
+const flipIcon = '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-5V2M4 17h5v5M20 7a8 8 0 0 0-14-2M4 17a8 8 0 0 0 14 2"/></svg>';
+const privateFields = [['buyPrice', 'Buy price (THB)'], ['sellPrice', 'Sell price (THB)'],
+  ['status', 'Status'], ['boughtFrom', 'Bought from'], ['artist', 'Artist / Illustrator'], ['notes', 'Notes']];
+
+function privateInformation(card) {
+  return `<section class="cert-information vault-private"><h2>Private vault details</h2><dl>${privateFields.map(([key, label]) =>
+    `<div><dt>${label}</dt><dd>${escapeHTML(card[key] === 0 ? '0' : card[key] || '-')}</dd></div>`).join('')}</dl></section>`;
 }
 
-function selectCard(id) {
+function privateInputs(card) {
+  return `<label class="form-field"><span>Buy price (THB)</span><input class="form-control" name="buyPrice" inputmode="decimal" value="${escapeHTML(card.buyPrice ?? '')}"></label>
+    <label class="form-field"><span>Sell price (THB)</span><input class="form-control" name="sellPrice" inputmode="decimal" value="${escapeHTML(card.sellPrice ?? '')}"></label>
+    <label class="form-field"><span>Status</span><select class="form-control" name="status"><option value="">Select status</option>${statusOptions(card.status || '')}</select></label>
+    <label class="form-field"><span>Bought from</span><input class="form-control" name="boughtFrom" value="${escapeHTML(card.boughtFrom || '')}"></label>
+    <label class="form-field"><span>Artist / Illustrator</span><input class="form-control" name="artist" maxlength="120" value="${escapeHTML(card.artist || '')}"></label>
+    <label class="form-field"><span>Notes</span><textarea class="form-control" name="notes" maxlength="2000" rows="3">${escapeHTML(card.notes || '')}</textarea></label>`;
+}
+
+function detailMarkup(card, mode = 'item') {
+  const editing = mode.startsWith('edit-');
+  const privateMode = mode === 'private' || mode === 'edit-private';
+  return `<div class="vault-detail-controls"><button class="vault-edit-button vault-detail-flip" type="button" onclick="window.__flipVault()" aria-label="${privateMode ? 'Show item information' : 'Show private vault details'}" title="Switch details">${flipIcon}</button>
+    <details class="vault-menu"><summary class="vault-edit-button" aria-label="Edit options" title="Edit options">⋯</summary><div class="vault-menu-options">
+    <button type="button" onclick="window.__editVault('card')">Edit card</button><button type="button" onclick="window.__editVault('private')">Edit private</button></div></details></div>
+    ${editing ? `<form id="vault-edit" class="vault-edit" data-mode="${mode}" onsubmit="window.__saveDetail(event, '${escapeHTML(card.id)}')">
+      <h2>${privateMode ? 'Private vault details' : 'Edit card details'}</h2>
+      <p class="detail-note">${privateMode ? 'Prices and vault details are private.' : 'These card details appear on the public certificate.'}</p>
+      ${privateMode ? privateInputs(card) : `<div class="vault-edit-grid">${editFields(card)}</div>`}
+      <div class="detail-actions"><button class="btn btn-primary" type="submit">Save details</button><button class="btn btn-ghost" type="button" onclick="window.__cancelVault()">Cancel</button><button class="btn btn-ghost vault-delete" type="button" onclick="window.__deleteVault('${escapeHTML(card.id)}')">Delete card</button></div>
+      <p class="detail-note" id="vault-edit-message" role="status"></p></form>` : (privateMode ? privateInformation(card) : itemInformation(card))}`;
+}
+
+function selectCard(id, mode = 'item') {
   const card = activeCards.find(item => item.id === id);
   if (!card) return;
   selectedId = id;
-  document.querySelector('.vault-detail').innerHTML = detailMarkup(card);
+  document.querySelector('.vault-detail').innerHTML = detailMarkup(card, mode);
   document.querySelector('.vault-photo-panel').innerHTML = vaultPhoto(card);
   initializeVaultPhoto(document.querySelector('.vault-photo-panel'));
   document.querySelectorAll('.vault-row').forEach(row => {
@@ -127,12 +137,20 @@ window.__filterVault = () => {
   count.textContent = `${matches.length} ${matches.length === 1 ? 'card' : 'cards'} shown · Prices stay private to your account and never appear on labels.`;
 };
 
-window.__editVault = (open = true) => {
+function changeMode(mode) {
   if (vaultBusy) return;
-  if (!open) { selectCard(selectedId); return; }
-  document.getElementById('vault-edit').hidden = false;
-  document.querySelector('#vault-edit input').focus();
+  const form = document.getElementById('vault-edit');
+  if (form?.dataset.dirty === 'true' && !confirm('Discard unsaved changes?')) return;
+  selectCard(selectedId, mode);
+  document.querySelector('#vault-edit input, #vault-edit select')?.focus();
+}
+
+window.__flipVault = () => {
+  const isPrivate = !!document.querySelector('.vault-private, #vault-edit[data-mode="edit-private"]');
+  changeMode(isPrivate ? 'item' : 'private');
 };
+window.__editVault = mode => changeMode(`edit-${mode}`);
+window.__cancelVault = () => changeMode(document.getElementById('vault-edit')?.dataset.mode === 'edit-private' ? 'private' : 'item');
 
 window.__saveDetail = async (event, id) => {
   event.preventDefault();
@@ -140,19 +158,13 @@ window.__saveDetail = async (event, id) => {
   const button = document.querySelector('.detail-actions .btn-primary');
   button.disabled = true;
   vaultBusy = true;
-  const patch = {
-      ...Object.fromEntries(publicFields.map(([key]) => [key, event.target.elements[key].value])),
-      buyPrice: document.getElementById('d-buy').value,
-      sellPrice: document.getElementById('d-sell').value,
-      status: document.getElementById('d-status').value,
-      boughtFrom: document.getElementById('d-from').value,
-      artist: document.getElementById('d-artist').value,
-      notes: document.getElementById('d-notes').value
-    };
+  const privateMode = event.target.dataset.mode === 'edit-private';
+  const keys = privateMode ? privateFields.map(([key]) => key) : publicFields.map(([key]) => key);
+  const patch = Object.fromEntries(keys.map(key => [key, event.target.elements[key].value]));
   try {
     await updateCard(id, patch);
     Object.assign(activeCards.find(card => card.id === id), patch);
-    selectCard(id);
+    selectCard(id, privateMode ? 'private' : 'item');
     window.__filterVault();
   } catch (error) {
     document.getElementById('vault-edit-message').textContent = error.message || 'Details could not be saved.';

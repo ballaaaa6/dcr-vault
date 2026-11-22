@@ -252,3 +252,17 @@
 .vault-row[aria-pressed=true]{background:var(--dcr-red);color:var(--dcr-white);border-color:var(--dcr-red)}
 .vault-row[aria-pressed=true] .muted,.vault-row[aria-pressed=true] .row-arrow{color:var(--dcr-white)}
 .vault-row[aria-pressed=true] .badge{background:var(--dcr-white);color:var(--dcr-red)}
+
+.vault-detail-controls{float:right;display:flex;gap:6px;position:relative;z-index:1}
+.vault-detail .vault-edit-button{float:none}
+.vault-detail-flip{padding:10px}
+.vault-detail-flip svg{width:20px;height:20px}
+.vault-menu{position:relative}
+.vault-menu summary{list-style:none}
+.vault-menu summary::-webkit-details-marker{display:none}
+.vault-menu-options{position:absolute;right:0;top:48px;min-width:140px;padding:4px;background:var(--dcr-white);border:1px solid var(--dcr-border);border-radius:10px;box-shadow:var(--shadow)}
+.vault-menu-options button{display:block;width:100%;padding:10px;text-align:left;border:0;background:transparent;color:var(--dcr-black);cursor:pointer}
+.vault-menu-options button:hover,.vault-menu-options button:focus-visible{background:var(--dcr-red-light)}
+.vault-detail .vault-edit{margin:0;padding:8px 0 0;border:0}
+.vault-edit h2{font-size:1.25rem;margin:0 0 20px}
+.vault-private dd{text-transform:none;white-space:pre-wrap}

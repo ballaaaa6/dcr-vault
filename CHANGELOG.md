@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Vault detail views
+- Switch between card and private details and edit each separately.
+
 ## 2026-11-22 - Vault photo hover controls
 - Hide photo controls when the pointer leaves while preserving keyboard access.
 
