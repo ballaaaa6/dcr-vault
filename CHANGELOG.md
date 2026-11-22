@@ -2,7 +2,7 @@
 
 ## 2026-11-22 - Reposition privacy policy content
 
-- Remove the table of contents and place the policy beside the sakura landscape.
+- Remove the table of contents, place the policy beside the sakura landscape, and add a return to login button.
 
 ## 2026-11-22 - Center login text
 
