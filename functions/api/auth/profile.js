@@ -11,7 +11,7 @@ export async function onRequestPut({request, env}) {
   const body = await readJson(request);
   const name = typeof body?.displayName === 'string' ? body.displayName.trim() : '';
   const avatar = body?.avatarUrl;
-  if (!name || name.length > 80) return json({error: 'Enter a display name of up to 80 characters.'}, 400);
+  if (!name || name.length > 12) return json({error: 'Enter a display name of up to 12 characters.'}, 400);
   if (typeof avatar !== 'string' || (avatar !== session.user.avatarUrl && !validAvatar(avatar))) {
     return json({error: 'Please choose a valid photo.'}, 400);
   }

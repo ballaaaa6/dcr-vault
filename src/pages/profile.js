@@ -3,9 +3,9 @@ import {escapeHTML} from '../utils/format.js';
 
 export function profile(user) {
   return `<main class="app-page profile-page"><header class="page-heading"><div class="page-eyebrow">YOUR ACCOUNT</div><h1>My profile</h1><p class="page-description">Manage your personal details and account.</p></header>
-    <form class="profile-form" id="profile-form"><section class="surface-card profile-identity"><div id="profile-avatar">${avatar(user, 'profile-avatar')}</div><div><h2>${escapeHTML(user.displayName || user.email)}</h2><p>${escapeHTML(user.email)}</p><div class="profile-photo-actions"><label class="btn btn-ghost" for="profile-photo">Change photo</label><input id="profile-photo" type="file" accept="image/jpeg,image/png,image/webp" hidden><button class="profile-text-button" type="button" id="remove-photo">Remove photo</button></div><small>JPG, PNG or WebP, up to 5 MB.</small></div></section>
-    <section class="surface-card profile-section"><h2>Personal details</h2><label for="profile-name">Display name</label><input id="profile-name" name="displayName" maxlength="80" required value="${escapeHTML(user.displayName || '')}"><div class="profile-actions"><button class="btn btn-primary" type="submit">Save changes</button><button class="btn btn-ghost" type="button" id="profile-cancel">Cancel</button></div><p class="profile-status" role="status" aria-live="polite"></p></section>
-    <section class="surface-card profile-section"><h2>Account</h2><dl><div><dt>Email</dt><dd>${escapeHTML(user.email)}</dd></div><div><dt>Sign-in method</dt><dd>Google</dd></div></dl><button class="profile-text-button" type="button" data-profile-sign-out>Sign out</button></section></form></main>`;
+    <form class="profile-form" id="profile-form"><section class="surface-card profile-identity"><button type="button" id="profile-avatar" class="profile-avatar-button" aria-label="View profile photo" ${user.avatarUrl ? '' : 'disabled'}>${avatar(user, 'profile-avatar')}</button><div><h2>${escapeHTML(user.displayName || user.email)}</h2><p>${escapeHTML(user.email)}</p><div class="profile-photo-actions"><label class="btn btn-ghost" for="profile-photo">Change photo</label><input id="profile-photo" type="file" accept="image/jpeg,image/png,image/webp" hidden><button class="profile-text-button" type="button" id="remove-photo">Remove photo</button></div><small>JPG, PNG or WebP, up to 5 MB.</small></div></section>
+    <section class="surface-card profile-section"><h2>Personal details</h2><label for="profile-name">Display name</label><input id="profile-name" name="displayName" maxlength="12" required aria-describedby="profile-name-hint" value="${escapeHTML(user.displayName || '')}"><small id="profile-name-hint">Up to 12 characters.</small><div class="profile-actions"><button class="btn btn-primary" type="submit">Save changes</button><button class="btn btn-ghost" type="button" id="profile-cancel">Cancel</button></div><p class="profile-status" role="status" aria-live="polite"></p></section>
+    <section class="surface-card profile-section"><h2>Account</h2><dl><div><dt>Email</dt><dd>${escapeHTML(user.email)}</dd></div><div><dt>Sign-in method</dt><dd>Google</dd></div></dl><button class="profile-text-button" type="button" data-profile-sign-out>Sign out</button></section></form><dialog class="profile-photo-dialog" aria-label="Profile photo"><button type="button" class="profile-photo-close" aria-label="Close photo preview">×</button><img alt="Your profile photo"></dialog></main>`;
 }
 
 export function initializeProfile(user) {
@@ -15,7 +15,12 @@ export function initializeProfile(user) {
   const status = form.querySelector('.profile-status');
   let current = {...user};
   let pendingAvatar = current.avatarUrl;
-  const preview = () => { form.querySelector('#profile-avatar').innerHTML = avatar({...current, displayName: name.value, avatarUrl: pendingAvatar}, 'profile-avatar'); };
+  const avatarButton = form.querySelector('#profile-avatar');
+  const dialog = document.querySelector('.profile-photo-dialog');
+  const preview = () => { avatarButton.innerHTML = avatar({...current, displayName: name.value, avatarUrl: pendingAvatar}, 'profile-avatar'); avatarButton.disabled = !pendingAvatar; };
+  avatarButton.onclick = () => { dialog.querySelector('img').src = pendingAvatar; dialog.showModal(); };
+  dialog.querySelector('button').onclick = () => dialog.close();
+  dialog.onclick = event => { if (event.target === dialog) dialog.close(); };
   form.querySelector('#remove-photo').onclick = () => { pendingAvatar = ''; photo.value = ''; preview(); };
   form.querySelector('#profile-cancel').onclick = () => { name.value = current.displayName; pendingAvatar = current.avatarUrl; photo.value = ''; status.textContent = ''; preview(); };
   photo.onchange = async () => {
@@ -25,6 +30,7 @@ export function initializeProfile(user) {
   };
   form.onsubmit = async event => {
     event.preventDefault();
+    if (name.value.trim().length > 12) { status.textContent = 'Enter a display name of up to 12 characters.'; name.focus(); return; }
     const button = form.querySelector('[type="submit"]'); button.disabled = true; status.textContent = 'Saving…';
     try {
       const response = await fetch('/api/auth/profile', {method: 'PUT', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({displayName: name.value, avatarUrl: pendingAvatar})});
