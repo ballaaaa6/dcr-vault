@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Add certificate backgrounds
+
+- Show a paper-art certificate background matched to the card classification, with an unknown fallback.
+
 ## 2026-11-23 - Speed up selected Vault artwork
 
 - Compress selected-card artwork and preload only the classifications present in the vault.

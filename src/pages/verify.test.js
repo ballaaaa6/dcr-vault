@@ -36,6 +36,14 @@ test('certificate lookup reads the number from the new path', () => {
   delete globalThis.location;
 });
 
+test('certificate background follows the public classification and clears for missing records', () => {
+  globalThis.location = {pathname: '/cert/00000001', search: ''};
+  assert.match(verify([{certNumber: '00000001', name: 'Dragon', backgroundType: 'dragon'}]), /cert-background\/dragon\.webp/);
+  assert.match(verify([{certNumber: '00000001', name: 'Unknown', backgroundType: '../../bad'}]), /cert-background\/unknown\.webp/);
+  assert.doesNotMatch(verify([]), /cert-background/);
+  delete globalThis.location;
+});
+
 
 test('certificate details show saved condition, collector number, and full language', () => {
   globalThis.location = {pathname: '/cert/00000001', search: ''};

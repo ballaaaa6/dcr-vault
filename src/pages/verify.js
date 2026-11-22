@@ -3,6 +3,7 @@ import {findByCert} from '../store/cards.js';
 import {escapeHTML} from '../utils/format.js';
 import {certificateFromPath, normalizeCert} from '../utils/cert.js';
 import {classificationLabel} from '../utils/card-classification.js';
+import {vaultBackground} from '../utils/vault-background.js';
 
 export function certificateImages(card) {
   const actual = [['Front', card.frontImage], ['Back', card.backImage]].filter(([, url]) => url);
@@ -52,7 +53,11 @@ export function verify(cards = []) {
   const pathCert = certificateFromPath(location.pathname);
   const rawCert = pathCert ?? params.get('cert') ?? '';
   const cert = normalizeCert(rawCert) || rawCert;
+  const card = normalizeCert(cert) ? findByCert(cards, normalizeCert(cert)) : null;
+  const background = card ? vaultBackgroundFromCertificate(card) : '';
   return `<main class="lookup-page"><section class="lookup-panel" aria-labelledby="lookup-title">
+    ${background ? `<img class="lookup-background" src="/assets/cert-background/${background}.webp" alt="" aria-hidden="true">` : ''}
+    <div class="lookup-content">
     <div class="lookup-kicker">DCR CARD VAULT</div><h1 id="lookup-title">Certificate lookup</h1>
     <p class="lookup-description">Search any DCR certificate by number.</p>
     <form class="search-bar lookup-search" onsubmit="window.__searchCertificate(event)">
@@ -60,5 +65,10 @@ export function verify(cards = []) {
       <input id="certificate-search" name="cert" type="text" inputmode="numeric" autocomplete="off" maxlength="8" pattern="[0-9]{1,8}" placeholder="Enter a Cert Number" value="${escapeHTML(cert)}" required>
       ${searchClearButton()}
       <button class="search-button" type="submit">Search</button></form>
-    ${pathCert !== null || params.has('cert') ? resultMarkup(cert, cards) : ''}</section></main>`;
+    ${pathCert !== null || params.has('cert') ? resultMarkup(cert, cards) : ''}</div></section></main>`;
+}
+
+function vaultBackgroundFromCertificate(card) {
+  const allowed = new Set(['grass', 'fire', 'water', 'lightning', 'psychic', 'fighting', 'darkness', 'metal', 'dragon', 'fairy', 'colorless', 'item', 'pokemon-tool', 'supporter', 'stadium', 'basic-energy', 'special-energy', 'unknown']);
+  return allowed.has(card.backgroundType) ? card.backgroundType : vaultBackground(card);
 }

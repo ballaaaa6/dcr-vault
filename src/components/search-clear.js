@@ -9,6 +9,7 @@ if (typeof window !== 'undefined') window.__clearSearch = button => {
   if (input.id === 'vault-q') window.__filterVault();
   if (bar.classList.contains('lookup-search')) {
     document.querySelector('.lookup-result, .cert-record')?.remove();
+    document.querySelector('.lookup-background')?.remove();
     history.replaceState(history.state, '', '/verify');
   }
   input.focus();
