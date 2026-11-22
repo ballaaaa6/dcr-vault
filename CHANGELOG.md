@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Restyle vault sorting menus
+
+- Use matching custom dropdown menus in My Vault and the label picker, with a softer red hover state.
+
 ## 2026-11-23 - Sort cards in the label picker
 
 - Add the My Vault sorting dropdown beside Select all, preserving card selections when sorting.

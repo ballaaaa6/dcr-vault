@@ -13,6 +13,44 @@ export function compareVaultCards(a, b, sort) {
 }
 
 
+const sortOptions = [
+  ['name-asc', 'Name: A–Z'], ['name-desc', 'Name: Z–A'],
+  ['price-desc', 'Price: High to Low'], ['price-asc', 'Price: Low to High'],
+  ['date-asc', 'Date: Oldest First'], ['date-desc', 'Date: Newest First']
+];
+
 export function vaultSortSelect(id) {
-  return `<label class="vault-status"><span class="sr-only">Sort by</span><select id="${id}" class="form-control"><option value="name-asc">Name: A–Z</option><option value="name-desc">Name: Z–A</option><option value="price-desc">Price: High to Low</option><option value="price-asc">Price: Low to High</option><option value="date-asc">Date: Oldest First</option><option value="date-desc" selected>Date: Newest First</option></select></label>`;
+  const options = sortOptions.map(([value, label]) => `<option value="${value}"${value === 'date-desc' ? ' selected' : ''}>${label}</option>`).join('');
+  const items = sortOptions.map(([value, label]) => `<button type="button" role="menuitemradio" aria-checked="${value === 'date-desc'}" data-sort-value="${value}"><span>${label}</span><span class="vault-sort-check" aria-hidden="true">✓</span></button>`).join('');
+  return `<div class="vault-status"><select id="${id}" class="sr-only" tabindex="-1" aria-hidden="true">${options}</select><details class="vault-sort"><summary aria-label="Sort by: Date: Newest First"><span data-sort-label>Date: Newest First</span><span class="vault-sort-chevron" aria-hidden="true">⌄</span></summary><div class="vault-sort-menu" role="menu" aria-label="Sort by">${items}</div></details></div>`;
 }
+
+document.addEventListener('click', event => {
+  const item = event.target.closest('[data-sort-value]');
+  document.querySelectorAll('.vault-sort[open]').forEach(menu => {
+    if (!menu.contains(event.target)) menu.open = false;
+  });
+  if (!item) return;
+  const menu = item.closest('.vault-sort');
+  const select = menu.parentElement.querySelector('select');
+  select.value = item.dataset.sortValue;
+  menu.querySelectorAll('[data-sort-value]').forEach(option => option.setAttribute('aria-checked', String(option === item)));
+  const label = item.querySelector('span').textContent;
+  menu.querySelector('[data-sort-label]').textContent = label;
+  menu.querySelector('summary').setAttribute('aria-label', `Sort by: ${label}`);
+  menu.open = false;
+  menu.querySelector('summary').focus();
+  select.dispatchEvent(new Event('change', {bubbles: true}));
+});
+
+document.addEventListener('keydown', event => {
+  const menu = event.target.closest('.vault-sort');
+  if (!menu || !menu.open) return;
+  if (event.key === 'Escape') { menu.open = false; menu.querySelector('summary').focus(); event.preventDefault(); }
+  if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) return;
+  const items = [...menu.querySelectorAll('[data-sort-value]')];
+  const index = items.indexOf(document.activeElement);
+  const next = event.key === 'Home' ? 0 : event.key === 'End' ? items.length - 1 : (index + (event.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length;
+  items[next].focus();
+  event.preventDefault();
+});

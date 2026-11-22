@@ -180,3 +180,13 @@
 
 /* Keep these page titles close to the top of the content area. */
 .app-page:is(.vault-page,.label-page,.profile-page){padding-top:16px}
+
+.vault-sort{position:relative;font-family:var(--font-sans);font-size:14px}
+.vault-sort summary{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:50px;padding:10px 14px;border:1px solid var(--dcr-border);border-radius:8px;background:var(--dcr-white);cursor:pointer;list-style:none}
+.vault-sort summary::-webkit-details-marker{display:none}
+.vault-sort-chevron{font-family:sans-serif;font-size:20px;line-height:1;color:var(--dcr-gray)}
+.vault-sort-menu{position:absolute;z-index:20;top:calc(100% + 5px);left:0;min-width:100%;width:max-content;max-width:min(300px,90vw);padding:5px;border:1px solid var(--dcr-border);border-radius:10px;background:var(--dcr-white);box-shadow:var(--shadow)}
+.vault-sort-menu button{display:flex;align-items:center;justify-content:space-between;gap:20px;width:100%;padding:9px 10px;border:0;border-radius:6px;background:transparent;color:var(--dcr-black);font:inherit;text-align:left}
+.vault-sort-menu button:hover,.vault-sort-menu button:focus-visible{background:var(--dcr-red-hover);outline:none}
+.vault-sort-check{visibility:hidden}.vault-sort-menu [aria-checked="true"] .vault-sort-check{visibility:visible}
+.label-vault-toolbar .vault-sort-menu{right:0;left:auto}

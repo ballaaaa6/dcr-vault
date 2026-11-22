@@ -48,7 +48,7 @@ export function vault(cards = []) {
         <p id="vault-count" class="page-description">${cards.length} ${cards.length === 1 ? 'card' : 'cards'} · Prices stay private to your account and never appear on labels.</p>
       </header>
       <form class="vault-toolbar" onsubmit="event.preventDefault(); window.__filterVault()">
-        ${vaultSortSelect('vault-sort').replace('<select ', '<select onchange="window.__filterVault()" ')}
+        ${vaultSortSelect('vault-sort')}
         <div class="search-bar vault-query">
           <label class="sr-only" for="vault-q">Search your cards</label><input id="vault-q" placeholder="Search name, set or Cert number">
           ${searchClearButton()}
@@ -146,6 +146,7 @@ function closeVaultMenuOnOutsideClick(event) {
 }
 
 export function initializeVault() {
+  document.getElementById('vault-sort')?.addEventListener('change', window.__filterVault);
   preloadSelectedBackgrounds(activeCards);
   stopImagePrefetch();
   stopImagePrefetch = prefetchNearbyImages(document.querySelector('#vault-list'));
