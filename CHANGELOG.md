@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-22 - Enlarge login content
+
+- Enlarge the sign-in content and align its footer with the rest of the site.
+
 ## 2026-11-22 - Simplify the login page
 
 - Keep the sign-in page focused on Google sign-in, account creation, and the privacy policy.

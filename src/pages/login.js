@@ -16,8 +16,8 @@ export function loginPage() {
           <p class="auth-account-note">New account? It will be created automatically when you sign in.</p>
           <p class="auth-privacy"><a href="/privacy/">Privacy Policy</a></p>
         </div>
-        <div class="auth-panel-foot"><span>© ${new Date().getFullYear()} DCR CARD VAULT</span><a href="/">BACK TO HOME</a></div>
       </section>
+      <footer class="site-footer auth-footer"><span>© ${new Date().getFullYear()} DCR Card Vault</span><a href="/">Back to Home</a></footer>
     </main>`;
 }
 
@@ -43,7 +43,7 @@ export async function initializeLogin() {
     await loadGoogleScript();
     window.google.accounts.id.initialize({client_id: config.clientId, nonce: config.nonce, callback: window.__googleCredential});
     const host = document.getElementById('google-signin');
-    window.google.accounts.id.renderButton(host, {theme: 'outline', size: 'large', shape: 'rectangular', width: Math.min(360, host.clientWidth), text: 'continue_with', logo_alignment: 'left'});
+    window.google.accounts.id.renderButton(host, {theme: 'outline', size: 'large', shape: 'rectangular', width: Math.min(400, host.clientWidth), text: 'continue_with', logo_alignment: 'left'});
     status.textContent = '';
   } catch (error) {
     status.textContent = error.message || 'Secure sign-in is temporarily unavailable.';
