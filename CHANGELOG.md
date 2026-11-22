@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Label sheet workspace
+- Add certificate range lookup and multi-select vault cards to a single-page label workspace, with optional previews and multi-sheet PDF download.
+
 ## 2026-11-22 - More prominent navigation logo
 - Enlarge the DCR logo beside the full registry name.
 

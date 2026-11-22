@@ -3,7 +3,7 @@ import {getCurrentUser} from './auth.js';
 import {home} from './pages/home.js';
 import {initializeSearchPage, search} from './pages/search.js';
 import {initializeVault, vault} from './pages/vault.js';
-import {label} from './pages/label.js';
+import {label, initializeLabel} from './pages/label.js';
 import {loginPage, initializeLogin} from './pages/login.js';
 import {verify} from './pages/verify.js';
 import {initializeCertificateViewer} from './components/certificate-viewer.js';
@@ -57,6 +57,7 @@ export async function render() {
   bindHeader();
   if (path === '/register') initializeSearchPage();
   if (path === '/vault') initializeVault();
+  if (path === '/label') initializeLabel();
   if (path === '/verify' || isCertificate) initializeCertificateViewer();
   window.scrollTo(0, 0);
 }

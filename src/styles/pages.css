@@ -276,3 +276,35 @@
 
 .vault-price-input{display:grid;grid-template-columns:minmax(0,1fr) 100px;gap:8px}
 .vault-edit .form-field[hidden]{display:none}
+#app:has(.label-page){min-height:100svh;display:flex;flex-direction:column}
+#app:has(.label-page) .site-footer{width:100%;flex-shrink:0;margin:0 auto}
+.label-page{flex:1;min-height:0}
+.label-add,.label-list-section{margin-top:20px}
+.label-add h2,.label-list-heading h2{margin:0 0 12px}
+.label-add textarea{resize:vertical;min-height:64px}
+.label-add>.muted{margin:8px 0 16px;font-size:14px}
+.label-controls{display:flex;flex-wrap:wrap;gap:10px}
+.label-list-heading{display:flex;align-items:start;justify-content:space-between;gap:12px}
+.label-list-heading p{margin:0 0 16px}
+.label-rows{border-top:1px solid var(--dcr-border)}
+.label-row{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--dcr-border)}
+.label-row-number{color:var(--dcr-gray);min-width:24px}
+.label-row-info{display:grid;gap:3px;flex:1;min-width:0}
+.label-row-info span,.label-row-info small,.label-row-state{color:var(--dcr-gray);font-size:14px}
+.label-row-info small{color:var(--dcr-red)}
+.label-row .btn{padding:8px 12px}
+.label-empty{padding:24px 0;color:var(--dcr-gray)}
+.label-bottom{justify-content:flex-end;margin-top:20px}
+.label-dialog{width:min(900px,calc(100% - 32px));max-height:85vh;overflow:auto;border:1px solid var(--dcr-border);border-radius:20px;padding:24px;background:var(--dcr-white);color:var(--dcr-black)}
+.label-dialog::backdrop{background:rgba(0,0,0,.5)}
+.label-dialog-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}
+.label-dialog-head h2{margin:0}
+.label-vault-list{display:grid;gap:8px;max-height:45vh;overflow:auto;margin-bottom:18px}
+.label-vault-list label{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--dcr-border);border-radius:12px}
+.label-vault-list label span{display:grid;gap:3px}
+.label-vault-list small{color:var(--dcr-gray)}
+.label-edit-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.label-edit-preview{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+.label-edit-preview svg{width:100%;height:auto}
+@media(min-width:761px){#app:has(.label-page) .site-footer{padding-top:8px;padding-bottom:10px}}
+@media(max-width:760px){.label-row{flex-wrap:wrap}.label-row-info{flex-basis:calc(100% - 50px)}.label-row-state{margin-left:36px}.label-edit-grid,.label-edit-preview{grid-template-columns:1fr}}

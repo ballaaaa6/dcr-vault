@@ -1,244 +1,160 @@
-import {findByCert} from '../store/cards.js';
-import {findCatalogCandidates, findCatalogCardById} from '../store/catalog.js';
-import {escapeHTML} from '../utils/format.js';
-import {normalizeCert, publicCertificateUrl} from '../utils/cert.js';
+import {getCertificate} from '../store/cards.js';
+import {escapeHTML as esc} from '../utils/format.js';
+import {normalizeCert} from '../utils/cert.js';
+import {parseCertRanges} from '../utils/cert-ranges.js';
+import {enrichLabelCard} from '../utils/label-card.js';
 
-let printSheet = [];
-let renderer;
-let previewVersion = 0;
-let sheetVersion = 0;
-
-async function labelRenderer() {
-  renderer ||= await import('../utils/label-renderer.js');
-  return renderer;
-}
-
-function inputField(id, label, value, attrs = '') {
-  return `<label class="form-field"><span>${label}</span><input class="form-control" id="${id}" data-label-field="${id}" value="${escapeHTML(value)}" ${attrs}></label>`;
-}
-
-function selectOptions(options, selected, placeholder) {
-  const empty = `<option value=""${selected ? '' : ' selected'}>${placeholder}</option>`;
-  return empty + options.map(value => `<option value="${value}"${value === selected ? ' selected' : ''}>${value}</option>`).join('');
-}
-
-function labelForm(data, conditionOptions) {
-  return `
-    ${inputField('yearSeries', 'Year / series', data.yearSeries, 'autocomplete="off"')}
-    ${inputField('name', 'Name', data.name, 'autocomplete="off"')}
-    ${inputField('setName', 'Set', data.setName, 'autocomplete="off"')}
-    ${inputField('cardNumber', 'Card number', data.cardNumber, 'autocomplete="off"')}
-    <label class="form-field"><span>Condition</span><select class="form-control" id="condition" data-label-field="condition">${selectOptions(conditionOptions, data.condition, 'Choose condition')}</select></label>
-    ${inputField('rarity', 'Rarity', data.rarity, 'autocomplete="off"')}
-    ${inputField('certNumber', 'Cert number', data.certNumber, 'readonly aria-readonly="true"')}`;
-}
-
-function previewMarkup(svg, side) {
-  if (!svg) return `<div class="label-preview-placeholder">Complete the fields to see the label.</div>`;
-  return `<div class="label-preview-svg" role="img" aria-label="${side} label preview">${svg}</div>`;
-}
-
-function sheetPage(title, side, svg, dataUri) {
-  return `<figure class="sheet-page"><figcaption>${title}</figcaption><img class="sheet-page-image" data-sheet-preview="${side}" alt="${title}" src="${escapeHTML(dataUri(svg))}"></figure>`;
-}
-
-function printOutput(front, back, dataUri) {
-  return `<div class="print-sheet-output" aria-hidden="true"><section class="print-sheet-page"><img data-print-page="front" alt="A4 front label sheet" src="${escapeHTML(dataUri(front))}"></section><section class="print-sheet-page"><img data-print-page="back" alt="A4 back label sheet" src="${escapeHTML(dataUri(back))}"></section></div>`;
-}
-
-function emptyLabelPage(message) {
-  return `<main class="app-page"><section class="surface-card empty-state"><h1>${message}</h1><p>Choose a saved Pokémon card from your vault first.</p><a class="btn btn-primary" href="/vault">Open My Vault</a></section></main>`;
-}
-
-function numberKey(value) {
-  return String(value || '').trim().replace(/^#/, '').split('/')[0].replace(/^0+(?=\d)/, '').toLowerCase();
-}
-
-async function enrichFromExactCatalogMatch(card) {
-  if (card.catalogCardId) {
-    const match = await findCatalogCardById(card.catalogCardId);
-    return match ? {...card, setId: match.setId, seriesId: match.seriesId, seriesName: match.seriesName} : card;
-  }
-  if (card.identificationStatus === 'unresolved' || card.sourceLanguage && card.sourceLanguage !== 'en') return card;
-  if (!card.name || !card.setName || !card.year || !card.cardNumber) return card;
-  const matches = await findCatalogCandidates({name: card.name, setName: card.setName, year: card.year, cardNumber: card.cardNumber});
-  const exact = matches.filter(match => match.name.toLowerCase() === card.name.toLowerCase()
-    && match.setName.toLowerCase() === card.setName.toLowerCase() && match.year === card.year
-    && numberKey(match.cardNumber) === numberKey(card.cardNumber));
-  if (exact.length !== 1) return card;
-  const match = exact[0];
-  const sourceLanguage = card.sourceLanguage || 'en';
-  return {...card, catalogCardId: match.id, sourceLanguage,
-    sourceSetId: card.sourceSetId ?? (sourceLanguage === 'en' ? match.setId : ''),
-    setId: match.setId, seriesId: match.seriesId, seriesName: match.seriesName};
-}
+let entries = [];
+let vaultCards = [];
+let api;
+let busy = false;
+const page = () => document.querySelector('.label-page');
+const ready = () => entries.filter(entry => !entry.error);
 
 export async function label(cards = []) {
-  const params = new URLSearchParams(location.search);
-  const cert = params.get('cert');
-  const card = cert ? findByCert(cards, cert) : cards[0];
-  if (!card) return emptyLabelPage('Card not found in your vault');
-  if (String(card.game).toLowerCase() !== 'pokemon') return emptyLabelPage('This label template supports Pokémon cards only');
-
-  const api = await labelRenderer();
-  const labelCard = await enrichFromExactCatalogMatch(card);
-  const data = api.cardLabelData(labelCard);
-  const errors = api.validateLabelData(data);
-  const pair = errors.length ? null : await api.renderLabelSvgPair(data);
-  const [frontSheet, backSheet] = await Promise.all([
-    api.renderSheetSvg(printSheet, 'front'), api.renderSheetSvg(printSheet, 'back')
-  ]);
-  return `
-    <main class="app-page label-page" data-card-id="${escapeHTML(card.id || card.certNumber)}" data-label-metadata-ready="${data.labelMetadataReady}">
-      <header class="page-heading">
-        <div class="page-eyebrow">PRINT WORKSPACE</div>
-        <h1>Label settings</h1>
-        <p class="page-description">Edit printed details, review both sides, then add the 70 × 20 mm label to an A4 sheet.</p>
-      </header>
-      <div class="label-layout">
-        <section class="surface-card label-editor" aria-labelledby="label-editor-title">
-          <div class="section-heading"><span class="section-number">01</span><div><h2 id="label-editor-title">Certificate details</h2><p>Printed information only.</p></div></div>
-          <div class="label-fields">${labelForm(data, api.CONDITION_OPTIONS)}</div>
-          <p class="muted">QR destination: <a href="${escapeHTML(publicCertificateUrl(data.certNumber))}" target="_blank" rel="noopener noreferrer">${escapeHTML(publicCertificateUrl(data.certNumber))}</a></p>
-          <button class="btn btn-primary" type="button" data-label-action="add" ${errors.length ? 'disabled' : ''}>Add to Print Sheet</button>
-          <p id="label-status" class="label-status" role="status" aria-live="polite">${errors.length ? escapeHTML(errors[0]) : 'Preview reflects the values above.'}</p>
-        </section>
-        <section class="label-previews" aria-label="Label previews">
-          <div class="surface-card preview-card"><h2>Front preview <span>70 × 20 mm</span></h2><div class="label-preview-frame" data-label-preview="front">${previewMarkup(pair?.frontSvg, 'Front')}</div></div>
-          <div class="surface-card preview-card"><h2>Back preview <span>70 × 20 mm</span></h2><div class="label-preview-frame" data-label-preview="back">${previewMarkup(pair?.backSvg, 'Back')}</div></div>
-          <div class="label-print-actions">
-            <p id="sheet-count" class="muted">Sheet: ${printSheet.length} / 40 labels selected</p>
-            <button class="btn btn-primary" type="button" data-label-action="print" ${printSheet.length ? '' : 'disabled'}>Print A4 · ${printSheet.length} labels</button>
-            <button class="btn btn-ghost" type="button" data-label-action="pdf" ${printSheet.length ? '' : 'disabled'}>Save as PDF</button>
-          </div>
-        </section>
-      </div>
-      <section class="label-sheet-preview surface-card no-print">
-        <div class="section-heading"><span class="section-number">02</span><div><h2>A4 sheet preview</h2><p>10 columns × 4 rows · 40 positions · duplex long-edge</p></div></div>
-        <div class="sheet-preview-pages">${sheetPage('Front · page 1', 'front', frontSheet, api.labelSvgDataUri)}${sheetPage('Back · page 2', 'back', backSheet, api.labelSvgDataUri)}</div>
-        <p class="label-print-note">Print at Actual Size with long-edge duplex. The QR code opens this certificate; barcodes contain its Cert number. Test a printed label before use.</p>
-        <button class="btn btn-ghost" type="button" data-label-action="clear" ${printSheet.length ? '' : 'disabled'}>Clear print sheet</button>
-      </section>
-    </main>
-    ${printOutput(frontSheet, backSheet, api.labelSvgDataUri)}`;
-}
-
-function currentDraft() {
-  const draft = Object.fromEntries([...document.querySelectorAll('[data-label-field]')].map(input => [input.dataset.labelField, input.value]));
-  draft.labelMetadataReady = document.querySelector('.label-page')?.dataset.labelMetadataReady !== 'false';
-  draft.certNumber = normalizeCert(draft.certNumber) || draft.certNumber;
-  return draft;
-}
-
-function showPreview(side, svg) {
-  const frame = document.querySelector(`[data-label-preview="${side}"]`);
-  frame.innerHTML = previewMarkup(svg, side === 'front' ? 'Front' : 'Back');
-}
-
-async function updateDraftPreview() {
-  const version = ++previewVersion;
-  const api = await labelRenderer();
-  const page = document.querySelector('.label-page');
-  const cardId = page?.dataset.cardId;
-  if (!cardId) return;
-  const data = currentDraft();
-  const errors = api.validateLabelData(data);
-  const status = document.getElementById('label-status');
-  const addButton = document.querySelector('[data-label-action="add"]');
-  addButton.disabled = errors.length > 0;
-  if (errors.length) {
-    showPreview('front', null);
-    showPreview('back', null);
-    status.textContent = errors[0];
-    return;
+  vaultCards = cards;
+  api ||= await import('../utils/label-renderer.js');
+  const cert = normalizeCert(new URLSearchParams(location.search).get('cert'));
+  if (cert && !entries.some(entry => entry.cert === cert)) {
+    const card = cards.find(item => normalizeCert(item.certNumber) === cert);
+    if (card) await addCards([card]);
   }
+  return `<main class="app-page label-page">
+    <header class="page-heading"><div class="page-eyebrow">PRINT WORKSPACE</div><h1>Labels</h1><p class="page-description">Add certificates, review your labels, and download your sheets.</p></header>
+    <section class="surface-card label-add"><h2>Add certificates</h2>
+      <label class="form-field" for="label-cert-input"><span>Certificate numbers</span><textarea class="form-control" id="label-cert-input" rows="2" placeholder="1-10, 12-18, 25"></textarea></label>
+      <p class="muted">Enter individual numbers or ranges separated by commas. Up to 500 numbers per search.</p>
+      <div class="label-controls"><button class="btn btn-primary" data-label-action="search">Find and add</button><button class="btn btn-ghost" data-label-action="vault">Choose from My Vault</button></div>
+      <p id="label-status" class="label-status" role="status" aria-live="polite"></p><details id="label-missing" hidden><summary>View unavailable certificate numbers</summary><p></p></details>
+    </section>
+    <section class="surface-card label-list-section"><div class="label-list-heading"><div><h2>Labels on your sheets</h2><p class="muted" id="label-count"></p></div><button class="btn btn-ghost" data-label-action="clear">Clear all</button></div>
+      <div id="label-list"></div><div class="label-controls label-bottom"><button class="btn btn-ghost" data-label-action="preview">Preview sheets</button><button class="btn btn-primary" data-label-action="download">Download PDF</button></div>
+      <p class="label-print-note">Print at actual size, double-sided, flip on long edge. Each sheet contains up to 40 labels.</p>
+    </section>
+    <dialog class="label-dialog" id="label-dialog"><div id="label-dialog-content"></div></dialog>
+  </main>`;
+}
+
+export function initializeLabel() { refresh(); }
+
+async function addCards(cards) {
+  let added = 0;
+  let duplicate = 0;
+  for (const card of cards) {
+    const cert = normalizeCert(card.certNumber);
+    if (!cert || entries.some(entry => entry.cert === cert)) { duplicate++; continue; }
+    let data = {labelMetadataReady: false};
+    let error = '';
+    try {
+      if (String(card.game).toLowerCase() !== 'pokemon') throw new Error('Only Pokémon labels are supported.');
+      data = api.cardLabelData(await enrichLabelCard(card));
+      data.certNumber = cert;
+      error = api.validateLabelData(data)[0] || '';
+      const pair = error ? {} : await api.renderLabelSvgPair(data);
+      entries.push({cert, name: card.name, data, error, ...pair});
+    } catch (cause) {
+      entries.push({cert, name: card.name, data, error: cause.message || 'Could not prepare this label.'});
+    }
+    added++;
+  }
+  return {added, duplicate};
+}
+
+function refresh() {
+  if (!page()) return;
+  const valid = ready().length;
+  document.getElementById('label-count').textContent = `${valid} ready · ${Math.ceil(valid / 40)} sheets${entries.length - valid ? ` · ${entries.length - valid} need attention` : ''}`;
+  const list = document.getElementById('label-list');
+  list.innerHTML = entries.length ? `<div class="label-rows">${entries.map((item, i) => `<div class="label-row"><span class="label-row-number">${i + 1}</span><div class="label-row-info"><strong>${esc(item.name || 'Certificate')}</strong><span>Cert ${esc(item.cert)}</span>${item.error ? `<small>${esc(item.error)}</small>` : ''}</div><span class="label-row-state">${item.error ? 'Needs attention' : 'Ready'}</span><button class="btn btn-ghost" data-label-action="edit" data-cert="${item.cert}">View / edit</button><button class="btn btn-ghost" data-label-action="remove" data-cert="${item.cert}" aria-label="Remove ${item.cert}">Remove</button></div>`).join('')}</div>` : '<p class="label-empty">No labels added yet. Enter certificate numbers or choose cards from your vault.</p>';
+  for (const action of ['preview', 'download']) page().querySelector(`[data-label-action="${action}"]`).disabled = !valid || busy;
+  page().querySelector('[data-label-action="clear"]').disabled = !entries.length || busy;
+  for (const action of ['search', 'vault']) page().querySelector(`[data-label-action="${action}"]`).disabled = busy;
+}
+
+function status(text) { const el = document.getElementById('label-status'); if (el) el.textContent = text; }
+function dialog(html) { document.getElementById('label-dialog-content').innerHTML = html; document.getElementById('label-dialog').showModal(); }
+function closeDialog() { document.getElementById('label-dialog').close(); }
+function dialogHead(title) { return `<div class="label-dialog-head"><h2>${title}</h2><button class="btn btn-ghost" data-label-action="close">Close</button></div>`; }
+
+async function searchCerts() {
+  let certs;
+  try { certs = parseCertRanges(document.getElementById('label-cert-input').value); }
+  catch (error) { status(error.message); return; }
+  busy = true; refresh(); status(`Searching ${certs.length} certificates…`);
+  const results = new Array(certs.length);
+  let next = 0;
+  const worker = async () => { while (next < certs.length) { const i = next++; try { results[i] = {card: await getCertificate(certs[i])}; } catch { results[i] = {failed: true}; } } };
+  await Promise.all(Array.from({length: Math.min(8, certs.length)}, worker));
+  if (!page()) { busy = false; return; }
+  const missing = certs.filter((_, i) => !results[i].card && !results[i].failed);
+  const failed = certs.filter((_, i) => results[i].failed);
+  const result = await addCards(results.map(item => item.card).filter(Boolean));
+  busy = false; refresh();
+  status(`Added ${result.added} · Not found ${missing.length} · Already added ${result.duplicate} · Search failed ${failed.length}`);
+  const details = document.getElementById('label-missing');
+  details.hidden = !missing.length && !failed.length;
+  details.querySelector('p').textContent = [missing.length ? `Not found: ${missing.join(', ')}` : '', failed.length ? `Search failed; retry: ${failed.join(', ')}` : ''].filter(Boolean).join(' · ');
+}
+
+function chooseVault() {
+  const cards = vaultCards.filter(card => String(card.game).toLowerCase() === 'pokemon');
+  dialog(`${dialogHead('Choose from My Vault')}<p class="muted">Select the cards to add to your sheets.</p><div class="label-vault-list">${cards.map(card => `<label><input type="checkbox" value="${esc(normalizeCert(card.certNumber))}" ${entries.some(item => item.cert === normalizeCert(card.certNumber)) ? 'disabled' : ''}><span><strong>${esc(card.name)}</strong><small>Cert ${esc(normalizeCert(card.certNumber))}</small></span></label>`).join('') || '<p>No Pokémon cards in your vault.</p>'}</div><div class="label-controls"><button class="btn btn-primary" data-label-action="add-vault">Add selected</button></div>`);
+}
+
+function editLabel(cert) {
+  const item = entries.find(entry => entry.cert === cert);
+  if (!item) return;
+  const fields = [['yearSeries','Year / series'],['name','Name'],['setName','Set'],['cardNumber','Card number'],['rarity','Rarity']];
+  dialog(`${dialogHead(`Cert ${esc(cert)}`)}<div class="label-edit-grid">${fields.map(([key, name]) => `<label class="form-field"><span>${name}</span><input class="form-control" data-edit-field="${key}" value="${esc(item.data[key] || '')}"></label>`).join('')}<label class="form-field"><span>Condition</span><select class="form-control" data-edit-field="condition"><option value="">Choose condition</option>${api.CONDITION_OPTIONS.map(value => `<option ${value === item.data.condition ? 'selected' : ''}>${esc(value)}</option>`).join('')}</select></label></div><p class="label-status" id="label-edit-status">${esc(item.error || '')}</p><div class="label-edit-preview">${item.frontSvg || ''}${item.backSvg || ''}</div><button class="btn btn-primary" data-label-action="save" data-cert="${cert}">Save label</button>`);
+}
+
+async function saveLabel(cert) {
+  const item = entries.find(entry => entry.cert === cert);
+  const data = {...item.data, certNumber: cert};
+  document.querySelectorAll('[data-edit-field]').forEach(input => { data[input.dataset.editField] = input.value; });
+  const error = api.validateLabelData(data)[0];
+  if (error) { document.getElementById('label-edit-status').textContent = error; return; }
+  try { Object.assign(item, {data, name: data.name, error: ''}, await api.renderLabelSvgPair(data)); closeDialog(); refresh(); }
+  catch (error) { document.getElementById('label-edit-status').textContent = error.message; }
+}
+
+async function previewSheets() {
+  const labels = ready();
+  dialog(`${dialogHead('Sheet preview')}<p class="muted">Loading preview…</p>`);
   try {
-    const pair = await api.renderLabelSvgPair(data);
-    if (version !== previewVersion || document.querySelector('.label-page')?.dataset.cardId !== cardId) return;
-    showPreview('front', pair.frontSvg);
-    showPreview('back', pair.backSvg);
-    status.textContent = 'Preview updated. Add or update this card on the print sheet before printing.';
-  } catch (error) {
-    if (version !== previewVersion || document.querySelector('.label-page')?.dataset.cardId !== cardId) return;
-    showPreview('front', null);
-    showPreview('back', null);
-    status.textContent = error.message || 'The label preview could not be rendered.';
-    addButton.disabled = true;
+    const sheets = [];
+    for (let i = 0; i < labels.length; i += 40) for (const side of ['front', 'back']) {
+      const svg = await api.renderSheetSvg(labels.slice(i, i + 40), side);
+      sheets.push(`<figure class="sheet-page"><figcaption>Sheet ${Math.floor(i / 40) + 1} · ${side}</figcaption><img class="sheet-page-image" alt="Sheet ${Math.floor(i / 40) + 1} ${side}" src="${esc(api.labelSvgDataUri(svg))}"></figure>`);
+    }
+    if (document.getElementById('label-dialog')?.open) document.getElementById('label-dialog-content').innerHTML = `${dialogHead('Sheet preview')}<div class="sheet-preview-pages">${sheets.join('')}</div>`;
+  } catch (error) { status(error.message); closeDialog(); }
+}
+
+async function download() {
+  busy = true; refresh(); status('Preparing PDF…');
+  try { const {downloadLabelPdf} = await import('../utils/label-pdf.js'); await downloadLabelPdf(ready(), api); status('PDF downloaded.'); }
+  catch (error) { status(error.message || 'Could not create PDF.'); }
+  finally { busy = false; refresh(); }
+}
+
+document.addEventListener('click', async event => {
+  const button = event.target.closest('[data-label-action]');
+  if (!button || !page()) return;
+  const action = button.dataset.labelAction;
+  if (action === 'search' && !busy) await searchCerts();
+  if (action === 'vault' && !busy) chooseVault();
+  if (action === 'close') closeDialog();
+  if (action === 'add-vault') {
+    const selected = new Set([...document.querySelectorAll('.label-vault-list input:checked')].map(input => input.value));
+    closeDialog(); busy = true; refresh(); status('Preparing labels…');
+    const result = await addCards(vaultCards.filter(card => selected.has(normalizeCert(card.certNumber))));
+    busy = false; refresh(); status(`Added ${result.added} labels.`);
   }
-}
-
-async function refreshSheet() {
-  const version = ++sheetVersion;
-  const api = await labelRenderer();
-  const [front, back] = await Promise.all([
-    api.renderSheetSvg(printSheet, 'front'), api.renderSheetSvg(printSheet, 'back')
-  ]);
-  if (version !== sheetVersion || !document.querySelector('.label-page')) return;
-  document.querySelectorAll('[data-sheet-preview="front"], [data-print-page="front"]').forEach(image => { image.src = api.labelSvgDataUri(front); });
-  document.querySelectorAll('[data-sheet-preview="back"], [data-print-page="back"]').forEach(image => { image.src = api.labelSvgDataUri(back); });
-  const count = document.getElementById('sheet-count');
-  if (count) count.textContent = `Sheet: ${printSheet.length} / 40 labels selected`;
-  const print = document.querySelector('[data-label-action="print"]');
-  const pdf = document.querySelector('[data-label-action="pdf"]');
-  if (print) { print.disabled = printSheet.length === 0; print.textContent = `Print A4 · ${printSheet.length} labels`; }
-  if (pdf) pdf.disabled = printSheet.length === 0;
-  const currentId = document.querySelector('.label-page')?.dataset.cardId;
-  const add = document.querySelector('[data-label-action="add"]');
-  if (add && currentId && printSheet.some(item => item.cardId === currentId)) add.textContent = 'Update Label on Sheet';
-  else if (add) add.textContent = 'Add to Print Sheet';
-}
-
-async function addCurrentLabel() {
-  const page = document.querySelector('.label-page');
-  const cardId = page?.dataset.cardId;
-  if (!cardId) return;
-  const data = currentDraft();
-  const status = document.getElementById('label-status');
-  const api = await labelRenderer();
-  if (document.querySelector('.label-page')?.dataset.cardId !== cardId) return;
-  const errors = api.validateLabelData(data);
-  if (errors.length) { status.textContent = errors[0]; return; }
-  const pair = await api.renderLabelSvgPair(data);
-  if (document.querySelector('.label-page')?.dataset.cardId !== cardId) return;
-  const existing = printSheet.findIndex(item => item.cardId === cardId);
-  if (printSheet.some((item, index) => index !== existing && item.data.certNumber === data.certNumber)) {
-    status.textContent = 'This Cert number is already assigned to another label on this sheet.';
-    return;
-  }
-  if (existing < 0 && printSheet.length >= 40) { status.textContent = 'The A4 sheet already contains 40 labels.'; return; }
-  const entry = {cardId, data, ...pair};
-  if (existing >= 0) printSheet[existing] = entry;
-  else printSheet.push(entry);
-  await refreshSheet();
-  status.textContent = existing >= 0 ? 'Label updated on the print sheet.' : 'Label added to the print sheet.';
-}
-
-async function openPrintDialog() {
-  if (!printSheet.length) return;
-  await refreshSheet();
-  if (!document.querySelector('.label-page')) return;
-  document.body.classList.add('label-print-mode');
-  await Promise.all([...document.querySelectorAll('[data-print-page]')].map(image =>
-    image.decode ? image.decode().catch(() => {}) : Promise.resolve()
-  ));
-  window.print();
-}
-
-document.addEventListener('input', event => {
-  if (event.target.matches('[data-label-field]')) updateDraftPreview();
+  if (action === 'remove') { entries = entries.filter(item => item.cert !== button.dataset.cert); refresh(); }
+  if (action === 'clear' && !busy) { entries = []; refresh(); status('Labels cleared.'); }
+  if (action === 'edit') editLabel(button.dataset.cert);
+  if (action === 'save') await saveLabel(button.dataset.cert);
+  if (action === 'preview') await previewSheets();
+  if (action === 'download' && !busy) await download();
 });
-document.addEventListener('change', event => {
-  if (event.target.matches('[data-label-field]')) updateDraftPreview();
-});
-document.addEventListener('focusout', event => {
-  if (event.target.dataset.labelField !== 'certNumber') return;
-  event.target.value = normalizeCert(event.target.value) || event.target.value;
-  updateDraftPreview();
-});
-document.addEventListener('click', event => {
-  const action = event.target.closest('[data-label-action]')?.dataset.labelAction;
-  if (action === 'add') addCurrentLabel();
-  if (action === 'clear') { printSheet = []; refreshSheet(); document.getElementById('label-status').textContent = 'Print sheet cleared.'; }
-  if (action === 'print' || action === 'pdf') openPrintDialog();
-});
-window.addEventListener('afterprint', () => document.body.classList.remove('label-print-mode'));

@@ -69,3 +69,6 @@ Google Identity Services
 
 - Intake converts known rarity names and legacy codes to one shared display value. Saved rarity is used on labels with the same shared conversion for legacy records; Promo remains Promo. Unknown names remain intact, and label width is checked before saving.
 - Localized source rarity is looked up only with a unique matching language, printed name, set code, and collector number. English catalog matches with a conflicting year are flagged for review. English rarity used as a fallback for a localized card is flagged for verification.
+
+## Label PDF export
+- Use jsPDF to create a single A4 PDF with alternating front and back pages for each 40-label sheet. Render approved sheet SVGs at 300 dpi so the browser can export their nested SVG artwork consistently.
