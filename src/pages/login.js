@@ -6,7 +6,7 @@ export function loginPage() {
   return `
     <main class="auth-page">
       <div class="auth-art" aria-hidden="true"><div class="auth-branch"></div><div class="auth-petals">${Array.from({length: 22}, () => '<i></i>').join('')}</div></div>
-      <section class="auth-showcase" aria-labelledby="auth-brand-title">
+      <section class="auth-showcase" aria-label="DCR Card Vault">
         <div class="auth-showcase-top"><span>A SPACE FOR COLLECTORS</span><span>YOUR COLLECTION</span></div>
       </section>
       <section class="auth-panel" aria-labelledby="login-title">
