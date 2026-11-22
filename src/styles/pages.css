@@ -121,7 +121,7 @@
 .vault-toolbar{display:flex;align-items:center;gap:10px;margin-bottom:18px}
 .vault-query{flex:1}
 .vault-status{width:180px}
-.vault-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);align-items:start;gap:18px}
+.vault-layout{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:start;gap:18px}
 .vault-list{display:flex;min-width:0;flex-direction:column;gap:10px}
 .vault-row{min-width:0;transition:border-color .18s,transform .18s,box-shadow .18s}
 .vault-row:hover{transform:translateY(-1px);border-color:var(--dcr-red-light);box-shadow:var(--shadow)}
@@ -130,7 +130,7 @@
 .card-image-placeholder{display:grid;place-items:center;width:100%;aspect-ratio:63/88;border-radius:10px;background:var(--dcr-red-light);color:var(--dcr-gray);font-size:13px;font-weight:500;text-align:center}
 .card-image-placeholder[hidden]{display:none}
 .vault-row .card-image-placeholder{width:64px;height:88px;flex:0 0 64px;font-size:12px}
-.vault-detail-photo{display:grid;min-height:150px;place-items:center;margin-bottom:18px;overflow:hidden;border-radius:14px;background:var(--dcr-red-light)}
+.vault-detail-photo{display:grid;min-height:150px;place-items:center;overflow:hidden;border-radius:14px;background:var(--dcr-red-light)}
 .vault-detail-image{display:block;width:100%;max-height:320px;object-fit:contain}
 .vault-detail-image[hidden]{display:none}
 .vault-detail-photo-empty{padding:30px;color:var(--dcr-gray);font-size:15px}
@@ -138,7 +138,7 @@
 .vault-row-main b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .vault-row-main .muted{font-size:15px}
 .row-arrow{color:var(--dcr-red);font-size:22px;font-weight:800}
-.vault-detail{position:sticky;top:96px}
+.vault-detail,.vault-photo-panel{position:sticky;top:96px;min-width:0}
 .detail-heading h2{margin:0 0 5px}
 .detail-heading p{margin:0}
 .detail-identity{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:17px 0 20px;padding-bottom:16px;border-bottom:1px solid var(--dcr-border)}
@@ -192,7 +192,7 @@
 @media(max-width:760px){
   .app-page{padding:30px 16px 44px}
   .intake-grid,.vault-layout,.label-layout{grid-template-columns:1fr}
-  .vault-detail{position:static}
+  .vault-detail,.vault-photo-panel{position:static}
   .label-editor{max-width:none}
   .label-previews{grid-template-columns:1fr 1fr}
   .sheet-preview-pages{grid-template-columns:1fr}

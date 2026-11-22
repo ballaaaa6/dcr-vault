@@ -50,6 +50,7 @@ export function vault(cards = []) {
       <div class="vault-layout">
         <section class="vault-list" id="vault-list" aria-label="Cards in your vault">${rows}</section>
         <aside class="surface-card vault-detail" aria-label="Selected card details">${detailMarkup(focus)}</aside>
+        <aside class="surface-card vault-photo-panel" aria-label="Selected card photo">${photoMarkup(focus)}</aside>
       </div>
     </main>`;
 }
@@ -59,10 +60,7 @@ function detailMarkup(focus) {
   const summary = focus ? [focus.setName, focus.year, focus.cardNumber].map(escapeHTML).filter(Boolean).join(' • ') : '';
   const grade = escapeHTML(focus?.gradeLabel || '');
   const cert = escapeHTML(focus?.certNumber || '');
-  const frontPhoto = vaultImage(focus, 'vault-detail-photo-empty', 'No front photo available', 'vault-detail-image');
-
   return `
-<div class="vault-detail-photo">${frontPhoto}</div>
           <div class="vault-detail-header"><div class="detail-heading"><div class="page-eyebrow">CARD DETAILS</div><h2>${name}</h2><p class="muted">${summary}</p></div><button class="vault-edit-button" type="button" onclick="window.__editVault()" aria-label="Edit card details" title="Edit card details">⋯</button></div>
           <div class="detail-identity"><span class="badge">${grade}</span><span class="muted">Cert: ${cert}</span></div>
           ${itemInformation(focus)}
@@ -85,11 +83,16 @@ function detailMarkup(focus) {
           </form>`;
 }
 
+function photoMarkup(card) {
+  return `<div class="vault-detail-photo">${vaultImage(card, 'vault-detail-photo-empty', 'No front photo available', 'vault-detail-image')}</div>`;
+}
+
 function selectCard(id) {
   const card = activeCards.find(item => item.id === id);
   if (!card) return;
   selectedId = id;
   document.querySelector('.vault-detail').innerHTML = detailMarkup(card);
+  document.querySelector('.vault-photo-panel').innerHTML = photoMarkup(card);
   document.querySelectorAll('.vault-row').forEach(row => {
     row.setAttribute('aria-pressed', String(row.dataset.cardId === id));
   });

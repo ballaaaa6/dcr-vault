@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Three-column vault
+- Separate the card list, certificate details, and card photo into equal desktop columns.
+
 ## 2026-11-22 - Vault card selection
 - Switch selected vault cards in place while keeping the vault URL unchanged.
 
