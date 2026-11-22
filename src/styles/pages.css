@@ -140,8 +140,8 @@
 .vault-status select{width:auto;max-width:100%;font-size:14px;text-align:left;text-align-last:left}
 .vault-status option{text-align:left}
 .vault-layout{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:start;gap:18px}
-.vault-layout.is-empty .vault-list{grid-column:1/-1}
-.vault-layout.is-empty .vault-selected{display:none}
+.vault-layout.is-empty .vault-list,.vault-layout.is-unselected .vault-list{grid-column:1/-1}
+.vault-layout.is-empty .vault-selected,.vault-layout.is-unselected .vault-selected{display:none}
 .vault-list{display:flex;min-width:0;flex-direction:column;gap:10px}
 .vault-row{min-width:0;transition:border-color .18s,transform .18s,box-shadow .18s}
 .vault-row:hover{transform:translateY(-1px);border-color:var(--dcr-red-light);box-shadow:var(--shadow)}

@@ -29,9 +29,10 @@ export function vault(cards = []) {
   activeCards = cards;
   if (!cards.length) return '<main class="app-page vault-page"><section class="surface-card empty-state"><h1>My Vault</h1><p>Your private vault is ready for its first card.</p><a class="btn btn-primary" href="/register">Add a card</a></section></main>';
   const params = new URLSearchParams(location.search);
-  const focus = cards.find(card => card.id === params.get('id')) || cards[0];
+  const sortedCards = [...cards].sort((a, b) => compareVaultCards(a, b, 'date-desc'));
+  const focus = cards.find(card => card.id === params.get('id')) || sortedCards[0];
   selectedId = focus.id;
-  const rows = [...cards].sort((a, b) => compareVaultCards(a, b, 'date-desc')).map(listRow).join('');
+  const rows = sortedCards.map(listRow).join('');
 
   return `
     <main class="app-page vault-page">
@@ -111,6 +112,7 @@ function selectCard(id, mode = 'item') {
   const card = activeCards.find(item => item.id === id);
   if (!card) return;
   selectedId = id;
+  document.querySelector('.vault-layout').classList.remove('is-unselected');
   document.querySelector('.vault-detail').innerHTML = detailMarkup(card, mode);
   document.querySelector('.vault-photo-panel').innerHTML = vaultPhoto(card);
   initializeVaultPhoto(document.querySelector('.vault-photo-panel'));
@@ -121,10 +123,14 @@ function selectCard(id, mode = 'item') {
 }
 
 window.__selectVault = id => {
-  if (vaultBusy || selectedId === id) return;
+  if (vaultBusy) return;
   const form = document.getElementById('vault-edit');
   if (form?.dataset.dirty === 'true' && !confirm('Discard unsaved changes?')) return;
-  selectCard(id);
+  if (selectedId === id) {
+    selectedId = '';
+    document.querySelector('.vault-layout').classList.add('is-unselected');
+    document.querySelectorAll('.vault-row').forEach(row => row.setAttribute('aria-pressed', 'false'));
+  } else selectCard(id);
 };
 
 function closeVaultMenuOnOutsideClick(event) {
@@ -157,7 +163,7 @@ window.__filterVault = () => {
   const list = document.getElementById('vault-list');
   const count = document.getElementById('vault-count');
   document.querySelector('.vault-layout').classList.toggle('is-empty', !matches.length);
-  if (matches.length && !matches.some(card => card.id === selectedId)) selectCard(matches[0].id);
+  if (selectedId && matches.length && !matches.some(card => card.id === selectedId)) selectCard(matches[0].id);
   list.innerHTML = matches.length ? matches.map(listRow).join('') : '<div class="empty-state">No cards match those filters.</div>';
   document.querySelectorAll('.vault-row').forEach(row => row.setAttribute('aria-pressed', String(row.dataset.cardId === selectedId)));
   count.textContent = `${matches.length} ${matches.length === 1 ? 'card' : 'cards'} shown · ${sort.startsWith('price') ? 'Prices are grouped by currency; no conversion is applied.' : 'Prices stay private to your account and never appear on labels.'}`;

@@ -9,10 +9,12 @@ test('vault selection updates details without changing the URL and protects unsa
   const detail = {innerHTML: '', addEventListener() {}, querySelector: () => null};
   const photo = {innerHTML: '', querySelector: () => null};
   const form = {dataset: {}};
+  const classes = new Set();
+  const layout = {classList: {add: value => classes.add(value), remove: value => classes.delete(value)}};
   const rows = ['a', 'b'].map(id => ({dataset: {cardId: id}, setAttribute(_name, value) { this.selected = value; }}));
   let clickHandler;
   const menu = {open: true, contains: target => target === 'inside'};
-  globalThis.document = {querySelector: selector => selector === '.vault-menu[open]' ? menu : selector === '.vault-photo-panel' ? photo : detail, querySelectorAll: () => rows, getElementById: () => form, addEventListener: (_type, handler) => { clickHandler = handler; }, removeEventListener() {}};
+  globalThis.document = {querySelector: selector => selector === '.vault-layout' ? layout : selector === '.vault-menu[open]' ? menu : selector === '.vault-photo-panel' ? photo : detail, querySelectorAll: () => rows, getElementById: () => form, addEventListener: (_type, handler) => { clickHandler = handler; }, removeEventListener() {}};
   globalThis.confirm = () => false;
   const {vault, initializeVault} = await import('./vault.js');
   const cards = [{id: 'a', name: 'First', certNumber: '00000001', frontImage: '/first.jpg'}, {id: 'b', name: 'Second', certNumber: '00000002', frontImage: '/second.jpg'}];
@@ -34,4 +36,14 @@ test('vault selection updates details without changing the URL and protects unsa
   form.dataset.dirty = 'true';
   window.__selectVault('b');
   assert.match(detail.innerHTML, /First/);
+  window.__selectVault('a');
+  assert.equal(classes.has('is-unselected'), false);
+  form.dataset.dirty = 'false';
+  window.__selectVault('a');
+  assert.equal(classes.has('is-unselected'), true);
+  assert.equal(rows[0].selected, 'false');
+  window.__selectVault('b');
+  assert.equal(classes.has('is-unselected'), false);
+  assert.equal(rows[1].selected, 'true');
+  assert.match(detail.innerHTML, /Second/);
 });

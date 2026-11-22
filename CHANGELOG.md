@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-22 - Toggle vault card details
+
+- Allow the selected card to be deselected, expanding the vault list until another card is selected.
+
 ## 2026-11-22 - Restore login copyright alignment
 
 - Keep the copyright in its original position while the footer buttons remain right-aligned.
