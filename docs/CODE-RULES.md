@@ -14,3 +14,5 @@
 12. Test before zip: login works, search works, vault works, label print aligns.
 
 13. All instructions and prompts sent to Gemini must always be written in English.
+
+14. Standard pages must use the shared footer layout and alignment in src/styles/layout.css; new pages inherit it by default.

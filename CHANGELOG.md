@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-11-22 - Add collector profile details and shared footer alignment
+
+- Add collecting start date and collection goal to personal details.
+- Use the shared footer alignment for standard pages, including profile.
+
 ## 2026-11-22 - Personalize collector profiles
 
 - Move display name editing beside the profile name and add editable favorite series and short bio fields.

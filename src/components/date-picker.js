@@ -7,16 +7,16 @@ const parseDate = value => {
   const parts = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
   return parts ? new Date(Number(parts[1]), Number(parts[2]) - 1, Number(parts[3])) : null;
 };
-const displayDate = value => {
+export const displayDate = value => {
   const date = parseDate(value);
   return date ? `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}` : 'Select date';
 };
 
-export function datePicker(value = '') {
-  return `<div class="form-field"><span id="received-date-label">Date received</span><div class="date-picker" data-date-picker>
-    <input type="hidden" name="receivedDate" value="${escapeHTML(value)}">
-    <button type="button" class="form-control date-picker-trigger" aria-labelledby="received-date-label received-date-value" aria-expanded="false" aria-controls="received-date-calendar"><span id="received-date-value">${escapeHTML(displayDate(value))}</span><span aria-hidden="true">▦</span></button>
-    <div id="received-date-calendar" class="date-picker-calendar" hidden></div></div></div>`;
+export function datePicker(value = '', {name = 'receivedDate', label = 'Date received', id = 'received-date'} = {}) {
+  return `<div class="form-field"><span id="${id}-label">${escapeHTML(label)}</span><div class="date-picker" data-date-picker>
+    <input type="hidden" name="${escapeHTML(name)}" value="${escapeHTML(value)}">
+    <button type="button" class="form-control date-picker-trigger" aria-labelledby="${id}-label ${id}-value" aria-expanded="false" aria-controls="${id}-calendar"><span data-date-value id="${id}-value">${escapeHTML(displayDate(value))}</span><span aria-hidden="true">▦</span></button>
+    <div id="${id}-calendar" class="date-picker-calendar" hidden></div></div></div>`;
 }
 
 function renderCalendar(picker, view, level) {
@@ -71,7 +71,7 @@ export function initializeDatePicker(container) {
     const day = event.target.closest('[data-date]');
     if (!day && !event.target.closest('[data-clear]')) return;
     input.value = day ? day.dataset.date : '';
-    picker.querySelector('#received-date-value').textContent = displayDate(input.value);
+    picker.querySelector('[data-date-value]').textContent = displayDate(input.value);
     input.dispatchEvent(new Event('input', {bubbles: true}));
     close(); trigger.focus();
   });

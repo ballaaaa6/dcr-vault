@@ -1,0 +1,2 @@
+ALTER TABLE users ADD COLUMN collecting_since TEXT NOT NULL DEFAULT '';
+ALTER TABLE users ADD COLUMN collection_goal TEXT NOT NULL DEFAULT '';

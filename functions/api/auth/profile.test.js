@@ -9,6 +9,7 @@ test('profile edits are authenticated, owner-scoped, validated and persistent', 
   const sql = new DatabaseSync(':memory:');
   sql.exec(readFileSync(new URL('../../../migrations/0001_users_sessions_cards.sql', import.meta.url), 'utf8'));
   sql.exec(readFileSync(new URL('../../../migrations/0011_profile_details.sql', import.meta.url), 'utf8'));
+  sql.exec(readFileSync(new URL('../../../migrations/0012_collector_profile.sql', import.meta.url), 'utf8'));
   sql.prepare('INSERT INTO users(id,google_sub,email,display_name,avatar_url,created_at,updated_at) VALUES (?,?,?,?,?,?,?)').run('a','ga','a@example.com','Original','https://example.com/avatar',0,0);
   sql.prepare('INSERT INTO users(id,google_sub,email,display_name,created_at,updated_at) VALUES (?,?,?,?,?,?)').run('b','gb','b@example.com','Other',0,0);
   sql.prepare('INSERT INTO sessions(token_hash,user_id,expires_at,created_at) VALUES (?,?,?,?)').run(await tokenHash('token'), 'a', 9999999999, 0);
@@ -35,5 +36,11 @@ test('profile edits are authenticated, owner-scoped, validated and persistent', 
   assert.equal((await onRequestPut({request:request({bio:'x'.repeat(241)}),env})).status, 400);
   assert.deepEqual({...sql.prepare('SELECT favorite_series, bio FROM users WHERE id = ?').get('a')}, {favorite_series:'Pokémon', bio:'Collector'});
   assert.equal(sql.prepare('SELECT bio FROM users WHERE id = ?').get('b').bio, '');
+  assert.equal((await onRequestPut({request:request({collectingSince:'2020-02-29',collectionGoal:'  Complete my set  '}),env})).status, 200);
+  assert.equal((await onRequestPut({request:request({collectingSince:'2021-02-29'}),env})).status, 400);
+  assert.equal((await onRequestPut({request:request({collectingSince:'2999-01-01'}),env})).status, 400);
+  assert.equal((await onRequestPut({request:request({collectionGoal:'x'.repeat(241)}),env})).status, 400);
+  assert.deepEqual({...sql.prepare('SELECT collecting_since, collection_goal FROM users WHERE id = ?').get('a')}, {collecting_since:'2020-02-29', collection_goal:'Complete my set'});
+  assert.equal((await onRequestPut({request:request({collectingSince:'',collectionGoal:''}),env})).status, 200);
   sql.close();
 });

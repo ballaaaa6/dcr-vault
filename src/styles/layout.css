@@ -60,3 +60,9 @@
   .lookup-panel{border-radius:22px}
   .lookup-result{padding:18px}
 }
+
+/* Shared footer alignment for all standard pages. */
+#app:has(> .site-footer){min-height:100svh;display:flex;flex-direction:column}
+#app:has(> .site-footer) > main{flex:1;min-height:0}
+#app > .site-footer{width:100%;flex-shrink:0;margin:0 auto}
+@media(min-width:761px){#app > .site-footer{padding-top:8px;padding-bottom:10px}}

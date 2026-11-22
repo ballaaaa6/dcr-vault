@@ -58,3 +58,5 @@ All timestamps are Unix seconds unless noted otherwise. D1 is the source of trut
 Schema history is in [`migrations/`](../migrations/), including the image metadata and one-use capability tables.
 
 - `favorite_series` and `bio`: optional account-owned profile details, limited to 80 and 240 characters respectively. Apply migration `0011_profile_details.sql` before deploying this profile update.
+
+- `collecting_since` is an optional calendar date; `collection_goal` is optional text up to 240 characters. Apply migration `0012_collector_profile.sql` before deploying.
