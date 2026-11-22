@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-22 - Flip profile edit icon
+
+- Flip the pencil icon beside the profile name horizontally.
+
 ## 2026-11-22 - Resize profile calendar
 
 - Keep the collecting date calendar compact while retaining the existing date field width.
