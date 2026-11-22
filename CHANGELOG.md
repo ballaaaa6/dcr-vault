@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Certificate field order
+- Place Card Name before Set Name in certificate information.
+
 ## 2026-11-22 - Certificate information formatting
 - Place Language last and use title case for item labels while keeping values uppercase.
 
