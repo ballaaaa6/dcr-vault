@@ -1,4 +1,4 @@
-import {readingConflicts} from './card-identification-matching.js';
+import {readingConflicts, anniversaryMismatch} from './card-identification-matching.js';
 
 // Verified printed Pokédex numbers are distinct from catalog-local card IDs.
 // Sources: https://scrydex.com/pokemon/cards/mew/base3_ja-33
@@ -19,9 +19,8 @@ function attackMatches(fields, card) {
 }
 
 export function findEvidenceCatalogCard(cards, fields, numbersCompatible) {
-  const uncertain = (fields.uncertainFields || []).map(text);
   if (!fields.language || !fields.name || !fields.hp || !fields.illustrator
-    || readingConflicts(fields).length || uncertain.some(value => /^(language|name|hp|illustrator)$/.test(value))) return null;
+    || readingConflicts(fields).length) return null;
   const matches = cards.filter(card => {
     const meta = card.metadata || {};
     if (meta.reviewRequired || text(card.language) !== text(fields.language)
@@ -31,10 +30,10 @@ export function findEvidenceCatalogCard(cards, fields, numbersCompatible) {
     const number = fields.cardNumber || fields.form?.cardNumber;
     if (!number && !attackMatches(fields, card)) return false;
     const mapping = printedNumberMapping(card, number);
-    if (number && !mapping && (uncertain.some(value => /card.?number|collector.?number/.test(value))
-      || !numbersCompatible(number, card))) return false;
-    if (fields.setCode && !uncertain.some(value => /set.?code/.test(value))
+    if (number && !mapping && !numbersCompatible(number, card)) return false;
+    if (fields.setCode
       && !(meta.verifiedPrintedCodes || []).some(code => text(code) === text(fields.setCode))) return false;
+    if (anniversaryMismatch(fields, card)) return false;
     if (fields.form?.year && card.year && fields.form.year !== card.year) return false;
     return true;
   });

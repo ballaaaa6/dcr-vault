@@ -52,6 +52,11 @@ export function readingConflicts(fields) {
   return anniversary(25) && anniversary(30) ? ['anniversary stamp'] : [];
 }
 
+export function anniversaryMismatch(fields, card) {
+  return /\b25(?:th)?(?:\s+anniversary)?\b/i.test(fields.stamp || '')
+    && Number(card.year) > 0 && Number(card.year) < 2021;
+}
+
 export function findSourceCatalogCardFromCatalog(cards, fields) {
   const language = normalized(fields.language);
   const printedNumber = parseCollectorNumber(fields.cardNumber);
@@ -59,10 +64,10 @@ export function findSourceCatalogCardFromCatalog(cards, fields) {
   const setCode = rawCode === normalized(fields.cardNumber) && printedNumber.promo
     ? normalized(printedNumber.promo) : rawCode;
   const number = String(fields.cardNumber || '').trim();
-  const uncertain = (fields.uncertainFields || []).join(' ').toLowerCase();
-  if (!language || !setCode || !number || readingConflicts(fields).length || /language|set.?code|collector.?number|card.?number/.test(uncertain)) return null;
+  if (!language || !setCode || !number || readingConflicts(fields).length) return null;
   const name = normalized(fields.name);
   const matches = cards.filter(card => !card.metadata?.reviewRequired && normalized(card.language) === language
+    && !anniversaryMismatch(fields, card)
     && (card.metadata?.verifiedPrintedCodes || []).some(code => normalized(code) === setCode)
     && collectorNumbersCompatible(number, card)
     && (!name || [card.name, ...(card.metadata?.nameAliases || [])].some(alias => normalized(alias) === name))
@@ -76,8 +81,7 @@ export function findReadingCandidates(cards, fields, limit = 12) {
   const language = normalized(fields.language);
   const name = normalized(fields.name);
   const number = String(fields.cardNumber || '').trim();
-  const uncertain = (fields.uncertainFields || []).join(' ').toLowerCase();
-  if (!language || !number || /collector.?number|card.?number|language/.test(uncertain)) return [];
+  if (!language || !number) return [];
   const named = card => name && [card.name, ...(card.metadata?.nameAliases || [])]
     .some(alias => normalized(alias) === name);
   return cards.filter(card => normalized(card.language) === language
@@ -92,6 +96,7 @@ export function findReadingCandidates(cards, fields, limit = 12) {
 
 export function candidateConflicts(fields, card) {
   const conflicts = readingConflicts(fields);
+  if (anniversaryMismatch(fields, card)) conflicts.push('anniversary stamp');
   const name = normalized(fields.name);
   const names = [card.name, ...(card.metadata?.nameAliases || [])].map(normalized).filter(Boolean);
   if (name && names.length && !names.includes(name)) conflicts.push('printed name');

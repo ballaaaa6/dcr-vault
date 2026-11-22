@@ -46,7 +46,7 @@ test('finds the original printing using language, set code and full number', () 
   assert.equal(findSourceCatalogCardFromCatalog([japaneseCharizard], {...fields, language: 'th'}), null);
   assert.equal(findSourceCatalogCardFromCatalog([japaneseCharizard], {...fields, cardNumber: '137/102'}), null);
   assert.equal(findSourceCatalogCardFromCatalog([japaneseCharizard], {...fields, hp: '130'}), null);
-  assert.equal(findSourceCatalogCardFromCatalog([japaneseCharizard], {...fields, uncertainFields: ['collector number']}), null);
+  assert.equal(findSourceCatalogCardFromCatalog([japaneseCharizard], {...fields, uncertainFields: ['collector number']}), japaneseCharizard);
 });
 
 test('handles promo codes, missing names, and rejects ambiguous records', () => {
@@ -96,7 +96,7 @@ test('finds possible printed-language records without assuming they are confirme
   assert.deepEqual(findReadingCandidates([japaneseCharizard, other], fields), [japaneseCharizard, other]);
   assert.equal(findSourceCatalogCardFromCatalog([japaneseCharizard], fields), null);
   assert.deepEqual(findReadingCandidates([japaneseCharizard], {...fields, hp: '130'}), []);
-  assert.deepEqual(findReadingCandidates([japaneseCharizard], {...fields, uncertainFields: ['collector number']}), []);
+  assert.deepEqual(findReadingCandidates([japaneseCharizard], {...fields, uncertainFields: ['collector number']}), [japaneseCharizard]);
 });
 
 

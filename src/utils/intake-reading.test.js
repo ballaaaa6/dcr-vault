@@ -2,15 +2,15 @@ import assert from 'node:assert/strict';
 import {test} from 'node:test';
 import {intakeValues} from './intake-reading.js';
 
-test('does not silently fill unverified set, year or rarity without a catalog match', () => {
+test('shows available Gemini readings before catalog matching', () => {
   const fields = {language: 'th', englishName: 'Charizard', englishSetName: 'Example Set', year: '2021', cardNumber: '168/130', rarity: 'Rare'};
-  assert.deepEqual(intakeValues(fields, null), {name: 'Charizard', setName: '', year: '', cardNumber: '168/130', rarity: ''});
+  assert.deepEqual(intakeValues(fields, null), {name: 'Charizard', setName: 'Example Set', year: '2021', cardNumber: '168/130', rarity: 'Rare'});
 });
 
 test('prefers verified catalog data and preserves the printed number', () => {
   const fields = {language: 'en', name: 'Mew', setName: 'Reading', year: '2020', cardNumber: '005/100', rarity: 'Rare'};
   assert.deepEqual(intakeValues(fields, {name: 'Mew', setName: 'Catalog', year: '2021', rarity: 'Promo'}),
-    {name: 'Mew', setName: 'Catalog', year: '2021', cardNumber: '005/100', rarity: 'Promo'});
+    {name: 'Mew', setName: 'Catalog', year: '2020', cardNumber: '005/100', rarity: 'Rare'});
 });
 
 test('does not put a non-English printed set name in the English form', () => {
@@ -38,13 +38,7 @@ test('fills Promo from promotional identifiers and explicit promo readings', () 
   assert.equal(intakeValues({cardNumber: '151/XY-P', form: {rarity: 'Rare'}}, null).rarity, 'Rare');
 });
 
-test('keeps uncertain model values blank until the catalog supports them', () => {
-  const fields = {language: 'ja', cardNumber: '123/XY-P', englishName: 'Rayquaza EX',
-    form: {name: 'Rayquaza EX', setName: 'guess', year: '2015', cardNumber: '123/XY-P', rarity: 'Promo'},
-    uncertainFields: ['setName', 'year', 'rarity', 'cardNumber']};
-  assert.deepEqual(intakeValues(fields, null), {name: 'Rayquaza EX', setName: '', year: '', cardNumber: '', rarity: ''});
-  assert.deepEqual(intakeValues(fields, {setName: 'XY-P Promos', year: '2015', rarity: 'Promo',
-    metadata: {verifiedPrintedNumber: '123/XY-P'}}),
-  {name: 'Rayquaza EX', setName: 'XY-P Promos', year: '2015', cardNumber: '123/XY-P', rarity: 'Promo'});
-  assert.equal(intakeValues({...fields, uncertainFields: ['formSetName']}, null).setName, '');
+test('keeps Gemini values even when marked uncertain', () => {
+  const fields = {language: 'ja', englishName: 'Rayquaza EX', form: {name: 'Rayquaza EX', setName: 'XY-P Promos', year: '2015', cardNumber: '123/XY-P', rarity: 'Promo'}, uncertainFields: ['setName', 'year', 'rarity', 'cardNumber']};
+  assert.deepEqual(intakeValues(fields, null), {name: 'Rayquaza EX', setName: 'XY-P Promos', year: '2015', cardNumber: '123/XY-P', rarity: 'Promo'});
 });

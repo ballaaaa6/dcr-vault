@@ -23,7 +23,7 @@ test('recovers missing Mew fields from the shipped catalog without replacing its
 
 test('requires corroborating evidence and rejects conflicts or ambiguity', () => {
   for (const change of [{hp: '60'}, {illustrator: ''}, {name: 'ミュウツー'}, {cardNumber: '152'},
-    {form: {...mew.form, year: '1998'}}, {uncertainFields: ['hp']}, {stamp: '25th', evidence: ['30th stamp']}]) {
+    {form: {...mew.form, year: '1998'}}, {stamp: '25th', evidence: ['30th stamp']}]) {
     assert.equal(find({...mew, ...change}), null);
   }
   const match = find(mew);
@@ -36,7 +36,7 @@ test('matches a compatible printed number when set code is missing and strong ev
   const fields = {language: 'en', name: 'Mew', cardNumber: '5', hp: '50', illustrator: 'Artist'};
   assert.equal(findEvidenceCatalogCard([card], fields, collectorNumbersCompatible), card);
   assert.equal(findEvidenceCatalogCard([card], {...fields, cardNumber: '6'}, collectorNumbersCompatible), null);
-  assert.equal(findEvidenceCatalogCard([card], {...fields, uncertainFields: ['cardNumber']}, collectorNumbersCompatible), null);
+  assert.equal(findEvidenceCatalogCard([card], {...fields, uncertainFields: ['cardNumber']}, collectorNumbersCompatible), card);
 });
 
 test('uses a matching attack when the printed number is missing, without inventing it', () => {
@@ -54,7 +54,14 @@ test('matches the Rayquaza reading and supplies the verified set from the shippe
     form: {name: 'Rayquaza EX', setName: 'unverified guess', year: '2015', cardNumber: '123/XY-P', rarity: 'Promo'}};
   const match = find(fields);
   assert.equal(match?.id, 'curated-ja-xyp-123');
-  assert.equal(intakeValues(fields, null).setName, '');
-  assert.equal(intakeValues(fields, match).setName, 'XY-P Promos');
+  assert.equal(intakeValues(fields, null).setName, 'unverified guess');
+  assert.equal(match.setName, 'XY-P Promos');
   assert.equal(find({...fields, hp: '180'}), null);
+});
+
+test('does not automatically equate an anniversary-stamped reading with a pre-anniversary catalog print', () => {
+  const fields = {language: 'en', name: 'Lugia', hp: '80', illustrator: 'Naoyo Kimura',
+    cardNumber: '149/147', form: {year: '2003'}, stamp: '25th anniversary'};
+  assert.equal(find(fields), null);
+  assert.equal(find({...fields, stamp: ''})?.id, 'ecard2-149');
 });

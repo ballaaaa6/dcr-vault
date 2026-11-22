@@ -1,5 +1,5 @@
 import {formatRarity} from '../utils/rarity.js';
-import {intakeValues, readingUncertain} from '../utils/intake-reading.js';
+import {intakeValues} from '../utils/intake-reading.js';
 
 const languageNames = {ja: 'JAPANESE', th: 'THAI', ko: 'KOREAN', 'zh-tw': 'CHINESE',
   'zh-cn': 'CHINESE', de: 'GERMAN', fr: 'FRENCH', es: 'SPANISH', it: 'ITALIAN',
@@ -7,8 +7,8 @@ const languageNames = {ja: 'JAPANESE', th: 'THAI', ko: 'KOREAN', 'zh-tw': 'CHINE
 
 export function standardLabelValues(fields) {
   const game = String(fields.cardTypeLabel || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-  const isPokemon = !readingUncertain(fields, 'cardTypeLabel', 'game') && /\bpokemon\b/.test(game);
-  const language = !readingUncertain(fields, 'language', 'sourceLanguage') ? fields.language : '';
+  const isPokemon = /\bpokemon\b/.test(game);
+  const language = fields.language;
   return {cardTypeLabel: isPokemon ? 'POKÉMON' : '', languageLabel: languageNames[language] || ''};
 }
 
@@ -28,11 +28,15 @@ export function catalogDifferences(values, source) {
 }
 
 export function fillMissingCatalogValues(fields, source, provenance, appliedValues) {
-  const values = {...intakeValues(fields, source), artist: source.metadata?.illustrator || ''};
-  for (const key of ['setName', 'year', 'cardNumber', 'rarity', 'artist']) {
+  const values = {...intakeValues({...source, form: {}, language: source.language}, source),
+    cardNumber: source.metadata?.verifiedPrintedNumber || '', artist: source.metadata?.illustrator || ''};
+  for (const key of ['name', 'setName', 'year', 'cardNumber', 'rarity', 'artist']) {
     const input = document.getElementById(`m-${key}`);
-    if (!input || input.value.trim() || provenance[key] === 'user' || !values[key]) continue;
-    input.value = key === 'rarity' ? formatRarity(values[key]) : values[key];
+    if (!input || provenance[key] === 'user' || !values[key]) continue;
+    const value = key === 'rarity' ? formatRarity(values[key]) : values[key];
+    const normalize = key === 'setName' ? comparableSetName : value => String(value).trim().toLowerCase();
+    if (normalize(input.value) === normalize(value)) continue;
+    input.value = value;
     provenance[key] = 'catalog';
     if (appliedValues) appliedValues[key] = input.value;
     window.dispatchEvent(new Event('intake-values-updated'));

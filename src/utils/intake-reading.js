@@ -17,12 +17,11 @@ function promoRarity(fields) {
 export function intakeValues(fields, source) {
   const englishSource = fields.language === 'en' ? source : null;
   const latin = value => value && !hasNonLatinScript(value) ? value : '';
-  const read = (keys, value) => readingUncertain(fields, ...keys) ? '' : value;
   return {
-    name: read(['name', 'englishName'], fields.form?.name || fields.englishName || (fields.language === 'en' ? fields.name : '')) || englishSource?.name || '',
-    setName: read(['setName', 'englishSetName'], fields.form?.setName) || englishSource?.setName || latin(source?.metadata?.englishSetName) || latin(source?.setName) || '',
-    year: read(['year', 'releaseYear'], fields.form?.year) || source?.year || '',
-    cardNumber: read(['cardNumber', 'collectorNumber'], fields.form?.cardNumber || fields.cardNumber) || source?.metadata?.verifiedPrintedNumber || '',
-    rarity: read(['rarity'], fields.form?.rarity || (!source && promoRarity(fields))) || source?.rarity || ''
+    name: fields.form?.name || fields.englishName || englishSource?.name || (fields.language === 'en' ? fields.name : '') || '',
+    setName: latin(fields.form?.setName) || latin(fields.englishSetName) || englishSource?.setName || latin(source?.metadata?.englishSetName) || latin(source?.setName) || '',
+    year: fields.form?.year || fields.year || source?.year || '',
+    cardNumber: fields.form?.cardNumber || fields.cardNumber || source?.metadata?.verifiedPrintedNumber || '',
+    rarity: fields.form?.rarity || fields.rarity || source?.rarity || promoRarity(fields)
   };
 }

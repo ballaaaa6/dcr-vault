@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Reconcile Gemini readings with catalog
+- Show Gemini readings first and apply differing catalog values for matched cards while preserving user edits and printed numbers.
+
 ## 2026-11-22 - Fade intake status messages
 - Keep the intake status visible for six seconds, then fade it over four seconds; restart the timer for each message.
 

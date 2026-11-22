@@ -6,7 +6,7 @@ import {invalidateCatalogSuggestions} from './search-catalog.js';
 import {invalidateCardResolution} from './search-card-resolution.js';
 import {cardLabelMetadata} from '../utils/label-metadata.js';
 import {readingSummaryMarkup} from './card-identification-view.js';
-import {intakeValues, readingUncertain} from '../utils/intake-reading.js';
+import {intakeValues} from '../utils/intake-reading.js';
 import {candidateConflicts, readingConflicts} from '../utils/card-identification-matching.js';
 import {fillMissingCatalogValues, safeReadingErrorMessage, canRetryIdentification, standardLabelValues, catalogDifferences} from './card-identification-helpers.js';
 
@@ -107,8 +107,7 @@ function fillGeminiValues(fields, requestId) {
   for (const [key, value] of Object.entries(labelValues)) {
     if (fieldProvenance[key] === 'user') continue;
     const input = document.getElementById(`m-${key}`);
-    const uncertainKeys = key === 'artist' ? ['artist', 'illustrator'] : ['sourceLanguage', 'languageLabel'].includes(key) ? ['language', 'sourceLanguage'] : [key];
-    input.value = readingUncertain(fields, ...uncertainKeys) ? '' : value || '';
+    input.value = value || '';
     fieldProvenance[key] = input.value ? 'gemini' : 'unknown';
     appliedValues[key] = input.value;
   }
@@ -138,7 +137,7 @@ async function applyReading(fields, version, requestId, values) {
   }
   if (version !== analysisVersion) return null;
   const differences = catalogDifferences(values, source);
-  if (source && (userValuesConflict(values) || differences.length)) {
+  if (source && userValuesConflict(values)) {
     if (!evidenceMatch) candidates.unshift(source);
     source = null;
   }
@@ -153,7 +152,7 @@ async function applyReading(fields, version, requestId, values) {
   const metadata = cardLabelMetadata(selected);
   window.__intakeCatalogCard = {...selected, ...metadata};
   const conflicts = readingConflicts(fields);
-  const matchNote = differences.length ? `Catalog differs: ${differences.join('; ')}. Review the photo and correct the form.`
+  const matchNote = source && differences.length ? `Catalog values applied: ${differences.join('; ')}. Review the card and variant.`
     : conflicts.length ? 'Conflicting anniversary stamp readings. Review the photo before selecting a set.'
       : source && evidenceMatch ? 'Possible catalog match based on card details. Missing fields were filled for review; verify the set, rarity, stamp and finish.'
         : source ? 'Printed-language catalog record found. Check stamp and finish; the variant is not verified.'
