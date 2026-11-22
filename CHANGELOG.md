@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Certificate viewer home link
+- Replace the viewer instruction with a linked DCR Card Vault attribution.
+
 ## 2026-11-22 - Stable certificate viewer layout
 - Keep the viewer controls, thumbnails, and text in place when switching between images of different sizes.
 
