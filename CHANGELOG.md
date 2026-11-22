@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Card photo remove button
+- Enlarge the remove button on front and back photo previews.
+
 ## 2026-11-22 - Card identification guidance
 - Refresh the card identification guidance with a shorter, more inviting message.
 
