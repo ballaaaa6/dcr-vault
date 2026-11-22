@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Remove profile account block
+
+- Remove the Account block from My profile; log out remains available in the account menu.
+
 ## 2026-11-23 - Verify deployments before delivery
 
 - Require local deployment checks before pushing and confirmation that the pushed commit deployed successfully before reporting work complete.
