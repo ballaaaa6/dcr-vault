@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Save and review card classification
+
+- Allow card categories and types to be reviewed, edited and saved with vault cards; leave existing cards unclassified.
+
 ## 2026-11-23 - Record card categories in Gemini readings
 
 - Request structured Pokémon, Trainer, and Energy categories and record the returned Trainer and Energy details in identification logs.

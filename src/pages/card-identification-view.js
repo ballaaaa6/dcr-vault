@@ -1,4 +1,5 @@
 import {escapeHTML} from '../utils/format.js';
+import {classificationFields, classificationInput} from '../utils/card-classification.js';
 
 function confidenceLabel(fields, key) {
   const confidence = Number(fields.fieldConfidence?.[key]);
@@ -21,7 +22,7 @@ function readerName(source) {
   return source === 'gemini' ? 'Gemini identification' : 'Gemini';
 }
 
-export function readingSummaryMarkup(fields, source, adequate) {
+export function readingSummaryMarkup(fields, source, adequate, classification = {}) {
   const rows = [
     fieldMarkup(fields, 'name', 'Printed name', fields.name),
     fieldMarkup(fields, 'englishName', 'English name (suggested translation)', fields.englishName),
@@ -32,6 +33,7 @@ export function readingSummaryMarkup(fields, source, adequate) {
     fieldMarkup(fields, 'setSymbol', 'Set symbol', fields.setSymbol),
     fieldMarkup(fields, 'stamp', 'Stamp', fields.stamp),
     fieldMarkup(fields, 'copyrightText', 'Copyright text', fields.copyrightText),
+    ...classificationFields.map(([key, label, limit]) => `<div class="identification-read-field">${classificationInput(key, label, limit, classification[key])}</div>`),
     fieldMarkup(fields, 'cardNumber', 'Collector number', fields.cardNumber),
     fieldMarkup(fields, 'dexNumber', 'Pokédex No.', fields.dexNumber),
     fieldMarkup(fields, 'level', 'Level', fields.level),

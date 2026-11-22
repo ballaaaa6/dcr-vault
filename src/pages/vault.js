@@ -6,6 +6,7 @@ import {vaultPhoto, initializeVaultPhoto} from '../components/vault-photo.js';
 import {itemInformation} from './verify.js';
 import {escapeHTML} from '../utils/format.js';
 import {normalizeCert} from '../utils/cert.js';
+import {classificationFields, classificationInput} from '../utils/card-classification.js';
 
 const sources = ['Facebook', 'Instagram', 'TikTok', 'Shopee', 'Lazada', 'eBay', 'TCGplayer', 'Card shop', 'Card show'];
 const currencies = ['THB', 'USD', 'JPY', 'EUR', 'GBP', 'AUD', 'CAD', 'CNY', 'HKD', 'SGD', 'MYR', 'TWD', 'KRW', 'IDR', 'PHP', 'VND', 'CHF', 'NZD'];
@@ -16,12 +17,13 @@ let vaultBusy = false;
 const publicFields = [
   ['certNumber', 'Cert number', 8], ['name', 'Card name', 120], ['game', 'Brand / Title', 30], ['year', 'Year', 4],
   ['cardTypeLabel', 'Card type', 60], ['series', 'Series', 120], ['languageLabel', 'Language label', 60],
-  ['setName', 'Set name', 120], ['cardNumber', 'Card number', 30], ['rarity', 'Rarity', 80],
+  ['setName', 'Set name', 120], ...classificationFields, ['cardNumber', 'Card number', 30], ['rarity', 'Rarity', 80],
   ['gradeLabel', 'Condition', 60], ['sourceFinish', 'Finish', 30], ['sourceLanguage', 'Language code', 20]
 ];
 
 function editFields(card) {
-  return publicFields.map(([key, label, limit]) => `<label class="form-field"><span>${label}</span>
+  return publicFields.map(([key, label, limit]) => classificationFields.some(([field]) => field === key)
+    ? classificationInput(key, label, limit, card[key]) : `<label class="form-field"><span>${label}</span>
     <input class="form-control" name="${key}" maxlength="${limit}" value="${escapeHTML(card[key] || '')}" ${key === 'certNumber' ? 'inputmode="numeric" pattern="[0-9]{1,8}" required' : key === 'name' ? 'required' : ''}></label>`).join('');
 }
 
@@ -105,7 +107,7 @@ function detailMarkup(card, mode = 'item') {
       <p class="detail-note">${privateMode ? 'Prices and vault details are private.' : 'These card details appear on the public certificate.'}</p>
       ${privateMode ? privateInputs(card) : `<div class="vault-edit-grid">${editFields(card)}</div>`}
       <div class="detail-actions"><button class="btn btn-primary" type="submit">Save details</button><button class="btn btn-ghost" type="button" onclick="window.__cancelVault()">Cancel</button></div>
-      <p class="detail-note" id="vault-edit-message" role="status"></p></form>` : (privateMode ? privateInformation(card) : itemInformation(card))}`;
+      <p class="detail-note" id="vault-edit-message" role="status"></p></form>` : (privateMode ? privateInformation(card) : itemInformation(card, {showClassification: true}))}`;
 }
 
 function selectCard(id, mode = 'item') {

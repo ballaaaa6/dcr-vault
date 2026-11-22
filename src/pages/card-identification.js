@@ -7,6 +7,7 @@ import {invalidateCardResolution} from './search-card-resolution.js';
 import {cardLabelMetadata} from '../utils/label-metadata.js';
 import {readingSummaryMarkup} from './card-identification-view.js';
 import {intakeValues} from '../utils/intake-reading.js';
+import {classificationFromReading} from '../utils/card-classification.js';
 import {candidateConflicts, readingConflicts} from '../utils/card-identification-matching.js';
 import {fillMissingCatalogValues, safeReadingErrorMessage, canRetryIdentification, standardLabelValues, catalogDifferences} from './card-identification-helpers.js';
 
@@ -17,6 +18,8 @@ let candidateState = null;
 let readingRequestId = '';
 let fieldProvenance = {};
 let identificationStatus = 'unknown';
+let classification = {};
+export function intakeClassification() { return {...classification}; }
 export function identificationDialogMarkup() {
   return `<dialog id="identification-result" class="identification-dialog" aria-labelledby="identification-title">
     <header class="identification-dialog-header"><div><div class="page-eyebrow">GEMINI IDENTIFICATION</div><h2 id="identification-title">Review card reading</h2><p>Review the details read from the photo before adding it.</p></div>
@@ -51,6 +54,7 @@ export function identificationProvenance() {
 }
 
 export function clearAppliedReading() {
+  classification = {};
   fieldProvenance = {};
   readingRequestId = '';
   identificationStatus = 'unknown';
@@ -58,6 +62,7 @@ export function clearAppliedReading() {
 }
 
 function invalidatePhotoIdentity() {
+  classification = {};
   const prior = window.__intakeIdentification;
   resetCardIdentificationState();
   invalidateCardResolution();
@@ -91,6 +96,7 @@ function setResult(content) {
 }
 
 function fillGeminiValues(fields, requestId) {
+  classification = classificationFromReading(fields);
   const values = intakeValues(fields, null);
   readingRequestId = requestId || '';
   identificationStatus = 'unresolved';
@@ -247,7 +253,7 @@ async function analyzeFront() {
     const values = fillGeminiValues(result.fields, result.requestId);
     const resolution = await applyReading(result.fields, version, result.requestId, values);
     if (resolution && version === analysisVersion) candidateState = {fields: result.fields, candidates: resolution.candidates, version};
-    if (resolution && version === analysisVersion) setResult(`${readingSummaryMarkup(result.fields, result.source, true)}<p class="identification-match-note">${escapeHTML(resolution.matchNote + resolution.englishNote)} Review all details before saving.</p>${candidateMarkup(resolution.candidates)}`);
+    if (resolution && version === analysisVersion) setResult(`${readingSummaryMarkup(result.fields, result.source, true, classification)}<p class="identification-match-note">${escapeHTML(resolution.matchNote + resolution.englishNote)} Review all details before saving.</p>${candidateMarkup(resolution.candidates)}`);
   } finally {
     analysisBusy = false;
     button.textContent = 'Identify card';
@@ -256,6 +262,7 @@ async function analyzeFront() {
 }
 
 document.addEventListener('input', event => {
+  if (event.target.matches('#identification-result [data-classification]')) classification[event.target.dataset.classification] = event.target.value;
   const key = event.target.id?.replace(/^m-/, '');
   if (['name', 'setName', 'year', 'cardNumber', 'rarity', 'cardTypeLabel', 'series', 'sourceLanguage', 'languageLabel', 'artist'].includes(key)) {
     if (analysisBusy) analysisVersion += 1;
@@ -270,6 +277,7 @@ document.addEventListener('input', event => {
 });
 
 document.addEventListener('change', event => {
+  if (event.target.matches('#identification-result [data-classification]')) classification[event.target.dataset.classification] = event.target.value;
   if (!event.target.matches('[data-upload-side="front"]')) return;
   invalidatePhotoIdentity();
   updateButton();

@@ -2,6 +2,7 @@ import {searchClearButton} from '../components/search-clear.js';
 import {findByCert} from '../store/cards.js';
 import {escapeHTML} from '../utils/format.js';
 import {certificateFromPath, normalizeCert} from '../utils/cert.js';
+import {classificationLabel} from '../utils/card-classification.js';
 
 export function certificateImages(card) {
   const actual = [['Front', card.frontImage], ['Back', card.backImage]].filter(([, url]) => url);
@@ -29,9 +30,9 @@ function languageName(value) {
   }
 }
 
-export function itemInformation(card) {
+export function itemInformation(card, {showClassification = false} = {}) {
   const fields = [['Cert Number', card.certNumber], ['Condition', card.gradeLabel], ['Brand/Title', card.game],
-    ['Year', card.year], ['Card Name', card.name], ['Set Name', card.setName], ['Card Number', card.cardNumber],
+    ['Year', card.year], ['Card Name', card.name], ['Set Name', card.setName], ...(showClassification ? [['Type', classificationLabel(card) || '—']] : []), ['Card Number', card.cardNumber],
     ['Rarity', card.rarity], ['Finish', card.sourceFinish], ['Language', languageName(card.sourceLanguage)]];
   return `<section class="cert-information"><h2>Item Information</h2><dl>${fields.filter(([, value]) => value).map(([label, value]) =>
     `<div><dt>${escapeHTML(label)}</dt><dd>${escapeHTML(value)}</dd></div>`).join('')}</dl></section>`;

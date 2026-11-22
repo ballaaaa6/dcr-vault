@@ -2,7 +2,7 @@ import {addCard} from '../store/cards.js';
 import {displaySetName} from '../utils/set-name.js';
 import {cardLabelMetadata} from '../utils/label-metadata.js';
 import {resolveExactTypedCard} from './search-card-resolution.js';
-import {identificationProvenance, logIdentificationStage} from './card-identification.js';
+import {identificationProvenance, intakeClassification, logIdentificationStage} from './card-identification.js';
 
 function formCard(certNumber) {
   const selected = window.__intakeCatalogCard || window.__intakeIdentification || {};
@@ -10,7 +10,7 @@ function formCard(certNumber) {
   const sourceLanguage = document.getElementById('m-sourceLanguage').value.trim().toLowerCase();
   const sourceMatches = sourceLanguage && sourceLanguage === metadata.sourceLanguage;
   return {
-    ...identificationProvenance(), game: window.__intakeCatalogGame || 'other', name: document.getElementById('m-name').value.trim(), certNumber,
+    ...identificationProvenance(), ...intakeClassification(), game: window.__intakeCatalogGame || 'other', name: document.getElementById('m-name').value.trim(), certNumber,
     setName: displaySetName(document.getElementById('m-setName').value), year: document.getElementById('m-year').value.trim(),
     cardTypeLabel: document.getElementById('m-cardTypeLabel').value.trim(),
     series: document.getElementById('m-series').value.trim(), languageLabel: document.getElementById('m-languageLabel').value.trim(),

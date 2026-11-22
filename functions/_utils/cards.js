@@ -38,6 +38,8 @@ export function normalizeCard(input) {
     identificationStatus: ['unknown', 'unresolved', 'matched', 'user_selected'].includes(input.identificationStatus) ? input.identificationStatus : 'unknown',
     fieldProvenance: normalizeProvenance(input.fieldProvenance),
     game: text(input.game, 30) || 'other', name, setName: text(input.setName, 120),
+    category: text(input.category, 40), pokemonTypes: text(input.pokemonTypes, 120), trainerType: text(input.trainerType, 60),
+    energyKind: text(input.energyKind, 40), energyType: text(input.energyType, 40),
     cardTypeLabel: text(input.cardTypeLabel, 60), languageLabel: text(input.languageLabel, 60), series: text(input.series, 120),
     year: text(input.year, 4), yearSeries: text(input.yearSeries, 160),
     catalogCardId: text(input.catalogCardId, 80), sourceLanguage: text(input.sourceLanguage, 20),
@@ -55,6 +57,8 @@ export function cardResponse(row) {
   return {
     identificationStatus: row.identification_status || 'unknown', fieldProvenance: parseProvenance(row.field_provenance),
     id: row.id, game: row.game, name: row.name, setName: row.set_name, year: row.year,
+    category: row.category || '', pokemonTypes: row.pokemon_types || '', trainerType: row.trainer_type || '',
+    energyKind: row.energy_kind || '', energyType: row.energy_type || '',
     cardTypeLabel: row.card_type_label || '', languageLabel: row.language_label || '', series: row.series || '',
     yearSeries: row.year_series || '', catalogCardId: row.catalog_card_id || '',
     sourceLanguage: row.source_language || '', sourceSetId: row.source_set_id || '',
@@ -75,5 +79,6 @@ export function cardValues(card) {
     card.sourceLanguage, card.sourceSetId, card.sourceCardId, card.sourceFinish, card.cardNumber, card.rarity,
     card.gradeLabel, card.certNumber, card.status, card.buyPrice, card.sellPrice,
     card.buyDate, card.soldDate, card.boughtFrom, card.soldTo, card.notes,
-    card.identificationStatus, JSON.stringify(card.fieldProvenance), card.artist, card.buyCurrency, card.purchaseSource, card.seller, card.receivedDate, card.cardTypeLabel, card.languageLabel, card.series];
+    card.identificationStatus, JSON.stringify(card.fieldProvenance), card.artist, card.buyCurrency, card.purchaseSource, card.seller, card.receivedDate, card.cardTypeLabel, card.languageLabel, card.series,
+    card.category, card.pokemonTypes, card.trainerType, card.energyKind, card.energyType];
 }
