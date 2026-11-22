@@ -36,7 +36,7 @@ export function search() {
   window.__intakeIdentification = null;
   window.__intakeIdentityReviewRequired = false;
   return `
-    <main class="app-page">
+    <main class="app-page intake-page">
       <header class="page-heading"><div class="page-eyebrow">COLLECTION INTAKE</div><h1>Add a card to your vault</h1><p class="page-description">Saved card details and photos stay private to your signed-in account.</p></header>
       <div class="intake-grid">
         <section class="surface-card intake-card" aria-labelledby="scan-title">

@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Add Card page layout
+- Reduce vertical spacing and keep the footer at the bottom when the form fits on screen.
+
 ## 2026-11-22 - Home shortcuts
 - Link home feature cards to Add Card, My Vault, and Labels with new icons, and align the slimmer search bar with the cards.
 
