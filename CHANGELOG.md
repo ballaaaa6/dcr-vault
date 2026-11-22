@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Card photo uploads
+- Refresh the front and back photo dropzones with larger previews and an on-image remove control.
+
 ## 2026-11-22 - Card details form layout
 - Give the card name a full row and place the certificate number beside condition with consistent row spacing.
 

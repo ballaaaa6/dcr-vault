@@ -4,7 +4,6 @@ import {catalogField, hideAllCatalogSuggestions, installCatalogSuggestions} from
 import {initializeCardRarity, invalidateCardResolution, resolveExactTypedCard, selectCatalogSuggestion} from './search-card-resolution.js';
 import {CONDITION_OPTIONS} from '../utils/label-options.js';
 import {cardLabelMetadata} from '../utils/label-metadata.js';
-import {escapeHTML} from '../utils/format.js';
 import {hasNonLatinScript} from '../utils/language.js';
 import {makeCert, normalizeCert} from '../utils/cert.js';
 import {clearAppliedReading, identificationDialogMarkup, identificationProvenance, logIdentificationStage, resetCardIdentificationState} from './card-identification.js';
@@ -19,10 +18,16 @@ let uploadedSides = new Set();
 export {initializeCardRarity as initializeSearchPage};
 
 function photoField(side, label) {
-  return `<div class="upload-item"><label class="upload-field" for="m-image-${side}"><span>${label}</span>
-    <input id="m-image-${side}" data-upload-side="${side}" type="file" accept="image/jpeg,image/png,image/webp">
-    <div class="upload-preview" data-image-preview="${side}"><span>Choose a photo · up to 10 MB</span></div>
-  </label><button class="btn btn-ghost upload-clear" data-clear-image="${side}" type="button" disabled>Remove photo</button></div>`;
+  return `<div class="upload-item"><span class="upload-label">${label}</span><div class="upload-frame">
+    <label class="upload-field" for="m-image-${side}" data-drop-side="${side}">
+      <input id="m-image-${side}" data-upload-side="${side}" type="file" accept="image/jpeg,image/png,image/webp" aria-label="Choose ${label.toLowerCase()}">
+      <div class="upload-preview" data-image-preview="${side}">${emptyPhotoMarkup()}</div>
+    </label><button class="upload-clear" data-clear-image="${side}" type="button" aria-label="Remove ${label.toLowerCase()}" title="Remove ${label.toLowerCase()}" hidden>×</button>
+  </div></div>`;
+}
+
+function emptyPhotoMarkup() {
+  return `<svg class="upload-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><path d="m4 17 5-5 3 3 3-3 5 5"></path></svg><strong>Click to upload</strong><span>or drag and drop</span><small>JPG, PNG or WebP · up to 10 MB</small>`;
 }
 
 export function search() {
@@ -148,13 +153,15 @@ function updatePhotoPreview(side, file) {
   const clear = document.querySelector(`[data-clear-image="${side}"]`);
   if (!file) {
     delete imageUrls[side];
-    preview.innerHTML = '<span>Choose a photo · up to 10 MB</span>';
-    clear.disabled = true;
+    preview.innerHTML = emptyPhotoMarkup();
+    preview.parentElement.classList.remove('has-image');
+    clear.hidden = true;
     return;
   }
   imageUrls[side] = URL.createObjectURL(file);
-  preview.innerHTML = `<img src="${imageUrls[side]}" alt="${side} photo preview"><span>${escapeHTML(file.name)}</span>`;
-  clear.disabled = false;
+  preview.innerHTML = `<img src="${imageUrls[side]}" alt="${side} photo preview">`;
+  preview.parentElement.classList.add('has-image');
+  clear.hidden = false;
 }
 
 function releaseObjectUrls() {
@@ -274,6 +281,31 @@ document.addEventListener('change', event => {
     if (input.dataset.uploadSide === 'front') window.dispatchEvent(new Event('intake-front-image-cleared'));
     document.getElementById('photo-status').textContent = error.message;
   }
+});
+
+document.addEventListener('dragover', event => {
+  const field = event.target.closest('[data-drop-side]');
+  if (!field) return;
+  event.preventDefault();
+  field.classList.add('is-dragging');
+});
+
+document.addEventListener('dragleave', event => {
+  const field = event.target.closest('[data-drop-side]');
+  if (field && !field.contains(event.relatedTarget)) field.classList.remove('is-dragging');
+});
+
+document.addEventListener('drop', event => {
+  const field = event.target.closest('[data-drop-side]');
+  if (!field) return;
+  event.preventDefault();
+  field.classList.remove('is-dragging');
+  if (!event.dataTransfer.files.length) return;
+  const input = field.querySelector('[data-upload-side]');
+  const files = new DataTransfer();
+  files.items.add(event.dataTransfer.files[0]);
+  input.files = files.files;
+  input.dispatchEvent(new Event('change', {bubbles: true}));
 });
 
 document.addEventListener('click', event => {
