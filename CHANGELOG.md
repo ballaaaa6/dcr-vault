@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Standardize card label fields
+- Derive card type and language labels from the identified game and language, and recognize equivalent promo set names.
+
 ## 2026-11-22 - Verify uncertain card readings
 - Leave uncertain Gemini fields blank until corroborated by the catalog, add a verified Rayquaza-EX promo, and revalidate the catalog on reload.
 

@@ -8,7 +8,7 @@ import {cardLabelMetadata} from '../utils/label-metadata.js';
 import {readingSummaryMarkup} from './card-identification-view.js';
 import {intakeValues, readingUncertain} from '../utils/intake-reading.js';
 import {candidateConflicts, readingConflicts} from '../utils/card-identification-matching.js';
-import {fillMissingCatalogValues, safeReadingErrorMessage, canRetryIdentification} from './card-identification-helpers.js';
+import {fillMissingCatalogValues, safeReadingErrorMessage, canRetryIdentification, standardLabelValues, catalogDifferences} from './card-identification-helpers.js';
 
 let analysisVersion = 0;
 let analysisBusy = false;
@@ -102,12 +102,12 @@ function fillGeminiValues(fields, requestId) {
   fieldProvenance = Object.fromEntries(Object.entries(values).map(([key, value]) => [key, value ? 'gemini' : 'unknown']));
   Object.assign(fieldProvenance, userFields);
   appliedValues = {};
-  const labelValues = {cardTypeLabel: fields.cardTypeLabel, series: fields.series,
-    sourceLanguage: fields.language, languageLabel: fields.languageLabel, artist: fields.illustrator};
+  const labelValues = {...standardLabelValues(fields), series: fields.series,
+    sourceLanguage: fields.language, artist: fields.illustrator};
   for (const [key, value] of Object.entries(labelValues)) {
     if (fieldProvenance[key] === 'user') continue;
     const input = document.getElementById(`m-${key}`);
-    const uncertainKeys = key === 'artist' ? ['artist', 'illustrator'] : ['sourceLanguage', 'languageLabel'].includes(key) ? ['language', key] : [key];
+    const uncertainKeys = key === 'artist' ? ['artist', 'illustrator'] : ['sourceLanguage', 'languageLabel'].includes(key) ? ['language', 'sourceLanguage'] : [key];
     input.value = readingUncertain(fields, ...uncertainKeys) ? '' : value || '';
     fieldProvenance[key] = input.value ? 'gemini' : 'unknown';
     appliedValues[key] = input.value;
@@ -122,14 +122,6 @@ function fillGeminiValues(fields, requestId) {
   invalidateCatalogSuggestions();
   document.getElementById('manual-status').textContent = 'Gemini filled the available details. Checking the catalog; review all fields before saving.';
   return values;
-}
-
-function catalogDifferences(values, source) {
-  if (!source) return [];
-  const expected = intakeValues({...source, form: {}, language: source.language}, source);
-  return ['name', 'setName', 'year', 'rarity'].filter(key => values[key] && expected[key]
-    && values[key].trim().toLowerCase() !== expected[key].trim().toLowerCase())
-    .map(key => `${key}: Gemini ${values[key]} / catalog ${expected[key]}`);
 }
 
 async function applyReading(fields, version, requestId, values) {

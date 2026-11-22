@@ -1,5 +1,31 @@
 import {formatRarity} from '../utils/rarity.js';
-import {intakeValues} from '../utils/intake-reading.js';
+import {intakeValues, readingUncertain} from '../utils/intake-reading.js';
+
+const languageNames = {ja: 'JAPANESE', th: 'THAI', ko: 'KOREAN', 'zh-tw': 'CHINESE',
+  'zh-cn': 'CHINESE', de: 'GERMAN', fr: 'FRENCH', es: 'SPANISH', it: 'ITALIAN',
+  pt: 'PORTUGUESE', id: 'INDONESIAN', nl: 'DUTCH', pl: 'POLISH', ru: 'RUSSIAN'};
+
+export function standardLabelValues(fields) {
+  const game = String(fields.cardTypeLabel || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  const isPokemon = !readingUncertain(fields, 'cardTypeLabel', 'game') && /\bpokemon\b/.test(game);
+  const language = !readingUncertain(fields, 'language', 'sourceLanguage') ? fields.language : '';
+  return {cardTypeLabel: isPokemon ? 'POKÉMON' : '', languageLabel: languageNames[language] || ''};
+}
+
+function comparableSetName(value) {
+  const name = String(value || '').trim().toLowerCase().replace(/\s+/g, ' ');
+  const promo = name.match(/^([a-z0-9]+-p) (?:promo|promos|promotional cards?)$/);
+  return promo ? `${promo[1]} promos` : name;
+}
+
+export function catalogDifferences(values, source) {
+  if (!source) return [];
+  const expected = intakeValues({...source, form: {}, language: source.language}, source);
+  return ['name', 'setName', 'year', 'rarity'].filter(key => {
+    const normalize = key === 'setName' ? comparableSetName : value => value.trim().toLowerCase();
+    return values[key] && expected[key] && normalize(values[key]) !== normalize(expected[key]);
+  }).map(key => `${key}: Gemini ${values[key]} / catalog ${expected[key]}`);
+}
 
 export function fillMissingCatalogValues(fields, source, provenance, appliedValues) {
   const values = {...intakeValues(fields, source), artist: source.metadata?.illustrator || ''};
