@@ -28,7 +28,7 @@ function languageName(value) {
   }
 }
 
-function itemInformation(card) {
+export function itemInformation(card) {
   const fields = [['Cert Number', card.certNumber], ['Condition', card.gradeLabel], ['Brand/Title', card.game],
     ['Year', card.year], ['Card Name', card.name], ['Set Name', card.setName], ['Card Number', card.cardNumber],
     ['Rarity', card.rarity], ['Finish', card.sourceFinish], ['Language', languageName(card.sourceLanguage)]];

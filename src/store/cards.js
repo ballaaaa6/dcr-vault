@@ -56,6 +56,10 @@ export async function updateCard(id, patch) {
   });
 }
 
+export async function deleteCard(id) {
+  return requestJson(`/api/cards/${encodeURIComponent(id)}`, {method: 'DELETE'});
+}
+
 export async function importCards(cards) {
   return requestJson('/api/cards/import', {
     method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({cards})

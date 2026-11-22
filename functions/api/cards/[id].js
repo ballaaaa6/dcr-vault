@@ -1,5 +1,6 @@
 import {error, json, readJson, sameOrigin} from '../../_utils/http.js';
 import {currentUser} from '../../_utils/sessions.js';
+import {onRequestDelete as deleteImage} from './[id]/images/[side].js';
 
 const statuses = new Set(['in-vault', 'for-sale', 'sold', 'grading']);
 
@@ -20,6 +21,13 @@ export async function onRequestPatch({request, env, params}) {
 function cleanPatch(input) {
   if (!input || typeof input !== 'object') return null;
   const patch = {};
+  const fields = {name: ['name', 120], game: ['game', 30], setName: ['set_name', 120], year: ['year', 4],
+    cardNumber: ['card_number', 30], rarity: ['rarity', 80], gradeLabel: ['grade_label', 60],
+    sourceFinish: ['source_finish', 30], sourceLanguage: ['source_language', 20]};
+  for (const [key, [column, limit]] of Object.entries(fields)) {
+    if (typeof input[key] === 'string') patch[column] = input[key].trim().slice(0, limit);
+  }
+  if ('name' in input && !patch.name) return null;
   if ('buyPrice' in input) patch.buy_price = validPrice(input.buyPrice);
   if ('sellPrice' in input) patch.sell_price = validPrice(input.sellPrice);
   if (input.status && statuses.has(input.status)) patch.status = input.status;
@@ -33,4 +41,20 @@ function validPrice(value) {
   if (value === '') return null;
   const number = Number(value);
   return Number.isFinite(number) && number >= 0 ? number : null;
+}
+
+export async function onRequestDelete({request, env, params}) {
+  if (!sameOrigin(request)) return json({error: 'Invalid request origin.'}, 403);
+  const session = await currentUser(request, env);
+  if (session.response) return session.response;
+  const card = await env.DB.prepare('SELECT id FROM cards WHERE id = ? AND user_id = ?')
+    .bind(params.id, session.user.id).first();
+  if (!card) return error('Card not found in your vault.', 404);
+  for (const side of ['front', 'back']) {
+    const response = await deleteImage({request, env, params: {...params, side}});
+    if (!response.ok) return response;
+  }
+  const result = await env.DB.prepare('DELETE FROM cards WHERE id = ? AND user_id = ?')
+    .bind(params.id, session.user.id).run();
+  return result.meta?.changes ? json({ok: true}) : error('Card not found in your vault.', 404);
 }

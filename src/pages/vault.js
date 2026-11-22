@@ -1,5 +1,6 @@
-import {updateCard} from '../store/cards.js';
+import {deleteCard, updateCard} from '../store/cards.js';
 import {listRow, vaultImage} from '../components/card-item.js';
+import {itemInformation} from './verify.js';
 import {escapeHTML} from '../utils/format.js';
 
 const statuses = ['in-vault', 'for-sale', 'sold', 'grading'];
@@ -11,6 +12,17 @@ function statusOptions(selected) {
     const active = status === selected ? ' selected' : '';
     return `<option value="${status}"${active}>${label}</option>`;
   }).join('');
+}
+
+const publicFields = [
+  ['name', 'Card name', 120], ['game', 'Brand / Title', 30], ['year', 'Year', 4],
+  ['setName', 'Set name', 120], ['cardNumber', 'Card number', 30], ['rarity', 'Rarity', 80],
+  ['gradeLabel', 'Condition', 60], ['sourceFinish', 'Finish', 30], ['sourceLanguage', 'Language code', 20]
+];
+
+function editFields(card) {
+  return publicFields.map(([key, label, limit]) => `<label class="form-field"><span>${label}</span>
+    <input class="form-control" name="${key}" maxlength="${limit}" value="${escapeHTML(card[key] || '')}" ${key === 'name' ? 'required' : ''}></label>`).join('');
 }
 
 export function vault(cards = []) {
@@ -41,8 +53,15 @@ export function vault(cards = []) {
         <section class="vault-list" id="vault-list" aria-label="Cards in your vault">${rows}</section>
         <aside class="surface-card vault-detail" aria-label="Selected card details">
           <div class="vault-detail-photo">${frontPhoto}</div>
-          <div class="detail-heading"><div class="page-eyebrow">CARD DETAILS</div><h2>${name}</h2><p class="muted">${summary}</p></div>
+          <div class="vault-detail-header"><div class="detail-heading"><div class="page-eyebrow">CARD DETAILS</div><h2>${name}</h2><p class="muted">${summary}</p></div><button class="vault-edit-button" type="button" onclick="window.__editVault()" aria-label="Edit card details" title="Edit card details">⋯</button></div>
           <div class="detail-identity"><span class="badge">${grade}</span><span class="muted">Cert: ${cert}</span></div>
+          ${itemInformation(focus)}
+          <a class="btn btn-ghost" href="/label?cert=${encodeURIComponent(focus?.certNumber || '')}">Print label</a>
+          <form id="vault-edit" class="vault-edit" hidden onsubmit="window.__saveDetail(event, '${escapeHTML(focus?.id || '')}')">
+            <h3>Edit card details</h3>
+            <p class="detail-note">These card details appear on the public certificate.</p>
+            <div class="vault-edit-grid">${editFields(focus)}</div>
+          <h3>Private vault details</h3>
           <label class="form-field"><span>Buy price (THB)</span><input class="form-control" id="d-buy" inputmode="decimal" value="${escapeHTML(focus?.buyPrice ?? '')}"></label>
           <label class="form-field"><span>Sell price (THB)</span><input class="form-control" id="d-sell" inputmode="decimal" value="${escapeHTML(focus?.sellPrice ?? '')}"></label>
           <label class="form-field"><span>Status</span><select class="form-control" id="d-status"><option value="">Select status</option>${statusOptions(focus?.status || '')}</select></label>
@@ -50,10 +69,10 @@ export function vault(cards = []) {
           <label class="form-field"><span>Artist / Illustrator</span><input class="form-control" id="d-artist" maxlength="120" value="${escapeHTML(focus?.artist || '')}"></label>
           <label class="form-field"><span>Notes</span><textarea class="form-control" id="d-notes" maxlength="2000" rows="3">${escapeHTML(focus?.notes || '')}</textarea></label>
           <div class="detail-actions">
-            <button class="btn btn-primary" type="button" onclick="window.__saveDetail('${escapeHTML(focus?.id || '')}')">Save details</button>
-            <a class="btn btn-ghost" href="/label?cert=${encodeURIComponent(focus?.certNumber || '')}">Print label</a>
+            <button class="btn btn-primary" type="submit">Save details</button><button class="btn btn-ghost" type="button" onclick="window.__editVault(false)">Cancel</button><button class="btn btn-ghost vault-delete" type="button" onclick="window.__deleteVault('${escapeHTML(focus?.id || '')}')">Delete card</button>
           </div>
-          <p class="detail-note">Prices are private to your account and stay off printed labels.</p>
+          <p class="detail-note" id="vault-edit-message" role="status">Prices and vault details are private.</p>
+          </form>
         </aside>
       </div>
     </main>`;
@@ -72,12 +91,19 @@ window.__filterVault = () => {
   count.textContent = `${matches.length} ${matches.length === 1 ? 'card' : 'cards'} shown · Prices stay private to your account and never appear on labels.`;
 };
 
-window.__saveDetail = async id => {
+window.__editVault = (open = true) => {
+  document.getElementById('vault-edit').hidden = !open;
+  if (open) document.querySelector('#vault-edit input').focus();
+};
+
+window.__saveDetail = async (event, id) => {
+  event.preventDefault();
   if (!id) return;
   const button = document.querySelector('.detail-actions .btn-primary');
   button.disabled = true;
   try {
     await updateCard(id, {
+      ...Object.fromEntries(publicFields.map(([key]) => [key, event.target.elements[key].value])),
       buyPrice: document.getElementById('d-buy').value,
       sellPrice: document.getElementById('d-sell').value,
       status: document.getElementById('d-status').value,
@@ -87,7 +113,20 @@ window.__saveDetail = async id => {
     });
     location.href = `/vault?id=${encodeURIComponent(id)}`;
   } catch (error) {
-    document.querySelector('.detail-note').textContent = error.message || 'Details could not be saved.';
+    document.getElementById('vault-edit-message').textContent = error.message || 'Details could not be saved.';
     button.disabled = false;
+  }
+};
+
+window.__deleteVault = async id => {
+  if (!confirm('Delete this card and its photos? Its certificate number will become available for another card.')) return;
+  const buttons = document.querySelectorAll('#vault-edit button');
+  buttons.forEach(button => { button.disabled = true; });
+  try {
+    await deleteCard(id);
+    location.href = '/vault';
+  } catch (error) {
+    document.getElementById('vault-edit-message').textContent = error.message || 'Card could not be deleted.';
+    buttons.forEach(button => { button.disabled = false; });
   }
 };
