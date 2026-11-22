@@ -3,7 +3,7 @@
 .date-picker-calendar{position:absolute;z-index:10;top:calc(100% + 6px);left:0;box-sizing:border-box;width:100%;padding:16px;border:1px solid var(--calendar-border);border-radius:12px;background:var(--calendar-background);color:var(--dcr-black);box-shadow:var(--shadow);font:14px/1.3 Arial,sans-serif}
 .date-picker-calendar.opens-up{top:auto;bottom:calc(100% + 6px)}
 .date-picker-calendar[hidden]{display:none}
-.date-picker-header{display:grid;grid-template-columns:36px 1fr 36px;align-items:center;text-align:center;margin-bottom:12px}
+.date-picker-header{display:grid;grid-template-columns:1fr 36px 36px;align-items:center;text-align:left;margin-bottom:12px}
 .date-picker-header button,.date-picker-day,.date-picker-clear{border:0;background:transparent;color:inherit;cursor:pointer;font:inherit}
 .date-picker-header button{height:36px;color:var(--calendar-muted);font-size:23px}
 .date-picker-selectors{display:flex;justify-content:center;gap:4px;min-width:0}
@@ -17,3 +17,12 @@
 .date-picker-day.is-selected{background:var(--calendar-selected);color:var(--dcr-white);font-weight:700}
 .date-picker-calendar button:focus-visible{outline:2px solid var(--dcr-red);outline-offset:-2px}
 .date-picker-clear{display:block;margin:8px auto 0;padding:6px 10px;border-radius:8px;color:var(--calendar-muted)}
+
+.date-picker-header .date-picker-title{display:flex;align-items:center;gap:10px;color:inherit;font-size:14px;font-weight:700;text-align:left;border-radius:8px;padding:0 6px}
+.date-picker-title span{font-size:12px}
+.date-picker-choices{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-height:260px;overflow-y:auto;padding:4px}
+.date-picker-choices button{min-height:36px;border:0;border-radius:18px;background:transparent;color:inherit;cursor:pointer;font:inherit}
+.date-picker-choices button:hover{background:var(--calendar-border)}
+.date-picker-choices button.is-selected{background:var(--calendar-selected);color:var(--dcr-white)}
+.date-picker-choices button:disabled{opacity:.3;cursor:not-allowed}
+.date-picker-day{border-radius:50%}

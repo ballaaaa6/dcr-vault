@@ -2,6 +2,9 @@
 
 Times are commit times in Bangkok time (UTC+7); older entries without a time have no matching commit record.
 
+## 2026-11-22 - Refine vault date picker
+- Replace native month and year menus with a white calendar and selectable year and month grids.
+
 ## 2026-11-22 - Refine label vault selection
 - Use aligned heart selection controls and shade cards already added to the label sheets.
 
