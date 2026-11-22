@@ -71,7 +71,7 @@ function invalidatePhotoIdentity() {
   if (appliedValues) {
     for (const [key, value] of Object.entries(appliedValues)) {
       const input = document.getElementById(`m-${key}`);
-      if (input && input.value === value) input.value = '';
+      if (input && input.value === value) { input.value = ''; window.dispatchEvent(new Event('intake-values-updated')); }
     }
     appliedValues = null;
   }
@@ -106,6 +106,7 @@ function fillGeminiValues(fields, requestId) {
     if (fieldProvenance[key] === 'user') continue;
     const input = document.getElementById(`m-${key}`);
     input.value = key === 'rarity' ? formatRarity(value) : value;
+    window.dispatchEvent(new Event('intake-values-updated'));
     appliedValues[key] = input.value;
   }
   invalidateCatalogSuggestions();
@@ -202,6 +203,7 @@ function selectReadingCandidate(index) {
     if (appliedValues && !Object.hasOwn(appliedValues, key)) continue;
     const value = key === 'rarity' ? formatRarity(values[key]) : values[key];
     input.value = value;
+    window.dispatchEvent(new Event('intake-values-updated'));
     if (appliedValues) appliedValues[key] = value;
     fieldProvenance[key] = key === 'cardNumber' || key === 'name' && language !== 'en' ? 'gemini' : 'catalog';
   }

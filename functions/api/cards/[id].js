@@ -23,6 +23,8 @@ function cleanPatch(input) {
   if ('buyPrice' in input) patch.buy_price = validPrice(input.buyPrice);
   if ('sellPrice' in input) patch.sell_price = validPrice(input.sellPrice);
   if (input.status && statuses.has(input.status)) patch.status = input.status;
+  if (typeof input.artist === 'string') patch.artist = input.artist.trim().slice(0, 120);
+  if (typeof input.notes === 'string') patch.notes = input.notes.trim().slice(0, 2000);
   if (typeof input.boughtFrom === 'string') patch.bought_from = input.boughtFrom.trim().slice(0, 120);
   return Object.keys(patch).length ? patch : null;
 }

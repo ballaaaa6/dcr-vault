@@ -11,10 +11,20 @@
   .intake-page .page-heading{margin-bottom:12px}
   .intake-page .surface-card{padding:18px}
   .intake-page .section-heading{margin-bottom:10px}
-  .intake-page .upload-field{height:clamp(150px,calc(100svh - 510px),260px);aspect-ratio:auto}
+  .intake-grid{align-items:stretch;min-height:max(0px,calc(100svh - 330px))}
+  .intake-card{display:flex;flex-direction:column}
+  .intake-page .upload-grid{flex:1;align-items:stretch}
+  .intake-page .upload-item{grid-template-rows:auto minmax(0,1fr);align-content:stretch}
+  .intake-page .upload-field{height:100%;min-height:340px;max-height:none;aspect-ratio:auto}
+  .intake-page .manual-submit{align-self:flex-start;margin-top:auto}
   #app:has(.intake-page) .site-footer{padding-top:8px;padding-bottom:10px}
 }
 .intake-page .form-field:has(> .catalog-control[data-catalog-control="name"]){grid-column:1/-1}
+.intake-page .intake-wide{grid-column:1/-1}
+.intake-page .intake-notes{grid-template-rows:17px auto}
+.intake-notes textarea{min-height:66px;resize:vertical}
+.required-mark{color:var(--dcr-red)}
+.optional-label{color:var(--dcr-gray);font-weight:450}
 .page-heading{margin-bottom:28px}
 .page-eyebrow{margin-bottom:9px;color:var(--dcr-red);font-size:13px;font-weight:750;letter-spacing:.14em}
 .page-heading h1{margin:0 0 8px}

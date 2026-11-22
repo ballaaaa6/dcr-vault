@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Card intake details
+- Expand card image previews and require core card details; add optional artist and private notes with Vault editing.
+
 ## 2026-11-22 - Certificate label codes
 - Link each label QR to its public certificate and keep both barcodes tied to the saved Cert number.
 

@@ -4,8 +4,8 @@ import {currentUser} from '../_utils/sessions.js';
 
 const INSERT_CARD = `INSERT INTO cards (id, user_id, game, name, set_name, year, year_series, catalog_card_id,
   source_language, source_set_id, source_card_id, source_finish, card_number, rarity, grade_label,
-  cert_number, status, buy_price, sell_price, buy_date, sold_date, bought_from, sold_to, notes, identification_status, field_provenance, created_at, updated_at)
-  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+  cert_number, status, buy_price, sell_price, buy_date, sold_date, bought_from, sold_to, notes, identification_status, field_provenance, artist, created_at, updated_at)
+  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
 export async function onRequestGet({request, env}) {
   const session = await currentUser(request, env);
@@ -25,7 +25,7 @@ export async function onRequestPost({request, env}) {
   const session = await currentUser(request, env);
   if (session.response) return session.response;
   const card = normalizeCard(await readJson(request));
-  if (!card) return error('Enter a card name and an 8-digit certificate number.');
+  if (!card || ![card.setName, card.year, card.cardNumber, card.rarity, card.gradeLabel].every(Boolean)) return error('Complete all required card details and enter a valid certificate number.');
   return insertCard(env.DB, session.user.id, card);
 }
 

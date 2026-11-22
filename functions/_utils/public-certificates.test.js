@@ -10,7 +10,7 @@ import {tokenHash} from './sessions.js';
 function database() {
   const sql = new DatabaseSync(':memory:');
   for (const name of ['0001_users_sessions_cards.sql', '0002_card_images.sql', '0003_card_label_metadata.sql',
-    '0004_card_source_print_identity.sql', '0005_identification_logs.sql', '0006_card_identification_provenance.sql']) {
+    '0004_card_source_print_identity.sql', '0005_identification_logs.sql', '0006_card_identification_provenance.sql', '0008_card_artist.sql']) {
     sql.exec(readFileSync(new URL(`../../migrations/${name}`, import.meta.url), 'utf8'));
   }
   const DB = {prepare: query => ({bind: (...values) => ({
@@ -42,7 +42,7 @@ test('global certificates prevent cross-account duplicates and expose only publi
   }
   const request = (path, user, body) => new Request(`https://vault.test${path}`, {method: body ? 'POST' : 'GET',
     headers: {Cookie: `dcr_session=${user}`, 'Content-Type': 'application/json'}, ...(body ? {body: JSON.stringify(body)} : {})});
-  const card = {name: 'Mew', certNumber: '1', notes: 'secret', buyPrice: 99};
+  const card = {name: 'Mew', setName: 'Set', year: '2020', cardNumber: '1', rarity: 'Rare', gradeLabel: 'Mint', certNumber: '1', notes: 'secret', buyPrice: 99};
   assert.equal((await create({request: request('/api/cards', 'a', card), env: {DB}})).status, 201);
   assert.equal((await create({request: request('/api/cards', 'b', card), env: {DB}})).status, 409);
   assert.equal((await (await check({request: request('/api/cards/cert-check?cert=1', 'b'), env: {DB}})).json()).available, false);

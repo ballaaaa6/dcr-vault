@@ -28,7 +28,8 @@ All timestamps are Unix seconds unless noted otherwise. D1 is the source of trut
 - `cert_number`: stored as 8 digits; input accepts one to eight digits and is left-padded with zeroes; unique across all accounts
 - `status`: in-vault | for-sale | sold | grading
 - `buy_price`, `sell_price`: private D1 values, shown only in Vault detail
-- `buy_date`, `sold_date`, `bought_from`, `sold_to`, `notes`
+- `buy_date`, `sold_date`, `bought_from`, `sold_to`, `notes`: private collection details
+- `artist`: optional illustrator name, editable in Vault
 - `created_at`, `updated_at`
 - Front/back images are stored on the Oracle VM. D1 keeps an opaque object key, content type, byte size, SHA-256 digest, and update time per card side. Legacy browser imports omit image data.
 

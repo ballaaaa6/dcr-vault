@@ -58,16 +58,18 @@ export function search() {
             ${catalogField('setName', 'Set', 'e.g. Base Set')}
             ${catalogField('year', 'Year', 'e.g. 1999')}
             ${catalogField('cardNumber', 'Card number', 'e.g. 4')}
-            <div class="form-field"><label for="m-rarity">Rarity</label><input class="form-control" id="m-rarity" placeholder="Read from card or choose from catalog"></div>
-            <div class="form-field"><label for="m-grade">Condition / Grade</label><select class="form-control" id="m-grade"><option value="">Choose condition</option>${CONDITION_OPTIONS.map(value => `<option value="${value}">${conditionOptionLabel(value)}</option>`).join('')}</select></div>
-            <div class="form-field cert-field"><label for="m-cert">Cert number</label><span class="cert-input-row">
+            <div class="form-field"><label for="m-rarity">Rarity <span class="required-mark" aria-hidden="true">*</span></label><input class="form-control" id="m-rarity" required placeholder="Read from card or choose from catalog"></div>
+            <div class="form-field intake-wide"><label for="m-artist">Artist / Illustrator <span class="optional-label">(optional)</span></label><input class="form-control" id="m-artist" maxlength="120" placeholder="e.g. Mitsuhiro Arita"></div>
+            <div class="form-field intake-wide intake-notes"><label for="m-notes">Notes <span class="optional-label">(optional)</span></label><textarea class="form-control" id="m-notes" maxlength="2000" rows="2" placeholder="Add any details about this card"></textarea></div>
+            <div class="form-field"><label for="m-grade">Condition / Grade <span class="required-mark" aria-hidden="true">*</span></label><select class="form-control" id="m-grade" required><option value="">Choose condition</option>${CONDITION_OPTIONS.map(value => `<option value="${value}">${conditionOptionLabel(value)}</option>`).join('')}</select></div>
+            <div class="form-field cert-field"><label for="m-cert">Cert number <span class="required-mark" aria-hidden="true">*</span></label><span class="cert-input-row">
               <input class="form-control" id="m-cert" inputmode="numeric" maxlength="8" pattern="[0-9]{1,8}" placeholder="1 to 8 digits" required>
               <button class="btn btn-ghost cert-random" data-cert-random type="button" aria-label="Generate an available Cert number" title="Generate an available Cert number">
                 <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="3"></rect><circle cx="8" cy="8" r="1"></circle><circle cx="16" cy="8" r="1"></circle><circle cx="12" cy="12" r="1"></circle><circle cx="8" cy="16" r="1"></circle><circle cx="16" cy="16" r="1"></circle></svg>
               </button>
             </span><small id="m-cert-status" class="field-status" role="status" aria-live="polite"></small></div>
           </div>
-          <button class="btn btn-primary manual-submit" id="manual-submit" type="button">Add to Vault</button>
+          <button class="btn btn-primary manual-submit" id="manual-submit" type="button" disabled>Add to Vault</button>
           <p id="manual-status" class="import-status" role="status" aria-live="polite"></p>
         </section>
       </div>
@@ -91,7 +93,8 @@ function updateSubmitState() {
   const input = document.getElementById('m-cert');
   if (!button || !input) return;
   const cert = normalizeCert(input.value);
-  button.disabled = button.dataset.busy === 'true' || Boolean(cert && input.dataset.certAvailable !== 'true');
+  const complete = ['name', 'setName', 'year', 'cardNumber', 'rarity', 'grade'].every(key => document.getElementById(`m-${key}`).value.trim());
+  button.disabled = button.dataset.busy === 'true' || !complete || !cert || input.dataset.certAvailable !== 'true';
 }
 
 async function checkCertInput() {
@@ -207,7 +210,8 @@ function formCard(certNumber) {
     sourceLanguage: metadata.sourceLanguage, sourceSetId: metadata.sourceSetId,
     sourceCardId: selected.sourceCardId || '', sourceFinish: selected.sourceFinish || '',
     cardNumber: document.getElementById('m-cardNumber').value.trim(), rarity: document.getElementById('m-rarity').value.trim(),
-    gradeLabel: document.getElementById('m-grade').value.trim(), status: 'in-vault'
+    gradeLabel: document.getElementById('m-grade').value.trim(), artist: document.getElementById('m-artist').value.trim(),
+    notes: document.getElementById('m-notes').value.trim(), status: 'in-vault'
   };
 }
 
@@ -237,6 +241,7 @@ async function saveIntake() {
     document.getElementById('m-name').focus();
     return;
   }
+  if (['name', 'setName', 'year', 'cardNumber', 'rarity', 'grade'].some(key => !document.getElementById(`m-${key}`).value.trim())) { status.textContent = 'Complete all required fields.'; return; }
   if (!document.getElementById('m-name').value.trim()) { status.textContent = 'Enter a card name.'; document.getElementById('m-name').focus(); return; }
   if (!certNumber) { setCertState(false, 'Enter 1 to 8 digits.', 'error'); certInput.focus(); return; }
   if (certInput.dataset.certAvailable !== 'true' && !await checkCertInput()) { certInput.focus(); return; }
@@ -258,7 +263,10 @@ async function saveIntake() {
   }
 }
 
+window.addEventListener('intake-values-updated', updateSubmitState);
+
 document.addEventListener('input', event => {
+  if (event.target.closest('.intake-page')) updateSubmitState();
   if (event.target.id === 'm-cert') {
     certCheckVersion += 1;
     clearTimeout(certCheckTimer);
@@ -272,6 +280,7 @@ document.addEventListener('input', event => {
 });
 
 document.addEventListener('change', event => {
+  if (event.target.closest('.intake-page')) updateSubmitState();
   const input = event.target.closest('[data-upload-side]');
   if (!input) return;
   try { updatePhotoPreview(input.dataset.uploadSide, validatePhoto(input)); document.getElementById('photo-status').textContent = ''; }
@@ -334,6 +343,7 @@ installCatalogSuggestions(card => {
     : !metadata.yearSeries
       ? 'This set has no approved Year / series mapping yet, so label printing will stay unavailable until one is added.'
       : 'Catalog card selected. Check the details, then enter Cert and Grade.';
+  updateSubmitState();
   document.getElementById('m-grade').focus();
 }, () => {
   invalidateCardResolution();

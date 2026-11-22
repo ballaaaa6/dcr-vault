@@ -42,7 +42,7 @@ export function normalizeCard(input) {
     catalogCardId: text(input.catalogCardId, 80), sourceLanguage: text(input.sourceLanguage, 20),
     sourceSetId: text(input.sourceSetId, 80), sourceCardId: text(input.sourceCardId, 100),
     sourceFinish: text(input.sourceFinish, 30), cardNumber: text(input.cardNumber, 30), rarity: text(input.rarity, 80),
-    gradeLabel: text(input.gradeLabel, 60), certNumber, status,
+    gradeLabel: text(input.gradeLabel, 60), artist: text(input.artist, 120), certNumber, status,
     buyPrice: price(input.buyPrice), sellPrice: price(input.sellPrice), buyDate: text(input.buyDate, 20),
     soldDate: text(input.soldDate, 20), boughtFrom: text(input.boughtFrom, 120),
     soldTo: text(input.soldTo, 120), notes: text(input.notes, 2000)
@@ -56,7 +56,7 @@ export function cardResponse(row) {
     yearSeries: row.year_series || '', catalogCardId: row.catalog_card_id || '',
     sourceLanguage: row.source_language || '', sourceSetId: row.source_set_id || '',
     sourceCardId: row.source_card_id || '', sourceFinish: row.source_finish || '',
-    cardNumber: row.card_number, rarity: row.rarity, gradeLabel: row.grade_label,
+    cardNumber: row.card_number, rarity: row.rarity, gradeLabel: row.grade_label, artist: row.artist || '',
     certNumber: row.cert_number, status: row.status, buyPrice: row.buy_price,
     sellPrice: row.sell_price, buyDate: row.buy_date, soldDate: row.sold_date,
     boughtFrom: row.bought_from, soldTo: row.sold_to, notes: row.notes,
@@ -71,5 +71,5 @@ export function cardValues(card) {
     card.sourceLanguage, card.sourceSetId, card.sourceCardId, card.sourceFinish, card.cardNumber, card.rarity,
     card.gradeLabel, card.certNumber, card.status, card.buyPrice, card.sellPrice,
     card.buyDate, card.soldDate, card.boughtFrom, card.soldTo, card.notes,
-    card.identificationStatus, JSON.stringify(card.fieldProvenance)];
+    card.identificationStatus, JSON.stringify(card.fieldProvenance), card.artist];
 }

@@ -8,8 +8,8 @@ let timer;
 export function catalogField(id, label, placeholder) {
   const maxLength = id === 'year' ? 4 : id === 'cardNumber' ? 30 : 120;
   const language = ['name', 'setName'].includes(id) ? 'lang="en"' : '';
-  return `<div class="form-field"><label for="m-${id}">${label}</label><div class="catalog-control" data-catalog-control="${id}">
-    <input class="form-control" id="m-${id}" ${language} data-catalog-field="${id}" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="m-${id}-suggestions" autocomplete="off" maxlength="${maxLength}" placeholder="${placeholder}">
+  return `<div class="form-field"><label for="m-${id}">${label} <span class="required-mark" aria-hidden="true">*</span></label><div class="catalog-control" data-catalog-control="${id}">
+    <input class="form-control" id="m-${id}" required ${language} data-catalog-field="${id}" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="m-${id}-suggestions" autocomplete="off" maxlength="${maxLength}" placeholder="${placeholder}">
     <div class="catalog-suggestions" id="m-${id}-suggestions" role="listbox" hidden></div>
   </div></div>`;
 }

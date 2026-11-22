@@ -47,6 +47,8 @@ export function vault(cards = []) {
           <label class="form-field"><span>Sell price (THB)</span><input class="form-control" id="d-sell" inputmode="decimal" value="${escapeHTML(focus?.sellPrice ?? '')}"></label>
           <label class="form-field"><span>Status</span><select class="form-control" id="d-status"><option value="">Select status</option>${statusOptions(focus?.status || '')}</select></label>
           <label class="form-field"><span>Bought from</span><input class="form-control" id="d-from" value="${escapeHTML(focus?.boughtFrom || '')}"></label>
+          <label class="form-field"><span>Artist / Illustrator</span><input class="form-control" id="d-artist" maxlength="120" value="${escapeHTML(focus?.artist || '')}"></label>
+          <label class="form-field"><span>Notes</span><textarea class="form-control" id="d-notes" maxlength="2000" rows="3">${escapeHTML(focus?.notes || '')}</textarea></label>
           <div class="detail-actions">
             <button class="btn btn-primary" type="button" onclick="window.__saveDetail('${escapeHTML(focus?.id || '')}')">Save details</button>
             <a class="btn btn-ghost" href="/label?cert=${encodeURIComponent(focus?.certNumber || '')}">Print label</a>
@@ -79,7 +81,9 @@ window.__saveDetail = async id => {
       buyPrice: document.getElementById('d-buy').value,
       sellPrice: document.getElementById('d-sell').value,
       status: document.getElementById('d-status').value,
-      boughtFrom: document.getElementById('d-from').value
+      boughtFrom: document.getElementById('d-from').value,
+      artist: document.getElementById('d-artist').value,
+      notes: document.getElementById('d-notes').value
     });
     location.href = `/vault?id=${encodeURIComponent(id)}`;
   } catch (error) {
