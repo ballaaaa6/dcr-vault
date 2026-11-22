@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Use scrollbars throughout the app
+
+- Apply the slim red scrollbar style to all scrollable pages and panels.
+
 ## 2026-11-23 - Show label picker scrollbars
 
 - Show the red scrollbar in the card selection list and label dialogs when their content overflows.
