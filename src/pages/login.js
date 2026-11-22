@@ -16,7 +16,7 @@ export function loginPage() {
           <p class="auth-account-note">New account? It will be created automatically when you sign in.</p>
         </div>
       </section>
-      <footer class="site-footer auth-footer"><span class="auth-copyright">© ${new Date().getFullYear()} DCR Card Vault</span><nav class="auth-footer-links" aria-label="Footer"><a class="btn btn-ghost" href="/privacy/">Privacy Policy</a><a class="btn btn-ghost" href="/">Back to Home</a></nav></footer>
+      <footer class="site-footer auth-footer"><span class="auth-copyright">© ${new Date().getFullYear()} DCR Card Vault</span><nav class="auth-footer-links" aria-label="Footer"><a class="btn btn-primary" href="/privacy/">Privacy Policy</a><a class="btn btn-ghost" href="/">Back to Home</a></nav></footer>
     </main>`;
 }
 

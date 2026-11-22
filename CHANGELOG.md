@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-22 - Update privacy button color
+
+- Use a red background and white text for the Privacy Policy button.
+
 ## 2026-11-22 - Style privacy navigation
 
 - Match the Privacy Policy button to the outlined Back to Home button.
