@@ -36,5 +36,5 @@ export function home() {
 window.__searchCertificate = event => {
   event.preventDefault();
   const cert = normalizeCert(document.getElementById('certificate-search').value);
-  location.hash = '#/verify?cert=' + encodeURIComponent(cert || document.getElementById('certificate-search').value.trim());
+  location.href = '/verify?cert=' + encodeURIComponent(cert || document.getElementById('certificate-search').value.trim());
 };

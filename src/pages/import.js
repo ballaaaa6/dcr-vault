@@ -1,11 +1,9 @@
+import {nextRoute} from '../utils/routes.js';
 import {importCards} from '../store/cards.js';
 import {loadLegacyCards, rememberImportDecision} from '../store/db.js';
 import {escapeHTML} from '../utils/format.js';
 
-function nextRoute() {
-  const value = new URLSearchParams(location.hash.split('?')[1] || '').get('next') || '';
-  return value.startsWith('#/') && !value.startsWith('#/login') && !value.startsWith('#/import') ? value : '#/vault';
-}
+
 
 function cardSummary(card, index) {
   const name = escapeHTML(card.name || 'Untitled card');
@@ -44,7 +42,7 @@ export function importPage(user) {
 
 function goToNext() {
   rememberImportDecision(window.__importUserId);
-  location.hash = nextRoute();
+  location.href = nextRoute(location.search);
 }
 
 function selectedRecords() {
@@ -67,7 +65,7 @@ async function runImport() {
     const result = await importCards(importPayload(cards));
     rememberImportDecision(window.__importUserId);
     status.textContent = `Imported ${result.imported}; skipped ${result.skipped}. Your local copy remains in this browser.`;
-    location.hash = nextRoute();
+    location.href = nextRoute(location.search);
   } catch (error) {
     button.disabled = false;
     status.textContent = error.message || 'Import failed. Your local copy has not been changed.';

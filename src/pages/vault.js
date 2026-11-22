@@ -15,8 +15,8 @@ function statusOptions(selected) {
 
 export function vault(cards = []) {
   activeCards = cards;
-  if (!cards.length) return '<main class="app-page"><section class="surface-card empty-state"><div class="page-eyebrow">YOUR COLLECTION</div><h1>My Vault</h1><p>Your private vault is ready for its first card.</p><a class="btn btn-primary" href="#/search">Add a card</a></section></main>';
-  const params = new URLSearchParams(location.hash.split('?')[1] || '');
+  if (!cards.length) return '<main class="app-page"><section class="surface-card empty-state"><div class="page-eyebrow">YOUR COLLECTION</div><h1>My Vault</h1><p>Your private vault is ready for its first card.</p><a class="btn btn-primary" href="/search">Add a card</a></section></main>';
+  const params = new URLSearchParams(location.search);
   const focus = cards.find(card => card.id === params.get('id')) || cards[0];
   const rows = cards.length ? cards.map(listRow).join('') : '<div class="empty-state">No cards in your vault yet.</div>';
   const name = escapeHTML(focus?.name || 'No card selected');
@@ -49,7 +49,7 @@ export function vault(cards = []) {
           <label class="form-field"><span>Bought from</span><input class="form-control" id="d-from" value="${escapeHTML(focus?.boughtFrom || '')}"></label>
           <div class="detail-actions">
             <button class="btn btn-primary" type="button" onclick="window.__saveDetail('${escapeHTML(focus?.id || '')}')">Save details</button>
-            <a class="btn btn-ghost" href="#/label?cert=${encodeURIComponent(focus?.certNumber || '')}">Print label</a>
+            <a class="btn btn-ghost" href="/label?cert=${encodeURIComponent(focus?.certNumber || '')}">Print label</a>
           </div>
           <p class="detail-note">Prices are private to your account and stay off printed labels.</p>
         </aside>
@@ -81,7 +81,7 @@ window.__saveDetail = async id => {
       status: document.getElementById('d-status').value,
       boughtFrom: document.getElementById('d-from').value
     });
-    location.hash = `#/vault?id=${encodeURIComponent(id)}`;
+    location.href = `/vault?id=${encodeURIComponent(id)}`;
   } catch (error) {
     document.querySelector('.detail-note').textContent = error.message || 'Details could not be saved.';
     button.disabled = false;

@@ -237,11 +237,11 @@ async function saveIntake() {
   updateSubmitState();
   try {
     const card = window.__intakeSavedCard || await createIntakeCard(certNumber);
-    if (!selectedPhotos().length) { location.hash = '#/vault'; return; }
+    if (!selectedPhotos().length) { location.href = '/vault'; return; }
     status.textContent = 'Uploading selected photos…';
     const failed = await uploadPhotos(card);
     if (failed.length) { status.textContent = `Card saved. Retry the photos that failed: ${failed.join('; ')}`; button.textContent = 'Retry photo upload'; return; }
-    location.hash = '#/vault';
+    location.href = '/vault';
   } catch (error) {
     if (error.status === 409) setCertState(false, 'This Cert number is already used. Choose another number.', 'error');
     else status.textContent = error.message || 'The card could not be saved.';

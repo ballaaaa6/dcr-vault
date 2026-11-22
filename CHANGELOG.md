@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Clean page URLs
+- Use clean paths throughout the app and preserve existing hash links.
+
 ## 2026-11-22 - Certificate page cleanup
 - Remove the redundant record found badge from certificate details.
 

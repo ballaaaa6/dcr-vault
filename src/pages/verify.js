@@ -37,7 +37,7 @@ function resultMarkup(cert, cards) {
 }
 
 export function verify(cards = []) {
-  const params = new URLSearchParams(location.hash.split('?')[1] || '');
+  const params = new URLSearchParams(location.search);
   const rawCert = params.get('cert') || '';
   const cert = normalizeCert(rawCert) || rawCert;
   return `<main class="lookup-page"><section class="lookup-panel" aria-labelledby="lookup-title">

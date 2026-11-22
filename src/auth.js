@@ -23,5 +23,5 @@ export async function signInWithGoogle(credential) {
 
 export async function signOut() {
   await requestJson('/api/auth/logout', {method: 'POST'});
-  location.hash = '#/';
+  location.href = '/';
 }

@@ -47,7 +47,7 @@ function printOutput(front, back, dataUri) {
 }
 
 function emptyLabelPage(message) {
-  return `<main class="app-page"><section class="surface-card empty-state"><h1>${message}</h1><p>Choose a saved Pokémon card from your vault first.</p><a class="btn btn-primary" href="#/vault">Open My Vault</a></section></main>`;
+  return `<main class="app-page"><section class="surface-card empty-state"><h1>${message}</h1><p>Choose a saved Pokémon card from your vault first.</p><a class="btn btn-primary" href="/vault">Open My Vault</a></section></main>`;
 }
 
 function numberKey(value) {
@@ -74,7 +74,7 @@ async function enrichFromExactCatalogMatch(card) {
 }
 
 export async function label(cards = []) {
-  const params = new URLSearchParams(location.hash.split('?')[1] || '');
+  const params = new URLSearchParams(location.search);
   const cert = params.get('cert');
   const card = cert ? findByCert(cards, cert) : cards[0];
   if (!card) return emptyLabelPage('Card not found in your vault');

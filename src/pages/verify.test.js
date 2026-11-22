@@ -11,14 +11,14 @@ test('certificate images prefer only uploaded sides over catalog reference', () 
 });
 
 test('certificate lookup renders a matching record and handles missing records', () => {
-  globalThis.location = {hash: '#/verify?cert=12'};
+  globalThis.location = {search: '?cert=12'};
   const markup = verify([{certNumber: '00000012', name: '<Card>', frontImage: '/front'}]);
   assert.match(markup, /value="00000012"/);
   assert.match(markup, /&lt;Card&gt;/);
   assert.match(markup, /Item Information/);
   assert.match(markup, /cert-gallery/);
   assert.match(verify([]), /No record found/);
-  globalThis.location.hash = '#/verify?cert=invalid';
+  globalThis.location.search = '?cert=invalid';
   assert.match(verify([]), /Enter 1 to 8 digits/);
   delete globalThis.location;
 });

@@ -1,3 +1,4 @@
+import {nextRoute} from '../utils/routes.js';
 import {getGoogleConfig, signInWithGoogle} from '../auth.js';
 import {hasImportDecision, loadLegacyCards} from '../store/db.js';
 
@@ -5,7 +6,7 @@ export function loginPage() {
   return `
     <main class="auth-page">
       <section class="auth-showcase" aria-labelledby="auth-brand-title">
-        <a class="auth-brand" href="#/" aria-label="DCR Card Vault home">
+        <a class="auth-brand" href="/" aria-label="DCR Card Vault home">
           <img src="/assets/logo/dcr-mark.svg" alt=""><span>DCR CARD VAULT</span>
         </a>
         <div class="auth-showcase-copy">
@@ -25,7 +26,7 @@ export function loginPage() {
         <div class="auth-showcase-foot"><span>BUILT FOR YOUR COLLECTION</span><span>01 — 03</span></div>
       </section>
       <section class="auth-panel" aria-labelledby="login-title">
-        <div class="auth-panel-top"><span>ALREADY COLLECTING?</span><a href="#/">Explore DCR Vault <span aria-hidden="true">↗</span></a></div>
+        <div class="auth-panel-top"><span>ALREADY COLLECTING?</span><a href="/">Explore DCR Vault <span aria-hidden="true">↗</span></a></div>
         <div class="auth-form-wrap">
           <img class="auth-mobile-logo" src="/assets/logo/dcr-mark.svg" alt="DCR Card Vault">
           <div class="auth-panel-kicker">WELCOME TO DCR</div>
@@ -38,15 +39,12 @@ export function loginPage() {
           <div class="auth-benefit"><span class="auth-benefit-icon" aria-hidden="true">⌑</span><p><strong>Private by default</strong><br>Only your account can access its saved card records.</p></div>
           <p class="auth-privacy">We use your Google name, email, and profile photo for your account. DCR Vault does not access your Gmail inbox. <a href="/privacy/">Read the privacy policy.</a></p>
         </div>
-        <div class="auth-panel-foot"><span>© ${new Date().getFullYear()} DCR CARD VAULT</span><a href="#/">BACK TO HOME</a></div>
+        <div class="auth-panel-foot"><span>© ${new Date().getFullYear()} DCR CARD VAULT</span><a href="/">BACK TO HOME</a></div>
       </section>
     </main>`;
 }
 
-function nextRoute() {
-  const value = new URLSearchParams(location.hash.split('?')[1] || '').get('next') || '';
-  return value.startsWith('#/') && !value.startsWith('#/login') && !value.startsWith('#/import') ? value : '#/vault';
-}
+
 
 function loadGoogleScript() {
   return new Promise((resolve, reject) => {
@@ -82,12 +80,12 @@ async function handleCredential(response) {
   status.classList.remove('auth-status-error');
   try {
     const {user} = await signInWithGoogle(response.credential);
-    const target = nextRoute();
+    const target = nextRoute(location.search);
     if (loadLegacyCards().length && !hasImportDecision(user.id)) {
-      location.hash = `#/import?next=${encodeURIComponent(target)}`;
+      location.href = `/import?next=${encodeURIComponent(target)}`;
       return;
     }
-    location.hash = target;
+    location.href = target;
   } catch (error) {
     status.textContent = error.message || 'Sign-in failed. Please try again.';
     status.classList.add('auth-status-error');
