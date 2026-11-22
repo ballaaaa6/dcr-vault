@@ -14,3 +14,12 @@ export function makeCert() {
   do crypto.getRandomValues(random); while (random[0] >= limit);
   return String(random[0] % range).padStart(8, '0');
 }
+
+export function certificatePath(value) {
+  return '/cert/' + encodeURIComponent(normalizeCert(value) || String(value ?? '').trim());
+}
+
+export function certificateFromPath(path) {
+  const match = /^\/cert\/([^/]+)\/?$/.exec(path || '');
+  return match ? match[1] : null;
+}

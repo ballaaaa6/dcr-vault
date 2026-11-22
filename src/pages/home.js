@@ -1,4 +1,4 @@
-import {normalizeCert} from '../utils/cert.js';
+import {certificatePath} from '../utils/cert.js';
 
 export function home() {
   return `
@@ -35,6 +35,5 @@ export function home() {
 
 window.__searchCertificate = event => {
   event.preventDefault();
-  const cert = normalizeCert(document.getElementById('certificate-search').value);
-  location.href = '/verify?cert=' + encodeURIComponent(cert || document.getElementById('certificate-search').value.trim());
+  location.href = certificatePath(document.getElementById('certificate-search').value);
 };

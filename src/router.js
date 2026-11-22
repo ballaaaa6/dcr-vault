@@ -11,6 +11,7 @@ import {importPage} from './pages/import.js';
 import {getCards} from './store/cards.js';
 import {addVaultImages} from './store/vault-images.js';
 import {escapeHTML} from './utils/format.js';
+import {certificateFromPath} from './utils/cert.js';
 
 let renderVersion = 0;
 const privatePaths = new Set(['/search', '/vault', '/label', '/verify', '/import']);
@@ -31,6 +32,7 @@ export async function render() {
   const version = ++renderVersion;
   const route = location.pathname + location.search;
   const path = location.pathname;
+  const isCertificate = certificateFromPath(path) !== null;
   const app = document.getElementById('app');
   if (path === '/login') {
     app.innerHTML = loginPage();
@@ -41,19 +43,19 @@ export async function render() {
   let user = null;
   try { user = await getCurrentUser(); } catch {}
   if (version !== renderVersion || location.pathname + location.search !== route) return;
-  if (privatePaths.has(path) && !user) { requireLogin(route); return; }
+  if ((privatePaths.has(path) || isCertificate) && !user) { requireLogin(route); return; }
 
   let content = home();
   try {
     if (path === '/search') content = search();
     else if (path === '/import') content = importPage(user);
-    else if (['/vault', '/label', '/verify'].includes(path)) content = await privatePage(path);
+    else if (['/vault', '/label', '/verify'].includes(path) || isCertificate) content = await privatePage(path);
   } catch (error) { content = failurePage(error); }
   if (version !== renderVersion || location.pathname + location.search !== route) return;
   app.innerHTML = header(path, user) + content + footer();
   bindHeader();
   if (path === '/search') initializeSearchPage();
-  if (path === '/verify') initializeCertificateViewer();
+  if (path === '/verify' || isCertificate) initializeCertificateViewer();
   window.scrollTo(0, 0);
 }
 

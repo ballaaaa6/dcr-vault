@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Certificate URLs
+- Use /cert/<number> links for certificate searches while keeping existing verify links working.
+
 ## 2026-11-22 - Clean page URLs
 - Use clean paths throughout the app and preserve existing hash links.
 

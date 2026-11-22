@@ -1,6 +1,6 @@
 import {findByCert} from '../store/cards.js';
 import {escapeHTML} from '../utils/format.js';
-import {normalizeCert} from '../utils/cert.js';
+import {certificateFromPath, normalizeCert} from '../utils/cert.js';
 
 export function certificateImages(card) {
   const actual = [['Front', card.frontImage], ['Back', card.backImage]].filter(([, url]) => url);
@@ -38,7 +38,8 @@ function resultMarkup(cert, cards) {
 
 export function verify(cards = []) {
   const params = new URLSearchParams(location.search);
-  const rawCert = params.get('cert') || '';
+  const pathCert = certificateFromPath(location.pathname);
+  const rawCert = pathCert ?? params.get('cert') ?? '';
   const cert = normalizeCert(rawCert) || rawCert;
   return `<main class="lookup-page"><section class="lookup-panel" aria-labelledby="lookup-title">
     <div class="lookup-kicker">DCR CARD VAULT</div><h1 id="lookup-title">Certificate lookup</h1>
@@ -47,5 +48,5 @@ export function verify(cards = []) {
       <label class="sr-only" for="certificate-search">Certificate number</label>
       <input id="certificate-search" name="cert" type="text" inputmode="numeric" autocomplete="off" maxlength="8" pattern="[0-9]{1,8}" placeholder="Enter 1 to 8 digits" value="${escapeHTML(cert)}" required>
       <button class="search-button" type="submit">Search</button></form>
-    ${params.has('cert') ? resultMarkup(cert, cards) : ''}</section></main>`;
+    ${pathCert !== null || params.has('cert') ? resultMarkup(cert, cards) : ''}</section></main>`;
 }

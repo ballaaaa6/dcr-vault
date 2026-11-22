@@ -22,3 +22,12 @@ test('certificate lookup renders a matching record and handles missing records',
   assert.match(verify([]), /Enter 1 to 8 digits/);
   delete globalThis.location;
 });
+
+test('certificate lookup reads the number from the new path', () => {
+  globalThis.location = {pathname: '/cert/00000001', search: ''};
+  assert.match(verify([{certNumber: '00000001', name: 'First card'}]), /First card/);
+  assert.match(verify([{certNumber: '00000002', name: 'Other card'}]), /No record found/);
+  globalThis.location.pathname = '/cert/invalid';
+  assert.match(verify([]), /Enter 1 to 8 digits/);
+  delete globalThis.location;
+});
