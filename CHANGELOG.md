@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-22 - Style return navigation
+
+- Give the login and privacy return links red outlined buttons and capitalize BACK TO HOME.
+
 ## 2026-11-22 - Remove page introductory labels
 
 - Remove the introductory labels from Home, Add Card, My Vault, and Labels.

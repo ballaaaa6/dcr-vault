@@ -30,7 +30,7 @@
 .auth-footer{position:absolute;bottom:0;left:50%;width:100%;transform:translateX(-50%)}
 .auth-copyright{color:var(--dcr-white);text-shadow:0 0 3px var(--dcr-black),0 0 8px var(--dcr-black)}
 .auth-footer-links{display:flex;align-items:center;gap:24px;margin-left:auto}
-.auth-footer a{color:var(--dcr-black)}
+.auth-footer a:not(.btn){color:var(--dcr-black)}
 .auth-footer-links a:first-child{font-size:12px}
 @media(min-width:761px){.auth-footer{padding-top:8px;padding-bottom:10px}}
 @keyframes auth-line{from{width:48px}to{width:96px}}
