@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Home page layout
+- Update the home page with feature icons and a full-height layout that places the footer at the bottom.
+
 ## 2026-11-22 - Certificate search placeholder
 - Match the certificate search placeholder text and typography to the reference.
 

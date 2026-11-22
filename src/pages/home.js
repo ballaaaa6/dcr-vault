@@ -5,6 +5,7 @@ export function home() {
     <main class="home-page">
       <section class="home-hero" aria-labelledby="home-title">
         <div class="home-copy">
+          <div class="home-eyebrow">Your collection, organized</div>
           <h1 class="home-title" id="home-title">Your cards.<br>Your collection.<br><span>All in one place.</span></h1>
           <p class="home-description">Organize your DCR-certified cards and find certificate details in seconds.</p>
           <form class="home-search-form" onsubmit="window.__searchCertificate(event)">
@@ -18,6 +19,11 @@ export function home() {
             </div>
             <p class="search-hint" id="certificate-search-hint">Search any DCR certificate without signing in.</p>
           </form>
+          <div class="home-benefits" aria-label="Vault features">
+            <div class="home-benefit"><img src="/assets/home/quick-lookup.png" alt=""><strong>Quick Lookup</strong><span>Find a certificate</span></div>
+            <div class="home-benefit"><img src="/assets/home/private-vault.png" alt=""><strong>Private Vault</strong><span>Your collection, yours</span></div>
+            <div class="home-benefit"><img src="/assets/home/easy-organization.png" alt=""><strong>Easy Organization</strong><span>Keep cards together</span></div>
+          </div>
         </div>
         <div class="home-art" aria-hidden="true">
           <div class="art-orbit"></div>
