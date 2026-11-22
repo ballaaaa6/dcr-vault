@@ -14,10 +14,9 @@ export function loginPage() {
           <div id="google-signin" class="google-signin"></div>
           <p id="login-status" class="auth-status" role="status" aria-live="polite">Loading secure sign-in…</p>
           <p class="auth-account-note">New account? It will be created automatically when you sign in.</p>
-          <p class="auth-privacy"><a href="/privacy/">Privacy Policy</a></p>
         </div>
       </section>
-      <footer class="site-footer auth-footer"><span>© ${new Date().getFullYear()} DCR Card Vault</span><a href="/">Back to Home</a></footer>
+      <footer class="site-footer auth-footer"><span class="auth-copyright">© ${new Date().getFullYear()} DCR Card Vault</span><nav class="auth-footer-links" aria-label="Footer"><a href="/privacy/">Privacy Policy</a><a href="/">Back to Home</a></nav></footer>
     </main>`;
 }
 

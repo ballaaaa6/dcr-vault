@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-11-22 - Refine login controls and footer
+
+- Enlarge Google sign-in and move the privacy link beside Back to Home.
+- Keep the account note compact and improve copyright contrast over the background.
+
 ## 2026-11-22 - Enlarge login content
 
 - Enlarge the sign-in content and align its footer with the rest of the site.
