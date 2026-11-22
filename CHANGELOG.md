@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Received date calendar
+- Add an English date picker matching the Flowbite-style calendar and the field width.
+
 ## 2026-11-22 - Vault sort text
 - Fit and center the sort filter labels.
 

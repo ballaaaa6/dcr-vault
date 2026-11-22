@@ -1,3 +1,4 @@
+import {datePicker, initializeDatePicker} from '../components/date-picker.js';
 import {deleteCard, updateCard} from '../store/cards.js';
 import {listRow} from '../components/card-item.js';
 import {vaultPhoto, initializeVaultPhoto} from '../components/vault-photo.js';
@@ -80,7 +81,7 @@ function privateInputs(card) {
     <label class="form-field" id="vault-custom-source" ${custom ? '' : 'hidden'}><span>Other source</span><input class="form-control" name="customSource" maxlength="120" value="${escapeHTML(custom ? source : '')}"></label>
     <label class="form-field"><span>Seller</span><input class="form-control" name="seller" maxlength="120" value="${escapeHTML(card.seller || '')}"></label>
     ${card.boughtFrom ? `<p class="detail-note">Bought from (previous): ${escapeHTML(card.boughtFrom)}</p>` : ''}
-    <label class="form-field"><span>Date received</span><input class="form-control" name="receivedDate" type="date" value="${escapeHTML(card.receivedDate || '')}"></label>
+    ${datePicker(card.receivedDate)}
     <label class="form-field"><span>Notes</span><textarea class="form-control" name="notes" maxlength="2000" rows="3">${escapeHTML(card.notes || '')}</textarea></label>`;
 }
 
@@ -109,6 +110,7 @@ function selectCard(id, mode = 'item') {
   document.querySelector('.vault-detail').innerHTML = detailMarkup(card, mode);
   document.querySelector('.vault-photo-panel').innerHTML = vaultPhoto(card);
   initializeVaultPhoto(document.querySelector('.vault-photo-panel'));
+  initializeDatePicker(document.querySelector('.vault-detail'));
   document.querySelectorAll('.vault-row').forEach(row => {
     row.setAttribute('aria-pressed', String(row.dataset.cardId === id));
   });
