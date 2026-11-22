@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-11-22 - Personalize collector profiles
+
+- Move display name editing beside the profile name and add editable favorite series and short bio fields.
+- Add a database migration for persistent personal details.
+
 ## 2026-11-22 - Streamline profile photo selection
 - Open the file picker directly, then allow dragging the selected photo within the circular crop guide.
 

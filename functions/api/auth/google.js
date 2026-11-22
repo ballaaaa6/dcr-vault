@@ -26,7 +26,7 @@ async function establishSession(claims, request, env) {
     VALUES (?, ?, ?, ?, ?, ?, ?)
     ON CONFLICT(google_sub) DO UPDATE SET email = excluded.email,
     updated_at = excluded.updated_at
-    RETURNING id, email, display_name AS displayName, avatar_url AS avatarUrl`)
+    RETURNING id, email, display_name AS displayName, avatar_url AS avatarUrl, favorite_series AS favoriteSeries, bio AS bio`)
     .bind(crypto.randomUUID(), claims.sub, claims.email, claims.name || '', claims.picture || '', now, now).first();
   const token = await createSession(env.DB, user.id);
   const response = json({user});

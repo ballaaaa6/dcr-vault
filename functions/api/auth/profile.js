@@ -13,7 +13,10 @@ export async function onRequestPut({request, env}) {
   const hasAvatar = Object.hasOwn(body || {}, 'avatarUrl');
   const name = typeof body?.displayName === 'string' ? body.displayName.trim() : '';
   const avatar = body?.avatarUrl;
-  if (!hasName && !hasAvatar) return json({error: 'No profile changes provided.'}, 400);
+  const details = [['favoriteSeries', 'favorite_series', 80], ['bio', 'bio', 240]];
+  const updates = details.filter(([key]) => Object.hasOwn(body || {}, key));
+  if (updates.some(([key, , max]) => typeof body[key] !== 'string' || body[key].trim().length > max)) return json({error: 'Personal details are too long.'}, 400);
+  if (!hasName && !hasAvatar && !updates.length) return json({error: 'No profile changes provided.'}, 400);
   if (hasName && (!name || name.length > 12)) return json({error: 'Enter a display name of up to 12 characters.'}, 400);
   if (hasAvatar && (typeof avatar !== 'string' || (avatar !== session.user.avatarUrl && !validAvatar(avatar)))) {
     return json({error: 'Please choose a valid photo.'}, 400);
@@ -21,9 +24,10 @@ export async function onRequestPut({request, env}) {
   const fields = []; const values = [];
   if (hasName) { fields.push('display_name = ?'); values.push(name); }
   if (hasAvatar) { fields.push('avatar_url = ?'); values.push(avatar); }
+  for (const [key, column] of updates) { fields.push(`${column} = ?`); values.push(body[key].trim()); }
   await env.DB.prepare(`UPDATE users SET ${fields.join(', ')}, updated_at = ? WHERE id = ?`)
     .bind(...values, Math.floor(Date.now() / 1000), session.user.id).run();
-  return json({user: {...session.user, ...(hasName && {displayName: name}), ...(hasAvatar && {avatarUrl: avatar})}});
+  return json({user: {...session.user, ...(hasName && {displayName: name}), ...(hasAvatar && {avatarUrl: avatar}), ...Object.fromEntries(updates.map(([key]) => [key, body[key].trim()]))}});
 }
 
 function validAvatar(value) {

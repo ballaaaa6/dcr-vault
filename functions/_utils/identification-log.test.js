@@ -8,7 +8,7 @@ import {onRequestGet, onRequestPost} from '../api/cards/identification-log.js';
 
 test('logs are owner-scoped, bounded, and deleted at expiry', async () => {
   const sql = new DatabaseSync(':memory:');
-  for (const file of ['0001_users_sessions_cards.sql', '0005_identification_logs.sql']) {
+  for (const file of ['0001_users_sessions_cards.sql', '0011_profile_details.sql', '0005_identification_logs.sql']) {
     sql.exec(readFileSync(new URL(`../../migrations/${file}`, import.meta.url), 'utf8'));
   }
   const now = Math.floor(Date.now() / 1000);

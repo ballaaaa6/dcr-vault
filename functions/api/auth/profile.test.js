@@ -8,6 +8,7 @@ import {tokenHash} from '../../_utils/sessions.js';
 test('profile edits are authenticated, owner-scoped, validated and persistent', async () => {
   const sql = new DatabaseSync(':memory:');
   sql.exec(readFileSync(new URL('../../../migrations/0001_users_sessions_cards.sql', import.meta.url), 'utf8'));
+  sql.exec(readFileSync(new URL('../../../migrations/0011_profile_details.sql', import.meta.url), 'utf8'));
   sql.prepare('INSERT INTO users(id,google_sub,email,display_name,avatar_url,created_at,updated_at) VALUES (?,?,?,?,?,?,?)').run('a','ga','a@example.com','Original','https://example.com/avatar',0,0);
   sql.prepare('INSERT INTO users(id,google_sub,email,display_name,created_at,updated_at) VALUES (?,?,?,?,?,?)').run('b','gb','b@example.com','Other',0,0);
   sql.prepare('INSERT INTO sessions(token_hash,user_id,expires_at,created_at) VALUES (?,?,?,?)').run(await tokenHash('token'), 'a', 9999999999, 0);
@@ -30,5 +31,9 @@ test('profile edits are authenticated, owner-scoped, validated and persistent', 
   assert.equal(updated.avatar_url, 'data:image/jpeg;base64,/9j/2Q==');
   assert.equal((await onRequestPut({request:request({avatarUrl:''}),env})).status, 200);
   assert.equal(sql.prepare('SELECT display_name FROM users WHERE id = ?').get('a').display_name, 'Separate');
+  assert.equal((await onRequestPut({request:request({favoriteSeries:'  Pokémon  ',bio:'Collector'}),env})).status, 200);
+  assert.equal((await onRequestPut({request:request({bio:'x'.repeat(241)}),env})).status, 400);
+  assert.deepEqual({...sql.prepare('SELECT favorite_series, bio FROM users WHERE id = ?').get('a')}, {favorite_series:'Pokémon', bio:'Collector'});
+  assert.equal(sql.prepare('SELECT bio FROM users WHERE id = ?').get('b').bio, '');
   sql.close();
 });
