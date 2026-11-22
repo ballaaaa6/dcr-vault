@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Certificate information formatting
+- Place Language last and use title case for item labels while keeping values uppercase.
+
 ## 2026-11-22 - Uppercase certificate information
 - Display all item information in uppercase on certificate records.
 

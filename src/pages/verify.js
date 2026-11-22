@@ -31,7 +31,7 @@ function languageName(value) {
 function itemInformation(card) {
   const fields = [['Cert Number', card.certNumber], ['Condition', card.gradeLabel], ['Year', card.year],
     ['Brand/Title', card.game], ['Set', card.setName], ['Card Name', card.name], ['Card Number', card.cardNumber],
-    ['Rarity', card.rarity], ['Language', languageName(card.sourceLanguage)], ['Finish', card.sourceFinish]];
+    ['Rarity', card.rarity], ['Finish', card.sourceFinish], ['Language', languageName(card.sourceLanguage)]];
   return `<section class="cert-information"><h2>Item Information</h2><dl>${fields.filter(([, value]) => value).map(([label, value]) =>
     `<div><dt>${escapeHTML(label)}</dt><dd>${escapeHTML(value)}</dd></div>`).join('')}</dl></section>`;
 }
