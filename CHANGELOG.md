@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Add label page backgrounds
+
+- Add faded mountain backgrounds to the certificate entry, sheet list, and vault selection panels.
+
 ## 2026-11-23 - Adjust vault selection heading spacing
 
 - Bring the description closer to the heading in the label vault selection dialog.
