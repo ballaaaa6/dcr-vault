@@ -1,5 +1,6 @@
 import {deleteCard, updateCard} from '../store/cards.js';
-import {listRow, vaultImage} from '../components/card-item.js';
+import {listRow} from '../components/card-item.js';
+import {vaultPhoto, initializeVaultPhoto} from '../components/vault-photo.js';
 import {itemInformation} from './verify.js';
 import {escapeHTML} from '../utils/format.js';
 
@@ -50,7 +51,7 @@ export function vault(cards = []) {
       <div class="vault-layout">
         <section class="vault-list" id="vault-list" aria-label="Cards in your vault">${rows}</section>
         <aside class="surface-card vault-detail" aria-label="Selected card details">${detailMarkup(focus)}</aside>
-        <aside class="surface-card vault-photo-panel" aria-label="Selected card photo">${photoMarkup(focus)}</aside>
+        <aside class="surface-card vault-photo-panel" aria-label="Selected card photo">${vaultPhoto(focus)}</aside>
       </div>
       <dialog class="vault-delete-dialog" aria-labelledby="delete-card-title" aria-describedby="delete-card-description">
         <h2 id="delete-card-title">Delete this card?</h2>
@@ -82,16 +83,13 @@ function detailMarkup(focus) {
           </form>`;
 }
 
-function photoMarkup(card) {
-  return `<div class="vault-detail-photo">${vaultImage(card, 'vault-detail-photo-empty', 'No front photo available', 'vault-detail-image')}</div>`;
-}
-
 function selectCard(id) {
   const card = activeCards.find(item => item.id === id);
   if (!card) return;
   selectedId = id;
   document.querySelector('.vault-detail').innerHTML = detailMarkup(card);
-  document.querySelector('.vault-photo-panel').innerHTML = photoMarkup(card);
+  document.querySelector('.vault-photo-panel').innerHTML = vaultPhoto(card);
+  initializeVaultPhoto(document.querySelector('.vault-photo-panel'));
   document.querySelectorAll('.vault-row').forEach(row => {
     row.setAttribute('aria-pressed', String(row.dataset.cardId === id));
   });

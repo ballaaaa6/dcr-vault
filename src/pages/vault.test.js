@@ -7,7 +7,7 @@ test('vault selection updates details without changing the URL and protects unsa
   let replaced = '';
   globalThis.history = {state: null, replaceState: (_state, _title, url) => { replaced = url; }};
   const detail = {innerHTML: '', addEventListener() {}};
-  const photo = {innerHTML: ''};
+  const photo = {innerHTML: '', querySelector: () => null};
   const form = {dataset: {}};
   const rows = ['a', 'b'].map(id => ({dataset: {cardId: id}, setAttribute(_name, value) { this.selected = value; }}));
   globalThis.document = {querySelector: selector => selector === '.vault-photo-panel' ? photo : detail, querySelectorAll: () => rows, getElementById: () => form};

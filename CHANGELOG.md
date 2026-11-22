@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Vault card photo viewer
+- Flip between card sides in the vault and preview, with certificate-style magnification.
+
 ## 2026-11-22 - Compact vault details
 - Remove the redundant print link and reduce spacing between item information rows.
 
