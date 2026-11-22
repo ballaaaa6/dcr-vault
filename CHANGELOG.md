@@ -137,3 +137,11 @@
 - Add a GitHub Actions workflow to build and deploy the site to the existing Cloudflare Pages project.
 - Document the production deployment flow and required GitHub repository secrets.
 - Document the Cloudflare Pages deployment token rotation date.
+# Set inventory reconciliation - 2026-11-22
+
+- Refresh multilingual set inventories, add official Thai product search entries, and retain potentially conflicting IDs for review instead of merging them automatically.
+- Add a second independent language-by-language set-list snapshot for comparison; preserve unlinked entries and source-specific identifiers.
+- Add official Japanese, Korean, and additional Southeast and East Asian regional product search filters, retaining their separate scopes.
+- Add a source-qualified set name and code index with separate deck-list abbreviations and verified printed-code evidence.
+- Capture an additional English set-code source with its reported on-card status, preserving shared codes and unconfirmed entries.
+- Index official set-mark images and sample card URLs from archived Japanese, Korean, and Traditional Chinese records and the live Thai product filters.

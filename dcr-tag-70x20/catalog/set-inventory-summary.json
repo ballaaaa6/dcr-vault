@@ -1,0 +1,222 @@
+{
+  "date": "2026-11-22",
+  "source_rows": 5218,
+  "candidate_links": 649,
+  "counts": [
+    {
+      "language": "de",
+      "source": "PokeNomad",
+      "rows": 171
+    },
+    {
+      "language": "de",
+      "source": "TCGdex API",
+      "rows": 156
+    },
+    {
+      "language": "en",
+      "source": "PokeNomad",
+      "rows": 211
+    },
+    {
+      "language": "en",
+      "source": "Pokemon official MY",
+      "rows": 46
+    },
+    {
+      "language": "en",
+      "source": "Pokemon official PH",
+      "rows": 46
+    },
+    {
+      "language": "en",
+      "source": "Pokemon official SG",
+      "rows": 46
+    },
+    {
+      "language": "en",
+      "source": "TCGdex API",
+      "rows": 221
+    },
+    {
+      "language": "es",
+      "source": "PokeNomad",
+      "rows": 131
+    },
+    {
+      "language": "es",
+      "source": "TCGdex API",
+      "rows": 160
+    },
+    {
+      "language": "es-mx",
+      "source": "PokeNomad",
+      "rows": 15
+    },
+    {
+      "language": "es-mx",
+      "source": "TCGdex API",
+      "rows": 12
+    },
+    {
+      "language": "fr",
+      "source": "PokeNomad",
+      "rows": 173
+    },
+    {
+      "language": "fr",
+      "source": "TCGdex API",
+      "rows": 203
+    },
+    {
+      "language": "id",
+      "source": "PokeNomad",
+      "rows": 86
+    },
+    {
+      "language": "id",
+      "source": "Pokemon official ID",
+      "rows": 94
+    },
+    {
+      "language": "id",
+      "source": "TCGdex API",
+      "rows": 70
+    },
+    {
+      "language": "it",
+      "source": "PokeNomad",
+      "rows": 167
+    },
+    {
+      "language": "it",
+      "source": "TCGdex API",
+      "rows": 194
+    },
+    {
+      "language": "ja",
+      "source": "PokeNomad",
+      "rows": 204
+    },
+    {
+      "language": "ja",
+      "source": "Pokemon official Japan",
+      "rows": 89
+    },
+    {
+      "language": "ja",
+      "source": "PokéWallet via TCG Collection Tracker",
+      "rows": 520
+    },
+    {
+      "language": "ja",
+      "source": "TCGdex API",
+      "rows": 204
+    },
+    {
+      "language": "ko",
+      "source": "PokeNomad",
+      "rows": 136
+    },
+    {
+      "language": "ko",
+      "source": "Pokemon official Korea",
+      "rows": 563
+    },
+    {
+      "language": "ko",
+      "source": "TCGdex API",
+      "rows": 95
+    },
+    {
+      "language": "nl",
+      "source": "PokeNomad",
+      "rows": 7
+    },
+    {
+      "language": "nl",
+      "source": "TCGdex API",
+      "rows": 3
+    },
+    {
+      "language": "pl",
+      "source": "PokeNomad",
+      "rows": 3
+    },
+    {
+      "language": "pl",
+      "source": "TCGdex API",
+      "rows": 2
+    },
+    {
+      "language": "pt",
+      "source": "PokeNomad",
+      "rows": 185
+    },
+    {
+      "language": "pt",
+      "source": "TCGdex API",
+      "rows": 126
+    },
+    {
+      "language": "ru",
+      "source": "PokeNomad",
+      "rows": 11
+    },
+    {
+      "language": "ru",
+      "source": "TCGdex API",
+      "rows": 9
+    },
+    {
+      "language": "th",
+      "source": "PokeNomad",
+      "rows": 85
+    },
+    {
+      "language": "th",
+      "source": "Pokemon official Thailand",
+      "rows": 83
+    },
+    {
+      "language": "th",
+      "source": "SASOM",
+      "rows": 1
+    },
+    {
+      "language": "th",
+      "source": "TCGdex API",
+      "rows": 72
+    },
+    {
+      "language": "zh-cn",
+      "source": "PokeNomad",
+      "rows": 82
+    },
+    {
+      "language": "zh-cn",
+      "source": "TCGdex API",
+      "rows": 57
+    },
+    {
+      "language": "zh-tw",
+      "source": "PokeNomad",
+      "rows": 109
+    },
+    {
+      "language": "zh-tw",
+      "source": "Pokemon official HK",
+      "rows": 136
+    },
+    {
+      "language": "zh-tw",
+      "source": "Pokemon official TW",
+      "rows": 136
+    },
+    {
+      "language": "zh-tw",
+      "source": "TCGdex API",
+      "rows": 98
+    }
+  ]
+}

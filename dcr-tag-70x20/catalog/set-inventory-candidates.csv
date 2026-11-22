@@ -1,0 +1,650 @@
+﻿language,normalized_id,sources,source_ids,names,status
+de,bwp,PokeNomad | TCGdex API,BWP | bwp,BW Black Star Promos | SW Promokarten,candidate only; verify identity
+de,dpp,PokeNomad | TCGdex API,DPP | dpp,DP Black Star Promos | Promo DP,candidate only; verify identity
+de,hgssp,PokeNomad | TCGdex API,HGSSP | hgssp,HGSS Black Star Promos | Promo HGSS,candidate only; verify identity
+de,me01,PokeNomad | TCGdex API,ME01 | me01,Mega-Entwicklung (Mega Evolution) | Mega-Entwicklung,candidate only; verify identity
+de,me02,PokeNomad | TCGdex API,ME02 | me02,Mega-Entwicklung—Phantomflammen (Mega Evolution—Phantasmal Flames) | Fatale Flammen,candidate only; verify identity
+de,me03,PokeNomad | TCGdex API,ME03 | me03,Mega-Entwicklung—Perfekte Ordnung (Mega Evolution—Perfect Order) | Optimale Ordnung,candidate only; verify identity
+de,me04,PokeNomad | TCGdex API,ME04 | me04,Mega Evolution—Chaos Rising | Wachsendes Chaos,candidate only; verify identity
+de,me05,PokeNomad | TCGdex API,ME05 | me05,Mega Evolution—Pitch Black | Dunkelnacht,candidate only; verify identity
+de,me06,PokeNomad | TCGdex API,ME06 | me06,Mega-Entwicklung—Delta-Herrschaft (Mega Evolution—Delta Reign) | Delta-Herrschaft,candidate only; verify identity
+de,mep,PokeNomad | TCGdex API,MEP | mep,Mega Evolution Black Star Promos | MEP Black Star Promos,candidate only; verify identity
+de,smp,PokeNomad | TCGdex API,SMP | smp,SM Black Star Promos | SM Promokarten,candidate only; verify identity
+de,svp,PokeNomad | TCGdex API,SVP | svp,SV Black Star Promos | SVP Black Star Promos,candidate only; verify identity
+de,swshp,PokeNomad | TCGdex API,SWSHP | swshp,SWSH Black Star Promos | SCSC Promokarten,candidate only; verify identity
+de,xyp,PokeNomad | TCGdex API,XYP | xyp,XY Black Star Promos | XY Promokarten,candidate only; verify identity
+en,25th,Pokemon official MY | Pokemon official PH | Pokemon official SG,25th | 25th | 25th,Celebrations | Celebrations | Celebrations,candidate only; verify identity
+en,basic energy me,Pokemon official MY | Pokemon official PH | Pokemon official SG,Basic Energy ME | Basic Energy ME | Basic Energy ME,Basic Energy ME | Basic Energy ME | Basic Energy ME,candidate only; verify identity
+en,basic energy sv,Pokemon official MY | Pokemon official PH | Pokemon official SG,Basic Energy SV | Basic Energy SV | Basic Energy SV,Basic Energy SV | Basic Energy SV | Basic Energy SV,candidate only; verify identity
+en,basic energy swsh,Pokemon official MY | Pokemon official PH | Pokemon official SG,Basic Energy SWSH | Basic Energy SWSH | Basic Energy SWSH,Basic Energy SWSH | Basic Energy SWSH | Basic Energy SWSH,candidate only; verify identity
+en,bwp,PokeNomad | TCGdex API,BWP | bwp,BW Black Star Promos | BW Black Star Promos,candidate only; verify identity
+en,dpp,PokeNomad | TCGdex API,DPP | dpp,DP Black Star Promos | DP Black Star Promos,candidate only; verify identity
+en,hgssp,PokeNomad | TCGdex API,HGSSP | hgssp,HGSS Black Star Promos | HGSS Black Star Promos,candidate only; verify identity
+en,lc,PokeNomad | TCGdex API,LC | lc,Legendary Collection | Legendary Collection,candidate only; verify identity
+en,me01,PokeNomad | Pokemon official MY | Pokemon official PH | Pokemon official SG | TCGdex API,ME01 | ME01 | ME01 | ME01 | me01,Mega Evolution | Mega Evolution | Mega Evolution | Mega Evolution | Mega Evolution,candidate only; verify identity
+en,me02,PokeNomad | Pokemon official MY | Pokemon official PH | Pokemon official SG | TCGdex API,ME02 | ME02 | ME02 | ME02 | me02,Phantasmal Flames | Phantasmal Flames | Phantasmal Flames | Phantasmal Flames | Phantasmal Flames,candidate only; verify identity
+en,me03,PokeNomad | Pokemon official MY | Pokemon official PH | Pokemon official SG | TCGdex API,ME03 | ME03 | ME03 | ME03 | me03,Perfect Order | Perfect Order | Perfect Order | Perfect Order | Perfect Order,candidate only; verify identity
+en,me04,PokeNomad | Pokemon official MY | Pokemon official PH | Pokemon official SG | TCGdex API,ME04 | ME04 | ME04 | ME04 | me04,Chaos Rising | Chaos Rising | Chaos Rising | Chaos Rising | Chaos Rising,candidate only; verify identity
+en,me05,PokeNomad | Pokemon official MY | Pokemon official PH | Pokemon official SG | TCGdex API,ME05 | ME05 | ME05 | ME05 | me05,Pitch Black | Pitch Black | Pitch Black | Pitch Black | Pitch Black,candidate only; verify identity
+en,me06,PokeNomad | Pokemon official MY | Pokemon official PH | Pokemon official SG | TCGdex API,ME06 | ME06 | ME06 | ME06 | me06,Delta Reign | Delta Reign | Delta Reign | Delta Reign | Delta Reign,candidate only; verify identity
+en,me2.5,Pokemon official MY | Pokemon official PH | Pokemon official SG,ME2.5 | ME2.5 | ME2.5,Ascended Heroes | Ascended Heroes | Ascended Heroes,candidate only; verify identity
+en,mee,PokeNomad | TCGdex API,MEE | mee,Mega Evolution Basic Energies | Mega Evolution Energy,candidate only; verify identity
+en,mep,PokeNomad | Pokemon official MY | Pokemon official PH | Pokemon official SG | TCGdex API,MEP | MEP | MEP | MEP | mep,Mega Evolution Black Star Promos | ME Promo | ME Promo | ME Promo | MEP Black Star Promos,candidate only; verify identity
+en,np,PokeNomad | TCGdex API,NP | np,Nintendo Black Star Promos | Nintendo Black Star Promos,candidate only; verify identity
+en,pgo,PokeNomad | Pokemon official MY | Pokemon official PH | Pokemon official SG,PGO | PGO | PGO | PGO,Pokémon GO | Pokémon GO | Pokémon GO | Pokémon GO,candidate only; verify identity
+en,pop1,PokeNomad | TCGdex API,POP1 | pop1,POP Series 1 | POP Series 1,candidate only; verify identity
+en,pop2,PokeNomad | TCGdex API,POP2 | pop2,POP Series 2 | POP Series 2,candidate only; verify identity
+en,pop3,PokeNomad | TCGdex API,POP3 | pop3,POP Series 3 | POP Series 3,candidate only; verify identity
+en,pop4,PokeNomad | TCGdex API,POP4 | pop4,POP Series 4 | POP Series 4,candidate only; verify identity
+en,pop5,PokeNomad | TCGdex API,POP5 | pop5,POP Series 5 | POP Series 5,candidate only; verify identity
+en,pop6,PokeNomad | TCGdex API,POP6 | pop6,POP Series 6 | POP Series 6,candidate only; verify identity
+en,pop7,PokeNomad | TCGdex API,POP7 | pop7,POP Series 7 | POP Series 7,candidate only; verify identity
+en,pop8,PokeNomad | TCGdex API,POP8 | pop8,POP Series 8 | POP Series 8,candidate only; verify identity
+en,pop9,PokeNomad | TCGdex API,POP9 | pop9,POP Series 9 | POP Series 9,candidate only; verify identity
+en,rsv10.5,Pokemon official MY | Pokemon official PH | Pokemon official SG,RSV10.5 | RSV10.5 | RSV10.5,White Flare | White Flare | White Flare,candidate only; verify identity
+en,smp,PokeNomad | TCGdex API,SMP | smp,SM Black Star Promos | SM Black Star Promos,candidate only; verify identity
+en,sv01,Pokemon official MY | Pokemon official PH | Pokemon official SG | TCGdex API,SV01 | SV01 | SV01 | sv01,Scarlet & Violet | Scarlet & Violet | Scarlet & Violet | Scarlet & Violet,candidate only; verify identity
+en,sv02,Pokemon official MY | Pokemon official PH | Pokemon official SG | TCGdex API,SV02 | SV02 | SV02 | sv02,Paldea Evolved | Paldea Evolved | Paldea Evolved | Paldea Evolved,candidate only; verify identity
+en,sv03,Pokemon official MY | Pokemon official PH | Pokemon official SG | TCGdex API,SV03 | SV03 | SV03 | sv03,Obsidian Flames | Obsidian Flames | Obsidian Flames | Obsidian Flames,candidate only; verify identity
+en,sv04,Pokemon official MY | Pokemon official PH | Pokemon official SG | TCGdex API,SV04 | SV04 | SV04 | sv04,Paradox Rift | Paradox Rift | Paradox Rift | Paradox Rift,candidate only; verify identity
+en,sv05,Pokemon official MY | Pokemon official PH | Pokemon official SG | TCGdex API,SV05 | SV05 | SV05 | sv05,Temporal Forces | Temporal Forces | Temporal Forces | Temporal Forces,candidate only; verify identity
+en,sv06,Pokemon official MY | Pokemon official PH | Pokemon official SG | TCGdex API,SV06 | SV06 | SV06 | sv06,Twilight Masquerade | Twilight Masquerade | Twilight Masquerade | Twilight Masquerade,candidate only; verify identity
+en,sv07,Pokemon official MY | Pokemon official PH | Pokemon official SG | TCGdex API,SV07 | SV07 | SV07 | sv07,Stellar Crown | Stellar Crown | Stellar Crown | Stellar Crown,candidate only; verify identity
+en,sv08,Pokemon official MY | Pokemon official PH | Pokemon official SG | TCGdex API,SV08 | SV08 | SV08 | sv08,Surging Sparks | Surging Sparks | Surging Sparks | Surging Sparks,candidate only; verify identity
+en,sv09,Pokemon official MY | Pokemon official PH | Pokemon official SG | TCGdex API,SV09 | SV09 | SV09 | sv09,Journey Together | Journey Together | Journey Together | Journey Together,candidate only; verify identity
+en,sv10,Pokemon official MY | Pokemon official PH | Pokemon official SG | TCGdex API,SV10 | SV10 | SV10 | sv10,Destined Rivals | Destined Rivals | Destined Rivals | Destined Rivals,candidate only; verify identity
+en,sv3.5,Pokemon official MY | Pokemon official PH | Pokemon official SG,SV3.5 | SV3.5 | SV3.5,Scarlet & Violet 151 | Scarlet & Violet 151 | Scarlet & Violet 151,candidate only; verify identity
+en,sv4.5,Pokemon official MY | Pokemon official PH | Pokemon official SG,SV4.5 | SV4.5 | SV4.5,Paldean Fates | Paldean Fates | Paldean Fates,candidate only; verify identity
+en,sv6.5,Pokemon official MY | Pokemon official PH | Pokemon official SG,SV6.5 | SV6.5 | SV6.5,Shrouded Fable | Shrouded Fable | Shrouded Fable,candidate only; verify identity
+en,sv8.5,Pokemon official MY | Pokemon official PH | Pokemon official SG,SV8.5 | SV8.5 | SV8.5,Prismatic Evolutions | Prismatic Evolutions | Prismatic Evolutions,candidate only; verify identity
+en,sve,PokeNomad | TCGdex API,SVE | sve,Scarlet & Violet Basic Energies | Scarlet & Violet Energy,candidate only; verify identity
+en,svp,PokeNomad | Pokemon official MY | Pokemon official PH | Pokemon official SG | TCGdex API,SVP | SVP | SVP | SVP | svp,SV Black Star Promos | SV Promo | SV Promo | SV Promo | SVP Black Star Promos,candidate only; verify identity
+en,sw-p,Pokemon official MY | Pokemon official PH | Pokemon official SG,SW-P | SW-P | SW-P,SWSH PROMO | SWSH PROMO | SWSH PROMO,candidate only; verify identity
+en,swsh01,Pokemon official MY | Pokemon official PH | Pokemon official SG,SWSH01 | SWSH01 | SWSH01,Sword & Shield | Sword & Shield | Sword & Shield,candidate only; verify identity
+en,swsh02,Pokemon official MY | Pokemon official PH | Pokemon official SG,SWSH02 | SWSH02 | SWSH02,Rebel Clash | Rebel Clash | Rebel Clash,candidate only; verify identity
+en,swsh03,Pokemon official MY | Pokemon official PH | Pokemon official SG,SWSH03 | SWSH03 | SWSH03,Darkness Ablaze | Darkness Ablaze | Darkness Ablaze,candidate only; verify identity
+en,swsh04,Pokemon official MY | Pokemon official PH | Pokemon official SG,SWSH04 | SWSH04 | SWSH04,Vivid Voltage | Vivid Voltage | Vivid Voltage,candidate only; verify identity
+en,swsh05,Pokemon official MY | Pokemon official PH | Pokemon official SG,SWSH05 | SWSH05 | SWSH05,Battle Styles | Battle Styles | Battle Styles,candidate only; verify identity
+en,swsh06,Pokemon official MY | Pokemon official PH | Pokemon official SG,SWSH06 | SWSH06 | SWSH06,Chilling Reign | Chilling Reign | Chilling Reign,candidate only; verify identity
+en,swsh07,Pokemon official MY | Pokemon official PH | Pokemon official SG,SWSH07 | SWSH07 | SWSH07,Evolving Skies | Evolving Skies | Evolving Skies,candidate only; verify identity
+en,swsh08,Pokemon official MY | Pokemon official PH | Pokemon official SG,SWSH08 | SWSH08 | SWSH08,Fusion Strike | Fusion Strike | Fusion Strike,candidate only; verify identity
+en,swsh09,Pokemon official MY | Pokemon official PH | Pokemon official SG,SWSH09 | SWSH09 | SWSH09,Brilliant Stars | Brilliant Stars | Brilliant Stars,candidate only; verify identity
+en,swsh10,Pokemon official MY | Pokemon official PH | Pokemon official SG | TCGdex API,SWSH10 | SWSH10 | SWSH10 | swsh10,Astral Radiance | Astral Radiance | Astral Radiance | Astral Radiance,candidate only; verify identity
+en,swsh11,Pokemon official MY | Pokemon official PH | Pokemon official SG | TCGdex API,SWSH11 | SWSH11 | SWSH11 | swsh11,Lost Origin | Lost Origin | Lost Origin | Lost Origin,candidate only; verify identity
+en,swsh12,Pokemon official MY | Pokemon official PH | Pokemon official SG | TCGdex API,SWSH12 | SWSH12 | SWSH12 | swsh12,Silver Tempest | Silver Tempest | Silver Tempest | Silver Tempest,candidate only; verify identity
+en,swsh12.5,Pokemon official MY | Pokemon official PH | Pokemon official SG | TCGdex API,SWSH12.5 | SWSH12.5 | SWSH12.5 | swsh12.5,Crown Zenith | Crown Zenith | Crown Zenith | Crown Zenith,candidate only; verify identity
+en,swsh3.5,Pokemon official MY | Pokemon official PH | Pokemon official SG | TCGdex API,SWSH3.5 | SWSH3.5 | SWSH3.5 | swsh3.5,Champion's Path | Champion's Path | Champion's Path | Champion's Path,candidate only; verify identity
+en,swsh4.5,Pokemon official MY | Pokemon official PH | Pokemon official SG | TCGdex API,SWSH4.5 | SWSH4.5 | SWSH4.5 | swsh4.5,Shining Fates | Shining Fates | Shining Fates | Shining Fates,candidate only; verify identity
+en,swshp,PokeNomad | TCGdex API,SWSHP | swshp,SWSH Black Star Promos | SWSH Black Star Promos,candidate only; verify identity
+en,xyp,PokeNomad | TCGdex API,XYP | xyp,XY Black Star Promos | XY Black Star Promos,candidate only; verify identity
+en,zsv10.5,Pokemon official MY | Pokemon official PH | Pokemon official SG,ZSV10.5 | ZSV10.5 | ZSV10.5,Black Bolt | Black Bolt | Black Bolt,candidate only; verify identity
+es,bwp,PokeNomad | TCGdex API,BWP | bwp,BW Black Star Promos | NB Promo,candidate only; verify identity
+es,dpp,PokeNomad | TCGdex API,DPP | dpp,DP Black Star Promos | DP Black Star Promos,candidate only; verify identity
+es,hgssp,PokeNomad | TCGdex API,HGSSP | hgssp,HGSS Black Star Promos | HGSS Black Star Promos,candidate only; verify identity
+es,me01,PokeNomad | TCGdex API,ME01 | me01,Megaevolución (Mega Evolution) | Megaevolución,candidate only; verify identity
+es,me02,PokeNomad | TCGdex API,ME02 | me02,Megaevolución—Llamas Fantasmales (Mega Evolution—Phantasmal Flames) | Fuegos Fantasmales,candidate only; verify identity
+es,me03,PokeNomad | TCGdex API,ME03 | me03,Megaevolución—Orden Perfecto (Mega Evolution—Perfect Order) | Equilibrio Perfecto,candidate only; verify identity
+es,me04,PokeNomad | TCGdex API,ME04 | me04,Megaevolución—Caos Creciente (Mega Evolution—Chaos Rising) | Caos Creciente,candidate only; verify identity
+es,me05,PokeNomad | TCGdex API,ME05 | me05,Megaevolución—Oscuridad Absoluta (Mega Evolution—Pitch Black) | Oscuridad Absoluta,candidate only; verify identity
+es,me06,PokeNomad | TCGdex API,ME06 | me06,Megaevolución—Dominio Delta (Mega Evolution—Delta Reign) | Dominio Delta,candidate only; verify identity
+es,mee,PokeNomad | TCGdex API,MEE | mee,Megaevolución Energía (Mega Evolution Energies) | Megaevolución Energía,candidate only; verify identity
+es,mep,PokeNomad | TCGdex API,MEP | mep,Mega Evolution Black Star Promos | MEP Black Star Promos,candidate only; verify identity
+es,np,PokeNomad | TCGdex API,NP | np,Nintendo Black Star Promos | Nintendo Black Star Promos,candidate only; verify identity
+es,smp,PokeNomad | TCGdex API,SMP | smp,SM Black Star Promos | SL Cartas de promoción,candidate only; verify identity
+es,sve,PokeNomad | TCGdex API,SVE | sve,Escarlata y Púrpura Energía (Scarlet & Violet Basic Energies) | Escarlata y Púrpura Energía,candidate only; verify identity
+es,svp,PokeNomad | TCGdex API,SVP | svp,SV Black Star Promos | SVP Black Star Promos,candidate only; verify identity
+es,swshp,PokeNomad | TCGdex API,SWSHP | swshp,SWSH Black Star Promos | Cartas de promoción ESES,candidate only; verify identity
+es,xyp,PokeNomad | TCGdex API,XYP | xyp,XY Black Star Promos | XY Cartas de promoción,candidate only; verify identity
+es-mx,me01,PokeNomad | TCGdex API,ME01 | me01,Mega Evolution | Megaevolución,candidate only; verify identity
+es-mx,me02,PokeNomad | TCGdex API,ME02 | me02,Mega Evolution—Phantasmal Flames | Llamaradas Fantasmales,candidate only; verify identity
+es-mx,me03,PokeNomad | TCGdex API,ME03 | me03,Mega Evolution—Perfect Order | Equilibrio Perfecto,candidate only; verify identity
+es-mx,me04,PokeNomad | TCGdex API,ME04 | me04,Megaevolución—Caos Creciente (Mega Evolution—Chaos Rising) | Caos Creciente,candidate only; verify identity
+es-mx,me05,PokeNomad | TCGdex API,ME05 | me05,Megaevolución—Oscuridad Absoluta (Mega Evolution—Pitch Black) | Tinieblas Umbrías,candidate only; verify identity
+es-mx,me06,PokeNomad | TCGdex API,ME06 | me06,Megaevolución—Dominio Delta (Mega Evolution—Delta Reign) | Dominio Delta,candidate only; verify identity
+es-mx,mep,PokeNomad | TCGdex API,MEP | mep,Mega Evolution Black Star Promos | MEP Black Star Promos,candidate only; verify identity
+fr,bwp,PokeNomad | TCGdex API,BWP | bwp,BW Black Star Promos | Promo BW,candidate only; verify identity
+fr,dpp,PokeNomad | TCGdex API,DPP | dpp,DP Black Star Promos | Promo DP,candidate only; verify identity
+fr,hgssp,PokeNomad | TCGdex API,HGSSP | hgssp,HGSS Black Star Promos | Promo HGSS,candidate only; verify identity
+fr,me01,PokeNomad | TCGdex API,ME01 | me01,Méga-Évolution (Mega Evolution) | Méga-Évolution,candidate only; verify identity
+fr,me02,PokeNomad | TCGdex API,ME02 | me02,Méga-Évolution—Flammes Fantasmagoriques (Mega Evolution—Phantasmal Flames) | Flammes Fantasmagoriques,candidate only; verify identity
+fr,me03,PokeNomad | TCGdex API,ME03 | me03,Méga-Évolution—Équilibre Parfait (Mega Evolution—Perfect Order) | Équilibre Parfait,candidate only; verify identity
+fr,me04,PokeNomad | TCGdex API,ME04 | me04,Méga-Évolution—Chaos Ascendant (Mega Evolution—Chaos Rising) | Chaos Ascendant,candidate only; verify identity
+fr,me05,PokeNomad | TCGdex API,ME05 | me05,Méga-Évolution—Nuit Noire (Mega Evolution—Pitch Black) | Nuit Noire,candidate only; verify identity
+fr,me06,PokeNomad | TCGdex API,ME06 | me06,Méga-Évolution—Règne Delta (Mega Evolution—Delta Reign) | Règne Delta,candidate only; verify identity
+fr,mee,PokeNomad | TCGdex API,MEE | mee,Méga-Évolution Énergie (Mega Evolution Basic Energies) | Méga-Évolution Énergie,candidate only; verify identity
+fr,mep,PokeNomad | TCGdex API,MEP | mep,Mega Evolution Black Star Promos | MEP Black Star Promos,candidate only; verify identity
+fr,np,PokeNomad | TCGdex API,NP | np,Nintendo Black Star Promos | Promo Nintendo,candidate only; verify identity
+fr,pop1,PokeNomad | TCGdex API,POP1 | pop1,POP Series 1 | POP Série 1,candidate only; verify identity
+fr,pop2,PokeNomad | TCGdex API,POP2 | pop2,POP Series 2 | POP Série 2,candidate only; verify identity
+fr,pop3,PokeNomad | TCGdex API,POP3 | pop3,POP Series 3 | POP Série 3,candidate only; verify identity
+fr,pop4,PokeNomad | TCGdex API,POP4 | pop4,POP Series 4 | POP Série 4,candidate only; verify identity
+fr,smp,PokeNomad | TCGdex API,SMP | smp,SM Black Star Promos | Promo SM,candidate only; verify identity
+fr,sve,PokeNomad | TCGdex API,SVE | sve,Écarlate et Violet Énergie de base (Scarlet & Violet Basic Energies) | Écarlate et Violet Énergie,candidate only; verify identity
+fr,svp,PokeNomad | TCGdex API,SVP | svp,SV Black Star Promos | SVP Black Star Promos,candidate only; verify identity
+fr,swshp,PokeNomad | TCGdex API,SWSHP | swshp,SWSH Black Star Promos | Promo SWSH,candidate only; verify identity
+fr,xyp,PokeNomad | TCGdex API,XYP | xyp,XY Black Star Promos | Promo XY,candidate only; verify identity
+id,ma1,PokeNomad | Pokemon official ID,MA1 | MA1,"Evolusi Mega (Mega Evolution) | Booster Pack ""Evolusi Mega""",candidate only; verify identity
+id,ma2,PokeNomad | Pokemon official ID,MA2 | MA2,"Kobaran Biru (Blue Blaze) | Booster Pack ""Kobaran Biru""",candidate only; verify identity
+id,ma3,PokeNomad | Pokemon official ID,MA3 | MA3,"Evolusi Mega Impian ex (MEGA Dream ex) | High Class Booster Pack ""Evolusi Mega Impian ex""",candidate only; verify identity
+id,ma4,PokeNomad | Pokemon official ID,MA4 | MA4,"Ledakan Peniada (Void Blast) | Booster Pack ""Ledakan Peniada""",candidate only; verify identity
+id,ma5,PokeNomad | Pokemon official ID,MA5 | MA5,"Ancaman Bayangan (Shadowy Threats) | Booster Pack ""Ancaman Bayangan""",candidate only; verify identity
+id,math,PokeNomad | Pokemon official ID,MATH | MATH,Deck Taktik Mega Sharpedo ex (Tactics Deck Mega Sharpedo ex) | Deck Taktik Mega Sharpedo ex,candidate only; verify identity
+id,matk,PokeNomad | Pokemon official ID,MATK | MATK,Deck Taktik Mega Dragonite ex (Tactics Deck Mega Dragonite ex) | Deck Taktik Mega Dragonite ex,candidate only; verify identity
+id,matl,PokeNomad | Pokemon official ID,MATL | MATL,Deck Taktik Mega Charizard X ex (Tactics Deck Mega Charizard X ex) | Deck Taktik Mega Charizard X ex,candidate only; verify identity
+id,mats,PokeNomad | Pokemon official ID,MATS | MATS,Deck Taktik Mega Gardevoir ex (Tactics Deck Mega Gardevoir ex) | Deck Taktik Mega Gardevoir ex,candidate only; verify identity
+id,s-p,Pokemon official ID | TCGdex API,S-P | S-P,Kartu Promo | Kartu Promo,candidate only; verify identity
+id,s10a,PokeNomad | Pokemon official ID | TCGdex API,S10A | S10a | S10a,Fantom Kegelapan (Dark Phantasma) | Enhanced Booster Pack “Fantom Kegelapan” | Fantom Kegelapan,candidate only; verify identity
+id,s10b,PokeNomad | Pokemon official ID | TCGdex API,S10B | S10b | S10b,"Pokémon GO | Enhanced Booster Pack ""Pokémon GO"" | Pokémon GO",candidate only; verify identity
+id,s10d,Pokemon official ID | TCGdex API,S10D | S10D,"Booster Pack ""Pengamat Waktu"" | Pengamat Waktu",candidate only; verify identity
+id,s10p,Pokemon official ID | TCGdex API,S10P | S10P,"Booster Pack ""Penyulap Ruang"" | Penyulap Ruang",candidate only; verify identity
+id,s11,PokeNomad | Pokemon official ID | TCGdex API,S11 | S11 | S11,"Neraka Sirna (Lost Abyss) | Booster Pack ""Neraka Sirna"" | Hantaman Triplet",candidate only; verify identity
+id,s11a,PokeNomad | Pokemon official ID | TCGdex API,S11A | S11a | S11a,Arkana Memuncak (Incandescent Arcana) | Enhanced Booster Pack “Arkana Memuncak” | Arkana Memuncak,candidate only; verify identity
+id,s12,PokeNomad | Pokemon official ID | TCGdex API,S12 | S12 | S12,"Pemicu Paradigma (Paradigm Trigger) | Booster Pack ""Pemicu Paradigma"" | Pemicu Paradigma",candidate only; verify identity
+id,s12a,PokeNomad | Pokemon official ID | TCGdex API,S12A | S12a | S12a,"VSTAR Semesta (VSTAR Universe) | High Class Booster Pack ""VSTAR Semesta"" | VSTAR Semesta",candidate only; verify identity
+id,s5a,PokeNomad | Pokemon official ID | TCGdex API,S5A | S5a | S5a,Dua Pilar Petarung (Peerless Fighters) | Dua Pilar Petarung | Dua Pilar Petarung,candidate only; verify identity
+id,s5i,Pokemon official ID | TCGdex API,S5I | S5I,Booster Pack Master Serangan Tunggal | Master Serangan Tunggal,candidate only; verify identity
+id,s5r,Pokemon official ID | TCGdex API,S5R | S5R,Booster Pack Master Serangan Beruntun | Master Serangan Beruntun,candidate only; verify identity
+id,s6a,PokeNomad | Pokemon official ID | TCGdex API,S6A | S6a | S6a,Para Eevee Pahlawan (Eevee Heroes) | Booster Pack Para Eevee Pahlawan | Para Eevee Pahlawan,candidate only; verify identity
+id,s6h,Pokemon official ID | TCGdex API,S6H | S6H,Booster Pack Ganjur Salju Perak | Ganjur Salju Perak,candidate only; verify identity
+id,s6k,Pokemon official ID | TCGdex API,S6K | S6K,Booster Pack Astral Gelap Gulita | Astral Gelap Gulita,candidate only; verify identity
+id,s7d,Pokemon official ID | TCGdex API,S7D | S7D,Booster Pack Pencakar Langit Sempurna | Pencakar Langit Sempurna,candidate only; verify identity
+id,s7r,Pokemon official ID | TCGdex API,S7R | S7R,Booster Pack Arus Langit Biru | Arus Langit Biru,candidate only; verify identity
+id,s8,PokeNomad | Pokemon official ID | TCGdex API,S8 | S8 | S8,Teknik Fusion (Fusion Arts) | Booster Pack Teknik Fusion | Teknik Fusion,candidate only; verify identity
+id,s8a,PokeNomad | Pokemon official ID | TCGdex API,S8A | S8a | S8a,25th Anniversary Collection | Booster Pack 25th ANNIVERSARY COLLECTION | Koleksi Perayaan 25 Tahun,candidate only; verify identity
+id,s8b,PokeNomad | Pokemon official ID | TCGdex API,S8B | S8b | S8b,VMAX Klimaks (VMAX Climax) | High Class Booster Pack VMAX Klimaks | VMAX Klimaks,candidate only; verify identity
+id,s9,PokeNomad | Pokemon official ID | TCGdex API,S9 | S9 | S9,Star Birth | Booster Pack Star Birth | Star Birth,candidate only; verify identity
+id,s9a,PokeNomad | Pokemon official ID | TCGdex API,S9A | S9a | S9a,Pertarungan Daerah (Battle Region) | Enhanced Booster Pack Pertarungan Daerah | Pertarungan Daerah,candidate only; verify identity
+id,sc1a,Pokemon official ID | TCGdex API,SC1a | SC1a,Booster Pack Pedang & Perisai Set A | 劍&盾」SET A,candidate only; verify identity
+id,sc1b,Pokemon official ID | TCGdex API,SC1b | SC1b,Booster Pack Pedang & Perisai Set B | 劍&盾」SET B,candidate only; verify identity
+id,sc1d,Pokemon official ID | TCGdex API,SC1D | SC1D,V Starter Deck Pedang & Perisai | Pedang & Perisai,candidate only; verify identity
+id,sc3a,Pokemon official ID | TCGdex API,SC3a | SC3a,Koleksi VMAX Berkilau Set A | Koleksi VMAX Berkilau Set A,candidate only; verify identity
+id,sc3b,Pokemon official ID | TCGdex API,SC3b | SC3b,Koleksi VMAX Berkilau Set B | Koleksi VMAX Berkilau Set B,candidate only; verify identity
+id,sca,Pokemon official ID | TCGdex API,SCA | SCA,V Starter Deck Teman | V Starter Deck Teman,candidate only; verify identity
+id,scb,Pokemon official ID | TCGdex API,SCB | SCB,V Starter Deck Tantangan | Tantangan,candidate only; verify identity
+id,scc,Pokemon official ID | TCGdex API,SCC | SCC,V Starter Deck Evolusi | Evolusi,candidate only; verify identity
+id,scd,Pokemon official ID | TCGdex API,SCD | SCD,V Starter Deck Kekuatan | V Starter Deck Kekuatan,candidate only; verify identity
+id,sce,Pokemon official ID | TCGdex API,SCE | SCE,V Starter Deck Kebangkitan | Kebangkitan,candidate only; verify identity
+id,scf,Pokemon official ID | TCGdex API,SCF | SCF,V Starter Deck “Transformasi” | Transformasi,candidate only; verify identity
+id,sv-p,Pokemon official ID | TCGdex API,SV-P | SV-P,Kartu Promo | Kartu Promo,candidate only; verify identity
+id,sv10s,PokeNomad | Pokemon official ID,sv10s | SV10s,"Kehadiran Juara (Presence of Champions) | Booster Pack ""Kehadiran Juara""",candidate only; verify identity
+id,sv11s,PokeNomad | Pokemon official ID,sv11s | SV11s,"Hitam & Putih (Black & White) | Booster Pack ""Hitam & Putih""",candidate only; verify identity
+id,sv1a,PokeNomad | Pokemon official ID | TCGdex API,SV1A | SV1a | SV1a,Hantaman Triplet (Triplet Beat) | Enhanced Booster Pack “Hantaman Triplet” | Hantaman Triplet,candidate only; verify identity
+id,sv1s,Pokemon official ID | TCGdex API,SV1S | SV1S,"Booster Pack ""Scarlet ex"" | Scarlet ex",candidate only; verify identity
+id,sv1v,Pokemon official ID | TCGdex API,SV1V | SV1V,"Booster Pack ""Violet ex"" | Violet ex",candidate only; verify identity
+id,sv2a,PokeNomad | Pokemon official ID | TCGdex API,SV2A | SV2a | SV2a,"Kartu Pokémon 151 (Pokémon Card 151) | Enhanced Booster Pack ""Kartu Pokémon 151"" | Kartu Pokémon 151",candidate only; verify identity
+id,sv2d,Pokemon official ID | TCGdex API,SV2D | SV2D,"Booster Pack ""Letusan Tanah"" | Letusan Tanah",candidate only; verify identity
+id,sv2p,Pokemon official ID | TCGdex API,SV2P | SV2P,"Booster Pack ""Mara Bahaya Salju"" | Mara Bahaya Salju",candidate only; verify identity
+id,sv3s,PokeNomad | Pokemon official ID | TCGdex API,sv3s | SV3s | SV3s,"Kilau Hitam (Black Shine) | Booster Pack ""Kilau Hitam"" | Kilau Hitam",candidate only; verify identity
+id,sv4a,PokeNomad | Pokemon official ID | TCGdex API,SV4A | SV4a | SV4a,"Harta Berkilau ex (Shiny Treasure ex) | High Class Booster Pack ""Harta Berkilau ex"" | Harta Berkilau ex",candidate only; verify identity
+id,sv4s,PokeNomad | Pokemon official ID | TCGdex API,sv4s | SV4s | SV4s,Pertemuan Paradoks (Paradox Encounters) | Pertemuan Paradoks | Pertemuan Paradoks,candidate only; verify identity
+id,sv5s,PokeNomad | Pokemon official ID | TCGdex API,sv5s | SV5s | SV5s,Paradoks Andalan (Ace Paradox) | Booster Pack “Paradoks Andalan” | Paradoks Andalan,candidate only; verify identity
+id,sv6s,PokeNomad | Pokemon official ID | TCGdex API,sv6s | SV6s | SV6s,"Topeng Transfigurasi (Transfiguration Mask) | Booster Pack ""Topeng Transfigurasi"" | Topeng Transfigurasi",candidate only; verify identity
+id,sv7s,PokeNomad | Pokemon official ID | TCGdex API,sv7s | SV7s | SV7s,Bimbingan Rasi (Stellar Guidance) | Bimbingan Rasi | Bimbingan Rasi,candidate only; verify identity
+id,sv8a,Pokemon official ID | TCGdex API,SV8a | SV8a,"High Class Booster Pack ""Festival Terastal ex"" | Festival Terastal ex",candidate only; verify identity
+id,sv8s,PokeNomad | Pokemon official ID | TCGdex API,sv8s | SV8s | SV8s,"Kilat Rasi (Stellar Lightning) | Booster Pack ""Kilat Rasi"" | Kilat Rasi",candidate only; verify identity
+id,sv9s,PokeNomad | Pokemon official ID | TCGdex API,sv9s | SV9s | SV9s,"Ikatan Takdir (Bonds of Destiny) | Booster Pack ""Ikatan Takdir"" | Ikatan Takdir",candidate only; verify identity
+id,sval,Pokemon official ID | TCGdex API,SVAL | SVAL,Starter Deck ex Fuecoco & Ampharos ex | Sprigatito & Lucario ex,candidate only; verify identity
+id,svam,Pokemon official ID | TCGdex API,SVAM | SVAM,Starter Deck ex Sprigatito & Lucario ex | Fuecoco & Ampharos ex,candidate only; verify identity
+id,svaw,Pokemon official ID | TCGdex API,SVAW | SVAW,Starter Deck ex Quaxly & Mimikyu ex | Quaxly & Mimikyu ex,candidate only; verify identity
+id,svds,Pokemon official ID | TCGdex API,SVDs | SVDs,Deck Ringkas ex | Deck Ringkas ex,candidate only; verify identity
+id,svhk,Pokemon official ID | TCGdex API,SVHK | SVHK,"Starter Deck ""Koraidon ex Purba"" | Koraidon ex Purba",candidate only; verify identity
+id,svhm,Pokemon official ID | TCGdex API,SVHM | SVHM,"Starter Deck ""Miraidon ex Futur"" | Miraidon ex Futur",candidate only; verify identity
+it,bwp,PokeNomad | TCGdex API,BWP | bwp,BW Black Star Promos | NB Promo,candidate only; verify identity
+it,dpp,PokeNomad | TCGdex API,DPP | dpp,DP Black Star Promos | DP Black Star Promos,candidate only; verify identity
+it,hgssp,PokeNomad | TCGdex API,HGSSP | hgssp,HGSS Black Star Promos | HGSS Promo,candidate only; verify identity
+it,me01,PokeNomad | TCGdex API,ME01 | me01,Megaevoluzione (Mega Evolution) | Megaevoluzione,candidate only; verify identity
+it,me02,PokeNomad | TCGdex API,ME02 | me02,Megaevoluzione—Fiamme Spettrali (Mega Evolution—Phantasmal Flames) | Fiamme Spettrali,candidate only; verify identity
+it,me03,PokeNomad | TCGdex API,ME03 | me03,Megaevoluzione—Ordine Perfetto (Mega Evolution—Perfect Order) | Equilibrio Perfetto,candidate only; verify identity
+it,me04,PokeNomad | TCGdex API,ME04 | me04,Mega Evolution—Chaos Rising | Caos Nascente,candidate only; verify identity
+it,me05,PokeNomad | TCGdex API,ME05 | me05,Mega Evolution—Pitch Black | Buio Pesto,candidate only; verify identity
+it,me06,PokeNomad | TCGdex API,ME06 | me06,Megaevoluzione—Dominio Delta (Mega Evolution—Delta Reign) | Dominio Delta ,candidate only; verify identity
+it,mep,PokeNomad | TCGdex API,MEP | mep,Mega Evolution Black Star Promos | MEP Black Star Promos,candidate only; verify identity
+it,np,PokeNomad | TCGdex API,NP | np,Nintendo Black Star Promos | Nintendo Black Star Promos,candidate only; verify identity
+it,pop1,PokeNomad | TCGdex API,POP1 | pop1,POP Series 1 | POP Serie 1,candidate only; verify identity
+it,pop2,PokeNomad | TCGdex API,POP2 | pop2,POP Series 2 | POP Serie 2,candidate only; verify identity
+it,pop3,PokeNomad | TCGdex API,POP3 | pop3,POP Series 3 | POP Serie 3,candidate only; verify identity
+it,pop4,PokeNomad | TCGdex API,POP4 | pop4,POP Series 4 | POP Serie 4,candidate only; verify identity
+it,pop5,PokeNomad | TCGdex API,POP5 | pop5,POP Series 5 | POP Serie 5,candidate only; verify identity
+it,pop9,PokeNomad | TCGdex API,POP9 | pop9,POP Series 9 | POP Serie 9,candidate only; verify identity
+it,smp,PokeNomad | TCGdex API,SMP | smp,SM Black Star Promos | SL Promo,candidate only; verify identity
+it,svp,PokeNomad | TCGdex API,SVP | svp,SV Black Star Promos | SVP Black Star Promos,candidate only; verify identity
+it,swshp,PokeNomad | TCGdex API,SWSHP | swshp,SWSH Black Star Promos | SPSC Promo,candidate only; verify identity
+it,xyp,PokeNomad | TCGdex API,XYP | xyp,XY Black Star Promos | XY Promo,candidate only; verify identity
+ja,adv1,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,ADV1 | ADV1 | ADV1,拡張パック (ADV) (Pokémon Card Game ADV Expansion Pack) | ADV Expansion Pack | 拡張パック,candidate only; verify identity
+ja,adv2,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,ADV2 | ADV2 | ADV2,砂漠のきせき (Miracle of the Desert) | Miracle of the Desert | 砂漠のきせき,candidate only; verify identity
+ja,adv3,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,ADV3 | ADV3 | ADV3,天空の覇者 (Rulers of the Heavens) | Rulers of the Heavens | 天空の覇者,candidate only; verify identity
+ja,adv4,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,ADV4 | ADV4 | ADV4,マグマ団VSアクア団 ふたつの野望 (Magma vs. Aqua: Two Ambitions) | Undone Seal | 強化拡張パックex1マグマVSアクア ふたつの野望,candidate only; verify identity
+ja,adv5,PokeNomad | TCGdex API,ADV5 | ADV5,とかれた封印 (Undone Seal) | とかれた封印,candidate only; verify identity
+ja,b,PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker,B | B | B | B,Battle Starter Deck (Blastoise) | Battle Starter Deck (Magmortar) | Battle Starter Deck (Raichu) | Battle Starter Deck (Torterra),candidate only; verify identity
+ja,bk,PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker,BK | BK | BK,Cobalion Battle Strength Deck | Terrakion Battle Strength Deck | Virizion Battle Strength Deck,candidate only; verify identity
+ja,bw1,PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker,BW1 | BW1,Black Collection | White Collection,candidate only; verify identity
+ja,bw2,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,BW2 | BW2 | BW2,レッドコレクション (Red Collection) | Red Collection | レッドコレクション,candidate only; verify identity
+ja,bw3,PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker,BW3 | BW3,Hail Blizzard | Psycho Drive,candidate only; verify identity
+ja,bw3a,TCGdex API | TCGdex API,BW3a | BW3a,サイコドライブ | ヘイルブリザード,candidate only; verify identity
+ja,bw4,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,BW4 | BW4 | BW4,ダークラッシュ (Dark Rush) | Dark Rush | ダークラッシュ,candidate only; verify identity
+ja,bw5,PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker,BW5 | BW5,Dragon Blade | Dragon Blast,candidate only; verify identity
+ja,bw6,PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker,BW6 | BW6,Cold Flare | Freeze Bolt,candidate only; verify identity
+ja,bw7,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,BW7 | BW7 | BW7,プラズマゲイル (Plasma Gale) | Plasma Gale | プラズマゲイル,candidate only; verify identity
+ja,bw8,PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker,BW8 | BW8,Spiral Force | Thunder Knuckle,candidate only; verify identity
+ja,bw8a,TCGdex API | TCGdex API,BW8a | BW8a,ラセンフォース | ライデンナックル,candidate only; verify identity
+ja,bw9,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,BW9 | BW9 | BW9,メガロキャノン (Megalo Cannon) | Megalo Cannon | メガロキャノン,candidate only; verify identity
+ja,cp1,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,CP1 | CP1 | CP1,コンセプトパック マグマ団VSアクア団 ダブルクライシス (Double Crisis (Magma Gang vs Aqua Gang)) | Magma Gang vs Aqua Gang: Double Crisis | マグマ団VSアクア団 ダブルクライシス,candidate only; verify identity
+ja,cp2,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,CP2 | CP2 | CP2,コンセプトパック 伝説キラコレクション (Legendary Shine Collection) | Legendary Shine Collection | 伝説キラコレクション,candidate only; verify identity
+ja,cp3,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,CP3 | CP3 | CP3,コンセプトパック ポケキュンコレクション (PokéKyun Collection) | PokeKyun Collection | ポケキュンコレクション,candidate only; verify identity
+ja,cp4,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,CP4 | CP4 | CP4,プレミアムチャンピオンパック EX×M×BREAK (Premium Champion Pack: EX×M×BREAK) | Premium Champion Pack | プレミアムチャンピオンパック EX×M×BREAK,candidate only; verify identity
+ja,cp5,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,CP5 | CP5 | CP5,コンセプトパック 幻・伝説ドリームキラコレクション (Mythical & Legendary Dream Shine Collection) | Mythical & Legendary Dream Shine Collection | 冷酷の反逆者,candidate only; verify identity
+ja,cp6,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,CP6 | CP6 | CP6,コンセプトパック 拡張パック 20th Anniversary (Expansion Pack 20th Anniversary) | Expansion Pack 20th Anniversary | ポケットモンスターカードゲーム 拡張パック 20th Anniversary,candidate only; verify identity
+ja,dp1,PokeNomad | PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker,DP1 | DP1 | DP1,時空の創造 (Space-Time Creation) | Space-Time Creation | Entry Pack,candidate only; verify identity
+ja,dp2,PokeNomad | PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker,DP2 | DP2 | DP2 | DP2,湖の秘密 (Secret of the Lakes) | Bastiodon the Defender Half Deck | Secret of the Lakes | Rampardos the Attacker Constructed Half Deck,candidate only; verify identity
+ja,dp3,PokeNomad | PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker,DP3 | DP3 | DP3 | DP3,ひかる闇 (Shining Darkness) | Dialga LV.X Constructed Standard Deck | Shining Darkness | Palkia LV.X Constructed Standard Deck,candidate only; verify identity
+ja,dp4,PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker,DP4 | DP4 | DP4,Dawn Dash | Moonlit Pursuit | Magmortar vs Electivire Deck Kit,candidate only; verify identity
+ja,dp5,PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker,DP5 | DP5 | DP5,Cry from the Mysterious | Temple of Anger | Heatran vs Regigigas Deck Kit,candidate only; verify identity
+ja,dpt,PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker,DPt | DPt | DPt | DPt,DPt Gift Box (Chimchar) | DPt Gift Box (Pikachu) | DPt Gift Box (Piplup) | DPt Gift Box (Turtwig),candidate only; verify identity
+ja,ds,PokéWallet via TCG Collection Tracker | TCGdex API,DS | DS,Dragon Selection | ドラゴンセレクション,candidate only; verify identity
+ja,e,PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker,E | E,Leafeon vs Metagross Expert Deck (Leafeon) | Leafeon vs Metagross Expert Deck (Metagross),candidate only; verify identity
+ja,ebb,PokéWallet via TCG Collection Tracker | TCGdex API,EBB | EBB,EX Battle Boost | EXバトルブースト,candidate only; verify identity
+ja,exp,PokeNomad | PokéWallet via TCG Collection Tracker,EXP | EXP,地図にない町 (The Town on No Map) | Expedition Base Set,candidate only; verify identity
+ja,l2,PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker | TCGdex API,L2 | L2 | L2 | L2,Revival Legends | Steelix Constructed Standard Deck | Tyranitar Constructed Standard Deck | よみがえる伝説,candidate only; verify identity
+ja,l3,PokéWallet via TCG Collection Tracker | TCGdex API,L3 | L3,Clash at the Summit | 頂上大激突,candidate only; verify identity
+ja,ll,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,LL | LL | LL,ロストリンク (Lost Link) | Lost Link | 強化パック ロストリンク,candidate only; verify identity
+ja,m-p,Pokemon official Japan | PokéWallet via TCG Collection Tracker | TCGdex API,M-P | M-P | M-P,ポケモンカードゲーム MEGA プロモカード | M-P Promotional Cards | メガ プロモカード,candidate only; verify identity
+ja,m1l,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,M1L | m1L | M1L,メガブレイブ (Mega Brave) | Mega Brave | メガブレイブ,candidate only; verify identity
+ja,m1s,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,M1S | m1S | M1S,メガシンフォニア (Mega Symphonia) | Mega Symphonia | メガシンフォニア,candidate only; verify identity
+ja,m2,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,M2 | M2 | M2,メガインフェルノX (Mega Inferno X) | Inferno X | インフェルノX,candidate only; verify identity
+ja,m2a,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,M2A | M2a | M2a,メガドリーム (Mega Dream) | MEGA Dream ex | MEGAドリームex,candidate only; verify identity
+ja,m3,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,M3 | M3 | M3,ムニキスゼロ (Nihil Zero (Munikis Zero)) | Nihil Zero | ムニキスゼロ,candidate only; verify identity
+ja,m4,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,M4 | m4 | M4,MEGA拡張パック ニンジャスピナー (Ninja Spinner) | Ninja Spinner | ニンジャスピナー,candidate only; verify identity
+ja,m5,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,M5 | m5 | M5,MEGA拡張パック アビスアイ (Abyss Eye) | Abyss Eye | アビスアイ,candidate only; verify identity
+ja,m6,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,M6 | m6 | M6,MEGA拡張パック ストームエメラルダ (Storm Emeralda) | Storm Emeralda | ストームエメラルダ,candidate only; verify identity
+ja,m6a,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,M6A | m6a | M6a,MEGA拡張パック 30th CELEBRATION (30th Celebration) | 30th Celebration - Japanese | 30th CELEBRATION,candidate only; verify identity
+ja,mc,PokeNomad | TCGdex API,MC | MC,スタートデッキ100 バトルコレクション (Start Deck 100 Battle Collection) | スタートデッキ100 バトルコレクション,candidate only; verify identity
+ja,mf,PokéWallet via TCG Collection Tracker | TCGdex API,mF | MF,30th Celebration Premium Deck Set | 30th CELEBRATION プレミアムデッキセット エーフィ・ブラッキー,candidate only; verify identity
+ja,mg,PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker,MG | MG,Mewtwo vs Genesect Deck Kit (Genesect) | Mewtwo vs Genesect Deck Kit (Mewtwo),candidate only; verify identity
+ja,mmb,PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker,MMB | MMB,M Master Deck Build Box Power Style | M Master Deck Build Box Speed Style,candidate only; verify identity
+ja,pcg1,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,PCG1 | PCG1 | PCG1,伝説の飛翔 (Flight of Legends) | Flight of Legends | 伝説の飛翔,candidate only; verify identity
+ja,pcg10,PokeNomad | TCGdex API,PCG10 | PCG10,ワールドチャンピオンズパック (World Champions Pack) | ワールドチャンピオンズパック,candidate only; verify identity
+ja,pcg2,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,PCG2 | PCG2 | PCG2,蒼空の激突 (Clash of the Blue Sky) | Clash of the Blue Sky | 蒼空の激突,candidate only; verify identity
+ja,pcg3,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,PCG3 | PCG3 | PCG3,ロケット団の逆襲 (Rocket Gang Strikes Back) | Rocket Gang Strikes Back | ロケット団の逆襲,candidate only; verify identity
+ja,pcg4,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,PCG4 | PCG4 | PCG4,"金の空、銀の海 (Golden Sky, Silvery Ocean) | Golden Sky, Silvery Ocean | 金の空、銀の海",candidate only; verify identity
+ja,pcg5,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,PCG5 | PCG5 | PCG5,まぼろしの森 (Mirage Forest) | Mirage Forest | まぼろしの森,candidate only; verify identity
+ja,pcg6,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,PCG6 | PCG6 | PCG6,ホロンの研究塔 (Holon Research Tower) | Holon Research Tower | ホロンの研究塔,candidate only; verify identity
+ja,pcg7,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,PCG7 | PCG7 | PCG7,ホロンの幻影 (Holon Phantom) | Holon Phantom | ホロンの幻影,candidate only; verify identity
+ja,pcg8,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,PCG8 | PCG8 | PCG8,きせきの結晶 (Miracle Crystal) | Miracle Crystal | きせきの結晶,candidate only; verify identity
+ja,pcg9,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,PCG9 | PCG9 | PCG9,さいはての攻防 (Offense and Defense of the Furthest Ends) | Offense and Defense of the Furthest Ends | さいはての攻防,candidate only; verify identity
+ja,pt,PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker,Pt | Pt | Pt | Pt | Pt | Pt,Arceus LV.X Deck: Grass & Fire | Arceus LV.X Deck: Lightning & Psychic | Garchomp vs Charizard SP Deck Kit (Charizard) | Garchomp vs Charizard SP Deck Kit (Garchomp) | Infernape vs Gallade SP Deck Kit (Gallade) | Infernape vs Gallade SP Deck Kit (Infernape),candidate only; verify identity
+ja,s10a,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,S10A | S10a | S10a,強化拡張パック ダークファンタズマ (Dark Phantasma) | Dark Phantasma | ダークファンタズマ,candidate only; verify identity
+ja,s10b,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,S10B | S10b | S10b,強化拡張パック Pokémon GO (Pokémon GO) | Pokemon GO | Pokémon GO,candidate only; verify identity
+ja,s10d,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,S10D | S10D | S10D,タイムゲイザー (Time Gazer) | Time Gazer | タイムゲイザー,candidate only; verify identity
+ja,s10p,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,S10P | S10P | S10P,スペースジャグラー (Space Juggler) | Space Juggler | スペースジャグラー,candidate only; verify identity
+ja,s11,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,S11 | S11 | S11,ロストアビス (Lost Abyss) | Lost Abyss | ロストアビス,candidate only; verify identity
+ja,s11a,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,S11A | S11a | S11a,強化拡張パック 白熱のアルカナ (Incandescent Arcana) | Incandescent Arcana | 白熱のアルカナ,candidate only; verify identity
+ja,s12,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,S12 | S12 | S12,パラダイムトリガー (Paradigm Trigger) | Paradigm Trigger | パラダイムトリガー,candidate only; verify identity
+ja,s12a,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,S12A | S12a | S12a,ハイクラスパック VSTARユニバース (VSTAR Universe) | VSTAR Universe | VSTARユニバース,candidate only; verify identity
+ja,s1a,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,S1A | S1a | S1a,強化拡張パック VMAXライジング (VMAX Rising) | VMAX Rising | VMAXライジング,candidate only; verify identity
+ja,s1h,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,S1H | S1H | S1H,シールド (Shield) | Shield | シールド,candidate only; verify identity
+ja,s1w,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,S1W | S1W | S1W,ソード (Sword) | Sword | ソード,candidate only; verify identity
+ja,s2,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,S2 | S2 | S2,反逆クラッシュ (Rebellion Crash) | Rebellion Crash | 反逆クラッシュ,candidate only; verify identity
+ja,s2a,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,S2A | S2a | S2a,強化拡張パック 爆炎ウォーカー (Explosive Walker) | Explosive Walker | 爆炎ウォーカー,candidate only; verify identity
+ja,s3,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,S3 | S3 | S3,ムゲンゾーン (Infinity Zone) | Infinity Zone | ムゲンゾーン,candidate only; verify identity
+ja,s3a,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,S3A | S3a | S3a,強化拡張パック 伝説の鼓動 (Legendary Heartbeat) | Legendary Heartbeat | 伝説の鼓動,candidate only; verify identity
+ja,s4,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,S4 | S4 | S4,仰天のボルテッカー (Amazing Volt Tackle) | Amazing Volt Tackle | 仰天のボルテッカー,candidate only; verify identity
+ja,s4a,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,S4A | S4a | S4a,ハイクラスパック シャイニースターV (Shiny Star V) | Shiny Star V | シャイニースターV,candidate only; verify identity
+ja,s5a,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,S5A | S5a | S5a,強化拡張パック 双璧のファイター (Matchless Fighters) | Peerless Fighters | 双璧のファイター,candidate only; verify identity
+ja,s5i,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,S5I | S5I | S5I,一撃マスター (Single Strike Master) | Single Strike Master | 一撃マスター,candidate only; verify identity
+ja,s5r,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,S5R | S5R | S5R,連撃マスター (Rapid Strike Master) | Rapid Strike Master | 連撃マスター,candidate only; verify identity
+ja,s6a,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,S6A | S6a | S6a,強化拡張パック イーブイヒーローズ (Eevee Heroes) | Eevee Heroes | イーブイヒーローズ,candidate only; verify identity
+ja,s6h,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,S6H | S6H | S6H,白銀のランス (Silver Lance) | Silver Lance | 白銀のランス,candidate only; verify identity
+ja,s6k,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,S6K | S6K | S6K,漆黒のガイスト (Jet-Black Spirit) | Jet-Black Spirit | 漆黒のガイスト,candidate only; verify identity
+ja,s7d,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,S7D | S7D | S7D,摩天パーフェクト (Towering Perfection) | Skyscraping Perfection | 摩天パーフェクト,candidate only; verify identity
+ja,s7r,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,S7R | S7R | S7R,蒼空ストリーム (Blue Sky Stream) | Blue Sky Stream | 蒼空ストリーム,candidate only; verify identity
+ja,s8,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,S8 | S8 | S8,フュージョンアーツ (Fusion Arts) | Fusion Arts | フュージョンアーツ,candidate only; verify identity
+ja,s8a,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,S8A | S8a | S8a,25th アニバーサリーコレクション (25th Anniversary Collection) | 25th Anniversary Collection | 25th アニバーサリーコレクション,candidate only; verify identity
+ja,s8b,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,S8B | S8b | S8b,ハイクラスパック VMAXクライマックス (VMAX Climax) | VMAX Climax | VMAXクライマックス,candidate only; verify identity
+ja,s9,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,S9 | S9 | S9,スターバース (Star Birth) | Star Birth | スターバース,candidate only; verify identity
+ja,s9a,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,S9A | S9a | S9a,強化拡張パック バトルリージョン (Battle Region) | Battle Region | バトルリージョン,candidate only; verify identity
+ja,sa,PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker,sA | sA | sA | sA | sA,Fighting Starter Set V | Fire Starter Set V | Grass Starter Set V | Lightning Starter Set V | Water Starter Set V,candidate only; verify identity
+ja,sc,PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker | TCGdex API,SC | sC | sC | SC,Shiny Collection | Charizard Starter Set VMAX | Grimmsnarl Starter Set VMAX | シャイニーコレクション,candidate only; verify identity
+ja,si,PokeNomad | PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker,SI | SI | SI,サザンアイランド (Southern Islands) | Start Deck 100 | Southern Island,candidate only; verify identity
+ja,sm0,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SM0 | SM0 | SM0,ピカチュウと新しい仲間たち (Pikachu's New Friends) | Pikachu's New Friends | ピカチュウと新しい仲間たち,candidate only; verify identity
+ja,sm1+,PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker | TCGdex API,SM1+ | sm1+ | SM1+,Sun & Moon | Enhanced Expansion Pack Sun & Moon | サン＆ムーン,candidate only; verify identity
+ja,sm10,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SM10 | SM10 | SM10,ダブルブレイズ (Double Blaze) | Double Blaze | ダブルブレイズ,candidate only; verify identity
+ja,sm10a,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SM10A | SM10a | SM10a,強化拡張パック ジージーエンド (GG End) | GG End | ジージーエンド,candidate only; verify identity
+ja,sm10b,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SM10B | SM10b | SM10b,強化拡張パック スカイレジェンド (Sky Legend) | Sky Legend | スカイレジェンド,candidate only; verify identity
+ja,sm11,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SM11 | SM11 | SM11,ミラクルツイン (Miracle Twin) | Miracle Twin | ミラクルツイン,candidate only; verify identity
+ja,sm11a,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SM11A | SM11a | SM11a,強化拡張パック リミックスバウト (Remix Bout) | Remix Bout | リミックスバウト,candidate only; verify identity
+ja,sm11b,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SM11B | SM11b | SM11b,強化拡張パック ドリームリーグ (Dream League) | Dream League | ドリームリーグ,candidate only; verify identity
+ja,sm12,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SM12 | SM12 | SM12,オルタージェネシス (Alter Genesis) | Alter Genesis | オルタージェネシス,candidate only; verify identity
+ja,sm12a,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SM12A | SM12a | SM12a,ハイクラスパック TAG TEAM GX タッグオールスターズ (TAG TEAM GX Tag All Stars) | TAG TEAM GX: Tag All Stars | TAG TEAM GX タッグオールスターズ,candidate only; verify identity
+ja,sm1m,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SM1M | SM1M | SM1M,コレクションムーン (Collection Moon) | Collection Moon | コレクションムーン,candidate only; verify identity
+ja,sm1s,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SM1S | SM1S | SM1S,コレクションサン (Collection Sun) | Collection Sun | コレクションサン,candidate only; verify identity
+ja,sm2+,PokéWallet via TCG Collection Tracker | TCGdex API,SM2+ | sm2+,Facing a New Trial | 新たなる試練の向こう,candidate only; verify identity
+ja,sm2k,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SM2K | SM2K | SM2K,キミを待つ島々 (Islands Await You) | Islands Await You | キミを待つ島々,candidate only; verify identity
+ja,sm2l,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SM2L | SM2L | SM2L,アローラの月光 (Alolan Moonlight) | Alolan Moonlight | アローラの月光,candidate only; verify identity
+ja,sm2p,PokeNomad | TCGdex API,SM2P | SM2p,強化拡張パック 新たなる試練の向こう (Facing a New Trial) | 新たなる試練の向こう,candidate only; verify identity
+ja,sm3+,PokéWallet via TCG Collection Tracker | TCGdex API,SM3+ | SM3+,Shining Legends | ひかる伝説,candidate only; verify identity
+ja,sm3h,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SM3H | SM3H | SM3H,闘う虹を見たか (To Have Seen the Battle Rainbow) | To Have Seen the Battle Rainbow | 闘う虹を見たか,candidate only; verify identity
+ja,sm3n,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SM3N | SM3N | SM3N,光を喰らう闇 (Darkness That Consumes Light) | Darkness that Consumes Light | 光を喰らう闇,candidate only; verify identity
+ja,sm3p,PokeNomad | TCGdex API,SM3P | SM3p,強化拡張パック ひかる伝説 (Shining Legends) | ひかる伝説,candidate only; verify identity
+ja,sm4+,PokéWallet via TCG Collection Tracker | TCGdex API,SM4+ | SM4+,GX Battle Boost | GXバトルブースト,candidate only; verify identity
+ja,sm4a,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SM4A | SM4A | SM4A,超次元の暴獣 (Ultradimensional Beasts) | Ultradimensional Beasts | 超次元の暴獣,candidate only; verify identity
+ja,sm4p,PokeNomad | TCGdex API,SM4P | SM4p,ハイクラスパック GXバトルブースト (GX Battle Boost) | GXバトルブースト,candidate only; verify identity
+ja,sm4s,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SM4S | SM4S | SM4S,覚醒の勇者 (Awakened Heroes) | Awakened Heroes | 覚醒の勇者,candidate only; verify identity
+ja,sm5+,PokéWallet via TCG Collection Tracker | TCGdex API,SM5+ | SM5+,Ultra Force | ウルトラフォース,candidate only; verify identity
+ja,sm5m,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SM5M | SM5M | SM5M,ウルトラムーン (Ultra Moon) | Ultra Moon | ウルトラムーン,candidate only; verify identity
+ja,sm5p,PokeNomad | TCGdex API,SM5P | SM5p,強化拡張パック ウルトラフォース (Ultra Force) | ウルトラフォース,candidate only; verify identity
+ja,sm5s,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SM5S | SM5S | SM5S,ウルトラサン (Ultra Sun) | Ultra Sun | ウルトラサン,candidate only; verify identity
+ja,sm6,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SM6 | SM6 | SM6,禁断の光 (Forbidden Light) | Forbidden Light | 禁断の光,candidate only; verify identity
+ja,sm6a,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SM6A | SM6a | SM6a,強化拡張パック ドラゴンストーム (Dragon Storm) | Dragon Storm | ドラゴンストーム,candidate only; verify identity
+ja,sm6b,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SM6B | SM6b | SM6b,強化拡張パック チャンピオンロード (Champion Road) | Champion Road | チャンピオンロード,candidate only; verify identity
+ja,sm7,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SM7 | SM7 | SM7,裂空のカリスマ (Sky-Splitting Charisma) | Sky-Splitting Charisma | 裂空のカリスマ,candidate only; verify identity
+ja,sm7a,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SM7A | SM7a | SM7a,強化拡張パック 迅雷スパーク (Thunderclap Spark) | Thunderclap Spark | 迅雷スパーク,candidate only; verify identity
+ja,sm7b,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SM7B | SM7b | SM7b,強化拡張パック フェアリーライズ (Fairy Rise) | Fairy Rise | フェアリーライズ,candidate only; verify identity
+ja,sm8,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SM8 | SM8 | SM8,超爆インパクト (Super-Burst Impact) | Super-Burst Impact | 超爆インパクト,candidate only; verify identity
+ja,sm8a,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SM8A | SM8a | SM8a,強化拡張パック ダークオーダー (Dark Order) | Dark Order | ダークオーダー,candidate only; verify identity
+ja,sm8b,PokéWallet via TCG Collection Tracker | TCGdex API,SM8b | SM8b,GX Ultra Shiny | GXウルトラシャイニー,candidate only; verify identity
+ja,sm9,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SM9 | SM9 | SM9,タッグボルト (Tag Bolt) | Tag Bolt | タッグボルト,candidate only; verify identity
+ja,sm9a,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SM9A | SM9a | SM9a,強化拡張パック ナイトユニゾン (Night Unison) | Night Unison | ナイトユニゾン,candidate only; verify identity
+ja,sm9b,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SM9B | SM9b | SM9b,強化拡張パック フルメタルウォール (Full Metal Wall) | Full Metal Wall | フルメタルウォール,candidate only; verify identity
+ja,smp1,PokeNomad | PokéWallet via TCG Collection Tracker,SMP1 | smP1,強化拡張パック サン&ムーン (Enhanced Expansion Pack Sun & Moon) | Rockruff Full Power Deck,candidate only; verify identity
+ja,smp2,PokéWallet via TCG Collection Tracker | TCGdex API,smP2 | SMP2,Great Detective Pikachu | 名探偵ピカチュウ,candidate only; verify identity
+ja,snp,PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker,SNP | SNP,Noivern BREAK Evolution Pack | Raichu BREAK Evolution Pack,candidate only; verify identity
+ja,sv-p,Pokemon official Japan | PokéWallet via TCG Collection Tracker | TCGdex API,SV-P | SV-P | SV-P,ポケモンカードゲームスカーレット＆バイオレット プロモカード | SV-P Promotional Cards | スカーレット&バイオレット プロモカード,candidate only; verify identity
+ja,sv10,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SV10 | SV10 | SV10,ロケット団の栄光 (Glory of Team Rocket) | The Glory of Team Rocket | ロケット団の栄光,candidate only; verify identity
+ja,sv11b,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SV11B | SV11B | SV11B,ブラックボルト (Black Bolt) | Black Bolt | ブラックボルト,candidate only; verify identity
+ja,sv11w,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SV11W | SV11W | SV11W,ホワイトフレア (White Flare) | White Flare | ホワイトフレア,candidate only; verify identity
+ja,sv1a,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SV1A | SV1a | SV1a,トリプレットビート (Triplet Beat) | Triplet Beat | トリプレットビート,candidate only; verify identity
+ja,sv1s,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SV1S | SV1S | SV1S,スカーレットex (Scarlet ex) | Scarlet ex | スカーレットex,candidate only; verify identity
+ja,sv1v,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SV1V | SV1V | SV1V,バイオレットex (Violet ex) | Violet ex | バイオレットex,candidate only; verify identity
+ja,sv2a,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SV2A | SV2a | SV2a,ポケモンカード151 (Pokémon Card 151) | Pokemon Card 151 | ポケモンカード151,candidate only; verify identity
+ja,sv2d,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SV2D | SV2D | SV2D,クレイバースト (Clay Burst) | Clay Burst | クレイバースト,candidate only; verify identity
+ja,sv2p,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SV2P | SV2P | SV2P,スノーハザード (Snow Hazard) | Snow Hazard | スノーハザード,candidate only; verify identity
+ja,sv3,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SV3 | SV3 | SV3,黒煙の支配者 (Ruler of the Black Flame) | Ruler of the Black Flame | 黒炎の支配者,candidate only; verify identity
+ja,sv3a,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SV3A | SV3a | SV3a,レイジングサーフ (Raging Surf) | Raging Surf | レイジングサーフ,candidate only; verify identity
+ja,sv4a,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SV4A | SV4a | SV4a,シャイニートレジャーex (Shiny Treasure ex) | Shiny Treasure ex | シャイニートレジャーex,candidate only; verify identity
+ja,sv4k,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SV4K | SV4K | SV4K,古代の咆哮 (Ancient Roar) | Ancient Roar | 古代の咆哮,candidate only; verify identity
+ja,sv4m,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SV4M | SV4M | SV4M,未来の一閃 (Future Flash) | Future Flash | 未来の一閃,candidate only; verify identity
+ja,sv5a,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SV5A | SV5a | SV5a,クリムゾンヘイズ (Crimson Haze) | Crimson Haze | クリムゾンヘイズ,candidate only; verify identity
+ja,sv5k,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SV5K | SV5K | SV5K,ワイルドフォース (Wild Force) | Wild Force | ワイルドフォース,candidate only; verify identity
+ja,sv5m,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SV5M | SV5M | SV5M,サイバージャッジ (Cyber Judge) | Cyber Judge | サイバージャッジ,candidate only; verify identity
+ja,sv6,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SV6 | SV6 | SV6,変幻の仮面 (Mask of Change) | Transformation Mask | 変幻の仮面,candidate only; verify identity
+ja,sv6a,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SV6A | SV6a | SV6a,ナイトワンダラー (Night Wanderer) | Night Wanderer | ナイトワンダラー,candidate only; verify identity
+ja,sv7,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SV7 | SV7 | SV7,ステラミラクル (Stellar Miracle) | Stellar Miracle | ステラミラクル,candidate only; verify identity
+ja,sv7a,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SV7A | SV7a | SV7a,楽園ドラゴーナ (Paradise Dragona) | Paradise Dragona | 楽園ドラゴーナ,candidate only; verify identity
+ja,sv8,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SV8 | SV8 | SV8,超電ブレイカー (Super Electric Breaker (Surging Sparks)) | Super Electric Breaker | 超電ブレイカー,candidate only; verify identity
+ja,sv8a,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SV8A | SV8a | SV8a,テラスタルフェスex (Terastal Festival ex) | Terastal Fest ex | テラスタルフェスex,candidate only; verify identity
+ja,sv9,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,SV9 | SV9 | SV9,バトルパートナーズ (Battle Partners) | Battle Partners | バトルパートナーズ,candidate only; verify identity
+ja,sv9a,PokéWallet via TCG Collection Tracker | TCGdex API,SV9a | SV9a,Heat Wave Arena | 熱風のアリーナ,candidate only; verify identity
+ja,svam,PokéWallet via TCG Collection Tracker | PokéWallet via TCG Collection Tracker,svAM | svAM,ex Starter Set Quaxly & Mimikyu ex | ex Starter Set Sprigatito & Lucario ex,candidate only; verify identity
+ja,svk,PokéWallet via TCG Collection Tracker | TCGdex API,svK | SVK,Stellar Miracle Deck Build Box | デッキビルドBOX ステラミラクル,candidate only; verify identity
+ja,svln,PokéWallet via TCG Collection Tracker | TCGdex API,svLN | SVLN,Sylveon ex Stellar Tera Type Starter Set | スターターセット テラスタイプ：ステラ ニンフィアex,candidate only; verify identity
+ja,vs1,PokeNomad | TCGdex API,VS1 | VS1,拡張シート 青版 (Expansion Sheet Series 1 (Blue)) | ポケモンカード★VS,candidate only; verify identity
+ja,wcs23,PokéWallet via TCG Collection Tracker | TCGdex API,WCS23 | WCS23,2023 World Championships Yokohama Deck: Pikachu | ポケモンワールドチャンピオンシップス2023横浜 記念デッキ「ピカチュウ」,candidate only; verify identity
+ja,xy10,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,XY10 | XY10 | XY10,めざめる超王 (Awakening Psychic King) | Awakening Psychic King | めざめる超王,candidate only; verify identity
+ja,xy2,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,XY2 | XY2 | XY2,ワイルドブレイズ (Wild Blaze) | Wild Blaze | ワイルドブレイズ,candidate only; verify identity
+ja,xy3,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,XY3 | XY3 | XY3,ライジングフィスト (Rising Fist) | Rising Fist | ライジングフィスト,candidate only; verify identity
+ja,xy4,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,XY4 | XY4 | XY4,ファントムゲート (Phantom Gate) | Phantom Gate | ファントムゲート,candidate only; verify identity
+ja,xy6,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,XY6 | XY6 | XY6,エメラルドブレイク (Emerald Break) | Emerald Break | エメラルドブレイク,candidate only; verify identity
+ja,xy7,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,XY7 | XY7 | XY7,バンデットリング (Bandit Ring) | Bandit Ring | バンデットリング,candidate only; verify identity
+ja,xy9,PokeNomad | PokéWallet via TCG Collection Tracker | TCGdex API,XY9 | XY9 | XY9,破天の怒り (Rage of the Broken Heavens) | Rage of the Broken Heavens | 破天の怒り,candidate only; verify identity
+ko,s10a,PokeNomad | TCGdex API,S10A | S10a,다크판타스마 (Dark Phantasma) | 다크판타스마,candidate only; verify identity
+ko,s10b,PokeNomad | TCGdex API,S10B | S10b,포켓몬GO (Pokémon GO) | Pokémon GO,candidate only; verify identity
+ko,s11,PokeNomad | TCGdex API,S11 | S11,로스트어비스 (Lost Abyss) | 트리플렛비트,candidate only; verify identity
+ko,s11a,PokeNomad | TCGdex API,S11A | S11a,백열의 아르카나 (Incandescent Arcana) | 백열의 아르카나,candidate only; verify identity
+ko,s12,PokeNomad | TCGdex API,S12 | S12,패러다임트리거 (Paradigm Trigger) | 패러다임트리거,candidate only; verify identity
+ko,s12a,PokeNomad | TCGdex API,S12A | S12a,VSTAR 유니버스 (VSTAR Universe) | VSTAR 유니버스,candidate only; verify identity
+ko,s1a,PokeNomad | TCGdex API,S1A | S1a,VMAX Rising | VMAX라이징,candidate only; verify identity
+ko,s2,PokeNomad | TCGdex API,S2 | S2,반역크래시 (Rebellion Crash) | 반역크래시,candidate only; verify identity
+ko,s3,PokeNomad | TCGdex API,S3 | S3,무한존 (Infinity Zone) | 무한존,candidate only; verify identity
+ko,s3a,PokeNomad | TCGdex API,S3A | S3a,전설의 고동 (Legendary Heartbeat) | 전설의 고동,candidate only; verify identity
+ko,s4,PokeNomad | TCGdex API,S4 | S4,폭염워커 (Shocking Volt Tackle) | 앙천의 볼트태클,candidate only; verify identity
+ko,s4a,PokeNomad | TCGdex API,S4A | S4a,샤이니스타 V (Shiny Star V) | 샤이니스타V,candidate only; verify identity
+ko,s5a,PokeNomad | TCGdex API,S5A | S5a,무적의 파이터즈 (Matchless Fighters) | 쌍벽의 파이터,candidate only; verify identity
+ko,s6a,PokeNomad | TCGdex API,S6A | S6a,이브이 히어로즈 (Eevee Heroes) | 이브이 히어로즈,candidate only; verify identity
+ko,s8,PokeNomad | TCGdex API,S8 | S8,퓨전아츠 (Fusion Arts) | 퓨전아츠,candidate only; verify identity
+ko,s8a,PokeNomad | TCGdex API,S8A | S8a,25th Anniversary Golden Box | 25th Anniversary,candidate only; verify identity
+ko,s8b,PokeNomad | TCGdex API,S8B | S8b,VMAX 클라이맥스 (VMAX Climax) | VMAX 클라이맥스,candidate only; verify identity
+ko,s9,PokeNomad | TCGdex API,S9 | S9,스타버스 (Star Birth) | 스타버스,candidate only; verify identity
+ko,s9a,PokeNomad | TCGdex API,S9A | S9a,배틀리전 (Battle Region) | 배틀리전,candidate only; verify identity
+ko,sm1+,PokeNomad | TCGdex API,SM1+ | SM1+,Sun & Moon (Strengthening Expansion) | 썬&문,candidate only; verify identity
+ko,sm10,PokeNomad | TCGdex API,SM10 | SM10,더블블레이즈 (Double Blaze) | 더블블레이즈,candidate only; verify identity
+ko,sm10a,PokeNomad | TCGdex API,SM10A | SM10a,스카이레전드 (Sky Legend) | GG엔드,candidate only; verify identity
+ko,sm11,PokeNomad | TCGdex API,SM11 | SM11,미라클트윈 (Miracle Twin) | 미라클트윈,candidate only; verify identity
+ko,sm11a,PokeNomad | TCGdex API,SM11A | SM11a,리믹스바우트 (Remix Bout) | 리믹스바우트,candidate only; verify identity
+ko,sm11b,PokeNomad | TCGdex API,SM11B | SM11b,드림리그 (Dream League) | 드림리그,candidate only; verify identity
+ko,sm12,PokeNomad | TCGdex API,SM12 | SM12,얼터제네시스 (Alter Genesis) | 얼터제네시스,candidate only; verify identity
+ko,sm4+,PokeNomad | TCGdex API,SM4+ | SM4+,GX 배틀 부스트 (GX Battle Boost) | GX 배틀부스트,candidate only; verify identity
+ko,sm6,PokeNomad | TCGdex API,SM6 | SM6,금단의 빛 (Forbidden Light) | 금단의 빛,candidate only; verify identity
+ko,sm7,PokeNomad | TCGdex API,SM7 | SM7,창공의 카리스마 (Charisma of the Sky) | 창공의 카리스마,candidate only; verify identity
+ko,sm8,PokeNomad | TCGdex API,SM8 | SM8,버스트임팩트 (Burst Impact) | 버스트임팩트,candidate only; verify identity
+ko,sm9,PokeNomad | TCGdex API,SM9 | SM9,태그볼트 (Tag Bolt / Night Unison) | 태그볼트,candidate only; verify identity
+ko,sv1a,PokeNomad | TCGdex API,SV1A | SV1a,Triplet Beat | 트리플렛비트,candidate only; verify identity
+ko,sv2a,PokeNomad | TCGdex API,SV2A | SV2a,Pokémon Card 151 | 포켓몬 카드 151,candidate only; verify identity
+ko,sv3,PokeNomad | TCGdex API,SV3 | SV3,Ruler of the Black Flame | 흑염의 지배자,candidate only; verify identity
+ko,sv3a,PokeNomad | TCGdex API,SV3A | SV3a,Raging Surf | 레이징서프,candidate only; verify identity
+ko,sv4a,PokeNomad | TCGdex API,SV4A | SV4a,샤이니트레저 ex (Shiny Treasure ex) | 샤이니트레저 ex,candidate only; verify identity
+ko,sv5a,PokeNomad | TCGdex API,SV5A | SV5a,크림슨헤이즈 (Crimson Haze) | 크림슨헤이즈,candidate only; verify identity
+ko,sv6,PokeNomad | TCGdex API,SV6 | SV6,변환의 가면 (Mask of Change) | 변환의 가면,candidate only; verify identity
+pt,dp1,PokeNomad | TCGdex API,DP1 | dp1,Diamante & Pérola (Diamond & Pearl) | Diamante & Pérola,candidate only; verify identity
+pt,dp2,PokeNomad | TCGdex API,DP2 | dp2,Tesouros Misteriosos (Mysterious Treasures) | Tesouros Misteriosos,candidate only; verify identity
+pt,dp3,PokeNomad | TCGdex API,DP3 | dp3,Maravilhas Secretas (Secret Wonders) | Maravilhas Secretas,candidate only; verify identity
+pt,me01,PokeNomad | TCGdex API,ME01 | me01,Megaevolução (Mega Evolution) | Megaevolução,candidate only; verify identity
+pt,me02,PokeNomad | TCGdex API,ME02 | me02,Megaevolução — Fogo Fantasmagórico (Mega Evolution—Phantasmal Flames) | Fogo Fantasmagórico,candidate only; verify identity
+pt,me03,PokeNomad | TCGdex API,ME03 | me03,Megaevolução — Equilíbrio Perfeito (Mega Evolution—Perfect Order) | Equilíbrio Perfeito,candidate only; verify identity
+pt,me04,PokeNomad | TCGdex API,ME04 | me04,Megaevolução — Caos Ascendente (Mega Evolution—Chaos Rising) | Caos Ascendente,candidate only; verify identity
+pt,me05,PokeNomad | TCGdex API,ME05 | me05,Mega Evolution—Pitch Black | Escuridão Absoluta,candidate only; verify identity
+pt,me06,PokeNomad | TCGdex API,ME06 | me06,Megaevolução — Reinado Delta (Mega Evolution—Delta Reign) | Reinado Delta,candidate only; verify identity
+pt,mee,PokeNomad | TCGdex API,MEE | mee,Megaevolução Energia (Mega Evolution Basic Energies) | Megaevolução Energia,candidate only; verify identity
+pt,mep,PokeNomad | TCGdex API,MEP | mep,Mega Evolution Black Star Promos | MEP Black Star Promos,candidate only; verify identity
+pt,sm1,PokeNomad | TCGdex API,SM1 | sm1,Sol e Lua (Sun & Moon) | Sol e Lua,candidate only; verify identity
+pt,sm2,PokeNomad | TCGdex API,SM2 | sm2,Guardiões Ascendentes (Guardians Rising) | Guardiões Ascendentes,candidate only; verify identity
+pt,sm3,PokeNomad | TCGdex API,SM3 | sm3,Sombras Ardentes (Burning Shadows) | Sombras Ardentes,candidate only; verify identity
+pt,smp,PokeNomad | TCGdex API,SMP | smp,SM Black Star Promos | Sol e Lua Promos,candidate only; verify identity
+pt,sve,PokeNomad | TCGdex API,SVE | sve,Energia Básica — Escarlate e Violeta (Scarlet & Violet Basic Energies) | Escarlate e Violeta Energia,candidate only; verify identity
+pt,svp,PokeNomad | TCGdex API,SVP | svp,SV Black Star Promos | SVP Black Star Promos,candidate only; verify identity
+pt,swshp,PokeNomad | TCGdex API,SWSHP | swshp,SWSH Black Star Promos | ESES Promos,candidate only; verify identity
+th,ma1,PokeNomad | Pokemon official Thailand,MA1 | MA1,"วิวัฒนาการเมก้า (Mega Evolution) | การ์ดชุดเสริม ""วิวัฒนาการเมก้า""",candidate only; verify identity
+th,ma2,PokeNomad | Pokemon official Thailand,MA2 | MA2,"อัคคีสีคราม (Indigo Flame) | การ์ดชุดเสริม ""อัคคีสีคราม""",candidate only; verify identity
+th,ma3,PokeNomad | Pokemon official Thailand,MA3 | MA3,"วิวัฒนาการเมก้า ดรีมex (Mega Dream ex) | การ์ดชุดเสริมไฮคลาส ""วิวัฒนาการเมก้า ดรีมex""",candidate only; verify identity
+th,ma4,PokeNomad | Pokemon official Thailand,MA4 | MA4,"วอยด์บลาสต์ (Void Blast) | การ์ดชุดเสริม ""วอยด์บลาสต์""",candidate only; verify identity
+th,ma5,PokeNomad | Pokemon official Thailand,MA5 | MA5,"เงามืดคุกคาม (Shadowy Threats) | การ์ดชุดเสริม ""เงามืดคุกคาม""",candidate only; verify identity
+th,ma6,Pokemon official Thailand | SASOM,MA6 | MA6,"การ์ดชุดเสริม ""30th CELEBRATION"" | 30th CELEBRATION",candidate only; verify identity
+th,math,PokeNomad | Pokemon official Thailand,MATH | MATH,แท็กติกเด็ค เมก้าซาเมฮาเดอร์ex (Tactics Deck Mega Sharpedo ex) | แท็กติกเด็ค เมก้าซาเมฮาเดอร์ex,candidate only; verify identity
+th,matk,PokeNomad | Pokemon official Thailand,MATK | MATK,แท็กติกเด็ค เมก้าไคริวex (Tactics Deck Mega Dragonite ex) | แท็กติกเด็ค เมก้าไคริวex,candidate only; verify identity
+th,matl,PokeNomad | Pokemon official Thailand,MATL | MATL,แท็กติกเด็ค เมก้าลิซาร์ดอนXex (Tactics Deck Mega Charizard X ex) | แท็กติกเด็ค เมก้าลิซาร์ดอนXex,candidate only; verify identity
+th,mats,PokeNomad | Pokemon official Thailand,MATS | MATS,แท็กติกเด็ค เมก้าเซอไนท์ex (Tactics Deck Mega Gardevoir ex) | แท็กติกเด็ค เมก้าเซอไนท์ex,candidate only; verify identity
+th,s-p,Pokemon official Thailand | TCGdex API,S-P | S-P,การ์ดโปรโม ซอร์ด แอนด์ ชีลด์ | การ์ดโปรโม ซอร์ด แอนด์ ชีลด์,candidate only; verify identity
+th,s10a,PokeNomad | Pokemon official Thailand | TCGdex API,S10A | S10a | S10a,อันธการลวงตา (Dark Phantasma) | อันธการลวงตา | อันธการลวงตา,candidate only; verify identity
+th,s10b,PokeNomad | Pokemon official Thailand | TCGdex API,S10B | S10b | S10b,Pokémon GO | Pokémon GO | Pokémon GO,candidate only; verify identity
+th,s10d,Pokemon official Thailand | TCGdex API,S10D | S10D,เจ้าแห่งกาลเวลา | เจ้าแห่งกาลเวลา,candidate only; verify identity
+th,s10p,Pokemon official Thailand | TCGdex API,S10P | S10P,จอมมายาผ่ามิติ | จอมมายาผ่ามิติ,candidate only; verify identity
+th,s11,PokeNomad | Pokemon official Thailand | TCGdex API,S11 | S11 | S11,ลอสต์เวิลด์ (Lost Abyss) | ลอสต์เวิลด์ | ทริปเปิลบีต,candidate only; verify identity
+th,s11a,PokeNomad | Pokemon official Thailand | TCGdex API,S11A | S11a | S11a,อาร์คานาแห่งประกายแสง (Incandescent Arcana) | อาร์คานาแห่งประกายแสง | อาร์คานาแห่งประกายแสง,candidate only; verify identity
+th,s12,PokeNomad | Pokemon official Thailand | TCGdex API,S12 | S12 | S12,ปฐมบทแห่งยุคใหม่ (Paradigm Trigger) | ปฐมบทแห่งยุคใหม่ | ปฐมบทแห่งยุคใหม่,candidate only; verify identity
+th,s12a,PokeNomad | Pokemon official Thailand | TCGdex API,S12A | S12a | S12a,จักรวาลแห่ง VSTAR (VSTAR Universe) | จักรวาลแห่ง VSTAR | จักรวาลแห่งVSTAR,candidate only; verify identity
+th,s5a,PokeNomad | Pokemon official Thailand | TCGdex API,S5A | S5a | S5a,สองยอดนักสู้ (Peerless Fighters) | สองยอดนักสู้ | สองยอดนักสู้,candidate only; verify identity
+th,s5i,Pokemon official Thailand | TCGdex API,S5I | S5I,มาสเตอร์จู่โจมครั้งเดียว | มาสเตอร์จู่โจมครั้งเดียว,candidate only; verify identity
+th,s5r,Pokemon official Thailand | TCGdex API,S5R | S5R,มาสเตอร์จู่โจมต่อเนื่อง | มาสเตอร์จู่โจมต่อเนื่อง,candidate only; verify identity
+th,s6a,PokeNomad | Pokemon official Thailand | TCGdex API,S6A | S6a | S6a,อีวุยฮีโร (Eevee Heroes) | อีวุยฮีโร | อีวุยฮีโร,candidate only; verify identity
+th,s6h,Pokemon official Thailand | TCGdex API,S6H | S6H,หอกหิมะขาว | หอกหิมะขาว,candidate only; verify identity
+th,s6k,Pokemon official Thailand | TCGdex API,S6K | S6K,ภูตทมิฬ | ภูตทมิฬ,candidate only; verify identity
+th,s7d,Pokemon official Thailand | TCGdex API,S7D | S7D,เพอร์เฟคระฟ้า | เพอร์เฟคระฟ้า,candidate only; verify identity
+th,s7r,Pokemon official Thailand | TCGdex API,S7R | S7R,สายน้ำแห่งนภา | สายน้ำแห่งนภา,candidate only; verify identity
+th,s8,PokeNomad | Pokemon official Thailand | TCGdex API,S8 | S8 | S8,จู่โจมแบบฟิวชัน (Fusion Arts) | จู่โจมแบบฟิวชัน | ฟิวชันอาร์ต,candidate only; verify identity
+th,s8a,PokeNomad | Pokemon official Thailand | TCGdex API,S8A | S8a | S8a,คอลเลกชันฉลองครบรอบ 25 ปี (25th Anniversary Collection) | คอลเลกชันฉลองครบรอบ 25 ปี | คอลเลกชันฉลองครบรอบ 25 ปี,candidate only; verify identity
+th,s8b,PokeNomad | Pokemon official Thailand | TCGdex API,S8B | S8b | S8b,VMAX ไคลแมกซ์ (VMAX Climax) | VMAX ไคลแมกซ์ | VMAX ไคลแมกซ์,candidate only; verify identity
+th,s9,PokeNomad | Pokemon official Thailand | TCGdex API,S9 | S9 | S9,สตาร์เบิร์ท (Star Birth) | สตาร์เบิร์ท | สตาร์เบิร์ท,candidate only; verify identity
+th,s9a,PokeNomad | Pokemon official Thailand | TCGdex API,S9A | S9a | S9a,พสุธามหายุทธ (Battle Region) | พสุธามหายุทธ | พสุธามหายุทธ,candidate only; verify identity
+th,sc1a,Pokemon official Thailand | TCGdex API,SC1a | SC1a,"การ์ดเสริม ""ซอร์ด แอนด์ ชีลด์"" ชุด A | ซอร์ด แอนด์ ชีลด์ ชุด A",candidate only; verify identity
+th,sc1b,Pokemon official Thailand | TCGdex API,SC1b | SC1b,"การ์ดเสริม ""ซอร์ด แอนด์ ชีลด์"" ชุด B | ซอร์ด แอนด์ ชีลด์ ชุด B",candidate only; verify identity
+th,sc1d,Pokemon official Thailand | TCGdex API,SC1D | SC1D,"V Starter Deck ""ซอร์ด แอนด์ ชีลด์"" | ซอร์ด แอนด์ ชีลด์",candidate only; verify identity
+th,sc3a,Pokemon official Thailand | TCGdex API,SC3a | SC3a,ไชนี VMAX คอลเลกชัน ชุด A | ชนี VMAX คอลเลกชัน ชุด A,candidate only; verify identity
+th,sc3b,Pokemon official Thailand | TCGdex API,SC3b | SC3b,ไชนี VMAX คอลเลกชัน ชุด B | ชนี VMAX คอลเลกชัน ชุด B,candidate only; verify identity
+th,sca,Pokemon official Thailand | TCGdex API,SCA | SCA,V Starter Deck บัดดี้ | V Starter Deck บัดดี้,candidate only; verify identity
+th,scb,Pokemon official Thailand | TCGdex API,SCB | SCB,V Starter Deck ชาเลนจ์ | ชาเลนจ์,candidate only; verify identity
+th,scc,Pokemon official Thailand | TCGdex API,SCC | SCC,V Starter Deck อีโวลูชัน | อีโวลู,candidate only; verify identity
+th,scd,Pokemon official Thailand | TCGdex API,SCD | SCD,V Starter Deck เกรทพาวเวอร์ | Starter Deck เกรทพาวเวอร์,candidate only; verify identity
+th,sce,Pokemon official Thailand | TCGdex API,SCE | SCE,V Starter Deck ระเบิดพลัง | เกรทพาวเวอร์,candidate only; verify identity
+th,scf,Pokemon official Thailand | TCGdex API,SCF | SCF,V Starter Deck เปลี่ยนผ่าน | เปลี่ยนผ่าน,candidate only; verify identity
+th,sh,Pokemon official Thailand | TCGdex API,SH | SH,โปเกมอนเทรดดิ้งการ์ดเกม ชุดแฟมิลีแฮปปี้ | โปเกมอนเทรดดิ้งการ์ดเกม ชุดแฟมิลีแฮปปี้,candidate only; verify identity
+th,sv-p,Pokemon official Thailand | TCGdex API,SV-P | SV-P,การ์ดโปรโม สการ์เล็ต แอนด์ ไวโอเล็ต | การ์ดโปรโม สการ์เล็ต แอนด์ ไวโอเล็ต,candidate only; verify identity
+th,sv10s,PokeNomad | Pokemon official Thailand,sv10s | SV10s,"การผงาดของผู้ไร้พ่าย (Presence of Champions) | การ์ดชุดเสริม ""การผงาดของผู้ไร้พ่าย""",candidate only; verify identity
+th,sv11s,PokeNomad | Pokemon official Thailand,sv11s | SV11s,"แบล็ก & ไวท์ (Black & White) | การ์ดชุดเสริม ""แบล็ก & ไวท์""",candidate only; verify identity
+th,sv1a,PokeNomad | Pokemon official Thailand | TCGdex API,SV1A | SV1a | SV1a,Triplet Beat | ทริปเปิลบีต | ทริปเปิลบีต,candidate only; verify identity
+th,sv1s,Pokemon official Thailand | TCGdex API,SV1S | SV1S,"การ์ดชุดเสริม ""สการ์เล็ต ex"" | สการ์เล็ต ex",candidate only; verify identity
+th,sv1v,Pokemon official Thailand | TCGdex API,SV1V | SV1V,"การ์ดชุดเสริม ""ไวโอเล็ต ex"" | ไวโอเล็ต ex",candidate only; verify identity
+th,sv2a,PokeNomad | Pokemon official Thailand | TCGdex API,SV2A | SV2a | SV2a,"โปเกมอนการ์ด 151 (Pokémon Card 151) | การ์ดชุดเสริมเพิ่มความแกร่ง ""โปเกมอนการ์ด 151"" | โปเกมอนการ์ด 151",candidate only; verify identity
+th,sv2d,Pokemon official Thailand | TCGdex API,SV2D | SV2D,การ์ดชุดเสริม “เคลย์เบิสต์” | เคลย์เบิสต์,candidate only; verify identity
+th,sv2p,Pokemon official Thailand | TCGdex API,SV2P | SV2P,สการ์เล็ต&ไวโอเล็ต การ์ดชุดเสริม “สโนว์ฮาซาร์ด” | สโนว์ฮาซาร์ด,candidate only; verify identity
+th,sv3,PokeNomad | Pokemon official Thailand | TCGdex API,SV3 | SV3 | SV3,"ราชาแห่งเพลิงกาฬ (Ruler of the Black Flame) | การ์ดชุดเสริม ""ราชาแห่งเพลิงกาฬ"" | ราชาแห่งเพลิงกาฬ",candidate only; verify identity
+th,sv3a,PokeNomad | Pokemon official Thailand | TCGdex API,SV3A | SV3a | SV3a,คลื่นพิโรธ (Raging Surf) | การ์ดชุดเสริมเพิ่มความแกร่ง “คลื่นพิโรธ” | คลื่นพิโรธ,candidate only; verify identity
+th,sv4a,PokeNomad | Pokemon official Thailand | TCGdex API,SV4A | SV4a | SV4a,"ไชนีเทรเชอร์ ex (Shiny Treasure ex) | การ์ดชุดเสริมไฮคลาส ""ไชนีเทรเชอร์ex"" | ไชนีเทรเชอร์ex",candidate only; verify identity
+th,sv4k,Pokemon official Thailand | TCGdex API,SV4K | SV4K,เสียงคำรามจากอดีต | เสียงคำรามจากอดีต,candidate only; verify identity
+th,sv4m,Pokemon official Thailand | TCGdex API,SV4M | SV4M,ประกายแสงจากอนาคต | ประกายแสงจากอนาคต,candidate only; verify identity
+th,sv5a,Pokemon official Thailand | TCGdex API,SV5a | SV5a,"การ์ดชุดเสริมเพิ่มความแกร่ง ""หมอกสีชาด"" | หมอกสีชาด",candidate only; verify identity
+th,sv5k,Pokemon official Thailand | TCGdex API,SV5K | SV5K,"การ์ดชุดเสริม ""อำนาจอนารยะ"" | อำนาจอนารยะ",candidate only; verify identity
+th,sv5m,Pokemon official Thailand | TCGdex API,SV5M | SV5M,"การ์ดชุดเสริม ""ตุลาการไซเบอร์"" | ตุลาการไซเบอร์",candidate only; verify identity
+th,sv6,Pokemon official Thailand | TCGdex API,SV6 | SV6,"การ์ดชุดเสริม ""หน้ากากจอมลวงตา"" | หน้ากากจอมลวงตา",candidate only; verify identity
+th,sv7s,PokeNomad | Pokemon official Thailand | TCGdex API,sv7s | SV7s | SV7s,แสงนำทางแห่งสเตลลาร์ (Stellar Guidance) | แสงนำทางแห่งสเตลลาร์ | แสงนำทางแห่งสเตลลาร์,candidate only; verify identity
+th,sv8a,PokeNomad | Pokemon official Thailand | TCGdex API,SV8A | Sv8a | SV8a,"เทศกาลเทรัสตัล ex (Terastal Festival ex) | การ์ดชุดเสริมไฮคลาส ""เทศกาลเทรัสตัลex"" | เทศกาลเทรัสตัลex",candidate only; verify identity
+th,sv8s,PokeNomad | Pokemon official Thailand | TCGdex API,sv8s | SV8s | SV8s,"สเตลลาร์สายฟ้าฟาด (Stellar Lighting Strike) | การ์ดชุดเสริม ""สเตลลาร์สายฟ้าฟาด"" | สเตลลาร์สายฟ้าฟาด",candidate only; verify identity
+th,sv9s,PokeNomad | Pokemon official Thailand | TCGdex API,sv9s | SV9s | SV9s,"สายใยแห่งโชคชะตา (Bonds of Destiny) | การ์ดชุดเสริม ""สายใยแห่งโชคชะตา"" | สายใยแห่งโชคชะตา",candidate only; verify identity
+th,svds,Pokemon official Thailand | TCGdex API,SVDs | SVDs,ex คอมแพกต์เด็ค | ex คอมแพกต์เด็ค,candidate only; verify identity
+th,svhk,Pokemon official Thailand | TCGdex API,SVHK | SVHK,"Starter Deck ""โคไรดอนex โบราณ"" | โคไรดอนex โบราณ",candidate only; verify identity
+th,svhm,Pokemon official Thailand | TCGdex API,SVHM | SVHM,"Starter Deck ""มิไรดอนex อนาคต"" | มิไรดอนex อนาคต",candidate only; verify identity
+zh-cn,csm1.5,PokeNomad | TCGdex API,CSM1.5 | csm1.5,对战精英 (Battle Elite) | 战斗精英,candidate only; verify identity
+zh-cn,csm2.5,PokeNomad | TCGdex API,CSM2.5 | csm2.5,炫奇争胜 (Striking Competition) | 精彩的比赛,candidate only; verify identity
+zh-cn,csv1c,TCGdex API | TCGdex API,CSV1C | CSV1C,亘古开来 | 宝石包 第一卷,candidate only; verify identity
+zh-tw,ac1a,PokeNomad | Pokemon official HK | Pokemon official TW,AC1A | AC1a | AC1a,眾星雲集組合篇 A (All Stars Collection Set A) | 擴充包「眾星雲集組合篇」SET A | 擴充包「眾星雲集組合篇」SET A,candidate only; verify identity
+zh-tw,ac1b,PokeNomad | Pokemon official HK | Pokemon official TW,AC1B | AC1b | AC1b,眾星雲集組合篇 B (All Stars Collection Set B) | 擴充包「眾星雲集組合篇」SET B | 擴充包「眾星雲集組合篇」SET B,candidate only; verify identity
+zh-tw,ac1d,Pokemon official HK | Pokemon official TW,AC1D | AC1D,G超起始牌組「眾星雲集組合篇」 | G超起始牌組「眾星雲集組合篇」,candidate only; verify identity
+zh-tw,ac2a,PokeNomad | Pokemon official HK | Pokemon official TW,AC2A | AC2a | AC2a,美夢成真組合篇 A (Dreams Come True Collection Set A) | 擴充包「美夢成真組合篇」SET A | 擴充包「美夢成真組合篇」SET A,candidate only; verify identity
+zh-tw,ac2b,PokeNomad | Pokemon official HK | Pokemon official TW,AC2B | AC2b | AC2b,美夢成真組合篇 B (Dreams Come True Collection Set B) | 擴充包「美夢成真組合篇」SET B | 擴充包「美夢成真組合篇」SET B,candidate only; verify identity
+zh-tw,ac2d,Pokemon official HK | Pokemon official TW,AC2D | AC2D,G超起始牌組「美夢成真組合篇」 | G超起始牌組「美夢成真組合篇」,candidate only; verify identity
+zh-tw,as5a,Pokemon official HK | Pokemon official TW,AS5a | AS5a,擴充包「雙倍爆擊」SET A | 擴充包「雙倍爆擊」SET A,candidate only; verify identity
+zh-tw,as5b,Pokemon official HK | Pokemon official TW,As5b | As5b,擴充包「雙倍爆擊」SET B | 擴充包「雙倍爆擊」SET B,candidate only; verify identity
+zh-tw,as5d,Pokemon official HK | Pokemon official TW,AS5D | AS5D,G超起始牌組「雙倍爆擊」 | G超起始牌組「雙倍爆擊」,candidate only; verify identity
+zh-tw,as6a,Pokemon official HK | Pokemon official TW,AS6a | AS6a,擴充包「傳說交鋒」SET A | 擴充包「傳說交鋒」SET A,candidate only; verify identity
+zh-tw,as6b,Pokemon official HK | Pokemon official TW,AS6b | AS6b,擴充包「傳說交鋒」SET B | 擴充包「傳說交鋒」SET B,candidate only; verify identity
+zh-tw,as6d,Pokemon official HK | Pokemon official TW,AS6D | AS6D,G超起始牌組「傳說交鋒」 | G超起始牌組「傳說交鋒」,candidate only; verify identity
+zh-tw,m-p,Pokemon official HK | Pokemon official TW,M-P | M-P,特典卡 超級進化 | 特典卡 超級進化,candidate only; verify identity
+zh-tw,m1l,Pokemon official HK | Pokemon official TW,M1L | M1L,擴充包「超級勇氣」 | 擴充包「超級勇氣」,candidate only; verify identity
+zh-tw,m1s,Pokemon official HK | Pokemon official TW,M1S | M1S,擴充包「超級交響樂」 | 擴充包「超級交響樂」,candidate only; verify identity
+zh-tw,m2,PokeNomad | Pokemon official HK | Pokemon official TW,M2 | M2 | M2,Mega Inferno X | 擴充包「烈獄狂火X」 | 擴充包「烈獄狂火X」,candidate only; verify identity
+zh-tw,m2a,PokeNomad | Pokemon official HK | Pokemon official TW,M2A | M2a | M2a,Mega Dream | 高級擴充包「超級進化夢想ex」 | 高級擴充包「超級進化夢想ex」,candidate only; verify identity
+zh-tw,m3,PokeNomad | Pokemon official HK | Pokemon official TW,M3 | M3 | M3,虛無歸零 (Mega Nihil Zero (Munikis Zero)) | 擴充包「虛無歸零」 | 擴充包「虛無歸零」,candidate only; verify identity
+zh-tw,m4,PokeNomad | Pokemon official HK | Pokemon official TW,M4 | M4 | M4,忍者飛旋 (Ninja Spinner (Chaos Rising)) | 擴充包「忍者飛旋」 | 擴充包「忍者飛旋」,candidate only; verify identity
+zh-tw,m5,PokeNomad | Pokemon official HK | Pokemon official TW,M5 | M5 | M5,深淵之瞳 (Abyss Eye) | 擴充包「深淵之瞳」 | 擴充包「深淵之瞳」,candidate only; verify identity
+zh-tw,m6,PokeNomad | Pokemon official HK | Pokemon official TW,M6 | M6 | M6,綠寶石風暴 (Storm Emeralda) | 擴充包「綠寶石風暴」 | 擴充包「綠寶石風暴」,candidate only; verify identity
+zh-tw,m6a,Pokemon official HK | Pokemon official TW,M6a | M6a,擴充包「30th CELEBRATION」 | 擴充包「30th CELEBRATION」,candidate only; verify identity
+zh-tw,mbd,Pokemon official HK | Pokemon official TW,MBD | MBD,挑戰牌組 「超級蒂安希ex」 | 挑戰牌組 「超級蒂安希ex」,candidate only; verify identity
+zh-tw,mbg,Pokemon official HK | Pokemon official TW,MBG | MBG,挑戰牌組「超級耿鬼ex」 | 挑戰牌組「超級耿鬼ex」,candidate only; verify identity
+zh-tw,mc,PokeNomad | Pokemon official HK | Pokemon official TW,MC | MC | MC,初階牌組 100對戰收藏 (Start Deck 100 Battle Collection) | 初階牌組 100對戰收藏 | 初階牌組 100對戰收藏,candidate only; verify identity
+zh-tw,mf,Pokemon official HK | Pokemon official TW,MF | MF,頂級牌組組合 「太陽伊布・月亮伊布」 | 頂級牌組組合 「太陽伊布・月亮伊布」,candidate only; verify identity
+zh-tw,mj,PokeNomad | Pokemon official HK | Pokemon official TW,MJ | MJ | MJ,New Trainer Journey | New Trainer Journey | New Trainer Journey,candidate only; verify identity
+zh-tw,mth,PokeNomad | Pokemon official HK | Pokemon official TW,MTH | MTH | MTH,戰術牌組「超級巨牙鯊ex」 (Tactics Deck Mega Sharpedo ex) | 戰術牌組「超級巨牙鯊ex」 | 戰術牌組「超級巨牙鯊ex」,candidate only; verify identity
+zh-tw,mtk,PokeNomad | Pokemon official HK | Pokemon official TW,MTK | MTK | MTK,戰術牌組「超級快龍ex」 (Tactics Deck Mega Dragonite ex) | 戰術牌組「超級快龍ex」 | 戰術牌組「超級快龍ex」,candidate only; verify identity
+zh-tw,mtl,PokeNomad | Pokemon official HK | Pokemon official TW,MTL | MTL | MTL,戰術牌組「超級噴火龍Xex」 (Tactics Deck Mega Charizard X ex) | 戰術牌組「超級噴火龍Xex」 | 戰術牌組「超級噴火龍Xex」,candidate only; verify identity
+zh-tw,mts,PokeNomad | Pokemon official HK | Pokemon official TW,MTS | MTS | MTS,戰術牌組「超級沙奈朵ex」 (Tactics Deck Mega Gardevoir ex) | 戰術牌組「超級沙奈朵ex」 | 戰術牌組「超級沙奈朵ex」,candidate only; verify identity
+zh-tw,s-p,Pokemon official HK | Pokemon official TW,S-P | S-P,特典卡 劍&盾 | 特典卡 劍&盾,candidate only; verify identity
+zh-tw,s10a,PokeNomad | Pokemon official HK | Pokemon official TW | TCGdex API,S10A | S10a | S10a | S10a,Dark Phantasma | 強化擴充包「黑暗亡靈」 | 強化擴充包「黑暗亡靈」 | 黑暗亡靈,candidate only; verify identity
+zh-tw,s10b,PokeNomad | Pokemon official HK | Pokemon official TW | TCGdex API,S10B | S10b | S10b | S10b,Pokémon GO | 強化擴充包「Pokémon GO」 | 強化擴充包「Pokémon GO」 | Pokémon GO,candidate only; verify identity
+zh-tw,s10d,Pokemon official HK | Pokemon official TW | TCGdex API,S10D | S10D | S10D,擴充包「時間觀察者」 | 擴充包「時間觀察者」 | 時間觀察者,candidate only; verify identity
+zh-tw,s10p,Pokemon official HK | Pokemon official TW | TCGdex API,S10P | S10P | S10P,擴充包「空間魔術師」 | 擴充包「空間魔術師」 | 空間魔術師,candidate only; verify identity
+zh-tw,s11,PokeNomad | Pokemon official HK | Pokemon official TW | TCGdex API,S11 | S11 | S11 | S11,Lost Abyss | 擴充包 「迷途深淵」 | 擴充包 「迷途深淵」 | 三連音爆,candidate only; verify identity
+zh-tw,s11a,PokeNomad | Pokemon official HK | Pokemon official TW | TCGdex API,S11A | S11a | S11a | S11a,Incandescent Arcana | 強化擴充包「白熱奧祕」 | 強化擴充包「白熱奧祕」 | 白熱奧祕,candidate only; verify identity
+zh-tw,s12,PokeNomad | Pokemon official HK | Pokemon official TW | TCGdex API,S12 | S12 | S12 | S12,Paradigm Trigger | 擴充包「思維激盪」 | 擴充包「思維激盪」 | 思維激盪,candidate only; verify identity
+zh-tw,s12a,PokeNomad | Pokemon official HK | Pokemon official TW | TCGdex API,S12A | S12a | S12a | S12a,VSTAR Universe | 高級擴充包「天地萬物VSTAR」 | 高級擴充包「天地萬物VSTAR」 | 天地萬物VSTAR,candidate only; verify identity
+zh-tw,s4,PokeNomad | Pokemon official HK | Pokemon official TW | TCGdex API,S4 | S4 | S4 | S4,Amazing Volt Tackle | 擴充包『驚天伏特攻擊』 | 擴充包『驚天伏特攻擊』 | 驚天伏特攻擊,candidate only; verify identity
+zh-tw,s4a,PokeNomad | Pokemon official HK | Pokemon official TW | TCGdex API,S4A | S4a | S4a | S4a,閃色明星V (Shiny Star V) | 高級擴充包「閃色明星V」 | 高級擴充包「閃色明星V」 | 閃色明星V,candidate only; verify identity
+zh-tw,s5a,PokeNomad | Pokemon official HK | Pokemon official TW | TCGdex API,S5A | S5a | S5a | S5a,Matchless Fighters | 強化擴充包「雙璧戰士」 | 強化擴充包「雙璧戰士」 | 雙璧戰士,candidate only; verify identity
+zh-tw,s5i,Pokemon official HK | Pokemon official TW | TCGdex API,S5I | S5I | S5I,擴充包「一撃大師」 | 擴充包「一撃大師」 | 一撃大師,candidate only; verify identity
+zh-tw,s5r,Pokemon official HK | Pokemon official TW | TCGdex API,S5R | S5R | S5R,擴充包「連撃大師」 | 擴充包「連撃大師」 | 連撃大師,candidate only; verify identity
+zh-tw,s6a,PokeNomad | Pokemon official HK | Pokemon official TW | TCGdex API,S6A | S6a | S6a | S6a,Eevee Heroes | 強化擴充包「伊布英雄」 | 強化擴充包「伊布英雄」 | 伊布英雄,candidate only; verify identity
+zh-tw,s6h,Pokemon official HK | Pokemon official TW | TCGdex API,S6H | S6H | S6H,擴充包「銀白戰槍」 | 擴充包「銀白戰槍」 | 銀白戰槍,candidate only; verify identity
+zh-tw,s6k,Pokemon official HK | Pokemon official TW | TCGdex API,S6K | S6K | S6K,擴充包「漆黑幽魂」 | 擴充包「漆黑幽魂」 | 漆黑幽魂,candidate only; verify identity
+zh-tw,s7d,Pokemon official HK | Pokemon official TW | TCGdex API,S7D | S7D | S7D,擴充包「摩天巔峰」 | 擴充包「摩天巔峰」 | 摩天巔峰,candidate only; verify identity
+zh-tw,s7r,Pokemon official HK | Pokemon official TW | TCGdex API,S7R | S7R | S7R,擴充包「蒼空烈流」 | 擴充包「蒼空烈流」 | 蒼空烈流,candidate only; verify identity
+zh-tw,s8,PokeNomad | Pokemon official HK | Pokemon official TW | TCGdex API,S8 | S8 | S8 | S8,Fusion Arts | 擴充包「匯流藝術」 | 擴充包「匯流藝術」 | 匯流藝術,candidate only; verify identity
+zh-tw,s8a,PokeNomad | Pokemon official HK | Pokemon official TW | TCGdex API,S8A | S8a | S8a | S8a,25th Anniversary Collection | 擴充包「25週年收藏款」 | 擴充包「25週年收藏款」 | 25週年收藏款,candidate only; verify identity
+zh-tw,s8b,PokeNomad | Pokemon official HK | Pokemon official TW | TCGdex API,S8B | S8b | S8b | S8b,VMAX Climax | 高級擴充包「VMAX絕群壓軸」 | 高級擴充包「VMAX絕群壓軸」 | VMAX絕群壓軸,candidate only; verify identity
+zh-tw,s9,PokeNomad | Pokemon official HK | Pokemon official TW | TCGdex API,S9 | S9 | S9 | S9,Star Birth | 擴充包「星星誕生」 | 擴充包「星星誕生」 | 星星誕生,candidate only; verify identity
+zh-tw,s9a,PokeNomad | Pokemon official HK | Pokemon official TW | TCGdex API,S9A | S9a | S9a | S9a,Battle Region | 強化擴充包「對戰地區」 | 強化擴充包「對戰地區」 | 對戰地區,candidate only; verify identity
+zh-tw,sc1a,Pokemon official HK | Pokemon official TW | TCGdex API,SC1a | SC1a | SC1a,擴充包「劍&盾」SET A | 擴充包「劍&盾」SET A | 劍&盾 SET A,candidate only; verify identity
+zh-tw,sc1b,Pokemon official HK | Pokemon official TW | TCGdex API,SC1b | SC1b | SC1b,擴充包「劍&盾」SET B | 擴充包「劍&盾」SET B | 劍&盾 SET B,candidate only; verify identity
+zh-tw,sc1d,Pokemon official HK | Pokemon official TW | TCGdex API,SC1D | SC1D | SC1D,V起始牌組「劍&盾」 | V起始牌組「劍&盾」 | 劍&盾,candidate only; verify identity
+zh-tw,sc2a,Pokemon official HK | Pokemon official TW | TCGdex API,SC2a | SC2a | SC2a,擴充包「無極力量」SET A | 擴充包「無極力量」SET A | 無極力量 SET A,candidate only; verify identity
+zh-tw,sc2b,Pokemon official HK | Pokemon official TW | TCGdex API,SC2b | SC2b | SC2b,擴充包「無極力量」SET B | 擴充包「無極力量」SET B | 無極力量 SET B,candidate only; verify identity
+zh-tw,sc2d,Pokemon official HK | Pokemon official TW | TCGdex API,SC2D | SC2D | SC2D,V起始牌組「無極力量」 | V起始牌組「無極力量」 | 無極力量,candidate only; verify identity
+zh-tw,sca,Pokemon official HK | Pokemon official TW | TCGdex API,SCA | SCA | SCA,V起始牌組 「搭檔」 | V起始牌組 「搭檔」 | 搭檔,candidate only; verify identity
+zh-tw,scb,Pokemon official HK | Pokemon official TW | TCGdex API,SCB | SCB | SCB,V起始牌組 「挑戰」 | V起始牌組 「挑戰」 | 挑戰,candidate only; verify identity
+zh-tw,scc,Pokemon official HK | Pokemon official TW | TCGdex API,SCC | SCC | SCC,V起始牌組 「進化」 | V起始牌組 「進化」 | 進化,candidate only; verify identity
+zh-tw,scd,Pokemon official HK | Pokemon official TW | TCGdex API,SCD | SCD | SCD,V起始牌組 「強大」 | V起始牌組 「強大」 | 強大,candidate only; verify identity
+zh-tw,sdl,Pokemon official HK | Pokemon official TW | TCGdex API,SDL | SDL | SDL,V初階牌組 「噴火龍」 | V初階牌組 「噴火龍」 | 噴火龍,candidate only; verify identity
+zh-tw,sdm,Pokemon official HK | Pokemon official TW | TCGdex API,SDM | SDM | SDM,V初階牌組 「超夢」 | V初階牌組 「超夢」 | 超夢,candidate only; verify identity
+zh-tw,sdp,Pokemon official HK | Pokemon official TW | TCGdex API,SDP | SDP | SDP,V初階牌組 「皮卡丘」 | V初階牌組 「皮卡丘」 | 皮卡丘,candidate only; verify identity
+zh-tw,sh,Pokemon official HK | Pokemon official TW | TCGdex API,SH | SH | SH,寶可夢卡牌家庭組合 | 寶可夢卡牌家庭組合 | 寶可夢卡牌家庭組合,candidate only; verify identity
+zh-tw,si,Pokemon official HK | Pokemon official TW | TCGdex API,SI | SI | SI,初階牌組100 | 初階牌組100 | 初階牌組100,candidate only; verify identity
+zh-tw,sj,Pokemon official HK | Pokemon official TW | TCGdex API,SJ | SJ | SJ,特別牌組組合 蒼響・藏瑪然特VS無極汰那 | 特別牌組組合 蒼響・藏瑪然特VS無極汰那 | 藏瑪然特VS無極汰那,candidate only; verify identity
+zh-tw,sk,Pokemon official HK | Pokemon official TW | TCGdex API,SK | SK | SK,頂級訓練家收藏箱 VSTAR | 頂級訓練家收藏箱 VSTAR | 頂級訓練家收藏箱 VSTAR,candidate only; verify identity
+zh-tw,sld,Pokemon official HK | Pokemon official TW | TCGdex API,SLD | SLD | SLD,起始組合VSTAR 達克萊伊 | 起始組合VSTAR 達克萊伊 | 起始組合VSTAR 達克萊伊,candidate only; verify identity
+zh-tw,sll,Pokemon official HK | Pokemon official TW | TCGdex API,SLL | SLL | SLL,起始組合VSTAR 路卡利歐 | 起始組合VSTAR 路卡利歐 | 起始組合VSTAR 路卡利歐,candidate only; verify identity
+zh-tw,sm-p,Pokemon official HK | Pokemon official TW,SM-P | SM-P,特典卡 太陽&月亮 | 特典卡 太陽&月亮,candidate only; verify identity
+zh-tw,sn,Pokemon official HK | Pokemon official TW | TCGdex API,SN | SN | SN,初階牌組100 特別版 | 初階牌組100 特別版 | 初階牌組100 特別版,candidate only; verify identity
+zh-tw,so,Pokemon official HK | Pokemon official TW,SO | SO,特別牌組組合 「噴火龍VSTAR vs 烈空坐VMAX」 | 特別牌組組合 「噴火龍VSTAR vs 烈空坐VMAX」,candidate only; verify identity
+zh-tw,sp5,Pokemon official HK | Pokemon official HK | Pokemon official HK | Pokemon official TW | Pokemon official TW | Pokemon official TW | TCGdex API,SP5 | SP5 | SP5 | SP5 | SP5 | SP5 | SP5,蒼響V-UNION | 超夢V-UNION | 甲賀忍蛙V-UNION | 蒼響V-UNION | 超夢V-UNION | 甲賀忍蛙V-UNION | 強大,candidate only; verify identity
+zh-tw,sp6,Pokemon official HK | Pokemon official TW | TCGdex API,SP6 | SP6 | SP6,VSTAR特別組合 | VSTAR特別組合 | VSTAR特別組合,candidate only; verify identity
+zh-tw,spd,Pokemon official HK | Pokemon official TW | TCGdex API,SPD | SPD | SPD,VSTAR&VMAX 高級牌組 代歐奇希斯 | VSTAR&VMAX 高級牌組 代歐奇希斯 | VSTAR&VMAX 高級牌組 代歐奇希斯,candidate only; verify identity
+zh-tw,spz,Pokemon official HK | Pokemon official TW | TCGdex API,SPZ | SPZ | SPZ,VSTAR&VMAX 高級牌組 捷拉奧拉 | VSTAR&VMAX 高級牌組 捷拉奧拉 | VSTAR&VMAX 高級牌組 捷拉奧拉,candidate only; verify identity
+zh-tw,sv-p,Pokemon official HK | Pokemon official TW | TCGdex API,SV-P | SV-P | SV-P,特典卡 朱&紫 | 特典卡 朱&紫 | 特典卡 朱&紫,candidate only; verify identity
+zh-tw,sv10,PokeNomad | Pokemon official HK | Pokemon official TW | TCGdex API,SV10 | SV10 | SV10 | SV10,Glory of Team Rocket | 擴充包「火箭隊的榮耀」 | 擴充包「火箭隊的榮耀」 | 火箭隊的榮耀,candidate only; verify identity
+zh-tw,sv11b,PokeNomad | Pokemon official HK | Pokemon official TW,SV11B | SV11B | SV11B,Black Bolt | 擴充包「漆黑伏特」 | 擴充包「漆黑伏特」,candidate only; verify identity
+zh-tw,sv11w,PokeNomad | Pokemon official HK | Pokemon official TW,SV11W | SV11W | SV11W,White Flare | 擴充包「純白閃焰」 | 擴充包 「純白閃焰」,candidate only; verify identity
+zh-tw,sv1a,PokeNomad | Pokemon official HK | Pokemon official TW | TCGdex API,SV1A | SV1a | SV1a | SV1a,三連音爆 (Triplet Beat) | 強化擴充包「三連音爆」 | 強化擴充包「三連音爆」 | 三連音爆,candidate only; verify identity
+zh-tw,sv1s,Pokemon official HK | Pokemon official TW | TCGdex API,SV1S | SV1S | SV1S,擴充包「朱ex」 | 擴充包「朱ex」 | 朱ex,candidate only; verify identity
+zh-tw,sv1v,Pokemon official HK | Pokemon official TW | TCGdex API,SV1V | SV1V | SV1V,擴充包「紫ex」 | 擴充包「紫ex」 | 紫ex,candidate only; verify identity
+zh-tw,sv2a,PokeNomad | Pokemon official HK | Pokemon official TW | TCGdex API,SV2A | SV2a | SV2a | SV2a,Pokémon Card 151 | 強化擴充包「寶可夢卡牌151」 | 強化擴充包「寶可夢卡牌151」 | 寶可夢卡牌151,candidate only; verify identity
+zh-tw,sv2d,Pokemon official HK | Pokemon official TW | TCGdex API,SV2D | SV2D | SV2D,擴充包「碟旋暴擊」 | 擴充包「碟旋暴擊」 | 碟旋暴擊,candidate only; verify identity
+zh-tw,sv2p,Pokemon official HK | Pokemon official TW | TCGdex API,SV2P | SV2P | SV2P,擴充包「冰雪險境」 | 擴充包「冰雪險境」 | 冰雪險境,candidate only; verify identity
+zh-tw,sv3,PokeNomad | Pokemon official HK | Pokemon official TW | TCGdex API,SV3 | SV3 | SV3 | SV3,Ruler of the Black Flame | 擴充包「黯焰支配者」 | 擴充包「黯焰支配者」 | 黯焰支配者,candidate only; verify identity
+zh-tw,sv3a,PokeNomad | Pokemon official HK | Pokemon official TW | TCGdex API,SV3A | SV3a | SV3a | SV3a,Raging Surf | 強化擴充包「激狂駭浪」 | 強化擴充包「激狂駭浪」 | 激狂駭浪,candidate only; verify identity
+zh-tw,sv4a,PokeNomad | Pokemon official HK | Pokemon official TW | TCGdex API,SV4A | SV4a | SV4a | SV4a,Shiny Treasure ex | 高級擴充包「閃色寶藏ex」 | 高級擴充包「閃色寶藏ex」 | 閃色寶藏ex,candidate only; verify identity
+zh-tw,sv4k,Pokemon official HK | Pokemon official TW | TCGdex API,SV4K | SV4K | SV4K,擴充包「古代咆哮」 | 擴充包「古代咆哮」 | 古代咆哮,candidate only; verify identity
+zh-tw,sv4m,Pokemon official HK | Pokemon official TW | TCGdex API,SV4M | SV4M | SV4M,擴充包「未來閃光」 | 擴充包「未來閃光」 | 未來閃光,candidate only; verify identity
+zh-tw,sv5a,PokeNomad | Pokemon official HK | Pokemon official TW | TCGdex API,SV5A | SV5a | SV5a | SV5a,Crimson Haze | 強化擴充包「緋紅薄霧」 | 強化擴充包「緋紅薄霧」 | 緋紅薄霧,candidate only; verify identity
+zh-tw,sv5k,Pokemon official HK | Pokemon official TW | TCGdex API,SV5K | SV5K | SV5K,擴充包「狂野之力」 | 擴充包「狂野之力」 | 狂野之力,candidate only; verify identity
+zh-tw,sv5m,Pokemon official HK | Pokemon official TW | TCGdex API,SV5M | SV5M | SV5M,擴充包「異度審判」 | 擴充包「異度審判」 | 異度審判,candidate only; verify identity
+zh-tw,sv6,PokeNomad | Pokemon official HK | Pokemon official TW | TCGdex API,SV6 | SV6 | SV6 | SV6,Mask of Change | 擴充包「變幻假面」 | 擴充包「變幻假面」 | 變幻假面,candidate only; verify identity
+zh-tw,sv6a,PokeNomad | Pokemon official HK | Pokemon official TW | TCGdex API,SV6A | SV6a | SV6a | SV6a,Night Wanderer | 強化擴充包「黑夜漫遊者」 | 強化擴充包「黑夜漫遊者」 | 黑夜漫遊者,candidate only; verify identity
+zh-tw,sv7,PokeNomad | Pokemon official HK | Pokemon official TW | TCGdex API,SV7 | SV7 | SV7 | SV7,Stellar Miracle | 擴充包「星晶奇跡」 | 擴充包「星晶奇跡」 | 星晶奇跡,candidate only; verify identity
+zh-tw,sv7a,PokeNomad | Pokemon official HK | Pokemon official TW | TCGdex API,SV7A | SV7a | SV7a | SV7a,Paradise Dragona | 強化擴充包「樂園騰龍」 | 強化擴充包「樂園騰龍」 | 樂園騰龍,candidate only; verify identity
+zh-tw,sv8,PokeNomad | Pokemon official HK | Pokemon official TW | TCGdex API,SV8 | SV8 | SV8 | SV8,Super Electric Breaker (Surging Sparks) | 擴充包「超電突圍」 | 擴充包「超電突圍」 | 超電突圍,candidate only; verify identity
+zh-tw,sv8a,PokeNomad | Pokemon official HK | Pokemon official TW | TCGdex API,SV8A | SV8a | SV8a | SV8a,Terastal Festival ex | 高級擴充包「太晶慶典ex」 | 高級擴充包「太晶慶典ex」 | 太晶慶典ex,candidate only; verify identity
+zh-tw,sv9,PokeNomad | Pokemon official HK | Pokemon official TW | TCGdex API,SV9 | SV9 | SV9 | SV9,對戰搭檔 (Battle Partners) | 擴充包「對戰搭檔」 | 擴充包「對戰搭檔」 | 對戰搭檔,candidate only; verify identity
+zh-tw,sv9a,PokeNomad | Pokemon official HK | Pokemon official TW | TCGdex API,SV9A | SV9a | SV9a | SV9a,Heat Wave Arena | 強化擴充包「熱風競技場」 | 強化擴充包「熱風競技場」 | 熱風競技場,candidate only; verify identity
+zh-tw,sval,Pokemon official HK | Pokemon official TW | TCGdex API,SVAL | SVAL | SVAL,起始組合ex 呆火鱷&電龍 ex | 起始組合ex 呆火鱷&電龍 ex | 起始組合ex 呆火鱷&電龍 ex,candidate only; verify identity
+zh-tw,svam,Pokemon official HK | Pokemon official TW | TCGdex API,SVAM | SVAM | SVAM,起始組合ex 新葉喵&路卡利歐 ex | 起始組合ex 新葉喵&路卡利歐 ex | 起始組合ex 新葉喵&路卡利歐 ex,candidate only; verify identity
+zh-tw,svaw,Pokemon official HK | Pokemon official TW | TCGdex API,SVAW | SVAW | SVAW,起始組合ex 潤水鴨&謎擬Ｑ ex | 起始組合ex 潤水鴨&謎擬Ｑ ex | 起始組合ex 潤水鴨&謎擬Ｑ ex,candidate only; verify identity
+zh-tw,svb,Pokemon official HK | Pokemon official TW | TCGdex API,SVB | SVB | SVB,頂級訓練家收藏箱ex | 頂級訓練家收藏箱ex | 頂級訓練家收藏箱ex,candidate only; verify identity
+zh-tw,svc,Pokemon official HK | Pokemon official TW | TCGdex API,SVC | SVC | SVC,起始組合ex 皮卡丘特別組合 | 起始組合ex 皮卡丘特別組合 | 皮卡丘特別組合,candidate only; verify identity
+zh-tw,svd,PokeNomad | Pokemon official HK | Pokemon official TW | TCGdex API,SVD | SVD | SVD | SVD,ex Start Decks | ex初階牌組 | ex初階牌組 | ex初階牌組,candidate only; verify identity
+zh-tw,svel,Pokemon official HK | Pokemon official TW | TCGdex API,SVEL | SVEL | SVEL,起始組合 太晶 骨紋巨聲鱷ex | 起始組合 太晶 骨紋巨聲鱷ex | 骨紋巨聲鱷ex,candidate only; verify identity
+zh-tw,svem,Pokemon official HK | Pokemon official TW | TCGdex API,SVEM | SVEM | SVEM,起始組合 太晶 超夢ex | 起始組合 太晶 超夢ex | 超夢ex,candidate only; verify identity
+zh-tw,svf,Pokemon official HK | Pokemon official TW | TCGdex API,SVF | SVF | SVF,牌組構築BOX黯焰支配者 | 牌組構築BOX黯焰支配者 | 黯焰支配者,candidate only; verify identity
+zh-tw,svhk,Pokemon official HK | Pokemon official TW | TCGdex API,SVHK | SVHK | SVHK,起始組合「古代故勒頓ex」 | 起始組合「古代故勒頓ex」 | 未來密勒頓ex,candidate only; verify identity
+zh-tw,svhm,Pokemon official HK | Pokemon official TW | TCGdex API,SVHM | SVHM | SVHM,起始組合「未來密勒頓ex」 | 起始組合「未來密勒頓ex」 | 閃色寶藏ex,candidate only; verify identity
+zh-tw,svi,Pokemon official HK | Pokemon official TW,SVI | SVI,Trianers Camp | Trianers Camp,candidate only; verify identity
+zh-tw,svk,Pokemon official HK | Pokemon official TW,SVK | SVK,牌組構築BOX 樂園騰龍 | 牌組構築BOX 樂園騰龍,candidate only; verify identity
+zh-tw,svm,Pokemon official HK | Pokemon official TW,SVM | SVM,雙ex初階牌組 Generations | 雙ex初階牌組 Generations,candidate only; verify identity
+zh-tw,svod,Pokemon official HK | Pokemon official TW,SVOD | SVOD,挑戰牌組 大吾的鐵啞鈴&巨金怪ex | 挑戰牌組 大吾的鐵啞鈴&巨金怪ex,candidate only; verify identity
+zh-tw,svom,Pokemon official HK | Pokemon official TW,SVOM | SVOM,挑戰牌組 瑪俐的莫魯貝可&長毛巨魔ex | 挑戰牌組 瑪俐的莫魯貝可&長毛巨魔ex,candidate only; verify identity
+zh-tw,svp1,Pokemon official HK | Pokemon official TW | TCGdex API,SVP1 | SVP1 | SVP1,ex特別組合 | ex特別組合 | ex特別組合,candidate only; verify identity
+zh-tw,svpn,Pokemon official HK | Pokemon official TW,SVPN | SVPN,ex特別組合 太晶屬性：星晶 仙子伊布ex | ex特別組合 太晶屬性：星晶 仙子伊布ex,candidate only; verify identity
+zh-tw,svps,Pokemon official HK | Pokemon official TW,SVPS | SVPS,ex特別組合 太晶屬性：星晶 蒼炎刃鬼ex | ex特別組合 太晶屬性：星晶 蒼炎刃鬼ex,candidate only; verify identity
+zh-tw,svql,Pokemon official HK | Pokemon official TW,SVQL | SVQL,ex初階牌組 噴火龍 | ex初階牌組 噴火龍,candidate only; verify identity
+zh-tw,svqp,Pokemon official HK | Pokemon official TW,SVQP | SVQP,ex初階牌組 皮卡丘 | ex初階牌組 皮卡丘,candidate only; verify identity
+zh-tw,svtg,Pokemon official HK | Pokemon official TW,SVTG | SVTG,戰術牌組「太晶烈咬陸鯊ex」 | 戰術牌組「太晶烈咬陸鯊ex」,candidate only; verify identity
+zh-tw,svth,Pokemon official HK | Pokemon official TW,SVTH | SVTH,戰術牌組「巨鉗螳螂ex」 | 戰術牌組「巨鉗螳螂ex」,candidate only; verify identity
+zh-tw,svtl,Pokemon official HK | Pokemon official TW,SVTL | SVTL,戰術牌組「太晶噴火龍ex」 | 戰術牌組「太晶噴火龍ex」,candidate only; verify identity
+zh-tw,svtm,Pokemon official HK | Pokemon official TW,SVTM | SVTM,戰術牌組「魔幻假面喵ex」 | 戰術牌組「魔幻假面喵ex」,candidate only; verify identity
+zh-tw,svtr,Pokemon official HK | Pokemon official TW,SVTR | SVTR,戰術牌組「密勒頓ex」 | 戰術牌組「密勒頓ex」,candidate only; verify identity
+zh-tw,svts,Pokemon official HK | Pokemon official TW,SVTS | SVTS,戰術牌組「沙奈朵ex」 | 戰術牌組「沙奈朵ex」,candidate only; verify identity
