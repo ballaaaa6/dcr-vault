@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-22 - Align login footer buttons
+
+- Align the Privacy Policy and Back to Home buttons to the right edge of the viewport.
+
 ## 2026-11-22 - Update privacy button color
 
 - Use a red background and white text for the Privacy Policy button.
