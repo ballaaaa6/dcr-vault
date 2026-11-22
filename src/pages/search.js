@@ -65,7 +65,6 @@ export function search() {
             <div class="form-field"><label for="m-languageLabel">Language label</label><input class="form-control" id="m-languageLabel" maxlength="60" placeholder="THAI or JAPANESE; blank for English"></div>
             <div class="form-field"><label for="m-rarity">Rarity <span class="required-mark" aria-hidden="true">*</span></label><input class="form-control" id="m-rarity" required placeholder="Read from card or choose from catalog"></div>
             <div class="form-field intake-wide"><label for="m-artist">Artist / Illustrator <span class="optional-label">(optional)</span></label><input class="form-control" id="m-artist" maxlength="120" placeholder="e.g. Mitsuhiro Arita"></div>
-            <div class="form-field intake-wide intake-notes"><label for="m-notes">Notes <span class="optional-label">(optional)</span></label><textarea class="form-control" id="m-notes" maxlength="2000" rows="2" placeholder="Add any details about this card"></textarea></div>
             <div class="form-field"><label for="m-grade">Condition / Grade <span class="required-mark" aria-hidden="true">*</span></label><select class="form-control" id="m-grade" required><option value="">Choose condition</option>${CONDITION_OPTIONS.map(value => `<option value="${value}">${conditionOptionLabel(value)}</option>`).join('')}</select></div>
             <div class="form-field cert-field"><label for="m-cert">Cert number <span class="required-mark" aria-hidden="true">*</span></label><span class="cert-input-row">
               <input class="form-control" id="m-cert" inputmode="numeric" maxlength="8" pattern="[0-9]{1,8}" placeholder="1 to 8 digits" required>
@@ -224,7 +223,7 @@ function formCard(certNumber) {
     sourceCardId: sourceMatches ? selected.sourceCardId || '' : '', sourceFinish: selected.sourceFinish || '',
     cardNumber: document.getElementById('m-cardNumber').value.trim(), rarity: document.getElementById('m-rarity').value.trim(),
     gradeLabel: document.getElementById('m-grade').value.trim(), artist: document.getElementById('m-artist').value.trim(),
-    notes: document.getElementById('m-notes').value.trim(), status: 'in-vault'
+    status: 'in-vault'
   };
 }
 

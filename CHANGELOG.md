@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Simplify card intake
+- Remove the Notes field from the add-card form.
+
 ## 2026-11-22 - Clearer label text spacing
 - Reserve a 2 mm gap between left and right label text, abbreviating long lines as needed.
 
