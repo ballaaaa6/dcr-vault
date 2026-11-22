@@ -8,13 +8,14 @@ test('vault selection updates details without changing the URL and protects unsa
   globalThis.history = {state: null, replaceState: (_state, _title, url) => { replaced = url; }};
   const detail = {innerHTML: '', addEventListener() {}, querySelector: () => null};
   const photo = {innerHTML: '', querySelector: () => null};
+  const selected = {dataset: {}};
   const form = {dataset: {}};
   const classes = new Set();
   const layout = {classList: {add: value => classes.add(value), remove: value => classes.delete(value)}};
   const rows = ['a', 'b'].map(id => ({dataset: {cardId: id}, setAttribute(_name, value) { this.selected = value; }}));
   let clickHandler;
   const menu = {open: true, contains: target => target === 'inside'};
-  globalThis.document = {querySelector: selector => selector === '.vault-layout' ? layout : selector === '.vault-menu[open]' ? menu : selector === '.vault-photo-panel' ? photo : detail, querySelectorAll: () => rows, getElementById: () => form, addEventListener: (_type, handler) => { clickHandler = handler; }, removeEventListener() {}};
+  globalThis.document = {querySelector: selector => selector === '.vault-layout' ? layout : selector === '.vault-selected' ? selected : selector === '.vault-menu[open]' ? menu : selector === '.vault-photo-panel' ? photo : detail, querySelectorAll: () => rows, getElementById: () => form, addEventListener: (_type, handler) => { clickHandler = handler; }, removeEventListener() {}};
   globalThis.confirm = () => false;
   const {vault, initializeVault} = await import('./vault.js');
   const cards = [{id: 'a', name: 'First', certNumber: '00000001', frontImage: '/first.jpg'}, {id: 'b', name: 'Second', certNumber: '00000002', frontImage: '/second.jpg'}];

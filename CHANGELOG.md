@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Add card classification artwork to Vault
+
+- Display classification backgrounds in Vault lists and selected card panels, with an unknown fallback for unclassified cards.
+
 ## 2026-11-23 - Save and review card classification
 
 - Allow card categories and types to be reviewed, edited and saved with vault cards; leave existing cards unclassified.

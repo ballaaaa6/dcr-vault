@@ -7,6 +7,7 @@ import {itemInformation} from './verify.js';
 import {escapeHTML} from '../utils/format.js';
 import {normalizeCert} from '../utils/cert.js';
 import {classificationFields, classificationInput} from '../utils/card-classification.js';
+import {vaultBackground} from '../utils/vault-background.js';
 
 const sources = ['Facebook', 'Instagram', 'TikTok', 'Shopee', 'Lazada', 'eBay', 'TCGplayer', 'Card shop', 'Card show'];
 const currencies = ['THB', 'USD', 'JPY', 'EUR', 'GBP', 'AUD', 'CAD', 'CNY', 'HKD', 'SGD', 'MYR', 'TWD', 'KRW', 'IDR', 'PHP', 'VND', 'CHF', 'NZD'];
@@ -53,7 +54,7 @@ export function vault(cards = []) {
       </form>
       <div class="vault-layout">
         <section class="vault-list" id="vault-list" aria-label="Cards in your vault">${rows}</section>
-        <div class="vault-selected">
+        <div class="vault-selected" data-vault-art="${vaultBackground(focus)}">
         <aside class="surface-card vault-detail" aria-label="Selected card details">${detailMarkup(focus)}</aside>
         <aside class="surface-card vault-photo-panel" aria-label="Selected card photo">${vaultPhoto(focus)}</aside>
         </div>
@@ -114,6 +115,7 @@ function selectCard(id, mode = 'item') {
   const card = activeCards.find(item => item.id === id);
   if (!card) return;
   selectedId = id;
+  document.querySelector('.vault-selected').dataset.vaultArt = vaultBackground(card);
   document.querySelector('.vault-layout').classList.remove('is-unselected');
   document.querySelector('.vault-detail').innerHTML = detailMarkup(card, mode);
   document.querySelector('.vault-photo-panel').innerHTML = vaultPhoto(card);
