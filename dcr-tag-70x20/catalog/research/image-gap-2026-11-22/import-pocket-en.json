@@ -1,0 +1,900 @@
+{
+  "results": [
+    {
+      "id": "B2a-001",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_001_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/1",
+      "path": "images/en/B2a/B2a-001.webp",
+      "sha256": "46e31ce7272dc17f6a9d1691c39be9d24fe21b174b07e113eaab9eb0dff7f32e"
+    },
+    {
+      "id": "B2a-002",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_002_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/2",
+      "path": "images/en/B2a/B2a-002.webp",
+      "sha256": "7ff2cd8e2ef7fe9e722f8876bb570342cb9aa48c6d6cce269da70bd03cf7cb13"
+    },
+    {
+      "id": "B2a-004",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_004_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/4",
+      "path": "images/en/B2a/B2a-004.webp",
+      "sha256": "609a1ab036a1ed0e89a954413b55c2b026af574acdba9ce1a9dcc255f6c21bb4"
+    },
+    {
+      "id": "B2a-005",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_005_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/5",
+      "path": "images/en/B2a/B2a-005.webp",
+      "sha256": "e84187815728ad86917bb72f9b75df09444c6ae2177f1feef54223ce8697af3d"
+    },
+    {
+      "id": "B2a-006",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_006_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/6",
+      "path": "images/en/B2a/B2a-006.webp",
+      "sha256": "2b8811d48c155e33ac8d8a2d469b4fb3c2c48a6eec2f3ae902d0b50f8bacbedf"
+    },
+    {
+      "id": "B2a-007",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_007_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/7",
+      "path": "images/en/B2a/B2a-007.webp",
+      "sha256": "6c8cf0cee0e4e09c307fdcd6b9aacb53a042cb2e1b5c8e7cf038e5880c2390ce"
+    },
+    {
+      "id": "B2a-008",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_008_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/8",
+      "path": "images/en/B2a/B2a-008.webp",
+      "sha256": "0b47776c09dab704a356730c5802b025bbdad171a84e283b8a019f048337e8ef"
+    },
+    {
+      "id": "B2a-009",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_009_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/9",
+      "path": "images/en/B2a/B2a-009.webp",
+      "sha256": "3166bde81a7c0db4e5613d24636d8c499bb4315b2ffc2a90bc5c51fe384771d9"
+    },
+    {
+      "id": "B2a-010",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_010_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/10",
+      "path": "images/en/B2a/B2a-010.webp",
+      "sha256": "1f5f88b014357bc00d6d9ef27bf01a888c86e8aa0478daa99328e773e1efdb16"
+    },
+    {
+      "id": "B2a-011",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_011_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/11",
+      "path": "images/en/B2a/B2a-011.webp",
+      "sha256": "ac0f4f9c64b984c7ad1553cf84e3e4bbaf32007bb37c5e30d1aff995daaf1768"
+    },
+    {
+      "id": "B2a-012",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_012_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/12",
+      "path": "images/en/B2a/B2a-012.webp",
+      "sha256": "2838f65998f45f9eb588075fb67e71c776602a91b06d360a883a2c75d81435a6"
+    },
+    {
+      "id": "B2a-013",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_013_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/13",
+      "path": "images/en/B2a/B2a-013.webp",
+      "sha256": "62baddf726c194c21163f02aab232901a4d8372f0ed28b9af31d757bd1272673"
+    },
+    {
+      "id": "B2a-014",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_014_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/14",
+      "path": "images/en/B2a/B2a-014.webp",
+      "sha256": "d0573b379ab35c4b182c207a86315d1927593dfd232519213d8e61eaf0a7ef78"
+    },
+    {
+      "id": "B2a-015",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_015_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/15",
+      "path": "images/en/B2a/B2a-015.webp",
+      "sha256": "566ecb4a0447188a35b6aef16978dd908bbb3c06762b47f16a3e0a6d4f4cdf9d"
+    },
+    {
+      "id": "B2a-016",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_016_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/16",
+      "path": "images/en/B2a/B2a-016.webp",
+      "sha256": "2eb72fa20835c2325bec874006b1e16a13ed58e5896f560f49e16e05a275208c"
+    },
+    {
+      "id": "B2a-017",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_017_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/17",
+      "path": "images/en/B2a/B2a-017.webp",
+      "sha256": "216bdb37c9174bf159d527e5219c1c25697b132758eebe8f486b912bf12b1d74"
+    },
+    {
+      "id": "B2a-018",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_018_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/18",
+      "path": "images/en/B2a/B2a-018.webp",
+      "sha256": "86922a74a7d7df4ca533fd3cfb372fc72ee4f05bdc1a0ebb5bce885f06b80450"
+    },
+    {
+      "id": "B2a-019",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_019_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/19",
+      "path": "images/en/B2a/B2a-019.webp",
+      "sha256": "e7956e9f3b6203a551fd1e27ce42f56fc8a7bf26bd6a1cc038a92e4e5220b25c"
+    },
+    {
+      "id": "B2a-021",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_021_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/21",
+      "path": "images/en/B2a/B2a-021.webp",
+      "sha256": "324c1f769feafa7870437588a7038473a98157900a8165ade1edcd1013991c19"
+    },
+    {
+      "id": "B2a-022",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_022_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/22",
+      "path": "images/en/B2a/B2a-022.webp",
+      "sha256": "42c8073d8ddb100a6c1dbfc3d4ff64b2b8a20dc2573aae93ca1e41b538c1bb31"
+    },
+    {
+      "id": "B2a-023",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_023_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/23",
+      "path": "images/en/B2a/B2a-023.webp",
+      "sha256": "b3e8bad7db20f27c06d6344edd4d075948e52565a58d6a7996787a288de433e9"
+    },
+    {
+      "id": "B2a-024",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_024_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/24",
+      "path": "images/en/B2a/B2a-024.webp",
+      "sha256": "f60fe28d7de8ca83a0a9b29ff0ee5f1a1f4194d6279c82ec68c1f8bf86187879"
+    },
+    {
+      "id": "B2a-025",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_025_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/25",
+      "path": "images/en/B2a/B2a-025.webp",
+      "sha256": "b57d51622fe9c42e5aef61e844dfcef30804c3b489ce346593cb7ff421fae1c6"
+    },
+    {
+      "id": "B2a-026",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_026_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/26",
+      "path": "images/en/B2a/B2a-026.webp",
+      "sha256": "074bd86e2090883e36f3b780d6751a30c2a47cdbb70ae11c81417d9ec366a5b9"
+    },
+    {
+      "id": "B2a-027",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_027_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/27",
+      "path": "images/en/B2a/B2a-027.webp",
+      "sha256": "10519fd5cf5d8da5b83ba4cabe68071c35c089e0c17cb00ef695f48d6fd78376"
+    },
+    {
+      "id": "B2a-028",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_028_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/28",
+      "path": "images/en/B2a/B2a-028.webp",
+      "sha256": "c0a379906b569316d8e180dec9ada7d36e4547a6bbd6594f8d0491861fbc8993"
+    },
+    {
+      "id": "B2a-029",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_029_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/29",
+      "path": "images/en/B2a/B2a-029.webp",
+      "sha256": "c65464a323ac5579cfea0ae0ed74478423042675a04b359b8b4bfec145df23ea"
+    },
+    {
+      "id": "B2a-030",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_030_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/30",
+      "path": "images/en/B2a/B2a-030.webp",
+      "sha256": "9f94fe6d8e4ebe32c3062a057a449a8fc2fb4d2f4e4732adba49dd6139e017e0"
+    },
+    {
+      "id": "B2a-031",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_031_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/31",
+      "path": "images/en/B2a/B2a-031.webp",
+      "sha256": "b3869dfbf8b12dc149e48d34f41016640f243c924a6fcac771bb999e672b4657"
+    },
+    {
+      "id": "B2a-032",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_032_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/32",
+      "path": "images/en/B2a/B2a-032.webp",
+      "sha256": "462dae6610a4a5159440aac55593ac182e5b9b634647c2234c41fa0fa32bb650"
+    },
+    {
+      "id": "B2a-033",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_033_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/33",
+      "path": "images/en/B2a/B2a-033.webp",
+      "sha256": "bfe6f07385f459ccd12471f337d37820c273a929626d4c9cdcfa90a479e2b224"
+    },
+    {
+      "id": "B2a-034",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_034_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/34",
+      "path": "images/en/B2a/B2a-034.webp",
+      "sha256": "c1c2e81f4bb0f185c9deed707fa80c5fb9fe1c8c025560e30cd8bee79cb06caf"
+    },
+    {
+      "id": "B2a-035",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_035_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/35",
+      "path": "images/en/B2a/B2a-035.webp",
+      "sha256": "e145e7613d2700cbc41b597dc690465eb8238288d70ddd2156b828b15121fe0c"
+    },
+    {
+      "id": "B2a-036",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_036_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/36",
+      "path": "images/en/B2a/B2a-036.webp",
+      "sha256": "28678db05c94f93c22743ce34ba36fa9648f98d13a8cb15493980dbfdb5aad3a"
+    },
+    {
+      "id": "B2a-038",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_038_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/38",
+      "path": "images/en/B2a/B2a-038.webp",
+      "sha256": "0ee092e96caa8ea720480f53c26fa364c8b7cd832d74a722ff048323ffb99b6c"
+    },
+    {
+      "id": "B2a-039",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_039_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/39",
+      "path": "images/en/B2a/B2a-039.webp",
+      "sha256": "db462defcd322aea13b8de35951d9501bffd1d57ede83e5de148fff69bf1cefe"
+    },
+    {
+      "id": "B2a-040",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_040_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/40",
+      "path": "images/en/B2a/B2a-040.webp",
+      "sha256": "4f3c2b51391855ce7306f0e0fb77aa503b9269f11d856c009dd2e5299f3b41fd"
+    },
+    {
+      "id": "B2a-041",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_041_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/41",
+      "path": "images/en/B2a/B2a-041.webp",
+      "sha256": "09a1368226647393dbf7325d2183b7419aa7a46ab873a09eab996f2eb6bcae59"
+    },
+    {
+      "id": "B2a-043",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_043_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/43",
+      "path": "images/en/B2a/B2a-043.webp",
+      "sha256": "462229b6acf92d0f93b76cea21925cab90f4125d59d85f51c9955475334b98b2"
+    },
+    {
+      "id": "B2a-044",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_044_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/44",
+      "path": "images/en/B2a/B2a-044.webp",
+      "sha256": "be0723d98caff4485cb3c6992d5434beb2de451deb8d4be486855c88f14cb15e"
+    },
+    {
+      "id": "B2a-045",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_045_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/45",
+      "path": "images/en/B2a/B2a-045.webp",
+      "sha256": "dbbfa92bd987229258394bc08afb7c43869a9b748db1232830899e208e283efc"
+    },
+    {
+      "id": "B2a-046",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_046_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/46",
+      "path": "images/en/B2a/B2a-046.webp",
+      "sha256": "e5e0be70f602e3885b9020396d4b555ca98e27d5045c6dcbb6ef99eba0684c28"
+    },
+    {
+      "id": "B2a-047",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_047_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/47",
+      "path": "images/en/B2a/B2a-047.webp",
+      "sha256": "c55c212dfc50829d2e2c0fb58389ab7bf7ce874ced833f402555aaac46c98114"
+    },
+    {
+      "id": "B2a-048",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_048_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/48",
+      "path": "images/en/B2a/B2a-048.webp",
+      "sha256": "b067d952b24fe8fe7f80b0cef3e187f9fc785a2cdc5fdbfba5c33259a055d088"
+    },
+    {
+      "id": "B2a-049",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_049_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/49",
+      "path": "images/en/B2a/B2a-049.webp",
+      "sha256": "c0f4364de668b78daf3396f062bf8df67019be2dcdbcd33d144b74bb655811f4"
+    },
+    {
+      "id": "B2a-050",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_050_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/50",
+      "path": "images/en/B2a/B2a-050.webp",
+      "sha256": "6cff1f9e9552e45ff88ee8a67d6d38553b4ee5b6b313128055b78d10a52d6160"
+    },
+    {
+      "id": "B2a-051",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_051_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/51",
+      "path": "images/en/B2a/B2a-051.webp",
+      "sha256": "b71ac2ff438517ce8655211cca4b07153614357e673425d4e3383eac5babb701"
+    },
+    {
+      "id": "B2a-052",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_052_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/52",
+      "path": "images/en/B2a/B2a-052.webp",
+      "sha256": "85f89d029d72863397cb9826c61d2ad5268c7443a46c4d67df62c9f947a821e6"
+    },
+    {
+      "id": "B2a-053",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_053_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/53",
+      "path": "images/en/B2a/B2a-053.webp",
+      "sha256": "56466d2ac148afdafd30717ff2fc231235e0f9e54cce1c8d409a60aded9c8256"
+    },
+    {
+      "id": "B2a-054",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_054_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/54",
+      "path": "images/en/B2a/B2a-054.webp",
+      "sha256": "22568da00d7d37f0816017748b993757fb0c16ed651b88648b1399835c8f7516"
+    },
+    {
+      "id": "B2a-055",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_055_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/55",
+      "path": "images/en/B2a/B2a-055.webp",
+      "sha256": "948cbab0ef38e6952723abaff29bcbc0c35f61efc1e4c4f0ba5be2f9ff6dc508"
+    },
+    {
+      "id": "B2a-056",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_056_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/56",
+      "path": "images/en/B2a/B2a-056.webp",
+      "sha256": "1ce6338c30c383fc997baf415012baf014c5aa3c6947c4e3bcf20fc714afe8aa"
+    },
+    {
+      "id": "B2a-057",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_057_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/57",
+      "path": "images/en/B2a/B2a-057.webp",
+      "sha256": "8fdf103192cac22a5fe329c42c525a37e8e4982c679a644e5a9f7e179c72f26a"
+    },
+    {
+      "id": "B2a-058",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_058_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/58",
+      "path": "images/en/B2a/B2a-058.webp",
+      "sha256": "9afe1c9f8cbacd12887278edf88f210defcb7f436cdf84fc9a1196766d91f9e5"
+    },
+    {
+      "id": "B2a-059",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_059_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/59",
+      "path": "images/en/B2a/B2a-059.webp",
+      "sha256": "d97d8d35f360c0585603dad9c9cd9469a48461f5bba1f977f5890388ccf29219"
+    },
+    {
+      "id": "B2a-060",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_060_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/60",
+      "path": "images/en/B2a/B2a-060.webp",
+      "sha256": "52c8af2767ba6393286fa57b4502100930006eb92a3f0777a31fb8694ba65790"
+    },
+    {
+      "id": "B2a-061",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_061_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/61",
+      "path": "images/en/B2a/B2a-061.webp",
+      "sha256": "983068ee38366fd8777204d91b9770818468a9f6eeb8f470826fc8d89909721d"
+    },
+    {
+      "id": "B2a-062",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_062_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/62",
+      "path": "images/en/B2a/B2a-062.webp",
+      "sha256": "a9564bb5ab47b61e4cfff5b5a2ef5d011952aad3f0ecbc3dc30bc627120529a5"
+    },
+    {
+      "id": "B2a-063",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_063_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/63",
+      "path": "images/en/B2a/B2a-063.webp",
+      "sha256": "6272f1945b996f6969b690a81f8c3b4918eea80d586297872160202ab4f7e190"
+    },
+    {
+      "id": "B2a-064",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_064_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/64",
+      "path": "images/en/B2a/B2a-064.webp",
+      "sha256": "6062db4c1c51d10b0ff229d7f1400726029aeec41c563175a88e2eb69e3a2cce"
+    },
+    {
+      "id": "B2a-065",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_065_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/65",
+      "path": "images/en/B2a/B2a-065.webp",
+      "sha256": "e5283e773878b5f874400042acfd1ab956fff0d786ab872de73fbdb157be00e9"
+    },
+    {
+      "id": "B2a-066",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_066_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/66",
+      "path": "images/en/B2a/B2a-066.webp",
+      "sha256": "d4b0915f286f21c31cd8a9cfc2f39cd9f107b10315ba2c4392365acb0bc5e363"
+    },
+    {
+      "id": "B2a-067",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_067_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/67",
+      "path": "images/en/B2a/B2a-067.webp",
+      "sha256": "3619f05bf1167c4046334f08aff147d058c00aee1f8ede68bd4db2fd4221f946"
+    },
+    {
+      "id": "B2a-068",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_068_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/68",
+      "path": "images/en/B2a/B2a-068.webp",
+      "sha256": "d86c4d1f35d767273f54408b0eb127393d2800735b069e9104c493ead3bc8b94"
+    },
+    {
+      "id": "B2a-069",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_069_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/69",
+      "path": "images/en/B2a/B2a-069.webp",
+      "sha256": "3f487a1f1bb2073f1b9a0f8c4a52c3cecd71b02d862a64e8b22dc35666eb0f08"
+    },
+    {
+      "id": "B2a-070",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_070_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/70",
+      "path": "images/en/B2a/B2a-070.webp",
+      "sha256": "4b4a4af602020c3d6fa025fb3171e3bdb98f7f8f800f7a9556da1c41a2cf0541"
+    },
+    {
+      "id": "B2a-071",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_071_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/71",
+      "path": "images/en/B2a/B2a-071.webp",
+      "sha256": "ecfd14fd7c1fb17330e99b1128753c37d84d4171f0c80b6645d24bbef49f0794"
+    },
+    {
+      "id": "B2a-072",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_072_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/72",
+      "path": "images/en/B2a/B2a-072.webp",
+      "sha256": "9fa7db85690183e26b3505099e7c59f19124a26eee0a21370858da1d65b28ac2"
+    },
+    {
+      "id": "B2a-073",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_073_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/73",
+      "path": "images/en/B2a/B2a-073.webp",
+      "sha256": "596870d5ddcd31742b33d65bad8c7282c936e5e0cd328ac91d87df1368d4c74b"
+    },
+    {
+      "id": "B2a-074",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_074_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/74",
+      "path": "images/en/B2a/B2a-074.webp",
+      "sha256": "da4938229827688798846e5db57424c10e7c25d29a7f4275cd406478a389c365"
+    },
+    {
+      "id": "B2a-075",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_075_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/75",
+      "path": "images/en/B2a/B2a-075.webp",
+      "sha256": "b30d31ef64f347207a0c64a8798d8e0eeaf197aaabed701c99c92df75467eee5"
+    },
+    {
+      "id": "B2a-076",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_076_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/76",
+      "path": "images/en/B2a/B2a-076.webp",
+      "sha256": "ee1405eb37bdc78f75a0f9a160dcdf80beffc3b071c4279078bdfe33267a7117"
+    },
+    {
+      "id": "B2a-077",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_077_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/77",
+      "path": "images/en/B2a/B2a-077.webp",
+      "sha256": "a93d6aa808d9e1951779ab0ffa4392d8360919b1d605eeee96ac92bd6653f8cc"
+    },
+    {
+      "id": "B2a-079",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_079_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/79",
+      "path": "images/en/B2a/B2a-079.webp",
+      "sha256": "faccbaeed8b54d7a330662de855999e8c2ae99e8ad56c44c2a9e97fac891fb3a"
+    },
+    {
+      "id": "B2a-080",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_080_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/80",
+      "path": "images/en/B2a/B2a-080.webp",
+      "sha256": "2d4d268589df154d43a3f376d1f450a70deefd837f2f7ff14a8861dfc6847d80"
+    },
+    {
+      "id": "B2a-081",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_081_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/81",
+      "path": "images/en/B2a/B2a-081.webp",
+      "sha256": "5448f9b8e5d768e1481baef0f2835844ce7ab509f18254b4bcc2a77c151ae0da"
+    },
+    {
+      "id": "B2a-082",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_082_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/82",
+      "path": "images/en/B2a/B2a-082.webp",
+      "sha256": "5e06b2cab1888ec8c4481e2558e4588bf4823d0515c19d83a413f5015bb2803a"
+    },
+    {
+      "id": "B2a-083",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_083_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/83",
+      "path": "images/en/B2a/B2a-083.webp",
+      "sha256": "cda1a13130eb3393d9f8c019a15da11143192865eada541000d7dfb6794ac20e"
+    },
+    {
+      "id": "B2a-084",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_084_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/84",
+      "path": "images/en/B2a/B2a-084.webp",
+      "sha256": "21812886c6b122cc83d44af0674078ce4da14d7bafc6b290b2df7c22f39e682f"
+    },
+    {
+      "id": "B2a-085",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_085_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/85",
+      "path": "images/en/B2a/B2a-085.webp",
+      "sha256": "4d23988a5f890ad384c7ea702fbd6a2aef8ea27d778bde3efbfc59b53521ad88"
+    },
+    {
+      "id": "B2a-086",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_086_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/86",
+      "path": "images/en/B2a/B2a-086.webp",
+      "sha256": "cbfe67e2becc05f877a11b2d370a426621983bd4b2be9b4dfa9dfd0844d17f5b"
+    },
+    {
+      "id": "B2a-087",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_087_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/87",
+      "path": "images/en/B2a/B2a-087.webp",
+      "sha256": "af213c2d858709d0ed09e0bf881dd941522b0039f8066d85555ef47a8d4e6123"
+    },
+    {
+      "id": "B2a-088",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_088_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/88",
+      "path": "images/en/B2a/B2a-088.webp",
+      "sha256": "9e84b9f3d99a4a25e1176ab31f3a6aa48f02bb4ab929854d668a90e73fb602aa"
+    },
+    {
+      "id": "B2a-089",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_089_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/89",
+      "path": "images/en/B2a/B2a-089.webp",
+      "sha256": "e0df6fa331b5e2ccd4134f7c26f49a019c3f9ae1daccd0f149532688f490e3e9"
+    },
+    {
+      "id": "B2a-090",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_090_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/90",
+      "path": "images/en/B2a/B2a-090.webp",
+      "sha256": "733705e4b99be098422268e207f77da18a1ed45d381955f2a4888aafb48c3dde"
+    },
+    {
+      "id": "B2a-091",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_091_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/91",
+      "path": "images/en/B2a/B2a-091.webp",
+      "sha256": "328e9f4eaf79e025194e55642644811ad131bbf411b1c624bd4dabbe5a26fa03"
+    },
+    {
+      "id": "B2a-092",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_092_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/92",
+      "path": "images/en/B2a/B2a-092.webp",
+      "sha256": "12d19c68f41bf8c3ff321c94be7171114c47056ec49a8adb3cf119072ca1b517"
+    },
+    {
+      "id": "B2a-093",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_093_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/93",
+      "path": "images/en/B2a/B2a-093.webp",
+      "sha256": "1ec24190c25939164cd435074137fc6ec188154ef47f49d67cff97c31fc11858"
+    },
+    {
+      "id": "B2a-094",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_094_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/94",
+      "path": "images/en/B2a/B2a-094.webp",
+      "sha256": "4af1d69198409b61c4cfc1d7c8a7998e0dbe3b30ea8cc5bf718a6edb1dd392c8"
+    },
+    {
+      "id": "B2a-095",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_095_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/95",
+      "path": "images/en/B2a/B2a-095.webp",
+      "sha256": "a1269744114afde802f35350b22e1370189de0da23a9a483136a7f0b007d4b55"
+    },
+    {
+      "id": "B2a-096",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_096_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/96",
+      "path": "images/en/B2a/B2a-096.webp",
+      "sha256": "cf9b8020f2e1f753e4849b746d50eb822b2b1f47b327f29f23fff2d8a408818b"
+    },
+    {
+      "id": "B2a-097",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_097_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/97",
+      "path": "images/en/B2a/B2a-097.webp",
+      "sha256": "78dc1ce95dd916b41c59ea1e5ffe3e947c9a25e9289fb742d1afb748c0138f4d"
+    },
+    {
+      "id": "B2a-098",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_098_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/98",
+      "path": "images/en/B2a/B2a-098.webp",
+      "sha256": "d9b7c312d856ee157d6216223c90e289af33460f02a1570cdcf11246083489ff"
+    },
+    {
+      "id": "B2a-099",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_099_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/99",
+      "path": "images/en/B2a/B2a-099.webp",
+      "sha256": "7ac4cabfeb0fb2cc0a1d88903b927f3f3bed0cb49c5f0d063ee0ccb43a7229b0"
+    },
+    {
+      "id": "B2a-105",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_105_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/105",
+      "path": "images/en/B2a/B2a-105.webp",
+      "sha256": "4fc21a339410740c6fa1b08e156142ff74b2babfccc56591da2fa01259ad3727"
+    },
+    {
+      "id": "B2a-106",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_106_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/106",
+      "path": "images/en/B2a/B2a-106.webp",
+      "sha256": "2f285404ec5073f6bc307d5a5bef56ea38889fff609995d96d7fbc65ad56b61c"
+    },
+    {
+      "id": "B2a-107",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_107_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/107",
+      "path": "images/en/B2a/B2a-107.webp",
+      "sha256": "68acce47ddb6c0d20d465209e39aa8d4b9dbecf54bdedf8c88ca180c30ae1755"
+    },
+    {
+      "id": "B2a-108",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_108_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/108",
+      "path": "images/en/B2a/B2a-108.webp",
+      "sha256": "67abe59d7c860b715a2d31aa0eb4e9f32266f670eecc0f769e2a32a3002b0997"
+    },
+    {
+      "id": "B2a-109",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_109_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/109",
+      "path": "images/en/B2a/B2a-109.webp",
+      "sha256": "7d15d35d3008137006eb50ca28c54df6f9e6235cf56d3a23c21a0850e842ad19"
+    },
+    {
+      "id": "B2a-115",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_115_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/115",
+      "path": "images/en/B2a/B2a-115.webp",
+      "sha256": "13ec32513661124a667cc01182b3688dfc53cb2574228add3a6f5b2b432b374e"
+    },
+    {
+      "id": "B2a-116",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_116_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/116",
+      "path": "images/en/B2a/B2a-116.webp",
+      "sha256": "7b50c28b4c4446ecd7d62c3941aaa63173b257155e095b6f77d97c49eb8e8b52"
+    },
+    {
+      "id": "B2a-117",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_117_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/117",
+      "path": "images/en/B2a/B2a-117.webp",
+      "sha256": "54733fa4748fb3312428008429bcf2b98d0dae6e875991f055c0aa1deb7718d3"
+    },
+    {
+      "id": "B2a-118",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_118_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/118",
+      "path": "images/en/B2a/B2a-118.webp",
+      "sha256": "dfaca70238e0b72ca24b3307b7e10bd3b196d30f7890fc59837ecb5f19ccfd87"
+    },
+    {
+      "id": "B2a-119",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_119_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/119",
+      "path": "images/en/B2a/B2a-119.webp",
+      "sha256": "bad400bbf6525bda19eef759a7ff93bc47e0711a47def1f89597bfcaeb148865"
+    },
+    {
+      "id": "B2a-120",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_120_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/120",
+      "path": "images/en/B2a/B2a-120.webp",
+      "sha256": "311ff57128450bf6e7e00f71a742a2bbd2c61067e7423b00288d66e2a12713f8"
+    },
+    {
+      "id": "B2a-121",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_121_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/121",
+      "path": "images/en/B2a/B2a-121.webp",
+      "sha256": "c0f7b19ab13292114cd2e0867b7c46c909f859701bdef167963a152e03153f80"
+    },
+    {
+      "id": "B2a-122",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_122_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/122",
+      "path": "images/en/B2a/B2a-122.webp",
+      "sha256": "1013a3115913be9b6dff1298f6cfc95bb9e317f09d1d895cb4ef5bf9bace11f5"
+    },
+    {
+      "id": "B2a-123",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_123_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/123",
+      "path": "images/en/B2a/B2a-123.webp",
+      "sha256": "a176f786389196ac9598150c18229bc4a9602d1bbc59faba3f49cd2898f7b385"
+    },
+    {
+      "id": "B2a-124",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_124_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/124",
+      "path": "images/en/B2a/B2a-124.webp",
+      "sha256": "e254b827c03cf2c4a969239596bcb387c4e5b410fb5f1ffe5bf6d75ee48a42b2"
+    },
+    {
+      "id": "B2a-125",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_125_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/125",
+      "path": "images/en/B2a/B2a-125.webp",
+      "sha256": "55bafb34a9b0e2829faa61738baa7f91b3e1ae40ed1a53d7221e15f76f17b8eb"
+    },
+    {
+      "id": "B2a-130",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_130_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/130",
+      "path": "images/en/B2a/B2a-130.webp",
+      "sha256": "4776719c64f04a475cc1556de2a92f07579d7c82499bc913beb599e39f0c5d93"
+    },
+    {
+      "id": "B2a-131",
+      "status": "downloaded",
+      "url": "https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/pocket/B2a/B2a_131_EN_SM.webp",
+      "page": "https://pocket.limitlesstcg.com/cards/B2a/131",
+      "path": "images/en/B2a/B2a-131.webp",
+      "sha256": "b69f44dbd5c302c9fab864161d6d1d3d71ab1612ae84725643f367fc2ca49909"
+    }
+  ]
+}

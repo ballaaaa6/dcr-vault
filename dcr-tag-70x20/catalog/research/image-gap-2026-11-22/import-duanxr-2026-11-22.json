@@ -1,0 +1,152 @@
+{
+  "commit": "76c1f5214bcd766a6ae15ef2904fb0adeb4d5a94",
+  "results": [
+    {
+      "id": "CSMPiC-025",
+      "url": "https://cdn.jsdelivr.net/gh/duanxr/PTCG-CHS-Datasets@76c1f5214bcd766a6ae15ef2904fb0adeb4d5a94/img/17/24.png",
+      "path": "images/zh-cn/CSMPiC/CSMPiC-025.webp",
+      "sha256": "0c0b12bbadf5e7d121b4e5cf7e2018dbcc0667e23691c1b34e97a0cca34b27cb",
+      "status": "downloaded"
+    },
+    {
+      "id": "CSMPiC-026",
+      "url": "https://cdn.jsdelivr.net/gh/duanxr/PTCG-CHS-Datasets@76c1f5214bcd766a6ae15ef2904fb0adeb4d5a94/img/17/25.png",
+      "path": "images/zh-cn/CSMPiC/CSMPiC-026.webp",
+      "sha256": "cfc63af9df3a8f7f0b047cfcf7dc8825d68cca8246f5381786874c197c832729",
+      "status": "downloaded"
+    },
+    {
+      "id": "CSMPiC-027",
+      "url": "https://cdn.jsdelivr.net/gh/duanxr/PTCG-CHS-Datasets@76c1f5214bcd766a6ae15ef2904fb0adeb4d5a94/img/17/26.png",
+      "path": "images/zh-cn/CSMPiC/CSMPiC-027.webp",
+      "sha256": "21ddd7fb1983cd950b950c2d29aaa9f85896520fb5a87215b5a87bdea704f5b2",
+      "status": "downloaded"
+    },
+    {
+      "id": "CSMPiC-028",
+      "url": "https://cdn.jsdelivr.net/gh/duanxr/PTCG-CHS-Datasets@76c1f5214bcd766a6ae15ef2904fb0adeb4d5a94/img/17/27.png",
+      "path": "images/zh-cn/CSMPiC/CSMPiC-028.webp",
+      "sha256": "eebeab46f50b972a0c7a2c5a61aff39b9f29b382cc4662bce05a0d187e4610d7",
+      "status": "downloaded"
+    },
+    {
+      "id": "CSMPiC-029",
+      "url": "https://cdn.jsdelivr.net/gh/duanxr/PTCG-CHS-Datasets@76c1f5214bcd766a6ae15ef2904fb0adeb4d5a94/img/17/28.png",
+      "path": "images/zh-cn/CSMPiC/CSMPiC-029.webp",
+      "sha256": "5cc7f55329a0a75812cde20d9c34c7ad54346235646f1e4518f0ef7bec3fd39b",
+      "status": "downloaded"
+    },
+    {
+      "id": "CSMPiC-030",
+      "url": "https://cdn.jsdelivr.net/gh/duanxr/PTCG-CHS-Datasets@76c1f5214bcd766a6ae15ef2904fb0adeb4d5a94/img/17/29.png",
+      "path": "images/zh-cn/CSMPiC/CSMPiC-030.webp",
+      "sha256": "1bc88a2a383c579187b929ff6aec4a7956c90a136a34d25d61011d68b7408f26",
+      "status": "downloaded"
+    },
+    {
+      "id": "CSMPiC-031",
+      "url": "https://cdn.jsdelivr.net/gh/duanxr/PTCG-CHS-Datasets@76c1f5214bcd766a6ae15ef2904fb0adeb4d5a94/img/17/30.png",
+      "path": "images/zh-cn/CSMPiC/CSMPiC-031.webp",
+      "sha256": "afe42007f297160266343f3ca73f0e300fe1e26af7b65711d31d0ee1ab93a36e",
+      "status": "downloaded"
+    },
+    {
+      "id": "CSMPiC-033",
+      "url": "https://cdn.jsdelivr.net/gh/duanxr/PTCG-CHS-Datasets@76c1f5214bcd766a6ae15ef2904fb0adeb4d5a94/img/17/32.png",
+      "path": "images/zh-cn/CSMPiC/CSMPiC-033.webp",
+      "sha256": "bce039e976a1140407c895fa0094c284812d5ef988404ef4cfba2ac9b4b54fbc",
+      "status": "downloaded"
+    },
+    {
+      "id": "CSMPiC-034",
+      "url": "https://cdn.jsdelivr.net/gh/duanxr/PTCG-CHS-Datasets@76c1f5214bcd766a6ae15ef2904fb0adeb4d5a94/img/17/33.png",
+      "path": "images/zh-cn/CSMPiC/CSMPiC-034.webp",
+      "sha256": "a88dde5bc62da376d883efeae1679613269f190724fff53de6329240c6b2fc6c",
+      "status": "downloaded"
+    },
+    {
+      "id": "CSMPiC-035",
+      "url": "https://cdn.jsdelivr.net/gh/duanxr/PTCG-CHS-Datasets@76c1f5214bcd766a6ae15ef2904fb0adeb4d5a94/img/17/34.png",
+      "path": "images/zh-cn/CSMPiC/CSMPiC-035.webp",
+      "sha256": "a7574c806b7c6da5e5faea651a564416c8915fbeab93f061cedeade8c04589a1",
+      "status": "downloaded"
+    },
+    {
+      "id": "CSMPiC-036",
+      "url": "https://cdn.jsdelivr.net/gh/duanxr/PTCG-CHS-Datasets@76c1f5214bcd766a6ae15ef2904fb0adeb4d5a94/img/17/35.png",
+      "path": "images/zh-cn/CSMPiC/CSMPiC-036.webp",
+      "sha256": "c9558909e0f1bbac5419c99f3b1ce35ccd343f1c601dab089da77280fb82bf9b",
+      "status": "downloaded"
+    },
+    {
+      "id": "CSMPiC-037",
+      "url": "https://cdn.jsdelivr.net/gh/duanxr/PTCG-CHS-Datasets@76c1f5214bcd766a6ae15ef2904fb0adeb4d5a94/img/17/36.png",
+      "path": "images/zh-cn/CSMPiC/CSMPiC-037.webp",
+      "sha256": "de22d34de39ebdc4dab131f279518557adb334d26a0e7d451b04a9c96861ac40",
+      "status": "downloaded"
+    },
+    {
+      "id": "CSMPiC-038",
+      "url": "https://cdn.jsdelivr.net/gh/duanxr/PTCG-CHS-Datasets@76c1f5214bcd766a6ae15ef2904fb0adeb4d5a94/img/17/37.png",
+      "path": "images/zh-cn/CSMPiC/CSMPiC-038.webp",
+      "sha256": "790978eaf2e297924e3a328f7c86b57c3f07783046d6138f6e3bbc078d889f94",
+      "status": "downloaded"
+    },
+    {
+      "id": "CSMPiC-039",
+      "url": "https://cdn.jsdelivr.net/gh/duanxr/PTCG-CHS-Datasets@76c1f5214bcd766a6ae15ef2904fb0adeb4d5a94/img/17/38.png",
+      "path": "images/zh-cn/CSMPiC/CSMPiC-039.webp",
+      "sha256": "4dd7c65c8c48a0c494ab3c01906c1fa95c87ee9ee94322e92ad28a1770b03c14",
+      "status": "downloaded"
+    },
+    {
+      "id": "CSMPiC-040",
+      "url": "https://cdn.jsdelivr.net/gh/duanxr/PTCG-CHS-Datasets@76c1f5214bcd766a6ae15ef2904fb0adeb4d5a94/img/17/39.png",
+      "path": "images/zh-cn/CSMPiC/CSMPiC-040.webp",
+      "sha256": "f4db893443b40ebe3b8c59539881eb1b5d5aa4e13986c6f6a63c547079a32acc",
+      "status": "downloaded"
+    },
+    {
+      "id": "CSMPiC-041",
+      "url": "https://cdn.jsdelivr.net/gh/duanxr/PTCG-CHS-Datasets@76c1f5214bcd766a6ae15ef2904fb0adeb4d5a94/img/17/40.png",
+      "path": "images/zh-cn/CSMPiC/CSMPiC-041.webp",
+      "sha256": "8a0a9ace9e94e50fc33f619b81507b1e7e147bb03b471b5bda5ead6867138a87",
+      "status": "downloaded"
+    },
+    {
+      "id": "CSMPiC-044",
+      "url": "https://cdn.jsdelivr.net/gh/duanxr/PTCG-CHS-Datasets@76c1f5214bcd766a6ae15ef2904fb0adeb4d5a94/img/17/43.png",
+      "path": "images/zh-cn/CSMPiC/CSMPiC-044.webp",
+      "sha256": "4d44babf5cfe2399c1fc658f46cd30f972cddac0600228a2d6f2f61c41342555",
+      "status": "downloaded"
+    },
+    {
+      "id": "CSMPiC-045",
+      "url": "https://cdn.jsdelivr.net/gh/duanxr/PTCG-CHS-Datasets@76c1f5214bcd766a6ae15ef2904fb0adeb4d5a94/img/17/44.png",
+      "path": "images/zh-cn/CSMPiC/CSMPiC-045.webp",
+      "sha256": "ddf46ce9a821e102ce8004cf81e477805e6d5708f74e25e457df64eed7e87946",
+      "status": "downloaded"
+    },
+    {
+      "id": "CSMPiC-046",
+      "url": "https://cdn.jsdelivr.net/gh/duanxr/PTCG-CHS-Datasets@76c1f5214bcd766a6ae15ef2904fb0adeb4d5a94/img/17/45.png",
+      "path": "images/zh-cn/CSMPiC/CSMPiC-046.webp",
+      "sha256": "e754f690c00c3463be858d3a12782f4def82a2b71b3e674b8b7bcf3aa6ff687c",
+      "status": "downloaded"
+    },
+    {
+      "id": "CSMPiC-047",
+      "url": "https://cdn.jsdelivr.net/gh/duanxr/PTCG-CHS-Datasets@76c1f5214bcd766a6ae15ef2904fb0adeb4d5a94/img/17/46.png",
+      "path": "images/zh-cn/CSMPiC/CSMPiC-047.webp",
+      "sha256": "4857b691efa43a1492bfa8c6b035f4edf7cd6b5b87faa335cfe854538ba5102e",
+      "status": "downloaded"
+    },
+    {
+      "id": "CSMPiC-048",
+      "url": "https://cdn.jsdelivr.net/gh/duanxr/PTCG-CHS-Datasets@76c1f5214bcd766a6ae15ef2904fb0adeb4d5a94/img/17/47.png",
+      "path": "images/zh-cn/CSMPiC/CSMPiC-048.webp",
+      "sha256": "652de51fa46b0d54e5248bcdd178bda6520d27dfa23509472b58598e8b6c5377",
+      "status": "downloaded"
+    }
+  ]
+}

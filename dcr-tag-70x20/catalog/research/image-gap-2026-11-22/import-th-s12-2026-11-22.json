@@ -1,0 +1,92 @@
+{
+  "results": [
+    {
+      "id": "S12-036",
+      "status": "downloaded",
+      "page": "https://asia.pokemon-card.com/th/card-search/detail/4572/",
+      "url": "https://asia.pokemon-card.com/th/card-img/th00004572.png",
+      "path": "images/th/S12/S12-036.webp",
+      "sha256": "6f1701c41af3ec699587cd74e7e8219a5718cf37e38179e60d289f5832efa159"
+    },
+    {
+      "id": "S12-077",
+      "status": "downloaded",
+      "page": "https://asia.pokemon-card.com/th/card-search/detail/4613/",
+      "url": "https://asia.pokemon-card.com/th/card-img/th00004613.png",
+      "path": "images/th/S12/S12-077.webp",
+      "sha256": "82dc22b7b6ed04b50174f510ad0686268f261fa015cc832e51cacf6165a920ca"
+    },
+    {
+      "id": "S12-080",
+      "status": "downloaded",
+      "page": "https://asia.pokemon-card.com/th/card-search/detail/4616/",
+      "url": "https://asia.pokemon-card.com/th/card-img/th00004616.png",
+      "path": "images/th/S12/S12-080.webp",
+      "sha256": "fad160a87343aba3dc222f2d6e74f491419b2d5a0dc60cd27c100fabf3cd0a57"
+    },
+    {
+      "id": "S12-091",
+      "status": "downloaded",
+      "page": "https://asia.pokemon-card.com/th/card-search/detail/4627/",
+      "url": "https://asia.pokemon-card.com/th/card-img/th00004627.png",
+      "path": "images/th/S12/S12-091.webp",
+      "sha256": "4169015ce8d815a49a0c937c74566ecc4f63c55bfccbcd2f472b82a8e691f6a1"
+    },
+    {
+      "id": "S12-092",
+      "status": "downloaded",
+      "page": "https://asia.pokemon-card.com/th/card-search/detail/4628/",
+      "url": "https://asia.pokemon-card.com/th/card-img/th00004628.png",
+      "path": "images/th/S12/S12-092.webp",
+      "sha256": "3d692426781a97a61418a2bec9c34ec4b307ddfff2082cbdebf9bbda60e38722"
+    },
+    {
+      "id": "S12-093",
+      "status": "downloaded",
+      "page": "https://asia.pokemon-card.com/th/card-search/detail/4629/",
+      "url": "https://asia.pokemon-card.com/th/card-img/th00004629.png",
+      "path": "images/th/S12/S12-093.webp",
+      "sha256": "f0c5b79f82f2bf5dfaf303d31c8b080d970fb5d7f36d83e6841977635a1b7397"
+    },
+    {
+      "id": "S12-094",
+      "status": "downloaded",
+      "page": "https://asia.pokemon-card.com/th/card-search/detail/4630/",
+      "url": "https://asia.pokemon-card.com/th/card-img/th00004630.png",
+      "path": "images/th/S12/S12-094.webp",
+      "sha256": "772d7223c8b83ba8fbedb6dbaf431739030c9da8eba769f352065cd0d619e8c3"
+    },
+    {
+      "id": "S12-095",
+      "status": "downloaded",
+      "page": "https://asia.pokemon-card.com/th/card-search/detail/4631/",
+      "url": "https://asia.pokemon-card.com/th/card-img/th00004631.png",
+      "path": "images/th/S12/S12-095.webp",
+      "sha256": "100680357f433ca8fb2a59d22a3114de53f291683505e2f1eab89331b003d584"
+    },
+    {
+      "id": "S12-096",
+      "status": "downloaded",
+      "page": "https://asia.pokemon-card.com/th/card-search/detail/4632/",
+      "url": "https://asia.pokemon-card.com/th/card-img/th00004632.png",
+      "path": "images/th/S12/S12-096.webp",
+      "sha256": "b349327f483cc88f49c8fe3ad588af31fae3116dfe62813cec293c21f95fcecb"
+    },
+    {
+      "id": "S12-097",
+      "status": "downloaded",
+      "page": "https://asia.pokemon-card.com/th/card-search/detail/4633/",
+      "url": "https://asia.pokemon-card.com/th/card-img/th00004633.png",
+      "path": "images/th/S12/S12-097.webp",
+      "sha256": "d5e7a9bf6888f3774e1fb086be993a3cfce8456c6879eaa65421d5b30cae48e2"
+    },
+    {
+      "id": "S12-098",
+      "status": "downloaded",
+      "page": "https://asia.pokemon-card.com/th/card-search/detail/4634/",
+      "url": "https://asia.pokemon-card.com/th/card-img/th00004634.png",
+      "path": "images/th/S12/S12-098.webp",
+      "sha256": "53323ae09e507b4d30d4f2bbcf2bff7851caf02f44a446e680e902f8efd546f2"
+    }
+  ]
+}

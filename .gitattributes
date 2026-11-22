@@ -1,0 +1,2 @@
+archive/source-packages/cardcorpus-dataset-2026-11-21.zip filter=lfs diff=lfs merge=lfs -text
+archive/source-packages/ptcg-database-18e0de2feb7a35ebe4296ede0ba6cc768961489b.zip filter=lfs diff=lfs merge=lfs -text

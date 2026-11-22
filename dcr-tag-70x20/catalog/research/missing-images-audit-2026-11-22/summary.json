@@ -1,0 +1,28 @@
+{
+  "date": "2026-11-22",
+  "languages": [
+    {
+      "language": "th",
+      "missing_images": 1,
+      "no_working_image_candidate": 1,
+      "cards_with_multiple_working_leads": 0,
+      "weaker_species_or_name_only": 0
+    },
+    {
+      "language": "ja",
+      "missing_images": 1053,
+      "http_image_candidate": 767,
+      "no_candidate": 286,
+      "cards_with_multiple_working_leads": 12,
+      "weaker_species_or_name_only": 251
+    },
+    {
+      "language": "en",
+      "missing_images": 334,
+      "http_image_candidate": 320,
+      "no_candidate": 14,
+      "cards_with_multiple_working_leads": 0,
+      "weaker_species_or_name_only": 0
+    }
+  ]
+}

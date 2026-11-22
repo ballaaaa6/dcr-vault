@@ -1,0 +1,284 @@
+{
+  "results": [
+    {
+      "id": "SV2a-196",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/805ff07e1b6c960b11c4b40051962086.avif",
+      "path": "images/th/SV2a/SV2a-196.webp",
+      "sha256": "8fb67ea04b857444c45689b237315e58960f5167e6e3565c6f339d0bff3c6bda",
+      "source_set": "thai/pokemon-card-151"
+    },
+    {
+      "id": "SV2a-197",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/0f041c5a62eb554f177d6f840d6bf2ec.avif",
+      "path": "images/th/SV2a/SV2a-197.webp",
+      "sha256": "18c7773f412656b2c14a92b40dfa80446140bb7d017bff8bd0f23eb0795bd5aa",
+      "source_set": "thai/pokemon-card-151"
+    },
+    {
+      "id": "SV2a-198",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/4c65483c91d54bd69e4a70df87544954.avif",
+      "path": "images/th/SV2a/SV2a-198.webp",
+      "sha256": "43a5987571f6646a5697b4c9f3cd17a1cacda71dceedac36ce691c92221cc0ca",
+      "source_set": "thai/pokemon-card-151"
+    },
+    {
+      "id": "SV2a-199",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/104ab88b45b173217b15e7c430b8c73a.avif",
+      "path": "images/th/SV2a/SV2a-199.webp",
+      "sha256": "44d7ef7ac37723ce46615257fc79bdf7fbe629b3e4d2d59302ee928e45ede63c",
+      "source_set": "thai/pokemon-card-151"
+    },
+    {
+      "id": "SV2a-206",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/9b6ebbce4637e748e78888a472027394.avif",
+      "path": "images/th/SV2a/SV2a-206.webp",
+      "sha256": "1bcae2e4d8122a9888232762f1f9e9b778686369e422a2987d9377d315bbf3e2",
+      "source_set": "thai/pokemon-card-151"
+    },
+    {
+      "id": "SV2a-207",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/19382633da9d7e955282337d5f52941d.avif",
+      "path": "images/th/SV2a/SV2a-207.webp",
+      "sha256": "d7879c55782ee8f80f2a1244222447be814c9424d9ba26696a47514c3f2a1f94",
+      "source_set": "thai/pokemon-card-151"
+    },
+    {
+      "id": "SV3-129",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/9a5874afb97ac439f50f8b2d73d7eb59.avif",
+      "path": "images/th/SV3/SV3-129.webp",
+      "sha256": "bd1725edd00a41b3f4b35c8d7d0d1a89f69e15a25b787c1314c0b44b6f3b57e4",
+      "source_set": "thai/ruler-of-the-black-flame"
+    },
+    {
+      "id": "SV3-130",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/fd4335aa8561213f6ed228678e8e6b90.avif",
+      "path": "images/th/SV3/SV3-130.webp",
+      "sha256": "00d8063bf705e3d83205aa603c7f5a305d9ff97269f9744ae0b60ab28cb08b56",
+      "source_set": "thai/ruler-of-the-black-flame"
+    },
+    {
+      "id": "SV3-131",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/ac3a8a9b53baedc424ef580845334654.avif",
+      "path": "images/th/SV3/SV3-131.webp",
+      "sha256": "bd563d8cb0f7b3090e63881aed2e6c5518681d300a13f8ba37fb0578945193a3",
+      "source_set": "thai/ruler-of-the-black-flame"
+    },
+    {
+      "id": "SV3-132",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/01758489039efff44bdabd5667d97a1f.avif",
+      "path": "images/th/SV3/SV3-132.webp",
+      "sha256": "04d7e0f992e2193838b7a2bac511807b5b1558b9bd50b5f6b3d4176b44d07587",
+      "source_set": "thai/ruler-of-the-black-flame"
+    },
+    {
+      "id": "SV3-137",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/09b4ce193d7f2de485ec01cd630c6b0b.avif",
+      "path": "images/th/SV3/SV3-137.webp",
+      "sha256": "667426e90ab3692172084045574bc91a3c27745a11e59d34d37f158f9213f480",
+      "source_set": "thai/ruler-of-the-black-flame"
+    },
+    {
+      "id": "SV3-138",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/472f9fa7084de2083adb7c58901ada46.avif",
+      "path": "images/th/SV3/SV3-138.webp",
+      "sha256": "6cd38b0506add95eed586eafd53ed57f67374a3987d192477ed883b68afdbc3a",
+      "source_set": "thai/ruler-of-the-black-flame"
+    },
+    {
+      "id": "SVDs-136",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/a79a0cc73cccc75f04602de57c424bfe.avif",
+      "path": "images/th/SVDs/SVDs-136.webp",
+      "sha256": "9ecdc8c2be83c01c16a9977aaff81f36c19a53f6f5fde783978bc9c538833fcf",
+      "source_set": "thai/ex-compact-decks"
+    },
+    {
+      "id": "SVDs-137",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/45e85b4b9aeee963e2a00ed2f6e333d8.avif",
+      "path": "images/th/SVDs/SVDs-137.webp",
+      "sha256": "63c03a6a36eed4c6b3719b38f76b4a0e267f5839239d8d90919429c965cf832c",
+      "source_set": "thai/ex-compact-decks"
+    },
+    {
+      "id": "SVDs-138",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/1b4c36230c44a1209a8255b960c48612.avif",
+      "path": "images/th/SVDs/SVDs-138.webp",
+      "sha256": "54202fa4a846b47cfa26859ce97e996a5194c57b47dedf203f31e707b2cb5b5f",
+      "source_set": "thai/ex-compact-decks"
+    },
+    {
+      "id": "SVDs-139",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/b850153b54f7c89552f19e990f64d9a7.avif",
+      "path": "images/th/SVDs/SVDs-139.webp",
+      "sha256": "76cb5583448a60c27e84e2efaf4c980a6c239c317a68e82e56e8f4d2701e0bbc",
+      "source_set": "thai/ex-compact-decks"
+    },
+    {
+      "id": "SVDs-140",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/06bcb0bcf6e7c1b804f3fbf302b5a49f.avif",
+      "path": "images/th/SVDs/SVDs-140.webp",
+      "sha256": "2d2b6df9808df7ed3f1fb4c41de6fd22b2d2b36803da40e4bd3d89131905d16c",
+      "source_set": "thai/ex-compact-decks"
+    },
+    {
+      "id": "SVDs-141",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/eea9edcad15b888b45a5a96da76e7311.avif",
+      "path": "images/th/SVDs/SVDs-141.webp",
+      "sha256": "7d5ff0bb517652c8e849e5b249744b4e105392b60154c890502cc8c11f197081",
+      "source_set": "thai/ex-compact-decks"
+    },
+    {
+      "id": "SVDs-142",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/19cf8985285aed8ae4d2d8479854694d.avif",
+      "path": "images/th/SVDs/SVDs-142.webp",
+      "sha256": "f8d9172ce329e628227ea24837a11c30951a629bf181b8a92ddfd0ea59ad3bfc",
+      "source_set": "thai/ex-compact-decks"
+    },
+    {
+      "id": "SVDs-144",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/24c30018eba948d5ad3015d1bc393ec1.avif",
+      "path": "images/th/SVDs/SVDs-144.webp",
+      "sha256": "36a033c4a68ff6f28524e5b6905d088610f4aaa6b0ce2102dfdf8326f13c5fc5",
+      "source_set": "thai/ex-compact-decks"
+    },
+    {
+      "id": "SVDs-145",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/1cec12ae0a595fef86f3bc643741046d.avif",
+      "path": "images/th/SVDs/SVDs-145.webp",
+      "sha256": "8652e1020b88c33f6fa777b1a6e8e3b516919ecda82df02e1b71bc25cace4a60",
+      "source_set": "thai/ex-compact-decks"
+    },
+    {
+      "id": "SVDs-146",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/268f7719a8a5cbc530a1a1e11a244bb9.avif",
+      "path": "images/th/SVDs/SVDs-146.webp",
+      "sha256": "594e3cd79dd598fcaf63b11ced5398586869238361b728cdb0b101146ace848b",
+      "source_set": "thai/ex-compact-decks"
+    },
+    {
+      "id": "SVDs-147",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/9b4e517f74ce9e78fdd0f0f925a29b0f.avif",
+      "path": "images/th/SVDs/SVDs-147.webp",
+      "sha256": "397d6d4e0dd386620fa2ddee46cf22b8a9b5d4289447b57e94ee8600cebe9988",
+      "source_set": "thai/ex-compact-decks"
+    },
+    {
+      "id": "SVDs-148",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/bae6de21e6cf37379ec30c2edc822cec.avif",
+      "path": "images/th/SVDs/SVDs-148.webp",
+      "sha256": "ae5af4677f206051597011d71b947285217e3dbf10e69834ab375beccbf052ad",
+      "source_set": "thai/ex-compact-decks"
+    },
+    {
+      "id": "SVDs-149",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/461bb8dbc039c5ef63767b17a740b199.avif",
+      "path": "images/th/SVDs/SVDs-149.webp",
+      "sha256": "df97db6c49107899575973d90a5e477ab19be43acf3e9074d2d1a56d0ea36c8c",
+      "source_set": "thai/ex-compact-decks"
+    },
+    {
+      "id": "SVDs-151",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/85c6bb513fd22092c6cf6e63cfd5ba58.avif",
+      "path": "images/th/SVDs/SVDs-151.webp",
+      "sha256": "3bb920bfb3427de1370bd1986079a8961b1cc527118e6f3182311123ac5dcb3d",
+      "source_set": "thai/ex-compact-decks"
+    },
+    {
+      "id": "SVDs-152",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/249b335e853b0188873244d42039e471.avif",
+      "path": "images/th/SVDs/SVDs-152.webp",
+      "sha256": "c386ccc78285af0ab5027f68170110b3b54a356cc337d79a60d166894c4a1f68",
+      "source_set": "thai/ex-compact-decks"
+    },
+    {
+      "id": "SVDs-153",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/b596522527e1b242f714a85a602c5c3e.avif",
+      "path": "images/th/SVDs/SVDs-153.webp",
+      "sha256": "d052b305fcb809619621832c4b7405d78b01498567c305bd5502603b85d0936a",
+      "source_set": "thai/ex-compact-decks"
+    },
+    {
+      "id": "SVDs-154",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/518688423090279a64876b540b73de02.avif",
+      "path": "images/th/SVDs/SVDs-154.webp",
+      "sha256": "b53cb3ec09ee95b186f3de3888efe31f013f60bf9605c1673e44751dbae236c4",
+      "source_set": "thai/ex-compact-decks"
+    },
+    {
+      "id": "SVDs-156",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/5f0fdbba9d1f149b24cfc4dddc59f8e6.avif",
+      "path": "images/th/SVDs/SVDs-156.webp",
+      "sha256": "08ee700d4cba78bef97d693f4eb5dfedbd7b1d95732f9f32b693c7955c7ada37",
+      "source_set": "thai/ex-compact-decks"
+    },
+    {
+      "id": "SVDs-157",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/aa5c4f6e7e782d603781a0cbed8db4cd.avif",
+      "path": "images/th/SVDs/SVDs-157.webp",
+      "sha256": "a369c633768a3bf88d4ba545d4e1336f0a8579b380a631b7498f4c16e50673e0",
+      "source_set": "thai/ex-compact-decks"
+    },
+    {
+      "id": "SVDs-158",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/49286c04419216897e7562195da11402.avif",
+      "path": "images/th/SVDs/SVDs-158.webp",
+      "sha256": "a96b7e9727cd458c95eb7e9713a57125bb86bdef7c4f31e7b59e78fea97c0239",
+      "source_set": "thai/ex-compact-decks"
+    },
+    {
+      "id": "SVDs-159",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/a2d0ce23972d6e034dc2932786b11ccc.avif",
+      "path": "images/th/SVDs/SVDs-159.webp",
+      "sha256": "2b748a286eca90f19482387d5f907a0e7eac07e7276407c8a99e1d7067fba061",
+      "source_set": "thai/ex-compact-decks"
+    },
+    {
+      "id": "SVDs-160",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/16b3949a2fbe3823c392ee00faa73729.avif",
+      "path": "images/th/SVDs/SVDs-160.webp",
+      "sha256": "ce6c2df225d5e5a4abf664e6a4cbd4493e79285fb3f0a3cfedc4e2927a6f830a",
+      "source_set": "thai/ex-compact-decks"
+    },
+    {
+      "id": "SVDs-163",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/fb08201fa6f385b30ae2eeaefc5b018c.avif",
+      "path": "images/th/SVDs/SVDs-163.webp",
+      "sha256": "f17eded4e3c1fe36fbe8201de458f25b089f090574f595853d23eb395736c2a0",
+      "source_set": "thai/ex-compact-decks"
+    }
+  ]
+}

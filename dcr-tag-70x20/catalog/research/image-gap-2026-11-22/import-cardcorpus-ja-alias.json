@@ -1,0 +1,1708 @@
+{
+  "results": [
+    {
+      "id": "E1-001",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/22d38aed779d45814cd69b6205f8c71f.avif",
+      "path": "images/ja/E1/E1-001.webp",
+      "sha256": "1c7dea0b448344453ede8bc56bf5d8e02800b21d1092329dac495a328a591290",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-002",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/16ffe4a8b604379662594fbeacdf3e45.avif",
+      "path": "images/ja/E1/E1-002.webp",
+      "sha256": "27d2cd0a7c99bfeedaef8a3205dcd7f59b04c93562f27d19f5b7f4ae45f20f2c",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-003",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/2a45517e1ef282d52d8734cabb93e800.avif",
+      "path": "images/ja/E1/E1-003.webp",
+      "sha256": "a49ef6d60b12ff4456b03747f166d7e0a8af4279205123d1de999e88c53947cc",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-004",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/f9495a5dce5653f55d804c990b5cc126.avif",
+      "path": "images/ja/E1/E1-004.webp",
+      "sha256": "aa9cc9dac15433cd39aff5d520413cd1c767d508f9514dade2bf05ea5a300095",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-005",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/83fd4bcfdd9f3f289581edc28ab126ff.avif",
+      "path": "images/ja/E1/E1-005.webp",
+      "sha256": "50c2b431f694d327f08e6d8ba5ef016d0169c0ab382b73b62a57c83f670cf59b",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-006",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/9b3316cd77d17e70c95bf98843c835f6.avif",
+      "path": "images/ja/E1/E1-006.webp",
+      "sha256": "7c7f2076145c6100f99207507843feca0af7a01580f46b78f6e9806810d8d1c4",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-007",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/d202dd2f9044b118f412191257983cfd.avif",
+      "path": "images/ja/E1/E1-007.webp",
+      "sha256": "4edebb00d8d2bb21d2c25118f019d6405eadb3711461b978bd1e2a58228b2f7c",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-008",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/03433f4590835cf0b65ce67c00fbe466.avif",
+      "path": "images/ja/E1/E1-008.webp",
+      "sha256": "5d69a6b62dedd2ea823840b52b6f3af9598c820e140ea5919ba027d9b1a9a89e",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-009",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/81c263272b5ac6f236231f4954a9bcbd.avif",
+      "path": "images/ja/E1/E1-009.webp",
+      "sha256": "950e52169c06007c48ee34eb9951d352df16b32356fbcd0fb9ff4c44c7513062",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-010",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/500c9e06ed9f9100f5e8fd8929aedb18.avif",
+      "path": "images/ja/E1/E1-010.webp",
+      "sha256": "b817d5f3d0aa23d8c396872a786e662a9d2e106f029f34034a9ec7c919be72a6",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-011",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/bd974ee1ec8cdce09990f2723e2b04e6.avif",
+      "path": "images/ja/E1/E1-011.webp",
+      "sha256": "1d7106a3a8461222185a27a9a537433e5864cae73366b81cd98e097ebd6306c7",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-012",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/a3f188c7ca90825422d53c8628eb794c.avif",
+      "path": "images/ja/E1/E1-012.webp",
+      "sha256": "cc45631fd969a7ae2661cb954b1d99a8b1826e7b8fc97ed9b50d968220dcd153",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-013",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/95d9e2868e80f9d2d1ca8dd4c59afddb.avif",
+      "path": "images/ja/E1/E1-013.webp",
+      "sha256": "14577e94c07d25e7b98dfe1fafb3552e8621049795cb3dc0aaa63ac54b3a4ebf",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-014",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/0e017e6e05c5ea0ac364a2e0c78db1c9.avif",
+      "path": "images/ja/E1/E1-014.webp",
+      "sha256": "b8fe65cb874357fd1b5ceb1276959d3476292fcb39179f16644348255bbc6718",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-015",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/a855f202126a622107b343762d098d4c.avif",
+      "path": "images/ja/E1/E1-015.webp",
+      "sha256": "1c24a146ae2b3840f03062298a2715ffcfa9c3bf97bc0cfafd625d624699b8fd",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-016",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/0b3b3472ffe104f1203e53aeb6f8c55e.avif",
+      "path": "images/ja/E1/E1-016.webp",
+      "sha256": "86813b8ccf0ba9db4d77a3ccd1c8b936b6f00db023a3339fa515b31eb1f0589b",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-017",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/d2cfabd4fc1b0db23dbc5fc57c89d789.avif",
+      "path": "images/ja/E1/E1-017.webp",
+      "sha256": "23ec350bb098f6d64137beff441920977108138267336dc7416f11c5f6623040",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-018",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/34b5b2ad74be4faa01a5be401df92b1b.avif",
+      "path": "images/ja/E1/E1-018.webp",
+      "sha256": "178fc1bb87ee175fab88efb6215db637cc3f8a2d22137b1af768a5ba5e6b5438",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-019",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/dd07fbca8888c05584b12642faf962a1.avif",
+      "path": "images/ja/E1/E1-019.webp",
+      "sha256": "309b3d637587f337ba44b6b3608603fb1bff6ecb674792129d95f6f652f7ad26",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-020",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/43149533b48aad095ebb10df7458ac40.avif",
+      "path": "images/ja/E1/E1-020.webp",
+      "sha256": "b0149b04b7fdf0897dd8ac8d0ab539e3e45f909500f04dead0f2e5626dbcc46c",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-021",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/2a486418d240c82deef44dc99f59e866.avif",
+      "path": "images/ja/E1/E1-021.webp",
+      "sha256": "a4747906c6aaeb78bdfe193799328d97c353cdeda079affcca60cebd3b100727",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-022",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/1cf8ec13b666c19971e87e2077ff9a80.avif",
+      "path": "images/ja/E1/E1-022.webp",
+      "sha256": "2f195ddc4bac1e49831893dd95437d32aa35fac758bb700fd344a842410db89c",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-023",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/c49372a5478360917793be83b543fff9.avif",
+      "path": "images/ja/E1/E1-023.webp",
+      "sha256": "47cfa2530587439585eb086924767a63cdc924fa8e40412012b53f12bc0fe7d5",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-024",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/ea7eb8bf5e4a9f93eb05694fb88381d5.avif",
+      "path": "images/ja/E1/E1-024.webp",
+      "sha256": "6934fc920d69dc0f5fcdf6c006bc70a3cc1efa50060d036d90e2e426d3f91e36",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-025",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/32c28882cedc4c18194c37374d90f5ba.avif",
+      "path": "images/ja/E1/E1-025.webp",
+      "sha256": "53f2a20f6891d637f77ee2cb89e2672f1a93804d7fde81fb26bf3cf55b167ac7",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-026",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/9bd4bc664b5d49fec015415b7d6022f9.avif",
+      "path": "images/ja/E1/E1-026.webp",
+      "sha256": "8c9573f52e68de063bf3c39c04762bbadf4eac5d2d897bb946c3f879dcd8eac5",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-027",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/0c984e319eb388406b96d8cebfe3a792.avif",
+      "path": "images/ja/E1/E1-027.webp",
+      "sha256": "7c3bfc4e95a275f292a1bfbb34bb32131c8a2c286f6ca4599820370d66a33039",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-028",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/5f3c32ba1f2178fa7a55c5e2984e7522.avif",
+      "path": "images/ja/E1/E1-028.webp",
+      "sha256": "80e93240582a4d8f1580dc4e9b3bbf6143663b06d28dde139b9fe23a72ef8b52",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-029",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/bd25c63cdc6bd85e2fd4e68715fdc586.avif",
+      "path": "images/ja/E1/E1-029.webp",
+      "sha256": "519187cd075890f81191d04d3df122cd86c493352e47c37f351dcb6df3eb7b87",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-030",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/3c1cf21b9cb0718966ae90a52244c8e8.avif",
+      "path": "images/ja/E1/E1-030.webp",
+      "sha256": "c0c168947df365292992023fc510ee9ebdd9cc9f467d318059d21b6bb6dae964",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-031",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/c839e05fb6d35b843efb8fa30c17a515.avif",
+      "path": "images/ja/E1/E1-031.webp",
+      "sha256": "73b089ff13db0f781e9c51604a10f5e527fd8802617582ff2401323604ab3f1a",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-032",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/dc4b280129c22ea376b8aabbcf1267a5.avif",
+      "path": "images/ja/E1/E1-032.webp",
+      "sha256": "382fdd2b985c17098fe8323495f2e2fba619f588e043fdb7e5e0fd9d4c21586f",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-033",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/f02e4b6129f075c31ebe4beb38757cd9.avif",
+      "path": "images/ja/E1/E1-033.webp",
+      "sha256": "2b45e77dc543d43bfcf96341ef8211174eb53e5150daa84ad1e6b661250af294",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-034",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/e64cc1e3816bee7a0b9ff1f348327bb4.avif",
+      "path": "images/ja/E1/E1-034.webp",
+      "sha256": "e7562957c9311bff799120bbc307d962e2073cac1b28e4be5662350b045ecb3b",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-035",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/08887c9d2085710b5ff64592ee54f17b.avif",
+      "path": "images/ja/E1/E1-035.webp",
+      "sha256": "ee7099857902da69cc180207f93dff2a218e08083633a1aa35ca86914343cf2e",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-036",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/e4fafe9198547332ba06bc6f2373c3ee.avif",
+      "path": "images/ja/E1/E1-036.webp",
+      "sha256": "8525583696e5cb3ec66441dcfd2383a97ce739b12a628adff8876e448ab69387",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-037",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/8b4458b5633e17f13e8071c874c60284.avif",
+      "path": "images/ja/E1/E1-037.webp",
+      "sha256": "be797dfc3a16428f6ad704267cd0ddc41d0e8b8760be591f255d1aa6306365f4",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-038",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/44a4efde3fedfd12784940215cfc1ee2.avif",
+      "path": "images/ja/E1/E1-038.webp",
+      "sha256": "0bd258527cd811b0df2489d87d7eb44608965c999db35c9b78659505af9e705a",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-039",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/27567def19be1b3021bbec39ece515b0.avif",
+      "path": "images/ja/E1/E1-039.webp",
+      "sha256": "0a0fdc0a3f95a747f8b6b64f9922df13e4f0160a402046a0a79b8f2f8fb1a5d9",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-040",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/400df5bdb46b7e9ce39485d5cb3b8532.avif",
+      "path": "images/ja/E1/E1-040.webp",
+      "sha256": "88a6d2d8a0931f254d4d05aa9d244f0eaae37242bc900c4a84907742d4b4889f",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-041",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/be27f2269d250e64b990b2f4721dd32a.avif",
+      "path": "images/ja/E1/E1-041.webp",
+      "sha256": "63f47f89cfc41865cabc077a5a829cd4f8d13e0e866dd8ec9dae91c47b26ffce",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-042",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/67c9af5744e8d94af9cdf8ee0589abd0.avif",
+      "path": "images/ja/E1/E1-042.webp",
+      "sha256": "86c3c4ab2c0171d12e6d809724b4d2285eb25fc2b344a69fb15ab6c94f27770e",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-043",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/94ce4127c54d4d8f6d1cb6a7c5e3359d.avif",
+      "path": "images/ja/E1/E1-043.webp",
+      "sha256": "fbd7a0d103a982d71cadbd3cee6fa5193d7d32951108334598f3fd8d61ebfb4f",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-044",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/5cfd65ccbacdaa8520188b2c9227a8e0.avif",
+      "path": "images/ja/E1/E1-044.webp",
+      "sha256": "97514081aa19be3dd57625eb02b895f30a629745043e0376abe15215ffc25bae",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-045",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/21ec484554d5bd2ec6be5d3619cc5691.avif",
+      "path": "images/ja/E1/E1-045.webp",
+      "sha256": "c35c7ffadb34aa8a6effae577ad4a09915794f4dc49f33f579226fbd4bca3e60",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-046",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/9c50da974fbbbcbd099535684f70ac47.avif",
+      "path": "images/ja/E1/E1-046.webp",
+      "sha256": "8902d5ae7938f2c13615dba35ff90d3dd46430cb79bcf4ca79ea194f25639fa8",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-047",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/5e9e8bde78b08abb60efd2e38bed252f.avif",
+      "path": "images/ja/E1/E1-047.webp",
+      "sha256": "097ce2e653ca57139845e7a5ab11075d30ec433b3f8ba3179699d49659cd1a4f",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-048",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/daef22e00e734376446d420a7eb07f09.avif",
+      "path": "images/ja/E1/E1-048.webp",
+      "sha256": "77e2e301791574bc30a5cfc8d9423d54ca168f342d791d8b3c5612dc79ad2adc",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-065",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/e23fbf72634b232d24570dce1b3fd5ff.avif",
+      "path": "images/ja/E1/E1-065.webp",
+      "sha256": "a68381e284bd08332e701c70f490848b8934a16d311c2f10f24b9f0beee47541",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-066",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/34385d0de831d0754e619f69c73e0937.avif",
+      "path": "images/ja/E1/E1-066.webp",
+      "sha256": "0e44189dddfb74625411767519c3c654a529b6cb40138c99bc4b74dd70d569d7",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-067",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/c337fb0897d2597f7476c39ce456207e.avif",
+      "path": "images/ja/E1/E1-067.webp",
+      "sha256": "ba997f45bcedbe588462efd848d0dd6dc51446008b89250531421c28c17a82bf",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-068",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/65ad0b09daf1194a9b7768dc1e3c2cf1.avif",
+      "path": "images/ja/E1/E1-068.webp",
+      "sha256": "eb555ec38fd8a4a579de3e3edb406d592bf2f691a424e8b5a2ea15945e1cb4ef",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-069",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/0d5978a03894c4d4b5c15323d59d3f3a.avif",
+      "path": "images/ja/E1/E1-069.webp",
+      "sha256": "1b924f935de3772b5cc2a1f0a50424ee8aa711602714f695e421d6363388243a",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-070",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/70d455a428c2e106104e480eadcf4610.avif",
+      "path": "images/ja/E1/E1-070.webp",
+      "sha256": "7cb8fe9c5ecd0fed71ce6383c74e4b672cc5996d7b812add36653a358e10c5c5",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-071",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/a6e47d551e8928c8f30ac097eefe7c05.avif",
+      "path": "images/ja/E1/E1-071.webp",
+      "sha256": "2e02d9b185e5f6cadb914c77cc72532ce6ec96b141338ab5bb86dea0902a7d26",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-072",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/32722d841e4b19f301337cea3eb98e89.avif",
+      "path": "images/ja/E1/E1-072.webp",
+      "sha256": "ad1615a35e8154128524096f8fcfea51a1e6d45ea3b99c89efac13de356797d4",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-073",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/d6e6166215a9eeb55cc8735f302a75e8.avif",
+      "path": "images/ja/E1/E1-073.webp",
+      "sha256": "460e98599a5cc8e228db299e6af60aee559c2f68e0abd440b041147e6b58220f",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-074",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/1625966b2e645e77e3c327356a78c771.avif",
+      "path": "images/ja/E1/E1-074.webp",
+      "sha256": "e46b291f51a1512a85851bcf81270cd51a79dfe647ae94eb17a54295fc7885d2",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-075",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/608e9273d463eae65e1493716835c656.avif",
+      "path": "images/ja/E1/E1-075.webp",
+      "sha256": "cfd780c3e13c4df175bdfe15a38afabc2c6de3cc6f461ce313f4b7fe690b2af4",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-076",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/9e85ebb48daed96cf342a9ff26465783.avif",
+      "path": "images/ja/E1/E1-076.webp",
+      "sha256": "c4ef8a7bbf935a3ca55c5db07fda0c36449975efffc4b44a6fe200eecee72099",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-077",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/f4cec7009a5cb08c6d634d7cce66052c.avif",
+      "path": "images/ja/E1/E1-077.webp",
+      "sha256": "5b3ef55819ddffb921b56cb64faa7cb899861ff42d8d48651e47e63106cdd7fd",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-078",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/48b37b75fc239038d84ec53840558150.avif",
+      "path": "images/ja/E1/E1-078.webp",
+      "sha256": "2320eac34fd8ac0870dc5369a0f8177f8fb6a4d455cf9ed8683013670f777a3c",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-079",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/1924cfcf1a8e4a6d2dd26dff06635f67.avif",
+      "path": "images/ja/E1/E1-079.webp",
+      "sha256": "510062fcba9b47268326be43cc38f0af1ea2e81bda6ad2b877e7fd0c9561bbcc",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-080",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/6efaab15869e8e19856145700404d83a.avif",
+      "path": "images/ja/E1/E1-080.webp",
+      "sha256": "7d728c9f33c5c68a8ee1ca547312c55a9f58b97bae64f9d4af993dd77baac45b",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-081",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/f0097e766863c12614812bb9c2a2feda.avif",
+      "path": "images/ja/E1/E1-081.webp",
+      "sha256": "96e2c0db2d5d81993304706a2926242dab830e13504bf0854db2dff57bd7c6de",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-082",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/9a22a8a2910c9430410f2251a809c1b4.avif",
+      "path": "images/ja/E1/E1-082.webp",
+      "sha256": "402361f80c554427e0ce4c6be1bc388e609a3a085807022fb7bb51dc042dc673",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-083",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/7cf76ca025fad475efc1ec9441db75ce.avif",
+      "path": "images/ja/E1/E1-083.webp",
+      "sha256": "a4e475e9c6341b593753c56e6af8903764140623a18f5c7ac08cfbda17bcfc6a",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-084",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/1c000c695987388a154f4697f66df0fe.avif",
+      "path": "images/ja/E1/E1-084.webp",
+      "sha256": "0a76ad6a6db8586a688edf05201351a0d4294a207266f8a5411ed34cb39be52a",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-085",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/588fa7dcbfe0f037189f845ab2e8a6ad.avif",
+      "path": "images/ja/E1/E1-085.webp",
+      "sha256": "3cfba603d0aa6da331ac21eeaccd767b4ad085a01dd83eb9531de0f525922373",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-086",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/91792ec58f1fa1b12317a4a58eb7d7a5.avif",
+      "path": "images/ja/E1/E1-086.webp",
+      "sha256": "f8d9cb2534bdfff555499bd84d99b3b6938dabbdf5837536f229bce7986a9413",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-087",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/6cc9896f91b36923c3751b2128aeb27d.avif",
+      "path": "images/ja/E1/E1-087.webp",
+      "sha256": "4c44b1407585d217d6ba87a4f00905718c3b7452703aab9e6caa9f61b9d13927",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-088",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/6cd4b3cd98476a93a5e7ed6667ae0948.avif",
+      "path": "images/ja/E1/E1-088.webp",
+      "sha256": "6ba7019c0e61c488c9e6466a47634e067df0bb04031e7f651f44d4e21a795f5d",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-089",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/d76ee95395549c69c613c032e661e284.avif",
+      "path": "images/ja/E1/E1-089.webp",
+      "sha256": "5690231954986af9ae7abd0580fb498eea467b9fdf06f952cd266de9316f88a5",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-090",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/ce7a184d2e42814f8e2b04391dd3490d.avif",
+      "path": "images/ja/E1/E1-090.webp",
+      "sha256": "4b10c887d066fa7eb6d0f26ecdab7269bfdadd81d7db4169fe058964301f42d4",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-091",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/101a702fbeba76f96ca12adc08190954.avif",
+      "path": "images/ja/E1/E1-091.webp",
+      "sha256": "c858dbe1e2c559bb733dd434cceb241493ebccc7138435ace26b6969479082ec",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-092",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/0cd0104af247760f898d07e362c5028a.avif",
+      "path": "images/ja/E1/E1-092.webp",
+      "sha256": "4604bfbf6320cbe7c7f8224d5e084694bae1724fc1f1d05670860ba5d50315d6",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-093",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/cca83ccce7aedb2a9d027867ada5a65b.avif",
+      "path": "images/ja/E1/E1-093.webp",
+      "sha256": "55e79695375c0006d02a1ebe28ee846485cccb3d1a33c878582f251e67f6a05e",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-094",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/081a2f02692b54088e63451a26dba890.avif",
+      "path": "images/ja/E1/E1-094.webp",
+      "sha256": "ac63a98c1da59e0f125b5d49fac00cbdae96806d8f28a1b249b073ca3fb58aa2",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-095",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/a21a58140b076718631a79f70d85212a.avif",
+      "path": "images/ja/E1/E1-095.webp",
+      "sha256": "337ed9cc6219c9d8e0f6cf0aa0ecdd6b821ad3f2c859ac078a086ecf792fe3fa",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-096",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/65da198bac353c7cff874e88340e6e18.avif",
+      "path": "images/ja/E1/E1-096.webp",
+      "sha256": "0e6c02f6cc6820a4fc133c4f2c2eb44e91baa488742ccd37baefb43b04362370",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-097",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/de8d217a143c2ee4288760222d0d4b9b.avif",
+      "path": "images/ja/E1/E1-097.webp",
+      "sha256": "57484c1982ca04581c747313c6f23094962cb69ed118f1a8072e140922d40dd7",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-098",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/23b80c958423cbf12ad6e82d2bee9e8d.avif",
+      "path": "images/ja/E1/E1-098.webp",
+      "sha256": "2fd25bff4eaa4f15e7cd97fdc1887071fba656ada06ca27f993f1619063f3508",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-099",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/494ab9b45e9ec08e4d7734af1b04678a.avif",
+      "path": "images/ja/E1/E1-099.webp",
+      "sha256": "df14343151923182b75cfaeb396c85b5f332b2bd89d45e07b1d19d18f336039e",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-100",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/55c3e73b847d013eaf60fbd718b52966.avif",
+      "path": "images/ja/E1/E1-100.webp",
+      "sha256": "b95c76009432c23899a937e1c182cce3477272a20d8045a249c336084f69377e",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-101",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/80f53a76117a547f5e8a11e1e71a188e.avif",
+      "path": "images/ja/E1/E1-101.webp",
+      "sha256": "6278839b16253bf031fb84568c61ea1bd468fff86084c46c13f783cfd42ef480",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-102",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/eff91efefae9df4b8b2e2e524332649c.avif",
+      "path": "images/ja/E1/E1-102.webp",
+      "sha256": "aaf2ec3e4e168182287adeca037311b5c9d2ba0da699d46451c370dd89be0d83",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-103",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/93ab241cd26b43919555bb4bdafb0159.avif",
+      "path": "images/ja/E1/E1-103.webp",
+      "sha256": "db61155452263597a78afc38800ecc733931e1657cc02827763fa3b77c21d4d6",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-104",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/237c710a6ac2ad9997db5cdeac85e0d8.avif",
+      "path": "images/ja/E1/E1-104.webp",
+      "sha256": "0dc771aae67b745339804bd393786f89dc839c13548c5c0e721c6f4098a7118f",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-105",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/2800fe44799d937bb7ea9dca69f744d9.avif",
+      "path": "images/ja/E1/E1-105.webp",
+      "sha256": "d0292161cf3582255c62371477758cecb122f2a3c869f66f973900d9b073e4d4",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-106",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/7e4875c60b1a6f7267cfcbd0ada9e27a.avif",
+      "path": "images/ja/E1/E1-106.webp",
+      "sha256": "2d424e81a2b9a82f55d05480c7a4121e6805ac3f48018ad8574e16cf882bb20a",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-107",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/41faf57216812bd06acc0c7177113b88.avif",
+      "path": "images/ja/E1/E1-107.webp",
+      "sha256": "98119d78ea6cbd0ae5aa6e87c0f3df36c816b741649258e0e833587731b939c1",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-108",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/16692079e669e66535c6947c6425715d.avif",
+      "path": "images/ja/E1/E1-108.webp",
+      "sha256": "050dad8bd96c72974090dd7c4060b8f37dc8193eaabdf7140f1004d8fe90cdbb",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-109",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/8a9a44e17029a180ca86f783be787f15.avif",
+      "path": "images/ja/E1/E1-109.webp",
+      "sha256": "9384698cf36eb275b3808cf3be0b7aedb878430f7a5cb61e7e5bddda604bc728",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-110",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/52c36311e8e27c7c147c546b97b8a5bb.avif",
+      "path": "images/ja/E1/E1-110.webp",
+      "sha256": "718b00196edf92bcba6e2e6f3fcaec8cb8d55f9889886567824bfd0f0c957148",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-111",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/e33100b069a55d86bc6f83b557fe3481.avif",
+      "path": "images/ja/E1/E1-111.webp",
+      "sha256": "ead73d1c5711a344ce6c48b7f6f7924e5877fb9bdfdc1ace026d5181004f0947",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-112",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/f3bbe2a8d0a300cd044f66fe3631be7e.avif",
+      "path": "images/ja/E1/E1-112.webp",
+      "sha256": "836952e046821397da032299b30a58d411e619146951c300745f5b9666f6c94d",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-113",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/7ab81d9b94b941dcdd928d4508e16c8b.avif",
+      "path": "images/ja/E1/E1-113.webp",
+      "sha256": "10e8bdaa61a133c6ce745da055dcf1e2e59c8753895614536dbe4692e956f07d",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-114",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/cb575cd3651bdcb5bf14237ccf956c51.avif",
+      "path": "images/ja/E1/E1-114.webp",
+      "sha256": "33539c47c08d32b49e9b349da18dc5bd265f2185c72bc7f1599437283a5468d3",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-115",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/bfd9e8f88ba10266208a15b83da99bc7.avif",
+      "path": "images/ja/E1/E1-115.webp",
+      "sha256": "e7c4d7b7ded05b17aa48dd13b3234461bc822928f8f30cfe4640bb8c94eedd9e",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-116",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/edba0d1b65997d8ce8fadac4828d364a.avif",
+      "path": "images/ja/E1/E1-116.webp",
+      "sha256": "aeb2b8ce43b41f8f7ca07512cf2814a61f1141091092241d4bdf7a636a6e849c",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-117",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/aa8a52bd81bcdafd4b9fa84fa9cd2c90.avif",
+      "path": "images/ja/E1/E1-117.webp",
+      "sha256": "2dd248fafc1de8e64ef2050f2f324d9461dbce32e9ce2f4f41db6f5817f61bd5",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-118",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/291f0ae382bbfeea04fafdd194a48c9e.avif",
+      "path": "images/ja/E1/E1-118.webp",
+      "sha256": "ae6db2ec965729aa76034be62b194b900b308d0d9f4c30c1a4f6febdea073495",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-119",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/41f245f0d022f53d39c15eb0d48ff48c.avif",
+      "path": "images/ja/E1/E1-119.webp",
+      "sha256": "8a9e124270885ae2aacc969fe719a2b091c160c1653e18179be0b29bc53db105",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-120",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/5ea96b2c7f5177bd93a23755690c62ac.avif",
+      "path": "images/ja/E1/E1-120.webp",
+      "sha256": "86a35c9aff46e206a82b0904a0b0a15eb5319ba0f6a3e9ce031251120fb588d6",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-121",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/251ec9fd60378b872278ed29ae33d72f.avif",
+      "path": "images/ja/E1/E1-121.webp",
+      "sha256": "c192f292610f3644966fb5f3972ec386fa722fc37bcd2c7ffb9560efa595d6ec",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-122",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/64f0dcde4fca8c4db626a735015897cb.avif",
+      "path": "images/ja/E1/E1-122.webp",
+      "sha256": "2bab9fcf505170b351f93ae1d5b675895bd8b4ef948263fc7c592623e7dcd543",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-123",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/ca24c8c4fedb2fabf254c87ef5a0f75b.avif",
+      "path": "images/ja/E1/E1-123.webp",
+      "sha256": "b8c04181dc9348d5a8e409a463705a82e0df8d8f6b6e306c811ce52e8086dfa1",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-124",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/b21ddbf835c8b76d1dacb92a221e121b.avif",
+      "path": "images/ja/E1/E1-124.webp",
+      "sha256": "b4bd0e12af4f48131d8da3ea225669dd0064753ea4496c42a4321f349b5826bd",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-125",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/9c16b44145cb47f7d1e47ba6eae6d506.avif",
+      "path": "images/ja/E1/E1-125.webp",
+      "sha256": "6abcab540c4ebb5fdd4e6f0a43e3d83aa456f27dd73c34b93b4c42eeba414172",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-126",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/1f1191b0a1d12b6d835f09f58e63cee8.avif",
+      "path": "images/ja/E1/E1-126.webp",
+      "sha256": "1b587af594c8873330b42c4ddfaffde8f852dc0bcef3262cb42bdd7f9138be61",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-127",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/f245c2d3b8e2bf2461664fa795e379f0.avif",
+      "path": "images/ja/E1/E1-127.webp",
+      "sha256": "46f68f4bfdda26ee3ce86f5c9275425791f8fede7a9e9f0c2022436a13916b50",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "E1-128",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/2dc314a10e8fb3dac7bad20f2d3499a1.avif",
+      "path": "images/ja/E1/E1-128.webp",
+      "sha256": "b5bc611c7f80a8815e9cb63a75fa56f03f079ecf63493c978e7df6c4782e0501",
+      "source_set": "japanese/expedition-expansion"
+    },
+    {
+      "id": "VS1-001",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/351bc2d370e36f412ac40d3ef86fc896.avif",
+      "path": "images/ja/VS1/VS1-001.webp",
+      "sha256": "1fff90b3f8b92830488f6419c79243f792c86e32ef57041c7ad8f4af8e32b990",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-002",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/011dea0d51daa5b4b886e62dd58ee719.avif",
+      "path": "images/ja/VS1/VS1-002.webp",
+      "sha256": "01f7e726a57c120b0bbe03daafe2d97b21fc1ace11a94a5d4435fcf572883a2f",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-003",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/02ae1fb37e1560ae563dae4bab2ef73e.avif",
+      "path": "images/ja/VS1/VS1-003.webp",
+      "sha256": "7e101b988a7d22a40b135530ac02878feba771ab58b4e52ee5abe3f6902f7767",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-004",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/18b18806eed225ff6b56b50eb26b8d3e.avif",
+      "path": "images/ja/VS1/VS1-004.webp",
+      "sha256": "a9d035895cbaf016297135757ef40e1aac39fbc623328ac90645a3a1a8d1c8a0",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-005",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/d92d2f393cfe2786ba02f758aac20a65.avif",
+      "path": "images/ja/VS1/VS1-005.webp",
+      "sha256": "fc85f893d5270bb41838866376dde419a877558ab4d77837f0ed1a163f010b2c",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-006",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/4053f61d4ded48ffddf8046ae29edf4d.avif",
+      "path": "images/ja/VS1/VS1-006.webp",
+      "sha256": "f6b224828c82d44bf071a05769f2b91e96d9a4d7851465fe215a55b525d1d7cc",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-007",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/d1d551677384773a7afc2708af14062a.avif",
+      "path": "images/ja/VS1/VS1-007.webp",
+      "sha256": "f8818c4287ddd6fb5afb88bf859413624fbbfe14520f9a4b713e37775bab63b9",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-008",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/f3d38ee2a90683f873705893f3b0b4e7.avif",
+      "path": "images/ja/VS1/VS1-008.webp",
+      "sha256": "fe685c1de4616fd7425bc61649f4780c4a42925a0045b9e1f603ec06b45d6570",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-009",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/1412868834ef5424336c476bebd4a13b.avif",
+      "path": "images/ja/VS1/VS1-009.webp",
+      "sha256": "8084c4d8985b314ca82d9f132c3569a49bbed72a41e058ceae46eabfeaa16eb8",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-010",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/b7c4b1e86b001d01c52ff5cd7013db36.avif",
+      "path": "images/ja/VS1/VS1-010.webp",
+      "sha256": "f0b5741778a5469fd458cc179d5939a3d301cf5f50c04adcdb51deaf2d67ead2",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-011",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/9b6449023cfbdcddbfd4bb09d08aa118.avif",
+      "path": "images/ja/VS1/VS1-011.webp",
+      "sha256": "6d4e6e47e36e5eed7b17271ba9a762031fc1321fc5fd06b73b577f0cfaee8907",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-012",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/5f13dba2745c8403652216b8ce98cc33.avif",
+      "path": "images/ja/VS1/VS1-012.webp",
+      "sha256": "98a5597fc720ca84786de69b9f2f7105298439b51d12c37d332e8a91bc35f6d6",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-013",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/844573fef8a8446036987e8a01d9e964.avif",
+      "path": "images/ja/VS1/VS1-013.webp",
+      "sha256": "813b657ec61e836e226d0ceaeef10d8c03e7321a037e3b22e6257cd9ffa5216a",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-014",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/abeb0ddd8dfb800ff2ce4b54fb591132.avif",
+      "path": "images/ja/VS1/VS1-014.webp",
+      "sha256": "a0acb56e65b35ea761daf22483a5700cf0836d7a11b7191dcb1cbceb7aae5bfc",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-015",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/e567637ea9a6ef93e02f934d50713090.avif",
+      "path": "images/ja/VS1/VS1-015.webp",
+      "sha256": "b9a51d98222a5555bbba9cce857487f876fb278f38a1c92e69b791633d3c619b",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-016",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/21cf07168a6e950575ab74c865bbfa8b.avif",
+      "path": "images/ja/VS1/VS1-016.webp",
+      "sha256": "e1fefc8e2ce8d440f92704b3462549cd2063c43984c7e45ad7395e2de4b156c3",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-017",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/792fc61f83e1b2d1e9088a088bdf3200.avif",
+      "path": "images/ja/VS1/VS1-017.webp",
+      "sha256": "a2e609dfa01db42a252c1cb3cfef19243838c4c7a9518ee395b7594f03128ada",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-018",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/f60ebf767a7fa7543f02cbcbd4a1b7a8.avif",
+      "path": "images/ja/VS1/VS1-018.webp",
+      "sha256": "b745fb919f7ecaef2984719e8072e691916e74a0c69ee665a8cb5deb434b5599",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-019",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/f6ace2ae4181b99234c4165f3399fff2.avif",
+      "path": "images/ja/VS1/VS1-019.webp",
+      "sha256": "06c8379fe1aab8f240fc8bd3bc9ad4dacbc737c4d3b4e32d70d071ff71d2b4f5",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-020",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/85c025de8443b30f3ea6e31da20a3232.avif",
+      "path": "images/ja/VS1/VS1-020.webp",
+      "sha256": "1d15083b1fea63403fac62a28ee57b07f9f49cc6c7eaa997a1ace8fb1f7ae6d9",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-021",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/5b987c920bc73bf8bce6c6dce47a08bd.avif",
+      "path": "images/ja/VS1/VS1-021.webp",
+      "sha256": "943139b8982884dd7546b06abcb7a75e0f64c0d4671b152934b76efa71217211",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-022",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/fe3249b0b7aaf2478f4c953c7bb2a716.avif",
+      "path": "images/ja/VS1/VS1-022.webp",
+      "sha256": "c4208b25de8a131cd770b278ccc64ab49baebaeee3adc5e16dd58384bce39e15",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-023",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/cd805196fb5735552874205b8c057403.avif",
+      "path": "images/ja/VS1/VS1-023.webp",
+      "sha256": "b1009f32c3bdf78a3121388a1459f7cbbd67078fe21e23fee1bff6a0823ddcd7",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-024",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/0cb884a007043720a01b9709b8e38d38.avif",
+      "path": "images/ja/VS1/VS1-024.webp",
+      "sha256": "81117125825b97e141b4e903f5a47e2d3d42d0647b1340b89467a5e82e4a8491",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-025",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/c4d56978db768768a2eef7214f1e4d38.avif",
+      "path": "images/ja/VS1/VS1-025.webp",
+      "sha256": "5c735d6c2210635e37f07e1dc66ab3621b76db00654988359cf589f673511ecb",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-026",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/95b0e85977a1584b86b802af8d0a27d4.avif",
+      "path": "images/ja/VS1/VS1-026.webp",
+      "sha256": "071027063264308065dee2976fe67687727bbd119ab932c6ae77bd1f8347ea65",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-027",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/908971644e45995642638659850338e6.avif",
+      "path": "images/ja/VS1/VS1-027.webp",
+      "sha256": "b1af268588d097b3fcd8da4933b2cba71da0d94ce335ffcc80cc0912e2d4220d",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-028",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/ea871dcc08534e75a43eda3f46253121.avif",
+      "path": "images/ja/VS1/VS1-028.webp",
+      "sha256": "1833c7a77250ad618ea44ce652be4be87d9087e43995609d6e2d152a0ba566fc",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-029",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/3f352432774354b34a916d7f9c945be4.avif",
+      "path": "images/ja/VS1/VS1-029.webp",
+      "sha256": "1ed9c2069a847671c3913a0c70b42f076939aa6b62be9f6a66072e6b06d6085a",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-030",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/6f0c850496c434d8cd405fc20e05c66a.avif",
+      "path": "images/ja/VS1/VS1-030.webp",
+      "sha256": "8e2622576c3776acacd250c80b8bec3e5abfdb411428d3ef60b40f310246f881",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-031",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/c12e84408cf91e7dcd03440823eaeb1b.avif",
+      "path": "images/ja/VS1/VS1-031.webp",
+      "sha256": "10668f83945d966f13afdfe94ed0792b3060eeb4da08f270830aa7a34eace664",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-032",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/fb04ea76f010b5c92c20235eb47f5a67.avif",
+      "path": "images/ja/VS1/VS1-032.webp",
+      "sha256": "24ab6fec2d30bf80896da38b2348f8d8f79bbe3ee0833acfe525852fd2062f76",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-033",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/7ec2377bf0c49be51c83157bb44d6852.avif",
+      "path": "images/ja/VS1/VS1-033.webp",
+      "sha256": "adef0494da63ee8836272bab04808cf671319c9f9a287694719cef97c9b21ccd",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-034",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/f005bae208dc502b08d92bd825e3c0e3.avif",
+      "path": "images/ja/VS1/VS1-034.webp",
+      "sha256": "2690f971a9b2e57aceddc7fda1e44a9729c4c7b9f95187152e8c1912de57de3f",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-035",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/842616cfb9a28d20f72d3e13841956c7.avif",
+      "path": "images/ja/VS1/VS1-035.webp",
+      "sha256": "e722239b9afd7d0acd0bff12bc4a4adc605f12fc551e7443427dc35f58f4c113",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-036",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/33197a48c5bb816668f440e45b1ae29c.avif",
+      "path": "images/ja/VS1/VS1-036.webp",
+      "sha256": "58f22f39b3b4dda2e61cc05103bd4e368141f4f896e563391637477fd8591696",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-037",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/db71cea8578847d10d02bd980dd04b75.avif",
+      "path": "images/ja/VS1/VS1-037.webp",
+      "sha256": "1de6b5af60fc4ef7345ef256cc279bbe9755a4716ef2aa938725d9691540ddfe",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-038",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/6f548959e08f92e5ddbb9e7afda6e8ce.avif",
+      "path": "images/ja/VS1/VS1-038.webp",
+      "sha256": "f82eed613456e662f5fa7871bea2fa38b90c6d64d64443fabadd56700049a559",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-039",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/231dc08b690c23ad78910aa6e86a1b73.avif",
+      "path": "images/ja/VS1/VS1-039.webp",
+      "sha256": "c4d55fce0caaed1892cec11ed75a6aa37fe217ac3f905b1ca8add1495758e9b8",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-040",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/adeae9e74b0d863273bd05cc4dc1e1f0.avif",
+      "path": "images/ja/VS1/VS1-040.webp",
+      "sha256": "5b1c3282def6e651efe5c90095cdb136d09a5c0b6e3e87be68915f8dcd09cf3a",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-041",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/cd93b159f7fef4301200062e59565be3.avif",
+      "path": "images/ja/VS1/VS1-041.webp",
+      "sha256": "f0c952e8e16c94c3e124f9a96bd8c2a6f65b7aa760a45168ca409bdbde1774d0",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-042",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/a7c8f20151cb67c43b1d264106a0f875.avif",
+      "path": "images/ja/VS1/VS1-042.webp",
+      "sha256": "0a5b7882505f1073678fa7793140e981d6294fcf2422992e04a1ff70bfd62609",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-043",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/a0701b47d6dbcb0e5f2198057748b3d2.avif",
+      "path": "images/ja/VS1/VS1-043.webp",
+      "sha256": "8cf790cea24fcf4f1abb75f8174f71111448b90131c2e0db4960943e5a7b8ff9",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-044",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/83e69d5b79b96258af960b786797c4f4.avif",
+      "path": "images/ja/VS1/VS1-044.webp",
+      "sha256": "0417896df1b6f3b2abae3db1c0a897a6eadeb23aeec2dc491d2cc4ab60081eb7",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-045",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/03259019a9f9f4c4ceb0fbb4160fb521.avif",
+      "path": "images/ja/VS1/VS1-045.webp",
+      "sha256": "0ed52626fbb538b617e3d3b5fda3369d82040aeee1ab83c7a61f65de35685440",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-046",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/2aafd363556eb96d9e3cf8f5b78a548d.avif",
+      "path": "images/ja/VS1/VS1-046.webp",
+      "sha256": "ae5234788eb23b719cc7f35e6c4a3924adda4e73e19ac19d18db467f483012ee",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-047",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/6522243d5c37d9cba9cf4ad1cb75e2f1.avif",
+      "path": "images/ja/VS1/VS1-047.webp",
+      "sha256": "9097f2509c58a98ac25832437fe373b46ab03c7ea8a08623f2a41cf2a4253fd7",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-048",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/1d1ec1f26f053051e47e16e9b1b195e9.avif",
+      "path": "images/ja/VS1/VS1-048.webp",
+      "sha256": "2278bdada48be062bfd67e1d283366a413e28582c292558cf4856751b0a4e3cb",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-049",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/c1eca1804e1122fe8da391b177f15320.avif",
+      "path": "images/ja/VS1/VS1-049.webp",
+      "sha256": "8df3ea033ba5a77011bc37120b1674bae659b320a504099f959dfb8c25b001fc",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-050",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/15f398e26bade74e3ecc0d1059f34f6b.avif",
+      "path": "images/ja/VS1/VS1-050.webp",
+      "sha256": "41d7db15030e5876c0c0d7a8beaf0dd6799d2b66dec6d0034c44a24d8f0cdbf9",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-051",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/5b6fc5ae252df3ff66e8a3a79575db0b.avif",
+      "path": "images/ja/VS1/VS1-051.webp",
+      "sha256": "2e55d27862a8933306aa00f78ae9199ed8cfac683cc591f36334e6e813f1428b",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-052",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/156d49c095aeb5f0bf766b5942b1b294.avif",
+      "path": "images/ja/VS1/VS1-052.webp",
+      "sha256": "74bb1bbe7ce62ee157c903298594343014e1db36781054de247699b03265a51b",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-053",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/9bfb7a1b399a7e46d87a6d19df00ca7a.avif",
+      "path": "images/ja/VS1/VS1-053.webp",
+      "sha256": "bd428bb2505ef38c36be3b1e34668bae87beb8154e204ec34360aa953caafddc",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-054",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/16d823a2a2d75ddf32fc021b66a66242.avif",
+      "path": "images/ja/VS1/VS1-054.webp",
+      "sha256": "2a6b4847e4c012e5c1c8e324508841fc0e7ab0489c0d775293329c2e6b119b8d",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-055",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/9a958c45cf11579fe0e6803684656938.avif",
+      "path": "images/ja/VS1/VS1-055.webp",
+      "sha256": "2d71be8505eb6d54e54310f338845c6e707465e31c59588fe212a738cc1940fc",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-056",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/8d368f2117a80b4882f5cb7a73265ce9.avif",
+      "path": "images/ja/VS1/VS1-056.webp",
+      "sha256": "114ee7984b18448fef65d7030ec6cbba9c12cd648ad05941c0b8a4786389e346",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-057",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/40cbb30423be6a671ff41651c81287fc.avif",
+      "path": "images/ja/VS1/VS1-057.webp",
+      "sha256": "7ba0cff697414d9a561d1b05fcb9e11580b6978fff20bd9d9f5d91e5e071e539",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-058",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/59e9faa608bb56ff667cc91352bdc6be.avif",
+      "path": "images/ja/VS1/VS1-058.webp",
+      "sha256": "89792f9a47d98dab74509c5b38f2c37956133f01782a8c309ea602b46edb838f",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-059",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/e07c422021ed6ea0c5c9f43d6b182c75.avif",
+      "path": "images/ja/VS1/VS1-059.webp",
+      "sha256": "bf5a5beb36e08b838ae79970eb425a181b88cf5731d927e82760a0f9e023a158",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-060",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/e9dc035dccdf589ad3bafd8cd68ffaba.avif",
+      "path": "images/ja/VS1/VS1-060.webp",
+      "sha256": "25b00881f5dd9628a03bc5dafb6d5ca7533e4411cfcfc1e146071a108c13836d",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-061",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/0c8b6e7864bfba9992aeba5e03a7ea3f.avif",
+      "path": "images/ja/VS1/VS1-061.webp",
+      "sha256": "db9c61051dda92ffbca53e94abfa7264d21ce05d96e5fca2ade10c8c57da0da2",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-062",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/9d4c6366b3f9ac704762e650f88ee503.avif",
+      "path": "images/ja/VS1/VS1-062.webp",
+      "sha256": "7d00c5ed3f2462d80b78b306b17e1cf719e24e0330742fac6f0e5dca06c94419",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-063",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/767a6697bc8096db69218a4cc80c5d22.avif",
+      "path": "images/ja/VS1/VS1-063.webp",
+      "sha256": "a7bb0bc3df741420a8ec9cce4946a42f61235b08f1c8cad1a21651d10b89ebf0",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-064",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/5aef912336b7f46e79ff35579f42f357.avif",
+      "path": "images/ja/VS1/VS1-064.webp",
+      "sha256": "a07084621fab8491772c550eef767441d717b7033f854ced3d43fc038700d3ee",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-065",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/46bb7a0c64eddc6843a9fba3d82f83ea.avif",
+      "path": "images/ja/VS1/VS1-065.webp",
+      "sha256": "e16c822decc5e86290b2a741b784af101472e25c4d923521cc8b075deaedd4d9",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-066",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/234ee2f5e61736a540f15dd501988ff1.avif",
+      "path": "images/ja/VS1/VS1-066.webp",
+      "sha256": "8efc960301bc856b839af2e1ec376012d73ed54734c0e55d858526c48962b377",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-067",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/b925af987d7404a11822516fd7aedc74.avif",
+      "path": "images/ja/VS1/VS1-067.webp",
+      "sha256": "6f07b5e9340178e627e9bef4abe5703144e0b50d53f7ec95da45fece77ef3a24",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-068",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/3d8f302ff1926700e2725b57d06b1f23.avif",
+      "path": "images/ja/VS1/VS1-068.webp",
+      "sha256": "198e0097a7b933824f55efe7002e72f34b18a08a30b4a9271e2bbb5a237e8862",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-069",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/43057b8d92ea8f317240c53f44f64201.avif",
+      "path": "images/ja/VS1/VS1-069.webp",
+      "sha256": "b2e82c3abe4065059e166722af75bcde1e941a0573bf44b8369b0589697e7fbd",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-070",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/40bf96015d6482cd86a07ceb28847d73.avif",
+      "path": "images/ja/VS1/VS1-070.webp",
+      "sha256": "930de6b347795ebe6e4b9e9e365ab4a592eb840654f967a7f17809835a14775d",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-071",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/93d82d3f73dcf0faccf4739a319946bf.avif",
+      "path": "images/ja/VS1/VS1-071.webp",
+      "sha256": "601071ccbac4a9f9b16be15b0ca4342b864bbd0669eadc70f5df1580cafe5a42",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-072",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/48f5fc4d7106ddbfcc5a26af5d51528e.avif",
+      "path": "images/ja/VS1/VS1-072.webp",
+      "sha256": "73ca8b89af5963930c22f85b3b92a0a992116dd9a256e69d3ad06ddc42010581",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-073",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/9ef6a0598831539d13f0a58a194a5f9a.avif",
+      "path": "images/ja/VS1/VS1-073.webp",
+      "sha256": "b877a2c2e3045170167a704f796111ec21c737aa61d018abf7a327f3486c56c0",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-074",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/4918d705d616b3bf21ec8581e76527c8.avif",
+      "path": "images/ja/VS1/VS1-074.webp",
+      "sha256": "b760bff9f5f675ac5d04d20fbd0b380a4f95d0bfea73931f19baef80a3f52baf",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-075",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/ec4e6f0907fd6e76ed47ea7612d113c0.avif",
+      "path": "images/ja/VS1/VS1-075.webp",
+      "sha256": "65b995b6526e168aa289af2c74e331e2be6a4b6e853cdf16a785199ad9f64866",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-076",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/da1f1703308b0e9e13a3081e787f9083.avif",
+      "path": "images/ja/VS1/VS1-076.webp",
+      "sha256": "b88970a7d13d0dfaf1e474ed18707cd0e5b18baa157576bfd11d621bdd2c4d66",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-078",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/1bd536c2e04ad3e276a5f0397fd3c8d0.avif",
+      "path": "images/ja/VS1/VS1-078.webp",
+      "sha256": "82e276c2d9be44441def349e78a8901a9472de8995aaa8ac4b1f71d81f236fac",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-079",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/7875383bcdb1831bc708e49400d4c34b.avif",
+      "path": "images/ja/VS1/VS1-079.webp",
+      "sha256": "52911f9474797c520ff555ea9e27c3291e29837050d07bd80f8ba45684d8bda8",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-080",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/4ad534c1e2a5b5383d3bf2c97744710d.avif",
+      "path": "images/ja/VS1/VS1-080.webp",
+      "sha256": "bfe4e1ac819bdcb55f2da6c77d41acfd7ce9d5160096a5d87f7243564fd1f88d",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-081",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/156d586f4bbd6a7163c12b0efeff24f1.avif",
+      "path": "images/ja/VS1/VS1-081.webp",
+      "sha256": "1627dd1c36dc8bcd3b875b282140a8fb758a98ddf1221f6980c845008f4d650a",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-082",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/17d7826ac819f63fa84b37f366b9ab88.avif",
+      "path": "images/ja/VS1/VS1-082.webp",
+      "sha256": "3a3cf6acb92601a8fddd8e581301d924de12bf779f130e64080a6cb28547f36c",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-083",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/71fc09b9149637184b66b657dc887918.avif",
+      "path": "images/ja/VS1/VS1-083.webp",
+      "sha256": "f2e21522959867715098bf45405c7b68249f2c463d0d192ff1028300220fec8a",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-084",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/e5a999b5d6d187c90f00310ba0fc7da2.avif",
+      "path": "images/ja/VS1/VS1-084.webp",
+      "sha256": "d898d8f3dffc4483c60d7dbeb6847d1d7891701dcf178ba514418b4e48a4607a",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-085",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/4ee72a0e83d276b5f88dbc37c234490f.avif",
+      "path": "images/ja/VS1/VS1-085.webp",
+      "sha256": "8c6f323a785a7591605feceb353cfcba82103b60a9a6fc5ceac405a8d617c74c",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-086",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/98a8f73d5b003256134a906dbe019c15.avif",
+      "path": "images/ja/VS1/VS1-086.webp",
+      "sha256": "8410e0508164bc07bcc19e70db94ba7625ffbb4ee4ed58943718544618b954b4",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-087",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/82ad91dd4b20e44c8c338302ebb645e9.avif",
+      "path": "images/ja/VS1/VS1-087.webp",
+      "sha256": "2c754d28081f9f4871d932264cbb286cb0f80a4d42a2565825414ec1efcd673b",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-088",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/022840fd32123c5719bd538624eee66c.avif",
+      "path": "images/ja/VS1/VS1-088.webp",
+      "sha256": "21f9625aa102d67d6adb97519f8e4674bafab9f1c6aaa13b16953420b6348a9f",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-089",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/f354c639d2333acdfdd8a40f11c9b51d.avif",
+      "path": "images/ja/VS1/VS1-089.webp",
+      "sha256": "e26b0cbd3f7e600de4af1a92df1f4377526c2ccefcc07da267347b95ef3315ed",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-090",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/3e7c701967f4cb36ffdd6913be5335ec.avif",
+      "path": "images/ja/VS1/VS1-090.webp",
+      "sha256": "52d42767bab7e7edf9b9d4cce6531d4f3a932f882e65d0f302fb624b466a6e9d",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-091",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/983de660db7cd817a8f006a2edd69393.avif",
+      "path": "images/ja/VS1/VS1-091.webp",
+      "sha256": "622a7892911e9bc94e88ab885f3e75aab53f17f867a40100d331e51cb73932f0",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-092",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/771e68811358fec5576225fe262e8397.avif",
+      "path": "images/ja/VS1/VS1-092.webp",
+      "sha256": "9ce61487856bf5df8d85e0294b68edfe745025575674bac25fb80a6d62c0a9bb",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-093",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/ae8d5922199b47790bd0e4f6a5bdfd2e.avif",
+      "path": "images/ja/VS1/VS1-093.webp",
+      "sha256": "f445c0f10e2dc4ce1628722b01380ca6e8270eb85d223edceca179a34bfe0c4d",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-094",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/b3e816c7123ba7e1c15f5468624fa9b7.avif",
+      "path": "images/ja/VS1/VS1-094.webp",
+      "sha256": "54c9a1bb4aa88879e877694e13c24836241b56ecb8b2a292bb5f92750fa47d25",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-095",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/778c7a2cd97e13f27dc10ed2ba761b40.avif",
+      "path": "images/ja/VS1/VS1-095.webp",
+      "sha256": "d2bed6ae8fc4a920c0bd6fcd16e23ea2d88a6f20d810577d9571f4623230aef1",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-096",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/ae0bcff54a69d6f0be5964ca4a91ce95.avif",
+      "path": "images/ja/VS1/VS1-096.webp",
+      "sha256": "56750f35bf0e41362b74e44d5ed563c3a2cad0d3203319fee511534d4fc929ee",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-097",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/5999bd825361ce37ade6cd81042ec95b.avif",
+      "path": "images/ja/VS1/VS1-097.webp",
+      "sha256": "33d43a96abb1e3944eea81fe70ff0d9169910a20c0cf4530e3587096131421b8",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-098",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/b26a1bc69075ed5d36da9cefef3afa99.avif",
+      "path": "images/ja/VS1/VS1-098.webp",
+      "sha256": "549b2b33142e62a62df733e2d1edb801c30b5e7143225e05f4bba941efdc1a2b",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-099",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/7ad3cb169cb9127b66f7eee825c60588.avif",
+      "path": "images/ja/VS1/VS1-099.webp",
+      "sha256": "34b33345f4d95da9d7ce60d0b96343f7a2339373bcb0dabbe0816ead8a406683",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-100",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/fa21f1a2594beac656eed1d1bf08bbf3.avif",
+      "path": "images/ja/VS1/VS1-100.webp",
+      "sha256": "87a223699075ca54308d94350677aca9fc1a54acf6b8754e584f761fb1362c3d",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-101",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/a267a9d658181981daeee3cab1d241cc.avif",
+      "path": "images/ja/VS1/VS1-101.webp",
+      "sha256": "cdad28efc24626bc551d2bd1cb290b37eb257b77ac756fc8980341ed311c692f",
+      "source_set": "japanese/pokemon-vs"
+    },
+    {
+      "id": "VS1-102",
+      "status": "downloaded",
+      "url": "https://img.cardcorpus.com/s1/240/bf569cd07a2ad0070ce724d7daca3bb0.avif",
+      "path": "images/ja/VS1/VS1-102.webp",
+      "sha256": "f8ac810a9e5ca3f7088a4ca15fc15721101f02471f53b372ab1a5dc81e4942c3",
+      "source_set": "japanese/pokemon-vs"
+    }
+  ]
+}

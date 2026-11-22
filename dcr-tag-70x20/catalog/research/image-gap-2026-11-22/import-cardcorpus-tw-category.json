@@ -1,0 +1,60 @@
+{
+  "results": [
+    {
+      "id": "SV2a-196",
+      "status": "downloaded",
+      "path": "images/zh-tw/SV2a/SV2a-196.webp",
+      "sha256": "963732e912935ffe0e59e6ca435584fb2ea6488e41387df8f11c0302a63d00a9",
+      "url": "https://img.cardcorpus.com/s1/240/2b74399b41573196253b9e1ecf307039.avif"
+    },
+    {
+      "id": "SV2a-197",
+      "status": "downloaded",
+      "path": "images/zh-tw/SV2a/SV2a-197.webp",
+      "sha256": "c47c1743d28bcb3b0ce26110839c14c33a797c4bc3d7629c32fe2f8112e9db09",
+      "url": "https://img.cardcorpus.com/s1/240/58d6cd95af5ba1f40300dce63ac4e932.avif"
+    },
+    {
+      "id": "SV2a-198",
+      "status": "downloaded",
+      "path": "images/zh-tw/SV2a/SV2a-198.webp",
+      "sha256": "6cdd350aa43045e37fb9c3dc22e96ca5c56f9dd88d029e37dfc59d7f0646d842",
+      "url": "https://img.cardcorpus.com/s1/240/8685aac47c13cee50607f64c9d3f6486.avif"
+    },
+    {
+      "id": "SV2a-199",
+      "status": "downloaded",
+      "path": "images/zh-tw/SV2a/SV2a-199.webp",
+      "sha256": "55ca29db66c187ddc7b7d3be595ecee86d43dff2975a4e277b5a4a6f34d3ab37",
+      "url": "https://img.cardcorpus.com/s1/240/236d05a4973527e9452e9cb737dfdc48.avif"
+    },
+    {
+      "id": "SV2a-206",
+      "status": "downloaded",
+      "path": "images/zh-tw/SV2a/SV2a-206.webp",
+      "sha256": "4256b7e37d9e09b4902023b748dccc8705b5efd874466e2b48e1b8343b7848e7",
+      "url": "https://img.cardcorpus.com/s1/240/d5c13d3a2dea2471340e74e0d6590eb7.avif"
+    },
+    {
+      "id": "SV2a-207",
+      "status": "downloaded",
+      "path": "images/zh-tw/SV2a/SV2a-207.webp",
+      "sha256": "530eebb867d6b7c718f0b756845b5612a35d0632b21e011c38451d581e1de6c7",
+      "url": "https://img.cardcorpus.com/s1/240/23517281e33928323cae94d1eb9f61e2.avif"
+    },
+    {
+      "id": "SV3-117",
+      "status": "downloaded",
+      "path": "images/zh-tw/SV3/SV3-117.webp",
+      "sha256": "97797a25f32176bf0b41e20ad51035dbc95092c209a59bd7fc7feff8a6426a0a",
+      "url": "https://img.cardcorpus.com/s1/240/2560ff64d3bf56ec7084166032005280.avif"
+    },
+    {
+      "id": "SV3-120",
+      "status": "downloaded",
+      "path": "images/zh-tw/SV3/SV3-120.webp",
+      "sha256": "4325c0cb357ccb441e5c9cc1d50ed0ae88a651689a9c03a0c7de0fd0714a5f02",
+      "url": "https://img.cardcorpus.com/s1/240/9bed9439d785b3addc557be4067cebf9.avif"
+    }
+  ]
+}

@@ -1,0 +1,1626 @@
+{
+  "SV4K-001": {
+    "name": "야나프",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021001",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_001.png",
+    "dataset_set": "SV4K",
+    "number": "001"
+  },
+  "SV4K-002": {
+    "name": "야나키",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021002",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_002.png",
+    "dataset_set": "SV4K",
+    "number": "002"
+  },
+  "SV4K-003": {
+    "name": "마라카치",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021003",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_003.png",
+    "dataset_set": "SV4K",
+    "number": "003"
+  },
+  "SV4K-004": {
+    "name": "돌살이",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021004",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_004.png",
+    "dataset_set": "SV4K",
+    "number": "004"
+  },
+  "SV4K-005": {
+    "name": "암팰리스",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021005",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_005.png",
+    "dataset_set": "SV4K",
+    "number": "005"
+  },
+  "SV4K-006": {
+    "name": "달콤아",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021006",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_006.png",
+    "dataset_set": "SV4K",
+    "number": "006"
+  },
+  "SV4K-007": {
+    "name": "달무리나",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021007",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_007.png",
+    "dataset_set": "SV4K",
+    "number": "007"
+  },
+  "SV4K-008": {
+    "name": "콩알뚜기",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021008",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_008.png",
+    "dataset_set": "SV4K",
+    "number": "008"
+  },
+  "SV4K-009": {
+    "name": "콩알뚜기",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021009",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_009.png",
+    "dataset_set": "SV4K",
+    "number": "009"
+  },
+  "SV4K-010": {
+    "name": "마그비",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021010",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_010.png",
+    "dataset_set": "SV4K",
+    "number": "010"
+  },
+  "SV4K-011": {
+    "name": "둔타",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021011",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_011.png",
+    "dataset_set": "SV4K",
+    "number": "011"
+  },
+  "SV4K-012": {
+    "name": "폭타",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021012",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_012.png",
+    "dataset_set": "SV4K",
+    "number": "012"
+  },
+  "SV4K-013": {
+    "name": "카르본",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021013",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_013.png",
+    "dataset_set": "SV4K",
+    "number": "013"
+  },
+  "SV4K-014": {
+    "name": "카르본",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021014",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_014.png",
+    "dataset_set": "SV4K",
+    "number": "014"
+  },
+  "SV4K-015": {
+    "name": "카디나르마 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021015",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_015.png",
+    "dataset_set": "SV4K",
+    "number": "015"
+  },
+  "SV4K-016": {
+    "name": "위유이",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021016",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_016.png",
+    "dataset_set": "SV4K",
+    "number": "016"
+  },
+  "SV4K-017": {
+    "name": "쏘드라",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021017",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_017.png",
+    "dataset_set": "SV4K",
+    "number": "017"
+  },
+  "SV4K-018": {
+    "name": "시드라",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021018",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_018.png",
+    "dataset_set": "SV4K",
+    "number": "018"
+  },
+  "SV4K-019": {
+    "name": "킹드라",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021019",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_019.png",
+    "dataset_set": "SV4K",
+    "number": "019"
+  },
+  "SV4K-020": {
+    "name": "달코퀸 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021020",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_020.png",
+    "dataset_set": "SV4K",
+    "number": "020"
+  },
+  "SV4K-021": {
+    "name": "꼬시레",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021021",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_021.png",
+    "dataset_set": "SV4K",
+    "number": "021"
+  },
+  "SV4K-022": {
+    "name": "갑주무사 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021022",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_022.png",
+    "dataset_set": "SV4K",
+    "number": "022"
+  },
+  "SV4K-023": {
+    "name": "바다그다",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021023",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_023.png",
+    "dataset_set": "SV4K",
+    "number": "023"
+  },
+  "SV4K-024": {
+    "name": "바다그다",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021024",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_024.png",
+    "dataset_set": "SV4K",
+    "number": "024"
+  },
+  "SV4K-025": {
+    "name": "바닥트리오",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021025",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_025.png",
+    "dataset_set": "SV4K",
+    "number": "025"
+  },
+  "SV4K-026": {
+    "name": "가비루사",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021026",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_026.png",
+    "dataset_set": "SV4K",
+    "number": "026"
+  },
+  "SV4K-027": {
+    "name": "라티오스",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021027",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_027.png",
+    "dataset_set": "SV4K",
+    "number": "027"
+  },
+  "SV4K-028": {
+    "name": "또르박쥐",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021028",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_028.png",
+    "dataset_set": "SV4K",
+    "number": "028"
+  },
+  "SV4K-029": {
+    "name": "맘박쥐",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021029",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_029.png",
+    "dataset_set": "SV4K",
+    "number": "029"
+  },
+  "SV4K-030": {
+    "name": "데스마스",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021030",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_030.png",
+    "dataset_set": "SV4K",
+    "number": "030"
+  },
+  "SV4K-031": {
+    "name": "데스니칸 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021031",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_031.png",
+    "dataset_set": "SV4K",
+    "number": "031"
+  },
+  "SV4K-032": {
+    "name": "우렁찬꼬리",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021032",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_032.png",
+    "dataset_set": "SV4K",
+    "number": "032"
+  },
+  "SV4K-033": {
+    "name": "비조푸",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021033",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_033.png",
+    "dataset_set": "SV4K",
+    "number": "033"
+  },
+  "SV4K-034": {
+    "name": "비조도",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021034",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_034.png",
+    "dataset_set": "SV4K",
+    "number": "034"
+  },
+  "SV4K-035": {
+    "name": "때때무노",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021035",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_035.png",
+    "dataset_set": "SV4K",
+    "number": "035"
+  },
+  "SV4K-036": {
+    "name": "케오퍼스",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021036",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_036.png",
+    "dataset_set": "SV4K",
+    "number": "036"
+  },
+  "SV4K-037": {
+    "name": "베베솔트",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021037",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_037.png",
+    "dataset_set": "SV4K",
+    "number": "037"
+  },
+  "SV4K-038": {
+    "name": "베베솔트",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021038",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_038.png",
+    "dataset_set": "SV4K",
+    "number": "038"
+  },
+  "SV4K-039": {
+    "name": "스태솔트",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021039",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_039.png",
+    "dataset_set": "SV4K",
+    "number": "039"
+  },
+  "SV4K-040": {
+    "name": "콜로솔트",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021040",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_040.png",
+    "dataset_set": "SV4K",
+    "number": "040"
+  },
+  "SV4K-041": {
+    "name": "땅을기는날개",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021041",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_041.png",
+    "dataset_set": "SV4K",
+    "number": "041"
+  },
+  "SV4K-042": {
+    "name": "모래털가죽 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021042",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_042.png",
+    "dataset_set": "SV4K",
+    "number": "042"
+  },
+  "SV4K-043": {
+    "name": "딩루",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021043",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_043.png",
+    "dataset_set": "SV4K",
+    "number": "043"
+  },
+  "SV4K-044": {
+    "name": "주뱃",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021044",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_044.png",
+    "dataset_set": "SV4K",
+    "number": "044"
+  },
+  "SV4K-045": {
+    "name": "골뱃",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021045",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_045.png",
+    "dataset_set": "SV4K",
+    "number": "045"
+  },
+  "SV4K-046": {
+    "name": "크로뱃",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021046",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_046.png",
+    "dataset_set": "SV4K",
+    "number": "046"
+  },
+  "SV4K-047": {
+    "name": "쌔비냥",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021047",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_047.png",
+    "dataset_set": "SV4K",
+    "number": "047"
+  },
+  "SV4K-048": {
+    "name": "레파르다스",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021048",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_048.png",
+    "dataset_set": "SV4K",
+    "number": "048"
+  },
+  "SV4K-049": {
+    "name": "깨봉이",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021049",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_049.png",
+    "dataset_set": "SV4K",
+    "number": "049"
+  },
+  "SV4K-050": {
+    "name": "더스트나",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021050",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_050.png",
+    "dataset_set": "SV4K",
+    "number": "050"
+  },
+  "SV4K-051": {
+    "name": "모르페코",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021051",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_051.png",
+    "dataset_set": "SV4K",
+    "number": "051"
+  },
+  "SV4K-052": {
+    "name": "엑스레그",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021052",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_052.png",
+    "dataset_set": "SV4K",
+    "number": "052"
+  },
+  "SV4K-053": {
+    "name": "사나운버섯",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021053",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_053.png",
+    "dataset_set": "SV4K",
+    "number": "053"
+  },
+  "SV4K-054": {
+    "name": "고동치는달 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021054",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_054.png",
+    "dataset_set": "SV4K",
+    "number": "054"
+  },
+  "SV4K-055": {
+    "name": "소곤룡",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021055",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_055.png",
+    "dataset_set": "SV4K",
+    "number": "055"
+  },
+  "SV4K-056": {
+    "name": "노공룡",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021056",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_056.png",
+    "dataset_set": "SV4K",
+    "number": "056"
+  },
+  "SV4K-057": {
+    "name": "폭음룡",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021057",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_057.png",
+    "dataset_set": "SV4K",
+    "number": "057"
+  },
+  "SV4K-058": {
+    "name": "얼루기",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021058",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_058.png",
+    "dataset_set": "SV4K",
+    "number": "058"
+  },
+  "SV4K-059": {
+    "name": "대지의 그릇",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021059",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_059.png",
+    "dataset_set": "SV4K",
+    "number": "059"
+  },
+  "SV4K-060": {
+    "name": "잠만보인형",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021060",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_060.png",
+    "dataset_set": "SV4K",
+    "number": "060"
+  },
+  "SV4K-061": {
+    "name": "기술머신 데볼루션",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021061",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_061.png",
+    "dataset_set": "SV4K",
+    "number": "061"
+  },
+  "SV4K-062": {
+    "name": "부스트에너지 고대",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021062",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_062.png",
+    "dataset_set": "SV4K",
+    "number": "062"
+  },
+  "SV4K-063": {
+    "name": "오기조끼",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021063",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_063.png",
+    "dataset_set": "SV4K",
+    "number": "063"
+  },
+  "SV4K-064": {
+    "name": "멜로코",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021064",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_064.png",
+    "dataset_set": "SV4K",
+    "number": "064"
+  },
+  "SV4K-065": {
+    "name": "올림박사의 기백",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021065",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_065.png",
+    "dataset_set": "SV4K",
+    "number": "065"
+  },
+  "SV4K-066": {
+    "name": "종길",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021066",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_066.png",
+    "dataset_set": "SV4K",
+    "number": "066"
+  },
+  "SV4K-067": {
+    "name": "암팰리스",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021067",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_067.png",
+    "dataset_set": "SV4K",
+    "number": "067"
+  },
+  "SV4K-068": {
+    "name": "마그비",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021068",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_068.png",
+    "dataset_set": "SV4K",
+    "number": "068"
+  },
+  "SV4K-069": {
+    "name": "꼬시레",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021069",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_069.png",
+    "dataset_set": "SV4K",
+    "number": "069"
+  },
+  "SV4K-070": {
+    "name": "가비루사",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021070",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_070.png",
+    "dataset_set": "SV4K",
+    "number": "070"
+  },
+  "SV4K-071": {
+    "name": "우렁찬꼬리",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021071",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_071.png",
+    "dataset_set": "SV4K",
+    "number": "071"
+  },
+  "SV4K-072": {
+    "name": "비조도",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021072",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_072.png",
+    "dataset_set": "SV4K",
+    "number": "072"
+  },
+  "SV4K-073": {
+    "name": "콜로솔트",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021073",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_073.png",
+    "dataset_set": "SV4K",
+    "number": "073"
+  },
+  "SV4K-074": {
+    "name": "땅을기는날개",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021074",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_074.png",
+    "dataset_set": "SV4K",
+    "number": "074"
+  },
+  "SV4K-075": {
+    "name": "더스트나",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021075",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_075.png",
+    "dataset_set": "SV4K",
+    "number": "075"
+  },
+  "SV4K-076": {
+    "name": "모르페코",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021076",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_076.png",
+    "dataset_set": "SV4K",
+    "number": "076"
+  },
+  "SV4K-077": {
+    "name": "사나운버섯",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021077",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_077.png",
+    "dataset_set": "SV4K",
+    "number": "077"
+  },
+  "SV4K-078": {
+    "name": "노공룡",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021078",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_078.png",
+    "dataset_set": "SV4K",
+    "number": "078"
+  },
+  "SV4K-079": {
+    "name": "카디나르마 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021079",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_079.png",
+    "dataset_set": "SV4K",
+    "number": "079"
+  },
+  "SV4K-080": {
+    "name": "달코퀸 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021080",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_080.png",
+    "dataset_set": "SV4K",
+    "number": "080"
+  },
+  "SV4K-081": {
+    "name": "갑주무사 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021081",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_081.png",
+    "dataset_set": "SV4K",
+    "number": "081"
+  },
+  "SV4K-082": {
+    "name": "데스니칸 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021082",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_082.png",
+    "dataset_set": "SV4K",
+    "number": "082"
+  },
+  "SV4K-083": {
+    "name": "모래털가죽 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021083",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_083.png",
+    "dataset_set": "SV4K",
+    "number": "083"
+  },
+  "SV4K-084": {
+    "name": "고동치는달 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021084",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_084.png",
+    "dataset_set": "SV4K",
+    "number": "084"
+  },
+  "SV4K-085": {
+    "name": "멜로코",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021085",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_085.png",
+    "dataset_set": "SV4K",
+    "number": "085"
+  },
+  "SV4K-086": {
+    "name": "올림박사의 기백",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021086",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_086.png",
+    "dataset_set": "SV4K",
+    "number": "086"
+  },
+  "SV4K-087": {
+    "name": "종길",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021087",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_087.png",
+    "dataset_set": "SV4K",
+    "number": "087"
+  },
+  "SV4K-088": {
+    "name": "갑주무사 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021088",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_088.png",
+    "dataset_set": "SV4K",
+    "number": "088"
+  },
+  "SV4K-089": {
+    "name": "모래털가죽 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021089",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_089.png",
+    "dataset_set": "SV4K",
+    "number": "089"
+  },
+  "SV4K-090": {
+    "name": "고동치는달 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021090",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_090.png",
+    "dataset_set": "SV4K",
+    "number": "090"
+  },
+  "SV4K-093": {
+    "name": "고동치는달 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021093",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_093.png",
+    "dataset_set": "SV4K",
+    "number": "093"
+  },
+  "SV4K-094": {
+    "name": "럭셔리망토",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021094",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_094.png",
+    "dataset_set": "SV4K",
+    "number": "094"
+  },
+  "SV4K-095": {
+    "name": "기본 악 에너지",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023021095",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_095.png",
+    "dataset_set": "SV4K",
+    "number": "095"
+  },
+  "SV4M-001": {
+    "name": "비구술",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022001",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_001.png",
+    "dataset_set": "SV4M",
+    "number": "001"
+  },
+  "SV4M-002": {
+    "name": "비나방",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022002",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_002.png",
+    "dataset_set": "SV4M",
+    "number": "002"
+  },
+  "SV4M-003": {
+    "name": "두루지벌레",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022003",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_003.png",
+    "dataset_set": "SV4M",
+    "number": "003"
+  },
+  "SV4M-004": {
+    "name": "레돔벌레",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022004",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_004.png",
+    "dataset_set": "SV4M",
+    "number": "004"
+  },
+  "SV4M-005": {
+    "name": "이올브",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022005",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_005.png",
+    "dataset_set": "SV4M",
+    "number": "005"
+  },
+  "SV4M-006": {
+    "name": "들눈해",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022006",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_006.png",
+    "dataset_set": "SV4M",
+    "number": "006"
+  },
+  "SV4M-007": {
+    "name": "들눈해",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022007",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_007.png",
+    "dataset_set": "SV4M",
+    "number": "007"
+  },
+  "SV4M-008": {
+    "name": "육파리",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022008",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_008.png",
+    "dataset_set": "SV4M",
+    "number": "008"
+  },
+  "SV4M-009": {
+    "name": "총지엔",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022009",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_009.png",
+    "dataset_set": "SV4M",
+    "number": "009"
+  },
+  "SV4M-010": {
+    "name": "바오프",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022010",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_010.png",
+    "dataset_set": "SV4M",
+    "number": "010"
+  },
+  "SV4M-011": {
+    "name": "바오키",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022011",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_011.png",
+    "dataset_set": "SV4M",
+    "number": "011"
+  },
+  "SV4M-012": {
+    "name": "무쇠독나방",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022012",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_012.png",
+    "dataset_set": "SV4M",
+    "number": "012"
+  },
+  "SV4M-013": {
+    "name": "빈티나",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022013",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_013.png",
+    "dataset_set": "SV4M",
+    "number": "013"
+  },
+  "SV4M-014": {
+    "name": "밀로틱",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022014",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_014.png",
+    "dataset_set": "SV4M",
+    "number": "014"
+  },
+  "SV4M-015": {
+    "name": "앗차프",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022015",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_015.png",
+    "dataset_set": "SV4M",
+    "number": "015"
+  },
+  "SV4M-016": {
+    "name": "앗차키",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022016",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_016.png",
+    "dataset_set": "SV4M",
+    "number": "016"
+  },
+  "SV4M-017": {
+    "name": "바닐프티",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022017",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_017.png",
+    "dataset_set": "SV4M",
+    "number": "017"
+  },
+  "SV4M-018": {
+    "name": "바닐리치",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022018",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_018.png",
+    "dataset_set": "SV4M",
+    "number": "018"
+  },
+  "SV4M-019": {
+    "name": "배바닐라",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022019",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_019.png",
+    "dataset_set": "SV4M",
+    "number": "019"
+  },
+  "SV4M-020": {
+    "name": "무쇠보따리",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022020",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_020.png",
+    "dataset_set": "SV4M",
+    "number": "020"
+  },
+  "SV4M-021": {
+    "name": "파오젠",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022021",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_021.png",
+    "dataset_set": "SV4M",
+    "number": "021"
+  },
+  "SV4M-022": {
+    "name": "에레키드",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022022",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_022.png",
+    "dataset_set": "SV4M",
+    "number": "022"
+  },
+  "SV4M-023": {
+    "name": "줄뮤마",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022023",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_023.png",
+    "dataset_set": "SV4M",
+    "number": "023"
+  },
+  "SV4M-024": {
+    "name": "제브라이카",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022024",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_024.png",
+    "dataset_set": "SV4M",
+    "number": "024"
+  },
+  "SV4M-025": {
+    "name": "춤추새",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022025",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_025.png",
+    "dataset_set": "SV4M",
+    "number": "025"
+  },
+  "SV4M-026": {
+    "name": "일레즌",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022026",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_026.png",
+    "dataset_set": "SV4M",
+    "number": "026"
+  },
+  "SV4M-027": {
+    "name": "무쇠손 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022027",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_027.png",
+    "dataset_set": "SV4M",
+    "number": "027"
+  },
+  "SV4M-028": {
+    "name": "치렁",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022028",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_028.png",
+    "dataset_set": "SV4M",
+    "number": "028"
+  },
+  "SV4M-029": {
+    "name": "호바귀",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022029",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_029.png",
+    "dataset_set": "SV4M",
+    "number": "029"
+  },
+  "SV4M-030": {
+    "name": "펌킨인",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022030",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_030.png",
+    "dataset_set": "SV4M",
+    "number": "030"
+  },
+  "SV4M-031": {
+    "name": "하느라기",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022031",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_031.png",
+    "dataset_set": "SV4M",
+    "number": "031"
+  },
+  "SV4M-032": {
+    "name": "하느라기",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022032",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_032.png",
+    "dataset_set": "SV4M",
+    "number": "032"
+  },
+  "SV4M-033": {
+    "name": "클레스퍼트라",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022033",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_033.png",
+    "dataset_set": "SV4M",
+    "number": "033"
+  },
+  "SV4M-034": {
+    "name": "어리짱",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022034",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_034.png",
+    "dataset_set": "SV4M",
+    "number": "034"
+  },
+  "SV4M-035": {
+    "name": "어리짱",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022035",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_035.png",
+    "dataset_set": "SV4M",
+    "number": "035"
+  },
+  "SV4M-036": {
+    "name": "벼리짱",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022036",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_036.png",
+    "dataset_set": "SV4M",
+    "number": "036"
+  },
+  "SV4M-037": {
+    "name": "두드리짱",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022037",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_037.png",
+    "dataset_set": "SV4M",
+    "number": "037"
+  },
+  "SV4M-038": {
+    "name": "무쇠무인 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022038",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_038.png",
+    "dataset_set": "SV4M",
+    "number": "038"
+  },
+  "SV4M-039": {
+    "name": "롱스톤",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022039",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_039.png",
+    "dataset_set": "SV4M",
+    "number": "039"
+  },
+  "SV4M-040": {
+    "name": "스트린더 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022040",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_040.png",
+    "dataset_set": "SV4M",
+    "number": "040"
+  },
+  "SV4M-041": {
+    "name": "강철톤",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022041",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_041.png",
+    "dataset_set": "SV4M",
+    "number": "041"
+  },
+  "SV4M-042": {
+    "name": "아이앤트",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022042",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_042.png",
+    "dataset_set": "SV4M",
+    "number": "042"
+  },
+  "SV4M-043": {
+    "name": "단칼빙",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022043",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_043.png",
+    "dataset_set": "SV4M",
+    "number": "043"
+  },
+  "SV4M-044": {
+    "name": "쌍검킬",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022044",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_044.png",
+    "dataset_set": "SV4M",
+    "number": "044"
+  },
+  "SV4M-045": {
+    "name": "킬가르도 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022045",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_045.png",
+    "dataset_set": "SV4M",
+    "number": "045"
+  },
+  "SV4M-046": {
+    "name": "파비코리 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022046",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_046.png",
+    "dataset_set": "SV4M",
+    "number": "046"
+  },
+  "SV4M-047": {
+    "name": "싸리용",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022047",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_047.png",
+    "dataset_set": "SV4M",
+    "number": "047"
+  },
+  "SV4M-048": {
+    "name": "폴리곤",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022048",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_048.png",
+    "dataset_set": "SV4M",
+    "number": "048"
+  },
+  "SV4M-049": {
+    "name": "폴리곤2",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022049",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_049.png",
+    "dataset_set": "SV4M",
+    "number": "049"
+  },
+  "SV4M-050": {
+    "name": "폴리곤Z",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022050",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_050.png",
+    "dataset_set": "SV4M",
+    "number": "050"
+  },
+  "SV4M-051": {
+    "name": "에이팜",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022051",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_051.png",
+    "dataset_set": "SV4M",
+    "number": "051"
+  },
+  "SV4M-052": {
+    "name": "겟핸보숭",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022052",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_052.png",
+    "dataset_set": "SV4M",
+    "number": "052"
+  },
+  "SV4M-053": {
+    "name": "밀탱크",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022053",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_053.png",
+    "dataset_set": "SV4M",
+    "number": "053"
+  },
+  "SV4M-054": {
+    "name": "파비코",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022054",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_054.png",
+    "dataset_set": "SV4M",
+    "number": "054"
+  },
+  "SV4M-055": {
+    "name": "두리쥐",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022055",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_055.png",
+    "dataset_set": "SV4M",
+    "number": "055"
+  },
+  "SV4M-056": {
+    "name": "두리쥐",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022056",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_056.png",
+    "dataset_set": "SV4M",
+    "number": "056"
+  },
+  "SV4M-057": {
+    "name": "파밀리쥐 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022057",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_057.png",
+    "dataset_set": "SV4M",
+    "number": "057"
+  },
+  "SV4M-058": {
+    "name": "무쇠머리",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022058",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_058.png",
+    "dataset_set": "SV4M",
+    "number": "058"
+  },
+  "SV4M-059": {
+    "name": "카운터 캐처",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022059",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_059.png",
+    "dataset_set": "SV4M",
+    "number": "059"
+  },
+  "SV4M-060": {
+    "name": "테크노레이더",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022060",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_060.png",
+    "dataset_set": "SV4M",
+    "number": "060"
+  },
+  "SV4M-061": {
+    "name": "기술머신 에볼루션",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022061",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_061.png",
+    "dataset_set": "SV4M",
+    "number": "061"
+  },
+  "SV4M-062": {
+    "name": "부스트에너지 미래",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022062",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_062.png",
+    "dataset_set": "SV4M",
+    "number": "062"
+  },
+  "SV4M-063": {
+    "name": "저주의 먼지떨이",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022063",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_063.png",
+    "dataset_set": "SV4M",
+    "number": "063"
+  },
+  "SV4M-064": {
+    "name": "강석",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022064",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_064.png",
+    "dataset_set": "SV4M",
+    "number": "064"
+  },
+  "SV4M-065": {
+    "name": "리파",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022065",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_065.png",
+    "dataset_set": "SV4M",
+    "number": "065"
+  },
+  "SV4M-066": {
+    "name": "투로박사의 시나리오",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022066",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_066.png",
+    "dataset_set": "SV4M",
+    "number": "066"
+  },
+  "SV4M-067": {
+    "name": "레돔벌레",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022067",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_067.png",
+    "dataset_set": "SV4M",
+    "number": "067"
+  },
+  "SV4M-068": {
+    "name": "육파리",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022068",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_068.png",
+    "dataset_set": "SV4M",
+    "number": "068"
+  },
+  "SV4M-069": {
+    "name": "무쇠독나방",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022069",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_069.png",
+    "dataset_set": "SV4M",
+    "number": "069"
+  },
+  "SV4M-070": {
+    "name": "바닐리치",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022070",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_070.png",
+    "dataset_set": "SV4M",
+    "number": "070"
+  },
+  "SV4M-071": {
+    "name": "무쇠보따리",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022071",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_071.png",
+    "dataset_set": "SV4M",
+    "number": "071"
+  },
+  "SV4M-072": {
+    "name": "줄뮤마",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022072",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_072.png",
+    "dataset_set": "SV4M",
+    "number": "072"
+  },
+  "SV4M-073": {
+    "name": "클레스퍼트라",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022073",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_073.png",
+    "dataset_set": "SV4M",
+    "number": "073"
+  },
+  "SV4M-074": {
+    "name": "강철톤",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022074",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_074.png",
+    "dataset_set": "SV4M",
+    "number": "074"
+  },
+  "SV4M-075": {
+    "name": "에이팜",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022075",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_075.png",
+    "dataset_set": "SV4M",
+    "number": "075"
+  },
+  "SV4M-076": {
+    "name": "파비코",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022076",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_076.png",
+    "dataset_set": "SV4M",
+    "number": "076"
+  },
+  "SV4M-077": {
+    "name": "폴리곤Z",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022077",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_077.png",
+    "dataset_set": "SV4M",
+    "number": "077"
+  },
+  "SV4M-078": {
+    "name": "무쇠머리",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022078",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_078.png",
+    "dataset_set": "SV4M",
+    "number": "078"
+  },
+  "SV4M-079": {
+    "name": "무쇠손 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022079",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_079.png",
+    "dataset_set": "SV4M",
+    "number": "079"
+  },
+  "SV4M-080": {
+    "name": "무쇠무인 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022080",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_080.png",
+    "dataset_set": "SV4M",
+    "number": "080"
+  },
+  "SV4M-081": {
+    "name": "스트린더 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022081",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_081.png",
+    "dataset_set": "SV4M",
+    "number": "081"
+  },
+  "SV4M-082": {
+    "name": "킬가르도 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022082",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_082.png",
+    "dataset_set": "SV4M",
+    "number": "082"
+  },
+  "SV4M-083": {
+    "name": "파비코리 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022083",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_083.png",
+    "dataset_set": "SV4M",
+    "number": "083"
+  },
+  "SV4M-084": {
+    "name": "파밀리쥐 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022084",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_084.png",
+    "dataset_set": "SV4M",
+    "number": "084"
+  },
+  "SV4M-085": {
+    "name": "강석",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022085",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_085.png",
+    "dataset_set": "SV4M",
+    "number": "085"
+  },
+  "SV4M-086": {
+    "name": "리파",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022086",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_086.png",
+    "dataset_set": "SV4M",
+    "number": "086"
+  },
+  "SV4M-087": {
+    "name": "투로박사의 시나리오",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022087",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_087.png",
+    "dataset_set": "SV4M",
+    "number": "087"
+  },
+  "SV4M-088": {
+    "name": "무쇠손 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022088",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_088.png",
+    "dataset_set": "SV4M",
+    "number": "088"
+  },
+  "SV4M-089": {
+    "name": "무쇠무인 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022089",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_089.png",
+    "dataset_set": "SV4M",
+    "number": "089"
+  },
+  "SV4M-090": {
+    "name": "파비코리 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022090",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_090.png",
+    "dataset_set": "SV4M",
+    "number": "090"
+  },
+  "SV4M-093": {
+    "name": "무쇠무인 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022093",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_093.png",
+    "dataset_set": "SV4M",
+    "number": "093"
+  },
+  "SV4M-094": {
+    "name": "카운터 캐처",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022094",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_094.png",
+    "dataset_set": "SV4M",
+    "number": "094"
+  },
+  "SV4M-095": {
+    "name": "기본 강철 에너지",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2023022095",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_095.png",
+    "dataset_set": "SV4M",
+    "number": "095"
+  },
+  "SV5K-001": {
+    "name": "로젤리아",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004001",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_001.png",
+    "dataset_set": "SV5K",
+    "number": "001"
+  },
+  "SV5K-002": {
+    "name": "로즈레이드",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004002",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_002.png",
+    "dataset_set": "SV5K",
+    "number": "002"
+  },
+  "SV5K-003": {
+    "name": "모부기",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004003",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_003.png",
+    "dataset_set": "SV5K",
+    "number": "003"
+  },
+  "SV5K-004": {
+    "name": "수풀부기",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004004",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_004.png",
+    "dataset_set": "SV5K",
+    "number": "004"
+  },
+  "SV5K-005": {
+    "name": "토대부기 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004005",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_005.png",
+    "dataset_set": "SV5K",
+    "number": "005"
+  },
+  "SV5K-006": {
+    "name": "쉐이미",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004006",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_006.png",
+    "dataset_set": "SV5K",
+    "number": "006"
+  },
+  "SV5K-007": {
+    "name": "소미안",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004007",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_007.png",
+    "dataset_set": "SV5K",
+    "number": "007"
+  },
+  "SV5K-008": {
+    "name": "엘풍",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004008",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_008.png",
+    "dataset_set": "SV5K",
+    "number": "008"
+  },
+  "SV5K-009": {
+    "name": "앤티골",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004009",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_009.png",
+    "dataset_set": "SV5K",
+    "number": "009"
+  },
+  "SV5K-010": {
+    "name": "태우지네",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004010",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_010.png",
+    "dataset_set": "SV5K",
+    "number": "010"
+  },
+  "SV5K-011": {
+    "name": "다태우지네",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004011",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_011.png",
+    "dataset_set": "SV5K",
+    "number": "011"
+  },
+  "SV5K-012": {
+    "name": "꿰뚫는화염 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004012",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_012.png",
+    "dataset_set": "SV5K",
+    "number": "012"
+  },
+  "SV5K-013": {
+    "name": "리아코",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004013",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_013.png",
+    "dataset_set": "SV5K",
+    "number": "013"
+  },
+  "SV5K-014": {
+    "name": "엘리게이",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004014",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_014.png",
+    "dataset_set": "SV5K",
+    "number": "014"
+  },
+  "SV5K-015": {
+    "name": "장크로다일",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004015",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_015.png",
+    "dataset_set": "SV5K",
+    "number": "015"
+  },
+  "SV5K-016": {
+    "name": "샤프니아",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004016",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_016.png",
+    "dataset_set": "SV5K",
+    "number": "016"
+  },
+  "SV5K-017": {
+    "name": "샤크니아",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004017",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_017.png",
+    "dataset_set": "SV5K",
+    "number": "017"
+  },
+  "SV5K-018": {
+    "name": "케르디오",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004018",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_018.png",
+    "dataset_set": "SV5K",
+    "number": "018"
+  },
+  "SV5K-019": {
+    "name": "누니머기",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004019",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_019.png",
+    "dataset_set": "SV5K",
+    "number": "019"
+  },
+  "SV5K-020": {
+    "name": "모스노우",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004020",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_020.png",
+    "dataset_set": "SV5K",
+    "number": "020"
+  },
+  "SV5K-021": {
+    "name": "바다그다",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004021",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_021.png",
+    "dataset_set": "SV5K",
+    "number": "021"
+  },
+  "SV5K-063": {
+    "name": "주문박스",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004063",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_063.png",
+    "dataset_set": "SV5K",
+    "number": "063"
+  },
+  "SV5K-074": {
+    "name": "동미러",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004074",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_074.png",
+    "dataset_set": "SV5K",
+    "number": "074"
+  },
+  "SV5K-075": {
+    "name": "란쿨루스",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004075",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_075.png",
+    "dataset_set": "SV5K",
+    "number": "075"
+  },
+  "SV5K-076": {
+    "name": "날개치는머리",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004076",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_076.png",
+    "dataset_set": "SV5K",
+    "number": "076"
+  },
+  "SV5K-077": {
+    "name": "시라칸",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004077",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_077.png",
+    "dataset_set": "SV5K",
+    "number": "077"
+  },
+  "SV5K-078": {
+    "name": "만마드",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004078",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_078.png",
+    "dataset_set": "SV5K",
+    "number": "078"
+  },
+  "SV5K-079": {
+    "name": "아보크",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004079",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_079.png",
+    "dataset_set": "SV5K",
+    "number": "079"
+  },
+  "SV5K-080": {
+    "name": "고오스",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004080",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_080.png",
+    "dataset_set": "SV5K",
+    "number": "080"
+  },
+  "SV5K-081": {
+    "name": "페라페",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004081",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_081.png",
+    "dataset_set": "SV5K",
+    "number": "081"
+  },
+  "SV5K-082": {
+    "name": "치라미",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004082",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_082.png",
+    "dataset_set": "SV5K",
+    "number": "082"
+  },
+  "SV5K-083": {
+    "name": "치라치노",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004083",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_083.png",
+    "dataset_set": "SV5K",
+    "number": "083"
+  },
+  "SV5K-084": {
+    "name": "토대부기 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004084",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_084.png",
+    "dataset_set": "SV5K",
+    "number": "084"
+  },
+  "SV5K-085": {
+    "name": "꿰뚫는화염 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004085",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_085.png",
+    "dataset_set": "SV5K",
+    "number": "085"
+  },
+  "SV5K-086": {
+    "name": "굽이치는물결 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004086",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_086.png",
+    "dataset_set": "SV5K",
+    "number": "086"
+  },
+  "SV5K-087": {
+    "name": "바닥트리오 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004087",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_087.png",
+    "dataset_set": "SV5K",
+    "number": "087"
+  },
+  "SV5K-088": {
+    "name": "팬텀 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004088",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_088.png",
+    "dataset_set": "SV5K",
+    "number": "088"
+  },
+  "SV5K-089": {
+    "name": "날뛰는우레 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004089",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_089.png",
+    "dataset_set": "SV5K",
+    "number": "089"
+  },
+  "SV5K-093": {
+    "name": "꿰뚫는화염 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004093",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_093.png",
+    "dataset_set": "SV5K",
+    "number": "093"
+  },
+  "SV5K-094": {
+    "name": "굽이치는물결 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004094",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_094.png",
+    "dataset_set": "SV5K",
+    "number": "094"
+  },
+  "SV5K-095": {
+    "name": "날뛰는우레 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004095",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_095.png",
+    "dataset_set": "SV5K",
+    "number": "095"
+  },
+  "SV5K-096": {
+    "name": "비파",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004096",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_096.png",
+    "dataset_set": "SV5K",
+    "number": "096"
+  },
+  "SV5K-097": {
+    "name": "유빈의 확신",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004097",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_097.png",
+    "dataset_set": "SV5K",
+    "number": "097"
+  },
+  "SV5K-098": {
+    "name": "꿰뚫는화염 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004098",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_098.png",
+    "dataset_set": "SV5K",
+    "number": "098"
+  },
+  "SV5K-099": {
+    "name": "굽이치는물결 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004099",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_099.png",
+    "dataset_set": "SV5K",
+    "number": "099"
+  },
+  "SV5K-100": {
+    "name": "날뛰는우레 ex",
+    "official_page": "https://pokemoncard.co.kr/cards/detail/BS2024004100",
+    "image_url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_100.png",
+    "dataset_set": "SV5K",
+    "number": "100"
+  }
+}

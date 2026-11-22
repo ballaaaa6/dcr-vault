@@ -1,0 +1,70 @@
+{
+  "source_zip": "cardcorpus-dataset-2026-11-21.zip",
+  "source_zip_sha256": "9a32e343a18e43c293cbbff6a9a91f8e9c4784de5205e75fbbb86a64d900c95a",
+  "comparison_limitations": "automatic exact set-name or unique code leads; source-set subdivisions, translations, promos, variants and duplicates require review",
+  "languages": [
+    {
+      "language": "en",
+      "local_records": 23913,
+      "local_sets": 217,
+      "indexed_images": 23579,
+      "reference_sets": 324,
+      "reference_set_pairs": 142,
+      "local_sets_paired": 142,
+      "comparison": {
+        "reference_cards": 25335,
+        "number_and_name_match": 16588,
+        "no_number_match": 653,
+        "review_with_source_picture_id": 8741,
+        "unmapped_set_cards": 7006,
+        "name_conflict": 1088
+      },
+      "missing_set_name": 0,
+      "missing_release_date": 0,
+      "missing_illustrator": 720,
+      "missing_rarity": 591
+    },
+    {
+      "language": "ja",
+      "local_records": 13660,
+      "local_sets": 131,
+      "indexed_images": 12607,
+      "reference_sets": 449,
+      "reference_set_pairs": 124,
+      "local_sets_paired": 124,
+      "comparison": {
+        "reference_cards": 28359,
+        "unmapped_set_cards": 15103,
+        "review_with_source_picture_id": 16856,
+        "no_number_match": 699,
+        "name_conflict": 1205,
+        "number_and_name_match": 11352
+      },
+      "missing_set_name": 442,
+      "missing_release_date": 441,
+      "missing_illustrator": 2265,
+      "missing_rarity": 2957
+    },
+    {
+      "language": "th",
+      "local_records": 2994,
+      "local_sets": 32,
+      "indexed_images": 2993,
+      "reference_sets": 104,
+      "reference_set_pairs": 32,
+      "local_sets_paired": 32,
+      "comparison": {
+        "reference_cards": 13187,
+        "unmapped_set_cards": 9211,
+        "review_with_source_picture_id": 9600,
+        "number_and_name_match": 2901,
+        "no_number_match": 982,
+        "name_conflict": 93
+      },
+      "missing_set_name": 73,
+      "missing_release_date": 184,
+      "missing_illustrator": 35,
+      "missing_rarity": 1470
+    }
+  ]
+}
