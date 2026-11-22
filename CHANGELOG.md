@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Vault page height
+- Align the vault footer with Home and Add Card and scroll only when content exceeds the viewport.
+
 ## 2026-11-22 - Vault selection clarity
 - Simplify the card details panel and highlight the selected card in red.
 
