@@ -5,16 +5,9 @@ import {hasImportDecision, loadLegacyCards} from '../store/db.js';
 export function loginPage() {
   return `
     <main class="auth-page">
+      <div class="auth-art" aria-hidden="true"><div class="auth-branch"></div><div class="auth-petals">${Array.from({length: 22}, () => '<i></i>').join('')}</div></div>
       <section class="auth-showcase" aria-labelledby="auth-brand-title">
-        <div class="auth-showcase-image" aria-hidden="true"></div>
         <div class="auth-showcase-top"><span>A SPACE FOR COLLECTORS</span><span>YOUR COLLECTION</span></div>
-        <div class="auth-showcase-copy">
-          <span class="auth-accent-line" aria-hidden="true"></span>
-          <div class="auth-eyebrow">STEP INTO YOUR COLLECTION</div>
-          <h1 id="auth-brand-title">A world<br>worth keeping.</h1>
-          <p>A little space for everything you have collected along the way.</p>
-        </div>
-        <div class="auth-showcase-foot"><span>MADE FOR YOUR COLLECTION</span><span aria-hidden="true">✳</span></div>
       </section>
       <section class="auth-panel" aria-labelledby="login-title">
         <div class="auth-panel-top"><span>YOUR PERSONAL VAULT</span><a href="/">Explore DCR Vault <span aria-hidden="true">↗</span></a></div>

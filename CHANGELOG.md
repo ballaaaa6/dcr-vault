@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-22 - Animate the login landscape
+
+- Add the selected sakura landscape with gently moving branches and drifting petals to the sign-in page.
+
 ## 2026-11-22 - Keep Add Card fields steady
 
 - Show Cert number validation without shifting the card details form.
