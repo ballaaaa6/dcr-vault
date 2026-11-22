@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Soften short Vault backgrounds
+
+- Use 30% artwork opacity instead of darkening the image, preserving its colors and existing fade.
+
 ## 2026-11-23 - Improve short Vault row readability
 
 - Add contrasting text glow to short card rows in the three-panel view.
