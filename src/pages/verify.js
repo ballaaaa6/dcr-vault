@@ -19,10 +19,19 @@ function imageGallery(card) {
       <p class="cert-viewer-hint">Move over the image to magnify. On touch screens, tap the image to zoom.</p></dialog>`;
 }
 
+function languageName(value) {
+  if (!value) return '';
+  try {
+    return new Intl.DisplayNames(['en'], {type: 'language'}).of(value) || value;
+  } catch {
+    return value;
+  }
+}
+
 function itemInformation(card) {
-  const fields = [['Cert Number', card.certNumber], ['Item Grade', card.gradeLabel], ['Year', card.year],
-    ['Game', card.game], ['Set', card.setName], ['Card Name', card.name], ['Card Number', card.cardNumber],
-    ['Rarity', card.rarity], ['Language', card.sourceLanguage], ['Finish', card.sourceFinish]];
+  const fields = [['Cert Number', card.certNumber], ['Condition', card.gradeLabel], ['Year', card.year],
+    ['Brand/Title', card.game], ['Set', card.setName], ['Card Name', card.name], ['Card Number', card.cardNumber],
+    ['Rarity', card.rarity], ['Language', languageName(card.sourceLanguage)], ['Finish', card.sourceFinish]];
   return `<section class="cert-information"><h2>Item Information</h2><dl>${fields.filter(([, value]) => value).map(([label, value]) =>
     `<div><dt>${escapeHTML(label)}</dt><dd>${escapeHTML(value)}</dd></div>`).join('')}</dl></section>`;
 }

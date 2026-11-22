@@ -31,3 +31,15 @@ test('certificate lookup reads the number from the new path', () => {
   assert.match(verify([]), /Enter 1 to 8 digits/);
   delete globalThis.location;
 });
+
+
+test('certificate details show saved condition, collector number, and full language', () => {
+  globalThis.location = {pathname: '/cert/00000001', search: ''};
+  const markup = verify([{certNumber: '00000001', name: 'Promo', gradeLabel: 'NEAR MINT',
+    game: 'pokemon', cardNumber: '151/XY-P', sourceLanguage: 'ja'}]);
+  assert.match(markup, /Cert Number<\/dt><dd>00000001<\/dd><\/div><div><dt>Condition<\/dt><dd>NEAR MINT/);
+  assert.match(markup, /Brand\/Title<\/dt><dd>pokemon/);
+  assert.match(markup, /Card Number<\/dt><dd>151\/XY-P/);
+  assert.match(markup, /Language<\/dt><dd>Japanese/);
+  delete globalThis.location;
+});

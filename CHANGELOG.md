@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Certificate information
+- Show the saved condition, full language name, and Brand/Title on certificate records while preserving printed collector numbers.
+
 ## 2026-11-22 - Login page redesign
 - Refresh the login page with the Discovery artwork, gentle motion, and clearer sign-in copy.
 
