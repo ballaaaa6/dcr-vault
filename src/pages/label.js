@@ -4,10 +4,10 @@ import {escapeHTML as esc} from '../utils/format.js';
 import {normalizeCert} from '../utils/cert.js';
 import {parseCertRanges} from '../utils/cert-ranges.js';
 import {enrichLabelCard} from '../utils/label-card.js';
+import * as api from '../utils/label-renderer.js';
 
 let entries = [];
 let vaultCards = [];
-let api;
 let busy = false;
 const page = () => document.querySelector('.label-page');
 const ready = () => entries.filter(entry => !entry.error);
@@ -15,7 +15,6 @@ const cardPhoto = card => vaultImage({...card, referenceImage: card.frontImage |
 
 export async function label(cards = []) {
   vaultCards = cards;
-  api ||= await import('../utils/label-renderer.js');
   const cert = normalizeCert(new URLSearchParams(location.search).get('cert'));
   if (cert && !entries.some(entry => entry.cert === cert)) {
     const card = cards.find(item => normalizeCert(item.certNumber) === cert);

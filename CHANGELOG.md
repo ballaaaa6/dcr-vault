@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-11-23 - Restore Labels after deployments
+
+- Load the label renderer with the application and recover once from stale deployment assets.
+- Keep the error page usable and remove its red introductory line.
+- Require fresh HTML and document the heading preference for new pages.
+
 ## 2026-11-23 - Raise page headings
 
 - Move the My Vault, Labels, and My profile headings closer to the top of their pages.

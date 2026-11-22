@@ -38,3 +38,7 @@
 ## Add Card layout freeze
 
 - Keep every part of the Add Card page layout fixed unless the user explicitly requests further changes to it.
+
+## Page headings
+
+- Do not add a red eyebrow or introductory text line above the main heading on new pages.

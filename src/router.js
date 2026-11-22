@@ -22,7 +22,7 @@ function footer() {
 }
 
 function failurePage(error) {
-  return `<main class="app-page"><section class="surface-card"><div class="page-eyebrow">VAULT UNAVAILABLE</div><h1>We couldn’t load your collection.</h1><p class="page-description">${escapeHTML(error.message || 'Please try again in a moment.')}</p><button class="btn btn-primary" type="button" onclick="location.reload()">Try again</button></section></main>`;
+  return `<main class="app-page"><section class="surface-card"><h1>We couldn’t load your collection.</h1><p class="page-description">${escapeHTML(error.message || 'Please try again in a moment.')}</p><button class="btn btn-primary" type="button" onclick="location.reload()">Try again</button></section></main>`;
 }
 
 function requireLogin(route) {
@@ -47,16 +47,18 @@ export async function render() {
   if (privatePaths.has(path) && !user) { requireLogin(route); return; }
 
   let content = home();
+  let failed = false;
   try {
     if (path === '/profile') content = profile(user);
     else if (path === '/register') content = search();
     else if (path === '/import') content = importPage(user);
     else if (path === '/verify' || isCertificate) content = await certificatePage();
     else if (['/vault', '/label'].includes(path)) content = await privatePage(path);
-  } catch (error) { content = failurePage(error); }
+  } catch (error) { content = failurePage(error); failed = true; }
   if (version !== renderVersion || location.pathname + location.search !== route) return;
   app.innerHTML = header(path, user) + content + footer();
   bindHeader();
+  if (failed) return;
   if (path === '/profile') initializeProfile(user);
   if (path === '/register') initializeSearchPage();
   if (path === '/vault') initializeVault();
