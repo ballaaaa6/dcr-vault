@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Streamline profile photo selection
+- Open the file picker directly, then allow dragging the selected photo within the circular crop guide.
+
 Times are commit times in Bangkok time (UTC+7); older entries without a time have no matching commit record.
 
 ## 2026-11-22 - Preserve full profile photos

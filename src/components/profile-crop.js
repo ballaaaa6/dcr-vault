@@ -1,6 +1,6 @@
 export function initializeCrop(save, photoStatus) {
   const dialog = document.querySelector('.profile-crop-dialog');
-  const file = dialog.querySelector('#crop-file');
+  const file = document.querySelector('#crop-file');
   const area = dialog.querySelector('.profile-crop-area');
   const image = area.querySelector('img');
   const button = dialog.querySelector('[data-crop-save]');
@@ -15,7 +15,7 @@ export function initializeCrop(save, photoStatus) {
     image.style.transform = `translate(${x}px, ${y}px)`;
   };
   const reset = () => { if (bitmap) bitmap.close(); bitmap = null; file.value = ''; area.hidden = true; button.disabled = true; status.textContent = ''; };
-  document.querySelector('#change-photo').onclick = () => { reset(); dialog.showModal(); };
+  document.querySelector('#change-photo').onclick = () => { reset(); photoStatus.textContent = ''; file.click(); };
   dialog.querySelectorAll('[data-crop-close]').forEach(close => close.onclick = () => dialog.close());
   dialog.onclick = event => { if (event.target === dialog) dialog.close(); };
   dialog.onclose = reset;
@@ -25,17 +25,13 @@ export function initializeCrop(save, photoStatus) {
       if (!['image/jpeg', 'image/png', 'image/webp'].includes(selected.type) || selected.size > 5 * 1024 * 1024) throw new Error('Choose a JPG, PNG or WebP photo under 5 MB.');
       const next = await createImageBitmap(selected); if (bitmap) bitmap.close(); bitmap = next;
       image.src = URL.createObjectURL(selected); image.onload = () => URL.revokeObjectURL(image.src);
-      area.hidden = false; x = 0; y = 0; position(); x = (area.clientWidth - bitmap.width * scale) / 2; y = (area.clientWidth - bitmap.height * scale) / 2; position();
+      area.hidden = false; dialog.showModal(); x = 0; y = 0; position(); x = (area.clientWidth - bitmap.width * scale) / 2; y = (area.clientWidth - bitmap.height * scale) / 2; position();
       button.disabled = false; status.textContent = '';
-    } catch (error) { reset(); status.textContent = error.message; }
+    } catch (error) { reset(); photoStatus.textContent = error.message; }
   };
   area.onpointerdown = event => { drag = {x: event.clientX, y: event.clientY}; area.setPointerCapture(event.pointerId); };
   area.onpointermove = event => { if (!drag) return; x += event.clientX - drag.x; y += event.clientY - drag.y; drag = {x: event.clientX, y: event.clientY}; position(); };
   area.onpointerup = area.onpointercancel = () => { drag = null; };
-  area.onkeydown = event => {
-    const directions = {ArrowLeft: [-5, 0], ArrowRight: [5, 0], ArrowUp: [0, -5], ArrowDown: [0, 5]};
-    if (!directions[event.key]) return; event.preventDefault(); x += directions[event.key][0]; y += directions[event.key][1]; position();
-  };
   button.onclick = async () => {
     button.disabled = true; status.textContent = 'Saving…';
     try {
