@@ -68,9 +68,9 @@ export function search() {
                 <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="3"></rect><circle cx="8" cy="8" r="1"></circle><circle cx="16" cy="8" r="1"></circle><circle cx="12" cy="12" r="1"></circle><circle cx="8" cy="16" r="1"></circle><circle cx="16" cy="16" r="1"></circle></svg>
               </button>
             </span><small id="m-cert-status" class="field-status" role="status" aria-live="polite"></small></div>
+            <button class="btn btn-primary manual-submit" id="manual-submit" type="button" disabled>Add to Vault</button>
+            <p id="manual-status" class="import-status intake-wide" role="status" aria-live="polite"></p>
           </div>
-          <button class="btn btn-primary manual-submit" id="manual-submit" type="button" disabled>Add to Vault</button>
-          <p id="manual-status" class="import-status" role="status" aria-live="polite"></p>
         </section>
       </div>
       ${identificationDialogMarkup()}

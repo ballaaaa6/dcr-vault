@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Card intake screen space
+- Expand the intake panels to fill available screen height and distribute the form rows evenly.
+
 ## 2026-11-22 - Home footer alignment
 - Match the home footer position to the register page on desktop.
 
