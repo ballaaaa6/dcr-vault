@@ -88,6 +88,17 @@ function pairFitError(left, right, leftValue, rightValue) {
     : `${left} is too long for the approved label width.`;
 }
 
+function shortenToFit(value, rightValue) {
+  const words = [...value.matchAll(/\p{L}{2,}/gu)];
+  let result = value;
+  for (let index = words.length - 1; index >= 0; index -= 1) {
+    if (!pairFitError('Text', 'value', result, rightValue)) break;
+    const word = words[index];
+    result = `${result.slice(0, word.index)}${Array.from(word[0])[0]}.${result.slice(word.index + word[0].length)}`;
+  }
+  return result;
+}
+
 export function rarityFitsLabel(setName, rarity) {
   return !pairFitError('Set name', 'rarity', String(setName || '').toLocaleUpperCase('en-US'), rarity);
 }
@@ -103,7 +114,8 @@ export function firstLine(value) {
   const build = series => [value.year, value.cardType, language, series].filter(Boolean).join(' ');
   const full = build(value.series);
   if (!pairFitError('First line', 'card number', full, value.cardNumber)) return full;
-  return SERIES_SHORT[value.series] ? build(SERIES_SHORT[value.series]) : full;
+  const shortenedSeries = SERIES_SHORT[value.series] ? build(SERIES_SHORT[value.series]) : full;
+  return shortenToFit(shortenedSeries, value.cardNumber);
 }
 
 export function validateLabelData(data) {
@@ -119,8 +131,8 @@ export function validateLabelData(data) {
 
   return [
     pairFitError('First line', 'card number', firstLine(value), value.cardNumber),
-    pairFitError('Card name', 'condition', value.name, value.condition),
-    pairFitError('Set name', 'rarity', value.setName, value.rarity)
+    pairFitError('Card name', 'condition', shortenToFit(value.name, value.condition), value.condition),
+    pairFitError('Set name', 'rarity', shortenToFit(value.setName, value.rarity), value.rarity)
   ].filter(Boolean);
 }
 
@@ -226,8 +238,8 @@ export async function renderLabelSvgPair(data) {
   const [frontSource, backSource] = await Promise.all([frontMaster, backMaster]);
   const front = parseSvg(frontSource);
   svgText(front, 'front-year-series', firstLine(value));
-  svgText(front, 'front-card-name', value.name);
-  svgText(front, 'front-collection', value.setName);
+  svgText(front, 'front-card-name', shortenToFit(value.name, value.condition));
+  svgText(front, 'front-collection', shortenToFit(value.setName, value.rarity));
   svgText(front, 'front-card-number', value.cardNumber);
   svgText(front, 'front-condition', value.condition);
   svgText(front, 'front-rarity', value.rarity);

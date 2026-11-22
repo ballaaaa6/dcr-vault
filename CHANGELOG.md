@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Fit long label text
+- Abbreviate words from the end of an overlong label line until it fits, while retaining the original card details.
+
 ## 2026-11-22 - Quick card deletion
 - Move card deletion to the vault card options menu and keep the confirmation dialog.
 
