@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Restore profile photo cropping
+
+- Open the photo crop editor after choosing an image instead of selecting the removal confirmation dialog.
+
 ## 2026-11-23 - Update profile name edit icon
 
 - Use a square pen icon that turns red on hover.

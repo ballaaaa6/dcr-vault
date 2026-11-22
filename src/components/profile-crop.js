@@ -1,5 +1,5 @@
 export function initializeCrop(save, photoStatus) {
-  const dialog = document.querySelector('.profile-crop-dialog');
+  const dialog = document.querySelector('.profile-crop-dialog[aria-labelledby="crop-title"]');
   const file = document.querySelector('#crop-file');
   const area = dialog.querySelector('.profile-crop-area');
   const image = area.querySelector('img');
