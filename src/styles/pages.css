@@ -41,6 +41,16 @@
 .surface-card{padding:24px;border:1px solid var(--dcr-border);border-radius:22px;background:var(--dcr-white);box-shadow:var(--shadow)}
 .intake-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .intake-card{min-width:0}
+.intake-card{background-image:linear-gradient(color-mix(in srgb,var(--dcr-white) 50%,transparent),color-mix(in srgb,var(--dcr-white) 50%,transparent)),url('/assets/add-card/mountain-pair.png');background-size:100% 100%,200% 100%;background-repeat:no-repeat}
+.intake-card:first-child{background-position:center,left center}
+.intake-card:last-child{background-position:center,right center}
+.intake-card .section-heading h2,.intake-card .section-heading p,.intake-card .upload-label,.intake-card .form-field>label,.intake-card .identification-notice{background:color-mix(in srgb,var(--dcr-white) 78%,transparent);box-shadow:0 0 10px 5px color-mix(in srgb,var(--dcr-white) 78%,transparent);border-radius:5px}
+.intake-card .upload-field{background:color-mix(in srgb,var(--dcr-white) 78%,transparent)}
+.intake-card .upload-field:hover,.intake-card .upload-field:focus-within,.intake-card .upload-field.is-dragging{background:var(--dcr-red-light)}
+.intake-card .form-control{background-color:color-mix(in srgb,var(--dcr-white) 96%,transparent)}
+.intake-card .section-heading p,.intake-card .identification-notice,.intake-card .upload-preview{color:var(--dcr-text-secondary)}
+.intake-card .form-control::placeholder{color:var(--dcr-placeholder)}
+
 .section-heading{display:flex;align-items:flex-start;gap:14px;margin-bottom:24px}
 .section-heading h2{margin:0 0 4px;font-size:19px}
 .section-heading p{margin:0;color:var(--dcr-gray);font-size:15px}

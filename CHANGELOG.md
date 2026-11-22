@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-22 - Add Card mountain backgrounds
+
+- Add the paired red mountain backgrounds with softened imagery and readable text surfaces.
+
 ## 2026-11-22 - Toggle vault card details
 
 - Allow the selected card to be deselected, expanding the vault list until another card is selected.
