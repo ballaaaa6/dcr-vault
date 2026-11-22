@@ -36,9 +36,9 @@ test('certificate lookup reads the number from the new path', () => {
 test('certificate details show saved condition, collector number, and full language', () => {
   globalThis.location = {pathname: '/cert/00000001', search: ''};
   const markup = verify([{certNumber: '00000001', name: 'Promo', gradeLabel: 'NEAR MINT',
-    game: 'pokemon', setName: 'Promo Set', cardNumber: '151/XY-P', sourceLanguage: 'ja', sourceFinish: 'Holo'}]);
+    game: 'pokemon', year: '2026', setName: 'Promo Set', cardNumber: '151/XY-P', sourceLanguage: 'ja', sourceFinish: 'Holo'}]);
   assert.match(markup, /Cert Number<\/dt><dd>00000001<\/dd><\/div><div><dt>Condition<\/dt><dd>NEAR MINT/);
-  assert.match(markup, /Brand\/Title<\/dt><dd>pokemon/);
+  assert.match(markup, /Brand\/Title<\/dt><dd>pokemon<\/dd><\/div><div><dt>Year<\/dt><dd>2026/);
   assert.match(markup, /Card Name<\/dt><dd>Promo<\/dd><\/div><div><dt>Set Name<\/dt><dd>Promo Set/);
   assert.match(markup, /Card Number<\/dt><dd>151\/XY-P/);
   assert.match(markup, /Finish<\/dt><dd>Holo<\/dd><\/div><div><dt>Language<\/dt><dd>Japanese<\/dd><\/div><\/dl>/);
