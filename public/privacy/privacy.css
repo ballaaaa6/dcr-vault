@@ -24,14 +24,13 @@ a:focus-visible{outline:3px solid var(--dcr-red);outline-offset:4px}
 .privacy-shell{position:relative;min-height:100svh;display:flex;flex-direction:column}
 .privacy-header,.privacy-footer{display:flex;align-items:center;justify-content:space-between;gap:20px;width:100%;padding:24px clamp(24px,4vw,60px)}
 .privacy-brand{color:var(--dcr-red);font-size:15px;font-weight:800;letter-spacing:.12em;text-decoration:none}
-.privacy-header-link{display:inline-flex;padding:9px 16px;border:1px solid var(--dcr-red);border-radius:999px;background:var(--dcr-white);color:var(--dcr-red);font-size:15px;font-weight:700;text-decoration:none}
 .privacy-page{width:min(680px,calc(50% - 64px));margin:clamp(34px,6vw,84px) clamp(24px,5vw,80px) 80px auto;flex:1}
 .privacy-intro{margin:0 0 24px;padding:clamp(24px,3vw,36px);border:1px solid var(--dcr-border);border-radius:20px;background:rgba(255,255,255,.95)}
 h1{margin:0;font-size:clamp(2.8rem,6vw,4.75rem);line-height:1.05;letter-spacing:-.05em}
 .privacy-intro>p:not(.privacy-updated){max-width:670px;margin:20px 0 15px;color:var(--dcr-black);font-size:20px;line-height:1.65}
 .privacy-updated{margin:0;color:var(--dcr-gray);font-size:14px}
 
-.privacy-header-link:hover,.privacy-footer a:hover{color:var(--dcr-red)}
+.privacy-footer a:hover{color:var(--dcr-red)}
 .privacy-content{padding:clamp(26px,4vw,52px);border:1px solid var(--dcr-border);border-radius:20px;background:rgba(255,255,255,.97);box-shadow:0 10px 30px rgba(0,0,0,.08)}
 .privacy-content section{scroll-margin-top:24px}
 .privacy-content section+section{margin-top:34px;padding-top:30px;border-top:1px solid var(--dcr-border)}
@@ -41,5 +40,5 @@ h2{margin:0 0 12px;font-size:clamp(1.3rem,2vw,1.6rem);line-height:1.25;letter-sp
 .privacy-footer{padding-top:8px;padding-bottom:10px;color:var(--dcr-gray);font-size:11px;font-weight:700;letter-spacing:.11em}
 .privacy-footer a{color:var(--dcr-black);text-decoration:none}
 @media(max-width:760px){.privacy-art{position:absolute;bottom:auto;height:390px;background-position:left center}.privacy-branch{background-position:left center}.privacy-art:after{background:linear-gradient(0deg,var(--dcr-white),transparent 65%)}.privacy-header{padding:20px 24px}.privacy-page{width:calc(100% - 32px);margin:270px auto 56px}.privacy-intro{padding:24px;margin-bottom:16px}.privacy-intro>p:not(.privacy-updated){font-size:18px}.privacy-footer{padding:16px 20px 22px}}
-@media(max-width:480px){.privacy-footer{align-items:flex-start;flex-direction:column;gap:4px}.privacy-header-link{font-size:14px}}
+@media(max-width:480px){.privacy-footer{align-items:flex-start;flex-direction:column;gap:4px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.privacy-branch{animation:none}.privacy-petals{display:none}}

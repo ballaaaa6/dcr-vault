@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-22 - Simplify privacy navigation
+
+- Keep a single return to login link in the privacy page footer.
+
 ## 2026-11-22 - Reposition privacy policy content
 
 - Remove the table of contents, place the policy beside the sakura landscape, and add a return to login button.
