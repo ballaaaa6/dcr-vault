@@ -251,3 +251,7 @@ async function removeVaultCard(id) {
     vaultBusy = false;
   }
 }
+
+document.addEventListener('change', event => {
+  if (event.target.id === 'vault-sort') window.__filterVault();
+});

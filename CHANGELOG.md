@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Share the dropdown component
+
+- Extract the vault sorting dropdown into a reusable component and document its use for future dropdowns.
+
 ## 2026-11-23 - Refine vault sort controls
 
 - Add light red up and down chevrons and round the sort controls in My Vault and the label picker.

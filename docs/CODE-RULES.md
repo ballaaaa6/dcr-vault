@@ -16,3 +16,5 @@
 13. All instructions and prompts sent to Gemini must always be written in English.
 
 14. Standard pages must use the shared footer layout and alignment in src/styles/layout.css; new pages inherit it by default.
+
+15. Use the shared dropdown in src/components/dropdown.js and src/styles/dropdown.css for new single-choice dropdowns; supply the labels and options for each use.
