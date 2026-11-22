@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Certificate image download
+- Add a download button for the selected image in the certificate viewer.
+
 ## 2026-11-22 - Certificate brand and year order
 - Place Brand/Title before Year in certificate information.
 
