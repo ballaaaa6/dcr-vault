@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Keep profile name editing on one line
+
+- Keep name editing controls in the name row and limit display names to 20 characters, including imported account names.
+
 ## 2026-11-23 - Remove profile account block
 
 - Remove the Account block from My profile; log out remains available in the account menu.

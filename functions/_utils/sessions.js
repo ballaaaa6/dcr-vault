@@ -41,7 +41,9 @@ export async function currentUser(request, env) {
     FROM sessions s JOIN users u ON u.id = s.user_id
     WHERE s.token_hash = ? AND s.expires_at > ?`)
     .bind(hash, Math.floor(Date.now() / 1000)).first();
-  return user ? {user, hash} : {response: error('Sign-in required.', 401)};
+  if (!user) return {response: error('Sign-in required.', 401)};
+  user.displayName = (user.displayName || user.email || '').slice(0, 20);
+  return {user, hash};
 }
 
 export async function deleteSession(request, db) {

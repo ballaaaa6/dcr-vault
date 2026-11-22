@@ -13,3 +13,5 @@
 .profile-section .form-field:has(.date-picker){max-width:500px;margin-top:20px}.profile-section .date-picker-trigger{width:100%}.profile-section .date-picker input{display:none}
 
 .profile-section .date-picker-calendar{width:min(100%,320px)}
+
+.profile-identity>div{min-width:0;flex:1}.profile-name-row{height:40px;min-width:0}.profile-name-row h2{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.profile-name-row #profile-name-editor:not([hidden]){display:flex;align-items:center;gap:6px;min-width:0;width:100%}.profile-identity #profile-name{box-sizing:border-box;min-width:0;width:20ch;height:36px;padding:4px 8px}.profile-name-row .btn{flex:none;height:36px;padding:0 10px;white-space:nowrap}.profile-name-status:not(:empty){position:absolute;z-index:1;padding:4px 8px;background:var(--dcr-white);box-shadow:var(--shadow)}

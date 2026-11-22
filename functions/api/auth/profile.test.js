@@ -17,8 +17,8 @@ test('profile edits are authenticated, owner-scoped, validated and persistent', 
   const request = (body, cookie = 'dcr_session=token') => new Request('https://example.com/api/auth/profile', {method:'PUT', headers:{'Content-Type':'application/json', Cookie:cookie, Origin:'https://example.com'}, body:JSON.stringify(body)});
   assert.equal((await onRequestPut({request:request({displayName:'Name',avatarUrl:''}, ''),env})).status, 401);
   assert.equal((await onRequestPut({request:request({displayName:' ',avatarUrl:''}),env})).status, 400);
-  assert.equal((await onRequestPut({request:request({displayName:'1234567890123',avatarUrl:''}),env})).status, 400);
-  assert.equal((await onRequestPut({request:request({displayName:'123456789012',avatarUrl:''}),env})).status, 200);
+  assert.equal((await onRequestPut({request:request({displayName:'123456789012345678901',avatarUrl:''}),env})).status, 400);
+  assert.equal((await onRequestPut({request:request({displayName:'12345678901234567890',avatarUrl:''}),env})).status, 200);
   assert.equal((await onRequestPut({request:request({displayName:'Name',avatarUrl:'https://evil.example'}),env})).status, 400);
   assert.equal((await onRequestPut({request:request({displayName:'  Collector  ',avatarUrl:'data:image/jpeg;base64,/9j/2Q=='}),env})).status, 200);
   assert.equal(sql.prepare('SELECT display_name FROM users WHERE id = ?').get('a').display_name, 'Collector');
