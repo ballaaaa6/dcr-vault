@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-22 - Reposition privacy policy content
+
+- Remove the table of contents and place the policy beside the sakura landscape.
+
 ## 2026-11-22 - Center login text
 
 - Center the sign-in heading and description with the Google button.
