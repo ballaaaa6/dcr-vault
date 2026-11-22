@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Fix profile photo hover size
+
+- Keep the add-photo overlay aligned to the circular profile avatar.
+
 ## 2026-11-23 - Adjust profile name editor spacing
 
 - Match the visible spacing around the Save button when the name field is focused.
