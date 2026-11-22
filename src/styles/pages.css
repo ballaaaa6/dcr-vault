@@ -127,9 +127,9 @@
 .vault-query input{padding:7px 16px}
 .vault-query button{padding:0 18px;font-size:15px}
 .vault-query button svg{width:16px;height:16px}
-.vault-status{width:180px}
-.vault-status select{font-size:14px;text-align:center;text-align-last:center}
-.vault-status option{text-align:center}
+.vault-status{flex:none;max-width:100%}
+.vault-status select{width:auto;max-width:100%;font-size:14px;text-align:left;text-align-last:left}
+.vault-status option{text-align:left}
 .vault-layout{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:start;gap:18px}
 .vault-layout.is-empty .vault-list{grid-column:1/-1}
 .vault-layout.is-empty .vault-selected{display:none}
@@ -218,6 +218,7 @@
   .vault-toolbar{align-items:stretch;flex-wrap:wrap}
   .vault-query{flex:1 1 100%}
   .vault-status{width:100%}
+  .vault-status select{width:100%}
   .vault-row{gap:9px;padding:9px}
   .vault-row img{width:50px;height:68px;flex-basis:50px}
   .vault-row .badge{font-size:12px;padding:4px 7px}

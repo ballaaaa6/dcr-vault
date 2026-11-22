@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Vault sort filter width
+- Left-align sort labels and size the filter to its longest option.
+
 ## 2026-11-22 - Received date calendar
 - Add an English date picker matching the Flowbite-style calendar and the field width.
 
