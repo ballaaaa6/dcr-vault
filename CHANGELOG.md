@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Compact vault details
+- Remove the redundant print link and reduce spacing between item information rows.
+
 ## 2026-11-22 - Vault page height
 - Align the vault footer with Home and Add Card and scroll only when content exceeds the viewport.
 

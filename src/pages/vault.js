@@ -64,7 +64,6 @@ function detailMarkup(focus) {
   return `
           <button class="vault-edit-button" type="button" onclick="window.__editVault()" aria-label="Edit card details" title="Edit card details">⋯</button>
           ${itemInformation(focus)}
-          <a class="btn btn-ghost" href="/label?cert=${encodeURIComponent(focus?.certNumber || '')}">Print label</a>
           <form id="vault-edit" class="vault-edit" hidden onsubmit="window.__saveDetail(event, '${escapeHTML(focus?.id || '')}')">
             <h3>Edit card details</h3>
             <p class="detail-note">These card details appear on the public certificate.</p>
