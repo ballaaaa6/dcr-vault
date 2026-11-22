@@ -5,9 +5,8 @@ export function home() {
     <main class="home-page">
       <section class="home-hero" aria-labelledby="home-title">
         <div class="home-copy">
-          <div class="home-kicker"><span aria-hidden="true"></span>DCR CARD VAULT</div>
-          <h1 class="home-title" id="home-title">Your collection,<br><span>kept together.</span></h1>
-          <p class="home-description">Keep your DCR certified collection organized, then find a saved card with its certificate number.</p>
+          <h1 class="home-title" id="home-title">Your cards.<br>Your collection.<br><span>All in one place.</span></h1>
+          <p class="home-description">Organize your DCR-certified cards and find certificate details in seconds.</p>
           <form class="home-search-form" onsubmit="window.__searchCertificate(event)">
             <label class="search-label" for="certificate-search">Search by certificate number</label>
             <div class="search-bar">

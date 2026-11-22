@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Home page messaging
+- Refresh the home page headline and description, and remove the redundant brand label.
+
 ## 2026-11-22 - Red navigation bar
 - Use a red navigation bar with white text and a larger DCR brand.
 
