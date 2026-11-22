@@ -31,7 +31,7 @@ export function vault(cards = []) {
   const params = new URLSearchParams(location.search);
   const focus = cards.find(card => card.id === params.get('id')) || cards[0];
   selectedId = focus.id;
-  const rows = cards.length ? [...cards].sort((a, b) => a.name.localeCompare(b.name)).map(listRow).join('') : '<div class="empty-state">No cards in your vault yet.</div>';
+  const rows = [...cards].sort((a, b) => compareVaultCards(a, b, 'date-desc')).map(listRow).join('');
 
   return `
     <main class="app-page vault-page">
@@ -41,7 +41,7 @@ export function vault(cards = []) {
         <p id="vault-count" class="page-description">${cards.length} ${cards.length === 1 ? 'card' : 'cards'} · Prices stay private to your account and never appear on labels.</p>
       </header>
       <form class="vault-toolbar" onsubmit="event.preventDefault(); window.__filterVault()">
-        <label class="vault-status"><span class="sr-only">Sort by</span><select id="vault-sort" class="form-control" onchange="window.__filterVault()"><option value="name-asc">Name: A–Z</option><option value="name-desc">Name: Z–A</option><option value="price-desc">Price: High to Low</option><option value="price-asc">Price: Low to High</option><option value="date-asc">Date: Oldest First</option><option value="date-desc">Date: Newest First</option></select></label>
+        <label class="vault-status"><span class="sr-only">Sort by</span><select id="vault-sort" class="form-control" onchange="window.__filterVault()"><option value="name-asc">Name: A–Z</option><option value="name-desc">Name: Z–A</option><option value="price-desc">Price: High to Low</option><option value="price-asc">Price: Low to High</option><option value="date-asc">Date: Oldest First</option><option value="date-desc" selected>Date: Newest First</option></select></label>
         <div class="search-bar vault-query">
           <label class="sr-only" for="vault-q">Search your cards</label><input id="vault-q" placeholder="Search name, set or Cert number">
           ${searchClearButton()}

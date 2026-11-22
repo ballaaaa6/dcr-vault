@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Default vault sorting
+- Show cards by newest received date by default in My Vault.
+
 ## 2026-11-22 - Clarify completed card details
 - Show an English language hint, shade filled intake fields, and focus the first invalid required field when adding a card.
 
