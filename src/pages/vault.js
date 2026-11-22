@@ -135,6 +135,8 @@ window.__filterVault = () => {
   });
   const list = document.getElementById('vault-list');
   const count = document.getElementById('vault-count');
+  document.querySelector('.vault-layout').classList.toggle('is-empty', !matches.length);
+  if (matches.length && !matches.some(card => card.id === selectedId)) selectCard(matches[0].id);
   list.innerHTML = matches.length ? matches.map(listRow).join('') : '<div class="empty-state">No cards match those filters.</div>';
   document.querySelectorAll('.vault-row').forEach(row => row.setAttribute('aria-pressed', String(row.dataset.cardId === selectedId)));
   count.textContent = `${matches.length} ${matches.length === 1 ? 'card' : 'cards'} shown · Prices stay private to your account and never appear on labels.`;

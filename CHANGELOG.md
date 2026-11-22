@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Vault empty search results
+- Show the no-results message across the full vault layout and hide stale card details.
+
 ## 2026-11-22 - Vault search bar
 - Place the status filter before a home-style search bar with a Search button.
 

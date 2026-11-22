@@ -129,6 +129,8 @@
 .vault-query button svg{width:16px;height:16px}
 .vault-status{width:180px}
 .vault-layout{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:start;gap:18px}
+.vault-layout.is-empty .vault-list{grid-column:1/-1}
+.vault-layout.is-empty .vault-selected{display:none}
 .vault-list{display:flex;min-width:0;flex-direction:column;gap:10px}
 .vault-row{min-width:0;transition:border-color .18s,transform .18s,box-shadow .18s}
 .vault-row:hover{transform:translateY(-1px);border-color:var(--dcr-red-light);box-shadow:var(--shadow)}
