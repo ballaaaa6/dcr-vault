@@ -13,4 +13,3 @@ if (typeof window !== 'undefined') window.__clearSearch = button => {
   }
   input.focus();
 };
-
