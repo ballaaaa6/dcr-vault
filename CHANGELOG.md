@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Vault sort text
+- Fit and center the sort filter labels.
+
 ## 2026-11-22 - Private vault details and sorting
 - Add purchase currency, source, seller and received date; preserve previous private details.
 - Sort vault cards by name, purchase price grouped by currency, or received date.
