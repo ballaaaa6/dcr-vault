@@ -2,6 +2,9 @@
 
 Times are commit times in Bangkok time (UTC+7); older entries without a time have no matching commit record.
 
+## 2026-11-22 - Make personal details read-only by default
+- Show the display name as text until the profile edit button is selected.
+
 ## 2026-11-22 - Refine account profile
 - Limit edited display names to 12 characters and open profile photos in a preview dialog.
 
