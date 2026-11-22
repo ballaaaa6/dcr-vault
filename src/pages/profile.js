@@ -53,9 +53,11 @@ export function initializeProfile(user) {
 async function preparePhoto(file) {
   if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type) || file.size > 5 * 1024 * 1024) throw new Error('Choose a JPG, PNG or WebP photo under 5 MB.');
   const bitmap = await createImageBitmap(file);
-  const canvas = document.createElement('canvas'); canvas.width = 256; canvas.height = 256;
-  const context = canvas.getContext('2d'); const size = Math.min(bitmap.width, bitmap.height);
-  context.fillStyle = '#fff'; context.fillRect(0, 0, 256, 256);
-  context.drawImage(bitmap, (bitmap.width - size) / 2, (bitmap.height - size) / 2, size, size, 0, 0, 256, 256); bitmap.close();
-  return canvas.toDataURL('image/jpeg', 0.8);
+    const scale = Math.min(1, 256 / Math.max(bitmap.width, bitmap.height));
+  const canvas = document.createElement('canvas');
+  canvas.width = Math.max(1, Math.round(bitmap.width * scale)); canvas.height = Math.max(1, Math.round(bitmap.height * scale));
+  const context = canvas.getContext('2d');
+  context.fillStyle = '#fff'; context.fillRect(0, 0, canvas.width, canvas.height);
+  context.drawImage(bitmap, 0, 0, canvas.width, canvas.height); bitmap.close();
+return canvas.toDataURL('image/jpeg', 0.8);
 }

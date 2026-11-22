@@ -2,6 +2,9 @@
 
 Times are commit times in Bangkok time (UTC+7); older entries without a time have no matching commit record.
 
+## 2026-11-22 - Preserve full profile photos
+- Keep the entire uploaded photo and its proportions in the profile preview.
+
 ## 2026-11-22 - Fit profile photo preview to image
 - Size the profile photo dialog to its image while keeping it within the screen.
 
