@@ -127,7 +127,14 @@ window.__selectVault = id => {
   selectCard(id);
 };
 
+function closeVaultMenuOnOutsideClick(event) {
+  const menu = document.querySelector('.vault-menu[open]');
+  if (menu && !menu.contains(event.target)) menu.open = false;
+}
+
 export function initializeVault() {
+  document.removeEventListener('click', closeVaultMenuOnOutsideClick);
+  document.addEventListener('click', closeVaultMenuOnOutsideClick);
   if (location.search) history.replaceState(history.state, '', '/vault');
   if (selectedId) selectCard(selectedId);
   document.querySelector('.vault-detail')?.addEventListener('input', event => {
