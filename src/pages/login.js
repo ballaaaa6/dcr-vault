@@ -6,32 +6,22 @@ export function loginPage() {
   return `
     <main class="auth-page">
       <section class="auth-showcase" aria-labelledby="auth-brand-title">
-        <a class="auth-brand" href="/" aria-label="DCR Card Vault home">
-          <img src="/assets/logo/dcr-mark.svg" alt=""><span>DCR CARD VAULT</span>
-        </a>
+        <div class="auth-showcase-image" aria-hidden="true"></div>
+        <div class="auth-showcase-top"><span>A SPACE FOR COLLECTORS</span><span>YOUR COLLECTION</span></div>
         <div class="auth-showcase-copy">
-          <div class="auth-eyebrow"><span></span>COLLECT WITH CONFIDENCE</div>
-          <h1 id="auth-brand-title">Every card.<br><span>One trusted vault.</span></h1>
-          <p>Keep your DCR certified collection organized and ready whenever you need it.</p>
+          <span class="auth-accent-line" aria-hidden="true"></span>
+          <div class="auth-eyebrow">STEP INTO YOUR COLLECTION</div>
+          <h1 id="auth-brand-title">A world<br>worth keeping.</h1>
+          <p>A little space for everything you have collected along the way.</p>
         </div>
-        <div class="auth-visual" aria-hidden="true">
-          <div class="auth-ring auth-ring-one"></div><div class="auth-ring auth-ring-two"></div>
-          <div class="auth-visual-card auth-visual-back"></div>
-          <div class="auth-visual-card auth-visual-front">
-            <div class="auth-visual-top"><span>DCR CERTIFIED</span><img src="/assets/logo/dcr-mark.svg" alt=""></div>
-            <div class="auth-visual-mark"><img src="/assets/logo/dcr-shield.png" alt=""></div>
-            <div class="auth-visual-bottom"><span>YOUR COLLECTION</span><strong>CARD VAULT</strong></div>
-          </div>
-        </div>
-        <div class="auth-showcase-foot"><span>BUILT FOR YOUR COLLECTION</span><span>01 — 03</span></div>
+        <div class="auth-showcase-foot"><span>MADE FOR YOUR COLLECTION</span><span aria-hidden="true">✳</span></div>
       </section>
       <section class="auth-panel" aria-labelledby="login-title">
-        <div class="auth-panel-top"><span>ALREADY COLLECTING?</span><a href="/">Explore DCR Vault <span aria-hidden="true">↗</span></a></div>
+        <div class="auth-panel-top"><span>YOUR PERSONAL VAULT</span><a href="/">Explore DCR Vault <span aria-hidden="true">↗</span></a></div>
         <div class="auth-form-wrap">
-          <img class="auth-mobile-logo" src="/assets/logo/dcr-mark.svg" alt="DCR Card Vault">
-          <div class="auth-panel-kicker">WELCOME TO DCR</div>
-          <h2 id="login-title">Sign in to your vault</h2>
-          <p class="auth-intro">Use your Google account to access your private collection.</p>
+          <div class="auth-panel-kicker">WELCOME TO YOUR VAULT</div>
+          <h2 id="login-title">Your collection awaits.</h2>
+          <p class="auth-intro">Sign in with Google to organize your cards and pick up where you left off.</p>
           <div id="google-signin" class="google-signin"></div>
           <p id="login-status" class="auth-status" role="status" aria-live="polite">Loading secure sign-in…</p>
           <div class="auth-divider"><span>YOUR ACCOUNT</span></div>

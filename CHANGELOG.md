@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Login page redesign
+- Refresh the login page with the Discovery artwork, gentle motion, and clearer sign-in copy.
+
 ## 2026-11-22 - Illustrated login concepts
 - Add five animated login previews with newly generated collector-themed imagery.
 
