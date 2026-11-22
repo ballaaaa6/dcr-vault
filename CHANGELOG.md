@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Promotional card rarity
+- Fill Promo for promotional card readings and record intake-form values in identification diagnostics.
+
 ## 2026-11-22 - Read-only label details
 - Show the card year separately from the verified label year / series and make label details read-only.
 

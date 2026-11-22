@@ -25,3 +25,15 @@ test('uses a reviewed English set display for a non-English printing', () => {
   assert.equal(intakeValues(fields, source).setName, '30th CELEBRATION');
   assert.equal(intakeValues(fields, source).cardNumber, '137/103');
 });
+
+
+test('fills Promo from promotional identifiers and explicit promo readings', () => {
+  for (const fields of [
+    {language: 'ja', cardNumber: '151/XY-P'},
+    {language: 'ja', cardNumber: '001/S-P'},
+    {language: 'en', form: {setName: 'Black Star Promos'}},
+    {language: 'en', rarity: 'Promo'}
+  ]) assert.equal(intakeValues(fields, null).rarity, 'Promo');
+  assert.equal(intakeValues({cardNumber: '151/165'}, null).rarity, '');
+  assert.equal(intakeValues({cardNumber: '151/XY-P', form: {rarity: 'Rare'}}, null).rarity, 'Rare');
+});

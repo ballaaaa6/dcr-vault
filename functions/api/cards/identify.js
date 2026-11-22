@@ -57,9 +57,11 @@ async function identifyWithGemini(image, contentType, env, userId) {
 }
 
 function safeRawReading(value) {
-  const keys = ['name', 'englishName', 'setName', 'englishSetName', 'setCode', 'cardNumber', 'language', 'year',
+  const keys = ['formName', 'formSetName', 'formYear', 'formCardNumber', 'formRarity', 'name', 'englishName', 'setName', 'englishSetName', 'setCode', 'cardNumber', 'language', 'year',
     'rarity', 'hp', 'illustrator', 'stamp', 'setSymbol', 'copyrightText', 'identificationSummary', 'identityStatus', 'evidence', 'uncertainFields'];
   if (!value || typeof value !== 'object') return {};
-  return Object.fromEntries(keys.filter(key => typeof value[key] === 'string' || Array.isArray(value[key]))
-    .map(key => [key, Array.isArray(value[key]) ? value[key].filter(item => typeof item === 'string').slice(0, 12).map(item => item.slice(0, 300)) : value[key].slice(0, 300)]));
+  const form = value.form && typeof value.form === 'object' ? Object.fromEntries(
+    Object.entries(value.form).filter(([, item]) => typeof item === 'string').map(([key, item]) => [key, item.slice(0, 300)])) : undefined;
+  return {...(form ? {form} : {}), ...Object.fromEntries(keys.filter(key => typeof value[key] === 'string' || Array.isArray(value[key]))
+    .map(key => [key, Array.isArray(value[key]) ? value[key].filter(item => typeof item === 'string').slice(0, 12).map(item => item.slice(0, 300)) : value[key].slice(0, 300)]))};
 }

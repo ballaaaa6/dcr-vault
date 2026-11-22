@@ -13,6 +13,7 @@ const PROMPT = [
   'For Pokémon include HP, illustrator, stage, types, attacks and effects, energy costs, abilities, weakness, resistance and retreat. For Trainer or Energy include its category and visible effect.',
   'Return printed name and setName only when readable. Provide englishName as a translation when known, but leave englishSetName and englishCardNumber empty unless explicitly supported by the image. A copyright year is not the set release year.',
   'Set identityStatus to needs_review unless the exact printing is supported. Give identificationSummary and evidence, and list each unreadable or uncertain identity field in uncertainFields. Leave unreadable fields empty.',
+  'When the card is a promotional printing, including a recognizable promo collector-number code, set formRarity to Promo. Preserve any more specific rarity when supported.',
   'For the intake form provide formName as the English card name, formSetName as the English set name, formYear as the four-digit set release year, formCardNumber exactly as printed, and formRarity as the standard rarity name. Leave any value empty if insufficiently supported; do not equate copyright year with release year.',
   'Use language codes en, th, ja, ko, zh-tw, zh-cn, de, fr, es, it, pt, id, nl, pl or ru when identifiable. For confidence estimate visual legibility only, not the probability of catalog identity. Return one JSON object matching the schema.'
 ].join(' ');
