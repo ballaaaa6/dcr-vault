@@ -35,6 +35,12 @@ export async function render() {
   const path = location.pathname;
   const isCertificate = certificateFromPath(path) !== null;
   const app = document.getElementById('app');
+  if (path === '/privacy' || path === '/privacy/') {
+    const {privacyPage} = await import('./pages/privacy.js');
+    app.innerHTML = privacyPage();
+    document.title = 'Privacy Policy — DCR Card Vault';
+    return;
+  }
   if (path === '/login') {
     app.innerHTML = loginPage();
     await initializeLogin();

@@ -8,7 +8,7 @@ export function initializeBackToTop() {
   document.body.append(button);
 
   function updateVisibility() {
-    const visible = window.scrollY > 190;
+    const visible = window.scrollY > 0;
     button.classList.toggle('is-visible', visible);
     button.tabIndex = visible ? 0 : -1;
     button.setAttribute('aria-hidden', String(!visible));

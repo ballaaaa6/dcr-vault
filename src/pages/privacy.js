@@ -1,14 +1,7 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="DCR Card Vault privacy policy and account data practices.">
-  <title>Privacy Policy — DCR Card Vault</title>
-  <link rel="stylesheet" href="/privacy/privacy.css">
-</head>
-<body>
-  <div class="privacy-art" aria-hidden="true"><div class="privacy-branch"></div><div class="privacy-petals"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+import '../styles/privacy.css';
+
+export function privacyPage() {
+  return `  <div class="privacy-art" aria-hidden="true"><div class="privacy-branch"></div><div class="privacy-petals"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
   <div class="privacy-shell">
     <main class="privacy-page">
       <div class="privacy-intro">
@@ -45,6 +38,5 @@
       </div>
     </main>
     <footer class="privacy-footer"><span class="privacy-copyright">© 2026 DCR Card Vault</span><a href="/login">Back to Login</a></footer>
-  </div>
-</body>
-</html>
+  </div>`;
+}

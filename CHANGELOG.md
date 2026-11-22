@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Show back to top on scrollable pages
+
+- Reuse the back-to-top button on the privacy policy and show it whenever a page has been scrolled down.
+
 ## 2026-11-23 - Strengthen copyright glow
 
 - Use white copyright text with a stronger black glow on the login and privacy policy pages.
