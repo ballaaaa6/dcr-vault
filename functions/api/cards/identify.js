@@ -58,7 +58,7 @@ async function identifyWithGemini(image, contentType, env, userId) {
 
 function safeRawReading(value) {
   const keys = ['cardTypeLabel', 'languageLabel', 'series', 'formName', 'formSetName', 'formYear', 'formCardNumber', 'formRarity', 'name', 'englishName', 'setName', 'englishSetName', 'setCode', 'cardNumber', 'language', 'year',
-    'rarity', 'hp', 'illustrator', 'stamp', 'setSymbol', 'copyrightText', 'identificationSummary', 'identityStatus', 'evidence', 'uncertainFields'];
+    'rarity', 'hp', 'illustrator', 'types', 'stamp', 'setSymbol', 'copyrightText', 'identificationSummary', 'identityStatus', 'evidence', 'uncertainFields'];
   if (!value || typeof value !== 'object') return {};
   const form = value.form && typeof value.form === 'object' ? Object.fromEntries(
     Object.entries(value.form).filter(([, item]) => typeof item === 'string').map(([key, item]) => [key, item.slice(0, 300)])) : undefined;

@@ -86,6 +86,27 @@ test('returns a Gemini suggestion even when identity details need manual review'
   }
 });
 
+test('identification log retains raw and normalized Pokémon types', async () => {
+  const originalFetch = globalThis.fetch;
+  let logged;
+  const env = testEnvironment();
+  env.DB.prepare = query => ({bind: (...values) => ({
+    first: async () => ({id: 'test-user'}),
+    run: async () => { if (query.includes('INSERT INTO identification_logs')) logged = JSON.parse(values[7]); }
+  })});
+  globalThis.fetch = async () => Response.json({candidates: [{content: {parts: [
+    {text: JSON.stringify({name: 'Vespiquen', types: ['Grass']})}
+  ]}}]});
+  try {
+    const response = await onRequestPost({request: identifyRequest(), env});
+    assert.equal(response.status, 200);
+    assert.deepEqual(logged.raw.types, ['Grass']);
+    assert.deepEqual(logged.normalized.types, ['Grass']);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
 test('moves to the next configured key only when Gemini rejects a key', async () => {
   const originalFetch = globalThis.fetch;
   const calls = [];

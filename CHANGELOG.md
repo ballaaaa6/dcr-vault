@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Retain Pokémon types in identification logs
+
+- Record Gemini's raw and normalized Pokémon types in the existing identification log.
+
 ## 2026-11-22 - Add Card mountain backgrounds
 
 - Add the paired red mountain backgrounds with softened imagery and readable text surfaces.
