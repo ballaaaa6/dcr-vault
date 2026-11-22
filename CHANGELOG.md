@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Adjust vault selection heading spacing
+
+- Bring the description closer to the heading in the label vault selection dialog.
+
 ## 2026-11-23 - Export vector label sheets
 
 - Assemble front and back labels as SVG artwork and export vector A4 PDF pages without rasterizing the sheet.
