@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Clearer label text spacing
+- Reserve a 2 mm gap between left and right label text, abbreviating long lines as needed.
+
 ## 2026-11-22 - Dismiss vault card options
 - Close the vault card options menu when clicking elsewhere on the page.
 

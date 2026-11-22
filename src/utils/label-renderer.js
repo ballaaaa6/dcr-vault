@@ -12,7 +12,7 @@ import {cardLabelMetadata, cardSeries} from './label-metadata.js';
 const SVG_NS = 'http://www.w3.org/2000/svg';
 const XLINK_NS = 'http://www.w3.org/1999/xlink';
 const FONT_SIZE_MM = 2.57;
-const TEXT_GAP_MM = 0.5;
+const TEXT_GAP_MM = 2;
 const frontMaster = loadTemplate(frontMasterUrl);
 const backMaster = loadTemplate(backMasterUrl);
 const sheetMaster = loadTemplate(sheetMasterUrl);
