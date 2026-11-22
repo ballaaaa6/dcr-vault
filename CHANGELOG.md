@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Fade intake status messages
+- Keep the intake status visible for six seconds, then fade it over four seconds; restart the timer for each message.
+
 ## 2026-11-22 - Standardize card label fields
 - Derive card type and language labels from the identified game and language, and recognize equivalent promo set names.
 

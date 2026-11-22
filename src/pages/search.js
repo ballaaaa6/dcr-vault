@@ -15,8 +15,21 @@ let certCheckVersion = 0;
 let certCheckTimer;
 let imageUrls = {};
 let uploadedSides = new Set();
+let statusObserver;
 
-export {initializeCardRarity as initializeSearchPage};
+export function initializeSearchPage() {
+  initializeCardRarity();
+  statusObserver?.disconnect();
+  const status = document.getElementById('manual-status');
+  if (!status) return;
+  statusObserver = new MutationObserver(() => {
+    status.classList.remove('status-fading');
+    if (!status.textContent.trim()) return;
+    void status.offsetWidth;
+    status.classList.add('status-fading');
+  });
+  statusObserver.observe(status, {childList: true, characterData: true, subtree: true});
+}
 
 function photoField(side, label) {
   return `<div class="upload-item"><span class="upload-label">${label}</span><div class="upload-frame">
