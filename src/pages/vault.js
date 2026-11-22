@@ -52,6 +52,11 @@ export function vault(cards = []) {
         <aside class="surface-card vault-detail" aria-label="Selected card details">${detailMarkup(focus)}</aside>
         <aside class="surface-card vault-photo-panel" aria-label="Selected card photo">${photoMarkup(focus)}</aside>
       </div>
+      <dialog class="vault-delete-dialog" aria-labelledby="delete-card-title" aria-describedby="delete-card-description">
+        <h2 id="delete-card-title">Delete this card?</h2>
+        <p id="delete-card-description">This will permanently delete the card and its photos. Its certificate number will be available for another card.</p>
+        <div class="vault-delete-actions"><button class="btn btn-ghost" type="button" data-delete-cancel autofocus>Cancel</button><button class="btn btn-primary" type="button" data-delete-confirm>Delete card</button></div>
+      </dialog>
     </main>`;
 }
 
@@ -161,8 +166,17 @@ window.__saveDetail = async (event, id) => {
   } finally { vaultBusy = false; }
 };
 
-window.__deleteVault = async id => {
-  if (!confirm('Delete this card and its photos? Its certificate number will become available for another card.')) return;
+window.__deleteVault = id => {
+  const dialog = document.querySelector('.vault-delete-dialog');
+  const cancel = dialog.querySelector('[data-delete-cancel]');
+  const confirmButton = dialog.querySelector('[data-delete-confirm]');
+  cancel.onclick = () => dialog.close();
+  confirmButton.onclick = () => { dialog.close(); removeVaultCard(id); };
+  dialog.onclick = event => { if (event.target === dialog) dialog.close(); };
+  dialog.showModal();
+};
+
+async function removeVaultCard(id) {
   vaultBusy = true;
   const buttons = document.querySelectorAll('#vault-edit button');
   buttons.forEach(button => { button.disabled = true; });
@@ -175,4 +189,4 @@ window.__deleteVault = async id => {
     document.getElementById('vault-edit-message').textContent = error.message || 'Card could not be deleted.';
     buttons.forEach(button => { button.disabled = false; });
   } finally { vaultBusy = false; }
-};
+}
