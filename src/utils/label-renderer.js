@@ -7,7 +7,7 @@ import backMasterUrl from '../../dcr-tag-70x20/source/dcr-tag-back.svg?url';
 import sheetMasterUrl from '../../dcr-tag-70x20/source/a4-40up-portrait.svg?url';
 import {hasNonLatinScript} from './language.js';
 import {CONDITION_OPTIONS} from './label-options.js';
-import {cardLabelMetadata} from './label-metadata.js';
+import {cardLabelMetadata, cardSeries} from './label-metadata.js';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 const XLINK_NS = 'http://www.w3.org/1999/xlink';
@@ -43,6 +43,9 @@ export function cardLabelData(card) {
   const metadata = cardLabelMetadata(card);
   return {
     year: String(card.year ?? '').trim(),
+    cardType: String(card.game || '').toLowerCase() === 'pokemon' ? 'POKÉMON' : String(card.game || '').trim(),
+    series: cardSeries(card),
+    language: String(card.sourceLanguage || card.language || 'en').toLowerCase(),
     name: String(card.name ?? '').trim(),
     setName: metadata.setName,
     cardNumber: normalizeCardNumber(card.cardNumber),
@@ -55,6 +58,9 @@ export function cardLabelData(card) {
 function cleanLabelData(data) {
   return {
     year: String(data.year ?? '').trim(),
+    cardType: String(data.cardType ?? '').trim().toLocaleUpperCase('en-US'),
+    series: String(data.series ?? '').trim().toLocaleUpperCase('en-US'),
+    language: String(data.language ?? '').trim().toLowerCase(),
     name: String(data.name ?? '').trim().toLocaleUpperCase('en-US'),
     setName: String(data.setName ?? '').trim().toLocaleUpperCase('en-US'),
     cardNumber: normalizeCardNumber(data.cardNumber).toLocaleUpperCase('en-US'),
@@ -84,17 +90,32 @@ export function rarityFitsLabel(setName, rarity) {
   return !pairFitError('Set name', 'rarity', String(setName || '').toLocaleUpperCase('en-US'), rarity);
 }
 
+const LANGUAGE_LABELS = {en: '', th: 'THAI', ja: 'JAPANESE'};
+const SERIES_SHORT = {'SCARLET & VIOLET': 'SV', 'SWORD & SHIELD': 'SWSH', 'SUN & MOON': 'SM',
+  'MEGA EVOLUTION': 'MEGA', 'BLACK & WHITE': 'BW', 'DIAMOND & PEARL': 'DP',
+  'HEARTGOLD & SOULSILVER': 'HGSS', 'ADVANCED GENERATION': 'ADV'};
+
+export function firstLine(value) {
+  const language = LANGUAGE_LABELS[value.language];
+  if (language === undefined || !value.year || !value.cardType || !value.series) return '';
+  const build = series => [value.year, value.cardType, language, series].filter(Boolean).join(' ');
+  const full = build(value.series);
+  if (!pairFitError('First line', 'card number', full, value.cardNumber)) return full;
+  return SERIES_SHORT[value.series] ? build(SERIES_SHORT[value.series]) : full;
+}
+
 export function validateLabelData(data) {
   const value = cleanLabelData(data);
-  const required = ['year', 'name', 'setName', 'cardNumber', 'condition', 'rarity', 'certNumber'];
+  const required = ['year', 'cardType', 'series', 'language', 'name', 'setName', 'cardNumber', 'condition', 'rarity', 'certNumber'];
   const missing = required.find(key => !value[key]);
   if (missing) return [`${missing.replace(/[A-Z]/g, letter => ` ${letter.toLowerCase()}`)} is required.`];
+  if (!(value.language in LANGUAGE_LABELS)) return ['Card language must be English, Thai, or Japanese.'];
   if ([value.name, value.setName].some(hasNonLatinScript)) return ['Card name and set must use English text.'];
   if (!/^\d{8}$/.test(value.certNumber)) return ['Cert number must contain exactly 8 digits.'];
   if (!CONDITION_OPTIONS.includes(value.condition)) return ['Choose a condition from the DCR list.'];
 
   return [
-    pairFitError('Year', 'card number', value.year, value.cardNumber),
+    pairFitError('First line', 'card number', firstLine(value), value.cardNumber),
     pairFitError('Card name', 'condition', value.name, value.condition),
     pairFitError('Set name', 'rarity', value.setName, value.rarity)
   ].filter(Boolean);
@@ -201,7 +222,7 @@ export async function renderLabelSvgPair(data) {
   const value = cleanLabelData(data);
   const [frontSource, backSource] = await Promise.all([frontMaster, backMaster]);
   const front = parseSvg(frontSource);
-  svgText(front, 'front-year-series', value.year);
+  svgText(front, 'front-year-series', firstLine(value));
   svgText(front, 'front-card-name', value.name);
   svgText(front, 'front-collection', value.setName);
   svgText(front, 'front-card-number', value.cardNumber);

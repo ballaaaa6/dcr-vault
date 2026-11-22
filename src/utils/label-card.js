@@ -1,10 +1,25 @@
-import {findCatalogCandidates, findCatalogCardById} from '../store/catalog.js';
+import {findCatalogCandidates, findCatalogCardById, loadCatalogCards} from '../store/catalog.js';
 
 function numberKey(value) {
   return String(value || '').trim().replace(/^#/, '').split('/')[0].replace(/^0+(?=\d)/, '').toLowerCase();
 }
 
+async function sourceSeries(card) {
+  const language = String(card.sourceLanguage || card.language || 'en').toLowerCase();
+  if (language === 'en' || !card.sourceSetId) return '';
+  const cards = await loadCatalogCards();
+  const matches = cards.filter(item => item.language === language && item.setId === card.sourceSetId
+    && (!card.sourceCardId || item.id === card.sourceCardId));
+  const series = [...new Set(matches.map(item => item.seriesId).filter(Boolean))];
+  return series.length === 1 ? series[0] : '';
+}
+
 export async function enrichLabelCard(card) {
+  const language = String(card.sourceLanguage || card.language || 'en').toLowerCase();
+  if (language !== 'en') {
+    const seriesId = await sourceSeries(card).catch(() => '');
+    return {...card, seriesId};
+  }
   if (card.catalogCardId) {
     const match = await findCatalogCardById(card.catalogCardId);
     return match ? {...card, setId: match.setId, seriesId: match.seriesId, seriesName: match.seriesName} : card;

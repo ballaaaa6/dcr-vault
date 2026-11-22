@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Label card type and series
+- Show card type and series in label details and print year, type, language and series using approved fit abbreviations.
+
 ## 2026-11-22 - Card year on labels
 - Print the recorded card year and remove the separate year / series display and profile requirement.
 

@@ -106,7 +106,7 @@ function chooseVault() {
 function viewLabel(cert) {
   const item = entries.find(entry => entry.cert === cert);
   if (!item) return;
-  const fields = [['Year', item.data.year], ['Name', item.data.name],
+  const fields = [['Year', item.data.year], ['Card type', item.data.cardType], ['Series', item.data.series], ['Name', item.data.name],
     ['Set', item.data.setName], ['Card number', item.data.cardNumber], ['Rarity', item.data.rarity],
     ['Condition', item.data.condition]];
   dialog(`${dialogHead(`Cert ${esc(cert)}`)}<div class="label-edit-grid">${fields.map(([name, value]) => `<div class="form-field"><span>${name}</span><div class="form-control">${esc(value || '—')}</div></div>`).join('')}</div><p class="label-status">${esc(item.error || '')}</p><div class="label-edit-preview">${item.frontSvg || ''}${item.backSvg || ''}</div>`);

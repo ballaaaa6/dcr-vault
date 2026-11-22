@@ -31,6 +31,11 @@ function yearSeriesFor(card, profile) {
   return `${year} ${prefix}${upper}`;
 }
 
+export function cardSeries(card = {}) {
+  const id = String(card.seriesId || '').toLowerCase();
+  return String(labelRules.series_labels?.[id] || '').trim().replace(/^POK[ÉE]MON\s+/i, '');
+}
+
 export function cardLabelMetadata(card = {}) {
   const profile = profileFor(card);
   const override = labelRules.set_overrides?.[catalogSetId(card)];
