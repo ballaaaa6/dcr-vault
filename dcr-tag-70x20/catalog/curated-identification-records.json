@@ -38,6 +38,23 @@
         "https://www.pokemon-card.com/products/xy/hiroshima.html"
       ],
       "status": "review_required"
+    },
+    {
+      "id": "curated-ja-xyp-123",
+      "language": "ja",
+      "name": "レックウザEX",
+      "setName": "XY-P Promos",
+      "year": "2015",
+      "cardNumber": "123/XY-P",
+      "rarity": "Promo",
+      "setId": "XY-P",
+      "hp": "170",
+      "illustrator": "5ban Graphics",
+      "sources": [
+        "https://www.pokemon-card.com/card-search/details.php/card/31056",
+        "https://pokeboon.com/123xy-p_rayquazaex_promo/"
+      ],
+      "status": "verified"
     }
   ]
 }

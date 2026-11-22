@@ -8,8 +8,8 @@ import {intakeValues} from './intake-reading.js';
 const data = JSON.parse(readFileSync(new URL('../../public/data/card-catalog.json', import.meta.url)));
 const cards = data.cards.map(([id, language, name, setName, year, cardNumber, rarity, seriesId, setId, seriesName, meta]) => ({
   id, language, name, setName, year, cardNumber, rarity, setId,
-  metadata: {nameAliases: meta?.[0] || [], hp: meta?.[2] || '', illustrator: meta?.[3] || '',
-    cardCount: meta?.[1] || '', verifiedPrintedCodes: data.verifiedPrintedCodes?.[`${language}:${setId}`]?.codes || []}
+  metadata: {...(Array.isArray(meta) ? {nameAliases: meta[0] || [], hp: meta[2] || '', illustrator: meta[3] || '',
+    cardCount: meta[1] || ''} : meta), verifiedPrintedCodes: data.verifiedPrintedCodes?.[`${language}:${setId}`]?.codes || []}
 }));
 const mew = {language: 'ja', name: 'ミュウ', hp: '50', illustrator: 'Ken Sugimori', cardNumber: '151',
   form: {name: 'Mew', year: '1997', cardNumber: '151'}, uncertainFields: ['setName', 'setCode', 'rarity', 'cardNumber']};
@@ -46,4 +46,15 @@ test('uses a matching attack when the printed number is missing, without inventi
   assert.equal(findEvidenceCatalogCard([card], fields, collectorNumbersCompatible), card);
   assert.equal(intakeValues(fields, card).cardNumber, '');
   assert.equal(findEvidenceCatalogCard([card], {...fields, attacks: []}, collectorNumbersCompatible), null);
+});
+
+test('matches the Rayquaza reading and supplies the verified set from the shipped catalog', () => {
+  const fields = {language: 'ja', name: 'レックウザEX', englishName: 'Rayquaza-EX', hp: '170',
+    illustrator: '5ban Graphics', cardNumber: '123/XY-P', uncertainFields: ['setName', 'setCode'],
+    form: {name: 'Rayquaza EX', setName: 'unverified guess', year: '2015', cardNumber: '123/XY-P', rarity: 'Promo'}};
+  const match = find(fields);
+  assert.equal(match?.id, 'curated-ja-xyp-123');
+  assert.equal(intakeValues(fields, null).setName, '');
+  assert.equal(intakeValues(fields, match).setName, 'XY-P Promos');
+  assert.equal(find({...fields, hp: '180'}), null);
 });

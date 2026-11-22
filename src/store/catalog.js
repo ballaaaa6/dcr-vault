@@ -57,7 +57,7 @@ function imageFallbackUrl(card) {
 }
 
 async function loadCatalog() {
-  catalogPromise ||= fetch('/data/card-catalog.json', {cache: 'force-cache'})
+  catalogPromise ||= fetch('/data/card-catalog.json', {cache: 'no-cache'})
     .then(response => {
       if (!response.ok) throw new Error('Card suggestions are temporarily unavailable.');
       return response.json();

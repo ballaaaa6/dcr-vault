@@ -41,5 +41,6 @@ export function findEvidenceCatalogCard(cards, fields, numbersCompatible) {
   if (matches.length !== 1) return null;
   const card = matches[0];
   const mapping = printedNumberMapping(card, fields.cardNumber || fields.form?.cardNumber);
-  return mapping ? {...card, metadata: {...card.metadata, englishSetName: mapping.englishSetName}} : card;
+  return mapping ? {...card, metadata: {...card.metadata, englishSetName: mapping.englishSetName,
+    verifiedPrintedNumber: mapping.number}} : card;
 }

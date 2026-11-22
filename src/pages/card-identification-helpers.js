@@ -3,7 +3,7 @@ import {intakeValues} from '../utils/intake-reading.js';
 
 export function fillMissingCatalogValues(fields, source, provenance, appliedValues) {
   const values = {...intakeValues(fields, source), artist: source.metadata?.illustrator || ''};
-  for (const key of ['setName', 'year', 'rarity', 'artist']) {
+  for (const key of ['setName', 'year', 'cardNumber', 'rarity', 'artist']) {
     const input = document.getElementById(`m-${key}`);
     if (!input || input.value.trim() || provenance[key] === 'user' || !values[key]) continue;
     input.value = key === 'rarity' ? formatRarity(values[key]) : values[key];

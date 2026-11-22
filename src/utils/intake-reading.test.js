@@ -37,3 +37,14 @@ test('fills Promo from promotional identifiers and explicit promo readings', () 
   assert.equal(intakeValues({cardNumber: '151/165'}, null).rarity, '');
   assert.equal(intakeValues({cardNumber: '151/XY-P', form: {rarity: 'Rare'}}, null).rarity, 'Rare');
 });
+
+test('keeps uncertain model values blank until the catalog supports them', () => {
+  const fields = {language: 'ja', cardNumber: '123/XY-P', englishName: 'Rayquaza EX',
+    form: {name: 'Rayquaza EX', setName: 'guess', year: '2015', cardNumber: '123/XY-P', rarity: 'Promo'},
+    uncertainFields: ['setName', 'year', 'rarity', 'cardNumber']};
+  assert.deepEqual(intakeValues(fields, null), {name: 'Rayquaza EX', setName: '', year: '', cardNumber: '', rarity: ''});
+  assert.deepEqual(intakeValues(fields, {setName: 'XY-P Promos', year: '2015', rarity: 'Promo',
+    metadata: {verifiedPrintedNumber: '123/XY-P'}}),
+  {name: 'Rayquaza EX', setName: 'XY-P Promos', year: '2015', cardNumber: '123/XY-P', rarity: 'Promo'});
+  assert.equal(intakeValues({...fields, uncertainFields: ['formSetName']}, null).setName, '');
+});

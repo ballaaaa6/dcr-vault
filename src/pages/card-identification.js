@@ -6,7 +6,7 @@ import {invalidateCatalogSuggestions} from './search-catalog.js';
 import {invalidateCardResolution} from './search-card-resolution.js';
 import {cardLabelMetadata} from '../utils/label-metadata.js';
 import {readingSummaryMarkup} from './card-identification-view.js';
-import {intakeValues} from '../utils/intake-reading.js';
+import {intakeValues, readingUncertain} from '../utils/intake-reading.js';
 import {candidateConflicts, readingConflicts} from '../utils/card-identification-matching.js';
 import {fillMissingCatalogValues, safeReadingErrorMessage, canRetryIdentification} from './card-identification-helpers.js';
 
@@ -17,7 +17,6 @@ let candidateState = null;
 let readingRequestId = '';
 let fieldProvenance = {};
 let identificationStatus = 'unknown';
-
 export function identificationDialogMarkup() {
   return `<dialog id="identification-result" class="identification-dialog" aria-labelledby="identification-title">
     <header class="identification-dialog-header"><div><div class="page-eyebrow">GEMINI IDENTIFICATION</div><h2 id="identification-title">Review card reading</h2><p>Review the details read from the photo before adding it.</p></div>
@@ -108,8 +107,9 @@ function fillGeminiValues(fields, requestId) {
   for (const [key, value] of Object.entries(labelValues)) {
     if (fieldProvenance[key] === 'user') continue;
     const input = document.getElementById(`m-${key}`);
-    input.value = value || '';
-    fieldProvenance[key] = value ? 'gemini' : 'unknown';
+    const uncertainKeys = key === 'artist' ? ['artist', 'illustrator'] : ['sourceLanguage', 'languageLabel'].includes(key) ? ['language', key] : [key];
+    input.value = readingUncertain(fields, ...uncertainKeys) ? '' : value || '';
+    fieldProvenance[key] = input.value ? 'gemini' : 'unknown';
     appliedValues[key] = input.value;
   }
   for (const [key, value] of Object.entries(values)) {
@@ -156,7 +156,7 @@ async function applyReading(fields, version, requestId, values) {
   window.__intakeIdentityReviewRequired = !source || evidenceMatch;
   const selected = sourceLanguage === 'en' && source && !evidenceMatch
     ? {...source, sourceLanguage, sourceSetId: source.setId, sourceCardId: source.id, sourceFinish: ''}
-    : {...values, ...Object.fromEntries(['setName', 'year', 'rarity'].map(key => [key, document.getElementById(`m-${key}`).value])), language: sourceLanguage, sourceLanguage, sourceSetId: source?.setId || '',
+    : {...values, ...Object.fromEntries(['setName', 'year', 'cardNumber', 'rarity'].map(key => [key, document.getElementById(`m-${key}`).value])), language: sourceLanguage, sourceLanguage, sourceSetId: source?.setId || '',
       sourceCardId: source?.id || '', setCode: fields.setCode || '', sourceFinish: '', catalogCardId: '', id: ''};
   const metadata = cardLabelMetadata(selected);
   window.__intakeCatalogCard = {...selected, ...metadata};

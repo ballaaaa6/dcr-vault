@@ -60,7 +60,7 @@ export function findSourceCatalogCardFromCatalog(cards, fields) {
     ? normalized(printedNumber.promo) : rawCode;
   const number = String(fields.cardNumber || '').trim();
   const uncertain = (fields.uncertainFields || []).join(' ').toLowerCase();
-  if (!language || !setCode || !number || readingConflicts(fields).length || /set.?code|collector.?number|card.?number/.test(uncertain)) return null;
+  if (!language || !setCode || !number || readingConflicts(fields).length || /language|set.?code|collector.?number|card.?number/.test(uncertain)) return null;
   const name = normalized(fields.name);
   const matches = cards.filter(card => !card.metadata?.reviewRequired && normalized(card.language) === language
     && (card.metadata?.verifiedPrintedCodes || []).some(code => normalized(code) === setCode)

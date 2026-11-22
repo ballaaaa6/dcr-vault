@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Verify uncertain card readings
+- Leave uncertain Gemini fields blank until corroborated by the catalog, add a verified Rayquaza-EX promo, and revalidate the catalog on reload.
+
 ## 2026-11-22 - Recover missing card details
 - Fill the illustrator from Gemini and use corroborated catalog evidence to suggest missing intake details while preserving printed numbers and user edits.
 

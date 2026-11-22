@@ -110,12 +110,14 @@ def read_curated_records():
         raise SystemExit("Curated catalog must have a schema version and review date.")
     rows = []
     for card in data.get("records", []):
-        if card.get("status") != "review_required" or not all(
+        if card.get("status") not in {"review_required", "verified"} or not all(
             str(card.get(key, "")).strip() for key in ("id", "language", "name", "cardNumber", "setId")
         ) or not card.get("sources") or not all(url.startswith("https://") for url in card["sources"]):
             raise SystemExit("Curated records require identity, review status and HTTPS sources.")
         metadata = {"nameAliases": [], "cardCount": card.get("cardCount", ""), "hp": card.get("hp", ""),
-                    "illustrator": card.get("illustrator", ""), "reviewRequired": True, "sources": card["sources"]}
+                    "illustrator": card.get("illustrator", ""), "reviewRequired": card["status"] != "verified", "sources": card["sources"]}
+        if card["status"] == "verified":
+            metadata["verifiedPrintedNumber"] = card["cardNumber"]
         rows.append([card["id"], card["language"], card["name"], card.get("setName", ""), card.get("year", ""),
                      card["cardNumber"], card.get("rarity", ""), "", card["setId"], "", metadata])
     return rows
