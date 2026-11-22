@@ -17,7 +17,7 @@ export function home() {
                 <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><circle cx="10.8" cy="10.8" r="6.3"></circle><path d="m15.5 15.5 4.2 4.2"></path></svg>
               </button>
             </div>
-            <p class="search-hint" id="certificate-search-hint">Search any DCR certificate without signing in.</p>
+            <p class="search-hint" id="certificate-search-hint">Search any DCR certificate without signing in.<br>Enter the certificate number to view its details.</p>
           </form>
           <div class="home-benefits" aria-label="Vault features">
             <div class="home-benefit"><img src="/assets/home/quick-lookup.png" alt=""><strong>Quick Lookup</strong><span>Find a certificate</span></div>

@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Home search and feature cards
+- Compact the certificate search, clarify its instructions, and frame the three home features.
+
 ## 2026-11-22 - Home page layout
 - Update the home page with feature icons and a full-height layout that places the footer at the bottom.
 
