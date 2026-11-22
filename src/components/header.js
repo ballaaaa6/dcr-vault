@@ -21,9 +21,9 @@ export function header(activePath, user = null) {
   return `
     <header class="site-header no-print">
       <div class="header-inner wrap">
-        <a class="logo-wrap" href="/" aria-label="DCR Card Vault home">
+        <a class="logo-wrap" href="/" aria-label="Distinguished Card Registry home">
           <img class="logo" src="/assets/logo/dcr-mark.svg" alt="">
-          <span>DCR Card Vault</span>
+          <span>Distinguished Card Registry</span>
         </a>
         <button class="menu-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Open navigation">
           <span></span><span></span><span></span>

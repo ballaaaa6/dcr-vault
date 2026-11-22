@@ -37,7 +37,7 @@
 .lookup-error{border-color:var(--dcr-red-light);background:var(--dcr-red-light)}
 .lookup-error strong{color:var(--dcr-red)}
 .lookup-error p{margin:6px 0 0}
-@media(max-width:820px){
+@media(max-width:1100px){
   .menu-toggle{display:flex;width:42px;height:42px;flex-direction:column;align-items:center;justify-content:center;gap:5px;border:1px solid var(--dcr-border);border-radius:50%;background:var(--dcr-white);color:var(--dcr-black)}
   .menu-toggle span{display:block;width:17px;height:2px;border-radius:2px;background:currentColor;transition:transform .18s,opacity .18s}
   .menu-toggle[aria-expanded="true"] span:first-child{transform:translateY(7px) rotate(45deg)}
@@ -53,9 +53,9 @@
   .lookup-page{min-height:calc(100vh - 120px);padding:38px 16px 44px}
 }
 @media(max-width:480px){
-  .header-inner{min-height:68px}
-  .logo-wrap{font-size:21px}
-  .logo-wrap .logo{width:64px}
+  .header-inner{min-height:68px;gap:8px}
+  .logo-wrap{min-width:0;gap:6px;font-size:clamp(14px,4vw,21px)}
+  .logo-wrap .logo{width:clamp(42px,13vw,64px);flex-shrink:0}
   .site-footer{align-items:flex-start;flex-direction:column;gap:4px}
   .lookup-panel{border-radius:22px}
   .lookup-result{padding:18px}

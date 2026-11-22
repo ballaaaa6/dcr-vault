@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Full registry name
+- Show Distinguished Card Registry beside the navigation logo.
+
 ## 2026-11-22 - Clear search visibility
 - Show search clear buttons only when their fields contain text.
 
