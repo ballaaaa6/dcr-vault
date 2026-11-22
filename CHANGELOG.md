@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Update profile name edit icon
+
+- Use a square pen icon that turns red on hover.
+
 ## 2026-11-23 - Fix profile photo hover size
 
 - Keep the add-photo overlay aligned to the circular profile avatar.
