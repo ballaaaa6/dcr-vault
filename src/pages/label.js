@@ -1,7 +1,7 @@
 import {findByCert} from '../store/cards.js';
 import {findCatalogCandidates, findCatalogCardById} from '../store/catalog.js';
 import {escapeHTML} from '../utils/format.js';
-import {normalizeCert} from '../utils/cert.js';
+import {normalizeCert, publicCertificateUrl} from '../utils/cert.js';
 
 let printSheet = [];
 let renderer;
@@ -30,7 +30,7 @@ function labelForm(data, conditionOptions) {
     ${inputField('cardNumber', 'Card number', data.cardNumber, 'autocomplete="off"')}
     <label class="form-field"><span>Condition</span><select class="form-control" id="condition" data-label-field="condition">${selectOptions(conditionOptions, data.condition, 'Choose condition')}</select></label>
     ${inputField('rarity', 'Rarity', data.rarity, 'autocomplete="off"')}
-    ${inputField('certNumber', 'Cert number', data.certNumber, 'inputmode="numeric" maxlength="8" pattern="[0-9]{1,8}" placeholder="1 to 8 digits" autocomplete="off"')}`;
+    ${inputField('certNumber', 'Cert number', data.certNumber, 'readonly aria-readonly="true"')}`;
 }
 
 function previewMarkup(svg, side) {
@@ -99,6 +99,7 @@ export async function label(cards = []) {
         <section class="surface-card label-editor" aria-labelledby="label-editor-title">
           <div class="section-heading"><span class="section-number">01</span><div><h2 id="label-editor-title">Certificate details</h2><p>Printed information only.</p></div></div>
           <div class="label-fields">${labelForm(data, api.CONDITION_OPTIONS)}</div>
+          <p class="muted">QR destination: <a href="${escapeHTML(publicCertificateUrl(data.certNumber))}" target="_blank" rel="noopener noreferrer">${escapeHTML(publicCertificateUrl(data.certNumber))}</a></p>
           <button class="btn btn-primary" type="button" data-label-action="add" ${errors.length ? 'disabled' : ''}>Add to Print Sheet</button>
           <p id="label-status" class="label-status" role="status" aria-live="polite">${errors.length ? escapeHTML(errors[0]) : 'Preview reflects the values above.'}</p>
         </section>
@@ -115,7 +116,7 @@ export async function label(cards = []) {
       <section class="label-sheet-preview surface-card no-print">
         <div class="section-heading"><span class="section-number">02</span><div><h2>A4 sheet preview</h2><p>10 columns × 4 rows · 40 positions · duplex long-edge</p></div></div>
         <div class="sheet-preview-pages">${sheetPage('Front · page 1', 'front', frontSheet, api.labelSvgDataUri)}${sheetPage('Back · page 2', 'back', backSheet, api.labelSvgDataUri)}</div>
-        <p class="label-print-note">Print at Actual Size with long-edge duplex. Codes use DCR-TEST values and do not verify a registry record.</p>
+        <p class="label-print-note">Print at Actual Size with long-edge duplex. The QR code opens this certificate; barcodes contain its Cert number. Test a printed label before use.</p>
         <button class="btn btn-ghost" type="button" data-label-action="clear" ${printSheet.length ? '' : 'disabled'}>Clear print sheet</button>
       </section>
     </main>

@@ -23,3 +23,7 @@ export function certificateFromPath(path) {
   const match = /^\/cert\/([^/]+)\/?$/.exec(path || '');
   return match ? match[1] : null;
 }
+
+export function publicCertificateUrl(value) {
+  return 'https://dcrcards.pages.dev' + certificatePath(value);
+}

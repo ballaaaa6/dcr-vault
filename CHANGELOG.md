@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Certificate label codes
+- Link each label QR to its public certificate and keep both barcodes tied to the saved Cert number.
+
 ## 2026-11-22 - Remove old intake route
 - Remove the unused /search redirect now that card intake uses /register.
 

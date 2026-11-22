@@ -1,6 +1,7 @@
 import JsBarcode from 'jsbarcode';
 import QRCode from 'qrcode';
 import {formatRarity} from './rarity.js';
+import {publicCertificateUrl} from './cert.js';
 import frontMasterUrl from '../../dcr-tag-70x20/source/dcr-tag-front.svg?url';
 import backMasterUrl from '../../dcr-tag-70x20/source/dcr-tag-back.svg?url';
 import sheetMasterUrl from '../../dcr-tag-70x20/source/a4-40up-portrait.svg?url';
@@ -141,7 +142,7 @@ function drawBarcode(group, pattern, bounds) {
   const height = bounds.bottom - bounds.y;
   const moduleWidth = width / pattern.length;
   group.replaceChildren();
-  group.setAttribute('aria-label', 'Code 128 DCR test serial');
+  group.setAttribute('aria-label', 'Code 128 certificate number');
   for (let index = 0; index < pattern.length;) {
     if (pattern[index] === '0') { index += 1; continue; }
     let end = index + 1;
@@ -169,7 +170,7 @@ function replaceBackBarcode(document, pattern) {
   );
   const bounds = elementBounds(bars);
   const group = document.createElementNS(SVG_NS, 'g');
-  group.setAttribute('id', 'back-barcode-test');
+  group.setAttribute('id', 'back-barcode');
   document.getElementById('back-serial').before(group);
   bars.forEach(bar => bar.remove());
   drawBarcode(group, pattern, bounds);
@@ -177,18 +178,21 @@ function replaceBackBarcode(document, pattern) {
 
 function replaceQrCode(document, serial) {
   const group = document.getElementById('qr-visual-placeholder');
-  const bounds = elementBounds([...group.querySelectorAll('rect')]);
-  const qr = QRCode.create(`DCR-TEST:${serial}`, {errorCorrectionLevel: 'M'});
-  if (qr.modules.size !== 21) throw new Error('The test QR code does not fit the approved label frame.');
-  const moduleSize = (bounds.right - bounds.x) / qr.modules.size;
+  const frame = group.previousElementSibling;
+  const bounds = elementBounds([frame]);
+  const url = publicCertificateUrl(serial);
+  const qr = QRCode.create(url, {errorCorrectionLevel: 'M'});
+  const moduleSize = (bounds.right - bounds.x) / (qr.modules.size + 8);
+  const startX = bounds.x + 4 * moduleSize;
+  const startY = bounds.y + 4 * moduleSize;
   group.replaceChildren();
-  group.setAttribute('aria-label', `QR test payload DCR-TEST:${serial}`);
+  group.setAttribute('aria-label', `Certificate URL: ${url}`);
   for (let row = 0; row < qr.modules.size; row += 1) {
     for (let col = 0; col < qr.modules.size; col += 1) {
       if (!qr.modules.get(row, col)) continue;
       const module = document.createElementNS(SVG_NS, 'rect');
-      module.setAttribute('x', (bounds.x + col * moduleSize).toFixed(6));
-      module.setAttribute('y', (bounds.y + row * moduleSize).toFixed(6));
+      module.setAttribute('x', (startX + col * moduleSize).toFixed(6));
+      module.setAttribute('y', (startY + row * moduleSize).toFixed(6));
       module.setAttribute('width', moduleSize.toFixed(6));
       module.setAttribute('height', moduleSize.toFixed(6));
       group.appendChild(module);
