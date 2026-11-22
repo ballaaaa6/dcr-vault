@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-22 - Restore login copyright alignment
+
+- Keep the copyright in its original position while the footer buttons remain right-aligned.
+
 ## 2026-11-22 - Align login footer buttons
 
 - Align the Privacy Policy and Back to Home buttons to the right edge of the viewport.
