@@ -20,7 +20,7 @@ export function home() {
             <p class="search-hint" id="certificate-search-hint">Search any DCR certificate without signing in.<br>Enter the certificate number to view its details.</p>
           </form>
           <nav class="home-benefits" aria-label="Vault shortcuts">
-            <a class="home-benefit" href="/search"><img src="/assets/home/add-card.png" alt=""><strong>Add Card</strong><span>Find and add cards to your vault</span></a>
+            <a class="home-benefit" href="/register"><img src="/assets/home/add-card.png" alt=""><strong>Add Card</strong><span>Find and add cards to your vault</span></a>
             <a class="home-benefit" href="/vault"><img src="/assets/home/my-vault.png" alt=""><strong>My Vault</strong><span>View and manage your collection</span></a>
             <a class="home-benefit" href="/label"><img src="/assets/home/labels.png" alt=""><strong>Labels</strong><span>Create and print card labels</span></a>
           </nav>

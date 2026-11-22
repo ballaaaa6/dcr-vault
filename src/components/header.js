@@ -4,7 +4,7 @@ import {signOut} from '../auth.js';
 
 const items = [
   ['/', 'Home'],
-  ['/search', 'Add Card'],
+  ['/register', 'Add Card'],
   ['/vault', 'My Vault'],
   ['/label', 'Labels']
 ];

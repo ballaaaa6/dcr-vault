@@ -15,7 +15,7 @@ function statusOptions(selected) {
 
 export function vault(cards = []) {
   activeCards = cards;
-  if (!cards.length) return '<main class="app-page"><section class="surface-card empty-state"><div class="page-eyebrow">YOUR COLLECTION</div><h1>My Vault</h1><p>Your private vault is ready for its first card.</p><a class="btn btn-primary" href="/search">Add a card</a></section></main>';
+  if (!cards.length) return '<main class="app-page"><section class="surface-card empty-state"><div class="page-eyebrow">YOUR COLLECTION</div><h1>My Vault</h1><p>Your private vault is ready for its first card.</p><a class="btn btn-primary" href="/register">Add a card</a></section></main>';
   const params = new URLSearchParams(location.search);
   const focus = cards.find(card => card.id === params.get('id')) || cards[0];
   const rows = cards.length ? cards.map(listRow).join('') : '<div class="empty-state">No cards in your vault yet.</div>';

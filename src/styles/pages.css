@@ -5,6 +5,15 @@
 .intake-page .page-heading{margin-bottom:18px}
 .intake-page .section-heading{margin-bottom:16px}
 .intake-page .field-grid{row-gap:10px}
+.intake-page .import-status:empty{display:none}
+@media(min-width:761px){
+  .intake-page{padding-top:16px;padding-bottom:12px}
+  .intake-page .page-heading{margin-bottom:12px}
+  .intake-page .surface-card{padding:18px}
+  .intake-page .section-heading{margin-bottom:10px}
+  .intake-page .upload-field{height:clamp(150px,calc(100svh - 510px),260px);aspect-ratio:auto}
+  #app:has(.intake-page) .site-footer{padding-top:8px;padding-bottom:10px}
+}
 .intake-page .form-field:has(> .catalog-control[data-catalog-control="name"]){grid-column:1/-1}
 .page-heading{margin-bottom:28px}
 .page-eyebrow{margin-bottom:9px;color:var(--dcr-red);font-size:13px;font-weight:750;letter-spacing:.14em}

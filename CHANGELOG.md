@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Register page
+- Rename the Add Card URL to /register, preserve old links, and reduce desktop vertical spacing.
+
 ## 2026-11-22 - Condition grade guidance
 - Show PSA grade equivalents in the Add Card condition selector while retaining the existing saved condition.
 
