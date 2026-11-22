@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Vault photo fit
+- Fill the padded photo panel and keep the entire card image visible.
+
 ## 2026-11-22 - Vault photo panel sizing
 - Keep the photo panel tied to the selected card details height, including shorter records.
 
