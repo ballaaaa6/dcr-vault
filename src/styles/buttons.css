@@ -15,6 +15,6 @@
 .search-bar button svg{width:18px;height:18px;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 @media(max-width:420px){
   .search-bar{min-height:56px}
-  .search-bar input{padding:12px 14px;font-size:14px}
-  .search-bar button{gap:6px;padding:0 15px;font-size:14px}
+  .search-bar input{padding:12px 14px;font-size:16px}
+  .search-bar button{gap:6px;padding:0 15px;font-size:16px}
 }

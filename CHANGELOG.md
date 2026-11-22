@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Larger website text
+- Increase text sizes throughout the app and privacy policy for better readability.
+
 ## 2026-11-22 - Global Instrument Serif font
 - Use the self-hosted Instrument Serif font throughout the app and privacy policy.
 

@@ -1,12 +1,12 @@
 @import url('/assets/fonts/instrument-serif.css');
 :root{--dcr-red:#C8102E;--dcr-red-dark:#9B0B22;--dcr-red-light:#FFE8EB;--dcr-white:#fff;--dcr-black:#111;--dcr-gray:#6B7280;--dcr-border:#E5E7EB}
 *{box-sizing:border-box}
-body{margin:0;background:var(--dcr-white);color:var(--dcr-black);font-family:"Instrument Serif",serif;line-height:1.65}
+body{margin:0;background:var(--dcr-white);color:var(--dcr-black);font-family:"Instrument Serif",serif;font-size:18px;line-height:1.65}
 .privacy-page{width:min(760px,calc(100% - 36px));margin:0 auto;padding:44px 0 72px}
-.privacy-brand{color:var(--dcr-red);font-size:13px;font-weight:800;letter-spacing:.12em;text-decoration:none}
-.privacy-kicker{margin:54px 0 10px;color:var(--dcr-gray);font-size:10px;font-weight:750;letter-spacing:.13em}
+.privacy-brand{color:var(--dcr-red);font-size:15px;font-weight:800;letter-spacing:.12em;text-decoration:none}
+.privacy-kicker{margin:54px 0 10px;color:var(--dcr-gray);font-size:12px;font-weight:750;letter-spacing:.13em}
 h1{margin:0 0 16px;font-size:clamp(2rem,5vw,3rem);line-height:1.1;letter-spacing:-.04em}
 h2{margin:28px 0 6px;font-size:1.15rem}
 p{color:var(--dcr-gray)}
-.privacy-home{display:inline-flex;margin-top:20px;padding:11px 17px;border-radius:999px;background:var(--dcr-red);color:var(--dcr-white);font-size:13px;font-weight:700;text-decoration:none}
+.privacy-home{display:inline-flex;margin-top:20px;padding:11px 17px;border-radius:999px;background:var(--dcr-red);color:var(--dcr-white);font-size:15px;font-weight:700;text-decoration:none}
 .privacy-home:hover{background:var(--dcr-red-dark)}
