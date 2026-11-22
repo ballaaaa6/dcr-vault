@@ -9,6 +9,10 @@
 - Enlarge Google sign-in and move the privacy link beside Back to Home.
 - Keep the account note compact and improve copyright contrast over the background.
 
+## 2026-11-22 - Improve the privacy policy page
+
+- Add the animated sakura landscape and reorganize the privacy policy for easier reading.
+
 ## 2026-11-22 - Enlarge login content
 
 - Enlarge the sign-in content and align its footer with the rest of the site.
