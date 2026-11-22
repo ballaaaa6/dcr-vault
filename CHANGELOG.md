@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Clear search
+- Add clear buttons to vault and certificate searches, restoring vault cards and clearing certificate results immediately.
+
 ## 2026-11-22 - Vault test fixture
 - Support date picker initialization in the vault selection test.
 

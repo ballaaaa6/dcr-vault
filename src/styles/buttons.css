@@ -19,3 +19,6 @@
   .search-bar input{padding:12px 14px;font-size:16px}
   .search-bar button{gap:6px;padding:0 15px;font-size:16px}
 }
+
+.search-bar .search-clear{padding:0 12px;background:transparent;color:var(--dcr-gray);font-family:Arial,sans-serif;font-size:24px;font-weight:400;line-height:1}
+.search-bar .search-clear:hover{background:transparent;color:var(--dcr-black)}

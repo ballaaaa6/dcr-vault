@@ -1,3 +1,4 @@
+import {searchClearButton} from '../components/search-clear.js';
 import {datePicker, initializeDatePicker} from '../components/date-picker.js';
 import {deleteCard, updateCard} from '../store/cards.js';
 import {listRow} from '../components/card-item.js';
@@ -42,6 +43,7 @@ export function vault(cards = []) {
         <label class="vault-status"><span class="sr-only">Sort by</span><select id="vault-sort" class="form-control" onchange="window.__filterVault()"><option value="name-asc">Name: A–Z</option><option value="name-desc">Name: Z–A</option><option value="price-desc">Price: High to Low</option><option value="price-asc">Price: Low to High</option><option value="date-asc">Date: Oldest First</option><option value="date-desc">Date: Newest First</option></select></label>
         <div class="search-bar vault-query">
           <label class="sr-only" for="vault-q">Search your cards</label><input id="vault-q" placeholder="Search name, set or Cert number">
+          ${searchClearButton()}
           <button class="search-button" type="submit"><span>Search</span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><circle cx="10.8" cy="10.8" r="6.3"></circle><path d="m15.5 15.5 4.2 4.2"></path></svg></button>
         </div>
       </form>

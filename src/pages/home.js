@@ -1,3 +1,4 @@
+import {searchClearButton} from '../components/search-clear.js';
 import {certificatePath} from '../utils/cert.js';
 
 export function home() {
@@ -12,6 +13,7 @@ export function home() {
             <label class="search-label" for="certificate-search">Search by certificate number</label>
             <div class="search-bar">
               <input id="certificate-search" name="cert" type="text" inputmode="numeric" autocomplete="off" maxlength="8" pattern="[0-9]{1,8}" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Enter a Cert Number" aria-describedby="certificate-search-hint" required>
+              ${searchClearButton()}
               <button class="search-button" type="submit">
                 <span>Search</span>
                 <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><circle cx="10.8" cy="10.8" r="6.3"></circle><path d="m15.5 15.5 4.2 4.2"></path></svg>

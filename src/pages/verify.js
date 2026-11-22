@@ -1,3 +1,4 @@
+import {searchClearButton} from '../components/search-clear.js';
 import {findByCert} from '../store/cards.js';
 import {escapeHTML} from '../utils/format.js';
 import {certificateFromPath, normalizeCert} from '../utils/cert.js';
@@ -56,6 +57,7 @@ export function verify(cards = []) {
     <form class="search-bar lookup-search" onsubmit="window.__searchCertificate(event)">
       <label class="sr-only" for="certificate-search">Certificate number</label>
       <input id="certificate-search" name="cert" type="text" inputmode="numeric" autocomplete="off" maxlength="8" pattern="[0-9]{1,8}" placeholder="Enter a Cert Number" value="${escapeHTML(cert)}" required>
+      ${searchClearButton()}
       <button class="search-button" type="submit">Search</button></form>
     ${pathCert !== null || params.has('cert') ? resultMarkup(cert, cards) : ''}</section></main>`;
 }
