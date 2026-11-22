@@ -19,11 +19,11 @@ export function home() {
             </div>
             <p class="search-hint" id="certificate-search-hint">Search any DCR certificate without signing in.<br>Enter the certificate number to view its details.</p>
           </form>
-          <div class="home-benefits" aria-label="Vault features">
-            <div class="home-benefit"><img src="/assets/home/quick-lookup.png" alt=""><strong>Quick Lookup</strong><span>Find a certificate</span></div>
-            <div class="home-benefit"><img src="/assets/home/private-vault.png" alt=""><strong>Private Vault</strong><span>Your collection, yours</span></div>
-            <div class="home-benefit"><img src="/assets/home/easy-organization.png" alt=""><strong>Easy Organization</strong><span>Keep cards together</span></div>
-          </div>
+          <nav class="home-benefits" aria-label="Vault shortcuts">
+            <a class="home-benefit" href="/search"><img src="/assets/home/add-card.png" alt=""><strong>Add Card</strong><span>Find and add cards to your vault</span></a>
+            <a class="home-benefit" href="/vault"><img src="/assets/home/my-vault.png" alt=""><strong>My Vault</strong><span>View and manage your collection</span></a>
+            <a class="home-benefit" href="/label"><img src="/assets/home/labels.png" alt=""><strong>Labels</strong><span>Create and print card labels</span></a>
+          </nav>
         </div>
         <div class="home-art" aria-hidden="true">
           <div class="art-orbit"></div>

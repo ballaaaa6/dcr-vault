@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Home shortcuts
+- Link home feature cards to Add Card, My Vault, and Labels with new icons, and align the slimmer search bar with the cards.
+
 ## 2026-11-22 - Home search and feature cards
 - Compact the certificate search, clarify its instructions, and frame the three home features.
 
