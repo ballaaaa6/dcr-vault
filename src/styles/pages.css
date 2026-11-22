@@ -5,6 +5,7 @@
 .intake-page .page-heading{margin-bottom:18px}
 .intake-page .section-heading{margin-bottom:16px}
 .intake-page .field-grid{row-gap:10px}
+.intake-page .form-field:has(> .catalog-control[data-catalog-control="name"]){grid-column:1/-1}
 .page-heading{margin-bottom:28px}
 .page-eyebrow{margin-bottom:9px;color:var(--dcr-red);font-size:13px;font-weight:750;letter-spacing:.14em}
 .page-heading h1{margin:0 0 8px}

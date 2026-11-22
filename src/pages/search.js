@@ -50,17 +50,17 @@ export function search() {
           <div class="section-heading"><span class="section-number">02</span><div><div class="card-details-title"><h2 id="manual-title">Card details</h2><button id="identification-info" class="identification-info" type="button" aria-label="View card reading details" title="View card reading details" hidden>i</button></div><p>Review the printed card number and English card details; Cert and Grade stay independent.</p></div></div>
           <div class="field-grid">
             ${catalogField('name', 'Name', 'e.g. Charizard')}
+            ${catalogField('setName', 'Set', 'e.g. Base Set')}
+            ${catalogField('year', 'Year', 'e.g. 1999')}
+            ${catalogField('cardNumber', 'Card number', 'e.g. 4')}
+            <div class="form-field"><label for="m-rarity">Rarity</label><input class="form-control" id="m-rarity" placeholder="Read from card or choose from catalog"></div>
+            <div class="form-field"><label for="m-grade">Grade / Condition</label><select class="form-control" id="m-grade"><option value="">Choose condition</option>${CONDITION_OPTIONS.map(value => `<option value="${value}">${value}</option>`).join('')}</select></div>
             <div class="form-field cert-field"><label for="m-cert">Cert number</label><span class="cert-input-row">
               <input class="form-control" id="m-cert" inputmode="numeric" maxlength="8" pattern="[0-9]{1,8}" placeholder="1 to 8 digits" required>
               <button class="btn btn-ghost cert-random" data-cert-random type="button" aria-label="Generate an available Cert number" title="Generate an available Cert number">
                 <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="3"></rect><circle cx="8" cy="8" r="1"></circle><circle cx="16" cy="8" r="1"></circle><circle cx="12" cy="12" r="1"></circle><circle cx="8" cy="16" r="1"></circle><circle cx="16" cy="16" r="1"></circle></svg>
               </button>
             </span><small id="m-cert-status" class="field-status" role="status" aria-live="polite"></small></div>
-            ${catalogField('setName', 'Set', 'e.g. Base Set')}
-            ${catalogField('year', 'Year', 'e.g. 1999')}
-            ${catalogField('cardNumber', 'Card number', 'e.g. 4')}
-            <div class="form-field"><label for="m-rarity">Rarity</label><input class="form-control" id="m-rarity" placeholder="Read from card or choose from catalog"></div>
-            <div class="form-field"><label for="m-grade">Grade / Condition</label><select class="form-control" id="m-grade"><option value="">Choose condition</option>${CONDITION_OPTIONS.map(value => `<option value="${value}">${value}</option>`).join('')}</select></div>
           </div>
           <button class="btn btn-primary manual-submit" id="manual-submit" type="button">Add to Vault</button>
           <p id="manual-status" class="import-status" role="status" aria-live="polite"></p>

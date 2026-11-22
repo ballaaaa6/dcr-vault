@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Card details form layout
+- Give the card name a full row and place the certificate number beside condition with consistent row spacing.
+
 ## 2026-11-22 - Add Card page layout
 - Reduce vertical spacing and keep the footer at the bottom when the form fits on screen.
 
