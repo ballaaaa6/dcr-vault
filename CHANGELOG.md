@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Larger certificate images
+- Scale certificate viewer images to use the available screen height while preserving their proportions.
+
 ## 2026-11-22 - Certificate download filenames
 - Name downloaded images using the certificate number and selected side.
 
