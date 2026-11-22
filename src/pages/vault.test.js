@@ -6,7 +6,7 @@ test('vault selection updates details without changing the URL and protects unsa
   globalThis.location = {search: '?id=b'};
   let replaced = '';
   globalThis.history = {state: null, replaceState: (_state, _title, url) => { replaced = url; }};
-  const detail = {innerHTML: '', addEventListener() {}};
+  const detail = {innerHTML: '', addEventListener() {}, querySelector: () => null};
   const photo = {innerHTML: '', querySelector: () => null};
   const form = {dataset: {}};
   const rows = ['a', 'b'].map(id => ({dataset: {cardId: id}, setAttribute(_name, value) { this.selected = value; }}));

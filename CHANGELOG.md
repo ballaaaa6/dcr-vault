@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Vault test fixture
+- Support date picker initialization in the vault selection test.
+
 ## 2026-11-22 - Vault sort filter width
 - Left-align sort labels and size the filter to its longest option.
 
