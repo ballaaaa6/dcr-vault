@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Link Vault photos to certificates
+
+- Add a centered View Cert button beneath Preview on selected Vault cards.
+
 ## 2026-11-23 - Add certificate backgrounds
 
 - Show a paper-art certificate background matched to the card classification, with an unknown fallback.
