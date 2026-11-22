@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Soften label backgrounds
+
+- Reduce the label panel background images to 30% opacity.
+
 ## 2026-11-23 - Align sticky label panels
 
 - Align the sheet list heading with the certificate panel while scrolling on desktop.
