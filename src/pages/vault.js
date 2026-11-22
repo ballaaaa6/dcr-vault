@@ -44,11 +44,13 @@ export function vault(cards = []) {
         <h1>My Vault</h1>
         <p id="vault-count" class="page-description">${cards.length} ${cards.length === 1 ? 'card' : 'cards'} · Prices stay private to your account and never appear on labels.</p>
       </header>
-      <div class="vault-toolbar">
-        <label class="vault-query"><span class="sr-only">Search your cards</span><input id="vault-q" class="form-control" placeholder="Search name, set or Cert number"></label>
+      <form class="vault-toolbar" onsubmit="event.preventDefault(); window.__filterVault()">
         <label class="vault-status"><span class="sr-only">Filter by status</span><select id="vault-status" class="form-control"><option value="">All status</option>${statusOptions('')}</select></label>
-        <button class="btn btn-primary" type="button" onclick="window.__filterVault()">Filter</button>
-      </div>
+        <div class="search-bar vault-query">
+          <label class="sr-only" for="vault-q">Search your cards</label><input id="vault-q" placeholder="Search name, set or Cert number">
+          <button class="search-button" type="submit"><span>Search</span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><circle cx="10.8" cy="10.8" r="6.3"></circle><path d="m15.5 15.5 4.2 4.2"></path></svg></button>
+        </div>
+      </form>
       <div class="vault-layout">
         <section class="vault-list" id="vault-list" aria-label="Cards in your vault">${rows}</section>
         <div class="vault-selected">

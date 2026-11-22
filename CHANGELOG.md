@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Vault search bar
+- Place the status filter before a home-style search bar with a Search button.
+
 ## 2026-11-22 - Edit certificate numbers
 - Allow vault owners to change a card's Cert number, with validation and global duplicate protection.
 
