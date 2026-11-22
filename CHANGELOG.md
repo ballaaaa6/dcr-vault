@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-22 - Keep label controls visible
+
+- Keep the certificate form and label list heading visible while scrolling through long lists.
+
 ## 2026-11-22 - Show collecting duration
 
 - Display the number of days since the collecting start date on the profile.

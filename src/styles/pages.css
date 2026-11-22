@@ -296,7 +296,7 @@ html:has(.label-page)::-webkit-scrollbar,.label-dialog::-webkit-scrollbar,.label
 .label-add textarea{resize:vertical;min-height:64px}
 .label-add>.muted{margin:8px 0 16px;font-size:14px}
 .label-controls{display:flex;flex-wrap:wrap;gap:10px}
-.label-list-heading{display:flex;align-items:start;justify-content:space-between;gap:12px}
+.label-list-heading{position:sticky;top:76px;z-index:2;display:flex;align-items:start;justify-content:space-between;gap:12px;margin:-24px -24px 0;padding:24px 24px 0;background:var(--dcr-white);border-radius:21px 21px 0 0}
 .label-list-heading p{margin:0 0 16px}
 .label-rows{border-top:1px solid var(--dcr-border)}
 .label-row{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--dcr-border)}
@@ -318,8 +318,8 @@ html:has(.label-page)::-webkit-scrollbar,.label-dialog::-webkit-scrollbar,.label
 .label-edit-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .label-edit-preview{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
 .label-edit-preview svg{width:100%;height:auto}
-@media(min-width:761px){#app:has(.label-page) .site-footer{padding-top:8px;padding-bottom:10px}}
-@media(max-width:760px){.label-workspace{grid-template-columns:1fr}.label-row{flex-wrap:wrap}.label-row-info{flex-basis:calc(100% - 50px)}.label-row-state{margin-left:36px}.label-edit-grid,.label-edit-preview{grid-template-columns:1fr}}
+@media(min-width:761px){#app:has(.label-page) .site-footer{padding-top:8px;padding-bottom:10px}.label-add{position:sticky;top:92px}}
+@media(max-width:760px){.label-list-heading{margin:-19px -19px 0;padding:19px 19px 0;border-radius:17px 17px 0 0}.label-workspace{grid-template-columns:1fr}.label-row{flex-wrap:wrap}.label-row-info{flex-basis:calc(100% - 50px)}.label-row-state{margin-left:36px}.label-edit-grid,.label-edit-preview{grid-template-columns:1fr}}
 
 .label-row-actions{display:flex;align-items:center;gap:12px;margin-left:auto}
 .label-card-image{display:flex;align-items:center;justify-content:center;width:48px;height:64px;flex:none;overflow:hidden;border-radius:6px;background:var(--dcr-border)}
@@ -338,3 +338,5 @@ html:has(.label-page)::-webkit-scrollbar,.label-dialog::-webkit-scrollbar,.label
 .label-heart input:indeterminate + svg{fill:var(--dcr-red-light)}
 .label-heart input:disabled + svg{stroke:var(--dcr-gray)}
 .label-heart input:focus-visible + svg{outline:2px solid var(--dcr-link-blue);outline-offset:3px;border-radius:4px}
+
+@media(max-width:480px){.label-list-heading{top:68px}}
