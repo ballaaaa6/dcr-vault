@@ -9,13 +9,19 @@ const items = [
   ['/label', 'Labels']
 ];
 
+export function avatar(user, extraClass = '') {
+  const initial = escapeHTML((user.displayName || user.email || '?').trim().charAt(0).toUpperCase());
+  const image = user.avatarUrl ? `<img src="${escapeHTML(user.avatarUrl)}" alt="">` : initial;
+  return `<span class="account-avatar ${extraClass}" aria-hidden="true">${image}</span>`;
+}
+
 export function header(activePath, user = null) {
   const links = items.map(([href, label]) => {
     const active = href === activePath;
     return `<a href="${href}" class="${active ? 'active' : ''}" ${active ? 'aria-current="page"' : ''}>${label}</a>`;
   }).join('');
   const account = user
-    ? `<span class="account-email">${escapeHTML(user.displayName || user.email)}</span><button class="account-link" type="button" data-sign-out>Sign out</button>`
+    ? `<div class="account-menu"><button class="account-trigger" type="button" aria-expanded="false" aria-controls="account-popover">${avatar(user)}<span>${escapeHTML(user.displayName || user.email)}</span><span aria-hidden="true">▾</span></button><div class="account-popover" id="account-popover" hidden><strong>${escapeHTML(user.displayName || user.email)}</strong><small>${escapeHTML(user.email)}</small><a href="/profile">My profile</a><button type="button" data-sign-out>Sign out</button></div></div>`
     : '<a class="account-link" href="/login">Sign in</a>';
 
   return `
@@ -54,6 +60,14 @@ export function bindHeader() {
     toggle.setAttribute('aria-label', expanded ? 'Open navigation' : 'Close navigation');
   });
   document.querySelectorAll('.site-nav a').forEach(link => link.addEventListener('click', closeMenu));
+  const trigger = document.querySelector('.account-trigger');
+  const popover = document.querySelector('.account-popover');
+  if (trigger && popover) {
+    const close = () => { popover.hidden = true; trigger.setAttribute('aria-expanded', 'false'); };
+    trigger.addEventListener('click', () => { const open = popover.hidden; popover.hidden = !open; trigger.setAttribute('aria-expanded', String(open)); });
+    document.addEventListener('click', event => { if (!event.target.closest('.account-menu')) close(); });
+    document.addEventListener('keydown', event => { if (event.key === 'Escape' && !popover.hidden) { close(); trigger.focus(); } });
+  }
   const signOutButton = document.querySelector('[data-sign-out]');
   if (signOutButton) signOutButton.addEventListener('click', async () => {
     signOutButton.disabled = true;

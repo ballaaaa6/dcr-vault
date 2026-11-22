@@ -25,11 +25,11 @@ async function establishSession(claims, request, env) {
   const user = await env.DB.prepare(`INSERT INTO users (id, google_sub, email, display_name, avatar_url, created_at, updated_at)
     VALUES (?, ?, ?, ?, ?, ?, ?)
     ON CONFLICT(google_sub) DO UPDATE SET email = excluded.email,
-    display_name = excluded.display_name, avatar_url = excluded.avatar_url, updated_at = excluded.updated_at
-    RETURNING id`)
+    updated_at = excluded.updated_at
+    RETURNING id, email, display_name AS displayName, avatar_url AS avatarUrl`)
     .bind(crypto.randomUUID(), claims.sub, claims.email, claims.name || '', claims.picture || '', now, now).first();
   const token = await createSession(env.DB, user.id);
-  const response = json({user: {id: user.id, email: claims.email, displayName: claims.name || '', avatarUrl: claims.picture || ''}});
+  const response = json({user});
   response.headers.append('Set-Cookie', sessionCookie(token, request));
   response.headers.append('Set-Cookie', cookie('dcr_oauth_nonce', '', request, 0));
   return response;

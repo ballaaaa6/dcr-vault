@@ -2,6 +2,9 @@
 
 Times are commit times in Bangkok time (UTC+7); older entries without a time have no matching commit record.
 
+## 2026-11-22 - Add account profile
+- Add an account menu and private profile editing for display name and photo, preserving edits on Google sign-in.
+
 ## 2026-11-22 - Adjust vault price display
 - Show the purchase amount before its currency in private vault details.
 

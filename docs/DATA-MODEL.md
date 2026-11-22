@@ -6,7 +6,7 @@ All timestamps are Unix seconds unless noted otherwise. D1 is the source of trut
 
 - `id`: random DCR Vault UUID used for internal foreign keys
 - `google_sub`: stable Google account subject; server-side only
-- `email`, `display_name`, `avatar_url`: basic Google profile fields
+- `email`: Google account email; `display_name` and `avatar_url`: initially from Google, then editable by the account owner. Uploaded avatars are resized JPEG data stored in `avatar_url` and remain unchanged on later sign-ins.
 - `created_at`, `updated_at`
 
 ## Session

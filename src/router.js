@@ -1,6 +1,7 @@
 import {header, bindHeader} from './components/header.js';
 import {getCurrentUser} from './auth.js';
 import {home} from './pages/home.js';
+import {profile, initializeProfile} from './pages/profile.js';
 import {initializeSearchPage, search} from './pages/search.js';
 import {initializeVault, vault} from './pages/vault.js';
 import {label, initializeLabel} from './pages/label.js';
@@ -14,7 +15,7 @@ import {escapeHTML} from './utils/format.js';
 import {certificateFromPath, normalizeCert} from './utils/cert.js';
 
 let renderVersion = 0;
-const privatePaths = new Set(['/register', '/vault', '/label', '/import']);
+const privatePaths = new Set(['/register', '/vault', '/label', '/import', '/profile']);
 
 function footer() {
   return `<footer class="site-footer no-print"><span>© ${new Date().getFullYear()} DCR Card Vault</span><span>Certificate details are public. Your vault details remain private.</span></footer>`;
@@ -47,7 +48,8 @@ export async function render() {
 
   let content = home();
   try {
-    if (path === '/register') content = search();
+    if (path === '/profile') content = profile(user);
+    else if (path === '/register') content = search();
     else if (path === '/import') content = importPage(user);
     else if (path === '/verify' || isCertificate) content = await certificatePage();
     else if (['/vault', '/label'].includes(path)) content = await privatePage(path);
@@ -55,6 +57,7 @@ export async function render() {
   if (version !== renderVersion || location.pathname + location.search !== route) return;
   app.innerHTML = header(path, user) + content + footer();
   bindHeader();
+  if (path === '/profile') initializeProfile(user);
   if (path === '/register') initializeSearchPage();
   if (path === '/vault') initializeVault();
   if (path === '/label') initializeLabel();
