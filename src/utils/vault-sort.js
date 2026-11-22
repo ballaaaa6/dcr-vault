@@ -54,3 +54,7 @@ document.addEventListener('keydown', event => {
   items[next].focus();
   event.preventDefault();
 });
+
+document.addEventListener('change', event => {
+  if (event.target.id === 'vault-sort') window.__filterVault();
+});

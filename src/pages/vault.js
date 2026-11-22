@@ -146,7 +146,6 @@ function closeVaultMenuOnOutsideClick(event) {
 }
 
 export function initializeVault() {
-  document.getElementById('vault-sort')?.addEventListener('change', window.__filterVault);
   preloadSelectedBackgrounds(activeCards);
   stopImagePrefetch();
   stopImagePrefetch = prefetchNearbyImages(document.querySelector('#vault-list'));

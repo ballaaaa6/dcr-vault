@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Fix vault sort deployment test
+
+- Handle vault sort changes through the shared dropdown event listener.
+
 ## 2026-11-23 - Restyle vault sorting menus
 
 - Use matching custom dropdown menus in My Vault and the label picker, with a softer red hover state.
