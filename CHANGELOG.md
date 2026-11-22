@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Certificate viewer copyright text
+- Complete the DCR attribution and copyright text below certificate images.
+
 ## 2026-11-22 - Certificate viewer home link
 - Replace the viewer instruction with a linked DCR Card Vault attribution.
 
