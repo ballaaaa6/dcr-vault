@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Red navigation bar
+- Use a red navigation bar with white text and a larger DCR brand.
+
 ## 2026-11-22 - Global Source Serif 4 font
 - Use the self-hosted Source Serif 4 font throughout the app and privacy policy.
 
