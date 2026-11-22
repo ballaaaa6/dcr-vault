@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Card photo preview
+- Add a full-size popup preview for both selected card photos.
+
 ## 2026-11-22 - Card photo remove button
 - Enlarge the remove button on front and back photo previews.
 

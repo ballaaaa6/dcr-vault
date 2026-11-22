@@ -1,3 +1,4 @@
+import './search-photo-preview.js';
 import {formatRarity} from '../utils/rarity.js';
 import {addCard, checkCert, deleteCardImage, uploadCardImage} from '../store/cards.js';
 import {catalogField, hideAllCatalogSuggestions, installCatalogSuggestions} from './search-catalog.js';
@@ -22,7 +23,7 @@ function photoField(side, label) {
     <label class="upload-field" for="m-image-${side}" data-drop-side="${side}">
       <input id="m-image-${side}" data-upload-side="${side}" type="file" accept="image/jpeg,image/png,image/webp" aria-label="Choose ${label.toLowerCase()}">
       <div class="upload-preview" data-image-preview="${side}">${emptyPhotoMarkup()}</div>
-    </label><button class="upload-clear" data-clear-image="${side}" type="button" aria-label="Remove ${label.toLowerCase()}" title="Remove ${label.toLowerCase()}" hidden>×</button>
+    </label><button class="btn upload-view" data-view-image="${side}" type="button" aria-label="Preview ${label.toLowerCase()}" hidden><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="m16 16 5 5"></path></svg>Preview</button><button class="upload-clear" data-clear-image="${side}" type="button" aria-label="Remove ${label.toLowerCase()}" title="Remove ${label.toLowerCase()}" hidden>×</button>
   </div></div>`;
 }
 
@@ -73,6 +74,7 @@ export function search() {
           </div>
         </section>
       </div>
+      <dialog class="photo-viewer" id="photo-viewer" aria-label="Card image preview"><button class="photo-viewer-close" type="button" data-close-photo-viewer aria-label="Close preview">×</button><img alt=""></dialog>
       ${identificationDialogMarkup()}
     </main>`;
 }
@@ -154,17 +156,20 @@ function updatePhotoPreview(side, file) {
   if (imageUrls[side]) URL.revokeObjectURL(imageUrls[side]);
   const preview = document.querySelector(`[data-image-preview="${side}"]`);
   const clear = document.querySelector(`[data-clear-image="${side}"]`);
+  const view = document.querySelector(`[data-view-image="${side}"]`);
   if (!file) {
     delete imageUrls[side];
     preview.innerHTML = emptyPhotoMarkup();
     preview.parentElement.classList.remove('has-image');
     clear.hidden = true;
+    view.hidden = true;
     return;
   }
   imageUrls[side] = URL.createObjectURL(file);
   preview.innerHTML = `<img src="${imageUrls[side]}" alt="${side} photo preview">`;
   preview.parentElement.classList.add('has-image');
   clear.hidden = false;
+  view.hidden = false;
 }
 
 function releaseObjectUrls() {
