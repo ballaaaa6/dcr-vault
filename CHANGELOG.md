@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - More prominent navigation logo
+- Enlarge the DCR logo beside the full registry name.
+
 ## 2026-11-22 - Full registry name
 - Show Distinguished Card Registry beside the navigation logo.
 

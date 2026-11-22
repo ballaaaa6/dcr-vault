@@ -1,7 +1,7 @@
 .site-header{position:sticky;top:0;z-index:30;background:var(--dcr-red);color:var(--dcr-white)}
 .header-inner{position:relative;display:flex;align-items:center;justify-content:space-between;min-height:76px;gap:28px}
 .logo-wrap{display:inline-flex;align-items:center;gap:11px;flex-shrink:0;font-size:26px;font-weight:750;letter-spacing:-.03em;white-space:nowrap}
-.logo-wrap .logo{width:80px;height:auto;filter:brightness(0) invert(1)}
+.logo-wrap .logo{width:110px;height:auto;filter:brightness(0) invert(1)}
 .logo-wrap span{color:var(--dcr-white)}
 .site-nav{display:flex;align-items:center;gap:8px;margin-left:auto}
 .site-nav a{padding:10px 14px;border-radius:999px;font-size:16px;font-weight:650;transition:background .18s,color .18s}
@@ -38,7 +38,7 @@
 .lookup-error strong{color:var(--dcr-red)}
 .lookup-error p{margin:6px 0 0}
 @media(max-width:1100px){
-  .menu-toggle{display:flex;width:42px;height:42px;flex-direction:column;align-items:center;justify-content:center;gap:5px;border:1px solid var(--dcr-border);border-radius:50%;background:var(--dcr-white);color:var(--dcr-black)}
+  .menu-toggle{display:flex;flex-shrink:0;width:42px;height:42px;flex-direction:column;align-items:center;justify-content:center;gap:5px;border:1px solid var(--dcr-border);border-radius:50%;background:var(--dcr-white);color:var(--dcr-black)}
   .menu-toggle span{display:block;width:17px;height:2px;border-radius:2px;background:currentColor;transition:transform .18s,opacity .18s}
   .menu-toggle[aria-expanded="true"] span:first-child{transform:translateY(7px) rotate(45deg)}
   .menu-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
@@ -54,8 +54,8 @@
 }
 @media(max-width:480px){
   .header-inner{min-height:68px;gap:8px}
-  .logo-wrap{min-width:0;gap:6px;font-size:clamp(14px,4vw,21px)}
-  .logo-wrap .logo{width:clamp(42px,13vw,64px);flex-shrink:0}
+  .logo-wrap{min-width:0;flex-shrink:1;gap:6px;font-size:clamp(14px,4vw,21px);white-space:normal;line-height:1.1}
+  .logo-wrap .logo{width:clamp(60px,18vw,80px);flex-shrink:0}
   .site-footer{align-items:flex-start;flex-direction:column;gap:4px}
   .lookup-panel{border-radius:22px}
   .lookup-result{padding:18px}
