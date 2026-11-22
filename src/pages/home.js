@@ -27,15 +27,7 @@ export function home() {
             <a class="home-benefit" href="/label"><img src="/assets/home/labels.png" alt=""><strong>Labels</strong><span>Create and print card labels</span></a>
           </nav>
         </div>
-        <div class="home-art" aria-hidden="true">
-          <div class="art-orbit"></div>
-          <div class="art-card art-card-back"></div>
-          <div class="art-card art-card-front">
-            <div class="art-card-header"><span>DCR CERTIFIED</span><span class="art-seal">DCR</span></div>
-            <div class="art-card-center"><img src="/assets/logo/dcr-mark.svg" alt=""></div>
-            <div class="art-card-footer"><span>COLLECTION RECORD</span><strong>CARD VAULT</strong></div>
-          </div>
-        </div>
+        <div class="home-art" aria-hidden="true"></div>
       </section>
     </main>`;
 }

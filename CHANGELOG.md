@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-22 - Update home hero artwork
+
+- Replace the home illustration with the selected Crimson Peak artwork and its fictional DCR label.
+
 ## 2026-11-22 - Organize application code
 
 - Remove unused application helpers and legacy reader code; separate Add Card markup and page styles without changing the layout.
