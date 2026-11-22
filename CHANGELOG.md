@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Card identification guidance
+- Refresh the card identification guidance with a shorter, more inviting message.
+
 ## 2026-11-22 - Card intake screen space
 - Expand the intake panels to fill available screen height and distribute the form rows evenly.
 

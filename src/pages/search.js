@@ -48,7 +48,7 @@ export function search() {
           <div class="section-heading"><div><h2 id="scan-title">Card images</h2><p>Choose a front and/or back photo to store in your private image vault.</p></div></div>
           <div class="upload-grid">${photoField('front', 'Front image')}${photoField('back', 'Back image')}</div>
           <div class="identification-actions"><button class="btn btn-ghost" id="identify-card" type="button" disabled>Identify card</button></div>
-          <p class="identification-notice">Click Identify card to send the front photo to Google Gemini. Gemini reads the card and the catalog checks the printed identity; review or correct the result before saving. Google applies your API tier's data terms; DCR stores the photo only after you click Add to Vault.</p>
+          <p class="identification-notice">Give your card a head start. Upload a front photo and let us fill in the details for you. Take a moment to review them before adding your card to the vault.</p>
           <p id="photo-status" class="import-status" role="status" aria-live="polite"></p>
         </section>
         <section class="surface-card intake-card" aria-labelledby="manual-title">
