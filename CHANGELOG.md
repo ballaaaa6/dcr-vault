@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Add Card section headings
+- Remove the numbered badges from the card image and details sections.
+
 ## 2026-11-22 - Card photo uploads
 - Refresh the front and back photo dropzones with larger previews and an on-image remove control.
 
