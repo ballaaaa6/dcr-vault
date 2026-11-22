@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-22 - Align privacy page footer
+
+- Match the login footer alignment and copyright text glow on the privacy page.
+
 ## 2026-11-22 - Simplify privacy navigation
 
 - Remove the header navigation and keep a single return to login link in the privacy page footer.
