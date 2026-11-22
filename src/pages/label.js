@@ -21,6 +21,7 @@ export async function label(cards = []) {
   }
   return `<main class="app-page label-page">
     <header class="page-heading"><div class="page-eyebrow">PRINT WORKSPACE</div><h1>Labels</h1><p class="page-description">Add certificates, review your labels, and download your sheets.</p></header>
+    <div class="label-workspace">
     <section class="surface-card label-add"><h2>Add certificates</h2>
       <label class="form-field" for="label-cert-input"><span>Certificate numbers</span><textarea class="form-control" id="label-cert-input" rows="2" placeholder="1-10, 12-18, 25"></textarea></label>
       <p class="muted">Enter individual numbers or ranges separated by commas. Up to 500 numbers per search.</p>
@@ -31,6 +32,7 @@ export async function label(cards = []) {
       <div id="label-list"></div><div class="label-controls label-bottom"><button class="btn btn-ghost" data-label-action="preview">Preview sheets</button><button class="btn btn-primary" data-label-action="download">Download PDF</button></div>
       <p class="label-print-note">Print at actual size, double-sided, flip on long edge. Each sheet contains up to 40 labels.</p>
     </section>
+    </div>
     <dialog class="label-dialog" id="label-dialog"><div id="label-dialog-content"></div></dialog>
   </main>`;
 }

@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Compact label workspace
+- Arrange certificate entry and the sheet list in side-by-side columns on larger screens, with unobtrusive scrolling.
+
 ## 2026-11-22 - Label sheet workspace
 - Add certificate range lookup and multi-select vault cards to a single-page label workspace, with optional previews and multi-sheet PDF download.
 

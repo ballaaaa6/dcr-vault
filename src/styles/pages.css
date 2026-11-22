@@ -276,10 +276,13 @@
 
 .vault-price-input{display:grid;grid-template-columns:minmax(0,1fr) 100px;gap:8px}
 .vault-edit .form-field[hidden]{display:none}
+html:has(.label-page),.label-dialog,.label-vault-list{scrollbar-width:none}
+html:has(.label-page)::-webkit-scrollbar,.label-dialog::-webkit-scrollbar,.label-vault-list::-webkit-scrollbar{display:none}
 #app:has(.label-page){min-height:100svh;display:flex;flex-direction:column}
 #app:has(.label-page) .site-footer{width:100%;flex-shrink:0;margin:0 auto}
 .label-page{flex:1;min-height:0}
-.label-add,.label-list-section{margin-top:20px}
+.label-workspace{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:20px;margin-top:20px}
+.label-add,.label-list-section{min-width:0}
 .label-add h2,.label-list-heading h2{margin:0 0 12px}
 .label-add textarea{resize:vertical;min-height:64px}
 .label-add>.muted{margin:8px 0 16px;font-size:14px}
@@ -307,4 +310,4 @@
 .label-edit-preview{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
 .label-edit-preview svg{width:100%;height:auto}
 @media(min-width:761px){#app:has(.label-page) .site-footer{padding-top:8px;padding-bottom:10px}}
-@media(max-width:760px){.label-row{flex-wrap:wrap}.label-row-info{flex-basis:calc(100% - 50px)}.label-row-state{margin-left:36px}.label-edit-grid,.label-edit-preview{grid-template-columns:1fr}}
+@media(max-width:760px){.label-workspace{grid-template-columns:1fr}.label-row{flex-wrap:wrap}.label-row-info{flex-basis:calc(100% - 50px)}.label-row-state{margin-left:36px}.label-edit-grid,.label-edit-preview{grid-template-columns:1fr}}
