@@ -158,7 +158,8 @@
 .vault-row-main b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .vault-row-main .muted{font-size:15px}
 .row-arrow{color:var(--dcr-red);font-size:22px;font-weight:800}
-.vault-detail,.vault-photo-panel{position:sticky;top:96px;min-width:0}
+.vault-selected{position:sticky;top:96px}
+.vault-detail,.vault-photo-panel{min-width:0}
 .detail-heading h2{margin:0 0 5px}
 .detail-heading p{margin:0}
 .detail-identity{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:17px 0 20px;padding-bottom:16px;border-bottom:1px solid var(--dcr-border)}
@@ -212,7 +213,7 @@
 @media(max-width:760px){
   .app-page{padding:30px 16px 44px}
   .intake-grid,.vault-layout,.label-layout{grid-template-columns:1fr}
-  .vault-detail,.vault-photo-panel{position:static}
+  .vault-selected{position:static}
   .label-editor{max-width:none}
   .label-previews{grid-template-columns:1fr 1fr}
   .sheet-preview-pages{grid-template-columns:1fr}

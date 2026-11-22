@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-22 - Keep selected vault card visible
+
+- Keep the selected card details and photo together below the header while scrolling the vault list on desktop.
+
 ## 2026-11-22 - Translate rocket button label
 
 - Display TOP on the original rocket artwork.
