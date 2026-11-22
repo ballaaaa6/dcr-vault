@@ -3,6 +3,7 @@ import {listRow} from '../components/card-item.js';
 import {vaultPhoto, initializeVaultPhoto} from '../components/vault-photo.js';
 import {itemInformation} from './verify.js';
 import {escapeHTML} from '../utils/format.js';
+import {normalizeCert} from '../utils/cert.js';
 
 const statuses = ['in-vault', 'for-sale', 'sold', 'grading'];
 let activeCards = [];
@@ -18,14 +19,14 @@ function statusOptions(selected) {
 }
 
 const publicFields = [
-  ['name', 'Card name', 120], ['game', 'Brand / Title', 30], ['year', 'Year', 4],
+  ['certNumber', 'Cert number', 8], ['name', 'Card name', 120], ['game', 'Brand / Title', 30], ['year', 'Year', 4],
   ['setName', 'Set name', 120], ['cardNumber', 'Card number', 30], ['rarity', 'Rarity', 80],
   ['gradeLabel', 'Condition', 60], ['sourceFinish', 'Finish', 30], ['sourceLanguage', 'Language code', 20]
 ];
 
 function editFields(card) {
   return publicFields.map(([key, label, limit]) => `<label class="form-field"><span>${label}</span>
-    <input class="form-control" name="${key}" maxlength="${limit}" value="${escapeHTML(card[key] || '')}" ${key === 'name' ? 'required' : ''}></label>`).join('');
+    <input class="form-control" name="${key}" maxlength="${limit}" value="${escapeHTML(card[key] || '')}" ${key === 'certNumber' ? 'inputmode="numeric" pattern="[0-9]{1,8}" required' : key === 'name' ? 'required' : ''}></label>`).join('');
 }
 
 export function vault(cards = []) {
@@ -161,6 +162,7 @@ window.__saveDetail = async (event, id) => {
   const privateMode = event.target.dataset.mode === 'edit-private';
   const keys = privateMode ? privateFields.map(([key]) => key) : publicFields.map(([key]) => key);
   const patch = Object.fromEntries(keys.map(key => [key, event.target.elements[key].value]));
+  if (!privateMode) patch.certNumber = normalizeCert(patch.certNumber);
   try {
     await updateCard(id, patch);
     Object.assign(activeCards.find(card => card.id === id), patch);

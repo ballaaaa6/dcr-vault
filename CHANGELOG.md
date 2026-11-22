@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Edit certificate numbers
+- Allow vault owners to change a card's Cert number, with validation and global duplicate protection.
+
 ## 2026-11-22 - Vault detail views
 - Switch between card and private details and edit each separately.
 

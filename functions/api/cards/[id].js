@@ -1,6 +1,7 @@
 import {error, json, readJson, sameOrigin} from '../../_utils/http.js';
 import {currentUser} from '../../_utils/sessions.js';
 import {onRequestDelete as deleteImage} from './[id]/images/[side].js';
+import {normalizeCertNumber} from '../../_utils/cards.js';
 
 const statuses = new Set(['in-vault', 'for-sale', 'sold', 'grading']);
 
@@ -12,8 +13,14 @@ export async function onRequestPatch({request, env, params}) {
   if (!patch) return error('No valid card details were provided.');
   const values = Object.values(patch);
   const columns = Object.keys(patch).map(key => `${key} = ?`).join(', ');
-  const result = await env.DB.prepare(`UPDATE cards SET ${columns}, updated_at = ? WHERE id = ? AND user_id = ?`)
-    .bind(...values, Math.floor(Date.now() / 1000), params.id, session.user.id).run();
+  let result;
+  try {
+    result = await env.DB.prepare(`UPDATE cards SET ${columns}, updated_at = ? WHERE id = ? AND user_id = ?`)
+      .bind(...values, Math.floor(Date.now() / 1000), params.id, session.user.id).run();
+  } catch (cause) {
+    if (String(cause.message).includes('UNIQUE')) return error('This Cert number is already used. Choose another number.', 409);
+    throw cause;
+  }
   if (!result.meta?.changes) return error('Card not found in your vault.', 404);
   return json({ok: true});
 }
@@ -21,6 +28,10 @@ export async function onRequestPatch({request, env, params}) {
 function cleanPatch(input) {
   if (!input || typeof input !== 'object') return null;
   const patch = {};
+  if ('certNumber' in input) {
+    patch.cert_number = normalizeCertNumber(input.certNumber);
+    if (!patch.cert_number) return null;
+  }
   const fields = {name: ['name', 120], game: ['game', 30], setName: ['set_name', 120], year: ['year', 4],
     cardNumber: ['card_number', 30], rarity: ['rarity', 80], gradeLabel: ['grade_label', 60],
     sourceFinish: ['source_finish', 30], sourceLanguage: ['source_language', 20]};

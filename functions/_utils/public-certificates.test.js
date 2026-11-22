@@ -79,8 +79,17 @@ test('only the owner can edit certificate fields or delete and release a certifi
   const result = await (await lookup({env: {DB}, params: {cert: '1'}})).json();
   assert.equal(result.card.name, 'After');
   assert.equal(result.card.rarity, 'Rare');
-  assert.equal((await remove(context('DELETE', 'a'))).status, 200);
+  assert.equal((await patch(context('PATCH', 'b', {certNumber: '2'}))).status, 404);
+  assert.equal((await patch(context('PATCH', 'a', {certNumber: 'bad'}))).status, 400);
+  sql.prepare('INSERT INTO cards(id,user_id,name,cert_number,created_at,updated_at) VALUES (?,?,?,?,?,?)')
+    .run('other', 'b', 'Other', '00000003', 0, 0);
+  assert.equal((await patch(context('PATCH', 'a', {certNumber: '3', name: 'Conflict'}))).status, 409);
+  assert.equal((await patch(context('PATCH', 'a', {certNumber: '2'}))).status, 200);
   assert.equal((await (await lookup({env: {DB}, params: {cert: '1'}})).json()).card, null);
+  assert.equal((await (await lookup({env: {DB}, params: {cert: '2'}})).json()).card.name, 'After');
+  assert.equal(sql.prepare('SELECT id FROM cards WHERE cert_number = ?').get('00000002').id, id);
+  assert.equal((await remove(context('DELETE', 'a'))).status, 200);
+  assert.equal((await (await lookup({env: {DB}, params: {cert: '2'}})).json()).card, null);
   const checkRequest = new Request('https://vault.test/api/cards/cert-check?cert=1', {headers: {Cookie: 'dcr_session=b'}});
   assert.equal((await (await check({request: checkRequest, env: {DB}})).json()).available, true);
   assert.equal(sql.prepare('SELECT COUNT(*) AS n FROM cards WHERE cert_number = ?').get('00000001').n, 0);
