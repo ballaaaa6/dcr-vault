@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Improve short Vault row readability
+
+- Add contrasting text glow to short card rows in the three-panel view.
+
 ## 2026-11-23 - Dim short Vault backgrounds
 
 - Set short-row artwork brightness to 30% while keeping its existing fade.
