@@ -2,6 +2,9 @@
 
 Times are commit times in Bangkok time (UTC+7); older entries without a time have no matching commit record.
 
+## 2026-11-22 - Fit profile photo preview to image
+- Size the profile photo dialog to its image while keeping it within the screen.
+
 ## 2026-11-22 - Enlarge profile photo preview
 - Show the profile photo centered in a nearly full-screen preview.
 
