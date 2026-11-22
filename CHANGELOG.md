@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-22 - Simplify the login page
+
+- Keep the sign-in page focused on Google sign-in, account creation, and the privacy policy.
+
 ## 2026-11-22 - Animate the login landscape
 
 - Add the selected sakura landscape with gently moving branches and drifting petals to the sign-in page.
