@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Style page scrollbar
+
+- Add a slim red page scrollbar and restore its visibility on the Labels page.
+
 ## 2026-11-23 - Add label page backgrounds
 
 - Add faded mountain backgrounds to the certificate entry, sheet list, and vault selection panels.

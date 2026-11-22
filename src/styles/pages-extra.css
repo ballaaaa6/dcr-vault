@@ -115,8 +115,8 @@
 
 .vault-price-input{display:grid;grid-template-columns:minmax(0,1fr) 100px;gap:8px}
 .vault-edit .form-field[hidden]{display:none}
-html:has(.label-page),.label-dialog,.label-vault-list{scrollbar-width:none}
-html:has(.label-page)::-webkit-scrollbar,.label-dialog::-webkit-scrollbar,.label-vault-list::-webkit-scrollbar{display:none}
+.label-dialog,.label-vault-list{scrollbar-width:none}
+.label-dialog::-webkit-scrollbar,.label-vault-list::-webkit-scrollbar{display:none}
 #app:has(.label-page){min-height:100svh;display:flex;flex-direction:column}
 #app:has(.label-page) .site-footer{width:100%;flex-shrink:0;margin:0 auto}
 .label-page{flex:1;min-height:0}
