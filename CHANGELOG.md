@@ -2,6 +2,9 @@
 
 Times are commit times in Bangkok time (UTC+7); older entries without a time have no matching commit record.
 
+## 2026-11-22 - Refine label vault selection
+- Use aligned heart selection controls and shade cards already added to the label sheets.
+
 ## 2026-11-22 - Improve label card selection
 - Show front card photos in label rows and the vault picker, add a red remove icon, and support select all with selected-row shading.
 

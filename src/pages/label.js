@@ -100,9 +100,13 @@ async function searchCerts() {
   details.querySelector('p').textContent = [missing.length ? `Not found: ${missing.join(', ')}` : '', failed.length ? `Search failed; retry: ${failed.join(', ')}` : ''].filter(Boolean).join(' · ');
 }
 
+function heartCheckbox(attributes) {
+  return `<span class="label-heart"><input type="checkbox" ${attributes}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-9-5.7-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.3-9 12-9 12Z"/></svg></span>`;
+}
+
 function chooseVault() {
   const cards = vaultCards.filter(card => String(card.game).toLowerCase() === 'pokemon');
-  dialog(`${dialogHead('Choose from My Vault')}<p class="muted">Select the cards to add to your sheets.</p><label class="label-select-all"><input type="checkbox" data-label-select-all ${cards.some(card => !entries.some(item => item.cert === normalizeCert(card.certNumber))) ? '' : 'disabled'}> Select all</label><div class="label-vault-list">${cards.map(card => `<label><input type="checkbox" value="${esc(normalizeCert(card.certNumber))}" ${entries.some(item => item.cert === normalizeCert(card.certNumber)) ? 'disabled' : ''}><span><strong>${esc(card.name)}</strong><small>Cert ${esc(normalizeCert(card.certNumber))}</small></span><span class="label-card-image">${cardPhoto(card)}</span></label>`).join('') || '<p>No Pokémon cards in your vault.</p>'}</div><div class="label-controls"><button class="btn btn-primary" data-label-action="add-vault">Add selected</button></div>`);
+  dialog(`${dialogHead('Choose from My Vault')}<p class="muted">Select the cards to add to your sheets.</p><label class="label-select-all">${heartCheckbox(`data-label-select-all ${cards.some(card => !entries.some(item => item.cert === normalizeCert(card.certNumber))) ? '' : 'disabled'}`)} Select all</label><div class="label-vault-list">${cards.map(card => `<label>${heartCheckbox(`value="${esc(normalizeCert(card.certNumber))}" ${entries.some(item => item.cert === normalizeCert(card.certNumber)) ? 'disabled' : ''}`)}<span><strong>${esc(card.name)}</strong><small>Cert ${esc(normalizeCert(card.certNumber))}</small></span><span class="label-card-image">${cardPhoto(card)}</span></label>`).join('') || '<p>No Pokémon cards in your vault.</p>'}</div><div class="label-controls"><button class="btn btn-primary" data-label-action="add-vault">Add selected</button></div>`);
 }
 
 function viewLabel(cert) {
