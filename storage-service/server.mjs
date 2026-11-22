@@ -1,5 +1,6 @@
 import {createReadStream} from 'node:fs';
-import {mkdir, open, rename, stat, unlink} from 'node:fs/promises';
+import {mkdir, open, readdir, rename, stat, unlink} from 'node:fs/promises';
+import {imageVariant} from './image-variant.mjs';
 import {createServer} from 'node:http';
 import {createHash, randomUUID} from 'node:crypto';
 import path from 'node:path';
@@ -27,7 +28,10 @@ function validateRequest(request) {
   if (!match || !UUID.test(match[1])) throw new HttpError(404, 'Image route not found.');
   const operation = request.method === 'PUT' ? 'put' : request.method === 'GET' ? 'get' : request.method === 'DELETE' ? 'delete' : '';
   if (!operation) throw new HttpError(405, 'Method not allowed.');
-  return {cardId: match[1], side: match[2], operation};
+  const variant = url.searchParams.get('variant') || '';
+  const digest = url.searchParams.get('digest') || '';
+  if (variant && (operation !== 'get' || !['small', 'medium'].includes(variant) || !/^[0-9a-f]{64}$/.test(digest))) throw new HttpError(400, 'Invalid image variant.');
+  return {cardId: match[1], side: match[2], operation, variant, digest};
 }
 
 async function authorize(request, target, contentType) {
@@ -35,7 +39,7 @@ async function authorize(request, target, contentType) {
   if (typeof token !== 'string' || !/^[A-Za-z0-9_-]{43}$/.test(token)) throw new HttpError(403, 'Image capability rejected.');
   const response = await fetch(AUTHORIZATION_URL, {
     method: 'POST', headers: {'Content-Type': 'application/json'}, redirect: 'error',
-    body: JSON.stringify({...target, token, contentType}), signal: AbortSignal.timeout(8000)
+    body: JSON.stringify({cardId: target.cardId, side: target.side, operation: target.operation, token, contentType}), signal: AbortSignal.timeout(8000)
   });
   if (!response.ok) throw new HttpError(403, 'Image capability expired or was already used.');
   const grant = await response.json();
@@ -84,22 +88,35 @@ async function replaceImage(request, response, target, contentType, grant) {
   const handle = await open(temporary, 'wx', 0o600);
   try { await handle.writeFile(body); } finally { await handle.close(); }
   await rename(temporary, file);
+  await clearVariants(file, target.side);
   const sha256 = createHash('sha256').update(body).digest('hex');
   sendJson(response, 200, {objectKey, contentType, byteSize: body.length, sha256});
 }
 
-async function serveImage(response, grant) {
+async function clearVariants(file, side) {
+  const folder = path.join(path.dirname(file), '.variants');
+  const files = await readdir(folder).catch(() => []);
+  await Promise.all(files.filter(name => name.startsWith(`${side}-`)).map(name => unlink(path.join(folder, name)).catch(() => {})));
+}
+
+async function serveImage(response, grant, requestTarget) {
   const {target, objectKey} = imagePath(grant, TYPES[grant.contentType]);
   const info = await stat(target).catch(() => null);
   if (!info?.isFile() || info.size > MAX_BYTES) throw new HttpError(404, 'Card photo not found.');
-  response.writeHead(200, {'Content-Type': grant.contentType, 'Content-Length': info.size,
-    'Cache-Control': 'private, no-store', 'Content-Disposition': `inline; filename="${grant.side}"`, 'X-Content-Type-Options': 'nosniff'});
-  createReadStream(target).pipe(response);
+  let variant = requestTarget.variant && await imageVariant(target, grant.side, requestTarget.digest, requestTarget.variant);
+  const variantInfo = variant ? await stat(variant).catch(() => null) : null;
+  if (!variantInfo?.isFile()) variant = null;
+  const served = variant || target;
+  const size = variant ? variantInfo.size : info.size;
+  response.writeHead(200, {'Content-Type': variant ? 'image/webp' : grant.contentType, 'Content-Length': size,
+    'Cache-Control': 'private, no-store', 'X-DCR-Variant': variant ? requestTarget.variant : 'original', 'Content-Disposition': `inline; filename="${grant.side}"`, 'X-Content-Type-Options': 'nosniff'});
+  createReadStream(served).pipe(response);
 }
 
 async function deleteImage(response, grant) {
   const {target} = imagePath(grant, TYPES[grant.contentType]);
   await unlink(target).catch(error => { if (error.code !== 'ENOENT') throw error; });
+  await clearVariants(target, grant.side);
   sendJson(response, 200, {ok: true});
 }
 
@@ -110,7 +127,7 @@ async function handle(request, response) {
   if (!TYPES[contentType]) throw new HttpError(415, 'Unsupported image type.');
   const grant = await authorize(request, target, contentType);
   if (target.operation === 'put') return replaceImage(request, response, target, contentType, grant);
-  if (target.operation === 'get') return serveImage(response, grant);
+  if (target.operation === 'get') return serveImage(response, grant, target);
   return deleteImage(response, grant);
 }
 

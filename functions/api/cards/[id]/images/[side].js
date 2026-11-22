@@ -26,11 +26,12 @@ async function capability(db, details) {
   return createImageCapability(db, details);
 }
 
-async function callImageService(env, scopeData, operation, contentType, objectKey = '', body = undefined) {
+async function callImageService(env, scopeData, operation, contentType, objectKey = '', body = undefined, variant = '', digest = '') {
   const token = await capability(scopeData.db, {...scopeData, operation, contentType, objectKey});
   const method = operation === 'put' ? 'PUT' : operation === 'get' ? 'GET' : 'DELETE';
   const headers = {'X-DCR-Capability': token, 'X-DCR-Operation': operation, 'X-DCR-Card': scopeData.cardId, 'X-DCR-Side': scopeData.side, 'X-DCR-Type': contentType};
-  return imageServiceRequest(env, `/v1/cards/${scopeData.cardId}/${scopeData.side}`, {method, headers, body});
+  const query = variant ? `?variant=${variant}&digest=${digest}` : '';
+  return imageServiceRequest(env, `/v1/cards/${scopeData.cardId}/${scopeData.side}${query}`, {method, headers, body});
 }
 
 async function serviceFailure(response) {
@@ -76,16 +77,32 @@ export async function onRequestPut({request, env, params}) {
   return json({ok: true, side: owner.side, byteSize: stored.byteSize});
 }
 
+function imageCacheHeaders(image, variant) {
+  const suffix = variant ? `-${variant}-v1` : '';
+  return {'Cache-Control': 'private, no-cache', ETag: `"${image.sha256}${suffix}"`};
+}
+
+function matchesImageTag(request, tag) {
+  return (request.headers.get('If-None-Match') || '').split(',')
+    .some(value => value.trim() === '*' || value.trim().replace(/^W\//, '') === tag);
+}
+
 export async function onRequestGet({request, env, params}) {
   const owner = await scope(request, env, params, true, true);
   if (owner.response) return owner.response;
-  const image = await owner.db.prepare('SELECT object_key, content_type FROM card_images WHERE card_id = ? AND user_id = ? AND side = ?')
+  const image = await owner.db.prepare('SELECT object_key, content_type, sha256 FROM card_images WHERE card_id = ? AND user_id = ? AND side = ?')
     .bind(owner.cardId, owner.userId, owner.side).first();
   if (!image) return error('Card photo not found.', 404);
+  const variant = new URL(request.url).searchParams.get('variant') || '';
+  if (variant && !['small', 'medium'].includes(variant)) return error('Invalid image variant.', 400);
+  const cacheHeaders = imageCacheHeaders(image, variant);
+  if (matchesImageTag(request, cacheHeaders.ETag)) return new Response(null, {status: 304, headers: cacheHeaders});
   try {
-    const response = await callImageService(env, owner, 'get', image.content_type, image.object_key);
+    const response = await callImageService(env, owner, 'get', image.content_type, image.object_key, undefined, variant, image.sha256);
     if (!response.ok) return serviceFailure(response);
-    return new Response(response.body, {headers: {'Content-Type': image.content_type, 'Cache-Control': 'private, no-store',
+    const rendered = variant && response.headers.get('X-DCR-Variant') === variant;
+    const headers = variant && !rendered ? {'Cache-Control': 'private, no-store'} : cacheHeaders;
+    return new Response(response.body, {headers: {'Content-Type': rendered ? 'image/webp' : image.content_type, ...headers,
       'Content-Disposition': `inline; filename="${owner.side}"`, 'X-Content-Type-Options': 'nosniff'}});
   } catch {
     return error('Oracle image storage is unavailable. Try again later.', 503);

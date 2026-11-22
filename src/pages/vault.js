@@ -8,12 +8,14 @@ import {escapeHTML} from '../utils/format.js';
 import {normalizeCert} from '../utils/cert.js';
 import {classificationFields, classificationInput} from '../utils/card-classification.js';
 import {vaultBackground, preloadSelectedBackgrounds} from '../utils/vault-background.js';
+import {prefetchNearbyImages} from '../utils/prefetch-images.js';
 
 const sources = ['Facebook', 'Instagram', 'TikTok', 'Shopee', 'Lazada', 'eBay', 'TCGplayer', 'Card shop', 'Card show'];
 const currencies = ['THB', 'USD', 'JPY', 'EUR', 'GBP', 'AUD', 'CAD', 'CNY', 'HKD', 'SGD', 'MYR', 'TWD', 'KRW', 'IDR', 'PHP', 'VND', 'CHF', 'NZD'];
 let activeCards = [];
 let selectedId = '';
 let vaultBusy = false;
+let stopImagePrefetch = () => {};
 
 const publicFields = [
   ['certNumber', 'Cert number', 8], ['name', 'Card name', 120], ['game', 'Brand / Title', 30], ['year', 'Year', 4],
@@ -144,6 +146,8 @@ function closeVaultMenuOnOutsideClick(event) {
 
 export function initializeVault() {
   preloadSelectedBackgrounds(activeCards);
+  stopImagePrefetch();
+  stopImagePrefetch = prefetchNearbyImages(document.querySelector('#vault-list'));
   document.removeEventListener('click', closeVaultMenuOnOutsideClick);
   document.addEventListener('click', closeVaultMenuOnOutsideClick);
   if (location.search) history.replaceState(history.state, '', '/vault');
@@ -170,6 +174,8 @@ window.__filterVault = () => {
   document.querySelector('.vault-layout').classList.toggle('is-empty', !matches.length);
   if (selectedId && matches.length && !matches.some(card => card.id === selectedId)) selectCard(matches[0].id);
   list.innerHTML = matches.length ? matches.map(listRow).join('') : '<div class="empty-state">No cards match those filters.</div>';
+  stopImagePrefetch();
+  stopImagePrefetch = prefetchNearbyImages(list);
   document.querySelectorAll('.vault-row').forEach(row => row.setAttribute('aria-pressed', String(row.dataset.cardId === selectedId)));
   count.textContent = `${matches.length} ${matches.length === 1 ? 'card' : 'cards'} shown · ${sort.startsWith('price') ? 'Prices are grouped by currency; no conversion is applied.' : 'Prices stay private to your account and never appear on labels.'}`;
 };

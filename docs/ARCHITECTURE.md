@@ -24,6 +24,8 @@
 - The homepage and certificate lookup are public; vault, add, and label routes require a session.
 - Certificate details and card photos are public. Prices, purchase/sale dates, sources, notes, and account details are returned only to the owner.
 - Front and back photos are stored on the Oracle VM under opaque owner/card UUIDs. D1 stores each side's object key, MIME type, size, and digest; the browser only receives same-origin image routes.
+- Saved card photos use private browser caching with digest-based revalidation on every reuse; a missing or changed image cannot receive a stale 304 response. Shared caches must not store these responses.
+- The image service generates small (240px) and medium (1000px) WebP variants on demand using Pillow, with SHA-256 verification and a two-conversion limit. Variants are removed on replacement or deletion; the original remains the fallback. Vault prefetch is limited to nearby rows and respects data-saving mode.
 - Pages Functions check the card owner for image changes; public photo reads and owner changes use one-use, short-lived image capabilities. The Oracle service consumes each capability by calling the private-card API and never receives the user's DCR session cookie or a long-lived storage token.
 - Existing `dcr-cards-v1` browser records are never uploaded automatically. After first sign-in on a browser, the user reviews every card name and Cert number and selects which records to import. The legacy copy is retained either way, and images are excluded.
 

@@ -1,13 +1,14 @@
 import {escapeHTML} from '../utils/format.js';
 import {certificatePath, normalizeCert} from '../utils/cert.js';
 import {initializeImageZoom} from './image-zoom.js';
+import {cardImageVariant} from '../utils/card-image-variant.js';
 
 const flipIcon = '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-5V2M4 17h5v5M20 7a8 8 0 0 0-14-2M4 17a8 8 0 0 0 14 2"/></svg>';
 const searchIcon = '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg>';
 
-function faces(card) {
+function faces(card, isDialog = false) {
   const front = card.referenceImage || card.frontImage;
-  const image = (url, side) => url ? `<img src="${escapeHTML(url)}" data-fallback="${escapeHTML(side === 'Front' && card.referenceImage ? card.frontImage || '' : '')}" alt="${escapeHTML(card.name)} — ${side}" referrerpolicy="no-referrer">` : '<span class="vault-detail-photo-empty">No front photo available</span>';
+  const image = (url, side) => url ? `<img src="${escapeHTML(isDialog ? url : cardImageVariant(url, 'medium'))}" data-fallback="${escapeHTML(side === 'Front' && card.referenceImage ? (isDialog ? card.frontImage || '' : cardImageVariant(card.frontImage, 'medium')) : '')}" alt="${escapeHTML(card.name)} — ${side}" referrerpolicy="no-referrer"${isDialog || side === 'Back' ? ' loading="lazy"' : ' fetchpriority="high"'} decoding="async">` : '<span class="vault-detail-photo-empty">No front photo available</span>';
   return `<div class="vault-photo-flipper"><div class="vault-photo-face">${image(front, 'Front')}</div><div class="vault-photo-face vault-photo-back">${image(card.backImage, 'Back')}</div></div>`;
 }
 
@@ -17,7 +18,7 @@ export function vaultPhoto(card) {
   const flip = `<button class="vault-photo-flip" type="button" aria-label="Show back image" title="Switch image"${disabled}>${flipIcon}</button>`;
   const cert = normalizeCert(card.certNumber);
   return `<div class="vault-detail-photo">${faces(card)}${flip}<div class="vault-photo-actions">${hasFront ? `<button class="vault-photo-preview" type="button">${searchIcon}Preview</button>` : ''}${cert ? `<a class="vault-photo-cert" href="${escapeHTML(certificatePath(cert))}">View Cert</a>` : ''}</div></div>
-    <dialog class="vault-photo-dialog" aria-label="Card image preview"><div class="vault-photo-toolbar">${flip}<button class="vault-photo-close" type="button" aria-label="Close preview">×</button></div><div class="vault-photo-stage"><div class="vault-photo-view">${faces(card)}<span class="cert-zoom" aria-hidden="true"></span></div></div></dialog>`;
+    <dialog class="vault-photo-dialog" aria-label="Card image preview"><div class="vault-photo-toolbar">${flip}<button class="vault-photo-close" type="button" aria-label="Close preview">×</button></div><div class="vault-photo-stage"><div class="vault-photo-view">${faces(card, true)}<span class="cert-zoom" aria-hidden="true"></span></div></div></dialog>`;
 }
 
 export function initializeVaultPhoto(panel) {

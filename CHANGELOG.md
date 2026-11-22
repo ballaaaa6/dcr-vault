@@ -8,6 +8,11 @@
 
 - Add a centered View Cert button beneath Preview on selected Vault cards.
 
+## 2026-11-23 - Improve card image loading
+
+- Generate small and medium card photos on demand while retaining originals for zoom and download.
+- Revalidate saved card images and preload nearby Vault photos with bounded concurrency.
+
 ## 2026-11-23 - Add certificate backgrounds
 
 - Show a paper-art certificate background matched to the card classification, with an unknown fallback.

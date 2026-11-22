@@ -54,11 +54,11 @@ export function initializeCertificateViewer() {
   function select(button) {
     const source = button.querySelector('img');
     selectedSide = button.dataset.side;
-    image.src = source.src;
+    image.src = source.dataset.original || source.src;
     image.alt = source.alt;
     label.textContent = button.querySelector('span').textContent;
     status.textContent = '';
-    zoom.style.backgroundImage = `url(${JSON.stringify(source.src)})`;
+    zoom.style.backgroundImage = `url(${JSON.stringify(image.src)})`;
     thumbs.querySelectorAll('button').forEach((item, index) => item.setAttribute('aria-pressed', String(buttons[index] === button)));
     frame.classList.remove('is-zoomed');
   }
