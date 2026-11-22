@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Browser tab icon
+- Show the DCR logo in the browser tab.
+
 ## 2026-11-22 - Card intake details
 - Expand card image previews and require core card details; add optional artist and private notes with Vault editing.
 
