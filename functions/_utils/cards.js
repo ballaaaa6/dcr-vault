@@ -15,7 +15,7 @@ export function normalizeCertNumber(value) {
   return /^[0-9]{1,8}$/.test(digits) ? digits.padStart(8, '0') : '';
 }
 
-const provenanceFields = ['name', 'setName', 'year', 'cardNumber', 'rarity'];
+const provenanceFields = ['name', 'setName', 'year', 'cardNumber', 'rarity', 'cardTypeLabel', 'languageLabel', 'series', 'sourceLanguage'];
 const provenanceSources = new Set(['unknown', 'user', 'gemini', 'catalog']);
 
 function normalizeProvenance(value) {
@@ -38,6 +38,7 @@ export function normalizeCard(input) {
     identificationStatus: ['unknown', 'unresolved', 'matched', 'user_selected'].includes(input.identificationStatus) ? input.identificationStatus : 'unknown',
     fieldProvenance: normalizeProvenance(input.fieldProvenance),
     game: text(input.game, 30) || 'other', name, setName: text(input.setName, 120),
+    cardTypeLabel: text(input.cardTypeLabel, 60), languageLabel: text(input.languageLabel, 60), series: text(input.series, 120),
     year: text(input.year, 4), yearSeries: text(input.yearSeries, 160),
     catalogCardId: text(input.catalogCardId, 80), sourceLanguage: text(input.sourceLanguage, 20),
     sourceSetId: text(input.sourceSetId, 80), sourceCardId: text(input.sourceCardId, 100),
@@ -54,6 +55,7 @@ export function cardResponse(row) {
   return {
     identificationStatus: row.identification_status || 'unknown', fieldProvenance: parseProvenance(row.field_provenance),
     id: row.id, game: row.game, name: row.name, setName: row.set_name, year: row.year,
+    cardTypeLabel: row.card_type_label || '', languageLabel: row.language_label || '', series: row.series || '',
     yearSeries: row.year_series || '', catalogCardId: row.catalog_card_id || '',
     sourceLanguage: row.source_language || '', sourceSetId: row.source_set_id || '',
     sourceCardId: row.source_card_id || '', sourceFinish: row.source_finish || '',
@@ -73,5 +75,5 @@ export function cardValues(card) {
     card.sourceLanguage, card.sourceSetId, card.sourceCardId, card.sourceFinish, card.cardNumber, card.rarity,
     card.gradeLabel, card.certNumber, card.status, card.buyPrice, card.sellPrice,
     card.buyDate, card.soldDate, card.boughtFrom, card.soldTo, card.notes,
-    card.identificationStatus, JSON.stringify(card.fieldProvenance), card.artist, card.buyCurrency, card.purchaseSource, card.seller, card.receivedDate];
+    card.identificationStatus, JSON.stringify(card.fieldProvenance), card.artist, card.buyCurrency, card.purchaseSource, card.seller, card.receivedDate, card.cardTypeLabel, card.languageLabel, card.series];
 }

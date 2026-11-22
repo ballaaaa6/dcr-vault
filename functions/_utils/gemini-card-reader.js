@@ -10,6 +10,7 @@ const PROMPT = [
   'First transcribe the printed name, language, set code or set symbol and complete collector number exactly as visible, including leading zeroes, letters, prefixes and denominator. A number greater than its denominator is valid. Separate the collector number from Pokédex number, level, HP and attack damage.',
   'Read the stamp, copyright text, rarity symbol and regulation mark separately. Do not assume an obscured or unreadable mark is absent. Do not infer finish from glare, sleeves or artwork.',
   'Cards with the same Pokémon name may be different cards. Reprints may share artwork, HP, attacks and even collector numbers across sets. Do not infer a set, year or English counterpart from a similar card. Never invent a collector number or catalog identity.',
+  'Return cardTypeLabel as the full English card game name, languageLabel as the full English printed language name (empty for English), and series as the full English parent series of the exact printed-language set, not the expansion name. Do not guess these fields; leave uncertain values empty and include their names in uncertainFields.',
   'For Pokémon include HP, illustrator, stage, types, attacks and effects, energy costs, abilities, weakness, resistance and retreat. For Trainer or Energy include its category and visible effect.',
   'Return printed name and setName only when readable. Provide englishName as a translation when known, but leave englishSetName and englishCardNumber empty unless explicitly supported by the image. A copyright year is not the set release year.',
   'Set identityStatus to needs_review unless the exact printing is supported. Give identificationSummary and evidence, and list each unreadable or uncertain identity field in uncertainFields. Leave unreadable fields empty.',
@@ -35,6 +36,7 @@ const CONFIDENCE_FIELDS = ['name', 'setName', 'setCode', 'englishName', 'english
   'retreat', 'evolvesFrom', 'regulationMark', 'printedText', 'dexNumber', 'level', 'finish'];
 const READING_SCHEMA = {
   type: 'object', properties: {
+    cardTypeLabel: STRING, languageLabel: STRING, series: STRING,
     formName: STRING, formSetName: STRING, formYear: STRING, formCardNumber: STRING, formRarity: STRING,
     name: STRING, setName: STRING, setCode: STRING, englishName: STRING, englishSetName: STRING, englishCardNumber: STRING, year: STRING,
     identificationSummary: STRING, identityStatus: STRING, evidence: STRING_LIST, uncertainFields: STRING_LIST,
@@ -45,7 +47,7 @@ const READING_SCHEMA = {
     confidence: {type: 'object', properties: Object.fromEntries(CONFIDENCE_FIELDS.map(key => [key, {type: 'number'}])),
       required: CONFIDENCE_FIELDS}
   },
-  required: ['formName', 'formSetName', 'formYear', 'formCardNumber', 'formRarity', 'name', 'setName', 'setCode', 'englishName', 'englishSetName', 'englishCardNumber', 'year', 'identificationSummary',
+  required: ['cardTypeLabel', 'languageLabel', 'series', 'formName', 'formSetName', 'formYear', 'formCardNumber', 'formRarity', 'name', 'setName', 'setCode', 'englishName', 'englishSetName', 'englishCardNumber', 'year', 'identificationSummary',
     'identityStatus', 'evidence', 'uncertainFields', 'cardNumber', 'language', 'rarity', 'hp',
     'illustrator', 'stage', 'types', 'attacks', 'abilities', 'abilityDetails', 'weaknesses', 'resistances',
     'retreat', 'evolvesFrom', 'regulationMark', 'printedText', 'dexNumber', 'level', 'finish', 'stamp', 'setSymbol', 'copyrightText', 'confidence']

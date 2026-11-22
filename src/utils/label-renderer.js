@@ -43,9 +43,10 @@ export function cardLabelData(card) {
   const metadata = cardLabelMetadata(card);
   return {
     year: String(card.year ?? '').trim(),
-    cardType: String(card.game || '').toLowerCase() === 'pokemon' ? 'POKÉMON' : String(card.game || '').trim(),
-    series: cardSeries(card),
-    language: String(card.sourceLanguage || card.language || 'en').toLowerCase(),
+    cardType: String(card.cardTypeLabel || (String(card.game || '').toLowerCase() === 'pokemon' ? 'POKÉMON' : card.game || '')).trim(),
+    series: String(card.series || cardSeries(card)).trim(),
+    language: String(card.sourceLanguage || card.language || '').toLowerCase(),
+    languageLabel: String(card.languageLabel || '').trim(),
     name: String(card.name ?? '').trim(),
     setName: metadata.setName,
     cardNumber: normalizeCardNumber(card.cardNumber),
@@ -61,6 +62,7 @@ function cleanLabelData(data) {
     cardType: String(data.cardType ?? '').trim().toLocaleUpperCase('en-US'),
     series: String(data.series ?? '').trim().toLocaleUpperCase('en-US'),
     language: String(data.language ?? '').trim().toLowerCase(),
+    languageLabel: String(data.languageLabel ?? '').trim().toLocaleUpperCase('en-US'),
     name: String(data.name ?? '').trim().toLocaleUpperCase('en-US'),
     setName: String(data.setName ?? '').trim().toLocaleUpperCase('en-US'),
     cardNumber: normalizeCardNumber(data.cardNumber).toLocaleUpperCase('en-US'),
@@ -96,7 +98,7 @@ const SERIES_SHORT = {'SCARLET & VIOLET': 'SV', 'SWORD & SHIELD': 'SWSH', 'SUN &
   'HEARTGOLD & SOULSILVER': 'HGSS', 'ADVANCED GENERATION': 'ADV'};
 
 export function firstLine(value) {
-  const language = LANGUAGE_LABELS[value.language];
+  const language = value.language === 'en' ? '' : value.languageLabel || LANGUAGE_LABELS[value.language];
   if (language === undefined || !value.year || !value.cardType || !value.series) return '';
   const build = series => [value.year, value.cardType, language, series].filter(Boolean).join(' ');
   const full = build(value.series);
@@ -110,6 +112,7 @@ export function validateLabelData(data) {
   const missing = required.find(key => !value[key]);
   if (missing) return [`${missing.replace(/[A-Z]/g, letter => ` ${letter.toLowerCase()}`)} is required.`];
   if (!(value.language in LANGUAGE_LABELS)) return ['Card language must be English, Thai, or Japanese.'];
+  if (value.language !== 'en' && value.languageLabel && value.languageLabel !== LANGUAGE_LABELS[value.language]) return ['Language label must match the card language.'];
   if ([value.name, value.setName].some(hasNonLatinScript)) return ['Card name and set must use English text.'];
   if (!/^\d{8}$/.test(value.certNumber)) return ['Cert number must contain exactly 8 digits.'];
   if (!CONDITION_OPTIONS.includes(value.condition)) return ['Choose a condition from the DCR list.'];

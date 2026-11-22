@@ -22,7 +22,7 @@ function identifyRequest() {
 test('Gemini receives a direct identification prompt and returns structured card details', async () => {
   const originalFetch = globalThis.fetch;
   let requestBody;
-  const outputFields = {name: 'ミュウ', setName: 'サンプルセット', setCode: 'SAMPLE', englishName: 'Mew', englishSetName: '', englishCardNumber: '', year: '2024',
+  const outputFields = {cardTypeLabel: 'POKÉMON', languageLabel: 'JAPANESE', series: 'SCARLET & VIOLET', name: 'ミュウ', setName: 'サンプルセット', setCode: 'SAMPLE', englishName: 'Mew', englishSetName: '', englishCardNumber: '', year: '2024',
     cardNumber: '005/062', language: 'ja', rarity: 'Rare', hp: '60', illustrator: 'Mitsuhiro Arita', stage: 'Basic',
     stamp: '30', setSymbol: 'star', copyrightText: '©2026', types: ['Psychic'], attacks: [{name: 'サイコウェーブ', damage: '30', cost: ['Psychic'], effect: 'Visible attack effect.'}],
     abilities: [], abilityDetails: [{name: 'Ability name', effect: 'Visible ability effect.'}], weaknesses: [],
@@ -42,11 +42,14 @@ test('Gemini receives a direct identification prompt and returns structured card
     assert.doesNotMatch(prompt, /[\u0e00-\u0e7f\u3040-\u30ff]/);
     assert.equal(requestBody.generationConfig.maxOutputTokens, 3072);
     const required = requestBody.generationConfig.responseJsonSchema.required;
-    for (const key of ['setCode', 'englishCardNumber', 'identificationSummary', 'identityStatus', 'evidence', 'uncertainFields', 'stamp', 'setSymbol', 'copyrightText']) {
+    for (const key of ['cardTypeLabel', 'languageLabel', 'series', 'setCode', 'englishCardNumber', 'identificationSummary', 'identityStatus', 'evidence', 'uncertainFields', 'stamp', 'setSymbol', 'copyrightText']) {
       assert.ok(required.includes(key), `schema requires ${key}`);
     }
     assert.deepEqual(result.attacks[0].effects, ['Visible attack effect.']);
     assert.equal(result.setCode, 'SAMPLE');
+    assert.equal(result.series, 'SCARLET & VIOLET');
+    assert.equal(result.cardTypeLabel, 'POKÉMON');
+    assert.equal(result.languageLabel, 'JAPANESE');
     assert.equal(result.stamp, '30');
     assert.equal(result.setSymbol, 'star');
     assert.equal(result.copyrightText, '©2026');

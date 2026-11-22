@@ -16,6 +16,7 @@ async function sourceSeries(card) {
 
 export async function enrichLabelCard(card) {
   const language = String(card.sourceLanguage || card.language || 'en').toLowerCase();
+  if (card.series) return card;
   if (language !== 'en') {
     const seriesId = await sourceSeries(card).catch(() => '');
     return {...card, seriesId};

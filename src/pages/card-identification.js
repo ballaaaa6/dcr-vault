@@ -102,6 +102,14 @@ function fillGeminiValues(fields, requestId) {
   fieldProvenance = Object.fromEntries(Object.entries(values).map(([key, value]) => [key, value ? 'gemini' : 'unknown']));
   Object.assign(fieldProvenance, userFields);
   appliedValues = {};
+  const labelValues = {cardTypeLabel: fields.cardTypeLabel, series: fields.series,
+    sourceLanguage: fields.language, languageLabel: fields.languageLabel};
+  for (const [key, value] of Object.entries(labelValues)) {
+    if (fieldProvenance[key] === 'user') continue;
+    const input = document.getElementById(`m-${key}`);
+    input.value = value || '';
+    appliedValues[key] = input.value;
+  }
   for (const [key, value] of Object.entries(values)) {
     if (fieldProvenance[key] === 'user') continue;
     const input = document.getElementById(`m-${key}`);
@@ -262,7 +270,7 @@ function canRetryIdentification(error) {
 
 document.addEventListener('input', event => {
   const key = event.target.id?.replace(/^m-/, '');
-  if (['name', 'setName', 'year', 'cardNumber', 'rarity'].includes(key)) {
+  if (['name', 'setName', 'year', 'cardNumber', 'rarity', 'cardTypeLabel', 'series', 'sourceLanguage', 'languageLabel'].includes(key)) {
     if (analysisBusy) analysisVersion += 1;
     candidateState = null;
     fieldProvenance[key] = 'user';

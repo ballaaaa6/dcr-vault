@@ -74,6 +74,8 @@ export function cleanReading(value) {
     form: {name: cleanText(value.formName), setName: cleanText(value.formSetName),
       year: /^(19|20)\d{2}$/.test(cleanText(value.formYear)) ? cleanText(value.formYear) : '',
       cardNumber: cleanText(value.formCardNumber, 30), rarity: cleanText(value.formRarity, 40)},
+    cardTypeLabel: cleanText(value.cardTypeLabel, 60), languageLabel: cleanText(value.languageLabel, 60),
+    series: cleanText(value.series, 120),
     name: cleanText(fieldValue(value, ['name', 'cardName', 'card_name', 'pokemonName', 'pokemon_name'])),
     setName: cleanText(fieldValue(value, ['setName', 'set_name', 'set', 'expansion'])),
     setCode: cleanText(fieldValue(value, ['setCode', 'set_code', 'setAbbreviation', 'set_abbreviation']), 32),

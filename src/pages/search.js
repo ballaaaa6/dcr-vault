@@ -59,6 +59,10 @@ export function search() {
             ${catalogField('setName', 'Set', 'e.g. Base Set')}
             ${catalogField('year', 'Year', 'e.g. 1999')}
             ${catalogField('cardNumber', 'Card number', 'e.g. 4')}
+            <div class="form-field"><label for="m-cardTypeLabel">Card type</label><input class="form-control" id="m-cardTypeLabel" maxlength="60" placeholder="e.g. POKÉMON"></div>
+            <div class="form-field"><label for="m-series">Series</label><input class="form-control" id="m-series" maxlength="120" placeholder="e.g. SCARLET &amp; VIOLET"></div>
+            <div class="form-field"><label for="m-sourceLanguage">Language code</label><input class="form-control" id="m-sourceLanguage" maxlength="20" placeholder="en, th, ja"></div>
+            <div class="form-field"><label for="m-languageLabel">Language label</label><input class="form-control" id="m-languageLabel" maxlength="60" placeholder="THAI or JAPANESE; blank for English"></div>
             <div class="form-field"><label for="m-rarity">Rarity <span class="required-mark" aria-hidden="true">*</span></label><input class="form-control" id="m-rarity" required placeholder="Read from card or choose from catalog"></div>
             <div class="form-field intake-wide"><label for="m-artist">Artist / Illustrator <span class="optional-label">(optional)</span></label><input class="form-control" id="m-artist" maxlength="120" placeholder="e.g. Mitsuhiro Arita"></div>
             <div class="form-field intake-wide intake-notes"><label for="m-notes">Notes <span class="optional-label">(optional)</span></label><textarea class="form-control" id="m-notes" maxlength="2000" rows="2" placeholder="Add any details about this card"></textarea></div>
@@ -208,12 +212,16 @@ async function uploadPhotos(card) {
 function formCard(certNumber) {
   const selected = window.__intakeCatalogCard || window.__intakeIdentification || {};
   const metadata = cardLabelMetadata(selected);
+  const sourceLanguage = document.getElementById('m-sourceLanguage').value.trim().toLowerCase();
+  const sourceMatches = sourceLanguage && sourceLanguage === metadata.sourceLanguage;
   return {
     ...identificationProvenance(), game: window.__intakeCatalogGame || 'other', name: document.getElementById('m-name').value.trim(), certNumber,
     setName: document.getElementById('m-setName').value.trim(), year: document.getElementById('m-year').value.trim(),
+    cardTypeLabel: document.getElementById('m-cardTypeLabel').value.trim(),
+    series: document.getElementById('m-series').value.trim(), languageLabel: document.getElementById('m-languageLabel').value.trim(),
     yearSeries: metadata.yearSeries, catalogCardId: metadata.catalogCardId,
-    sourceLanguage: metadata.sourceLanguage, sourceSetId: metadata.sourceSetId,
-    sourceCardId: selected.sourceCardId || '', sourceFinish: selected.sourceFinish || '',
+    sourceLanguage, sourceSetId: sourceMatches ? metadata.sourceSetId : '',
+    sourceCardId: sourceMatches ? selected.sourceCardId || '' : '', sourceFinish: selected.sourceFinish || '',
     cardNumber: document.getElementById('m-cardNumber').value.trim(), rarity: document.getElementById('m-rarity').value.trim(),
     gradeLabel: document.getElementById('m-grade').value.trim(), artist: document.getElementById('m-artist').value.trim(),
     notes: document.getElementById('m-notes').value.trim(), status: 'in-vault'
@@ -342,6 +350,10 @@ document.addEventListener('focusout', event => {
 installCatalogSuggestions(card => {
   invalidateCardResolution();
   selectCatalogSuggestion(card);
+  const languageInput = document.getElementById('m-sourceLanguage');
+  if (!languageInput.value) languageInput.value = card.language || '';
+  const typeInput = document.getElementById('m-cardTypeLabel');
+  if (!typeInput.value) typeInput.value = 'POKÉMON';
   document.getElementById('m-rarity').value = formatRarity(card.rarity);
   document.getElementById('manual-status').textContent = 'Catalog card selected. Check the details, then enter Cert and Grade.';
   updateSubmitState();

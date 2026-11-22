@@ -110,7 +110,7 @@ The left-side series and expansion names remain full. If a card name does not fi
 
 ### First-line wording
 
-Use the recorded card release year, card game, printed language and the series of the exact source-language set, in that order. English cards omit the language; Thai and Japanese cards use THAI and JAPANESE. Examples: `2024 POKÉMON SCARLET & VIOLET`, `2024 POKÉMON THAI SCARLET & VIOLET`, and `2024 POKÉMON JAPANESE SCARLET & VIOLET`. These examples describe the format, not verification of a particular card.
+Use the reviewed card release year, card game, printed language and the series of the exact source-language set, in that order. Gemini may suggest these fields, but the user must review them before saving; do not treat its answer as proof of a specific printing. English cards omit the language; Thai and Japanese cards use THAI and JAPANESE. Examples: `2024 POKÉMON SCARLET & VIOLET`, `2024 POKÉMON THAI SCARLET & VIOLET`, and `2024 POKÉMON JAPANESE SCARLET & VIOLET`. These examples describe the format, not verification of a particular card.
 
 Use the full series name when it fits beside the card number with the required clearance. If it does not fit, use only these approved series abbreviations: SCARLET & VIOLET → SV; SWORD & SHIELD → SWSH; SUN & MOON → SM; MEGA EVOLUTION → MEGA; BLACK & WHITE → BW; DIAMOND & PEARL → DP; HEARTGOLD & SOULSILVER → HGSS; ADVANCED GENERATION → ADV. Keep the game and language names full. If the approved wording still does not fit, or the series or language cannot be determined, block printing for review. The web label workspace currently supports Pokémon cards in English, Thai and Japanese; other card games need their own reviewed series data and implementation.
 

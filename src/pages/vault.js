@@ -15,6 +15,7 @@ let vaultBusy = false;
 
 const publicFields = [
   ['certNumber', 'Cert number', 8], ['name', 'Card name', 120], ['game', 'Brand / Title', 30], ['year', 'Year', 4],
+  ['cardTypeLabel', 'Card type', 60], ['series', 'Series', 120], ['languageLabel', 'Language label', 60],
   ['setName', 'Set name', 120], ['cardNumber', 'Card number', 30], ['rarity', 'Rarity', 80],
   ['gradeLabel', 'Condition', 60], ['sourceFinish', 'Finish', 30], ['sourceLanguage', 'Language code', 20]
 ];

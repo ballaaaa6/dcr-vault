@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Review label details from card readings
+- Ask Gemini for card type, language label and series, allow review and editing, and save the fields for label printing.
+
 ## 2026-11-22 - Label card type and series
 - Show card type and series in label details and print year, type, language and series using approved fit abbreviations.
 
