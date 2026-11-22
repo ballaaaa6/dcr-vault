@@ -120,7 +120,7 @@
 .label-page{flex:1;min-height:0}
 .label-workspace{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:20px;margin-top:20px}
 .label-add,.label-list-section{min-width:0}
-.label-add,.label-list-section,.label-dialog:has(.label-vault-list){background-color:var(--dcr-white);background-image:linear-gradient(color-mix(in srgb,var(--dcr-white) 70%,transparent),color-mix(in srgb,var(--dcr-white) 70%,transparent)),var(--label-background);background-position:top center;background-size:100% auto;background-repeat:no-repeat}
+.label-add,.label-list-section,.label-dialog:has(.label-vault-list){background-color:var(--dcr-white);background-image:linear-gradient(color-mix(in srgb,var(--dcr-white) 85%,transparent),color-mix(in srgb,var(--dcr-white) 85%,transparent)),var(--label-background);background-position:top center;background-size:100% auto;background-repeat:no-repeat}
 .label-add{--label-background:url('/assets/labels/add-certificates.png')}
 .label-list-section{--label-background:url('/assets/labels/sheets.png')}
 .label-dialog:has(.label-vault-list){--label-background:url('/assets/labels/vault-picker.png')}
@@ -128,7 +128,7 @@
 .label-add textarea{resize:vertical;min-height:64px}
 .label-add>.muted{margin:8px 0 16px;font-size:14px}
 .label-controls{display:flex;flex-wrap:wrap;gap:10px}
-.label-list-heading{position:sticky;top:76px;z-index:2;display:flex;align-items:start;justify-content:space-between;gap:12px;margin:-24px -24px 0;padding:24px 24px 0;background-color:var(--dcr-white);background-image:linear-gradient(color-mix(in srgb,var(--dcr-white) 70%,transparent),color-mix(in srgb,var(--dcr-white) 70%,transparent)),var(--label-background);background-position:top center;background-size:100% auto;background-repeat:no-repeat;border-radius:21px 21px 0 0}
+.label-list-heading{position:sticky;top:76px;z-index:2;display:flex;align-items:start;justify-content:space-between;gap:12px;margin:-24px -24px 0;padding:24px 24px 0;background-color:var(--dcr-white);background-image:linear-gradient(color-mix(in srgb,var(--dcr-white) 85%,transparent),color-mix(in srgb,var(--dcr-white) 85%,transparent)),var(--label-background);background-position:top center;background-size:100% auto;background-repeat:no-repeat;border-radius:21px 21px 0 0}
 .label-list-heading p{margin:0 0 16px}
 .label-rows{border-top:1px solid var(--dcr-border)}
 .label-row{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--dcr-border)}

@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Further soften label backgrounds
+
+- Reduce the label panel background images to 15% opacity.
+
 ## 2026-11-23 - Use scrollbars throughout the app
 
 - Apply the slim red scrollbar style to all scrollable pages and panels.
