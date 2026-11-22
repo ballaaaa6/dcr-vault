@@ -11,6 +11,12 @@
   .intake-page .page-heading{margin-bottom:12px}
   .intake-page .surface-card{padding:18px}
   .intake-page .section-heading{margin-bottom:10px}
+  .intake-page .field-grid{row-gap:7px}
+  .intake-page .field-grid .form-field{grid-template-rows:17px 46px;gap:4px}
+  .intake-page .field-grid .intake-notes{grid-template-rows:17px auto}
+  .intake-page .field-grid .cert-field{grid-template-rows:17px 46px auto}
+  .intake-page .field-status:empty{display:none}
+  .intake-page .intake-notes textarea{min-height:56px}
   .intake-grid{align-items:stretch;min-height:max(0px,calc(100svh - 330px))}
   .intake-card{display:flex;flex-direction:column}
   .intake-page .upload-grid{flex:1;align-items:stretch}

@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-22 - Compact card intake
+- Reduce desktop form spacing so the intake page and footer fit more comfortably on screen.
+
 ## 2026-11-22 - Browser tab icon
 - Show the DCR logo in the browser tab.
 
