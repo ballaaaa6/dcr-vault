@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Image loading glow
+- Add a medium red outer glow around image loading placeholders.
+
 ## 2026-11-24 - Shared image loading effect
 - Add a red and white animated placeholder for loading images while preserving existing image prefetching and fallbacks.
 
