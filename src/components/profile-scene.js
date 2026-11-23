@@ -13,7 +13,7 @@ function placeScene(form, cards, image) {
     const box = card.getBoundingClientRect();
     card.style.setProperty('--scene-x', `${frame.right - width - box.left}px`);
     card.style.setProperty('--scene-y', `${frame.bottom - height - box.top}px`);
-    const rect = form.querySelectorAll('.profile-petal-clip rect')[index];
+    const rect = form.querySelectorAll('#profile-petal-clip rect')[index];
     for (const [name, value] of Object.entries({x: box.left - frame.left, y: box.top - frame.top, width: box.width, height: box.height})) rect.setAttribute(name, value);
   });
 }

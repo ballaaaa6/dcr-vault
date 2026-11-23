@@ -4,6 +4,10 @@
 
 - Add a three-plan billing layout with example content and inactive controls, accessible from the account menu.
 
+## 2026-11-23 - Restore falling profile petals
+
+- Fix the clipping region so sakura petals appear inside both profile cards, and soften the shared background to 30% opacity.
+
 ## 2026-11-23 - Add a connected profile landscape
 
 - Add a shared right-aligned sakura landscape and falling petals across the profile cards, clipped to each card.
