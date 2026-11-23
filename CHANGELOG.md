@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Adjust selected vault card artwork
+
+- Keep card text unchanged when selected and increase selected background artwork opacity to 80%.
+
 ## 2026-11-23 - Refine selected vault cards
 
 - Show the selected card's background artwork at 60% opacity instead of a red fill.
