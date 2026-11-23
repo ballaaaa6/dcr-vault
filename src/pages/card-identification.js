@@ -113,7 +113,7 @@ function fillGeminiValues(fields, requestId) {
   const userFields = Object.fromEntries(Object.entries(fieldProvenance).filter(([, source]) => source === 'user'));
   fieldProvenance = Object.fromEntries(Object.entries(values).map(([key, value]) => [key, value ? 'gemini' : 'unknown']));
   Object.assign(fieldProvenance, userFields);
-  appliedValues = gameFromReading ? {game: game.value} : {};
+  appliedValues = game.value ? {game: game.value} : {};
   const labelValues = {...standardLabelValues(fields), series: fields.series,
     sourceLanguage: fields.language, artist: fields.illustrator};
   labelValues.cardTypeLabel = 'POKÉMON';

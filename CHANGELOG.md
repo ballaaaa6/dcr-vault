@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-23 - Clear card game with photo reading
+- Clear the selected card game along with the identified details when the front photo is removed or replaced, unless it was edited after the reading.
+
 ## 2026-11-23 - Rotate Gemini keys for every attempt
 - Advance the shared key rotation for every Gemini call, including retries and failovers, and limit each request to the configured key count.
 
