@@ -38,15 +38,29 @@ function importSkeleton() {
   return `<main class="app-page import-page sk-page">${heading()}${panel(`${bar()}${bar('sk-medium')}${field()}${field()}${bar('sk-textarea')}<div class="sk-actions">${bar('sk-button')}${bar('sk-button')}</div>`)}</main>`;
 }
 
+function privacySkeleton() {
+  const sections = Array.from({length: 4}, () => `<div class="sk-privacy-section">${bar('sk-section-title')}${bar()}${bar()}${bar('sk-medium')}</div>`).join('');
+  return `<main class="sk-page sk-privacy">${panel(heading())}${panel(sections)}</main>`;
+}
+
+function genericSkeleton() {
+  return `<main class="app-page sk-page">${heading()}${panel(paragraphs())}</main>`;
+}
+
+const pageSkeletons = {
+  '/': homeSkeleton,
+  '/register': intakeSkeleton,
+  '/vault': vaultSkeleton,
+  '/label': labelSkeleton,
+  '/profile': profileSkeleton,
+  '/import': importSkeleton,
+  '/privacy': privacySkeleton,
+  '/privacy/': privacySkeleton,
+};
+
 export function pageSkeleton(path, isCertificate, hasQuery) {
-  let content;
-  if (path === '/') content = homeSkeleton();
-  else if (path === '/register') content = intakeSkeleton();
-  else if (path === '/vault') content = vaultSkeleton();
-  else if (path === '/label') content = labelSkeleton();
-  else if (path === '/profile') content = profileSkeleton();
-  else if (path === '/verify' || isCertificate) content = certificateSkeleton(isCertificate || hasQuery);
-  else if (path === '/import') content = importSkeleton();
-  else content = homeSkeleton();
+  const content = path === '/verify' || isCertificate
+    ? certificateSkeleton(isCertificate || hasQuery)
+    : (pageSkeletons[path] || genericSkeleton)();
   return `<div role="status" aria-live="polite"><span class="sr-only">Loading page…</span><div aria-hidden="true">${content}</div></div>`;
 }

@@ -30,14 +30,22 @@ function requireLogin(route) {
   location.href = `/login?next=${encodeURIComponent(route)}`;
 }
 
+function showPageLoading(app, path, isCertificate) {
+  const privacy = path === '/privacy' || path === '/privacy/';
+  const loadingHeader = `<header class="site-header" aria-hidden="true"><div class="header-inner wrap"><span class="logo-wrap"><img class="logo" src="/assets/logo/dcr-mark.svg" alt=""><span>Distinguished Card Registry</span></span><span class="skeleton sk-nav-placeholder"></span></div></header>`;
+  app.innerHTML = (privacy ? '' : loadingHeader) + pageSkeleton(path, isCertificate, new URLSearchParams(location.search).has('cert')) + (privacy ? '' : footer());
+}
+
 export async function render() {
   const version = ++renderVersion;
   const route = location.pathname + location.search;
   const path = location.pathname;
   const isCertificate = certificateFromPath(path) !== null;
   const app = document.getElementById('app');
+  if (path !== '/login') showPageLoading(app, path, isCertificate);
   if (path === '/privacy' || path === '/privacy/') {
     const {privacyPage} = await import('./pages/privacy.js');
+    if (version !== renderVersion || location.pathname + location.search !== route) return;
     app.innerHTML = privacyPage();
     document.title = 'Privacy Policy — DCR Card Vault';
     return;
@@ -47,8 +55,6 @@ export async function render() {
     await initializeLogin();
     return;
   }
-
-  app.innerHTML = `<header class="site-header" aria-hidden="true"><div class="header-inner wrap"><span class="logo-wrap"><img class="logo" src="/assets/logo/dcr-mark.svg" alt=""><span>Distinguished Card Registry</span></span><span class="skeleton sk-nav-placeholder"></span></div></header>${pageSkeleton(path, isCertificate, new URLSearchParams(location.search).has('cert'))}${footer()}`;
 
   let user = null;
   try { user = await getCurrentUser(); } catch {}

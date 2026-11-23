@@ -11,7 +11,7 @@ export function loginPage() {
         <div class="auth-form-wrap">
           <h2 id="login-title">Sign in to DCR Vault</h2>
           <p class="auth-intro">Access and organize your card collection.</p>
-          <div id="google-signin" class="google-signin"></div>
+          <div id="google-signin" class="google-signin"><span class="skeleton sk-signin" aria-hidden="true"></span></div>
           <p id="login-status" class="auth-status" role="status" aria-live="polite">Loading secure sign-in…</p>
           <p class="auth-account-note">New account? It will be created automatically when you sign in.</p>
         </div>
@@ -42,9 +42,11 @@ export async function initializeLogin() {
     await loadGoogleScript();
     window.google.accounts.id.initialize({client_id: config.clientId, nonce: config.nonce, callback: window.__googleCredential});
     const host = document.getElementById('google-signin');
+    host.replaceChildren();
     window.google.accounts.id.renderButton(host, {theme: 'outline', size: 'large', shape: 'rectangular', width: Math.min(400, host.clientWidth), text: 'continue_with', logo_alignment: 'left'});
     status.textContent = '';
   } catch (error) {
+    document.getElementById('google-signin')?.replaceChildren();
     status.textContent = error.message || 'Secure sign-in is temporarily unavailable.';
     status.classList.add('auth-status-error');
   }

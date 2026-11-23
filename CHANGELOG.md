@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Make loading skeletons a shared page convention
+
+- Show loading placeholders for Privacy Policy and Google sign-in, and define a shared skeleton registry and convention for future pages.
+
 ## 2026-11-23 - Match loading skeletons to each page
 
 - Give Home, Add Card, My Vault, Labels, Profile, certificate verification, and import their own responsive loading layouts.

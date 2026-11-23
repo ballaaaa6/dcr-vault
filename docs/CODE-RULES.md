@@ -24,3 +24,5 @@
 17. Use the shared date picker in src/components/date-picker.js and src/styles/date-picker.css for calendar selection. For inline date edits, use inputType date in the shared inline editor; its calendar icon, Save/Cancel layout, and automatic popup direction are reusable across the app.
 
 18. For dialogs with two primary choices, use the shared two-choice-dialog, two-choice-description, and two-choice-actions classes from src/styles/confirmation-dialog.css: left-align the heading and center the description and buttons.
+
+19. Every new or materially redesigned page must register a page-specific loading skeleton in src/components/page-skeleton.js, matching its main layout and responsive breakpoints. Reuse the shared skeleton styles and primitives in src/styles/page-skeleton.css; preserve the loading status for assistive technology. For loading sections within a rendered page, use the same skeleton styles and remove placeholders on success or failure. Update the skeleton whenever the page layout changes.
