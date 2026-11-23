@@ -119,6 +119,9 @@
 .cert-random{width:46px;height:46px;flex:0 0 46px;padding:10px}
 .cert-random svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8}
 .cert-random svg circle{fill:currentColor;stroke:none}
+.cert-random[aria-busy="true"] svg{animation:cert-spin 1s linear infinite}
+@keyframes cert-spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.cert-random[aria-busy="true"] svg{animation:none}}
 .field-status{min-height:16px;color:var(--dcr-gray);font-size:13px;font-weight:450}
 .field-grid .form-field>label{display:block;min-height:17px;margin:0;line-height:17px}
 .cert-field .cert-input-row{min-height:46px}

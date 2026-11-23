@@ -11,6 +11,16 @@ export function makeCert() {
   return String(random[0] % range).padStart(8, '0');
 }
 
+export async function findAvailableCert(check, previous = '', generate = makeCert) {
+  for (let attempt = 0; attempt < 12; attempt += 1) {
+    const candidate = generate();
+    if (candidate === normalizeCert(previous)) continue;
+    const result = await check(candidate);
+    if (result.available) return result.certNumber;
+  }
+  throw new Error('Could not find a free number. Try again.');
+}
+
 export function certificatePath(value) {
   return '/cert/' + encodeURIComponent(normalizeCert(value) || String(value ?? '').trim());
 }

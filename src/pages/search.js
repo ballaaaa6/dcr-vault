@@ -7,7 +7,7 @@ import {checkCert, deleteCardImage, uploadCardImage} from '../store/cards.js';
 import {hideAllCatalogSuggestions, installCatalogSuggestions} from './search-catalog.js';
 import {initializeCardRarity, invalidateCardResolution, resolveExactTypedCard, selectCatalogSuggestion} from './search-card-resolution.js';
 import {hasNonLatinScript} from '../utils/language.js';
-import {makeCert, normalizeCert} from '../utils/cert.js';
+import {findAvailableCert, normalizeCert} from '../utils/cert.js';
 import {clearAppliedReading, resetCardIdentificationState} from './card-identification.js';
 
 let certCheckVersion = 0;
@@ -82,25 +82,27 @@ async function generateCert() {
   const button = document.querySelector('[data-cert-random]');
   const input = document.getElementById('m-cert');
   if (!button || !input) return;
-  certCheckVersion += 1;
+  const version = ++certCheckVersion;
   clearTimeout(certCheckTimer);
+  const previousAvailable = input.dataset.certAvailable === 'true';
+  const previousValue = input.value;
   button.disabled = true;
-  setCertState(false, 'Finding an available Cert number…', 'pending');
+  button.setAttribute('aria-busy', 'true');
+  button.setAttribute('aria-label', 'Finding an available Cert number');
+  setCertState(previousAvailable, '');
   try {
-    for (let attempt = 0; attempt < 12; attempt += 1) {
-      const candidate = makeCert();
-      const result = await checkCert(candidate);
-      if (result.available) {
-        input.value = result.certNumber;
-        setCertState(true, `${result.certNumber} is available.`, 'available');
-        return;
-      }
+    const cert = await findAvailableCert(checkCert, previousValue);
+    if (version !== certCheckVersion || !input.isConnected) return;
+    input.value = cert;
+    setCertState(true, `${cert} is available.`, 'available');
+  } catch (error) {
+    if (version === certCheckVersion && input.isConnected) {
+      setCertState(previousAvailable, error.message === 'Could not find a free number. Try again.' ? error.message : 'Could not check a random number. Try again.', 'error');
     }
-    setCertState(false, 'Could not find a free number. Try again.', 'error');
-  } catch {
-    setCertState(false, 'Could not check a random number. Try again.', 'error');
   } finally {
     button.disabled = false;
+    button.removeAttribute('aria-busy');
+    button.setAttribute('aria-label', 'Generate an available Cert number');
   }
 }
 

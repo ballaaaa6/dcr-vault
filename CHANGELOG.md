@@ -1,5 +1,8 @@
 # Changelog
 
+- Keep the current Cert number while finding a new available number and show the result after checking.
+- Show a color-coded ten-second progress bar on shared toast notifications.
+
 ## 2026-11-23 - Animate home shortcut borders
 
 - Reveal the red outline from left to right when hovering or focusing a home shortcut.
