@@ -20,3 +20,5 @@
 15. Use the shared dropdown in src/components/dropdown.js and src/styles/dropdown.css for new single-choice dropdowns; supply the labels and options for each use.
 
 16. For inline single-value editing, use the shared component in src/components/inline-edit.js and src/styles/inline-edit.css. Call inlineEdit with a unique id, label, value, and optional displayValue, maxLength, required, displayTag (span or h2), and inputType (text, textarea, or date); call initializeInlineEdit on its [data-inline-edit] row with getValue and async save callbacks. The save callback persists the value and getValue returns the current saved value. Supply formatValue to format saved values or empty placeholders. For an edit button without the inline editor, use editIconButton from the same module with a unique id, label, and controls id.
+
+17. Use the shared date picker in src/components/date-picker.js and src/styles/date-picker.css for calendar selection. For inline date edits, use inputType date in the shared inline editor; its calendar icon, Save/Cancel layout, and automatic popup direction are reusable across the app.

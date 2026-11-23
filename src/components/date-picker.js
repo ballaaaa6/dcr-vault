@@ -12,10 +12,18 @@ export const displayDate = value => {
   return date ? `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}` : 'Select date';
 };
 
+export const calendarIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>`;
+
+export function calendarOpensUp(triggerTop, triggerBottom, calendarHeight, viewportHeight) {
+  const below = viewportHeight - triggerBottom - 6;
+  const above = triggerTop - 6;
+  return below < calendarHeight && above > below;
+}
+
 export function datePicker(value = '', {name = 'receivedDate', label = 'Date received', id = 'received-date'} = {}) {
   return `<div class="form-field"><span id="${id}-label">${escapeHTML(label)}</span><div class="date-picker" data-date-picker>
     <input type="hidden" name="${escapeHTML(name)}" value="${escapeHTML(value)}">
-    <button type="button" class="form-control date-picker-trigger" aria-labelledby="${id}-label ${id}-value" aria-expanded="false" aria-controls="${id}-calendar"><span data-date-value id="${id}-value">${escapeHTML(displayDate(value))}</span><span aria-hidden="true">▦</span></button>
+    <button type="button" class="form-control date-picker-trigger" aria-labelledby="${id}-label ${id}-value" aria-expanded="false" aria-controls="${id}-calendar"><span data-date-value id="${id}-value">${escapeHTML(displayDate(value))}</span>${calendarIcon}</button>
     <div id="${id}-calendar" class="date-picker-calendar" hidden></div></div></div>`;
 }
 
@@ -56,7 +64,8 @@ export function initializeDatePicker(container) {
     calendar.classList.remove('opens-up');
     calendar.hidden = false;
     const bounds = calendar.getBoundingClientRect();
-    if (bounds.bottom > window.innerHeight && trigger.getBoundingClientRect().top > bounds.height) calendar.classList.add('opens-up');
+    const triggerBounds = trigger.getBoundingClientRect();
+    if (calendarOpensUp(triggerBounds.top, triggerBounds.bottom, bounds.height, window.innerHeight)) calendar.classList.add('opens-up');
     trigger.setAttribute('aria-expanded', 'true');
   });
   picker.addEventListener('click', event => {

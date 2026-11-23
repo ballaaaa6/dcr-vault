@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-11-23 - Align inline calendar editing
+
+- Keep the date editor and its actions aligned without expanding the profile row.
+- Share the calendar icon and choose the popup direction based on available space.
+
 ## 2026-11-23 - Edit personal details individually
 
 - Give each profile detail its own inline editor and use a calendar icon for the collecting date.

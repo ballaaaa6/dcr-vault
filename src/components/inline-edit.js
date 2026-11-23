@@ -1,11 +1,11 @@
 import {escapeHTML} from '../utils/format.js';
-import {datePicker, displayDate, initializeDatePicker} from './date-picker.js';
+import {calendarIcon, datePicker, displayDate, initializeDatePicker} from './date-picker.js';
 
 export function editIconButton({id, label, controls, icon = 'pen'}) {
   const safeId = escapeHTML(id);
   const safeLabel = escapeHTML(label);
   const safeControls = escapeHTML(controls);
-  const iconMarkup = icon === 'calendar' ? `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>` : `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.4 2.6a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4Z"/></svg>`;
+  const iconMarkup = icon === 'calendar' ? calendarIcon : `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.4 2.6a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4Z"/></svg>`;
   return `<button class="inline-edit-button" id="${safeId}-edit" type="button" aria-label="Edit ${safeLabel}" aria-expanded="false" aria-controls="${safeControls}" data-edit>${iconMarkup}</button>`;
 }
 
