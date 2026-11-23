@@ -18,3 +18,5 @@
 14. Standard pages must use the shared footer layout and alignment in src/styles/layout.css; new pages inherit it by default.
 
 15. Use the shared dropdown in src/components/dropdown.js and src/styles/dropdown.css for new single-choice dropdowns; supply the labels and options for each use.
+
+16. For inline single-value editing, use the shared component in src/components/inline-edit.js and src/styles/inline-edit.css. Call inlineEdit with a unique id, label, value, and optional displayValue, maxLength, required, and displayTag (span or h2); call initializeInlineEdit on its [data-inline-edit] row with getValue and async save callbacks. The save callback persists the value and getValue returns the current saved value. For an edit button without the inline editor, use editIconButton from the same module with a unique id, label, and controls id.

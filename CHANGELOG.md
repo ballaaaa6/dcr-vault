@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-11-23 - Hide profile photo removal control
+
+- Hide the removal control when the pointer leaves the avatar while preserving keyboard access, and center the confirmation buttons.
+
+## 2026-11-23 - Share inline editing controls
+
+- Make the profile name edit icon and Save/Cancel editor reusable across the app.
+
 ## 2026-11-23 - Restore profile photo cropping
 
 - Open the photo crop editor after choosing an image instead of selecting the removal confirmation dialog.

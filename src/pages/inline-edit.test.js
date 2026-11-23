@@ -1,0 +1,44 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {inlineEdit, initializeInlineEdit} from '../components/inline-edit.js';
+
+test('inline editor saves, cancels, and displays errors without losing edits', async () => {
+  const display = {hidden: false, textContent: 'Original'};
+  const edit = {hidden: false, setAttribute(name, value) { this[name] = value; }};
+  const editor = {hidden: true};
+  const input = {value: 'Original', reportValidity: () => true, focus() { this.focused = true; }};
+  const saveButton = {};
+  const cancel = {};
+  const status = {textContent: ''};
+  const nodes = {'.inline-edit-display': display, '[data-edit]': edit, '.inline-edit-editor': editor, '.inline-edit-input': input, '[data-save]': saveButton, '[data-cancel]': cancel};
+  const row = {querySelector: selector => nodes[selector], nextElementSibling: status};
+  let current = 'Original';
+  let fail = false;
+  initializeInlineEdit(row, {getValue: () => current, save: async value => { if (fail) throw new Error('Save failed'); current = value.trim(); }});
+  edit.onclick();
+  assert.equal(input.focused, true);
+  assert.equal(edit['aria-expanded'], 'true');
+  input.value = '  Updated  ';
+  await saveButton.onclick();
+  assert.equal(display.textContent, 'Updated');
+  assert.equal(editor.hidden, true);
+  edit.onclick();
+  input.value = 'Draft';
+  cancel.onclick();
+  assert.equal(input.value, 'Updated');
+  edit.onclick();
+  input.value = 'Retry';
+  fail = true;
+  await saveButton.onclick();
+  assert.equal(status.textContent, 'Save failed');
+  assert.equal(editor.hidden, false);
+  assert.equal(input.value, 'Retry');
+  assert.equal(saveButton.disabled, false);
+});
+
+test('inline editor escapes values and links its accessible controls', () => {
+  const markup = inlineEdit({id: 'name', label: 'Name', value: '<test>', required: true, maxLength: 20});
+  assert.match(markup, /value="&lt;test&gt;"/);
+  assert.match(markup, /aria-controls="name-editor"/);
+  assert.match(markup, /maxlength="20" required/);
+});
