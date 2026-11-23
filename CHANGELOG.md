@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Continue adding cards
+
+- Clear the Add Card form and show a success toast after saving, keeping the user on the page for the next card.
+
 ## 2026-11-23 - Keep profile photos consistent
 
 - Prefer an uploaded full photo over a legacy Google thumbnail and require photo versions to be saved together.

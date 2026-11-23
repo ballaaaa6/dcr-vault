@@ -1,10 +1,11 @@
 import {initializeIntakeNotifications} from './intake-notifications.js';
+import {showToast} from '../components/toast.js';
 import {createIntakeCard} from './search-save.js';
 import {emptyPhotoMarkup, searchMarkup, validatePhoto} from './search-view.js';
 import './search-photo-preview.js';
 import {formatRarity} from '../utils/rarity.js';
 import {checkCert, deleteCardImage, uploadCardImage} from '../store/cards.js';
-import {hideAllCatalogSuggestions, installCatalogSuggestions} from './search-catalog.js';
+import {hideAllCatalogSuggestions, installCatalogSuggestions, invalidateCatalogSuggestions} from './search-catalog.js';
 import {initializeCardRarity, invalidateCardResolution, resolveExactTypedCard, selectCatalogSuggestion} from './search-card-resolution.js';
 import {hasNonLatinScript} from '../utils/language.js';
 import {findAvailableCert, normalizeCert} from '../utils/cert.js';
@@ -159,6 +160,16 @@ async function uploadPhotos(card) {
   return failed;
 }
 
+function completeIntake() {
+  certCheckVersion += 1;
+  clearTimeout(certCheckTimer);
+  invalidateCatalogSuggestions();
+  invalidateCardResolution();
+  document.querySelector('.intake-page').outerHTML = search();
+  initializeSearchPage();
+  showToast('Card added to your vault.', 'success');
+}
+
 async function saveIntake() {
   const button = document.getElementById('manual-submit');
   const status = document.getElementById('manual-status');
@@ -186,11 +197,12 @@ async function saveIntake() {
   try {
     if (certInput.dataset.certAvailable !== 'true' && !await checkCertInput()) { certInput.focus(); return; }
     const card = window.__intakeSavedCard || await createIntakeCard(certNumber);
-    if (!selectedPhotos().length) { location.href = '/vault'; return; }
-    status.textContent = 'Uploading selected photos…';
-    const failed = await uploadPhotos(card);
-    if (failed.length) { status.textContent = `Card saved. Retry the photos that failed: ${failed.join('; ')}`; button.textContent = 'Retry photo upload'; return; }
-    location.href = '/vault';
+    if (selectedPhotos().length) {
+      status.textContent = 'Uploading selected photos…';
+      const failed = await uploadPhotos(card);
+      if (failed.length) { status.textContent = `Card saved. Retry the photos that failed: ${failed.join('; ')}`; button.textContent = 'Retry photo upload'; return; }
+    }
+    completeIntake();
   } catch (error) {
     if (error.status === 409) setCertState(false, 'This Cert number is already used. Choose another number.', 'error');
     else { status.dataset.state = 'error'; status.textContent = error.message || 'The card could not be saved.'; }
