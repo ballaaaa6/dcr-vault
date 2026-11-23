@@ -19,6 +19,7 @@ function fieldValues() {
 }
 
 async function optionsFor(field, query) {
+  if (field === 'game') return ['Pokémon TCG'];
   return catalogOptions(await loadCatalogCards(), field, {...fieldValues(), [field]: query});
 }
 
@@ -55,7 +56,7 @@ export async function initializeCatalogSuggestions() {
     const field = element.dataset.catalogMount;
     const root = createRoot(element);
     root.render(createElement(catalogSelect, {field, label: element.dataset.label, placeholder: element.dataset.placeholder,
-      maxLength: Number(element.dataset.maxlength), optionsFor, onEdit, onBlur: warnIfUnmatched}));
+      maxLength: Number(element.dataset.maxlength), optionsFor, onEdit, onBlur: warnIfUnmatched, restricted: field === 'game'}));
     roots.push(root);
   });
 }

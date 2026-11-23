@@ -1,5 +1,6 @@
 import {createElement, useEffect, useRef, useState} from 'react';
 import CreatableSelect from 'react-select/creatable';
+import Select from 'react-select';
 function DropdownIndicator(props) {
   return createElement('div', {...props.innerProps, className: 'catalog-indicator', 'aria-hidden': true},
     createElement('svg', {width: 16, height: 16, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor',
@@ -45,7 +46,7 @@ function useExternalValues(field, proxy, current, setSelected, setInput, setOpen
   }, []);
 }
 
-export function catalogSelect({field, label, placeholder, maxLength, optionsFor, onEdit, onBlur}) {
+export function catalogSelect({field, label, placeholder, maxLength, optionsFor, onEdit, onBlur, restricted = false}) {
   const proxy = () => document.getElementById(`m-${field}`);
   const [selected, setSelected] = useState(null);
   const [input, setInput] = useState('');
@@ -69,7 +70,7 @@ export function catalogSelect({field, label, placeholder, maxLength, optionsFor,
     setSelected(text ? {value: text, label: text} : null);
     setInput('');
   };
-  const select = createElement(CreatableSelect, {
+  const select = createElement(restricted ? Select : CreatableSelect, {
     inputId: `m-${field}-input`, 'aria-label': label, placeholder, options, value: selected,
     inputValue: input, menuIsOpen: open, isClearable: false, classNamePrefix: 'catalog-select', components: selectComponents, classNames: selectClassNames,
     onMenuOpen: () => { window.dispatchEvent(new CustomEvent('intake-catalog-close', {detail: field})); setOpen(true); },
@@ -78,7 +79,8 @@ export function catalogSelect({field, label, placeholder, maxLength, optionsFor,
     onInputChange: (value, action) => {
       if (action.action !== 'input-change') return;
       const text = value.slice(0, maxLength);
-      setSelected(null); setInput(text); update(text);
+      setInput(text);
+      if (!restricted) { setSelected(null); update(text); }
     },
     onBlur: () => { commit(current.current); proxy()?.dispatchEvent(new FocusEvent('focusout', {bubbles: true})); onBlur(); },
     noOptionsMessage: () => 'No matching options'

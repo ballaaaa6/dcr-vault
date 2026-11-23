@@ -100,6 +100,9 @@ function setResult(content) {
 
 function fillGeminiValues(fields, requestId) {
   classification = classificationFromReading(fields);
+  const game = document.getElementById('m-game');
+  const gameFromReading = !game.value && Boolean(standardLabelValues(fields).cardTypeLabel);
+  if (gameFromReading) game.value = 'Pokémon TCG';
   const values = intakeValues(fields, null);
   readingRequestId = requestId || '';
   identificationStatus = 'unresolved';
@@ -110,7 +113,7 @@ function fillGeminiValues(fields, requestId) {
   const userFields = Object.fromEntries(Object.entries(fieldProvenance).filter(([, source]) => source === 'user'));
   fieldProvenance = Object.fromEntries(Object.entries(values).map(([key, value]) => [key, value ? 'gemini' : 'unknown']));
   Object.assign(fieldProvenance, userFields);
-  appliedValues = {};
+  appliedValues = gameFromReading ? {game: game.value} : {};
   const labelValues = {...standardLabelValues(fields), series: fields.series,
     sourceLanguage: fields.language, artist: fields.illustrator};
   labelValues.cardTypeLabel = 'POKÉMON';

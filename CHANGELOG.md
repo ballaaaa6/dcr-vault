@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Identify card game in Add Card
+
+- Start Card game empty, allow searchable selection, and fill Pokémon TCG from a supported image reading.
+
 ## 2026-11-23 - Match card suggestion menus
 
 - Reuse the app's shared dropdown styles for Add Card suggestions, including typography, spacing, and selected marks.

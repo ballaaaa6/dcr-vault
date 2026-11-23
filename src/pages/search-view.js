@@ -1,7 +1,6 @@
 import {catalogField} from './search-catalog.js';
 import {CONDITION_OPTIONS, conditionOptionLabel} from '../utils/label-options.js';
 import {identificationDialogMarkup} from './card-identification.js';
-import {dropdown} from '../components/dropdown.js';
 
 function photoField(side, label) {
   return `<div class="upload-item"><span class="upload-label">${label}</span><div class="upload-frame">
@@ -30,7 +29,7 @@ export function searchMarkup() {
         <section class="surface-card intake-card" aria-labelledby="manual-title">
           <div class="section-heading"><div><div class="card-details-title"><h2 id="manual-title">Card details</h2><button id="identification-info" class="identification-info" type="button" aria-label="View card reading details" title="View card reading details" hidden>i</button></div><p>Review the printed card number and English card details; Cert and Grade stay independent.</p></div></div>
           <div class="field-grid">
-            <div class="form-field intake-wide"><label for="m-game">Card game <span class="required-mark" aria-hidden="true">*</span></label>${dropdown({id: 'm-game', label: 'Card game', options: [['pokemon', 'Pokémon']], value: 'pokemon'})}</div>
+            ${catalogField('game', 'Card game', 'Choose card game', {wide: true})}
             ${catalogField('language', 'Language', 'e.g. English')}
             ${catalogField('year', 'Year', 'e.g. 1999')}
             ${catalogField('series', 'Series', 'e.g. Scarlet &amp; Violet', {required: false})}
