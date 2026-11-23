@@ -18,7 +18,7 @@
 
 .profile-identity>.profile-avatar-wrap{position:relative;flex:none}.profile-avatar-add{position:absolute;inset:0;display:grid;place-items:center;border-radius:50%;background:rgba(17,17,17,.55);color:var(--dcr-white);font-size:42px;opacity:0;transition:opacity .15s}.profile-avatar-wrap[data-has-photo="false"] .profile-avatar-button:hover .profile-avatar-add,.profile-avatar-wrap[data-has-photo="false"] .profile-avatar-button:focus-visible .profile-avatar-add{opacity:1}.profile-avatar-wrap[data-has-photo="true"] .profile-avatar-add{display:none}.profile-avatar-remove{position:absolute;top:-5px;right:-5px;width:28px;height:28px;padding:0;border:2px solid var(--dcr-white);border-radius:50%;background:var(--dcr-red);color:var(--dcr-white);font-size:22px;line-height:1;opacity:0;cursor:pointer}.profile-avatar-wrap:hover .profile-avatar-remove,.profile-avatar-button:focus-visible ~ .profile-avatar-remove,.profile-avatar-remove:focus-visible{opacity:1}.profile-avatar-remove[hidden]{display:none}@media (hover:none){.profile-avatar-wrap[data-has-photo="false"] .profile-avatar-add,.profile-avatar-remove{opacity:1}}
 
-.profile-remove-dialog .profile-actions{justify-content:center}
+.profile-remove-dialog p{text-align:center}.profile-remove-dialog .profile-actions{justify-content:center}
 
 .profile-identity>div:not(.profile-avatar-wrap){display:flex;flex-direction:column;gap:8px}.profile-identity>div:not(.profile-avatar-wrap)>p,.profile-identity>div:not(.profile-avatar-wrap)>small{margin:0}
 
