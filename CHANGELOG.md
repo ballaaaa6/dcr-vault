@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Compact billing plan preview
+
+- Shorten the billing heading and tighten the plan layout to fit on a desktop screen.
+
 ## 2026-11-23 - Restore profile photo positioning
 
 - Restore draggable circular photo selection, add zoom, and retain a separate full image for viewing.

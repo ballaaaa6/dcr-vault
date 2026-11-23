@@ -45,7 +45,7 @@ function privacySkeleton() {
 
 function billingSkeleton() {
   const cards = Array.from({length: 3}, () => `<div class="billing-card">${bar('sk-section-title')}${bar()}${bar('sk-title')}${bar()}${bar()}${bar('sk-medium')}${bar('sk-button')}</div>`).join('');
-  return `<main class="app-page billing-page sk-page"><div class="billing-heading">${heading()}</div><div class="billing-grid">${cards}</div></main>`;
+  return `<main class="app-page billing-page sk-page"><div class="billing-heading">${bar('sk-title')}</div><div class="billing-grid">${cards}</div>${bar('sk-label')}</main>`;
 }
 
 function genericSkeleton() {
