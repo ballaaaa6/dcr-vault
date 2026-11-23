@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Confirm account logout
+
+- Improve logout hover text contrast and ask for confirmation before signing out.
+
 ## 2026-11-23 - Match date field and calendar widths
 
 - Keep inline date fields aligned with the calendar popup width.

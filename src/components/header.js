@@ -1,6 +1,7 @@
 // Shared navigation for all DCR Card Vault pages.
 import {escapeHTML} from '../utils/format.js';
 import {signOut} from '../auth.js';
+import {bindSignOut, signOutDialog} from './sign-out-dialog.js';
 
 const items = [
   ['/', 'Home'],
@@ -61,7 +62,7 @@ export function header(activePath, user = null) {
           ${account}
         </nav>
       </div>
-    </header>`;
+    </header>${user ? signOutDialog() : ''}`;
 }
 
 export function bindHeader() {
@@ -91,8 +92,5 @@ export function bindHeader() {
     document.addEventListener('keydown', event => { if (event.key === 'Escape' && !popover.hidden) { close(); trigger.focus(); } });
   }
   const signOutButton = document.querySelector('[data-sign-out]');
-  if (signOutButton) signOutButton.addEventListener('click', async () => {
-    signOutButton.disabled = true;
-    try { await signOut(); } catch { signOutButton.disabled = false; }
-  });
+  if (signOutButton) bindSignOut(signOutButton, document.querySelector('#sign-out-dialog'), signOut);
 }
