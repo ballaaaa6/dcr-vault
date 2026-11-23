@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Show profile membership summary
+
+- Show the number of cards and membership month in the profile identity block.
+
 ## 2026-11-23 - Align inline calendar editing
 
 - Keep the date editor and its actions aligned without expanding the profile row.

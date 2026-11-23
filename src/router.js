@@ -55,7 +55,7 @@ export async function render() {
   let content = home();
   let failed = false;
   try {
-    if (path === '/profile') content = profile(user);
+    if (path === '/profile') content = profile(user, await getCards());
     else if (path === '/register') content = search();
     else if (path === '/import') content = importPage(user);
     else if (path === '/verify' || isCertificate) content = await certificatePage();
