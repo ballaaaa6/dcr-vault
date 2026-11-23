@@ -1,10 +1,5 @@
 # Changelog
 
-## 2026-11-23 - Edit personal details individually
-
-- Give each profile detail its own inline editor and use a calendar icon for the collecting date.
-- Swap the heading and answer colors in Personal details.
-
 ## 2026-11-23 - Even profile identity spacing
 
 - Use consistent spacing between the profile name, email, and photo guidance.
