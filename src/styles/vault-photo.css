@@ -29,3 +29,10 @@
   .vault-detail-photo:hover>.vault-photo-flip,.vault-detail-photo:hover>.vault-photo-actions,.vault-detail-photo:has(:focus-visible)>.vault-photo-flip,.vault-detail-photo:has(:focus-visible)>.vault-photo-actions{opacity:1;pointer-events:auto}
 }
 @media(max-width:760px){.vault-selected{grid-column:auto;grid-template-columns:1fr}.vault-photo-panel{align-self:start;height:auto;min-height:0}.vault-photo-panel .vault-detail-photo{height:auto;min-height:150px}.vault-photo-panel .vault-detail-photo .vault-photo-flipper{height:320px}}
+
+/* Keep the full-screen preview and its controls inside the viewport. */
+.vault-photo-dialog{box-sizing:border-box;overflow:hidden}
+.vault-photo-dialog[open]{display:flex;flex-direction:column}
+.vault-photo-toolbar{flex:none}
+.vault-photo-stage{flex:1;min-height:0;height:auto}
+.vault-photo-view{width:min(70vw,650px,calc((100dvh - 80px) * var(--image-ratio, .7)));height:min(100%,calc(min(70vw,650px) / var(--image-ratio, .7)))}

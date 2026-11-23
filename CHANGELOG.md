@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Fit card viewers on screen
+
+- Fit My Vault previews and certificate images within the viewport without scrolling.
+
 ## 2026-11-23 - Preserve full profile photos
 
 - Keep the entire uploaded photo and fit it inside the profile frame and preview.
