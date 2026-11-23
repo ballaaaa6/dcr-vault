@@ -50,9 +50,8 @@ function resultMarkup(cert, cards) {
 }
 
 export function verify(cards = []) {
-  const params = new URLSearchParams(location.search);
   const pathCert = certificateFromPath(location.pathname);
-  const rawCert = pathCert ?? params.get('cert') ?? '';
+  const rawCert = pathCert ?? '';
   const cert = normalizeCert(rawCert) || rawCert;
   const card = normalizeCert(cert) ? findByCert(cards, normalizeCert(cert)) : null;
   const background = card ? vaultBackgroundFromCertificate(card) : '';
@@ -66,7 +65,7 @@ export function verify(cards = []) {
       <input id="certificate-search" name="cert" type="text" inputmode="numeric" autocomplete="off" maxlength="8" pattern="[0-9]{1,8}" placeholder="Enter a Cert Number" value="${escapeHTML(cert)}" required>
       ${searchClearButton()}
       <button class="search-button" type="submit">Search</button></form>
-    ${pathCert !== null || params.has('cert') ? resultMarkup(cert, cards) : ''}</div></section></main>`;
+    ${pathCert !== null ? resultMarkup(cert, cards) : ''}</div></section></main>`;
 }
 
 function vaultBackgroundFromCertificate(card) {

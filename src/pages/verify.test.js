@@ -11,7 +11,7 @@ test('certificate images prefer only uploaded sides over catalog reference', () 
 });
 
 test('certificate lookup renders a matching record and handles missing records', () => {
-  globalThis.location = {search: '?cert=12'};
+  globalThis.location = {pathname: '/cert/12', search: ''};
   const markup = verify([{certNumber: '00000012', name: '<Card>', frontImage: '/front'}]);
   assert.match(markup, /value="00000012"/);
   assert.match(markup, /&lt;Card&gt;/);
@@ -22,7 +22,7 @@ test('certificate lookup renders a matching record and handles missing records',
   const backMarkup = verify([{certNumber: '00000012', name: 'Card', backImage: '/back'}]);
   assert.match(backMarkup, /data-side="back"/);
   assert.match(verify([]), /No record found/);
-  globalThis.location.search = '?cert=invalid';
+  globalThis.location.pathname = '/cert/invalid';
   assert.match(verify([]), /Enter 1 to 8 digits/);
   delete globalThis.location;
 });

@@ -1,6 +1,5 @@
 // DCR Card Vault - Entry - English only
 import {render} from './router.js';
-import {legacyRoute} from './utils/routes.js';
 import {initializeBackToTop} from './components/back-to-top.js';
 window.addEventListener('vite:preloadError', event => {
   const key = 'dcr-preload-reload';
@@ -12,7 +11,5 @@ window.addEventListener('vite:preloadError', event => {
     location.reload();
   } catch {}
 });
-const oldRoute = legacyRoute(location.hash);
-if (oldRoute) history.replaceState(null, '', oldRoute);
 render();
 initializeBackToTop();

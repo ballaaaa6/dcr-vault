@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Use current link formats
+
+- Remove support for legacy hash routes and certificate query links; certificate records use /cert/ paths.
+
 ## 2026-11-23 - Improve billing price hierarchy
 
 - Align plan prices, emphasize the featured price, and separate plan benefits from pricing.
