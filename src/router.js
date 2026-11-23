@@ -2,6 +2,7 @@ import {header, bindHeader} from './components/header.js';
 import {getCurrentUser} from './auth.js';
 import {home} from './pages/home.js';
 import {billing} from './pages/billing.js';
+import {geminiUsage, initializeGeminiUsage} from './pages/gemini-usage.js';
 import {profile, initializeProfile} from './pages/profile.js';
 import {initializeSearchPage, search} from './pages/search.js';
 import {destroyCatalogSuggestions} from './pages/search-catalog.js';
@@ -18,7 +19,7 @@ import {certificateFromPath, normalizeCert} from './utils/cert.js';
 import {pageSkeleton} from './components/page-skeleton.js';
 
 let renderVersion = 0;
-const privatePaths = new Set(['/archive', '/vault', '/label', '/import', '/profile', '/billing']);
+const privatePaths = new Set(['/archive', '/vault', '/label', '/import', '/profile', '/billing', '/gemini-usage']);
 
 function footer() {
   return `<footer class="site-footer no-print"><span>© ${new Date().getFullYear()} DCR Card Vault</span><span>Certificate details are public. Your vault details remain private.</span></footer>`;
@@ -67,7 +68,8 @@ export async function render() {
   let content = home();
   let failed = false;
   try {
-    if (path === '/billing') content = billing();
+    if (path === '/gemini-usage') content = geminiUsage();
+    else if (path === '/billing') content = billing();
     else if (path === '/profile') content = profile(user, await getCards());
     else if (path === '/archive') content = search();
     else if (path === '/import') content = importPage(user);
@@ -78,6 +80,7 @@ export async function render() {
   app.innerHTML = header(path, user) + content + footer();
   bindHeader();
   if (failed) return;
+  if (path === '/gemini-usage') initializeGeminiUsage();
   if (path === '/profile') initializeProfile(user);
   if (path === '/archive') initializeSearchPage();
   if (path === '/vault') initializeVault();

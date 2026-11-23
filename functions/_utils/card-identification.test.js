@@ -6,7 +6,7 @@ import {analyzeWithGemini} from './gemini-card-reader.js';
 function testEnvironment() {
   return {
     GEMINI_API_KEY: 'test-gemini-key',
-    DB: {prepare: () => ({bind: () => ({first: async () => ({id: 'test-user'})})})}
+    DB: {prepare: query => query.includes('UPDATE gemini_rotation') ? {first: async () => ({sequence: 0})} : ({bind: () => ({first: async () => ({id: 'test-user'}), run: async () => {}})})}
   };
 }
 
@@ -66,7 +66,7 @@ test('returns and logs Trainer and Energy categories', async () => {
   const originalFetch = globalThis.fetch;
   let logged;
   const env = testEnvironment();
-  env.DB.prepare = query => ({bind: (...values) => ({
+  env.DB.prepare = query => query.includes('UPDATE gemini_rotation') ? {first: async () => ({sequence: 0})} : ({bind: (...values) => ({
     first: async () => ({id: 'test-user'}),
     run: async () => { if (query.includes('INSERT INTO identification_logs')) logged = JSON.parse(values[7]); }
   })});
@@ -121,7 +121,7 @@ test('identification log retains raw and normalized Pokémon types', async () =>
   const originalFetch = globalThis.fetch;
   let logged;
   const env = testEnvironment();
-  env.DB.prepare = query => ({bind: (...values) => ({
+  env.DB.prepare = query => query.includes('UPDATE gemini_rotation') ? {first: async () => ({sequence: 0})} : ({bind: (...values) => ({
     first: async () => ({id: 'test-user'}),
     run: async () => { if (query.includes('INSERT INTO identification_logs')) logged = JSON.parse(values[7]); }
   })});

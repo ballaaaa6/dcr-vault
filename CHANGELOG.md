@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-11-23 - Gemini usage and shared key rotation
+- Rotate configured Gemini keys across requests using an atomic D1 counter, and record each attempt and available token usage without storing keys.
+- Add an administrator-only usage page with date filters and key-level totals.
+
+
 ## 2026-11-23 - Compact condition menu
 
 - Reduce condition menu row spacing and limit its height while keeping automatic placement and scrolling.

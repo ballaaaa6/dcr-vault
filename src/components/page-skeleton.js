@@ -59,6 +59,7 @@ const pageSkeletons = {
   '/label': labelSkeleton,
   '/profile': profileSkeleton,
   '/billing': billingSkeleton,
+  '/gemini-usage': genericSkeleton,
   '/import': importSkeleton,
   '/privacy': privacySkeleton,
   '/privacy/': privacySkeleton,
