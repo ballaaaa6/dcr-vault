@@ -9,5 +9,5 @@ function planCard(plan) {
 }
 
 export function billing() {
-  return `<main class="app-page billing-page"><header class="page-heading billing-heading"><h1>Choose your collection plan</h1></header><section class="billing-grid" aria-label="Example pricing plans">${plans.map(planCard).join('')}</section><p class="billing-placeholder">Example plans and prices</p></main>`;
+  return `<main class="app-page billing-page"><header class="page-heading billing-heading"><h1>Choose your collection plan</h1><p class="page-description">Keep your cards organized, documented, and ready to share.</p></header><section class="billing-grid" aria-label="Example pricing plans">${plans.map(planCard).join('')}</section><p class="billing-placeholder">Example plans and prices</p></main>`;
 }

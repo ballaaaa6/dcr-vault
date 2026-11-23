@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Describe the collection plans
+
+- Add a short collection-focused description to the billing page heading.
+
 ## 2026-11-23 - Add mouse and touch photo zoom
 
 - Zoom profile photos with the mouse wheel, pinch gestures, or keyboard while positioning them.
