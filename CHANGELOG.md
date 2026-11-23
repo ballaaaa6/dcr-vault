@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Improve profile description editing space
+
+- Size profile description fields relative to their text so two lines fit above the character count.
+
 ## 2026-11-23 - Limit profile descriptions
 
 - Show a live character count inside the Short bio and Collection goal fields and limit each to 200 characters.

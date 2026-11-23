@@ -21,7 +21,7 @@
 
 .profile-identity>div:not(.profile-avatar-wrap){display:flex;flex-direction:column;gap:8px}.profile-identity>div:not(.profile-avatar-wrap)>p,.profile-identity>div:not(.profile-avatar-wrap)>small{margin:0}
 
-.profile-section .inline-edit-row{height:auto;min-height:40px}.profile-section .inline-edit-row .inline-edit-display{white-space:pre-wrap;overflow-wrap:anywhere}.profile-section .inline-edit-input{width:20ch;max-width:500px;height:36px;padding:4px 8px}.profile-section textarea.inline-edit-input{height:72px;margin:0;padding:4px 8px 26px;resize:vertical}.profile-section .inline-edit-editor{align-items:center}.profile-section .inline-edit-status:not(:empty){position:static;margin:4px 0;color:var(--dcr-red)}
+.profile-section .inline-edit-row{height:auto;min-height:40px}.profile-section .inline-edit-row .inline-edit-display{white-space:pre-wrap;overflow-wrap:anywhere}.profile-section .inline-edit-input{width:20ch;max-width:500px;height:36px;padding:4px 8px}.profile-section textarea.inline-edit-input{width:100%;height:calc(3lh + 1em + 2px);min-height:calc(3lh + 1em + 2px);margin:0;padding:.25em 8px 1.75em;line-height:1.5;resize:vertical}.profile-section .inline-edit-editor{align-items:center}.profile-section .inline-edit-status:not(:empty){position:static;margin:4px 0;color:var(--dcr-red)}
 
 .profile-section dl>div{align-items:center}@media(max-width:480px){.profile-section dl>div{align-items:stretch}}
 
