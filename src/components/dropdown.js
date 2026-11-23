@@ -15,7 +15,8 @@ function positionDropdown(control) {
   const trigger = control.querySelector('summary').getBoundingClientRect();
   const viewportHeight = window.visualViewport?.height || window.innerHeight;
   const viewportTop = window.visualViewport?.offsetTop || 0;
-  const {placement, availableHeight} = dropdownPlacement(trigger, viewportTop, viewportHeight, menu.scrollHeight);
+  const maxHeight = Number.parseFloat(getComputedStyle(control).getPropertyValue('--dropdown-max-height')) || Infinity;
+  const {placement, availableHeight} = dropdownPlacement(trigger, viewportTop, viewportHeight, Math.min(menu.scrollHeight, maxHeight));
   control.dataset.dropdownPlacement = placement;
   menu.style.setProperty('--dropdown-available-height', `${availableHeight}px`);
 }

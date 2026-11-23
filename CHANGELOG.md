@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Compact condition menu
+
+- Reduce condition menu row spacing and limit its height while keeping automatic placement and scrolling.
+
 ## 2026-11-23 - Keep dropdown menus visible
 
 - Open shared dropdowns toward available viewport space and scroll long menus; enable automatic placement for searchable card fields.
