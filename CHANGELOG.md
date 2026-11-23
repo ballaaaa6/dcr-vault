@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Preserve full profile photos
+
+- Keep the entire uploaded photo and fit it inside the profile frame and preview.
+
 ## 2026-11-23 - Add billing page preview
 
 - Add a three-plan billing layout with example content and inactive controls, accessible from the account menu.
