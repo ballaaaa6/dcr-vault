@@ -14,7 +14,7 @@ export function inlineEdit({id, label, value = '', displayValue = value, maxLeng
   const safeLabel = escapeHTML(label);
   const tag = displayTag === 'h2' ? 'h2' : 'span';
   const limit = Number.isInteger(maxLength) && maxLength > 0 ? ` maxlength="${maxLength}"` : '';
-  const input = inputType === 'date' ? datePicker(value, {id: `${id}-date`, name: id, label}) : inputType === 'textarea' ? `<label class="inline-edit-label" for="${safeId}">${safeLabel}</label><textarea class="inline-edit-input" id="${safeId}"${limit}>${escapeHTML(value)}</textarea>` : `<label class="inline-edit-label" for="${safeId}">${safeLabel}</label><input class="inline-edit-input" id="${safeId}"${limit}${required ? ' required' : ''} value="${escapeHTML(value)}">`;
+  const input = inputType === 'date' ? datePicker(value, {id: `${id}-date`, name: id, label}) : inputType === 'textarea' ? `<label class="inline-edit-label" for="${safeId}">${safeLabel}</label><div class="inline-edit-textarea"><textarea class="inline-edit-input" id="${safeId}"${limit}${limit ? ` aria-describedby="${safeId}-count"` : ''}>${escapeHTML(value)}</textarea>${limit ? `<span class="inline-edit-count" id="${safeId}-count" data-count>${value.length}/${maxLength} characters</span>` : ''}</div>` : `<label class="inline-edit-label" for="${safeId}">${safeLabel}</label><input class="inline-edit-input" id="${safeId}"${limit}${required ? ' required' : ''} value="${escapeHTML(value)}">`;
   return `<div class="inline-edit-row" data-inline-edit><${tag} class="inline-edit-display" id="${safeId}-display">${escapeHTML(displayValue)}</${tag}>${editIconButton({id, label, controls: `${id}-editor`, icon: inputType === 'date' ? 'calendar' : 'pen'})}<div class="inline-edit-editor" id="${safeId}-editor" hidden>${input}<button class="btn btn-primary" type="button" data-save>Save</button><button class="btn btn-ghost" type="button" data-cancel>Cancel</button></div></div><p class="inline-edit-status" role="status" aria-live="polite"></p>`;
 }
 
@@ -25,7 +25,10 @@ export function initializeInlineEdit(row, {getValue, save, formatValue = value =
   const picker = row.querySelector('[data-date-picker]');
   const input = picker ? picker.querySelector('input') : row.querySelector('.inline-edit-input');
   if (picker) initializeDatePicker(row);
-  const resetInput = () => { input.value = getValue() || ''; if (picker) picker.querySelector('[data-date-value]').textContent = displayDate(input.value); };
+  const count = row.querySelector('[data-count]');
+  const updateCount = () => { if (count) count.textContent = `${input.value.length}/${input.maxLength} characters`; };
+  input.addEventListener?.('input', updateCount);
+  const resetInput = () => { input.value = getValue() || ''; updateCount(); if (picker) picker.querySelector('[data-date-value]').textContent = displayDate(input.value); };
   const saveButton = row.querySelector('[data-save]');
   const status = row.nextElementSibling;
   const setEditing = active => { editor.hidden = !active; display.hidden = active; edit.hidden = active; edit.setAttribute('aria-expanded', String(active)); };
@@ -34,6 +37,7 @@ export function initializeInlineEdit(row, {getValue, save, formatValue = value =
   row.querySelector('[data-cancel]').onclick = () => { resetInput(); status.textContent = ''; setEditing(false); };
   saveButton.onclick = async () => {
     if (!input.reportValidity()) return;
+    if (count && input.value.length > input.maxLength) { status.textContent = `Please use at most ${input.maxLength} characters.`; return; }
     saveButton.disabled = true; status.textContent = '';
     try { await save(input.value); resetInput(); display.textContent = formatValue(input.value); setEditing(false); }
     catch (error) { status.textContent = error.message; } finally { saveButton.disabled = false; }

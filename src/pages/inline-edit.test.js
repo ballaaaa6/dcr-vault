@@ -50,3 +50,15 @@ test('inline editor escapes values and links its accessible controls', () => {
   const bio = inlineEdit({id: 'bio', label: 'Short bio', inputType: 'textarea', value: 'First\nSecond'});
   assert.match(bio, /<textarea[^>]*>First\nSecond<\/textarea>/);
 });
+
+ test('limited multiline editor updates and resets its character count', () => {
+  const count = {textContent: ''};
+  const input = {value: 'Saved', maxLength: 200, addEventListener(name, fn) { this[name] = fn; }, focus() {}};
+  const nodes = {'.inline-edit-display': {}, '[data-edit]': {setAttribute() {}}, '.inline-edit-editor': {}, '.inline-edit-input': input, '[data-save]': {}, '[data-cancel]': {}, '[data-count]': count};
+  initializeInlineEdit({querySelector: selector => nodes[selector], nextElementSibling: {}}, {getValue: () => 'Saved', save: async () => {}});
+  input.value = 'Draft'; input.input();
+  assert.equal(count.textContent, '5/200 characters');
+  nodes['[data-cancel]'].onclick();
+  assert.equal(count.textContent, '5/200 characters');
+  assert.match(inlineEdit({id: 'bio', label: 'Bio', inputType: 'textarea', maxLength: 200}), /0\/200 characters/);
+});

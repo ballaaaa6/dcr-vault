@@ -15,9 +15,9 @@ function collectingDate(value) {
 
 const detailFields = [
   {key: 'favoriteSeries', id: 'profile-series', label: 'Favorite series', placeholder: 'Add your favorite series', maxLength: 80},
-  {key: 'bio', id: 'profile-bio', label: 'Short bio', placeholder: 'Add a short bio', maxLength: 240, inputType: 'textarea'},
+  {key: 'bio', id: 'profile-bio', label: 'Short bio', placeholder: 'Add a short bio', maxLength: 200, inputType: 'textarea'},
   {key: 'collectingSince', id: 'profile-since', label: 'Collecting since', inputType: 'date'},
-  {key: 'collectionGoal', id: 'profile-goal', label: 'Collection goal', placeholder: 'Add your collection goal', maxLength: 240, inputType: 'textarea'},
+  {key: 'collectionGoal', id: 'profile-goal', label: 'Collection goal', placeholder: 'Add your collection goal', maxLength: 200, inputType: 'textarea'},
 ];
 
 function detailDisplay(field, value) {

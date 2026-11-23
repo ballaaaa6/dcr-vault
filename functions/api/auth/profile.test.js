@@ -40,13 +40,13 @@ test('profile edits are authenticated, owner-scoped, validated and persistent', 
   assert.equal(sql.prepare('SELECT display_name FROM users WHERE id = ?').get('a').display_name, 'Separate');
   assert.equal(sql.prepare('SELECT avatar_full_url FROM users WHERE id = ?').get('a').avatar_full_url, '');
   assert.equal((await onRequestPut({request:request({favoriteSeries:'  Pokémon  ',bio:'Collector'}),env})).status, 200);
-  assert.equal((await onRequestPut({request:request({bio:'x'.repeat(241)}),env})).status, 400);
+  assert.equal((await onRequestPut({request:request({bio:'x'.repeat(201)}),env})).status, 400);
   assert.deepEqual({...sql.prepare('SELECT favorite_series, bio FROM users WHERE id = ?').get('a')}, {favorite_series:'Pokémon', bio:'Collector'});
   assert.equal(sql.prepare('SELECT bio FROM users WHERE id = ?').get('b').bio, '');
   assert.equal((await onRequestPut({request:request({collectingSince:'2020-02-29',collectionGoal:'  Complete my set  '}),env})).status, 200);
   assert.equal((await onRequestPut({request:request({collectingSince:'2021-02-29'}),env})).status, 400);
   assert.equal((await onRequestPut({request:request({collectingSince:'2999-01-01'}),env})).status, 400);
-  assert.equal((await onRequestPut({request:request({collectionGoal:'x'.repeat(241)}),env})).status, 400);
+  assert.equal((await onRequestPut({request:request({collectionGoal:'x'.repeat(201)}),env})).status, 400);
   assert.deepEqual({...sql.prepare('SELECT collecting_since, collection_goal FROM users WHERE id = ?').get('a')}, {collecting_since:'2020-02-29', collection_goal:'Complete my set'});
   assert.equal((await onRequestPut({request:request({collectingSince:'',collectionGoal:''}),env})).status, 200);
   sql.close();

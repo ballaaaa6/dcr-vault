@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Limit profile descriptions
+
+- Show a live character count inside the Short bio and Collection goal fields and limit each to 200 characters.
+
 ## 2026-11-23 - Update ongoing toast notifications
 
 - Keep related operation updates in the same toast, hold progress messages until completion, and fade results over six seconds.
