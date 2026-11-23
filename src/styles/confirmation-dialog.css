@@ -1,0 +1,5 @@
+/* Shared layout for two-choice dialogs. */
+.two-choice-dialog>h2{text-align:left}.two-choice-dialog>.two-choice-description{text-align:center}.two-choice-dialog>.two-choice-actions{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:12px}
+.two-choice-dialog:not(.profile-crop-dialog):not(.vault-delete-dialog){position:fixed;box-sizing:border-box;width:min(440px,94vw);margin:auto;padding:32px 24px 24px;border:0;border-radius:16px;background:var(--dcr-white);color:var(--dcr-black);box-shadow:var(--shadow)}
+.two-choice-dialog:not(.profile-crop-dialog):not(.vault-delete-dialog)::backdrop{background:rgba(17,17,17,.74)}
+.two-choice-dialog:not(.profile-crop-dialog):not(.vault-delete-dialog)>h2{margin:0 0 8px}.two-choice-dialog:not(.profile-crop-dialog):not(.vault-delete-dialog)>p{color:var(--dcr-gray)}.two-choice-dialog:not(.profile-crop-dialog):not(.vault-delete-dialog)>.two-choice-actions{margin-top:20px}

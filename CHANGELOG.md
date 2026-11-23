@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-11-23 - Standardize two-choice dialogs
+
+- Center descriptions and buttons in two-choice dialogs while keeping headings left aligned.
+- Use an app dialog when confirming whether to discard unsaved vault edits.
+
 ## 2026-11-23 - Show profile membership summary
 
 - Show the number of cards and membership month in the profile identity block.

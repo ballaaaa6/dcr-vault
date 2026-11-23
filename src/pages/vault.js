@@ -10,6 +10,7 @@ import {normalizeCert} from '../utils/cert.js';
 import {classificationFields, classificationInput} from '../utils/card-classification.js';
 import {vaultBackground, preloadSelectedBackgrounds} from '../utils/vault-background.js';
 import {prefetchNearbyImages} from '../utils/prefetch-images.js';
+import {confirmDiscard, discardDialog} from '../components/confirm-discard.js';
 
 const sources = ['Facebook', 'Instagram', 'TikTok', 'Shopee', 'Lazada', 'eBay', 'TCGplayer', 'Card shop', 'Card show'];
 const currencies = ['THB', 'USD', 'JPY', 'EUR', 'GBP', 'AUD', 'CAD', 'CNY', 'HKD', 'SGD', 'MYR', 'TWD', 'KRW', 'IDR', 'PHP', 'VND', 'CHF', 'NZD'];
@@ -62,12 +63,13 @@ export function vault(cards = []) {
         <aside class="surface-card vault-photo-panel" aria-label="Selected card photo">${vaultPhoto(focus)}</aside>
         </div>
       </div>
-      <dialog class="vault-delete-dialog" aria-labelledby="delete-card-title" aria-describedby="delete-card-description">
+      <dialog class="vault-delete-dialog two-choice-dialog" aria-labelledby="delete-card-title" aria-describedby="delete-card-description">
         <h2 id="delete-card-title">Delete this card?</h2>
-        <p id="delete-card-description">This will permanently delete the card and its photos. Its certificate number will be available for another card.</p>
+        <p id="delete-card-description" class="two-choice-description">This will permanently delete the card and its photos. Its certificate number will be available for another card.</p>
         <p class="detail-note" data-delete-message role="status"></p>
-        <div class="vault-delete-actions"><button class="btn btn-ghost" type="button" data-delete-cancel autofocus>Cancel</button><button class="btn btn-primary" type="button" data-delete-confirm>Delete card</button></div>
+        <div class="vault-delete-actions two-choice-actions"><button class="btn btn-ghost" type="button" data-delete-cancel autofocus>Cancel</button><button class="btn btn-primary" type="button" data-delete-confirm>Delete card</button></div>
       </dialog>
+      ${discardDialog()}
     </main>`;
 }
 
@@ -129,10 +131,10 @@ function selectCard(id, mode = 'item') {
   });
 }
 
-window.__selectVault = id => {
+window.__selectVault = async id => {
   if (vaultBusy) return;
   const form = document.getElementById('vault-edit');
-  if (form?.dataset.dirty === 'true' && !confirm('Discard unsaved changes?')) return;
+  if (form?.dataset.dirty === 'true' && !await confirmDiscard()) return;
   if (selectedId === id) {
     selectedId = '';
     document.querySelector('.vault-layout').classList.add('is-unselected');
@@ -182,10 +184,10 @@ window.__filterVault = () => {
 };
 
 
-function changeMode(mode) {
+async function changeMode(mode) {
   if (vaultBusy) return;
   const form = document.getElementById('vault-edit');
-  if (form?.dataset.dirty === 'true' && !confirm('Discard unsaved changes?')) return;
+  if (form?.dataset.dirty === 'true' && !await confirmDiscard()) return;
   selectCard(selectedId, mode);
   document.querySelector('#vault-edit input, #vault-edit select')?.focus();
 }
