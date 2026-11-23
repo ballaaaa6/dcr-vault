@@ -133,6 +133,7 @@
 .intake-card .catalog-select__control{min-height:46px;border-radius:14px;font-weight:450}
 .intake-card .catalog-select__placeholder{color:var(--dcr-placeholder);opacity:.5}
 .intake-card .catalog-select__menu{z-index:30}
+.intake-card .catalog-select__menu-list{padding:0}
 .intake-card .catalog-select__indicator-separator{display:none}
 .catalog-indicator{display:flex;align-items:center;justify-content:center;width:36px;align-self:stretch;color:var(--dcr-gray);cursor:pointer}
 .catalog-select-wrap{position:relative}

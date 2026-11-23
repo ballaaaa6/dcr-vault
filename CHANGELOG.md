@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Match card suggestion menus
+
+- Reuse the app's shared dropdown styles for Add Card suggestions, including typography, spacing, and selected marks.
+
 ## 2026-11-23 - Refine Add Card selectors
 
 - Add a clear button to editable card fields and use a paired up/down dropdown indicator with rounded controls.
