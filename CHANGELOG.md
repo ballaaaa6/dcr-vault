@@ -1,5 +1,7 @@
 # Changelog
 
+- Reduce the Recommended badge size to keep the plan name prominent.
+
 ## 2026-11-23 - Rename Add Card route
 
 - Move the Add Card page to /archive and remove the /register route.
