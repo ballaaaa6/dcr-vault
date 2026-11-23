@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Match date field and calendar widths
+
+- Keep inline date fields aligned with the calendar popup width.
+
 ## 2026-11-23 - Standardize two-choice dialogs
 
 - Center descriptions and buttons in two-choice dialogs while keeping headings left aligned.
