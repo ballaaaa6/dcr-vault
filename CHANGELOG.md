@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Shared image loading effect
+- Add a red and white animated placeholder for loading images while preserving existing image prefetching and fallbacks.
+
 ## 2026-11-23 - Clear card game with photo reading
 - Clear the selected card game along with the identified details when the front photo is removed or replaced, unless it was edited after the reading.
 

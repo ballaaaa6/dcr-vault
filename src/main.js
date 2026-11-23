@@ -1,6 +1,9 @@
 // DCR Card Vault - Entry - English only
 import {render} from './router.js';
 import {initializeBackToTop} from './components/back-to-top.js';
+import {initializeImageLoading} from './components/image-loading.js';
+import './styles/image-loading.css';
+initializeImageLoading();
 window.addEventListener('vite:preloadError', event => {
   const key = 'dcr-preload-reload';
   try {
