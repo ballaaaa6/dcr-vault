@@ -10,6 +10,7 @@ import {intakeValues} from '../utils/intake-reading.js';
 import {classificationFromReading} from '../utils/card-classification.js';
 import {candidateConflicts, readingConflicts} from '../utils/card-identification-matching.js';
 import {fillMissingCatalogValues, safeReadingErrorMessage, canRetryIdentification, standardLabelValues, catalogDifferences} from './card-identification-helpers.js';
+import {readingConflict} from '../utils/intake-reading-guards.js';
 
 let analysisVersion = 0;
 let analysisBusy = false;
@@ -79,6 +80,8 @@ function invalidatePhotoIdentity() {
       if (input && input.value === value) { input.value = ''; window.dispatchEvent(new Event('intake-values-updated')); }
     }
     appliedValues = null;
+    const gameLabel = document.getElementById('m-cardTypeLabel');
+    if (gameLabel) gameLabel.value = 'POKÉMON';
   }
   if (prior) {
     const status = document.getElementById('manual-status');
@@ -110,6 +113,7 @@ function fillGeminiValues(fields, requestId) {
   appliedValues = {};
   const labelValues = {...standardLabelValues(fields), series: fields.series,
     sourceLanguage: fields.language, artist: fields.illustrator};
+  labelValues.cardTypeLabel = 'POKÉMON';
   for (const [key, value] of Object.entries(labelValues)) {
     if (fieldProvenance[key] === 'user') continue;
     const input = document.getElementById(`m-${key}`);
@@ -117,6 +121,9 @@ function fillGeminiValues(fields, requestId) {
     fieldProvenance[key] = input.value ? 'gemini' : 'unknown';
     appliedValues[key] = input.value;
   }
+  document.getElementById('m-languageLabel').value = standardLabelValues({cardTypeLabel: 'POKÉMON',
+    language: document.getElementById('m-sourceLanguage').value}).languageLabel;
+  window.dispatchEvent(new Event('intake-values-updated'));
   for (const [key, value] of Object.entries(values)) {
     if (fieldProvenance[key] === 'user') continue;
     const input = document.getElementById(`m-${key}`);
@@ -259,6 +266,9 @@ async function analyzeFront() {
       showError('Could not read enough identity details. Try a clearer front photo or enter the details manually.', true);
       return;
     }
+    const selectedLanguage = document.getElementById('m-sourceLanguage').value;
+    const conflict = readingConflict(result.fields, selectedLanguage, fieldProvenance.sourceLanguage === 'user');
+    if (conflict) { showError(conflict); return; }
     const values = fillGeminiValues(result.fields, result.requestId);
     const resolution = await applyReading(result.fields, version, result.requestId, values);
     if (resolution && version === analysisVersion) candidateState = {fields: result.fields, candidates: resolution.candidates, version};
@@ -278,7 +288,8 @@ async function analyzeFront() {
 
 document.addEventListener('input', event => {
   if (event.target.matches('#identification-result [data-classification]')) classification[event.target.dataset.classification] = event.target.value;
-  const key = event.target.id?.replace(/^m-/, '');
+  const field = event.target.id?.replace(/^m-/, '');
+  const key = field === 'language' ? 'sourceLanguage' : field;
   if (['name', 'setName', 'year', 'cardNumber', 'rarity', 'cardTypeLabel', 'series', 'sourceLanguage', 'languageLabel', 'artist'].includes(key)) {
     if (analysisBusy) analysisVersion += 1;
     candidateState = null;

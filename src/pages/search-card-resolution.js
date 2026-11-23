@@ -23,7 +23,7 @@ export function selectCatalogSuggestion(card) {
 
 export async function resolveExactTypedCard() {
   if (window.__intakeIdentityReviewRequired) return null;
-  const language = window.__intakeIdentification?.sourceLanguage;
+  const language = document.getElementById('m-sourceLanguage')?.value || window.__intakeIdentification?.sourceLanguage;
   if (language && language !== 'en') return null;
   if (window.__intakeCatalogCard) return window.__intakeCatalogCard;
   const version = ++resolutionVersion;
@@ -32,8 +32,15 @@ export async function resolveExactTypedCard() {
   try {
     const card = await findExactCatalogCard(fields);
     if (version !== resolutionVersion || window.__intakeCatalogCard || !card) return null;
+    if (fields.year && fields.year !== card.year) return null;
+    const series = document.getElementById('m-series').value.trim();
+    const rarity = document.getElementById('m-rarity').value.trim();
+    if (series && series.toLowerCase() !== card.seriesName.toLowerCase()) return null;
+    if (rarity && formatRarity(rarity).toLowerCase() !== formatRarity(card.rarity).toLowerCase()) return null;
     selectCatalogSuggestion(card);
-    document.getElementById('m-rarity').value = formatRarity(card.rarity);
+    if (!rarity) document.getElementById('m-rarity').value = formatRarity(card.rarity);
+    if (!series) document.getElementById('m-series').value = card.seriesName;
+    if (!document.getElementById('m-artist').value) document.getElementById('m-artist').value = card.metadata?.illustrator || '';
     return card;
   } catch {
     return null;

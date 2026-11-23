@@ -1,6 +1,7 @@
 import {catalogField} from './search-catalog.js';
 import {CONDITION_OPTIONS, conditionOptionLabel} from '../utils/label-options.js';
 import {identificationDialogMarkup} from './card-identification.js';
+import {dropdown} from '../components/dropdown.js';
 
 function photoField(side, label) {
   return `<div class="upload-item"><span class="upload-label">${label}</span><div class="upload-frame">
@@ -29,16 +30,15 @@ export function searchMarkup() {
         <section class="surface-card intake-card" aria-labelledby="manual-title">
           <div class="section-heading"><div><div class="card-details-title"><h2 id="manual-title">Card details</h2><button id="identification-info" class="identification-info" type="button" aria-label="View card reading details" title="View card reading details" hidden>i</button></div><p>Review the printed card number and English card details; Cert and Grade stay independent.</p></div></div>
           <div class="field-grid">
-            ${catalogField('name', 'Name', 'e.g. Charizard')}
-            ${catalogField('setName', 'Set', 'e.g. Base Set')}
+            <div class="form-field intake-wide"><label for="m-game">Card game <span class="required-mark" aria-hidden="true">*</span></label>${dropdown({id: 'm-game', label: 'Card game', options: [['pokemon', 'Pokémon']], value: 'pokemon'})}</div>
+            ${catalogField('language', 'Language', 'e.g. English')}
             ${catalogField('year', 'Year', 'e.g. 1999')}
-            ${catalogField('cardNumber', 'Card number', 'e.g. 4')}
-            <div class="form-field"><label for="m-cardTypeLabel">Card type</label><input class="form-control" id="m-cardTypeLabel" maxlength="60" placeholder="e.g. POKÉMON"></div>
-            <div class="form-field"><label for="m-series">Series</label><input class="form-control" id="m-series" maxlength="120" placeholder="e.g. SCARLET &amp; VIOLET"></div>
-            <div class="form-field"><label for="m-sourceLanguage">Language code</label><input class="form-control" id="m-sourceLanguage" maxlength="20" placeholder="en, th, ja"></div>
-            <div class="form-field"><label for="m-languageLabel">Language label</label><input class="form-control" id="m-languageLabel" maxlength="60" placeholder="THAI or JAPANESE; blank for English"></div>
-            <div class="form-field"><label for="m-rarity">Rarity <span class="required-mark" aria-hidden="true">*</span></label><input class="form-control" id="m-rarity" required placeholder="Read from card or choose from catalog"></div>
-            <div class="form-field intake-wide"><label for="m-artist">Artist / Illustrator <span class="optional-label">(optional)</span></label><input class="form-control" id="m-artist" maxlength="120" placeholder="e.g. Mitsuhiro Arita"></div>
+            ${catalogField('series', 'Series', 'e.g. Scarlet &amp; Violet', {required: false})}
+            ${catalogField('setName', 'Set', 'e.g. Base Set')}
+            ${catalogField('cardNumber', 'Card number', 'e.g. 4', {wide: true})}
+            ${catalogField('name', 'Name', 'e.g. Charizard', {wide: true})}
+            ${catalogField('rarity', 'Rarity', 'e.g. Rare', {wide: true})}
+            <input type="hidden" id="m-cardTypeLabel" value="POKÉMON"><input type="hidden" id="m-sourceLanguage"><input type="hidden" id="m-languageLabel"><input type="hidden" id="m-artist">
             <div class="form-field"><label for="m-grade">Condition / Grade <span class="required-mark" aria-hidden="true">*</span></label><select class="form-control" id="m-grade" required><option value="">Choose condition</option>${CONDITION_OPTIONS.map(value => `<option value="${value}">${conditionOptionLabel(value)}</option>`).join('')}</select></div>
             <div class="form-field cert-field"><label for="m-cert">Cert number <span class="required-mark" aria-hidden="true">*</span></label><span class="cert-input-row">
               <input class="form-control" id="m-cert" inputmode="numeric" maxlength="8" pattern="[0-9]{1,8}" placeholder="1 to 8 digits" required>

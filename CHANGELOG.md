@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-11-23 - Connect Pokémon intake fields
+
+- Arrange Add Card details in seven rows and select Pokémon as the card game.
+- Offer editable, related catalog suggestions while retaining manually entered values and warning when no matching record is found.
+- Derive label language and store the illustrator behind the scenes; protect chosen game and language during Gemini identification.
+- Reduce the opacity of example text in Add Card fields.
+
 ## 2026-11-23 - Improve profile description editing space
 
 - Size profile description fields relative to their text so two lines fit above the character count.

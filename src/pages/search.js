@@ -5,11 +5,13 @@ import {emptyPhotoMarkup, searchMarkup, validatePhoto} from './search-view.js';
 import './search-photo-preview.js';
 import {formatRarity} from '../utils/rarity.js';
 import {checkCert, deleteCardImage, uploadCardImage} from '../store/cards.js';
-import {hideAllCatalogSuggestions, installCatalogSuggestions, invalidateCatalogSuggestions} from './search-catalog.js';
-import {initializeCardRarity, invalidateCardResolution, resolveExactTypedCard, selectCatalogSuggestion} from './search-card-resolution.js';
+import {installCatalogSuggestions, invalidateCatalogSuggestions} from './search-catalog.js';
+import {initializeCardRarity, invalidateCardResolution, resolveExactTypedCard} from './search-card-resolution.js';
 import {hasNonLatinScript} from '../utils/language.js';
 import {findAvailableCert, normalizeCert} from '../utils/cert.js';
 import {clearAppliedReading, resetCardIdentificationState} from './card-identification.js';
+import {languageCode, languageName} from '../utils/intake-options.js';
+import {standardLabelValues} from './card-identification-helpers.js';
 
 let certCheckVersion = 0;
 let certCheckTimer;
@@ -29,7 +31,7 @@ export function search() {
   clearAppliedReading();
   uploadedSides = new Set();
   window.__intakeSavedCard = null;
-  window.__intakeCatalogGame = '';
+  window.__intakeCatalogGame = 'pokemon';
   window.__intakeCatalogCard = null;
   window.__intakeIdentification = null;
   window.__intakeIdentityReviewRequired = false;
@@ -51,11 +53,8 @@ function updateSubmitState() {
   const button = document.getElementById('manual-submit');
   const input = document.getElementById('m-cert');
   if (!button || !input) return;
-  const language = document.getElementById('m-sourceLanguage').value.trim().toLowerCase();
-  const label = document.getElementById('m-languageLabel');
-  label.placeholder = language === 'en' ? 'ENGLISH' : 'THAI or JAPANESE; blank for English';
   document.querySelectorAll('.intake-page .field-grid .form-control').forEach(field => {
-    field.classList.toggle('has-value', Boolean(field.value.trim()) || field === label && language === 'en');
+    field.classList.toggle('has-value', Boolean(field.value.trim()));
   });
   button.disabled = button.dataset.busy === 'true';
 }
@@ -219,7 +218,12 @@ async function saveIntake() {
   }
 }
 
-window.addEventListener('intake-values-updated', updateSubmitState);
+window.addEventListener('intake-values-updated', () => {
+  const language = document.getElementById('m-language');
+  const code = document.getElementById('m-sourceLanguage');
+  if (language && code && document.activeElement !== language) language.value = languageName(code.value);
+  updateSubmitState();
+});
 
 document.addEventListener('input', event => {
   if (event.target.closest('.intake-page')) updateSubmitState();
@@ -278,7 +282,7 @@ document.addEventListener('click', event => {
   if (clear) { clearPhoto(clear.dataset.clearImage); return; }
   if (event.target.closest('[data-cert-random]')) { generateCert(); return; }
   if (event.target.closest('#manual-submit')) saveIntake();
-  if (!event.target.closest('[data-catalog-control]')) hideAllCatalogSuggestions();
+  if (!event.target.closest('[data-catalog-control]')) invalidateCatalogSuggestions();
 });
 
 document.addEventListener('focusout', event => {
@@ -290,20 +294,15 @@ document.addEventListener('focusout', event => {
   }
 });
 
-installCatalogSuggestions(card => {
-  invalidateCardResolution();
-  selectCatalogSuggestion(card);
-  const languageInput = document.getElementById('m-sourceLanguage');
-  if (!languageInput.value) languageInput.value = card.language || '';
-  const typeInput = document.getElementById('m-cardTypeLabel');
-  if (!typeInput.value) typeInput.value = 'POKÉMON';
-  document.getElementById('m-rarity').value = formatRarity(card.rarity);
-  document.getElementById('manual-status').textContent = 'Catalog card selected. Check the details, then enter Cert and Grade.';
-  updateSubmitState();
-  document.getElementById('m-grade').focus();
-}, () => {
+installCatalogSuggestions(field => {
   invalidateCardResolution();
   window.__intakeCatalogCard = null;
-  const language = window.__intakeIdentification?.sourceLanguage;
+  if (['language', 'year', 'series', 'setName', 'cardNumber', 'name'].includes(field)) document.getElementById('m-artist').value = '';
+  if (field === 'language') {
+    const code = languageCode(document.getElementById('m-language').value);
+    document.getElementById('m-sourceLanguage').value = code;
+    document.getElementById('m-languageLabel').value = standardLabelValues({cardTypeLabel: 'POKÉMON', language: code}).languageLabel;
+  }
+  const language = document.getElementById('m-sourceLanguage').value;
   window.__intakeIdentification = language ? {language, sourceLanguage: language} : null;
 });

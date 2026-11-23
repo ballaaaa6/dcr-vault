@@ -27,6 +27,8 @@
 }
 .intake-page .form-field:has(> .catalog-control[data-catalog-control="name"]){grid-column:1/-1}
 .intake-page .intake-wide{grid-column:1/-1}
+.intake-page .dropdown-control summary{min-height:46px;font:inherit}
+@media(min-width:761px){.intake-page .dropdown-control summary{min-height:42px}}
 .required-mark{color:var(--dcr-red)}
 .optional-label{color:var(--dcr-gray);font-weight:450}
 .page-heading{margin-bottom:28px}
@@ -44,7 +46,7 @@
 .intake-card .upload-field:hover,.intake-card .upload-field:focus-within,.intake-card .upload-field.is-dragging{background:var(--dcr-red-light)}
 .intake-card .form-control{background-color:color-mix(in srgb,var(--dcr-white) 96%,transparent)}
 .intake-card .section-heading p,.intake-card .identification-notice,.intake-card .upload-preview{color:var(--dcr-text-secondary)}
-.intake-card .form-control::placeholder{color:var(--dcr-placeholder)}
+.intake-card .form-control::placeholder{color:var(--dcr-placeholder);opacity:.5}
 
 .section-heading{display:flex;align-items:flex-start;gap:14px;margin-bottom:24px}
 .section-heading h2{margin:0 0 4px;font-size:19px}
@@ -128,6 +130,9 @@
 .cert-field .field-status{line-height:16px}
 .field-status[data-state="error"]{color:var(--dcr-red)}
 .catalog-control{position:relative;min-width:0}
+.catalog-control .form-control{padding-right:42px}
+.catalog-toggle{position:absolute;top:0;right:0;width:40px;height:100%;padding:0;border:0;background:transparent;color:var(--dcr-gray);font-size:17px;cursor:pointer}
+.catalog-toggle:focus-visible{outline:2px solid var(--dcr-red);outline-offset:-4px}
 .catalog-suggestions{position:absolute;z-index:30;top:calc(100% + 6px);right:0;left:0;max-height:270px;overflow:auto;padding:6px;border:1px solid var(--dcr-border);border-radius:14px;background:var(--dcr-white);box-shadow:var(--shadow)}
 .catalog-suggestions[hidden]{display:none}
 .catalog-option{display:grid;width:100%;gap:3px;padding:9px 10px;border:0;border-radius:9px;background:var(--dcr-white);color:var(--dcr-black);text-align:left;cursor:pointer}
