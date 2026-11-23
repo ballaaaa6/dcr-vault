@@ -1,6 +1,7 @@
 import {header, bindHeader} from './components/header.js';
 import {getCurrentUser} from './auth.js';
 import {home} from './pages/home.js';
+import {billing} from './pages/billing.js';
 import {profile, initializeProfile} from './pages/profile.js';
 import {initializeSearchPage, search} from './pages/search.js';
 import {initializeVault, vault} from './pages/vault.js';
@@ -16,7 +17,7 @@ import {certificateFromPath, normalizeCert} from './utils/cert.js';
 import {pageSkeleton} from './components/page-skeleton.js';
 
 let renderVersion = 0;
-const privatePaths = new Set(['/register', '/vault', '/label', '/import', '/profile']);
+const privatePaths = new Set(['/register', '/vault', '/label', '/import', '/profile', '/billing']);
 
 function footer() {
   return `<footer class="site-footer no-print"><span>© ${new Date().getFullYear()} DCR Card Vault</span><span>Certificate details are public. Your vault details remain private.</span></footer>`;
@@ -64,7 +65,8 @@ export async function render() {
   let content = home();
   let failed = false;
   try {
-    if (path === '/profile') content = profile(user, await getCards());
+    if (path === '/billing') content = billing();
+    else if (path === '/profile') content = profile(user, await getCards());
     else if (path === '/register') content = search();
     else if (path === '/import') content = importPage(user);
     else if (path === '/verify' || isCertificate) content = await certificatePage();

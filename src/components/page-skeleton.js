@@ -43,6 +43,11 @@ function privacySkeleton() {
   return `<main class="sk-page sk-privacy">${panel(heading())}${panel(sections)}</main>`;
 }
 
+function billingSkeleton() {
+  const cards = Array.from({length: 3}, () => `<div class="billing-card">${bar('sk-section-title')}${bar()}${bar('sk-title')}${bar()}${bar()}${bar('sk-medium')}${bar('sk-button')}</div>`).join('');
+  return `<main class="app-page billing-page sk-page"><div class="billing-heading">${heading()}</div><div class="billing-grid">${cards}</div></main>`;
+}
+
 function genericSkeleton() {
   return `<main class="app-page sk-page">${heading()}${panel(paragraphs())}</main>`;
 }
@@ -53,6 +58,7 @@ const pageSkeletons = {
   '/vault': vaultSkeleton,
   '/label': labelSkeleton,
   '/profile': profileSkeleton,
+  '/billing': billingSkeleton,
   '/import': importSkeleton,
   '/privacy': privacySkeleton,
   '/privacy/': privacySkeleton,

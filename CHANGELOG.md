@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Add billing page preview
+
+- Add a three-plan billing layout with example content and inactive controls, accessible from the account menu.
+
 ## 2026-11-23 - Add a connected profile landscape
 
 - Add a shared right-aligned sakura landscape and falling petals across the profile cards, clipped to each card.

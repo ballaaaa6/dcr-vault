@@ -29,7 +29,7 @@ const menuIcons = {
 
 function accountItem(label) {
   const icon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${menuIcons[label]}</svg>`;
-  if (label === 'Profile') return `<a href="/profile">${icon}<span>${label}</span></a>`;
+  if (label === 'Profile' || label === 'Billing') return `<a href="/${label.toLowerCase()}">${icon}<span>${label}</span></a>`;
   return `<button type="button" ${label === 'Log out' ? 'data-sign-out' : ''}>${icon}<span>${label}</span></button>`;
 }
 
