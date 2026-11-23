@@ -1,4 +1,5 @@
 import {catalogField} from './search-catalog.js';
+import {dropdown} from '../components/dropdown.js';
 import {CONDITION_OPTIONS, conditionOptionLabel} from '../utils/label-options.js';
 import {identificationDialogMarkup} from './card-identification.js';
 
@@ -38,7 +39,7 @@ export function searchMarkup() {
             ${catalogField('name', 'Name', 'e.g. Charizard', {wide: true})}
             ${catalogField('rarity', 'Rarity', 'e.g. Rare', {wide: true})}
             <input type="hidden" id="m-cardTypeLabel" value="POKÉMON"><input type="hidden" id="m-sourceLanguage"><input type="hidden" id="m-languageLabel"><input type="hidden" id="m-artist">
-            <div class="form-field"><label for="m-grade">Condition / Grade <span class="required-mark" aria-hidden="true">*</span></label><select class="form-control" id="m-grade" required><option value="">Choose condition</option>${CONDITION_OPTIONS.map(value => `<option value="${value}">${conditionOptionLabel(value)}</option>`).join('')}</select></div>
+            <div class="form-field"><label for="m-grade-trigger">Condition / Grade <span class="required-mark" aria-hidden="true">*</span></label>${dropdown({id: 'm-grade', label: 'Condition / Grade', options: [['', 'Choose condition'], ...CONDITION_OPTIONS.map(value => [value, conditionOptionLabel(value)])], value: '', required: true})}</div>
             <div class="form-field cert-field"><label for="m-cert">Cert number <span class="required-mark" aria-hidden="true">*</span></label><span class="cert-input-row">
               <input class="form-control" id="m-cert" inputmode="numeric" maxlength="8" pattern="[0-9]{1,8}" placeholder="1 to 8 digits" required>
               <button class="btn btn-ghost cert-random" data-cert-random type="button" aria-label="Generate an available Cert number" title="Generate an available Cert number">

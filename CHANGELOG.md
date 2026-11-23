@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Restore filled field styling
+
+- Restore gray backgrounds for filled Add Card fields and use the shared dropdown for condition selection.
+
 ## 2026-11-23 - Identify card game in Add Card
 
 - Start Card game empty, allow searchable selection, and fill Pokémon TCG from a supported image reading.

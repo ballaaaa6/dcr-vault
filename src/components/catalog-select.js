@@ -87,5 +87,5 @@ export function catalogSelect({field, label, placeholder, maxLength, optionsFor,
   });
   const clear = selected || input ? createElement('button', {type: 'button', className: 'catalog-clear', 'aria-label': `Clear ${label}`,
     onMouseDown: event => event.preventDefault(), onClick: () => { commit(''); document.getElementById(`m-${field}-input`)?.focus(); }}, '×') : null;
-  return createElement('div', {className: `catalog-select-wrap${clear ? ' has-clear' : ''}`}, select, clear);
+  return createElement('div', {className: `catalog-select-wrap${clear ? ' has-clear has-value' : ''}`}, select, clear);
 }

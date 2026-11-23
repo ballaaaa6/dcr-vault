@@ -183,8 +183,8 @@ async function saveIntake() {
   const missing = required.find(field => !field.value.trim() || !field.checkValidity());
   if (missing) {
     status.textContent = 'Complete all required fields.';
-    missing.scrollIntoView({behavior: 'smooth', block: 'center'});
-    const visible = missing.dataset.catalogField ? document.getElementById(`${missing.id}-input`) : missing;
+    const visible = missing.dataset.catalogField ? document.getElementById(`${missing.id}-input`) : document.getElementById(`${missing.id}-trigger`) || missing;
+    visible?.scrollIntoView({behavior: 'smooth', block: 'center'});
     visible?.focus({preventScroll: true});
     return;
   }

@@ -131,6 +131,9 @@
 .field-status[data-state="error"]{color:var(--dcr-red)}
 .catalog-control{position:relative;min-width:0}
 .intake-card .catalog-select__control{min-height:46px;border-radius:14px;font-weight:450}
+.intake-card .catalog-select-wrap.has-value .catalog-select__control{background:var(--dcr-border)}
+.intake-card .dropdown-control summary[data-empty="false"]{background:var(--dcr-border)}
+.intake-card .dropdown-control summary[data-empty="true"] [data-dropdown-current]{color:var(--dcr-placeholder);opacity:.5}
 .intake-card .catalog-select__placeholder{color:var(--dcr-placeholder);opacity:.5}
 .intake-card .catalog-select__menu{z-index:30}
 .intake-card .catalog-select__menu-list{padding:0}
