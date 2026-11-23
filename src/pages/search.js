@@ -18,16 +18,20 @@ let statusObserver;
 export function initializeSearchPage() {
   initializeCardRarity();
   statusObserver?.disconnect();
-  const status = document.getElementById('manual-status');
-  if (!status) return;
-  statusObserver = new MutationObserver(() => {
-    status.classList.remove('status-fading');
-    if (!status.textContent.trim()) return;
-    void status.offsetWidth;
-    status.classList.add('status-fading');
+  const statuses = document.querySelectorAll('.intake-status-stack [role="status"]');
+  statusObserver = new MutationObserver(records => {
+    for (const status of new Set(records.map(record => (record.target.nodeType === 1 ? record.target : record.target.parentElement)?.closest('[role="status"]')))) {
+      if (!status) continue;
+      status.classList.remove('status-fading');
+      if (!status.textContent.trim()) continue;
+      void status.offsetWidth;
+      status.classList.add('status-fading');
+    }
   });
-  statusObserver.observe(status, {childList: true, characterData: true, subtree: true});
-  status.addEventListener('animationend', () => { status.textContent = ''; }, {once: false});
+  statuses.forEach(status => {
+    statusObserver.observe(status, {childList: true, characterData: true, subtree: true});
+    status.addEventListener('animationend', () => { status.textContent = ''; });
+  });
 }
 
 export function search() {

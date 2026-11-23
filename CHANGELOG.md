@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Unify intake notification timing
+
+- Fade all Add Card notification types after six seconds and clear them after ten seconds.
+
 ## 2026-11-23 - Refine card intake notifications
 
 - Remove the unverified-record notification, use neutral card-reading wording, and stack intake notifications from the bottom.
