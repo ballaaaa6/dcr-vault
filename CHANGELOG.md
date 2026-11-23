@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Keep dropdown menus visible
+
+- Open shared dropdowns toward available viewport space and scroll long menus; enable automatic placement for searchable card fields.
+
 ## 2026-11-23 - Restore filled field styling
 
 - Restore gray backgrounds for filled Add Card fields and use the shared dropdown for condition selection.

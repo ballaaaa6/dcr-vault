@@ -1,4 +1,5 @@
 import {escapeHTML as esc} from '../utils/format.js';
+import {dropdownPlacement} from '../utils/dropdown-placement.js';
 
 // options is an array of [value, label] pairs; changes bubble from the select.
 export function dropdown({id, label, options, value, align = 'start', required = false}) {
@@ -8,6 +9,29 @@ export function dropdown({id, label, options, value, align = 'start', required =
   const items = options.filter(([option]) => option !== '' || !required).map(([option, text]) => `<button type="button" role="menuitemradio" aria-checked="${option === selected[0]}" data-dropdown-value="${esc(option)}"><span>${esc(text)}</span><span class="dropdown-check" aria-hidden="true">✓</span></button>`).join('');
   return `<div class="dropdown"><select id="${esc(id)}" class="sr-only" tabindex="-1" aria-hidden="true"${required ? ' required' : ''}>${selectOptions}</select><details class="dropdown-control" data-dropdown-align="${align === 'end' ? 'end' : 'start'}"><summary id="${esc(id)}-trigger" data-empty="${!selected[0]}" aria-label="${esc(label)}: ${esc(selected[1])}" data-dropdown-label="${esc(label)}"><span data-dropdown-current>${esc(selected[1])}</span><svg class="dropdown-chevron" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m8 9 4-4 4 4M8 15l4 4 4-4"/></svg></summary><div class="dropdown-menu" role="menu" aria-label="${esc(label)}">${items}</div></details></div>`;
 }
+
+function positionDropdown(control) {
+  const menu = control.querySelector(':scope > .dropdown-menu');
+  const trigger = control.querySelector('summary').getBoundingClientRect();
+  const viewportHeight = window.visualViewport?.height || window.innerHeight;
+  const viewportTop = window.visualViewport?.offsetTop || 0;
+  const {placement, availableHeight} = dropdownPlacement(trigger, viewportTop, viewportHeight, menu.scrollHeight);
+  control.dataset.dropdownPlacement = placement;
+  menu.style.setProperty('--dropdown-available-height', `${availableHeight}px`);
+}
+
+document.addEventListener('toggle', event => {
+  const control = event.target;
+  if (control.matches?.('.dropdown-control') && control.open) positionDropdown(control);
+}, true);
+
+function repositionOpenDropdowns() {
+  document.querySelectorAll('.dropdown-control[open]').forEach(positionDropdown);
+}
+window.addEventListener?.('resize', repositionOpenDropdowns);
+window.addEventListener?.('scroll', repositionOpenDropdowns, true);
+window.visualViewport?.addEventListener('resize', repositionOpenDropdowns);
+window.visualViewport?.addEventListener('scroll', repositionOpenDropdowns);
 
 document.addEventListener('click', event => {
   const item = event.target.closest('[data-dropdown-value]');
