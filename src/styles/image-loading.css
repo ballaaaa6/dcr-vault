@@ -1,4 +1,5 @@
 img.image-loading {
+  content: linear-gradient(transparent, transparent);
   background-color: var(--dcr-white);
   background-image: linear-gradient(135deg, var(--dcr-red) 0%, var(--dcr-image-loading-pink) 35%, var(--dcr-red-light) 55%, var(--dcr-white) 75%);
   background-size: 180% 180%;

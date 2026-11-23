@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Show complete images at once
+- Keep the shared image loading effect visible until the image is fully loaded and decoded, then show it immediately.
+
 ## 2026-11-24 - Image loading glow
 - Add a medium red outer glow around image loading placeholders.
 
