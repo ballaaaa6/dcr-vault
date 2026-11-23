@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Add mouse and touch photo zoom
+
+- Zoom profile photos with the mouse wheel, pinch gestures, or keyboard while positioning them.
+
 ## 2026-11-23 - Compact billing plan preview
 
 - Shorten the billing heading and tighten the plan layout to fit on a desktop screen.
