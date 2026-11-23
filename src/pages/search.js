@@ -5,7 +5,7 @@ import {emptyPhotoMarkup, searchMarkup, validatePhoto} from './search-view.js';
 import './search-photo-preview.js';
 import {formatRarity} from '../utils/rarity.js';
 import {checkCert, deleteCardImage, uploadCardImage} from '../store/cards.js';
-import {installCatalogSuggestions, invalidateCatalogSuggestions} from './search-catalog.js';
+import {destroyCatalogSuggestions, initializeCatalogSuggestions, installCatalogSuggestions, invalidateCatalogSuggestions} from './search-catalog.js';
 import {initializeCardRarity, invalidateCardResolution, resolveExactTypedCard} from './search-card-resolution.js';
 import {hasNonLatinScript} from '../utils/language.js';
 import {findAvailableCert, normalizeCert} from '../utils/cert.js';
@@ -21,11 +21,16 @@ let statusObserver;
 
 export function initializeSearchPage() {
   initializeCardRarity();
+  initializeCatalogSuggestions().catch(() => {
+    const status = document.getElementById('manual-status');
+    if (status) { status.dataset.state = 'error'; status.textContent = 'Card fields could not be loaded. Reload and try again.'; }
+  });
   statusObserver?.disconnect();
   statusObserver = initializeIntakeNotifications();
 }
 
 export function search() {
+  destroyCatalogSuggestions();
   releaseObjectUrls();
   resetCardIdentificationState();
   clearAppliedReading();
@@ -179,7 +184,8 @@ async function saveIntake() {
   if (missing) {
     status.textContent = 'Complete all required fields.';
     missing.scrollIntoView({behavior: 'smooth', block: 'center'});
-    missing.focus({preventScroll: true});
+    const visible = missing.dataset.catalogField ? document.getElementById(`${missing.id}-input`) : missing;
+    visible?.focus({preventScroll: true});
     return;
   }
   const rarityInput = document.getElementById('m-rarity');

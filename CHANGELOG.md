@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Use Creatable card inputs
+
+- Use React Select's Creatable control for Add Card catalog fields while retaining examples, manual entry, filtering, and image-reading integration.
+
 ## 2026-11-23 - Connect Pokémon intake fields
 
 - Arrange Add Card details in seven rows and select Pokémon as the card game.

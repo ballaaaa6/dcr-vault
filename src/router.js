@@ -4,6 +4,7 @@ import {home} from './pages/home.js';
 import {billing} from './pages/billing.js';
 import {profile, initializeProfile} from './pages/profile.js';
 import {initializeSearchPage, search} from './pages/search.js';
+import {destroyCatalogSuggestions} from './pages/search-catalog.js';
 import {initializeVault, vault} from './pages/vault.js';
 import {label, initializeLabel} from './pages/label.js';
 import {loginPage, initializeLogin} from './pages/login.js';
@@ -38,6 +39,7 @@ function showPageLoading(app, path, isCertificate) {
 }
 
 export async function render() {
+  destroyCatalogSuggestions();
   const version = ++renderVersion;
   const route = location.pathname + location.search;
   const path = location.pathname;
