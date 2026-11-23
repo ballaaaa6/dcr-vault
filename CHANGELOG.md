@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Add shared toast notifications
+
+- Add reusable success, warning, and error toasts with a shared bottom-right stack and use them for Add Card notifications.
+
 ## 2026-11-23 - Unify intake notification timing
 
 - Fade all Add Card notification types after six seconds and clear them after ten seconds.

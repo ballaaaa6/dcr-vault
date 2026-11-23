@@ -1,3 +1,4 @@
+import {initializeIntakeNotifications} from './intake-notifications.js';
 import {createIntakeCard} from './search-save.js';
 import {emptyPhotoMarkup, searchMarkup, validatePhoto} from './search-view.js';
 import './search-photo-preview.js';
@@ -18,20 +19,7 @@ let statusObserver;
 export function initializeSearchPage() {
   initializeCardRarity();
   statusObserver?.disconnect();
-  const statuses = document.querySelectorAll('.intake-status-stack [role="status"]');
-  statusObserver = new MutationObserver(records => {
-    for (const status of new Set(records.map(record => (record.target.nodeType === 1 ? record.target : record.target.parentElement)?.closest('[role="status"]')))) {
-      if (!status) continue;
-      status.classList.remove('status-fading');
-      if (!status.textContent.trim()) continue;
-      void status.offsetWidth;
-      status.classList.add('status-fading');
-    }
-  });
-  statuses.forEach(status => {
-    statusObserver.observe(status, {childList: true, characterData: true, subtree: true});
-    status.addEventListener('animationend', () => { status.textContent = ''; });
-  });
+  statusObserver = initializeIntakeNotifications();
 }
 
 export function search() {
@@ -203,7 +191,7 @@ async function saveIntake() {
     location.href = '/vault';
   } catch (error) {
     if (error.status === 409) setCertState(false, 'This Cert number is already used. Choose another number.', 'error');
-    else status.textContent = error.message || 'The card could not be saved.';
+    else { status.dataset.state = 'error'; status.textContent = error.message || 'The card could not be saved.'; }
   } finally {
     button.dataset.busy = 'false';
     updateSubmitState();

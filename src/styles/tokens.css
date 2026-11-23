@@ -6,3 +6,5 @@
 
 /* Main red blended equally with white, for hover surfaces. */
 :root{--dcr-red-hover:#e38897}
+
+:root{--toast-success:#16855b;--toast-warning:#a96505}

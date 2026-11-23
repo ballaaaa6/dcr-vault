@@ -63,7 +63,7 @@ async function refreshSuggestions(field) {
   } catch (error) {
     renderSuggestions(field, [], currentVersion);
     const status = document.getElementById('manual-status');
-    if (status) status.textContent = error.message || 'Card suggestions are unavailable.';
+    if (status) { status.dataset.state = 'error'; status.textContent = error.message || 'Card suggestions are unavailable.'; }
   }
 }
 
