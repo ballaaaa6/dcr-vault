@@ -130,9 +130,15 @@
 .cert-field .field-status{line-height:16px}
 .field-status[data-state="error"]{color:var(--dcr-red)}
 .catalog-control{position:relative;min-width:0}
-.intake-card .catalog-select__control{min-height:46px;font-weight:450}
+.intake-card .catalog-select__control{min-height:46px;border-radius:14px;font-weight:450}
 .intake-card .catalog-select__placeholder{color:var(--dcr-placeholder);opacity:.5}
 .intake-card .catalog-select__menu{z-index:30}
+.intake-card .catalog-select__indicator-separator{display:none}
+.catalog-indicator{display:flex;align-items:center;justify-content:center;width:36px;align-self:stretch;color:var(--dcr-gray);cursor:pointer}
+.catalog-select-wrap{position:relative}
+.catalog-select-wrap.has-clear .catalog-select__value-container{padding-right:30px}
+.catalog-clear{position:absolute;top:50%;right:36px;display:grid;width:28px;height:28px;place-items:center;transform:translateY(-50%);padding:0;border:0;background:transparent;color:var(--dcr-gray);font-size:21px;line-height:1;cursor:pointer}
+.catalog-clear:focus-visible{outline:2px solid var(--dcr-red);border-radius:5px}
 @media(min-width:761px){.intake-card .catalog-select__control{min-height:42px}}
 .manual-submit{grid-column:1/-1;justify-self:start;margin-top:2px}
 .vault-heading{margin-bottom:22px}

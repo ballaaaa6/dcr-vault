@@ -1,5 +1,13 @@
 import {createElement, useEffect, useRef, useState} from 'react';
 import CreatableSelect from 'react-select/creatable';
+function DropdownIndicator(props) {
+  return createElement('div', {...props.innerProps, className: 'catalog-indicator', 'aria-hidden': true},
+    createElement('svg', {width: 16, height: 16, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor',
+      strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round', 'aria-hidden': true},
+    createElement('path', {d: 'm8 9 4-4 4 4M8 15l4 4 4-4'})));
+}
+
+const selectComponents = {DropdownIndicator};
 
 function useCatalogOptions(field, input, open, optionsFor) {
   const [options, setOptions] = useState([]);
@@ -18,23 +26,7 @@ function useCatalogOptions(field, input, open, optionsFor) {
   return options;
 }
 
-export function catalogSelect({field, label, placeholder, maxLength, optionsFor, onEdit, onBlur}) {
-  const proxy = () => document.getElementById(`m-${field}`);
-  const [selected, setSelected] = useState(null);
-  const [input, setInput] = useState('');
-  const [open, setOpen] = useState(false);
-  const options = useCatalogOptions(field, input, open, optionsFor);
-  const current = useRef('');
-
-  function update(value) {
-    const node = proxy();
-    if (!node || node.value === value) return;
-    node.value = value;
-    current.current = value;
-    node.dispatchEvent(new Event('input', {bubbles: true}));
-    onEdit(field);
-  }
-
+function useExternalValues(field, proxy, current, setSelected, setInput, setOpen) {
   useEffect(() => {
     const sync = () => {
       const value = proxy()?.value || '';
@@ -47,6 +39,25 @@ export function catalogSelect({field, label, placeholder, maxLength, optionsFor,
     window.addEventListener('intake-catalog-close', close);
     return () => { window.removeEventListener('intake-values-updated', sync); window.removeEventListener('intake-catalog-close', close); };
   }, []);
+}
+
+export function catalogSelect({field, label, placeholder, maxLength, optionsFor, onEdit, onBlur}) {
+  const proxy = () => document.getElementById(`m-${field}`);
+  const [selected, setSelected] = useState(null);
+  const [input, setInput] = useState('');
+  const [open, setOpen] = useState(false);
+  const options = useCatalogOptions(field, input, open, optionsFor);
+  const current = useRef('');
+  useExternalValues(field, proxy, current, setSelected, setInput, setOpen);
+
+  function update(value) {
+    const node = proxy();
+    if (!node || node.value === value) return;
+    node.value = value;
+    current.current = value;
+    node.dispatchEvent(new Event('input', {bubbles: true}));
+    onEdit(field);
+  }
 
   const commit = value => {
     const text = String(value || '').slice(0, maxLength);
@@ -54,9 +65,9 @@ export function catalogSelect({field, label, placeholder, maxLength, optionsFor,
     setSelected(text ? {value: text, label: text} : null);
     setInput('');
   };
-  return createElement(CreatableSelect, {
+  const select = createElement(CreatableSelect, {
     inputId: `m-${field}-input`, 'aria-label': label, placeholder, options, value: selected,
-    inputValue: input, menuIsOpen: open, isClearable: false, classNamePrefix: 'catalog-select',
+    inputValue: input, menuIsOpen: open, isClearable: false, classNamePrefix: 'catalog-select', components: selectComponents,
     onMenuOpen: () => { window.dispatchEvent(new CustomEvent('intake-catalog-close', {detail: field})); setOpen(true); },
     onMenuClose: () => setOpen(false),
     onChange: option => commit(option?.value),
@@ -68,4 +79,7 @@ export function catalogSelect({field, label, placeholder, maxLength, optionsFor,
     onBlur: () => { commit(current.current); proxy()?.dispatchEvent(new FocusEvent('focusout', {bubbles: true})); onBlur(); },
     noOptionsMessage: () => 'No matching options'
   });
+  const clear = selected || input ? createElement('button', {type: 'button', className: 'catalog-clear', 'aria-label': `Clear ${label}`,
+    onMouseDown: event => event.preventDefault(), onClick: () => { commit(''); document.getElementById(`m-${field}-input`)?.focus(); }}, '×') : null;
+  return createElement('div', {className: `catalog-select-wrap${clear ? ' has-clear' : ''}`}, select, clear);
 }

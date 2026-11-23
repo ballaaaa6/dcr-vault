@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Refine Add Card selectors
+
+- Add a clear button to editable card fields and use a paired up/down dropdown indicator with rounded controls.
+
 ## 2026-11-23 - Use Creatable card inputs
 
 - Use React Select's Creatable control for Add Card catalog fields while retaining examples, manual entry, filtering, and image-reading integration.
