@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Refine selected vault cards
+
+- Show the selected card's background artwork at 60% opacity instead of a red fill.
+
 ## 2026-11-23 - Continue adding cards
 
 - Clear the Add Card form and show a success toast after saving, keeping the user on the page for the next card.

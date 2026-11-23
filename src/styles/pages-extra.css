@@ -95,7 +95,7 @@
 .vault-detail .vault-edit-button{float:right}
 .vault-detail .cert-information{border:0;padding-top:8px}
 .vault-detail .cert-information dl div{padding:6px 0}
-.vault-row[aria-pressed=true]{background:var(--dcr-red);color:var(--dcr-white);border-color:var(--dcr-red)}
+.vault-row[aria-pressed=true]{color:var(--dcr-white);border-color:var(--dcr-red)}
 .vault-row[aria-pressed=true] .muted,.vault-row[aria-pressed=true] .row-arrow{color:var(--dcr-white)}
 .vault-row[aria-pressed=true] .badge{background:var(--dcr-white);color:var(--dcr-red)}
 
