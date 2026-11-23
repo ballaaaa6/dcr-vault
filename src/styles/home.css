@@ -19,8 +19,11 @@
 .home-search-form .search-button svg{width:16px;height:16px}
 .search-hint{margin:11px 4px 0;color:var(--dcr-gray);font-size:14px}
 .home-benefits{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:26px}
-.home-benefit{display:flex;min-width:0;flex-direction:column;padding:12px;border:1px solid var(--dcr-border);border-radius:12px;background:var(--dcr-white);color:var(--dcr-gray);font-size:13px;line-height:1.4}
-.home-benefit:hover{border-color:var(--dcr-red);background:var(--dcr-red-light)}
+.home-benefit{position:relative;display:flex;min-width:0;flex-direction:column;padding:12px;border:1px solid var(--dcr-border);border-radius:12px;background:var(--dcr-white);color:var(--dcr-gray);font-size:13px;line-height:1.4}
+.home-benefit::after{position:absolute;inset:-1px;content:'';border:1px solid var(--dcr-red);border-radius:inherit;clip-path:inset(0 100% 0 0);pointer-events:none;transition:clip-path .45s ease}
+.home-benefit:hover{background:var(--dcr-red-light)}
+.home-benefit:is(:hover,:focus-visible)::after{clip-path:inset(0)}
+@media(prefers-reduced-motion:reduce){.home-benefit::after{transition:none}}
 .home-benefit img{width:38px;height:38px;object-fit:contain;margin-bottom:8px}
 .home-benefit strong{color:var(--dcr-black);font-size:14px}
 .home-art{position:relative;display:grid;min-height:400px;place-items:center;overflow:hidden}

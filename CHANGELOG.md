@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Animate home shortcut borders
+
+- Reveal the red outline from left to right when hovering or focusing a home shortcut.
+
 ## 2026-11-23 - Add shared toast notifications
 
 - Add reusable success, warning, and error toasts with a shared bottom-right stack and use them for Add Card notifications.
