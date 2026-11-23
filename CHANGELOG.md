@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Match loading skeletons to each page
+
+- Give Home, Add Card, My Vault, Labels, Profile, certificate verification, and import their own responsive loading layouts.
+
 ## 2026-11-23 - Show page loading skeletons
 
 - Show responsive skeleton placeholders while the main pages load their session and data.

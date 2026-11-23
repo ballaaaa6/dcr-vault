@@ -48,7 +48,7 @@ export async function render() {
     return;
   }
 
-  app.innerHTML = pageSkeleton(path, isCertificate);
+  app.innerHTML = `<header class="site-header" aria-hidden="true"><div class="header-inner wrap"><span class="logo-wrap"><img class="logo" src="/assets/logo/dcr-mark.svg" alt=""><span>Distinguished Card Registry</span></span><span class="skeleton sk-nav-placeholder"></span></div></header>${pageSkeleton(path, isCertificate, new URLSearchParams(location.search).has('cert'))}${footer()}`;
 
   let user = null;
   try { user = await getCurrentUser(); } catch {}
