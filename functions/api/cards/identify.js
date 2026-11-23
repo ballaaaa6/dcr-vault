@@ -11,17 +11,17 @@ function requestAllowed(request) {
 
 function geminiFailure(cause, requestId) {
   const failures = {
-    not_configured: ['Gemini card reading is not configured for this deployment.', 503, 'gemini_not_configured'],
-    configuration: ['Gemini API configuration is invalid. Contact the site administrator.', 503, 'gemini_configuration'],
-    quota: ['Gemini request quota was reached. Try again later.', 429, 'gemini_quota'],
-    timeout: ['Gemini card reading timed out. Try again.', 503, 'gemini_timeout'],
-    network_error: ['Gemini could not be reached. Try again.', 503, 'gemini_network'],
-    upstream: ['Gemini card reading is temporarily unavailable. Try again in a moment.', 503, 'gemini_upstream']
+    not_configured: ['Card reading is not configured for this deployment.', 503, 'gemini_not_configured'],
+    configuration: ['Card reading configuration is invalid. Contact the site administrator.', 503, 'gemini_configuration'],
+    quota: ['Card reading request quota was reached. Try again later.', 429, 'gemini_quota'],
+    timeout: ['Card reading timed out. Try again.', 503, 'gemini_timeout'],
+    network_error: ['Card reading could not be reached. Try again.', 503, 'gemini_network'],
+    upstream: ['Card reading is temporarily unavailable. Try again in a moment.', 503, 'gemini_upstream']
   };
   const [message, status, code] = failures[cause?.code] || [
-    'Gemini card reading is temporarily unavailable. Try again in a moment.', 503, 'gemini_unknown'
+    'Card reading is temporarily unavailable. Try again in a moment.', 503, 'gemini_unknown'
   ];
-  console.error('Gemini card reading failed.', {model: MODEL, requestId, reasonCode: cause?.code || 'unknown',
+  console.error('Card reading failed.', {model: MODEL, requestId, reasonCode: cause?.code || 'unknown',
     upstreamStatus: cause?.upstreamStatus || null, failureDiagnostics: cause?.diagnostics || null});
   return json({error: message, code, requestId}, status);
 }

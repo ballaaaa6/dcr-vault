@@ -27,6 +27,7 @@ export function initializeSearchPage() {
     status.classList.add('status-fading');
   });
   statusObserver.observe(status, {childList: true, characterData: true, subtree: true});
+  status.addEventListener('animationend', () => { status.textContent = ''; }, {once: false});
 }
 
 export function search() {

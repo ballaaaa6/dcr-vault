@@ -22,7 +22,7 @@ let classification = {};
 export function intakeClassification() { return {...classification}; }
 export function identificationDialogMarkup() {
   return `<dialog id="identification-result" class="identification-dialog" aria-labelledby="identification-title">
-    <header class="identification-dialog-header"><div><div class="page-eyebrow">GEMINI IDENTIFICATION</div><h2 id="identification-title">Review card reading</h2><p>Review the details read from the photo before adding it.</p></div>
+    <header class="identification-dialog-header"><div><h2 id="identification-title">Review card reading</h2><p>Review the details read from the photo before adding it.</p></div>
       <button class="btn btn-ghost identification-close" type="button" data-close-identification aria-label="Close card result">×</button></header>
     <div id="identification-dialog-content" class="identification-dialog-content" aria-live="polite"></div>
   </dialog>`;
@@ -125,7 +125,7 @@ function fillGeminiValues(fields, requestId) {
     appliedValues[key] = input.value;
   }
   invalidateCatalogSuggestions();
-  document.getElementById('manual-status').textContent = 'Gemini filled the available details. Checking the catalog; review all fields before saving.';
+  document.getElementById('manual-status').textContent = 'Card reading filled the available details. Checking the catalog; review all fields before saving.';
   return values;
 }
 
@@ -162,11 +162,11 @@ async function applyReading(fields, version, requestId, values) {
     : conflicts.length ? 'Conflicting anniversary stamp readings. Review the photo before selecting a set.'
       : source && evidenceMatch ? 'Possible catalog match based on card details. Missing fields were filled for review; verify the set, rarity, stamp and finish.'
         : source ? 'Printed-language catalog record found. Check stamp and finish; the variant is not verified.'
-        : catalogUnavailable ? 'Catalog unavailable; review the Gemini values before saving.'
-          : 'No verified printed-language record found. Review the Gemini values before saving.';
+        : catalogUnavailable ? 'Catalog unavailable; review the card details before saving.'
+          : '';
   const englishNote = sourceLanguage !== 'en'
     ? ' Card number is the printed number; English name is a translation to review.' : '';
-  document.getElementById('manual-status').textContent = `${matchNote}${englishNote}`;
+  document.getElementById('manual-status').textContent = matchNote ? `${matchNote}${englishNote}` : '';
   logIdentificationStage('browser', {match: source ? evidenceMatch ? 'evidence_review' : 'matched' : catalogUnavailable ? 'catalog_unavailable' : 'unresolved',
     candidates: candidates.map(card => card.id), provenance: fieldProvenance, conflicts: [...conflicts, ...differences]});
   return {source, candidates, matchNote, englishNote};
@@ -247,7 +247,7 @@ async function analyzeFront() {
     }
     if (version !== analysisVersion) return;
     if (!result.fields || !result.readingAdequate) {
-      showError('Gemini could not read enough identity details. Try a clearer front photo or enter the details manually.', true);
+      showError('Could not read enough identity details. Try a clearer front photo or enter the details manually.', true);
       return;
     }
     const values = fillGeminiValues(result.fields, result.requestId);

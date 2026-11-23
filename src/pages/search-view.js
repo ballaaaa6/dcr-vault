@@ -25,7 +25,6 @@ export function searchMarkup() {
           <div class="upload-grid">${photoField('front', 'Front image')}${photoField('back', 'Back image')}</div>
           <div class="identification-actions"><button class="btn btn-ghost" id="identify-card" type="button" disabled>Identify card</button></div>
           <p class="identification-notice">Give your card a head start. Upload a front photo and let us fill in the details for you. Take a moment to review them before adding your card to the vault.</p>
-          <p id="photo-status" class="import-status" role="status" aria-live="polite"></p>
         </section>
         <section class="surface-card intake-card" aria-labelledby="manual-title">
           <div class="section-heading"><div><div class="card-details-title"><h2 id="manual-title">Card details</h2><button id="identification-info" class="identification-info" type="button" aria-label="View card reading details" title="View card reading details" hidden>i</button></div><p>Review the printed card number and English card details; Cert and Grade stay independent.</p></div></div>
@@ -46,12 +45,12 @@ export function searchMarkup() {
               <button class="btn btn-ghost cert-random" data-cert-random type="button" aria-label="Generate an available Cert number" title="Generate an available Cert number">
                 <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="3"></rect><circle cx="8" cy="8" r="1"></circle><circle cx="16" cy="8" r="1"></circle><circle cx="12" cy="12" r="1"></circle><circle cx="8" cy="16" r="1"></circle><circle cx="16" cy="16" r="1"></circle></svg>
               </button>
-            </span><small id="m-cert-status" class="field-status" role="status" aria-live="polite"></small></div>
+            </span></div>
             <button class="btn btn-primary manual-submit" id="manual-submit" type="button">Add to Vault</button>
-            <p id="manual-status" class="import-status intake-wide" role="status" aria-live="polite"></p>
           </div>
         </section>
       </div>
+      <div class="intake-status-stack"><p id="photo-status" class="import-status" role="status" aria-live="polite"></p><p id="manual-status" class="import-status" role="status" aria-live="polite"></p><small id="m-cert-status" class="field-status" role="status" aria-live="polite"></small></div>
       <dialog class="photo-viewer" id="photo-viewer" aria-label="Card image preview"><button class="photo-viewer-close" type="button" data-close-photo-viewer aria-label="Close preview">×</button><img alt=""></dialog>
       ${identificationDialogMarkup()}
     </main>`;

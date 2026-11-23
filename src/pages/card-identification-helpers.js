@@ -24,7 +24,7 @@ export function catalogDifferences(values, source) {
   return ['name', 'setName', 'year', 'rarity'].filter(key => {
     const normalize = key === 'setName' ? comparableSetName : value => value.trim().toLowerCase();
     return values[key] && expected[key] && normalize(values[key]) !== normalize(expected[key]);
-  }).map(key => `${key}: Gemini ${values[key]} / catalog ${expected[key]}`);
+  }).map(key => `${key}: Photo ${values[key]} / catalog ${expected[key]}`);
 }
 
 export function fillMissingCatalogValues(fields, source, provenance, appliedValues) {
@@ -45,11 +45,11 @@ export function fillMissingCatalogValues(fields, source, provenance, appliedValu
 
 export function safeReadingErrorMessage(error) {
   if (/not configured/i.test(error?.message || '')) return 'Card reading is not configured for this deployment.';
-  if (error?.code === 'gemini_quota' || error?.status === 429) return 'Gemini request quota was reached. Try again later.';
-  if (error?.code === 'gemini_configuration') return 'Gemini API settings need to be fixed by the site administrator.';
-  if (error?.status === 503) return 'Gemini card reading is temporarily unavailable. Try again in a moment.';
-  if (error?.status === 422) return 'Gemini could not identify this card. Try a clearer front image.';
-  return error?.message || 'Card reading could not be completed. Try again in a moment.';
+  if (error?.code === 'gemini_quota' || error?.status === 429) return 'Card reading is busy. Try again later.';
+  if (error?.code === 'gemini_configuration') return 'Card reading is unavailable. Contact the site administrator.';
+  if (error?.status === 503) return 'Card reading is temporarily unavailable. Try again in a moment.';
+  if (error?.status === 422) return 'Could not identify this card. Try a clearer front image.';
+  return 'Card reading could not be completed. Try again in a moment.';
 }
 
 export function canRetryIdentification(error) {

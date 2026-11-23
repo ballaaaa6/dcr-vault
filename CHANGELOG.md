@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Refine card intake notifications
+
+- Remove the unverified-record notification, use neutral card-reading wording, and stack intake notifications from the bottom.
+
 - Reduce the Recommended badge size to keep the plan name prominent.
 
 ## 2026-11-23 - Rename Add Card route

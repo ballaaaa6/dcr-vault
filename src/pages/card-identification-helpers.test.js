@@ -35,7 +35,7 @@ test('recognizes the same promo set while flagging different promo codes', () =>
   const values = {name: 'Rayquaza EX', setName: 'XY-P Promotional cards', year: '2015', rarity: 'Promo'};
   assert.deepEqual(catalogDifferences(values, source), []);
   assert.deepEqual(catalogDifferences({...values, setName: 'SM-P Promos'}, source),
-    ['setName: Gemini SM-P Promos / catalog XY-P Promos']);
+    ['setName: Photo SM-P Promos / catalog XY-P Promos']);
 });
 
 test('replaces conflicting Gemini values with matched catalog values and preserves user edits', () => {

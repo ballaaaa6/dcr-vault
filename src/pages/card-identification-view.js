@@ -18,10 +18,6 @@ function attackSummary(attacks) {
   }).filter(Boolean).join(' | ');
 }
 
-function readerName(source) {
-  return source === 'gemini' ? 'Gemini identification' : 'Gemini';
-}
-
 export function readingSummaryMarkup(fields, source, adequate, classification = {}) {
   const rows = [
     fieldMarkup(fields, 'name', 'Printed name', fields.name),
@@ -52,7 +48,7 @@ export function readingSummaryMarkup(fields, source, adequate, classification = 
   const uncertainty = (fields.uncertainFields || []).length
     ? `<p>Needs a check: ${escapeHTML(fields.uncertainFields.join(', '))}</p>` : '';
   return `<section class="identification-read-summary" aria-label="Details read from the photo">
-    <div class="identification-read-heading"><b>Read from photo</b><small>${escapeHTML(readerName(source))}</small></div>
+    <div class="identification-read-heading"><b>Read from photo</b></div>
     <p>${escapeHTML(status)}</p>${uncertainty}${missingNote}${evidence ? `<ul class="identification-read-evidence">${evidence}</ul>` : ''}
     <div class="identification-read-grid">${rows || '<small>No identity details were read.</small>'}</div>
   </section>`;
