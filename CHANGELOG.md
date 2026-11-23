@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Show page loading skeletons
+
+- Show responsive skeleton placeholders while the main pages load their session and data.
+
 ## 2026-11-23 - Confirm account logout
 
 - Improve logout hover text contrast and ask for confirmation before signing out.

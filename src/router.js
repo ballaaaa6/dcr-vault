@@ -13,6 +13,7 @@ import {getCards, getCertificate} from './store/cards.js';
 import {addVaultImages} from './store/vault-images.js';
 import {escapeHTML} from './utils/format.js';
 import {certificateFromPath, normalizeCert} from './utils/cert.js';
+import {pageSkeleton} from './components/page-skeleton.js';
 
 let renderVersion = 0;
 const privatePaths = new Set(['/register', '/vault', '/label', '/import', '/profile']);
@@ -46,6 +47,8 @@ export async function render() {
     await initializeLogin();
     return;
   }
+
+  app.innerHTML = pageSkeleton(path, isCertificate);
 
   let user = null;
   try { user = await getCurrentUser(); } catch {}
