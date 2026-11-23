@@ -1,4 +1,5 @@
 import {avatar} from '../components/header.js';
+import {initializeProfileScene, profilePetals} from '../components/profile-scene.js';
 import {escapeHTML} from '../utils/format.js';
 import {displayDate} from '../components/date-picker.js';
 import {initializeCrop} from '../components/profile-crop.js';
@@ -40,7 +41,7 @@ export function profile(user, cards) {
   return `<main class="app-page profile-page"><header class="page-heading"><h1>My profile</h1><p class="page-description">Manage your personal details and account.</p></header>
     <form class="profile-form" id="profile-form"><section class="surface-card profile-identity"><div class="profile-avatar-wrap" data-has-photo="${Boolean(user.avatarUrl)}"><button type="button" id="profile-avatar" class="profile-avatar-button" aria-label="${user.avatarUrl ? 'View profile photo' : 'Add profile photo'}">${avatar(user, 'profile-avatar')}<span class="profile-avatar-add" aria-hidden="true">+</span></button><button type="button" id="remove-photo" class="profile-avatar-remove" aria-label="Remove profile photo" ${user.avatarUrl ? '' : 'hidden'}>×</button><input id="crop-file" type="file" accept="image/jpeg,image/png,image/webp" hidden></div><div>${inlineEdit({id: 'profile-name', label: 'Display name', value: user.displayName || '', displayValue: user.displayName || user.email, maxLength: 20, required: true, displayTag: 'h2'})}<p>${escapeHTML(user.email)}</p><small>${summary}</small><p class="profile-photo-status" role="status" aria-live="polite"></p></div></section>
     <section class="surface-card profile-section"><h2>Personal details</h2><dl>${profileDetails(user)}</dl></section>
-    </form><dialog class="profile-crop-dialog profile-remove-dialog two-choice-dialog" aria-labelledby="remove-photo-title"><h2 id="remove-photo-title">Remove profile photo?</h2><p class="two-choice-description">This will remove your photo.</p><div class="profile-actions two-choice-actions"><button class="btn btn-primary" type="button" data-remove-confirm>Remove photo</button><button class="btn btn-ghost" type="button" data-remove-cancel>Cancel</button></div></dialog><dialog class="profile-photo-dialog" aria-label="Profile photo"><button type="button" class="profile-photo-close" aria-label="Close photo preview">×</button><img alt="Your profile photo"></dialog><dialog class="profile-crop-dialog two-choice-dialog" aria-labelledby="crop-title"><button type="button" class="profile-photo-close" data-crop-close aria-label="Close photo editor">×</button><h2 id="crop-title">Adjust profile photo</h2><p class="two-choice-description">Drag the photo to position it inside the circle.</p><div class="profile-crop-area" hidden><img alt=""><span class="profile-crop-guide"></span></div><div class="profile-actions two-choice-actions"><button class="btn btn-primary" type="button" data-crop-save disabled>Save photo</button><button class="btn btn-ghost" type="button" data-crop-close>Cancel</button></div><p class="profile-crop-status" role="status" aria-live="polite"></p></dialog></main>`;
+    ${profilePetals()}</form><dialog class="profile-crop-dialog profile-remove-dialog two-choice-dialog" aria-labelledby="remove-photo-title"><h2 id="remove-photo-title">Remove profile photo?</h2><p class="two-choice-description">This will remove your photo.</p><div class="profile-actions two-choice-actions"><button class="btn btn-primary" type="button" data-remove-confirm>Remove photo</button><button class="btn btn-ghost" type="button" data-remove-cancel>Cancel</button></div></dialog><dialog class="profile-photo-dialog" aria-label="Profile photo"><button type="button" class="profile-photo-close" aria-label="Close photo preview">×</button><img alt="Your profile photo"></dialog><dialog class="profile-crop-dialog two-choice-dialog" aria-labelledby="crop-title"><button type="button" class="profile-photo-close" data-crop-close aria-label="Close photo editor">×</button><h2 id="crop-title">Adjust profile photo</h2><p class="two-choice-description">Drag the photo to position it inside the circle.</p><div class="profile-crop-area" hidden><img alt=""><span class="profile-crop-guide"></span></div><div class="profile-actions two-choice-actions"><button class="btn btn-primary" type="button" data-crop-save disabled>Save photo</button><button class="btn btn-ghost" type="button" data-crop-close>Cancel</button></div><p class="profile-crop-status" role="status" aria-live="polite"></p></dialog></main>`;
 }
 
 function renderProfile(form, avatarButton, current) {
@@ -56,6 +57,7 @@ function renderProfile(form, avatarButton, current) {
 
 export function initializeProfile(user) {
   const form = document.querySelector('#profile-form');
+  initializeProfileScene(form);
   const photoStatus = form.querySelector('.profile-photo-status');
   const avatarButton = form.querySelector('#profile-avatar');
   const dialog = document.querySelector('.profile-photo-dialog');
@@ -82,3 +84,4 @@ export function initializeProfile(user) {
   };
   initializeCrop(save, photoStatus);
 }
+

@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Add a connected profile landscape
+
+- Add a shared right-aligned sakura landscape and falling petals across the profile cards, clipped to each card.
+
 ## 2026-11-23 - Make loading skeletons a shared page convention
 
 - Show loading placeholders for Privacy Policy and Google sign-in, and define a shared skeleton registry and convention for future pages.
@@ -869,3 +873,4 @@ Times are commit times in Bangkok time (UTC+7); older entries without a time hav
 
 ## 2026-11-22 - Separate profile editing
 - Save profile photos independently from personal details and allow positioning photos with a circular crop guide.
+
