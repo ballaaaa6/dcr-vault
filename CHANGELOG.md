@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Improve billing price hierarchy
+
+- Align plan prices, emphasize the featured price, and separate plan benefits from pricing.
+
 ## 2026-11-23 - Describe the collection plans
 
 - Add a short collection-focused description to the billing page heading.

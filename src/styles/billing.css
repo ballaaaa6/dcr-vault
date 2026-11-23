@@ -10,10 +10,12 @@
 .billing-card-title h2{margin:0;font-size:22px}
 .billing-badge{padding:3px 10px;border-radius:999px;background:var(--dcr-red);color:var(--dcr-white);font-size:12px;font-weight:700}
 .billing-description{min-height:3em;margin:10px 0 0;color:var(--dcr-text-secondary)}
-.billing-trial{margin:10px 0 0;color:var(--dcr-red-dark);font-size:15px;font-weight:700}
-.billing-price{display:flex;align-items:baseline;gap:8px;margin:16px 0;color:var(--dcr-text-secondary)}
-.billing-price strong{color:var(--dcr-black);font-size:40px;line-height:1}
-.billing-features{display:grid;gap:6px;margin:0 0 16px;padding:0;list-style:none}
+.billing-trial-slot{min-height:30px}
+.billing-trial{margin:0;color:var(--dcr-red-dark);font-size:15px;font-weight:700}
+.billing-price{display:flex;align-items:baseline;gap:8px;margin:16px 0 8px;color:var(--dcr-text-secondary)}
+.billing-price strong{color:var(--dcr-black);font-size:46px;line-height:1}
+.billing-card-featured .billing-price strong{color:var(--dcr-red-dark)}
+.billing-features{display:grid;gap:6px;margin:0 0 16px;padding:14px 0 0;border-top:1px solid var(--dcr-border);list-style:none}
 .billing-features li{display:flex;gap:12px;align-items:baseline}
 .billing-features li span{color:var(--dcr-red);font-weight:700}
 .billing-features-button,.billing-purchase{border:1px solid var(--dcr-border);border-radius:10px;font:inherit;font-size:15px;font-weight:700;cursor:not-allowed}
