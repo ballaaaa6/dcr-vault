@@ -42,3 +42,11 @@ test('inline editor escapes values and links its accessible controls', () => {
   assert.match(markup, /aria-controls="name-editor"/);
   assert.match(markup, /maxlength="20" required/);
 });
+
+ test('date and multiline variants render the appropriate controls', () => {
+  const date = inlineEdit({id: 'since', label: 'Collecting since', inputType: 'date'});
+  assert.match(date, /data-date-picker/);
+  assert.match(date, /<rect x="3" y="5"/);
+  const bio = inlineEdit({id: 'bio', label: 'Short bio', inputType: 'textarea', value: 'First\nSecond'});
+  assert.match(bio, /<textarea[^>]*>First\nSecond<\/textarea>/);
+});
