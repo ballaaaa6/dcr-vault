@@ -31,3 +31,27 @@ test('usage endpoint rejects non-administrators before accessing usage data', as
   assert.equal((await onRequestGet({request, env})).status, 403);
   assert.equal(queried, false);
 });
+
+
+test('each retry reserves the next shared key and the next request continues after it', async () => {
+  const {analyzeWithGemini} = await import('./gemini-card-reader.js');
+  const sqlite = new DatabaseSync(':memory:');
+  sqlite.exec(readFileSync(new URL('../../migrations/0015_gemini_usage.sql', import.meta.url), 'utf8'));
+  const db = {prepare: sql => ({first: async () => sqlite.prepare(sql).get(), bind: (...args) => ({run: async () => sqlite.prepare(sql).run(...args)})})};
+  const env = {DB: db, GEMINI_API_KEYS: 'one,two,three,four,five,six'};
+  const calls = [];
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async (_url, init) => {
+    calls.push(init.headers['x-goog-api-key']);
+    if (calls.length < 3) return Response.json({error: {status: 'UNAVAILABLE'}}, {status: 503});
+    return Response.json({name: 'Pikachu'});
+  };
+  try {
+    await analyzeWithGemini(env, new Uint8Array([1]), 'image/jpeg', 'first');
+    await analyzeWithGemini(env, new Uint8Array([1]), 'image/jpeg', 'second');
+    assert.deepEqual(calls, ['one', 'two', 'three', 'four']);
+    const rows = sqlite.prepare('SELECT key_slot, outcome FROM gemini_attempts ORDER BY id').all();
+    assert.deepEqual(rows.map(row => row.key_slot), [1, 2, 3, 4]);
+    assert.deepEqual(rows.map(row => row.outcome), ['upstream', 'upstream', 'success', 'success']);
+  } finally { globalThis.fetch = originalFetch; }
+});

@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Rotate Gemini keys for every attempt
+- Advance the shared key rotation for every Gemini call, including retries and failovers, and limit each request to the configured key count.
+
+
 ## 2026-11-23 - Gemini usage and shared key rotation
 - Rotate configured Gemini keys across requests using an atomic D1 counter, and record each attempt and available token usage without storing keys.
 - Add an administrator-only usage page with date filters and key-level totals.

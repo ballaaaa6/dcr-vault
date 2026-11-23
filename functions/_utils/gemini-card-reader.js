@@ -187,38 +187,28 @@ function fetchDiagnostics(cause, elapsedMs) {
   };
 }
 
-async function postGemini(apiKey, payload, requestId, track) {
-  for (let attempt = 0; attempt < 2; attempt += 1) {
-    let response;
-    let failure;
-    const startedAt = Date.now();
-    try {
-      response = await fetch(ENDPOINT, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json', 'x-goog-api-key': apiKey},
-        body: payload,
-        redirect: 'manual',
-        signal: AbortSignal.timeout(API_TIMEOUT_MS)
-      });
-      if (response.ok) {
-        const output = await response.json().catch(() => null);
-        await track('success', response.status, output?.usageMetadata);
-        return output;
-      }
-      const errorBody = await response.clone().json().catch(() => null);
-      failure = upstreamError(response.status, errorBody);
-      await track(failure.code, response.status, errorBody?.usageMetadata);
-    } catch (cause) {
-      failure = readingError(cause?.name === 'TimeoutError' || cause?.name === 'AbortError' ? 'timeout' : 'network_error', 503);
-      failure.diagnostics = fetchDiagnostics(cause, Date.now() - startedAt);
-      await track(failure.code, null, null);
-    }
-    if (attempt === 1 || !retryableFailure(failure)) throw failure;
-    console.warn('Gemini request retrying after a transient failure.', {model: MODEL, requestId,
-      reasonCode: failure.code, upstreamStatus: failure.upstreamStatus || null,
-      failureDiagnostics: failure.diagnostics || null});
-    await new Promise(resolve => setTimeout(resolve, RETRY_DELAY_MS));
+async function postGemini(apiKey, payload, track) {
+  const startedAt = Date.now();
+  let response;
+  try {
+    response = await fetch(ENDPOINT, {
+      method: 'POST', headers: {'Content-Type': 'application/json', 'x-goog-api-key': apiKey},
+      body: payload, redirect: 'manual', signal: AbortSignal.timeout(API_TIMEOUT_MS)
+    });
+  } catch (cause) {
+    const failure = readingError(cause?.name === 'TimeoutError' || cause?.name === 'AbortError' ? 'timeout' : 'network_error', 503);
+    failure.diagnostics = fetchDiagnostics(cause, Date.now() - startedAt);
+    await track(failure.code, null, null);
+    throw failure;
   }
+  const output = await response.json().catch(() => null);
+  if (response.ok) {
+    await track('success', response.status, output?.usageMetadata);
+    return output;
+  }
+  const failure = upstreamError(response.status, output);
+  await track(failure.code, response.status, output?.usageMetadata);
+  throw failure;
 }
 
 function upstreamError(status, body) {
@@ -243,16 +233,15 @@ export function configuredApiKeys(env) {
 export async function analyzeWithGemini(env, body, contentType, requestId, onParsed = () => {}) {
   const apiKeys = configuredApiKeys(env);
   if (!apiKeys.length) throw readingError('not_configured', 503);
-  const start = env.DB ? await reserveKey(env.DB, apiKeys.length) : 0;
   const payload = JSON.stringify({contents: [{role: 'user', parts: [
     {text: PROMPT}, {inline_data: {mime_type: contentType, data: base64(body)}}
   ]}], generationConfig: {temperature: 0, maxOutputTokens: 3072, responseMimeType: 'application/json', responseJsonSchema: READING_SCHEMA}});
   for (let index = 0; index < apiKeys.length; index += 1) {
     try {
-      const slot = (start + index) % apiKeys.length;
+      const slot = env.DB ? await reserveKey(env.DB, apiKeys.length) : index;
       const keyId = await keyIdentifier(apiKeys[slot]);
       const track = (outcome, status, usage) => recordAttempt(env.DB, {requestId, slot, keyId, outcome, status, usage, model: MODEL});
-      const output = await postGemini(apiKeys[slot], payload, requestId, track);
+      const output = await postGemini(apiKeys[slot], payload, track);
       const parsed = parseOutput(output);
       onParsed(parsed);
       const fields = cleanReading(parsed);
@@ -266,6 +255,7 @@ export async function analyzeWithGemini(env, body, contentType, requestId, onPar
       }
       console.warn('Gemini request failed; trying the next configured API key.', {model: MODEL, requestId,
         reasonCode: cause.code, upstreamStatus: cause.upstreamStatus || null});
+      if (retryableFailure(cause)) await new Promise(resolve => setTimeout(resolve, RETRY_DELAY_MS));
     }
   }
   throw readingError('configuration', 503);
