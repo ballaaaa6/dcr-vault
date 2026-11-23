@@ -1,5 +1,7 @@
 # Changelog
 
+- Increased spacing above billing plans and highlighted the Pro plan with a centered Recommended badge.
+
 ## 2026-11-23 - Use current link formats
 
 - Remove support for legacy hash routes and certificate query links; certificate records use /cert/ paths.

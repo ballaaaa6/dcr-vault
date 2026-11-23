@@ -5,7 +5,7 @@ const plans = [
 ];
 
 function planCard(plan) {
-  return `<article class="billing-card ${plan.featured ? 'billing-card-featured' : ''}"><div class="billing-card-title"><h2>${plan.name}</h2>${plan.featured ? '<span class="billing-badge">Most popular</span>' : ''}</div><p class="billing-description">${plan.description}</p><p class="billing-price"><strong>$${plan.price}</strong> <span>/ month</span></p><div class="billing-trial-slot">${plan.featured ? '<p class="billing-trial">30 days free trial included</p>' : ''}</div><ul class="billing-features">${plan.features.map(feature => `<li><span aria-hidden="true">✓</span>${feature}</li>`).join('')}</ul><button class="billing-features-button" type="button" disabled>All features <span aria-hidden="true">→</span></button><button class="billing-purchase" type="button" disabled>Purchase</button></article>`;
+  return `<article class="billing-card ${plan.featured ? 'billing-card-featured' : ''}">${plan.featured ? '<span class="billing-badge">Recommended</span>' : ''}<div class="billing-card-title"><h2>${plan.name}</h2></div><p class="billing-description">${plan.description}</p><p class="billing-price"><strong>$${plan.price}</strong> <span>/ month</span></p><div class="billing-trial-slot">${plan.featured ? '<p class="billing-trial">30 days free trial included</p>' : ''}</div><ul class="billing-features">${plan.features.map(feature => `<li><span aria-hidden="true">✓</span>${feature}</li>`).join('')}</ul><button class="billing-features-button" type="button" disabled>All features <span aria-hidden="true">→</span></button><button class="billing-purchase" type="button" disabled>Purchase</button></article>`;
 }
 
 export function billing() {
