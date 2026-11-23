@@ -10,6 +10,7 @@ test('profile edits are authenticated, owner-scoped, validated and persistent', 
   sql.exec(readFileSync(new URL('../../../migrations/0001_users_sessions_cards.sql', import.meta.url), 'utf8'));
   sql.exec(readFileSync(new URL('../../../migrations/0011_profile_details.sql', import.meta.url), 'utf8'));
   sql.exec(readFileSync(new URL('../../../migrations/0012_collector_profile.sql', import.meta.url), 'utf8'));
+  sql.exec(readFileSync(new URL('../../../migrations/0014_profile_full_photo.sql', import.meta.url), 'utf8'));
   sql.prepare('INSERT INTO users(id,google_sub,email,display_name,avatar_url,created_at,updated_at) VALUES (?,?,?,?,?,?,?)').run('a','ga','a@example.com','Original','https://example.com/avatar',0,0);
   sql.prepare('INSERT INTO users(id,google_sub,email,display_name,created_at,updated_at) VALUES (?,?,?,?,?,?)').run('b','gb','b@example.com','Other',0,0);
   sql.prepare('INSERT INTO sessions(token_hash,user_id,expires_at,created_at) VALUES (?,?,?,?)').run(await tokenHash('token'), 'a', 9999999999, 0);
@@ -26,12 +27,16 @@ test('profile edits are authenticated, owner-scoped, validated and persistent', 
   assert.equal((await onRequestPut({request:request({displayName:'Collector',avatarUrl:''}),env})).status, 200);
   assert.equal(sql.prepare('SELECT avatar_url FROM users WHERE id = ?').get('a').avatar_url, '');
   assert.equal((await onRequestPut({request:request({avatarUrl:'data:image/jpeg;base64,/9j/2Q=='}),env})).status, 200);
+  assert.equal((await onRequestPut({request:request({avatarUrl:'data:image/jpeg;base64,/9j/2Q==',avatarFullUrl:'data:image/jpeg;base64,/9j/2Q=='}),env})).status, 200);
+  assert.equal(sql.prepare('SELECT avatar_full_url FROM users WHERE id = ?').get('a').avatar_full_url, 'data:image/jpeg;base64,/9j/2Q==');
+  assert.equal((await onRequestPut({request:request({avatarFullUrl:'https://evil.example'}),env})).status, 400);
   assert.equal((await onRequestPut({request:request({displayName:'Separate'}),env})).status, 200);
   const updated = sql.prepare('SELECT display_name, avatar_url FROM users WHERE id = ?').get('a');
   assert.equal(updated.display_name, 'Separate');
   assert.equal(updated.avatar_url, 'data:image/jpeg;base64,/9j/2Q==');
   assert.equal((await onRequestPut({request:request({avatarUrl:''}),env})).status, 200);
   assert.equal(sql.prepare('SELECT display_name FROM users WHERE id = ?').get('a').display_name, 'Separate');
+  assert.equal(sql.prepare('SELECT avatar_full_url FROM users WHERE id = ?').get('a').avatar_full_url, '');
   assert.equal((await onRequestPut({request:request({favoriteSeries:'  Pokémon  ',bio:'Collector'}),env})).status, 200);
   assert.equal((await onRequestPut({request:request({bio:'x'.repeat(241)}),env})).status, 400);
   assert.deepEqual({...sql.prepare('SELECT favorite_series, bio FROM users WHERE id = ?').get('a')}, {favorite_series:'Pokémon', bio:'Collector'});

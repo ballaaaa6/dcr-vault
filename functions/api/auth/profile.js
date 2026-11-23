@@ -7,28 +7,32 @@ export async function onRequestPut({request, env}) {
   if (!sameOrigin(request)) return json({error: 'Invalid request origin.'}, 403);
   const session = await currentUser(request, env);
   if (session.response) return session.response;
-  if (Number(request.headers.get('content-length')) > MAX_AVATAR_LENGTH + 1000) return json({error: 'Photo is too large.'}, 413);
+  if (Number(request.headers.get('content-length')) > MAX_AVATAR_LENGTH * 2 + 1000) return json({error: 'Photo is too large.'}, 413);
   const body = await readJson(request);
   const hasName = Object.hasOwn(body || {}, 'displayName');
   const hasAvatar = Object.hasOwn(body || {}, 'avatarUrl');
+  const hasFullAvatar = Object.hasOwn(body || {}, 'avatarFullUrl');
   const name = typeof body?.displayName === 'string' ? body.displayName.trim() : '';
   const avatar = body?.avatarUrl;
   const details = [['favoriteSeries', 'favorite_series', 80], ['bio', 'bio', 240], ['collectingSince', 'collecting_since', 10], ['collectionGoal', 'collection_goal', 240]];
   const updates = details.filter(([key]) => Object.hasOwn(body || {}, key));
   if (updates.some(([key, , max]) => typeof body[key] !== 'string' || body[key].trim().length > max)) return json({error: 'Personal details are too long.'}, 400);
   if (Object.hasOwn(body || {}, 'collectingSince') && !validDate(body.collectingSince.trim())) return json({error: 'Choose a valid date that is not in the future.'}, 400);
-  if (!hasName && !hasAvatar && !updates.length) return json({error: 'No profile changes provided.'}, 400);
+  if (!hasName && !hasAvatar && !hasFullAvatar && !updates.length) return json({error: 'No profile changes provided.'}, 400);
   if (hasName && (!name || name.length > 20)) return json({error: 'Enter a display name of up to 20 characters.'}, 400);
   if (hasAvatar && (typeof avatar !== 'string' || (avatar !== session.user.avatarUrl && !validAvatar(avatar)))) {
     return json({error: 'Please choose a valid photo.'}, 400);
   }
+  if (hasFullAvatar && (typeof body.avatarFullUrl !== 'string' || !validAvatar(body.avatarFullUrl))) return json({error: 'Please choose a valid photo.'}, 400);
   const fields = []; const values = [];
   if (hasName) { fields.push('display_name = ?'); values.push(name); }
   if (hasAvatar) { fields.push('avatar_url = ?'); values.push(avatar); }
+  if (hasFullAvatar) { fields.push('avatar_full_url = ?'); values.push(body.avatarFullUrl); }
+  else if (hasAvatar) { fields.push('avatar_full_url = ?'); values.push(''); }
   for (const [key, column] of updates) { fields.push(`${column} = ?`); values.push(body[key].trim()); }
   await env.DB.prepare(`UPDATE users SET ${fields.join(', ')}, updated_at = ? WHERE id = ?`)
     .bind(...values, Math.floor(Date.now() / 1000), session.user.id).run();
-  return json({user: {...session.user, ...(hasName && {displayName: name}), ...(hasAvatar && {avatarUrl: avatar}), ...Object.fromEntries(updates.map(([key]) => [key, body[key].trim()]))}});
+  return json({user: {...session.user, ...(hasName && {displayName: name}), ...(hasAvatar && {avatarUrl: avatar}), ...(hasFullAvatar ? {avatarFullUrl: body.avatarFullUrl} : hasAvatar ? {avatarFullUrl: ''} : {}), ...Object.fromEntries(updates.map(([key]) => [key, body[key].trim()]))}});
 }
 
 function validAvatar(value) {

@@ -37,7 +37,7 @@ export async function currentUser(request, env) {
   const token = cookieValue(request, SESSION_COOKIE);
   if (!token) return {response: error('Sign-in required.', 401)};
   const hash = await tokenHash(token);
-  const user = await env.DB.prepare(`SELECT u.id, u.email, u.created_at AS createdAt, u.display_name AS displayName, u.avatar_url AS avatarUrl, u.favorite_series AS favoriteSeries, u.bio AS bio, u.collecting_since AS collectingSince, u.collection_goal AS collectionGoal
+  const user = await env.DB.prepare(`SELECT u.id, u.email, u.created_at AS createdAt, u.display_name AS displayName, u.avatar_url AS avatarUrl, u.avatar_full_url AS avatarFullUrl, u.favorite_series AS favoriteSeries, u.bio AS bio, u.collecting_since AS collectingSince, u.collection_goal AS collectionGoal
     FROM sessions s JOIN users u ON u.id = s.user_id
     WHERE s.token_hash = ? AND s.expires_at > ?`)
     .bind(hash, Math.floor(Date.now() / 1000)).first();

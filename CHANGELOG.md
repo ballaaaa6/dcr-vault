@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Restore profile photo positioning
+
+- Restore draggable circular photo selection, add zoom, and retain a separate full image for viewing.
+
 ## 2026-11-23 - Fit card viewers on screen
 
 - Fit My Vault previews and certificate images within the viewport without scrolling.

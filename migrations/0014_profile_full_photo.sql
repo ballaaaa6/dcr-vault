@@ -1,0 +1,1 @@
+ALTER TABLE users ADD COLUMN avatar_full_url TEXT NOT NULL DEFAULT '';
