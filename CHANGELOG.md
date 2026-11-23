@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Rename Add Card route
+
+- Move the Add Card page to /archive and remove the /register route.
+
 - Increased spacing above billing plans and highlighted the Pro plan with a centered Recommended badge.
 
 ## 2026-11-23 - Use current link formats

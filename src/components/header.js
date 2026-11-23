@@ -5,7 +5,7 @@ import {bindSignOut, signOutDialog} from './sign-out-dialog.js';
 
 const items = [
   ['/', 'Home'],
-  ['/register', 'Add Card'],
+  ['/archive', 'Add Card'],
   ['/vault', 'My Vault'],
   ['/label', 'Labels']
 ];

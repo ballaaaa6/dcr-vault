@@ -54,7 +54,7 @@ function genericSkeleton() {
 
 const pageSkeletons = {
   '/': homeSkeleton,
-  '/register': intakeSkeleton,
+  '/archive': intakeSkeleton,
   '/vault': vaultSkeleton,
   '/label': labelSkeleton,
   '/profile': profileSkeleton,
