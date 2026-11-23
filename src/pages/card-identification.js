@@ -125,7 +125,9 @@ function fillGeminiValues(fields, requestId) {
     appliedValues[key] = input.value;
   }
   invalidateCatalogSuggestions();
-  document.getElementById('manual-status').textContent = 'Card reading filled the available details. Checking the catalog; review all fields before saving.';
+  const status = document.getElementById('manual-status');
+  status.dataset.state = 'pending';
+  status.textContent = 'Card reading filled the available details. Checking the catalog; review all fields before saving.';
   return values;
 }
 
@@ -166,7 +168,9 @@ async function applyReading(fields, version, requestId, values) {
           : '';
   const englishNote = sourceLanguage !== 'en'
     ? ' Card number is the printed number; English name is a translation to review.' : '';
-  document.getElementById('manual-status').textContent = matchNote ? `${matchNote}${englishNote}` : '';
+  const status = document.getElementById('manual-status');
+  status.dataset.state = source && !evidenceMatch ? 'success' : 'warning';
+  status.textContent = matchNote ? `${matchNote}${englishNote}` : 'Card reading complete. Review all fields before saving.';
   logIdentificationStage('browser', {match: source ? evidenceMatch ? 'evidence_review' : 'matched' : catalogUnavailable ? 'catalog_unavailable' : 'unresolved',
     candidates: candidates.map(card => card.id), provenance: fieldProvenance, conflicts: [...conflicts, ...differences]});
   return {source, candidates, matchNote, englishNote};
@@ -226,6 +230,7 @@ function selectReadingCandidate(index) {
 }
 
 function showError(message) {
+  document.getElementById('manual-status').dataset.state = 'error';
   document.getElementById('manual-status').textContent = message;
 }
 
@@ -238,6 +243,10 @@ async function analyzeFront() {
   analysisBusy = true;
   button.disabled = true;
   button.textContent = 'Identifying card…';
+  const status = document.getElementById('manual-status');
+  status.dataset.toastKey = 'identification';
+  status.dataset.state = 'pending';
+  status.textContent = 'Reading card…';
   try {
     let result;
     try { result = await identifyCardImage(file); }
@@ -254,7 +263,13 @@ async function analyzeFront() {
     const resolution = await applyReading(result.fields, version, result.requestId, values);
     if (resolution && version === analysisVersion) candidateState = {fields: result.fields, candidates: resolution.candidates, version};
     if (resolution && version === analysisVersion) setResult(`${readingSummaryMarkup(result.fields, result.source, true, classification)}<p class="identification-match-note">${escapeHTML(resolution.matchNote + resolution.englishNote)} Review all details before saving.</p>${candidateMarkup(resolution.candidates)}`);
+  } catch {
+    if (version === analysisVersion) showError('Card reading could not be completed. Try again.');
   } finally {
+    if (version !== analysisVersion && status.dataset.state === 'pending') {
+      status.dataset.state = 'warning';
+      status.textContent = 'Card reading was interrupted. Review the details and try again.';
+    }
     analysisBusy = false;
     button.textContent = 'Identify card';
     updateButton();

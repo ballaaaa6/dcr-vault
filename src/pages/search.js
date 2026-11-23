@@ -167,7 +167,7 @@ function completeIntake() {
   invalidateCardResolution();
   document.querySelector('.intake-page').outerHTML = search();
   initializeSearchPage();
-  showToast('Card added to your vault.', 'success');
+  showToast('Card added to your vault.', 'success', {key: 'intake-save'});
 }
 
 async function saveIntake() {
@@ -196,15 +196,22 @@ async function saveIntake() {
   updateSubmitState();
   try {
     if (certInput.dataset.certAvailable !== 'true' && !await checkCertInput()) { certInput.focus(); return; }
+    status.dataset.toastKey = 'save';
+    status.dataset.state = 'pending';
+    status.textContent = 'Adding card to your vault…';
     const card = window.__intakeSavedCard || await createIntakeCard(certNumber);
     if (selectedPhotos().length) {
       status.textContent = 'Uploading selected photos…';
       const failed = await uploadPhotos(card);
-      if (failed.length) { status.textContent = `Card saved. Retry the photos that failed: ${failed.join('; ')}`; button.textContent = 'Retry photo upload'; return; }
+      if (failed.length) { status.dataset.state = 'error'; status.textContent = `Card saved. Retry the photos that failed: ${failed.join('; ')}`; button.textContent = 'Retry photo upload'; return; }
     }
     completeIntake();
   } catch (error) {
-    if (error.status === 409) setCertState(false, 'This Cert number is already used. Choose another number.', 'error');
+    if (error.status === 409) {
+      status.dataset.state = 'error';
+      status.textContent = 'This Cert number is already used. Choose another number.';
+      setCertState(false, '', 'error');
+    }
     else { status.dataset.state = 'error'; status.textContent = error.message || 'The card could not be saved.'; }
   } finally {
     button.dataset.busy = 'false';

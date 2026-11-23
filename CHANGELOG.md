@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Update ongoing toast notifications
+
+- Keep related operation updates in the same toast, hold progress messages until completion, and fade results over six seconds.
+
 ## 2026-11-23 - Adjust selected vault card artwork
 
 - Keep card text unchanged when selected and increase selected background artwork opacity to 80%.
