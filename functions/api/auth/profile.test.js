@@ -30,6 +30,8 @@ test('profile edits are authenticated, owner-scoped, validated and persistent', 
   assert.equal((await onRequestPut({request:request({avatarUrl:'data:image/jpeg;base64,/9j/2Q==',avatarFullUrl:'data:image/jpeg;base64,/9j/2Q=='}),env})).status, 200);
   assert.equal(sql.prepare('SELECT avatar_full_url FROM users WHERE id = ?').get('a').avatar_full_url, 'data:image/jpeg;base64,/9j/2Q==');
   assert.equal((await onRequestPut({request:request({avatarFullUrl:'https://evil.example'}),env})).status, 400);
+  assert.equal((await onRequestPut({request:request({avatarFullUrl:'data:image/jpeg;base64,/9j/2Q=='}),env})).status, 400);
+  assert.equal((await onRequestPut({request:request({avatarUrl:'',avatarFullUrl:'data:image/jpeg;base64,/9j/2Q=='}),env})).status, 400);
   assert.equal((await onRequestPut({request:request({displayName:'Separate'}),env})).status, 200);
   const updated = sql.prepare('SELECT display_name, avatar_url FROM users WHERE id = ?').get('a');
   assert.equal(updated.display_name, 'Separate');

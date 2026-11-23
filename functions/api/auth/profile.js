@@ -19,6 +19,8 @@ export async function onRequestPut({request, env}) {
   if (updates.some(([key, , max]) => typeof body[key] !== 'string' || body[key].trim().length > max)) return json({error: 'Personal details are too long.'}, 400);
   if (Object.hasOwn(body || {}, 'collectingSince') && !validDate(body.collectingSince.trim())) return json({error: 'Choose a valid date that is not in the future.'}, 400);
   if (!hasName && !hasAvatar && !hasFullAvatar && !updates.length) return json({error: 'No profile changes provided.'}, 400);
+  if (hasFullAvatar && !hasAvatar) return json({error: 'Please save both versions of the photo together.'}, 400);
+  if (hasFullAvatar && Boolean(avatar) !== Boolean(body.avatarFullUrl)) return json({error: 'Please save both versions of the photo together.'}, 400);
   if (hasName && (!name || name.length > 20)) return json({error: 'Enter a display name of up to 20 characters.'}, 400);
   if (hasAvatar && (typeof avatar !== 'string' || (avatar !== session.user.avatarUrl && !validAvatar(avatar)))) {
     return json({error: 'Please choose a valid photo.'}, 400);

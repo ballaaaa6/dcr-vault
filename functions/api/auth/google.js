@@ -1,6 +1,6 @@
 import {cookie, cookieValue, json, readJson, requireDatabase, sameOrigin} from '../../_utils/http.js';
 import {verifyGoogleCredential} from '../../_utils/google.js';
-import {createSession, sessionCookie} from '../../_utils/sessions.js';
+import {createSession, normalizeProfilePhoto, sessionCookie} from '../../_utils/sessions.js';
 
 export async function onRequestPost({request, env}) {
   if (!sameOrigin(request)) return json({error: 'Invalid request origin.'}, 403);
@@ -20,7 +20,7 @@ export async function onRequestPost({request, env}) {
   catch { return json({error: 'Your account could not be created right now.'}, 503); }
 }
 
-async function establishSession(claims, request, env) {
+export async function establishSession(claims, request, env) {
   const now = Math.floor(Date.now() / 1000);
   const user = await env.DB.prepare(`INSERT INTO users (id, google_sub, email, display_name, avatar_url, created_at, updated_at)
     VALUES (?, ?, ?, ?, ?, ?, ?)
@@ -29,6 +29,7 @@ async function establishSession(claims, request, env) {
     RETURNING id, email, display_name AS displayName, avatar_url AS avatarUrl, avatar_full_url AS avatarFullUrl, favorite_series AS favoriteSeries, bio AS bio, collecting_since AS collectingSince, collection_goal AS collectionGoal`)
     .bind(crypto.randomUUID(), claims.sub, claims.email, (claims.name || claims.email || '').slice(0, 20), claims.picture || '', now, now).first();
   const token = await createSession(env.DB, user.id);
+  normalizeProfilePhoto(user);
   user.displayName = (user.displayName || user.email || '').slice(0, 20);
   const response = json({user});
   response.headers.append('Set-Cookie', sessionCookie(token, request));

@@ -42,8 +42,16 @@ export async function currentUser(request, env) {
     WHERE s.token_hash = ? AND s.expires_at > ?`)
     .bind(hash, Math.floor(Date.now() / 1000)).first();
   if (!user) return {response: error('Sign-in required.', 401)};
+  normalizeProfilePhoto(user);
   user.displayName = (user.displayName || user.email || '').slice(0, 20);
   return {user, hash};
+}
+
+export function normalizeProfilePhoto(user) {
+  if (user.avatarFullUrl && /^https:\/\//i.test(user.avatarUrl || '')) {
+    user.avatarUrl = user.avatarFullUrl;
+  }
+  return user;
 }
 
 export async function deleteSession(request, db) {

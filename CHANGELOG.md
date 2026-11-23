@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Keep profile photos consistent
+
+- Prefer an uploaded full photo over a legacy Google thumbnail and require photo versions to be saved together.
+
 - Keep the current Cert number while finding a new available number and show the result after checking.
 - Show a color-coded ten-second progress bar on shared toast notifications.
 
