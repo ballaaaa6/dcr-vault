@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-23 - Shorten photo removal message
+
+- Keep the profile photo removal confirmation concise.
+
 ## 2026-11-23 - Hide profile photo removal control
 
 - Hide the removal control when the pointer leaves the avatar while preserving keyboard access, and center the confirmation buttons.
