@@ -1,70 +1,76 @@
-const duration = 1800;
+import lottie from 'lottie-web/build/player/lottie_light';
+import original from './scanner-original.json';
 
-function imageBounds(image, canvas) {
-  const frame = canvas.getBoundingClientRect();
+const red = [200 / 255, 16 / 255, 46 / 255];
+
+function tintAnimation() {
+  const data = structuredClone(original);
+  data.layers = data.layers.filter(layer => layer.nm !== 'White Solid 1');
+  const colorShapes = (value, dots = false) => {
+    if (Array.isArray(value)) { value.forEach(item => colorShapes(item, dots)); return; }
+    if (!value || typeof value !== 'object') return;
+    if (value.ty === 'fl' || value.ty === 'st') {
+      const mix = dots ? 0.15 + Math.random() * 0.45 : 0;
+      const color = red.map(component => component + (1 - component) * mix);
+      if (dots && value.ty === 'fl') {
+        const alternate = red.map(component => component + (1 - component) * (0.15 + Math.random() * 0.45));
+        value.c = {a: 1, k: [
+          {t: 0, s: [...color, 1], e: [...alternate, 1], i: {x: [0.5], y: [1]}, o: {x: [0.5], y: [0]}},
+          {t: 30, s: [...alternate, 1], e: [...color, 1], i: {x: [0.5], y: [1]}, o: {x: [0.5], y: [0]}},
+          {t: 60, s: [...color, 1]}
+        ]};
+      } else value.c.k = color;
+    }
+    if (value.ty === 'gf') {
+      const stops = value.g.k.k;
+      for (let index = 0; index < value.g.p; index++) stops.splice(index * 4 + 1, 3, ...red);
+    }
+    Object.values(value).forEach(item => colorShapes(item, dots));
+  };
+  data.layers.forEach(layer => colorShapes(layer));
+  data.assets.forEach(asset => colorShapes(asset, true));
+  return data;
+}
+
+function fitToPhoto(container, image, svg) {
+  const frame = container.getBoundingClientRect();
   const box = image.getBoundingClientRect();
   const scale = Math.min(box.width / image.naturalWidth, box.height / image.naturalHeight);
   const width = image.naturalWidth * scale;
   const height = image.naturalHeight * scale;
-  return {x: box.left - frame.left + (box.width - width) / 2, y: box.top - frame.top + (box.height - height) / 2, width, height};
-}
-
-function drawScan(canvas, image, progress, opacity, points, time) {
-  const rect = canvas.getBoundingClientRect();
-  const ratio = window.devicePixelRatio || 1;
-  canvas.width = Math.round(rect.width * ratio);
-  canvas.height = Math.round(rect.height * ratio);
-  const context = canvas.getContext('2d');
-  context.scale(ratio, ratio);
-  const bounds = imageBounds(image, canvas);
-  const y = bounds.y + progress * bounds.height;
-  context.globalAlpha = opacity;
-  const red = getComputedStyle(canvas).getPropertyValue('--dcr-red').trim();
-  context.fillStyle = red;
-  context.fillRect(bounds.x, y - 1, bounds.width, 2);
-  points.forEach(point => {
-    const distance = (point.offset + time / 4200) % 1;
-    const py = y - distance * bounds.height * 0.45;
-    if (py < bounds.y || py > bounds.y + bounds.height) return;
-    const mix = Math.round(35 + 45 * (0.5 + 0.5 * Math.sin(time / 1500 + point.phase)));
-    context.fillStyle = `color-mix(in srgb, ${red} ${100 - mix}%, white)`;
-    context.globalAlpha = opacity * (1 - distance) * 0.85;
-    context.beginPath();
-    context.arc(bounds.x + point.x * bounds.width, py, point.radius, 0, Math.PI * 2);
-    context.fill();
-  });
+  if (!width || !height || !frame.width || !frame.height) return;
+  const x = box.left - frame.left + (box.width - width) / 2;
+  const y = box.top - frame.top + (box.height - height) / 2;
+  svg.setAttribute('viewBox', `${-x * original.w / width} ${-y * original.h / height} ${frame.width * original.w / width} ${frame.height * original.h / height}`);
+  svg.setAttribute('preserveAspectRatio', 'none');
 }
 
 export function startCardScan() {
   const image = document.querySelector('[data-image-preview="front"] img');
-  if (!image || !image.naturalWidth) return () => {};
-  const canvas = document.createElement('canvas');
-  canvas.className = 'card-scan';
-  canvas.setAttribute('aria-hidden', 'true');
-  image.parentElement.append(canvas);
-  const points = Array.from({length: 25}, () => ({x: Math.random(), offset: Math.random(), phase: Math.random() * 6.28, radius: 1 + Math.random() * 2}));
-  let started;
-  let finishing = false;
-  let finishAt = 0;
-  let fadeStart = 0;
-  function frame(time) {
-    if (!canvas.isConnected || !image.isConnected) { canvas.remove(); return; }
-    started ??= time;
-    const elapsed = time - started;
-    const cycle = elapsed % (duration * 2);
-    const progress = cycle <= duration ? cycle / duration : 2 - cycle / duration;
-    const opacity = finishing ? Math.max(0, (finishAt - time) / (finishAt - fadeStart)) : 1;
-    drawScan(canvas, image, progress, opacity, points, elapsed);
-    if (finishing && time >= finishAt) { canvas.remove(); return; }
-    requestAnimationFrame(frame);
-  }
-  requestAnimationFrame(frame);
+  if (!image?.naturalWidth) return () => {};
+  const container = document.createElement('div');
+  container.className = 'card-scan';
+  container.setAttribute('aria-hidden', 'true');
+  image.parentElement.append(container);
+  const animation = lottie.loadAnimation({container, renderer: 'svg', loop: true, autoplay: true, animationData: tintAnimation(), rendererSettings: {preserveAspectRatio: 'none'}});
+  const observer = new ResizeObserver(() => { if (container.firstElementChild) fitToPhoto(container, image, container.firstElementChild); });
+  observer.observe(container);
+  observer.observe(image);
+  animation.addEventListener('DOMLoaded', () => fitToPhoto(container, image, container.firstElementChild));
+  let stopped = false;
+  function cleanup() { observer.disconnect(); animation.destroy(); container.remove(); }
   return () => {
-    if (finishing) return;
-    if (started === undefined || matchMedia('(prefers-reduced-motion: reduce)').matches) { canvas.remove(); return; }
-    fadeStart = performance.now();
-    const remainder = (fadeStart - started) % duration;
-    finishAt = fadeStart + (duration - remainder);
-    finishing = true;
+    if (stopped) return;
+    stopped = true;
+    if (!container.isConnected || matchMedia('(prefers-reduced-motion: reduce)').matches) { cleanup(); return; }
+    const frame = animation.currentFrame % 60;
+    const remaining = (frame < 30 ? 30 - frame : 60 - frame) / original.fr * 1000;
+    const start = performance.now();
+    function fade(now) {
+      if (!container.isConnected || now - start >= remaining) { cleanup(); return; }
+      container.firstElementChild?.setAttribute('opacity', String(1 - (now - start) / remaining));
+      requestAnimationFrame(fade);
+    }
+    requestAnimationFrame(fade);
   };
 }

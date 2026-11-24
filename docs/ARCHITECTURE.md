@@ -6,6 +6,7 @@
 - Pages Functions live in `functions/` and provide same-origin authentication and card APIs.
 - Cloudflare D1 stores user profiles, hashed session identifiers, and card records.
 - The browser uses `src/store/cards.js` as an API client. D1 is the source of truth for signed-in accounts.
+- Card identification uses lottie-web to render the original [scanner animation by Karma Tsewang](https://lottiefiles.com/free-animation/scanner-p04CUNQy2m), distributed under the Lottie Simple License. The local animation data is tinted and its white background removed for the photo overlay.
 
 - Certificate image export uses html2canvas to capture the rendered public card details and photos as a PNG. Images are fetched before capture so failed or inaccessible photos cannot silently disappear from the export.
 
