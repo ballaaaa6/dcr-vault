@@ -2,6 +2,9 @@
 
 # Changelog
 
+## 2026-11-24 - Highlight filled Vault edit fields
+- Match filled card and private detail fields to the Add Card form background.
+
 ## 2026-11-24 - Streamline Vault card editing
 - Compact the card editor, remove its explanatory text and language inputs, and match classification choices to the identification review.
 

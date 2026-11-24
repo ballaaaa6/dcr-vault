@@ -233,3 +233,5 @@
 .location-drag-handle{flex:none;border:0;background:transparent;color:var(--dcr-gray);font-size:20px;line-height:1;padding:8px;cursor:grab;touch-action:none}
 .location-drag-handle:focus-visible{outline:2px solid var(--dcr-red);outline-offset:2px}
 .location-row{position:relative;justify-content:initial;touch-action:pan-y}.location-row > span{flex:1}.location-row.is-dragging{opacity:.5}.location-row.drop-before::before,.location-row.drop-after::after{content:"";position:absolute;left:0;right:0;height:3px;background:var(--dcr-red);z-index:1}.location-row.drop-before::before{top:-2px}.location-row.drop-after::after{bottom:-2px}
+
+.vault-edit .form-control.has-value,.vault-edit .dropdown-control summary[data-empty="false"],.vault-edit .date-picker-trigger:has([data-empty="false"]),.vault-edit .catalog-select-wrap.has-value .catalog-select__control,.vault-edit #vault-collection-mount .has-value .catalog-select__control{background:var(--dcr-border)}

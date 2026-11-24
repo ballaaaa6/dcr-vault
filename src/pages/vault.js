@@ -152,6 +152,7 @@ function selectCard(id, mode = 'item') {
   document.querySelector('.vault-photo-panel').innerHTML = vaultPhoto(card);
   initializeVaultPhoto(document.querySelector('.vault-photo-panel'));
   initializeDatePicker(document.querySelector('.vault-detail'));
+  if (mode.startsWith('edit-')) document.querySelectorAll('#vault-edit input.form-control, #vault-edit select.form-control, #vault-edit textarea.form-control').forEach(updateFilledField);
   document.querySelectorAll('.vault-row').forEach(row => {
     row.setAttribute('aria-pressed', String(row.dataset.cardId === id));
   });
@@ -171,6 +172,10 @@ window.__selectVault = async id => {
 function closeVaultMenuOnOutsideClick(event) {
   const menu = document.querySelector('.vault-menu[open]');
   if (menu && !menu.contains(event.target)) menu.open = false;
+}
+
+function updateFilledField(field) {
+  field.classList.toggle('has-value', Boolean(field.value.trim()));
 }
 
 export function initializeVault() {
@@ -198,11 +203,17 @@ export function initializeVault() {
   if (selectedId) selectCard(selectedId);
   document.querySelector('.vault-detail')?.addEventListener('input', event => {
     const form = event.target.closest('#vault-edit');
-    if (form) form.dataset.dirty = 'true';
+    if (form) {
+      form.dataset.dirty = 'true';
+      if (event.target.matches('.form-control')) updateFilledField(event.target);
+    }
   });
   document.querySelector('.vault-detail')?.addEventListener('change', event => {
     const form = event.target.closest('#vault-edit');
-    if (form) form.dataset.dirty = 'true';
+    if (form) {
+      form.dataset.dirty = 'true';
+      if (event.target.matches('.form-control')) updateFilledField(event.target);
+    }
   });
 }
 
