@@ -3,8 +3,11 @@ import {searchClearButton} from '../components/search-clear.js';
 import {datePicker, initializeDatePicker} from '../components/date-picker.js';
 import {deleteCard, updateCard, getCards} from '../store/cards.js';
 import {locationsRequest} from '../store/locations.js';
-import {locationDialog, initializeLocations, setLocations, getLocations} from '../components/vault-locations.js';
-import {locationFilter, mountLocationInput, unmountLocationInput} from '../components/vault-location-input.js';
+import {collectionsRequest} from '../store/collections.js';
+import {vaultFilter, initializeVaultFilter} from '../components/vault-filter.js';
+import {mountCollectionInput, unmountCollectionInput} from '../components/vault-collection-input.js';
+import {locationDialog, initializeLocations, setLocations, getLocations, setCollections, getCollections} from '../components/vault-locations.js';
+import {mountLocationInput, unmountLocationInput} from '../components/vault-location-input.js';
 import {listRow} from '../components/card-item.js';
 import {vaultPhoto, initializeVaultPhoto} from '../components/vault-photo.js';
 import {itemInformation} from './verify.js';
@@ -14,47 +17,42 @@ import {classificationFields, classificationInput} from '../utils/card-classific
 import {vaultBackground, preloadSelectedBackgrounds} from '../utils/vault-background.js';
 import {prefetchNearbyImages} from '../utils/prefetch-images.js';
 import {confirmDiscard, discardDialog} from '../components/confirm-discard.js';
-
 const sources = ['Facebook', 'Instagram', 'TikTok', 'Shopee', 'Lazada', 'eBay', 'TCGplayer', 'Card shop', 'Card show'];
 const currencies = ['THB', 'USD', 'JPY', 'EUR', 'GBP', 'AUD', 'CAD', 'CNY', 'HKD', 'SGD', 'MYR', 'TWD', 'KRW', 'IDR', 'PHP', 'VND', 'CHF', 'NZD'];
 let activeCards = [];
 let selectedId = '';
 let vaultBusy = false;
 let stopImagePrefetch = () => {};
-
 const publicFields = [
   ['certNumber', 'Cert number', 8], ['name', 'Card name', 120], ['game', 'Brand / Title', 30], ['year', 'Year', 4],
   ['cardTypeLabel', 'Card type', 60], ['series', 'Series', 120], ['languageLabel', 'Language label', 60],
   ['setName', 'Set name', 120], ...classificationFields, ['cardNumber', 'Card number', 30], ['rarity', 'Rarity', 80],
   ['gradeLabel', 'Condition', 60], ['sourceFinish', 'Finish', 30], ['sourceLanguage', 'Language code', 20]
 ];
-
 function editFields(card) {
   return publicFields.map(([key, label, limit]) => classificationFields.some(([field]) => field === key)
     ? classificationInput(key, label, limit, card[key]) : `<label class="form-field"><span>${label}</span>
     <input class="form-control" name="${key}" maxlength="${limit}" value="${escapeHTML(card[key] || '')}" ${key === 'certNumber' ? 'inputmode="numeric" pattern="[0-9]{1,8}" required' : key === 'name' ? 'required' : ''}></label>`).join('');
 }
-
-export function vault(cards = [], locations = []) {
+export function vault(cards = [], locations = [], collections = []) {
   activeCards = cards;
   setLocations(locations);
-  if (!cards.length) return `<main class="app-page vault-page"><header class="page-heading"><h1>My Vault</h1></header><div class="vault-toolbar"><div id="location-filter-wrap">${locationFilter()}</div></div><section class="surface-card empty-state"><p>Your private vault is ready for its first card.</p><a class="btn btn-primary" href="/archive">Add a card</a></section>${locationDialog()}</main>`;
+  setCollections(collections);
+  if (!cards.length) return `<main class="app-page vault-page"><header class="page-heading"><h1>My Vault</h1></header><div class="vault-toolbar"><div id="location-filter-wrap">${vaultFilter()}</div></div><section class="surface-card empty-state"><p>Your private vault is ready for its first card.</p><a class="btn btn-primary" href="/archive">Add a card</a></section>${locationDialog()}</main>`;
   const params = new URLSearchParams(location.search);
   const sortedCards = [...cards].sort((a, b) => compareVaultCards(a, b, 'date-desc'));
   const focus = cards.find(card => card.id === params.get('id')) || sortedCards[0];
   selectedId = focus.id;
   const rows = sortedCards.map(listRow).join('');
-
   return `
     <main class="app-page vault-page">
       <header class="page-heading vault-heading">
-
         <h1>My Vault</h1>
         <p id="vault-count" class="page-description">${cards.length} ${cards.length === 1 ? 'card' : 'cards'} · Prices stay private to your account and never appear on labels.</p>
       </header>
       <form class="vault-toolbar" onsubmit="event.preventDefault(); window.__filterVault()">
         ${vaultSortSelect('vault-sort')}
-        <div id="location-filter-wrap">${locationFilter()}</div>
+        <div id="location-filter-wrap">${vaultFilter()}</div>
         <div class="search-bar vault-query">
           <label class="sr-only" for="vault-q">Search your cards</label><input id="vault-q" placeholder="Search name, set or Cert number">
           ${searchClearButton()}
@@ -78,30 +76,28 @@ export function vault(cards = [], locations = []) {
       ${locationDialog()}
     </main>`;
 }
-
 function renderLocationFilter() {
   const wrap = document.getElementById('location-filter-wrap');
   if (!wrap) return;
   const current = document.getElementById('vault-location-filter')?.value || '';
-  wrap.innerHTML = locationFilter(getLocations().some(item => item.id === current) ? current : '');
+  const collection = document.getElementById('vault-collection-filter')?.value || '';
+  wrap.innerHTML = vaultFilter(current, collection);
 }
-
 async function refreshLocations() {
-  const [result, cards] = await Promise.all([locationsRequest(), getCards()]);
+  const [result, groups, cards] = await Promise.all([locationsRequest(), collectionsRequest(), getCards()]);
   setLocations(result.locations);
+  setCollections(groups.collections);
   for (const card of cards) Object.assign(activeCards.find(item => item.id === card.id) || {}, card);
   renderLocationFilter();
   if (selectedId && document.querySelector('.vault-detail')) selectCard(selectedId, 'private');
   if (document.getElementById('vault-q')) window.__filterVault();
 }
-
 const flipIcon = '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-5V2M4 17h5v5M20 7a8 8 0 0 0-14-2M4 17a8 8 0 0 0 14 2"/></svg>';
 const privateKeys = ['buyPrice', 'buyCurrency', 'purchaseSource', 'seller', 'receivedDate', 'storageLocation', 'position', 'notes'];
-
 function privateInformation(card) {
   const price = card.buyPrice == null || card.buyPrice === '' ? '-' : `${card.buyPrice} ${card.buyCurrency || 'THB'}`;
   const fields = [['Buy price', price], ['Acquisition', card.purchaseSource], ['Seller', card.seller],
-    ['Date received', card.receivedDate], ['Storage location', card.storageLocation], ['Position', card.position], ['Notes', card.notes]];
+    ['Date received', card.receivedDate], ['Storage location', card.storageLocation], ['Position', card.position], ['Collections', getCollections().filter(group => group.cardIds.includes(card.id)).map(group => group.name).join(', ')], ['Notes', card.notes]];
   if (card.boughtFrom) fields.push(['Bought from (previous)', card.boughtFrom]);
   return `<section class="cert-information vault-private"><h2>Private vault details</h2><dl>${fields.map(([label, value]) =>
     `<div><dt>${label}</dt><dd>${escapeHTML(value || '-')}</dd></div>`).join('')}</dl></section>`;
@@ -118,6 +114,7 @@ function privateInputs(card) {
     ${card.boughtFrom ? `<p class="detail-note">Bought from (previous): ${escapeHTML(card.boughtFrom)}</p>` : ''}
     ${datePicker(card.receivedDate)}
     <div class="form-field"><label for="m-storageLocation-input">Storage location</label><input type="hidden" id="m-storageLocation" name="storageLocation" value="${escapeHTML(card.storageLocation || '')}"><div id="vault-location-mount"></div></div>
+    <div class="form-field"><label for="vault-collections-input">Collections</label><input type="hidden" id="vault-collection-values" value="${escapeHTML(JSON.stringify(getCollections().filter(group => group.cardIds.includes(card.id)).map(group => group.id)))}"><div id="vault-collection-mount"></div></div>
     <label class="form-field"><span>Position</span><input class="form-control" name="position" maxlength="200" value="${escapeHTML(card.position || '')}" placeholder="e.g. Page 3"></label>
     <label class="form-field"><span>Notes</span><textarea class="form-control" name="notes" maxlength="2000" rows="3">${escapeHTML(card.notes || '')}</textarea></label>`;
 }
@@ -147,8 +144,9 @@ function selectCard(id, mode = 'item') {
   document.querySelector('.vault-selected').dataset.vaultArt = vaultBackground(card);
   document.querySelector('.vault-layout').classList.remove('is-unselected');
   unmountLocationInput();
+  unmountCollectionInput();
   document.querySelector('.vault-detail').innerHTML = detailMarkup(card, mode);
-  if (mode === 'edit-private') mountLocationInput(card.storageLocation || '');
+  if (mode === 'edit-private') { mountLocationInput(card.storageLocation || ''); mountCollectionInput(card.id); }
   document.querySelector('.vault-photo-panel').innerHTML = vaultPhoto(card);
   initializeVaultPhoto(document.querySelector('.vault-photo-panel'));
   initializeDatePicker(document.querySelector('.vault-detail'));
@@ -174,6 +172,13 @@ function closeVaultMenuOnOutsideClick(event) {
 }
 
 export function initializeVault() {
+  initializeVaultFilter(async () => {
+    const form = document.getElementById('vault-edit');
+    if (form?.dataset.dirty !== 'true') return true;
+    if (!await confirmDiscard()) return false;
+    selectCard(selectedId, form.dataset.mode === 'edit-private' ? 'private' : 'item');
+    return true;
+  });
   initializeLocations(refreshLocations, async () => {
     const form = document.getElementById('vault-edit');
     if (form?.dataset.dirty === 'true') {
@@ -203,7 +208,7 @@ window.__filterVault = () => {
   const sort = document.getElementById('vault-sort').value;
   const matches = activeCards.filter(card => {
     const searchable = [card.name, card.setName, card.certNumber, card.cardNumber].join(' ').toLowerCase();
-    return (!document.getElementById('vault-location-filter')?.value || card.storageLocationId === document.getElementById('vault-location-filter').value) && (!query || (cert ? normalizeCert(card.certNumber) === cert : searchable.includes(query)));
+    return (!document.getElementById('vault-location-filter')?.value || card.storageLocationId === document.getElementById('vault-location-filter').value) && (!document.getElementById('vault-collection-filter')?.value || getCollections().find(group => group.id === document.getElementById('vault-collection-filter').value)?.cardIds.includes(card.id)) && (!query || (cert ? normalizeCert(card.certNumber) === cert : searchable.includes(query)));
   });
   matches.sort((a, b) => compareVaultCards(a, b, sort));
   const list = document.getElementById('vault-list');
@@ -242,13 +247,15 @@ window.__saveDetail = async (event, id) => {
   const privateMode = event.target.dataset.mode === 'edit-private';
   const keys = privateMode ? privateKeys.filter(key => key !== 'purchaseSource') : publicFields.map(([key]) => key);
   const patch = Object.fromEntries(keys.map(key => [key, event.target.elements[key].value]));
+  if (privateMode) patch.collectionIds = JSON.parse(document.getElementById('vault-collection-values').value);
   if (privateMode) patch.purchaseSource = event.target.elements.sourceChoice.value === 'Other' ? event.target.elements.customSource.value : event.target.elements.sourceChoice.value;
   if (!privateMode) patch.certNumber = normalizeCert(patch.certNumber);
   try {
     await updateCard(id, patch);
     if (privateMode) {
-      const [cards, result] = await Promise.all([getCards(), locationsRequest()]);
+      const [cards, result, groups] = await Promise.all([getCards(), locationsRequest(), collectionsRequest()]);
       setLocations(result.locations);
+      setCollections(groups.collections);
       const updated = cards.find(card => card.id === id);
       Object.assign(activeCards.find(card => card.id === id), updated);
       renderLocationFilter();

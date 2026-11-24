@@ -11,6 +11,12 @@ export async function onRequestPatch({request, env, params}) {
   const session = await currentUser(request, env);
   if (session.response) return session.response;
   const input = await readJson(request);
+  if ('collectionIds' in (input || {})) {
+    if (typeof input.storageLocation !== 'string' || !Array.isArray(input.collectionIds) || input.collectionIds.some(id => typeof id !== 'string') || new Set(input.collectionIds).size !== input.collectionIds.length) return error('Invalid collections.');
+    const groups = await env.DB.prepare('SELECT id FROM collections WHERE user_id = ?').bind(session.user.id).all();
+    const allowed = new Set((groups.results || []).map(group => group.id));
+    if (input.collectionIds.some(id => !allowed.has(id))) return error('Collection list changed. Please try again.', 409);
+  }
   const patch = cleanPatch(input);
   if (!patch) return error('No valid card details were provided.');
   const values = Object.values(patch);
@@ -18,7 +24,7 @@ export async function onRequestPatch({request, env, params}) {
   let result;
   try {
     if (typeof input.storageLocation === 'string') {
-      result = await updateWithLocation(env.DB, session.user.id, params.id, input.storageLocation, columns, values);
+      result = await updateWithLocation(env.DB, session.user.id, params.id, input.storageLocation, columns, values, input.collectionIds);
     } else {
       result = await env.DB.prepare(`UPDATE cards SET ${columns}, updated_at = ? WHERE id = ? AND user_id = ?`)
         .bind(...values, Math.floor(Date.now() / 1000), params.id, session.user.id).run();
@@ -31,7 +37,7 @@ export async function onRequestPatch({request, env, params}) {
   return json({ok: true});
 }
 
-async function updateWithLocation(db, userId, id, value, columns, values) {
+async function updateWithLocation(db, userId, id, value, columns, values, collectionIds) {
   const name = value.trim().slice(0, 120);
   const found = await db.prepare('SELECT id FROM cards WHERE id = ? AND user_id = ?').bind(id, userId).first();
   if (!found) return {meta: {changes: 0}};
@@ -40,8 +46,12 @@ async function updateWithLocation(db, userId, id, value, columns, values) {
     .bind(crypto.randomUUID(), userId, name, locationKey(name)));
   statements.push(db.prepare(`UPDATE cards SET ${columns}${columns ? ', ' : ''}storage_location_id = (SELECT id FROM storage_locations WHERE user_id = ? AND name_key = ?), updated_at = ? WHERE id = ? AND user_id = ?`)
     .bind(...values, userId, locationKey(name), Math.floor(Date.now() / 1000), id, userId));
+  if (collectionIds) {
+    statements.push(db.prepare('DELETE FROM collection_cards WHERE card_id = ? AND collection_id IN (SELECT id FROM collections WHERE user_id = ?)').bind(id, userId));
+    statements.push(...collectionIds.map(groupId => db.prepare('INSERT INTO collection_cards (collection_id, card_id) SELECT id, ? FROM collections WHERE id = ? AND user_id = ?').bind(id, groupId, userId)));
+  }
   const results = await db.batch(statements);
-  return results[results.length - 1];
+  return results[name ? 1 : 0];
 }
 
 function cleanPatch(input) {

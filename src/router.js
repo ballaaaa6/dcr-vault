@@ -15,6 +15,7 @@ import {initializeCertificateActions} from './components/certificate-actions.js'
 import {importPage} from './pages/import.js';
 import {getCards, getCertificate} from './store/cards.js';
 import {locationsRequest} from './store/locations.js';
+import {collectionsRequest} from './store/collections.js';
 import {addVaultImages} from './store/vault-images.js';
 import {escapeHTML} from './utils/format.js';
 import {certificateFromPath, normalizeCert} from './utils/cert.js';
@@ -93,7 +94,10 @@ export async function render() {
 
 async function privatePage(path) {
   const cards = await getCards();
-  if (path === '/vault') return vault(await addVaultImages(cards), (await locationsRequest()).locations);
+  if (path === '/vault') {
+    const [locations, collections, images] = await Promise.all([locationsRequest(), collectionsRequest(), addVaultImages(cards)]);
+    return vault(images, locations.locations, collections.collections);
+  }
   if (path === '/label') return label(cards);
 }
 

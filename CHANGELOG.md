@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Organize cards into collections
+- Add private collections with multi-select card membership, shared Vault filtering, and collection management alongside storage locations.
+
 ## 2026-11-24 - Align page loading placeholders
 - Align Home, My Vault, import, billing, and certificate loading layouts with their pages, and show skeletons while Gemini usage loads.
 

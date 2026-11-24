@@ -15,3 +15,8 @@
 
 .dropdown-menu .dropdown-action{justify-content:flex-start;gap:8px}
 .dropdown-action-icon{width:16px;height:16px;flex:none}
+.vault-filter-heading{padding:10px 10px 4px;color:var(--dcr-gray);font-size:var(--font-size-small)}
+.vault-filter-heading:not(:first-child){border-top:1px solid var(--dcr-border);margin-top:5px}
+#vault-collection-mount .catalog-select__multi-value{background:var(--dcr-red-light);border-radius:6px}
+#vault-collection-mount .catalog-select__multi-value__label{color:var(--dcr-black)}
+#vault-collection-mount .catalog-select__multi-value__remove:hover{background:var(--dcr-red-hover);color:var(--dcr-black)}
