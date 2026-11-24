@@ -1,3 +1,4 @@
+import {searchIcon} from '../components/search-icon.js';
 import {switchIcon, optionsIcon, animateActionIcon} from '../components/action-icons.js';
 import {vaultTooltip} from '../components/vault-tooltip.js';
 import {compareVaultCards, vaultSortSelect} from '../utils/vault-sort.js';
@@ -22,6 +23,8 @@ import {vaultFinishInput, initializeVaultFinish} from '../components/vault-finis
 import {vaultBackground, preloadSelectedBackgrounds} from '../utils/vault-background.js';
 import {prefetchNearbyImages} from '../utils/prefetch-images.js';
 import {confirmDiscard, discardDialog} from '../components/confirm-discard.js';
+// Lucide images icon, ISC license: https://lucide.dev/license
+const showcaseIcon = () => `<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="16" x="6" y="2" rx="2"/><circle cx="12" cy="8" r="2"/><path d="m22 14-3.8-3.8a2 2 0 0 0-2.8 0L8 18"/><path d="M2 8v12a2 2 0 0 0 2 2h12"/></svg>`;
 const sources = ['Facebook', 'Instagram', 'TikTok', 'Shopee', 'Lazada', 'eBay', 'TCGplayer', 'Card shop', 'Card show'];
 const currencies = ['THB', 'USD', 'JPY', 'EUR', 'GBP', 'AUD', 'CAD', 'CNY', 'HKD', 'SGD', 'MYR', 'TWD', 'KRW', 'IDR', 'PHP', 'VND', 'CHF', 'NZD'];
 let activeCards = [];
@@ -43,7 +46,7 @@ export function vault(cards = [], locations = [], collections = []) {
   activeCards = cards;
   setLocations(locations);
   setCollections(collections);
-  if (!cards.length) return `<main class="app-page vault-page"><header class="page-heading vault-heading"><h1>Vault</h1><a class="btn btn-ghost vault-showcase" href="/showcase">My Showcase</a></header><div class="vault-toolbar"><div id="location-filter-wrap">${vaultFilter()}</div></div><section class="surface-card empty-state"><p>Your private vault is ready for its first card.</p><a class="btn btn-primary" href="/archive">Add a card</a></section>${locationDialog()}</main>`;
+  if (!cards.length) return `<main class="app-page vault-page"><header class="page-heading vault-heading"><h1>Vault</h1><a class="btn btn-primary vault-showcase" href="/showcase">${showcaseIcon()}<span>My Showcase</span></a></header><div class="vault-toolbar"><div id="location-filter-wrap">${vaultFilter()}</div></div><section class="surface-card empty-state"><p>Your private vault is ready for its first card.</p><a class="btn btn-primary" href="/archive">Add a card</a></section>${locationDialog()}</main>`;
   const params = new URLSearchParams(location.search);
   const sortedCards = [...cards].sort((a, b) => compareVaultCards(a, b, 'date-desc'));
   const focus = cards.find(card => card.id === params.get('id')) || sortedCards[0];
@@ -53,7 +56,7 @@ export function vault(cards = [], locations = [], collections = []) {
     <main class="app-page vault-page">
       <header class="page-heading vault-heading">
         <h1>Vault</h1>
-        <a class="btn btn-ghost vault-showcase" href="/showcase">My Showcase</a>
+        <a class="btn btn-primary vault-showcase" href="/showcase">${showcaseIcon()}<span>My Showcase</span></a>
         <p id="vault-count" class="page-description">${cards.length} ${cards.length === 1 ? 'card' : 'cards'} · Prices stay private to your account and never appear on labels.</p>
       </header>
       <form class="vault-toolbar" onsubmit="event.preventDefault(); window.__filterVault()">
@@ -62,7 +65,7 @@ export function vault(cards = [], locations = [], collections = []) {
         <div class="search-bar vault-query">
           <label class="sr-only" for="vault-q">Search your cards</label><input id="vault-q" placeholder="Search name, set or Cert number">
           ${searchClearButton()}
-          <button class="search-button" type="submit"><span>Search</span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><circle cx="10.8" cy="10.8" r="6.3"></circle><path d="m15.5 15.5 4.2 4.2"></path></svg></button>
+          <button class="search-button" type="submit">${searchIcon()}<span>Search</span></button>
         </div>
       </form>
       <div class="vault-layout">

@@ -1,3 +1,4 @@
+import {searchIcon} from '../components/search-icon.js';
 import {searchClearButton} from '../components/search-clear.js';
 import {certificatePath} from '../utils/cert.js';
 
@@ -15,8 +16,8 @@ export function home() {
               <input id="certificate-search" name="cert" type="text" inputmode="numeric" autocomplete="off" maxlength="8" pattern="[0-9]{1,8}" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Enter a Cert Number" aria-describedby="certificate-search-hint" required>
               ${searchClearButton()}
               <button class="search-button" type="submit">
+                ${searchIcon()}
                 <span>Search</span>
-                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><circle cx="10.8" cy="10.8" r="6.3"></circle><path d="m15.5 15.5 4.2 4.2"></path></svg>
               </button>
             </div>
             <p class="search-hint" id="certificate-search-hint">Search any DCR certificate without signing in.<br>Enter the certificate number to view its details.</p>

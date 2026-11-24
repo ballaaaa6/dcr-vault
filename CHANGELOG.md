@@ -1,3 +1,8 @@
+# Search and showcase buttons
+
+- Add a white gallery icon to the red Showcase button and place search icons before their labels.
+- Reduce the height of the certificate search field.
+
 # Shared dropdown indicators
 
 - Use the shared red color for dropdown indicators throughout the app.
