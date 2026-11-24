@@ -183,7 +183,7 @@
 
 /* Keep these page titles close to the top of the content area. */
 .app-page:is(.vault-page,.label-page,.profile-page){padding-top:16px}
-.location-dialog{width:min(620px,calc(100% - 48px));max-height:85vh;overflow:visible;border:1px solid var(--dcr-border);border-radius:18px;padding:24px;background:var(--dcr-white);box-shadow:var(--shadow)}
+.location-dialog{width:min(620px,calc(100% - 48px));max-height:85vh;overflow:visible;border:1px solid var(--dcr-border);border-radius:18px;padding:24px;background:linear-gradient(color-mix(in srgb,var(--dcr-white) 50%,transparent),color-mix(in srgb,var(--dcr-white) 50%,transparent)),url('/assets/labels/location-koi.png') right bottom/cover no-repeat var(--dcr-white);box-shadow:var(--shadow)}
 .location-dialog::backdrop{background:rgba(17,17,17,.74)}
 .location-dialog-head{display:flex;align-items:center;gap:16px}.location-dialog-head h2{margin:0}.location-add[hidden]{display:none}
 .location-dialog [data-location-body]{max-height:calc(85vh - 120px);overflow:auto}.location-close{position:absolute;top:-19px;right:-19px;display:grid;place-items:center;flex:none;width:38px;height:38px;border:0;border-radius:50%;background:var(--dcr-red);color:var(--dcr-white);font-size:26px;line-height:1;cursor:pointer}
@@ -213,7 +213,7 @@
 .location-row > span{min-width:0}.location-row strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .location-menu .dropdown-menu{position:fixed;min-width:0}
 .location-menu[data-dropdown-placement="top"] > .dropdown-menu{bottom:auto}
-.location-dialog.location-picker{width:min(900px,calc(100% - 48px));background-image:linear-gradient(color-mix(in srgb,var(--dcr-white) 85%,transparent),color-mix(in srgb,var(--dcr-white) 85%,transparent)),url('/assets/labels/vault-picker.png');background-position:top center;background-size:100% auto;background-repeat:no-repeat}
+.location-dialog.location-picker{width:min(900px,calc(100% - 48px))}
 .location-picker [data-location-body]{max-height:none;overflow:visible}
 .location-picker .label-vault-list{--picker-row-height:clamp(52px,calc((85dvh - 400px) / 5),90px)}
 .location-picker-actions{display:flex;justify-content:flex-end;gap:12px}

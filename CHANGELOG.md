@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Add location management background
+- Use a softened koi illustration across all location management views, scaled and anchored to the bottom right.
+
 ## 2026-11-24 - Share content-sized dialog spacing
 - Reserve button clearance once in content dialogs and hide empty status messages, including in location management.
 
