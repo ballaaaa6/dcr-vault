@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Size shared notifications
+- Reduce the shared toast width to 320px, with 16px viewport clearance on smaller screens.
+
 ## 2026-11-24 - Align card identification guidance
 - Place the identification guidance beside its action, aligning the button with Add card and giving the photo areas more space.
 
