@@ -1,3 +1,7 @@
+# Showcase card count
+
+- Use a lighter text color for the card count beside the showcase name.
+
 # Showcase vault picker
 
 - Match the label vault picker with card images, sorting, and select all while retaining showcase selections.

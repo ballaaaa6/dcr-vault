@@ -65,7 +65,7 @@
 /* Showcase detail */
 .collections-detail-heading{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;gap:4px 12px;margin-bottom:12px}
 .collections-detail-title{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;min-height:48px}
-.collections-detail-title h1{margin:0;overflow-wrap:anywhere}.collections-detail-title span{white-space:nowrap}
+.collections-detail-title h1{margin:0;overflow-wrap:anywhere}.collections-detail-title span{white-space:nowrap;color:var(--dcr-gray)}
 .collections-detail-title .btn{padding:8px 14px}
 .collections-detail-actions{display:flex;align-items:center;gap:10px}.collections-detail-actions .btn{padding:8px 14px;white-space:nowrap}
 .collections-detail-description{grid-column:1/-1;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;min-height:4.5em;line-height:1.5;margin:0;overflow-wrap:anywhere}
