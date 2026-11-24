@@ -147,8 +147,9 @@
 .manual-submit{grid-column:1/-1;justify-self:end;margin-top:2px}
 
 /* Keep each action's footprint fixed when its label changes. */
-.intake-page #identify-card{width:152px}
-.intake-page #manual-submit{width:144px}
+.intake-page #identify-card,.intake-page #manual-submit{display:inline-grid;white-space:nowrap;text-align:center}
+.intake-page #identify-card>span,.intake-page #manual-submit>span{grid-area:1/1}
+.intake-page .action-sizer{visibility:hidden}
 .intake-page .identification-actions{display:flex;justify-content:flex-end}
 .intake-page #identify-card[data-busy="true"],.intake-page #manual-submit[data-busy="true"]{background:color-mix(in srgb,var(--dcr-red) 50%,var(--dcr-white));border-color:transparent;color:var(--dcr-white);opacity:1;cursor:wait;transform:none}
 .vault-heading{margin-bottom:22px}

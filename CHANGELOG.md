@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Keep Add Card buttons on one line
+- Rename the save action to Add card and size both action buttons to their longest labels.
+
 ## 2026-11-24 - Refine card review tooltip
 - Use a neutral review message and a smaller yellow information icon with inverted hover colors.
 

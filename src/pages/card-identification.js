@@ -256,7 +256,7 @@ async function analyzeFront() {
   const version = ++analysisVersion;
   analysisBusy = true;
   button.disabled = true;
-  button.textContent = 'Analyzing…';
+  button.querySelector('span').textContent = 'Analyzing…';
   button.dataset.busy = 'true';
   const status = document.getElementById('manual-status');
   status.dataset.toastKey = 'identification';
@@ -291,7 +291,7 @@ async function analyzeFront() {
     }
     analysisBusy = false;
     button.dataset.busy = 'false';
-    button.textContent = 'Identify card';
+    button.querySelector('span').textContent = 'Identify card';
     updateButton();
   }
 }

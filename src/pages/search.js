@@ -211,10 +211,10 @@ async function saveIntake() {
   }
   if (!certNumber) { setCertState(false, 'Enter 1 to 8 digits.', 'error'); certInput.focus(); return; }
   button.dataset.busy = 'true';
-  button.textContent = 'Saving…';
+  button.querySelector('span').textContent = 'Saving…';
   updateSubmitState();
   try {
-    if (!window.__intakeSavedCard && certInput.dataset.certAvailable !== 'true' && !await checkCertInput()) { button.textContent = 'Add to Vault'; certInput.focus(); return; }
+    if (!window.__intakeSavedCard && certInput.dataset.certAvailable !== 'true' && !await checkCertInput()) { button.querySelector('span').textContent = 'Add card'; certInput.focus(); return; }
     status.dataset.toastKey = 'save';
     status.dataset.state = 'pending';
     status.textContent = 'Adding card to your vault…';
@@ -222,11 +222,11 @@ async function saveIntake() {
     if (selectedPhotos().length) {
       status.textContent = 'Uploading selected photos…';
       const failed = await uploadPhotos(card);
-      if (failed.length) { status.dataset.state = 'error'; status.textContent = `Card saved. Retry the photos that failed: ${failed.join('; ')}`; button.textContent = 'Try again'; return; }
+      if (failed.length) { status.dataset.state = 'error'; status.textContent = `Card saved. Retry the photos that failed: ${failed.join('; ')}`; button.querySelector('span').textContent = 'Try again'; return; }
     }
     completeIntake();
   } catch (error) {
-    button.textContent = 'Try again';
+    button.querySelector('span').textContent = 'Try again';
     if (error.status === 409) {
       status.dataset.state = 'error';
       status.textContent = 'This Cert number is already used. Choose another number.';
