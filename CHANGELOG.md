@@ -1,3 +1,5 @@
+- Remove the scanner grid and shade its original dots by their distance from the scan line.
+
 - Use the original LottieFiles scanner animation for card identification.
 
 - Add a red scanning effect during card identification and animate both image removal controls.
