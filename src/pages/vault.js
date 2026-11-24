@@ -130,8 +130,8 @@ function detailMarkup(card, mode = 'item') {
   const editing = mode.startsWith('edit-');
   const privateMode = mode === 'private' || mode === 'edit-private';
   return `<div class="vault-detail-controls"><button class="vault-edit-button vault-detail-flip" type="button" onclick="window.__flipVault()" aria-label="${privateMode ? 'Show item information' : 'Show private vault details'}" title="Switch details">${flipIcon}</button>
-    <details class="vault-menu"><summary class="vault-edit-button" aria-label="Card options" title="Card options">⋯</summary><div class="vault-menu-options">
-    <button type="button" onclick="window.__editVault('card')">Edit card</button><button type="button" onclick="window.__editVault('private')">Edit private</button><button class="vault-delete" type="button" onclick="window.__deleteVault('${escapeHTML(card.id)}')">Delete card</button></div></details></div>
+    <details class="vault-menu dropdown-control" data-dropdown-align="end"><summary class="vault-edit-button" aria-label="Card options" title="Card options">⋯</summary><div class="vault-menu-options dropdown-menu" role="menu">
+    <button type="button" role="menuitem" onclick="window.__editVault('card')">Edit card</button><button type="button" role="menuitem" onclick="window.__editVault('private')">Edit private</button><button class="vault-delete" type="button" role="menuitem" onclick="window.__deleteVault('${escapeHTML(card.id)}')">Delete card</button></div></details></div>
     ${editing ? `<form id="vault-edit" class="vault-edit" data-mode="${mode}" onsubmit="window.__saveDetail(event, '${escapeHTML(card.id)}')">
       <h2>${privateMode ? 'Private vault details' : 'Edit card details'}</h2>
       <p class="detail-note">${privateMode ? 'Prices and vault details are private.' : 'These card details appear on the public certificate.'}</p>

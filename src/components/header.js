@@ -1,3 +1,4 @@
+import {positionPopup} from './dropdown.js';
 // Shared navigation for all DCR Card Vault pages.
 import {escapeHTML} from '../utils/format.js';
 import {signOut} from '../auth.js';
@@ -89,7 +90,7 @@ export function bindHeader() {
   const popover = document.querySelector('.account-popover');
   if (trigger && popover) {
     const close = () => { popover.hidden = true; trigger.setAttribute('aria-expanded', 'false'); };
-    trigger.addEventListener('click', () => { const open = popover.hidden; popover.hidden = !open; trigger.setAttribute('aria-expanded', String(open)); });
+    trigger.addEventListener('click', () => { const open = popover.hidden; popover.hidden = !open; if (open) positionPopup(trigger.parentElement, trigger, popover); trigger.setAttribute('aria-expanded', String(open)); });
     document.addEventListener('click', event => { if (!event.target.closest('.account-menu')) close(); });
     document.addEventListener('keydown', event => { if (event.key === 'Escape' && !popover.hidden) { close(); trigger.focus(); } });
   }

@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Share popup placement
+- Reuse viewport-aware dropdown placement for location, card, and account menus, flipping upward when space below is limited.
+
 ## 2026-11-24 - Preserve button visibility in scrollable areas
 - Provide shared clearance for button effects and apply it to the location dialog so its buttons are not clipped.
 
