@@ -1,3 +1,5 @@
+- Show the selected Finish category beside the custom pattern input.
+
 - Clarify nested Finish choices with smaller muted text and red branch lines, and preserve the Unknown selection.
 
 - Expand Finish patterns inside the existing dropdown instead of a separate side menu.

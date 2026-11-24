@@ -65,7 +65,7 @@ export function initializeVaultFinish(form) {
   }
   function custom(category = '') {
     const prefix = category ? `${category} - ` : '';
-    mount.innerHTML = `<div class="vault-finish-custom"><button type="button" data-finish-back aria-label="Return to finish choices">←</button><input class="form-control" aria-label="Other finish" placeholder="Enter finish" maxlength="${80 - prefix.length}"></div>`;
+    mount.innerHTML = `<div class="vault-finish-custom form-control"><button type="button" data-finish-back aria-label="Return to finish choices">←</button>${category ? `<span class="vault-finish-prefix">${escapeHTML(category)} -</span>` : ''}<input aria-label="${escapeHTML(category ? `${category} other pattern` : 'Other finish')}" placeholder="Enter finish" maxlength="${80 - prefix.length}"></div>`;
     const input = mount.querySelector('input');
     input.addEventListener('input', () => save(input.value.trim() ? prefix + input.value.trim() : ''));
     input.focus();
