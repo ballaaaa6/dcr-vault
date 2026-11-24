@@ -5,7 +5,7 @@ const panel = content => `<section class="surface-card sk-panel">${content}</sec
 const paragraphs = () => `${bar('sk-section-title')}${bar()}${bar('sk-medium')}`;
 
 function homeSkeleton() {
-  const shortcuts = Array.from({length: 3}, () => panel(`${bar('sk-icon')}${bar()}${bar('sk-medium')}`)).join('');
+  const shortcuts = Array.from({length: 3}, () => `<div class="home-benefit">${bar('sk-icon')}${bar()}${bar('sk-medium')}</div>`).join('');
   return `<main class="home-page sk-home-page"><div class="home-hero sk-home-hero"><div class="home-copy">${bar('sk-hero-title')}${bar('sk-hero-title')}${bar('sk-hero-title sk-medium')}${bar('sk-hero-description')}${field()}${bar('sk-medium')}<div class="home-benefits">${shortcuts}</div></div></div></main>`;
 }
 
@@ -17,7 +17,7 @@ function intakeSkeleton() {
 
 function vaultSkeleton() {
   const rows = Array.from({length: 3}, () => `<div class="list-row sk-vault-row">${bar('sk-thumbnail')}<div>${bar('sk-medium')}${bar()}</div></div>`).join('');
-  return `<main class="app-page vault-page sk-page">${heading()}<div class="vault-toolbar">${bar('sk-sort')}${bar('sk-sort')}${bar('sk-input')}</div><div class="vault-layout"><div class="vault-list">${rows}</div>${panel(`${paragraphs()}${field()}${field()}${field()}`)}${panel(`${bar('sk-section-title')}${bar('sk-card-photo')}`)}</div></main>`;
+  return `<main class="app-page vault-page sk-page">${heading()}<div class="vault-toolbar">${bar('sk-sort')}${bar('sk-sort')}${bar('sk-input')}</div><div class="vault-layout"><div class="vault-list">${rows}</div><div class="vault-selected">${panel(`${paragraphs()}${field()}${field()}${field()}`)}${panel(`${bar('sk-section-title')}${bar('sk-card-photo')}`)}</div></div></main>`;
 }
 
 function labelSkeleton() {
@@ -30,12 +30,13 @@ function profileSkeleton() {
 }
 
 function certificateSkeleton(hasResult) {
-  const result = hasResult ? panel(`${bar('sk-section-title')}${bar('sk-medium')}<div class="sk-cert-images">${bar('sk-cert-photo')}${bar('sk-cert-photo')}</div>${bar('sk-section-title')}${field()}${field()}`) : '';
+  const result = hasResult ? `<div class="sk-cert-result">${bar('sk-section-title')}${bar('sk-medium')}<div class="sk-actions sk-cert-actions">${bar('sk-button')}${bar('sk-button')}</div><div class="sk-cert-images">${bar('sk-cert-photo')}${bar('sk-cert-photo')}</div>${bar('sk-section-title')}${field()}${field()}</div>` : '';
   return `<main class="lookup-page sk-page"><section class="lookup-panel">${bar('sk-title')}${bar('sk-subtitle')}${bar('sk-input')}${result}</section></main>`;
 }
 
 function importSkeleton() {
-  return `<main class="app-page import-page sk-page">${heading()}${panel(`${bar()}${bar('sk-medium')}${field()}${field()}${bar('sk-textarea')}<div class="sk-actions">${bar('sk-button')}${bar('sk-button')}</div>`)}</main>`;
+  const rows = Array.from({length: 3}, () => `<li class="sk-import-row">${bar('sk-medium')}${bar('sk-label')}</li>`).join('');
+  return `<main class="app-page import-page sk-page">${heading()}${panel(`${bar()}${bar('sk-medium')}<ul class="import-list">${rows}</ul>${bar('sk-section-title')}${bar()}${bar('sk-medium')}<div class="sk-actions">${bar('sk-button')}${bar('sk-button')}</div>`)}</main>`;
 }
 
 function privacySkeleton() {
@@ -44,12 +45,12 @@ function privacySkeleton() {
 }
 
 function billingSkeleton() {
-  const cards = Array.from({length: 3}, () => `<div class="billing-card">${bar('sk-section-title')}${bar()}${bar('sk-title')}${bar()}${bar()}${bar('sk-medium')}${bar('sk-button')}</div>`).join('');
+  const cards = Array.from({length: 3}, () => `<div class="billing-card">${bar('sk-section-title')}${bar()}${bar('sk-title')}${bar()}${bar()}${bar()}${bar()}${bar('sk-medium')}${bar('sk-button')}${bar('sk-button sk-billing-purchase')}</div>`).join('');
   return `<main class="app-page billing-page sk-page"><div class="billing-heading">${bar('sk-title')}${bar('sk-subtitle')}</div><div class="billing-grid">${cards}</div>${bar('sk-label')}</main>`;
 }
 
 function usageSkeleton() {
-  return `<main class="app-page sk-page">${heading()}${panel(`<div class="form-toolbar"><div class="form-field">${field()}</div><div class="form-field">${field()}</div>${bar('sk-button')}</div>${paragraphs()}`)}</main>`;
+  return `<main class="app-page sk-page">${heading()}${panel(`<div class="form-toolbar"><div class="form-field">${field()}</div><div class="form-field">${field()}</div>${bar('sk-button')}</div>${usageResultsSkeleton()}`)}</main>`;
 }
 
 function genericSkeleton() {
@@ -68,6 +69,10 @@ const pageSkeletons = {
   '/privacy': privacySkeleton,
   '/privacy/': privacySkeleton,
 };
+
+export function usageResultsSkeleton() {
+  return `<span class="sr-only">Loading usage…</span><div aria-hidden="true" class="sk-usage-results">${Array.from({length: 2}, () => `<div class="list-row"><div>${bar('sk-section-title')}${bar()}${bar('sk-medium')}</div></div>`).join('')}</div>`;
+}
 
 export function pageSkeleton(path, isCertificate, hasQuery) {
   const content = path === '/verify' || isCertificate

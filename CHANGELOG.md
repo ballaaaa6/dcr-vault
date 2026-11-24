@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Align page loading placeholders
+- Align Home, My Vault, import, billing, and certificate loading layouts with their pages, and show skeletons while Gemini usage loads.
+
 ## 2026-11-24 - Match navigation loading skeleton
 - Match the loading header to the navigation links, account control, and responsive menu button.
 
