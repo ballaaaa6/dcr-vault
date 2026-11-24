@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Reposition location dialog controls
+- Place the add button beside the heading and the close button on the upper-right corner.
+
 ## 2026-11-24 - Allow custom card games
 - Keep and save typed Card game values when they are not in the suggestions.
 
