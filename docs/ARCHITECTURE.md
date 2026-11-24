@@ -26,6 +26,7 @@
 - Cert input accepts one to eight digits; the server pads and stores the canonical eight-digit value before checking the global unique index.
 - The homepage and certificate lookup are public; vault, add, and label routes require a session.
 - Certificate details and card photos are public. Prices, purchase/sale dates, sources, notes, and account details are returned only to the owner.
+- Collections reuse owner-scoped Vault membership. Owners may enable a random, revocable link for a collection; its public API selects only the collection name, description, selected cards' public certificate fields, and front photo routes. The link is a bearer capability: anyone who has it can view and forward it, and turning it off invalidates that link. Disabling a collection link does not revoke the independently public certificates or photos.
 - Front and back photos are stored on the Oracle VM under opaque owner/card UUIDs. D1 stores each side's object key, MIME type, size, and digest; the browser only receives same-origin image routes.
 - Saved card photos use private browser caching with digest-based revalidation on every reuse; a missing or changed image cannot receive a stale 304 response. Shared caches must not store these responses.
 - The image service generates small (240px) and medium (1000px) WebP variants on demand using Pillow, with SHA-256 verification and a two-conversion limit. Variants are removed on replacement or deletion; the original remains the fallback. Vault prefetch is limited to nearby rows and respects data-saving mode.

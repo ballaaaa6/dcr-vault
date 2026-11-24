@@ -8,8 +8,8 @@ export async function onRequestGet({request, env}) {
   if (session.response) return session.response;
   const user = session.user.id;
   const [groups, members] = await Promise.all([
-    env.DB.prepare('SELECT id, name FROM collections WHERE user_id = ? ORDER BY sort_order IS NULL, sort_order, name COLLATE NOCASE').bind(user).all(),
-    env.DB.prepare('SELECT cc.collection_id, cc.card_id FROM collection_cards cc JOIN collections c ON c.id = cc.collection_id JOIN cards ON cards.id = cc.card_id WHERE c.user_id = ? AND cards.user_id = ?').bind(user, user).all()
+    env.DB.prepare('SELECT id, name, description, share_token AS shareToken FROM collections WHERE user_id = ? ORDER BY sort_order IS NULL, sort_order, name COLLATE NOCASE').bind(user).all(),
+    env.DB.prepare('SELECT cc.collection_id, cc.card_id FROM collection_cards cc JOIN collections c ON c.id = cc.collection_id JOIN cards ON cards.id = cc.card_id WHERE c.user_id = ? AND cards.user_id = ? ORDER BY cc.sort_order IS NULL, cc.sort_order, cards.name COLLATE NOCASE').bind(user, user).all()
   ]);
   return json({collections: (groups.results || []).map(group => {
     const cardIds = (members.results || []).filter(row => row.collection_id === group.id).map(row => row.card_id);
@@ -42,6 +42,18 @@ export async function onRequestPatch({request, env}) {
   if (session.response) return session.response;
   const body = await readJson(request);
   const user = session.user.id;
+  if (typeof body?.id === 'string' && typeof body.share === 'boolean') {
+    const token = body.share ? Array.from(crypto.getRandomValues(new Uint8Array(32)), byte => byte.toString(16).padStart(2, '0')).join('') : null;
+    const result = await env.DB.prepare('UPDATE collections SET share_token = ? WHERE id = ? AND user_id = ?').bind(token, body.id, user).run();
+    return result.meta?.changes ? json({shareToken: token}) : error('Collection not found.', 404);
+  }
+  if (typeof body?.id === 'string' && Array.isArray(body.cardOrder)) {
+    const rows = await env.DB.prepare('SELECT cc.card_id FROM collection_cards cc JOIN collections c ON c.id = cc.collection_id JOIN cards ON cards.id = cc.card_id WHERE c.id = ? AND c.user_id = ? AND cards.user_id = ?').bind(body.id, user, user).all();
+    const ids = new Set((rows.results || []).map(row => row.card_id));
+    if (body.cardOrder.length !== ids.size || new Set(body.cardOrder).size !== ids.size || body.cardOrder.some(id => !ids.has(id))) return error('Card list changed. Please try again.', 409);
+    if (ids.size) await env.DB.batch(body.cardOrder.map((id, index) => env.DB.prepare('UPDATE collection_cards SET sort_order = ? WHERE collection_id = ? AND card_id = ?').bind(index, body.id, id)));
+    return json({ok: true});
+  }
   if (Array.isArray(body?.order)) {
     const rows = await env.DB.prepare('SELECT id FROM collections WHERE user_id = ?').bind(user).all();
     const ids = new Set((rows.results || []).map(row => row.id));
@@ -52,7 +64,8 @@ export async function onRequestPatch({request, env}) {
   const name = clean(body?.name);
   if (!name || typeof body?.id !== 'string') return error('Enter a collection name.');
   try {
-    const result = await env.DB.prepare('UPDATE collections SET name = ?, name_key = ? WHERE id = ? AND user_id = ?').bind(name, name.toLowerCase(), body.id, user).run();
+    const description = typeof body.description === 'string' ? body.description.trim().slice(0, 500) : '';
+    const result = await env.DB.prepare('UPDATE collections SET name = ?, name_key = ?, description = CASE WHEN ? THEN ? ELSE description END WHERE id = ? AND user_id = ?').bind(name, name.toLowerCase(), typeof body.description === 'string' ? 1 : 0, description, body.id, user).run();
     if (!result.meta?.changes) return error('Collection not found.', 404);
   } catch (cause) {
     if (String(cause.message).includes('UNIQUE')) return error('This collection already exists.', 409);

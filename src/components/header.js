@@ -8,6 +8,7 @@ const items = [
   ['/', 'Home'],
   ['/archive', 'Add Card'],
   ['/vault', 'My Vault'],
+  ['/collections', 'Collections'],
   ['/label', 'Labels']
 ];
 

@@ -24,6 +24,11 @@ function labelSkeleton() {
   return `<main class="app-page label-page sk-page">${heading()}<div class="label-workspace">${panel(`${bar('sk-section-title')}${bar('sk-label')}${bar('sk-textarea')}${bar()}<div class="sk-actions">${bar('sk-button')}${bar('sk-button')}</div>`)}${panel(`${bar('sk-section-title')}${bar('sk-medium')}<div class="sk-label-space"></div><div class="sk-actions">${bar('sk-button')}${bar('sk-button')}</div>${bar()}`)}</div></main>`;
 }
 
+function collectionsSkeleton() {
+  const items = Array.from({length: 3}, () => panel(`${bar('sk-thumbnail')}<div>${bar('sk-section-title')}${bar('sk-medium')}</div>`, 'sk-vault-row')).join('');
+  return `<main class="app-page collections-page sk-page">${heading()}<div class="collections-list">${items}</div></main>`;
+}
+
 function profileSkeleton() {
   const rows = Array.from({length: 4}, () => `<div class="sk-profile-row">${bar('sk-label')}${bar('sk-medium')}</div>`).join('');
   return `<main class="app-page profile-page sk-page">${heading()}<div class="profile-form">${panel(`${bar('sk-avatar')}<div>${bar('sk-section-title')}${bar()}${bar('sk-medium')}</div>`, 'profile-identity sk-profile-identity')}${panel(`${bar('sk-section-title')}<div class="sk-profile-details">${rows}</div>`, 'profile-section')}</div></main>`;
@@ -57,6 +62,7 @@ const pageSkeletons = {
   '/': homeSkeleton,
   '/archive': intakeSkeleton,
   '/vault': vaultSkeleton,
+  '/collections': collectionsSkeleton,
   '/label': labelSkeleton,
   '/profile': profileSkeleton,
   '/billing': billingSkeleton,

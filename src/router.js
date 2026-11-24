@@ -21,9 +21,11 @@ import {escapeHTML} from './utils/format.js';
 import {certificateFromPath, normalizeCert} from './utils/cert.js';
 import {pageSkeleton} from './components/page-skeleton.js';
 import {cachedPageSkeleton, savePageSkeleton} from './components/skeleton-from-layout.js';
+import {collectionsPage, sharedView} from './pages/collections-view.js';
+import {initializeCollections} from './pages/collections.js';
 
 let renderVersion = 0;
-const privatePaths = new Set(['/archive', '/vault', '/label', '/import', '/profile', '/billing', '/gemini-usage']);
+const privatePaths = new Set(['/archive', '/vault', '/collections', '/label', '/import', '/profile', '/billing', '/gemini-usage']);
 
 function footer() {
   return `<footer class="site-footer no-print"><span>© ${new Date().getFullYear()} DCR Card Vault</span><span>Certificate details are public. Your vault details remain private.</span></footer>`;
@@ -48,6 +50,7 @@ export async function render() {
   const route = location.pathname + location.search;
   const path = location.pathname;
   const isCertificate = certificateFromPath(path) !== null;
+  const sharedToken = /^\/shared-collection\/([a-f0-9]{64})\/?$/.exec(path)?.[1];
   const app = document.getElementById('app');
   if (path !== '/login') showPageLoading(app, path, isCertificate);
   if (path === '/privacy' || path === '/privacy/') {
@@ -72,8 +75,19 @@ export async function render() {
 
   let content = home();
   let failed = false;
+  let collectionData;
   try {
-    if (path === '/gemini-usage') content = geminiUsage();
+    if (sharedToken) {
+      const response = await fetch(`/api/shared-collection/${sharedToken}`, {referrerPolicy: 'no-referrer'});
+      if (!response.ok) throw new Error('This collection link is unavailable or sharing has been turned off.');
+      content = sharedView((await response.json()).collection);
+    }
+    else if (path === '/collections') {
+      const [groups, cards] = await Promise.all([collectionsRequest(), getCards()]);
+      collectionData = [groups.collections, await addVaultImages(cards)];
+      content = collectionsPage();
+    }
+    else if (path === '/gemini-usage') content = geminiUsage();
     else if (path === '/billing') content = billing();
     else if (path === '/profile') content = profile(user, await getCards());
     else if (path === '/archive') content = search();
@@ -89,6 +103,7 @@ export async function render() {
   if (path === '/profile') initializeProfile(user);
   if (path === '/archive') initializeSearchPage();
   if (path === '/vault') initializeVault();
+  if (path === '/collections') initializeCollections(...collectionData);
   if (path === '/label') initializeLabel();
   if (path === '/verify' || isCertificate) { initializeCertificateViewer(); initializeCertificateActions(); }
   savePageSkeleton(path, user?.id, app.querySelector('main'));
