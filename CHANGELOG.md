@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Refine Cert dice motion
+- Keep the dice still at rest, rock them on hover, and spin once on activation.
+
 ## 2026-11-24 - Animate the Cert dice button
 - Use the with icons dice design and motion on the Cert generator button, following the existing button color and reduced-motion preference.
 

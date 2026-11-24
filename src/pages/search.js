@@ -83,10 +83,23 @@ async function checkCertInput() {
   }
 }
 
+function animateCertDice(button) {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const icon = button.querySelector('svg');
+  if (!icon) return;
+  icon.classList.remove('cert-dice-spin');
+  void icon.getBoundingClientRect();
+  icon.classList.add('cert-dice-spin');
+  icon.onanimationend = event => {
+    if (event.animationName === 'cert-spin') icon.classList.remove('cert-dice-spin');
+  };
+}
+
 async function generateCert() {
   const button = document.querySelector('[data-cert-random]');
   const input = document.getElementById('m-cert');
   if (!button || !input) return;
+  animateCertDice(button);
   const version = ++certCheckVersion;
   clearTimeout(certCheckTimer);
   const previousAvailable = input.dataset.certAvailable === 'true';
