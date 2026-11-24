@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Refine location dialog controls
+- Shorten the add button label and move the close button to the upper-left corner.
+
 ## 2026-11-24 - Resume editing at the end
 - Place the cursor at the end when entering text fields, including editable catalog selections.
 
