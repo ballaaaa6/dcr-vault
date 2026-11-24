@@ -1,3 +1,5 @@
+- Fit each sheet preview and its close button within the viewport, with paired front and back pages when scrolling through multiple sheets.
+
 - Apply the shared scale animation to the Vault image preview close button.
 
 - Animate corner close buttons with a scale interaction.

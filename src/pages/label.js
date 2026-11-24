@@ -122,9 +122,13 @@ async function previewSheets() {
   dialog(`${dialogHead('Sheet preview')}${sheetPreviewSkeleton(Math.ceil(labels.length / 40) * 2)}`);
   try {
     const sheets = [];
-    for (let i = 0; i < labels.length; i += 40) for (const side of ['front', 'back']) {
-      const svg = await api.renderSheetSvg(labels.slice(i, i + 40), side);
-      sheets.push(`<figure class="sheet-page"><figcaption>Sheet ${Math.floor(i / 40) + 1} · ${side}</figcaption><img class="sheet-page-image" alt="Sheet ${Math.floor(i / 40) + 1} ${side}" src="${esc(api.labelSvgDataUri(svg))}"></figure>`);
+    for (let i = 0; i < labels.length; i += 40) {
+      const sides = [];
+      for (const side of ['front', 'back']) {
+        const svg = await api.renderSheetSvg(labels.slice(i, i + 40), side);
+        sides.push(`<figure class="sheet-page"><figcaption>Sheet ${Math.floor(i / 40) + 1} · ${side}</figcaption><img class="sheet-page-image" alt="Sheet ${Math.floor(i / 40) + 1} ${side}" src="${esc(api.labelSvgDataUri(svg))}"></figure>`);
+      }
+      sheets.push(`<div class="sheet-preview-pair">${sides.join('')}</div>`);
     }
     if (document.getElementById('label-dialog')?.open) document.getElementById('label-dialog-content').innerHTML = `${dialogHead('Sheet preview')}<div class="sheet-preview-pages">${sheets.join('')}</div>`;
   } catch (error) { status(error.message); closeDialog(); }

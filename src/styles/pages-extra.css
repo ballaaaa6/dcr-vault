@@ -235,3 +235,11 @@
 .location-row{position:relative;justify-content:initial;touch-action:pan-y}.location-row > span{flex:1}.location-row.is-dragging{opacity:.5}.location-row.drop-before::before,.location-row.drop-after::after{content:"";position:absolute;left:0;right:0;height:3px;background:var(--dcr-red);z-index:1}.location-row.drop-before::before{top:-2px}.location-row.drop-after::after{bottom:-2px}
 
 .vault-edit .form-control.has-value,.vault-edit .dropdown-control summary[data-empty="false"],.vault-edit .date-picker-trigger:has([data-empty="false"]),.vault-edit .catalog-select-wrap.has-value .catalog-select__control,.vault-edit #vault-collection-mount .has-value .catalog-select__control{background:var(--dcr-border)}
+
+/* Keep each sheet's front and back together within the viewport. */
+.label-dialog:has(.sheet-preview-pages){width:min(900px,calc(120.2dvh - 148px),calc(100% - 48px));max-height:none;overflow:visible}
+.label-dialog:has(.sheet-preview-pages) .label-dialog-head{padding-right:32px}
+.label-dialog:has(.sheet-preview-pages) .sheet-preview-pages{display:block;max-height:calc(85dvh - 120px);overflow-y:auto;overscroll-behavior:contain;scroll-snap-type:y mandatory}
+.sheet-preview-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;scroll-snap-align:start;scroll-snap-stop:always}
+.sheet-preview-pair+.sheet-preview-pair{margin-top:16px}
+.label-dialog:has(.sheet-preview-pages) .sheet-page-image{max-height:calc(85dvh - 150px);width:auto;max-width:100%;margin:auto}
