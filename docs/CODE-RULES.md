@@ -44,3 +44,5 @@
 27. For new informational tooltips, use tooltip({id, label, message}) from src/components/tooltip.js. Supply a unique ID and an accessible label for the information button; the shared tooltip visibility rules in src/styles/tooltip.css show tooltips only while a fine pointer hovers over their host. Keep accessible names and descriptions available without showing a tooltip. Do not use native title tooltips.
 
 28. Use the shared switchIcon and optionsIcon from src/components/action-icons.js for switch controls and options menus; reuse their animation and color styles from src/styles/action-icons.css.
+
+29. Use the shared `dialog-close` class for red corner close buttons. Its hover and click animations are applied centrally to every instance; do not bypass or duplicate them.

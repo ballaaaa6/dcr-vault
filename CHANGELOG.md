@@ -1,3 +1,7 @@
+# Shared close button animation
+
+- Apply the shared hover and click animation to every dialog close button, including future instances.
+
 # Showcase edit dialog
 
 - Remove the Delete showcase button from the edit dialog.
