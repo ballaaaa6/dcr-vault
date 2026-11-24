@@ -1,3 +1,5 @@
+- Make nested dropdown interaction, red branch styling, and typography a reusable shared standard.
+
 - Show the selected Finish category beside the custom pattern input.
 
 - Clarify nested Finish choices with smaller muted text and red branch lines, and preserve the Unknown selection.
