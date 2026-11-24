@@ -14,11 +14,12 @@ export function vaultClassificationInput(key, label, value = '') {
 export function vaultEnergyInput(card) {
   const kinds = classificationChoices.energyKind;
   const types = classificationChoices.energyType;
-  const values = ['', ...kinds, ...types, ...kinds.flatMap(kind => types.map(type => `${kind} · ${type}`))];
+  const values = ['', ...kinds.flatMap(kind => types.map(type => `${kind} · ${type}`))];
   const current = [card.energyKind, card.energyType].filter(Boolean).join(' · ');
-  if (current && !values.includes(current)) values.push(current);
+  const legacy = Boolean(current && !values.includes(current));
+  if (legacy) values.push(current);
   return `<div class="form-field" data-vault-energy><span>Energy</span>${dropdown({
-    id: 'energyCombined', label: 'Energy', options: values.map(value => [value, value || 'Not selected']), value: current
+    id: 'energyCombined', label: 'Energy', options: values.map(value => [value, value || 'Not selected']), value: current, hiddenValues: legacy ? [current] : []
   })}</div>`;
 }
 

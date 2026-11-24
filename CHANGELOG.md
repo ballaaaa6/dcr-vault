@@ -2,6 +2,9 @@
 
 # Changelog
 
+## 2026-11-24 - Simplify Energy choices
+- Offer only complete Energy kind and type combinations while retaining existing incomplete values.
+
 ## 2026-11-24 - Adapt Vault classification fields
 - Show classification choices relevant to the selected category, combine Energy kind and type into one choice, and give Card name and Finish full-width rows.
 
