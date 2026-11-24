@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Compact private vault editor
+- Remove the privacy note, reduce field spacing, and show two lines in Notes initially.
+
 ## 2026-11-24 - Highlight Vault filter groups
 - Use the brand red divider between storage location and collection filters.
 

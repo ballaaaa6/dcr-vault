@@ -116,7 +116,7 @@ function privateInputs(card) {
     <div class="form-field"><label for="m-storageLocation-input">Storage location</label><input type="hidden" id="m-storageLocation" name="storageLocation" value="${escapeHTML(card.storageLocation || '')}"><div id="vault-location-mount"></div></div>
     <div class="form-field"><label for="vault-collections-input">Collections</label><input type="hidden" id="vault-collection-values" value="${escapeHTML(JSON.stringify(getCollections().filter(group => group.cardIds.includes(card.id)).map(group => ({id: group.id, name: group.name}))))}"><div id="vault-collection-mount"></div></div>
     <label class="form-field"><span>Position</span><input class="form-control" name="position" maxlength="200" value="${escapeHTML(card.position || '')}" placeholder="e.g. Page 3"></label>
-    <label class="form-field"><span>Notes</span><textarea class="form-control" name="notes" maxlength="2000" rows="3">${escapeHTML(card.notes || '')}</textarea></label>`;
+    <label class="form-field"><span>Notes</span><textarea class="form-control" name="notes" maxlength="2000" rows="2">${escapeHTML(card.notes || '')}</textarea></label>`;
 }
 
 window.__vaultSourceChange = select => {
@@ -131,7 +131,7 @@ function detailMarkup(card, mode = 'item') {
     <button type="button" role="menuitem" onclick="window.__editVault('card')">Edit card</button><button type="button" role="menuitem" onclick="window.__editVault('private')">Edit private</button><button class="vault-delete" type="button" role="menuitem" onclick="window.__deleteVault('${escapeHTML(card.id)}')">Delete card</button></div></details></div>
     ${editing ? `<form id="vault-edit" class="vault-edit" data-mode="${mode}" onsubmit="window.__saveDetail(event, '${escapeHTML(card.id)}')">
       <h2>${privateMode ? 'Private vault details' : 'Edit card details'}</h2>
-      <p class="detail-note">${privateMode ? 'Prices and vault details are private.' : 'These card details appear on the public certificate.'}</p>
+      ${privateMode ? '' : '<p class="detail-note">These card details appear on the public certificate.</p>'}
       ${privateMode ? privateInputs(card) : `<div class="vault-edit-grid">${editFields(card)}</div>`}
       <div class="detail-actions"><button class="btn btn-primary" type="submit">Save details</button><button class="btn btn-ghost" type="button" onclick="window.__cancelVault()">Cancel</button></div>
       <p class="detail-note" id="vault-edit-message" role="status"></p></form>` : (privateMode ? privateInformation(card) : itemInformation(card, {showClassification: true}))}`;

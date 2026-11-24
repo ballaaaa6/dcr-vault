@@ -117,6 +117,9 @@
 .vault-private dd{text-transform:none;white-space:pre-wrap}
 
 .vault-price-input{display:grid;grid-template-columns:minmax(0,1fr) 100px;gap:8px}
+.vault-edit[data-mode="edit-private"] h2{margin-bottom:12px}
+.vault-edit[data-mode="edit-private"] .form-field{gap:4px;margin-bottom:8px}
+.vault-edit[data-mode="edit-private"] textarea{min-height:calc(2 * 1.5em + 22px);line-height:1.5;resize:vertical}
 .vault-edit .form-field[hidden]{display:none}
 #app:has(.label-page){min-height:100svh;display:flex;flex-direction:column}
 #app:has(.label-page) .site-footer{width:100%;flex-shrink:0;margin:0 auto}
