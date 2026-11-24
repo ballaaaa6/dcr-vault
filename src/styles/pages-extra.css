@@ -133,7 +133,7 @@
 .label-add,.label-list-section{min-width:0}
 .label-add,.label-list-section,.label-dialog:has(.label-vault-list){background-color:var(--dcr-white);background-image:linear-gradient(color-mix(in srgb,var(--dcr-white) 85%,transparent),color-mix(in srgb,var(--dcr-white) 85%,transparent)),var(--label-background);background-position:top center;background-size:100% auto;background-repeat:no-repeat}
 .label-add{--label-background:url('/assets/labels/add-certificates.png');align-self:start}
-.label-list-section{--label-background:url('/assets/labels/sheets.png');box-shadow:none}
+.label-list-section{--label-background:url('/assets/labels/sheets.png');display:flex;flex-direction:column;box-shadow:none}
 .label-dialog:has(.label-vault-list){--label-background:url('/assets/labels/vault-picker.png')}
 .label-add h2,.label-list-heading h2{margin:0 0 12px}
 .label-add .form-field>span{font-weight:400}
@@ -153,7 +153,7 @@
 .label-row-info small{color:var(--dcr-red)}
 .label-row .btn{padding:8px 12px}
 .label-empty{padding:12px 0;color:var(--dcr-gray)}
-.label-bottom{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:20px}.label-bottom .label-controls{justify-content:flex-end;flex-shrink:0}@media(max-width:1100px){.label-bottom{flex-wrap:wrap}.label-bottom .label-controls{margin-left:auto}}
+.label-bottom{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-top:auto;padding-top:20px}.label-bottom .label-controls{justify-content:flex-end;flex-shrink:0}@media(max-width:1100px){.label-bottom{flex-wrap:wrap}.label-bottom .label-controls{margin-left:auto}}
 .label-dialog{width:min(900px,calc(100% - 32px));max-height:85vh;overflow:auto;border:1px solid var(--dcr-border);border-radius:20px;padding:24px 24px var(--button-effect-space);background-color:var(--dcr-white);color:var(--dcr-black)}
 .label-dialog::backdrop{background:rgba(0,0,0,.5)}
 .label-dialog-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}

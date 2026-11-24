@@ -1,3 +1,5 @@
+- Align the Labels page action buttons across both panels and keep the print note with the right-hand actions.
+
 - Add animated Pac-Man sheet pagination, retaining the original scroll mode as a configurable fallback.
 
 - Use regular body weight for the certificate numbers field label.
