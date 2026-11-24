@@ -41,7 +41,7 @@
 .intake-card{background-image:linear-gradient(color-mix(in srgb,var(--dcr-white) 50%,transparent),color-mix(in srgb,var(--dcr-white) 50%,transparent)),url('/assets/add-card/mountain-pair.png');background-size:100% 100%,200% 100%;background-repeat:no-repeat}
 .intake-card:first-child{background-position:center,left center}
 .intake-card:last-child{background-position:center,right center}
-.intake-card .section-heading h2,.intake-card .section-heading p,.intake-card .upload-label,.intake-card .form-field>label,.intake-card .identification-notice{background:color-mix(in srgb,var(--dcr-white) 78%,transparent);box-shadow:0 0 10px 5px color-mix(in srgb,var(--dcr-white) 78%,transparent);border-radius:5px}
+.intake-card .section-heading h2,.intake-card .section-heading p,.intake-card .upload-label,.intake-card .form-field>label,.intake-card .reading-label>label,.intake-card .identification-notice{background:color-mix(in srgb,var(--dcr-white) 78%,transparent);box-shadow:0 0 10px 5px color-mix(in srgb,var(--dcr-white) 78%,transparent);border-radius:5px}
 .intake-card .upload-field{background:color-mix(in srgb,var(--dcr-white) 78%,transparent)}
 .intake-card .upload-field:hover,.intake-card .upload-field:focus-within,.intake-card .upload-field.is-dragging{background:var(--dcr-red-light)}
 .intake-card .form-control{background-color:color-mix(in srgb,var(--dcr-white) 96%,transparent)}
@@ -193,3 +193,21 @@
 .list-row>div{min-width:0;overflow-wrap:anywhere}
 .intake-page .intake-card:has(.manual-submit){padding-bottom:max(18px,var(--button-effect-space))}
 @media(max-width:540px){.form-toolbar>.form-field{flex:1 1 140px;max-width:none}.form-toolbar>.btn{max-width:100%}}
+
+/* Card reading review: preserve field dimensions while marking uncertain results. */
+.intake-card .form-field:has(.reading-help:not([hidden])) .catalog-select__control{border-color:var(--reading-review-yellow);box-shadow:0 0 0 1px var(--reading-review-yellow)}
+.reading-help{display:inline-block;position:relative;vertical-align:middle;margin-left:5px}
+.reading-help[hidden]{display:none}
+.reading-help-button{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;padding:0;border:1px solid currentColor;border-radius:50%;background:var(--dcr-white);color:var(--dcr-red);font:700 11px var(--font-sans);cursor:pointer}
+.reading-tooltip{position:absolute;z-index:50;bottom:calc(100% + 9px);left:50%;width:210px;max-width:65vw;padding:9px 11px;border-radius:8px;background:var(--dcr-red);color:var(--dcr-white);font-size:13px;line-height:1.35;font-weight:400;visibility:hidden;opacity:0;transform:translate(-50%,4px);text-align:center;transition:opacity .5s,transform .5s;pointer-events:none}
+.reading-tooltip::after{content:'';position:absolute;top:100%;left:50%;border:6px solid transparent;border-top-color:var(--dcr-red);transform:translateX(-50%)}
+.reading-help:hover .reading-tooltip,.reading-help:focus-within .reading-tooltip,.reading-help-button[aria-expanded="true"] + .reading-tooltip{visibility:visible;opacity:1;transform:translate(-50%,0);animation:reading-tooltip-bounce .6s ease}
+
+.reading-label{display:flex;align-items:center;min-height:17px;line-height:17px}
+.reading-label>label{color:inherit;font-size:inherit;font-weight:inherit}
+
+/* Adapted from Cksunandh’s Uiverse tooltip; see docs/licenses/cksunandh-tooltip.txt. */
+.reading-help-button{transition:transform .5s ease-in-out}
+.reading-help-button:hover{transform:rotate(360deg) scale(1.2)}
+@keyframes reading-tooltip-bounce{0%,20%,50%,80%,100%{transform:translate(-50%,0)}40%{transform:translate(-50%,-30px)}60%{transform:translate(-50%,-15px)}}
+@media(prefers-reduced-motion:reduce){.reading-tooltip,.reading-help-button{transition:none!important;animation:none!important}}

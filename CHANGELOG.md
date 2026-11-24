@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Highlight uncertain card readings
+- Mark AI-flagged fields with a yellow border and an accessible red review tooltip.
+
 ## 2026-11-24 - Simplify LINE share icon
 - Keep the LINE lettering centered inside the circular share icon and match its border weight to Facebook.
 

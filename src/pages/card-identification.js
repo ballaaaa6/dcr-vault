@@ -1,3 +1,4 @@
+import {clearReadingHighlights, showReadingHighlights} from './reading-highlights.js';
 import {formatRarity} from '../utils/rarity.js';
 import {identifyCardImage} from '../store/cards.js';
 import {findSourceCatalogCard, findSourceCandidates, findEvidenceCard} from '../store/catalog.js';
@@ -47,6 +48,7 @@ function clearResult() {
 export function resetCardIdentificationState() {
   analysisVersion += 1;
   candidateState = null;
+  clearReadingHighlights();
   clearResult();
 }
 
@@ -55,6 +57,7 @@ export function identificationProvenance() {
 }
 
 export function clearAppliedReading() {
+  clearReadingHighlights();
   classification = {};
   fieldProvenance = {};
   readingRequestId = '';
@@ -249,6 +252,7 @@ async function analyzeFront() {
   const file = document.getElementById('m-image-front')?.files?.[0];
   if (!button || !file || analysisBusy) return;
   clearResult();
+  clearReadingHighlights();
   const version = ++analysisVersion;
   analysisBusy = true;
   button.disabled = true;
@@ -273,6 +277,7 @@ async function analyzeFront() {
     const conflict = readingConflict(result.fields, selectedLanguage, fieldProvenance.sourceLanguage === 'user');
     if (conflict) { showError(conflict); return; }
     const values = fillGeminiValues(result.fields, result.requestId);
+    showReadingHighlights(result.fields);
     const resolution = await applyReading(result.fields, version, result.requestId, values);
     if (resolution && version === analysisVersion) candidateState = {fields: result.fields, candidates: resolution.candidates, version};
     if (resolution && version === analysisVersion) setResult(`${readingSummaryMarkup(result.fields, result.source, true, classification)}<p class="identification-match-note">${escapeHTML(resolution.matchNote + resolution.englishNote)} Review all details before saving.</p>${candidateMarkup(resolution.candidates)}`);
