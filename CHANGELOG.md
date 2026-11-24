@@ -1,3 +1,5 @@
+- Keep the Labels sheet heading stable and mask the block smoothly during scrolling.
+
 - Clip the whole Labels sheet block at its sticky rounded heading while scrolling.
 
 - Restore rounded Labels heading corners and clip list rows as they scroll behind the sticky heading.
