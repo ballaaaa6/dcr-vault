@@ -1,5 +1,7 @@
 # Showcase sharing controls
 
+- Align the sharing lock switch with the Copy button.
+
 - Reduced the showcase switch size and aligned its colored tooltip with the moving knob.
 
 - Use the original Uiverse showcase switch and align it with the dialog title.

@@ -87,7 +87,7 @@
 .collections-page .content-dialog:has(.label-vault-list) .label-dialog-description{margin:0 0 18px}
 
 /* Uiverse switch by Javierrocadev; see docs/licenses/uiverse-switch.txt. */
-.collections-page .content-dialog:has(.collections-share) header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-right:34px}
+.collections-page .content-dialog:has(.collections-share) header{display:flex;align-items:center;justify-content:space-between;gap:16px}
 .collections-page .content-dialog:has(.collections-share) header h2{margin:0}
 .collections-share-toggle{position:relative;display:inline-flex;align-items:center;cursor:pointer;flex:none}
 .collections-share-toggle .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
