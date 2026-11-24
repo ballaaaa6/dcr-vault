@@ -3,7 +3,6 @@
 .shared-tooltip__trigger{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;padding:0;border:1px solid currentColor;border-radius:50%;background:var(--dcr-white);color:var(--dcr-gray);font:700 10px/1 var(--font-sans);cursor:pointer;transition:transform .5s ease-in-out}
 .shared-tooltip__content{position:absolute;z-index:50;bottom:calc(100% + 9px);left:50%;width:210px;max-width:65vw;padding:9px 11px;border-radius:8px;background:var(--dcr-red);color:var(--dcr-white);font-size:var(--font-size-description);line-height:1.35;font-weight:400;visibility:hidden;opacity:0;transform:translate(-50%,4px);text-align:center;transition:opacity .5s,transform .5s;pointer-events:none}
 .shared-tooltip__content::after{content:'';position:absolute;top:100%;left:50%;border:6px solid transparent;border-top-color:var(--dcr-red);transform:translateX(-50%)}
-.shared-tooltip:hover .shared-tooltip__content,.shared-tooltip__trigger:focus-visible + .shared-tooltip__content,.shared-tooltip__trigger[aria-expanded="true"] + .shared-tooltip__content{visibility:visible;opacity:1;transform:translate(-50%,0);animation:shared-tooltip-bounce .6s ease}
 .shared-tooltip__trigger:hover,.shared-tooltip__trigger:focus-visible{border-color:transparent;background:var(--dcr-red);color:var(--dcr-white);transform:rotate(360deg) scale(1.2)}
 @keyframes shared-tooltip-bounce{0%,20%,50%,80%,100%{transform:translate(-50%,0)}40%{transform:translate(-50%,-30px)}60%{transform:translate(-50%,-15px)}}
 @media(prefers-reduced-motion:reduce){.shared-tooltip__content,.shared-tooltip__trigger{transition:none!important;animation:none!important}}
@@ -11,4 +10,14 @@
 .shared-tooltip__content{text-wrap:balance;overflow-wrap:normal;word-break:normal}
 .reading-label:has(.reading-help:not([hidden])) .shared-tooltip{display:none}
 
-.shared-tooltip.is-dismissed .shared-tooltip__content{visibility:hidden;opacity:0;animation:none}
+
+/* All tooltip visibility is controlled here. Focus and touch never open a tooltip. */
+[role="tooltip"], [data-tooltip]::before, [data-tooltip]::after{visibility:hidden;opacity:0;transition-delay:0s}
+@media (any-hover:hover) and (any-pointer:fine){
+  :hover > [role="tooltip"]{visibility:visible;opacity:1}
+  [data-tooltip]:hover::before, [data-tooltip]:hover::after{visibility:visible;opacity:1}
+  .shared-tooltip:hover .shared-tooltip__content{transform:translate(-50%,0);animation:shared-tooltip-bounce .6s ease}
+  .reading-help:hover .reading-tooltip{transform:translate(-50%,0);animation:reading-tooltip-bounce .6s ease}
+  .cert-share-icon:hover::after{transform:translateX(-50%) scale(1);animation:cert-tooltip-shake .5s ease-in-out}
+  .cert-share-icon:hover::before{transform:translateX(-50%) rotate(45deg) scale(1)}
+}

@@ -1,3 +1,7 @@
+# Tooltip visibility
+
+- Centralized tooltip visibility so tooltips only appear while the mouse hovers over their controls.
+
 # Showcase sharing controls
 
 - Align the sharing lock switch with the Copy button.

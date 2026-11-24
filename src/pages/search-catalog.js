@@ -9,7 +9,7 @@ let mountVersion = 0;
 
 export function catalogField(id, label, placeholder, {wide = false, required = true} = {}) {
   const maxLength = id === 'year' ? 4 : ['game', 'cardNumber'].includes(id) ? 30 : 120;
-  return `<div class="form-field${wide ? ' intake-wide' : ''}"><div class="reading-label"><label for="m-${id}-input">${label}${required ? ' <span class="required-mark" aria-hidden="true">*</span>' : ''}</label>${intakeTooltip(id, label)}<span class="reading-help" hidden><button type="button" class="reading-help-button" aria-label="Why ${label} needs review" aria-describedby="reading-tooltip-${id}" aria-expanded="false">i</button><span id="reading-tooltip-${id}" class="reading-tooltip" role="tooltip">Please review this detail to make sure it’s correct.</span></span></div><div class="catalog-control" data-catalog-control="${id}">
+  return `<div class="form-field${wide ? ' intake-wide' : ''}"><div class="reading-label"><label for="m-${id}-input">${label}${required ? ' <span class="required-mark" aria-hidden="true">*</span>' : ''}</label>${intakeTooltip(id, label)}<span class="reading-help" hidden><button type="button" class="reading-help-button" aria-label="Why ${label} needs review" aria-describedby="reading-tooltip-${id}">i</button><span id="reading-tooltip-${id}" class="reading-tooltip" role="tooltip">Please review this detail to make sure it’s correct.</span></span></div><div class="catalog-control" data-catalog-control="${id}">
     <input type="hidden" id="m-${id}" ${required ? 'required' : ''} data-catalog-field="${id}">
     <div data-catalog-mount="${id}" data-label="${label}" data-placeholder="${placeholder}" data-maxlength="${maxLength}"></div>
   </div></div>`;

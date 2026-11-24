@@ -14,7 +14,6 @@ export function uncertainIntakeFields(fields) {
 export function clearReadingHighlights() {
   document.querySelectorAll('.reading-help').forEach(help => {
     help.hidden = true;
-    help.querySelector('button').setAttribute('aria-expanded', 'false');
   });
 }
 
@@ -26,16 +25,8 @@ export function showReadingHighlights(fields) {
   });
 }
 
-document.addEventListener('click', event => {
-  const button = event.target.closest('.reading-help-button');
-  document.querySelectorAll('.reading-help-button[aria-expanded="true"]').forEach(open => {
-    if (open !== button) open.setAttribute('aria-expanded', 'false');
-  });
-  if (button) button.setAttribute('aria-expanded', String(button.getAttribute('aria-expanded') !== 'true'));
-});
-
 document.addEventListener('input', event => {
   const field = event.target.closest('[data-catalog-control]')?.parentElement;
   const help = field?.querySelector('.reading-help');
-  if (help && !help.hidden) { help.hidden = true; help.querySelector('button').setAttribute('aria-expanded', 'false'); }
+  if (help && !help.hidden) help.hidden = true;
 });

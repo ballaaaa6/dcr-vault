@@ -1,5 +1,5 @@
 export function searchClearButton() {
-  return '<button class="search-clear" type="button" aria-label="Clear search" title="Clear search" onclick="window.__clearSearch(this)">×</button>';
+  return '<button class="search-clear" type="button" aria-label="Clear search" onclick="window.__clearSearch(this)">×</button>';
 }
 
 if (typeof window !== 'undefined') window.__clearSearch = button => {

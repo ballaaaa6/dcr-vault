@@ -226,7 +226,6 @@
 .reading-help-button{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;padding:0;border:1px solid currentColor;border-radius:50%;background:var(--dcr-white);color:var(--reading-review-yellow);font:700 10px var(--font-sans);cursor:pointer}
 .reading-tooltip{position:absolute;z-index:50;bottom:calc(100% + 9px);left:50%;width:210px;max-width:65vw;padding:9px 11px;border-radius:8px;background:var(--dcr-red);color:var(--dcr-white);font-size:var(--font-size-description);line-height:1.35;font-weight:400;visibility:hidden;opacity:0;transform:translate(-50%,4px);text-align:center;transition:opacity .5s,transform .5s;pointer-events:none}
 .reading-tooltip::after{content:'';position:absolute;top:100%;left:50%;border:6px solid transparent;border-top-color:var(--dcr-red);transform:translateX(-50%)}
-.reading-help:hover .reading-tooltip,.reading-help:focus-within .reading-tooltip,.reading-help-button[aria-expanded="true"] + .reading-tooltip{visibility:visible;opacity:1;transform:translate(-50%,0);animation:reading-tooltip-bounce .6s ease}
 
 .reading-label{display:flex;align-items:center;min-height:17px;line-height:17px}
 .reading-label>label{color:inherit;font-size:inherit;font-weight:inherit}
