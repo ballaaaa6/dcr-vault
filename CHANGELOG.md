@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Simplify LINE share icon
+- Keep the LINE lettering centered inside the circular share icon.
+
 ## 2026-11-24 - Fill social sharing buttons
 - Enlarge the circular social logos to fill their buttons and use black tooltip text.
 
