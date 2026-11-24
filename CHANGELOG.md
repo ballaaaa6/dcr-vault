@@ -1,3 +1,5 @@
+- Invert certificate social share icons and animate each platform color rising on focus and receding on blur.
+
 - Reduce the Certificate Verification background image opacity to 20%.
 
 - Stack the Vault image preview switch below the close button along the right edge.
