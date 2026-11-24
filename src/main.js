@@ -1,9 +1,12 @@
 // DCR Card Vault - Entry - English only
 import {render} from './router.js';
+import {initializeTooltips} from './components/tooltip.js';
+import './styles/tooltip.css';
 import {initializeBackToTop} from './components/back-to-top.js';
 import {initializeImageLoading} from './components/image-loading.js';
 import {initializeTextCursor} from './utils/text-cursor.js';
 import './styles/image-loading.css';
+initializeTooltips();
 initializeImageLoading();
 initializeTextCursor();
 window.addEventListener('vite:preloadError', event => {

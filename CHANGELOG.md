@@ -1,3 +1,5 @@
+- Add a reusable informational tooltip with the existing bounce and rotation animations, a gray trigger, and red hover styling.
+
 - Keep the Finish field fixed in size when entering a custom pattern.
 
 - Make nested dropdown interaction, red branch styling, and typography a reusable shared standard.
