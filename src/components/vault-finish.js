@@ -1,3 +1,4 @@
+import {vaultTooltip} from './vault-tooltip.js';
 import {dropdown} from './dropdown.js';
 import {prepareNestedDropdown, openNestedDropdown} from './nested-dropdown.js';
 import {escapeHTML} from '../utils/format.js';
@@ -12,7 +13,7 @@ const display = value => value.replace(/\s+—\s+/g, ' - ') || 'Not selected';
 
 export function vaultFinishInput(value = '') {
   if (value.trim() === '— 454') value = '';
-  return `<div class="form-field" data-vault-finish><span>Finish</span><input type="hidden" name="sourceFinish" value="${escapeHTML(value)}"><div data-finish-control></div></div>`;
+  return `<div class="form-field" data-vault-finish><div><span>Finish</span>${vaultTooltip('sourceFinish', 'Finish')}</div><input type="hidden" name="sourceFinish" value="${escapeHTML(value)}"><div data-finish-control></div></div>`;
 }
 
 function renderDropdown(mount, value) {

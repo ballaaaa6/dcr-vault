@@ -1,3 +1,4 @@
+import {vaultTooltip} from '../components/vault-tooltip.js';
 import {compareVaultCards, vaultSortSelect} from '../utils/vault-sort.js';
 import {searchClearButton} from '../components/search-clear.js';
 import {datePicker, initializeDatePicker} from '../components/date-picker.js';
@@ -33,8 +34,8 @@ const publicFields = [
 ];
 function editFields(card) {
   return publicFields.map(([key, label, limit]) => key === 'sourceFinish' ? vaultFinishInput(card[key]) : classificationFields.some(([field]) => field === key)
-    ? vaultClassificationInput(key, label, card[key]) + (key === 'energyType' ? vaultEnergyInput(card) : '') : `<label class="form-field${key === 'name' ? ' vault-edit-full' : ''}"><span>${label}</span>
-    <input class="form-control" name="${key}" maxlength="${limit}" value="${escapeHTML(card[key] || '')}" ${key === 'certNumber' ? 'inputmode="numeric" pattern="[0-9]{1,8}" required' : key === 'name' ? 'required' : ''}></label>`).join('');
+    ? vaultClassificationInput(key, label, card[key]) + (key === 'energyType' ? vaultEnergyInput(card) : '') : `<div class="form-field${key === 'name' ? ' vault-edit-full' : ''}"><div><label for="vault-field-${key}">${label}</label>${vaultTooltip(key, label)}</div>
+    <input id="vault-field-${key}" class="form-control" name="${key}" maxlength="${limit}" value="${escapeHTML(card[key] || '')}" ${key === 'certNumber' ? 'inputmode="numeric" pattern="[0-9]{1,8}" required' : key === 'name' ? 'required' : ''}></div>`).join('');
 }
 export function vault(cards = [], locations = [], collections = []) {
   activeCards = cards;
@@ -108,17 +109,17 @@ function privateInformation(card) {
 function privateInputs(card) {
   const source = card.purchaseSource || '';
   const custom = source && !sources.includes(source);
-  return `<div class="form-field"><span>Buy price</span><div class="vault-price-input"><input class="form-control" name="buyPrice" type="number" min="0" step="any" aria-label="Buy price" value="${escapeHTML(card.buyPrice ?? '')}">
+  return `<div class="form-field"><div><span>Buy price</span>${vaultTooltip('buyPrice', 'Buy price')}</div><div class="vault-price-input"><input class="form-control" name="buyPrice" type="number" min="0" step="any" aria-label="Buy price" value="${escapeHTML(card.buyPrice ?? '')}">
     <select class="form-control" name="buyCurrency" aria-label="Currency">${currencies.map(code => `<option value="${code}"${code === (card.buyCurrency || 'THB') ? ' selected' : ''}>${code}</option>`).join('')}</select></div></div>
-    <label class="form-field"><span>Acquisition</span><select class="form-control" name="sourceChoice" onchange="window.__vaultSourceChange(this)"><option value="">Select acquisition</option>${sources.map(value => `<option${value === source ? ' selected' : ''}>${escapeHTML(value)}</option>`).join('')}<option value="Other"${custom ? ' selected' : ''}>Other</option></select></label>
-    <label class="form-field" id="vault-custom-source" ${custom ? '' : 'hidden'}><span>Other acquisition</span><input class="form-control" name="customSource" maxlength="120" value="${escapeHTML(custom ? source : '')}"></label>
-    <label class="form-field"><span>Seller</span><input class="form-control" name="seller" maxlength="120" value="${escapeHTML(card.seller || '')}"></label>
+    <div class="form-field"><div><label for="vault-source">Acquisition</label>${vaultTooltip('purchaseSource', 'Acquisition')}</div><select id="vault-source" class="form-control" name="sourceChoice" onchange="window.__vaultSourceChange(this)"><option value="">Select acquisition</option>${sources.map(value => `<option${value === source ? ' selected' : ''}>${escapeHTML(value)}</option>`).join('')}<option value="Other"${custom ? ' selected' : ''}>Other</option></select></div>
+    <div class="form-field" id="vault-custom-source" ${custom ? '' : 'hidden'}><div><label for="vault-custom-source-input">Other acquisition</label>${vaultTooltip('customSource', 'Other acquisition')}</div><input id="vault-custom-source-input" class="form-control" name="customSource" maxlength="120" value="${escapeHTML(custom ? source : '')}"></div>
+    <div class="form-field"><div><label for="vault-seller">Seller</label>${vaultTooltip('seller', 'Seller')}</div><input id="vault-seller" class="form-control" name="seller" maxlength="120" value="${escapeHTML(card.seller || '')}"></div>
     ${card.boughtFrom ? `<p class="detail-note">Bought from (previous): ${escapeHTML(card.boughtFrom)}</p>` : ''}
-    ${datePicker(card.receivedDate)}
-    <div class="form-field"><label for="m-storageLocation-input">Storage location</label><input type="hidden" id="m-storageLocation" name="storageLocation" value="${escapeHTML(card.storageLocation || '')}"><div id="vault-location-mount"></div></div>
-    <div class="form-field"><label for="vault-collections-input">Collections</label><input type="hidden" id="vault-collection-values" value="${escapeHTML(JSON.stringify(getCollections().filter(group => group.cardIds.includes(card.id)).map(group => ({id: group.id, name: group.name}))))}"><div id="vault-collection-mount"></div></div>
-    <label class="form-field"><span>Position</span><input class="form-control" name="position" maxlength="200" value="${escapeHTML(card.position || '')}" placeholder="e.g. Page 3"></label>
-    <label class="form-field"><span>Notes</span><textarea class="form-control" name="notes" maxlength="2000" rows="2">${escapeHTML(card.notes || '')}</textarea></label>`;
+    ${datePicker(card.receivedDate, {help: vaultTooltip('receivedDate', 'Date received')})}
+    <div class="form-field"><div><label for="m-storageLocation-input">Storage location</label>${vaultTooltip('storageLocation', 'Storage location')}</div><input type="hidden" id="m-storageLocation" name="storageLocation" value="${escapeHTML(card.storageLocation || '')}"><div id="vault-location-mount"></div></div>
+    <div class="form-field"><div><label for="vault-collections-input">Collections</label>${vaultTooltip('collections', 'Collections')}</div><input type="hidden" id="vault-collection-values" value="${escapeHTML(JSON.stringify(getCollections().filter(group => group.cardIds.includes(card.id)).map(group => ({id: group.id, name: group.name}))))}"><div id="vault-collection-mount"></div></div>
+    <div class="form-field"><div><label for="vault-position">Position</label>${vaultTooltip('position', 'Position')}</div><input id="vault-position" class="form-control" name="position" maxlength="200" value="${escapeHTML(card.position || '')}" placeholder="e.g. Page 3"></div>
+    <div class="form-field"><div><label for="vault-notes">Notes</label>${vaultTooltip('notes', 'Notes')}</div><textarea id="vault-notes" class="form-control" name="notes" maxlength="2000" rows="2">${escapeHTML(card.notes || '')}</textarea></div>`;
 }
 
 window.__vaultSourceChange = select => {

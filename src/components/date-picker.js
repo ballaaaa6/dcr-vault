@@ -20,8 +20,8 @@ export function calendarOpensUp(triggerTop, triggerBottom, calendarHeight, viewp
   return below < calendarHeight && above > below;
 }
 
-export function datePicker(value = '', {name = 'receivedDate', label = 'Date received', id = 'received-date'} = {}) {
-  return `<div class="form-field"><span id="${id}-label">${escapeHTML(label)}</span><div class="date-picker" data-date-picker>
+export function datePicker(value = '', {name = 'receivedDate', label = 'Date received', id = 'received-date', help = ''} = {}) {
+  return `<div class="form-field">${help ? `<div><span id="${id}-label">${escapeHTML(label)}</span>${help}</div>` : `<span id="${id}-label">${escapeHTML(label)}</span>`}<div class="date-picker" data-date-picker>
     <input type="hidden" name="${escapeHTML(name)}" value="${escapeHTML(value)}">
     <button type="button" class="form-control date-picker-trigger" aria-labelledby="${id}-label ${id}-value" aria-expanded="false" aria-controls="${id}-calendar"><span data-date-value data-empty="${!value}" id="${id}-value">${escapeHTML(displayDate(value))}</span>${calendarIcon}</button>
     <div id="${id}-calendar" class="date-picker-calendar" hidden></div></div></div>`;

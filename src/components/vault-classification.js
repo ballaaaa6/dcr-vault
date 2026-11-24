@@ -1,3 +1,4 @@
+import {vaultTooltip} from './vault-tooltip.js';
 import {dropdown} from './dropdown.js';
 import {classificationChoices} from '../utils/card-classification.js';
 
@@ -6,7 +7,7 @@ const groups = {pokemonTypes: 'Pokemon', trainerType: 'Trainer', energyKind: 'En
 export function vaultClassificationInput(key, label, value = '') {
   const choices = ['', ...classificationChoices[key]];
   if (value && !choices.includes(value)) choices.push(value);
-  return `<div class="form-field" data-vault-classification="${key}"><span>${label}</span>${dropdown({
+  return `<div class="form-field" data-vault-classification="${key}"><div><span>${label}</span>${vaultTooltip(key, label)}</div>${dropdown({
     id: key, label, options: choices.map(option => [option, option || 'Not selected']), value: value || ''
   })}</div>`;
 }
@@ -18,7 +19,7 @@ export function vaultEnergyInput(card) {
   const current = [card.energyKind, card.energyType].filter(Boolean).join(' · ');
   const legacy = Boolean(current && !values.includes(current));
   if (legacy) values.push(current);
-  return `<div class="form-field" data-vault-energy><span>Energy</span>${dropdown({
+  return `<div class="form-field" data-vault-energy><div><span>Energy</span>${vaultTooltip('energy', 'Energy')}</div>${dropdown({
     id: 'energyCombined', label: 'Energy', options: values.map(value => [value, value || 'Not selected']), value: current, hiddenValues: legacy ? [current] : []
   })}</div>`;
 }
