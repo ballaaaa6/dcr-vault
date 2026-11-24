@@ -1,3 +1,7 @@
+# Showcase settings button
+
+- Make the settings button circular and center its icon.
+
 # Showcase settings icon
 
 - Restore the settings button background and use pink for its background and icon accents.
