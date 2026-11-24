@@ -28,3 +28,5 @@
 19. Every new or materially redesigned page must register a page-specific loading skeleton in src/components/page-skeleton.js, matching its main layout and responsive breakpoints. Reuse the shared skeleton styles and primitives in src/styles/page-skeleton.css; preserve the loading status for assistive technology. For loading sections within a rendered page, use the same skeleton styles and remove placeholders on success or failure. Update the skeleton whenever the page layout changes.
 
 20. Use the shared `showToast(message, type)` from src/components/toast.js for toast notifications throughout the app. Choose `success`, `warning`, or `error` for the outcome; the component handles stacking, dismissal, and timing. Give related updates the same `key` and set `pending: true` while an operation is in progress.
+
+21. Text inputs and textareas use the shared cursor behavior initialized in src/utils/text-cursor.js; keep new text controls compatible with it.

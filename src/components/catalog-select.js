@@ -73,6 +73,7 @@ export function catalogSelect({field, label, placeholder, maxLength, optionsFor,
   const select = createElement(restricted ? Select : CreatableSelect, {
     inputId: `m-${field}-input`, 'aria-label': label, placeholder, options, value: selected,
     inputValue: input, menuIsOpen: open, menuPlacement: 'auto', menuShouldScrollIntoView: false, isClearable: false, classNamePrefix: 'catalog-select', components: selectComponents, classNames: selectClassNames,
+    onFocus: () => { if (!restricted && selected) { setInput(current.current); setSelected(null); } },
     onMenuOpen: () => { window.dispatchEvent(new CustomEvent('intake-catalog-close', {detail: field})); setOpen(true); },
     onMenuClose: () => setOpen(false),
     onChange: option => commit(option?.value),

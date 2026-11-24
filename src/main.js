@@ -2,8 +2,10 @@
 import {render} from './router.js';
 import {initializeBackToTop} from './components/back-to-top.js';
 import {initializeImageLoading} from './components/image-loading.js';
+import {initializeTextCursor} from './utils/text-cursor.js';
 import './styles/image-loading.css';
 initializeImageLoading();
+initializeTextCursor();
 window.addEventListener('vite:preloadError', event => {
   const key = 'dcr-preload-reload';
   try {

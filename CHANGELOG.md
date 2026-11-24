@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Resume editing at the end
+- Place the cursor at the end when entering text fields, including editable catalog selections.
+
 ## 2026-11-24 - Refine location choices
 - Animate the selection reveal, outline choices in red, and simplify the position labels.
 
@@ -1036,4 +1039,3 @@ Times are commit times in Bangkok time (UTC+7); older entries without a time hav
 
 ## 2026-11-22 - Separate profile editing
 - Save profile photos independently from personal details and allow positioning photos with a circular crop guide.
-
