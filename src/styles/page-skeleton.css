@@ -20,3 +20,22 @@
 .sk-auto{pointer-events:none;user-select:none}.sk-auto-text{display:inline-block;width:8em;max-width:90%;height:.8em;border-radius:6px;vertical-align:baseline}.sk-auto :is(input,textarea,select,button,summary,img,svg).sk-auto-control{color:transparent!important;background:linear-gradient(90deg,var(--dcr-red-light),var(--dcr-white),var(--dcr-red-light))!important;background-size:200% 100%!important;animation:sk 1.2s infinite}.sk-auto input::placeholder,.sk-auto textarea::placeholder{color:transparent}.sk-auto svg{visibility:hidden}.sk-auto img{min-height:1em}.sk-auto .sk-auto-text .sk-auto-text{display:none}
 
 .sk-nav-link{display:block;padding:10px 14px;font-size:var(--font-size-body);font-weight:650}.sk-nav-text{color:transparent;border-radius:6px}.sk-nav-account{margin-left:8px}.sk-auto img{color:transparent}
+
+/* Neutral controls and images for skeletons generated from page layouts. */
+.sk-auto :is(input,textarea,select,button,summary).sk-auto-control{appearance:none;border:0!important;border-radius:8px;outline:0;box-shadow:none!important;transform:none!important}
+.sk-auto :is(button,summary).sk-auto-control>*{visibility:hidden}
+.sk-auto .search-bar{border:0;box-shadow:none;background:linear-gradient(90deg,var(--dcr-red-light),var(--dcr-white),var(--dcr-red-light));background-size:200% 100%;animation:sk 1.2s infinite}
+.sk-auto .search-bar>*{visibility:hidden}
+.sk-auto .badge{background:transparent;color:transparent;padding:0}
+.sk-auto .sk-auto-text{max-width:100%;min-width:0}
+.sk-auto-image{display:block;width:100%;min-height:1em;aspect-ratio:1;border-radius:8px}
+.sk-auto .vault-row-image .sk-auto-image{width:100%;height:100%;aspect-ratio:auto}
+.sk-auto .home-benefit .sk-auto-image{width:38px;height:38px;margin-bottom:8px}
+.sk-auto .account-avatar .sk-auto-image{width:100%;height:100%;border-radius:50%}
+.sk-auto :is(.cert-image,.vault-detail-photo)>.sk-auto-image{width:100%;aspect-ratio:63/88}
+.sk-auto .vault-detail-photo .sk-auto-image{max-height:320px;aspect-ratio:63/88;width:auto;height:320px}
+@media(max-width:540px){.sk-auto .vault-row-image{width:50px;height:68px;flex-basis:50px}}
+
+.sk-auto-icon{display:inline-block;flex:none;width:20px;height:20px}.sk-auto .profile-avatar-button.sk-auto-control{border-radius:50%}.sk-auto .vault-row{overflow:hidden}.sk-auto .billing-price .sk-auto-text{width:2.2em}.sk-auto .billing-card-featured,.sk-page .billing-card-featured{border:1px solid var(--dcr-border);background:var(--dcr-white);box-shadow:none}.sk-auto .billing-badge{background:transparent}.sk-auto textarea{resize:none}.sk-auto .upload-field{border:0;background:linear-gradient(90deg,var(--dcr-red-light),var(--dcr-white),var(--dcr-red-light));background-size:200% 100%;animation:sk 1.2s infinite}.sk-auto .upload-field>*{visibility:hidden}
+
+.sk-auto{overflow-x:clip}.sk-auto .dropdown-menu,.sk-auto .vault-menu-options{display:none!important}

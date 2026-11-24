@@ -18,6 +18,7 @@ class Element {
     };
   }
   set className(value) { this.attrs.class = value; }
+  get className() { return this.attrs.class || ''; }
   get attributes() { return Object.keys(this.attrs).map(name => ({name})); }
   get hidden() { return 'hidden' in this.attrs; }
   get type() { return this.attrs.type || ''; }
@@ -25,6 +26,7 @@ class Element {
   removeAttribute(name) { delete this.attrs[name]; }
   setAttribute(name, value) { this.attrs[name] = value; }
   replaceChildren() { this.childNodes = []; }
+  replaceWith(node) { this.parent.childNodes.splice(this.parent.childNodes.indexOf(this), 1, node); node.parent = this.parent; }
   remove() { this.parent.childNodes.splice(this.parent.childNodes.indexOf(this), 1); }
   cloneNode() { return new Element(this.tagName, this.attrs, this.childNodes.map(child => child.nodeType === 3 ? new TextNode(child.nodeValue) : child.cloneNode(true))); }
   get outerHTML() { return `<${this.tagName} ${Object.entries(this.attrs).map(([k, v]) => `${k}="${v}"`).join(' ')}>${this.childNodes.map(child => child.outerHTML || child.nodeValue).join('')}</${this.tagName}>`; }
@@ -34,13 +36,19 @@ test('generated skeleton preserves layout classes while removing private data an
   const source = new Element('main', {class: 'vault-page', 'data-owner': 'private-owner'}, [
     new Element('section', {class: 'vault-list'}, [new TextNode('private card name'),
       new Element('input', {value: 'private value', oninput: 'alert(1)'}),
+      new Element('input', {type: 'hidden', class: 'hidden-filter'}),
+      new Element('div', {class: 'dropdown-menu'}, [new TextNode('private menu')]),
       new Element('img', {src: '/private-photo', alt: 'private name'}),
+      new Element('svg', {width: '20', height: '20'}),
       new Element('a', {href: '/private-link'}, [new TextNode('private text')]),
       new Element('dialog', {}, [new TextNode('private dialog')])])]);
   const result = skeletonFromElement(source);
   assert.match(result, /vault-page sk-auto/);
   assert.match(result, /vault-list/);
   assert.match(result, /skeleton sk-auto-text/);
-  assert.doesNotMatch(result, /private|oninput|href=|src=|DIALOG/);
+  assert.match(result, /skeleton sk-auto-image/);
+  assert.doesNotMatch(result, /<IMG|<SVG/);
+  assert.match(result, /sk-auto-icon/);
+  assert.doesNotMatch(result, /private|oninput|href=|src=|DIALOG|hidden-filter|dropdown-menu/);
   assert.match(source.outerHTML, /private card name/);
 });

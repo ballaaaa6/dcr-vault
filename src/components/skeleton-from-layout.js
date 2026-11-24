@@ -1,4 +1,4 @@
-const cachePrefix = 'dcr-skeleton-v1:';
+const cachePrefix = 'dcr-skeleton-v2:';
 const discard = 'dialog,script,style,template,iframe,object,embed,link,meta';
 const emptyTags = new Set(['INPUT', 'TEXTAREA', 'SELECT']);
 
@@ -14,8 +14,22 @@ function placeholder(documentRef) {
 }
 
 function cleanElement(element) {
-  if (element.matches(discard) || element.hidden || element.classList.contains('sr-only')) {
+  if (element.matches(discard) || element.hidden || element.classList.contains('sr-only') ||
+      (element.tagName === 'INPUT' && element.type === 'hidden') ||
+      element.classList.contains('dropdown-menu') || element.classList.contains('vault-menu-options')) {
     element.remove();
+    return;
+  }
+  if (element.tagName.toLowerCase() === 'svg') {
+    const icon = element.ownerDocument.createElement('span');
+    icon.className = 'sk-auto-icon';
+    element.replaceWith(icon);
+    return;
+  }
+  if (element.tagName === 'IMG') {
+    const image = element.ownerDocument.createElement('span');
+    image.className = `${element.className || ''} skeleton sk-auto-image`;
+    element.replaceWith(image);
     return;
   }
   const inputType = element.tagName === 'INPUT' && ['checkbox', 'radio'].includes(element.type) ? element.type : '';
@@ -23,9 +37,8 @@ function cleanElement(element) {
     if (attribute.name !== 'class') element.removeAttribute(attribute.name);
   }
   if (inputType) element.setAttribute('type', inputType);
-  if (element.tagName === 'IMG') element.setAttribute('alt', '');
   if (emptyTags.has(element.tagName)) element.replaceChildren();
-  if (element.matches('input,textarea,select,button,summary,img,svg')) element.classList.add('sk-auto-control');
+  if (element.matches('input,textarea,select,summary') || (element.tagName === 'BUTTON' && !element.classList.contains('list-row'))) element.classList.add('sk-auto-control');
   for (const child of [...element.childNodes]) {
     if (child.nodeType === 3) {
       if (child.nodeValue.trim()) child.replaceWith(placeholder(element.ownerDocument));

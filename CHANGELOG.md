@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Correct generated skeleton shapes
+- Remove native control borders and live badge colors from generated skeletons, and render rounded image placeholders throughout the app.
+
 ## 2026-11-24 - Refine loading layouts
 - Generate reusable loading layouts from rendered page structure without retaining displayed values, align first-visit placeholders, and add sheet preview skeletons.
 
