@@ -23,5 +23,8 @@
 .vault-finish-custom{position:relative}
 .vault-finish-custom .form-control{width:100%;padding-left:40px}
 .vault-finish-custom button{position:absolute;left:0;top:0;height:100%;width:38px;border:0;background:transparent;color:var(--dcr-black);font:inherit;cursor:pointer}
-.dropdown-menu .vault-finish-submenu button{padding-left:28px}
+.vault-finish-submenu{position:relative;margin-left:19px}
+.vault-finish-submenu::before{content:"";position:absolute;left:0;top:-10px;bottom:19px;border-left:1px solid var(--dcr-red)}
+.dropdown-menu .vault-finish-submenu button{position:relative;padding-left:18px;color:var(--dcr-gray);font-size:var(--font-size-description)}
+.vault-finish-submenu button::before{content:"";position:absolute;left:0;top:50%;width:10px;border-top:1px solid var(--dcr-red)}
 [data-vault-finish] [aria-expanded="true"] > span:last-child{transform:rotate(90deg)}

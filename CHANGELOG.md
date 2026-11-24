@@ -1,3 +1,5 @@
+- Clarify nested Finish choices with smaller muted text and red branch lines, and preserve the Unknown selection.
+
 - Expand Finish patterns inside the existing dropdown instead of a separate side menu.
 
 - Keep Finish categories open while selecting nested foil patterns, isolate custom values, and remove the stray test value.

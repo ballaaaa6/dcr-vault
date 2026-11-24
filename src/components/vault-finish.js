@@ -86,7 +86,7 @@ export function initializeVaultFinish(form) {
   }, true);
   mount.addEventListener('change', event => {
     if (event.target.id !== 'vault-finish-choice') return;
-    save(event.target.value === 'Unknown' ? '' : event.target.value);
+    save(event.target.value);
     renderDropdown(mount, saved.value);
     mount.querySelector('summary').focus();
   });
