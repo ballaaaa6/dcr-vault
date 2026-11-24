@@ -1,3 +1,7 @@
+# Showcase ordering
+
+- Reorder showcases and their cards directly with drag handles; remove the separate Manage cards menu.
+
 # Tooltip visibility
 
 - Centralized tooltip visibility so tooltips only appear while the mouse hovers over their controls.

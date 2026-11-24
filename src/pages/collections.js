@@ -6,6 +6,7 @@ import {compareVaultCards, vaultSortSelect} from '../utils/vault-sort.js';
 import {tooltip} from '../components/tooltip.js';
 import {showToast} from '../components/toast.js';
 import {listView, detailView, collectionItems} from './collections-view.js';
+import {initializeCollectionSorting} from './collections-sorting.js';
 
 let groups = [], cards = [], selectedId = '', preview = false;
 const content = () => document.getElementById('collections-content');
@@ -47,15 +48,6 @@ function changePicker(event) {
   if (event.target.matches('[data-collection-select-all]')) list.querySelectorAll('input').forEach(box => { box.checked = event.target.checked; });
   if (event.target.matches('[data-collection-select-all], .label-vault-list input')) updatePickerSelection();
 }
-function manageCardsDialog() {
-  const group = current();
-  const items = group.cardIds.map((id, index) => {
-    const card = cards.find(item => item.id === id);
-    if (!card) return '';
-    return `<div class="collections-manage-row"><strong>${esc(card.name)}</strong><div><button type="button" class="btn btn-ghost" data-move="${index}" data-direction="-1" ${index === 0 ? 'disabled' : ''} aria-label="Move ${esc(card.name)} earlier">↑</button><button type="button" class="btn btn-ghost" data-move="${index}" data-direction="1" ${index === group.cardIds.length - 1 ? 'disabled' : ''} aria-label="Move ${esc(card.name)} later">↓</button><button type="button" class="btn btn-ghost" data-remove="${esc(id)}">Remove</button></div></div>`;
-  }).join('');
-  openDialog('Manage cards', `<div class="collections-manage-list button-safe-scroll">${items || '<p>No cards in this showcase yet.</p>'}</div>`);
-}
 function shareDialog() {
   const group = current(), enabled = Boolean(group.shareEnabled);
   const link = group.shareToken ? `${location.origin}/showcase/${encodeURIComponent(group.name.replace(/[^a-zA-Z0-9]/g, '') || 'collection')}/${group.shareToken}` : '';
@@ -92,7 +84,6 @@ async function handleAction(action) {
   if (action === 'create') return editDialog();
   if (action === 'edit') return editDialog(current());
   if (action === 'add') return addDialog();
-  if (action === 'manage-cards') return manageCardsDialog();
   if (action === 'share') return shareDialog();
   if (action === 'back') { selectedId = ''; preview = false; navigate(); return draw(); }
   if (action === 'preview') { preview = !preview; return draw(); }
@@ -111,24 +102,33 @@ async function handleClick(event) {
   if (target.dataset.groupAction) { selectedId = target.dataset.groupId; navigate(current()); draw(); return handleAction(target.dataset.groupAction); }
   if (target.dataset.open) { selectedId = target.dataset.open; navigate(current()); return draw(); }
   if (target.dataset.action) { target.closest('details')?.removeAttribute('open'); return handleAction(target.dataset.action); }
-  if (target.dataset.remove) { await updateMembership(current().cardIds.filter(id => id !== target.dataset.remove)); return manageCardsDialog(); }
-  if (target.dataset.move !== undefined) {
-    const order = [...current().cardIds], from = Number(target.dataset.move), to = from + Number(target.dataset.direction);
-    [order[from], order[to]] = [order[to], order[from]];
-    await collectionsRequest('PATCH', {id: selectedId, cardOrder: order}); await refresh(); manageCardsDialog();
-  }
+
 }
 export function initializeCollections(initialGroups, initialCards, ownerCollection) {
   groups = initialGroups; cards = initialCards;
   let name = ''; try { name = decodeURIComponent(ownerCollection || ''); } catch {}
   selectedId = groups.find(group => group.name.toLowerCase() === name.toLowerCase())?.id || ''; preview = false; draw();
   const page = document.querySelector('.collections-page');
+  initializeCollectionSorting(page, async ids => {
+    if (current()) await collectionsRequest('PATCH', {id: selectedId, cardOrder: ids});
+    else {
+      const visible = new Set(ids); let index = 0;
+      const order = groups.map(group => visible.has(group.id) ? ids[index++] : group.id);
+      await collectionsRequest('PATCH', {order});
+      groups = order.map(id => groups.find(group => group.id === id));
+      const select = page.querySelector('#collections-sort'); select.value = 'custom';
+      const control = select.nextElementSibling; control.querySelector('[data-dropdown-current]').textContent = 'Custom order';
+      control.querySelector('summary').setAttribute('aria-label', 'Sort showcases: Custom order');
+      control.querySelectorAll('[data-dropdown-value]').forEach(option => option.setAttribute('aria-checked', String(option.dataset.dropdownValue === 'custom')));
+    }
+    if (current()) current().cardIds = ids;
+  });
   page.addEventListener('click', event => { handleClick(event).catch(error => showToast(error.message, 'error')); });
   const filterList = () => {
     const query = page.querySelector('#collections-search').value.trim().toLocaleLowerCase();
     const sort = page.querySelector('#collections-sort').value;
     const filtered = groups.filter(group => group.name.toLocaleLowerCase().includes(query));
-    filtered.sort((a, b) => sort === 'count' ? b.cardIds.length - a.cardIds.length || a.name.localeCompare(b.name) : a.name.localeCompare(b.name));
+    if (sort !== 'custom') filtered.sort((a, b) => sort === 'count' ? b.cardIds.length - a.cardIds.length || a.name.localeCompare(b.name) : a.name.localeCompare(b.name));
     page.querySelector('#collections-list').innerHTML = collectionItems(filtered, cards);
   };
   page.addEventListener('input', event => {
