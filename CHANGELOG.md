@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Fill social sharing buttons
+- Enlarge the circular social logos to fill their buttons and use black tooltip text.
+
 ## 2026-11-24 - Update certificate social icons
 - Refresh LINE, Facebook, and X share icons and their brand hover colors; invert the More button on hover and focus like Copy.
 
