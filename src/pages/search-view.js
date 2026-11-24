@@ -51,7 +51,7 @@ export function searchMarkup() {
         </section>
       </div>
       <div class="intake-status-sources"><p id="photo-status" class="import-status" role="status" aria-live="polite"></p><p id="manual-status" class="import-status" role="status" aria-live="polite"></p><small id="m-cert-status" class="field-status" role="status" aria-live="polite"></small></div>
-      <dialog class="photo-viewer" id="photo-viewer" aria-label="Card image preview"><button class="photo-viewer-close" type="button" data-close-photo-viewer aria-label="Close preview">×</button><img alt=""></dialog>
+      <dialog class="photo-viewer" id="photo-viewer" aria-label="Card image preview"><button class="dialog-close photo-viewer-close" type="button" data-close-photo-viewer aria-label="Close preview">×</button><img alt=""></dialog>
       ${identificationDialogMarkup()}
     </main>`;
 }

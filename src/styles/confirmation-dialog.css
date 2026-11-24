@@ -17,7 +17,7 @@ dialog :is([role="status"],[role="alert"]):empty{display:none}
 .dialog-close{position:absolute;top:10px;right:10px;display:grid;place-items:center;box-sizing:border-box;width:38px;height:38px;padding:0;border:0;border-radius:50%;background:var(--dcr-red);color:var(--dcr-white);font-size:26px;line-height:1;cursor:pointer}.dialog-close:focus-visible{outline:2px solid var(--dcr-red);outline-offset:3px}.two-choice-dialog:has(>.dialog-close)>h2{padding-right:40px}
 
 /* Corner close controls follow the scale interaction. */
-.identification-dialog .dialog-close,.dialog-close.location-close,.dialog-close.vault-photo-close{transition:transform 100ms ease-in-out,opacity 200ms ease-in-out}
-@media(hover:hover){.identification-dialog .dialog-close:hover,.dialog-close.location-close:hover,.dialog-close.vault-photo-close:hover{transform:scale(.9)}}
-.identification-dialog .dialog-close.is-closing,.dialog-close.location-close.is-closing,.dialog-close.vault-photo-close.is-closing{transform:scale(1.6);opacity:0;transition:transform 200ms ease-in-out,opacity 200ms ease-in-out;pointer-events:none}
-@media(prefers-reduced-motion:reduce){.identification-dialog .dialog-close,.dialog-close.location-close,.dialog-close.vault-photo-close{transition:none}}
+.identification-dialog .dialog-close,.dialog-close.location-close,.dialog-close.vault-photo-close,.dialog-close.photo-viewer-close{transition:transform 100ms ease-in-out,opacity 200ms ease-in-out}
+@media(hover:hover){.identification-dialog .dialog-close:hover,.dialog-close.location-close:hover,.dialog-close.vault-photo-close:hover,.dialog-close.photo-viewer-close:hover{transform:scale(.9)}}
+.identification-dialog .dialog-close.is-closing,.dialog-close.location-close.is-closing,.dialog-close.vault-photo-close.is-closing,.dialog-close.photo-viewer-close.is-closing{transform:scale(1.6);opacity:0;transition:transform 200ms ease-in-out,opacity 200ms ease-in-out;pointer-events:none}
+@media(prefers-reduced-motion:reduce){.identification-dialog .dialog-close,.dialog-close.location-close,.dialog-close.vault-photo-close,.dialog-close.photo-viewer-close{transition:none}}

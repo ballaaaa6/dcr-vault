@@ -1,3 +1,5 @@
+- Place the animated red close control across the Add Card image preview corner.
+
 - Position the Vault card image switch across the photo panel’s right border.
 
 - Replace the print queue clear button with an animated corner trash button.
