@@ -1,3 +1,5 @@
+- Inset the Vault card image preview from the viewport and place its close button across the top-right corner.
+
 - Use the shared red close button in the Vault card image preview.
 
 - Play shared switch and options icon animations on activation and enlarge the options icon.
