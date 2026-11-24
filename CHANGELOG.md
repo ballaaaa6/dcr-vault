@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Refine card reading review
+- Highlight populated reading rows on hover and style catalog suggestions to match the review dialog.
+
 ## 2026-11-24 - Hide reading confidence scores
 - Remove confidence percentages and unscored labels from the card reading review.
 

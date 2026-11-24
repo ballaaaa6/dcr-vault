@@ -238,7 +238,7 @@ function userValuesConflict(values) {
 function candidateMarkup(candidates) {
   if (!candidates.length) return '';
   const items = candidates.map((card, index) => `<li><button type="button" data-identification-candidate="${index}">${escapeHTML([card.name, card.setName || 'Set unknown', card.cardNumber, card.language].filter(Boolean).join(' · '))}</button></li>`).join('');
-  return `<section><p>Possible printed-language records; names may differ. Compare the name, set, stamp, and number before using them:</p><ul>${items}</ul></section>`;
+  return `<section class="identification-candidates"><h3>Possible catalog matches</h3><p>Compare the name, set, stamp, and number with your card before choosing a match. Names may differ.</p><ul>${items}</ul></section>`;
 }
 
 function selectReadingCandidate(index) {
