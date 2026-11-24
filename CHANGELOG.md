@@ -1,3 +1,5 @@
+- Expand Finish patterns inside the existing dropdown instead of a separate side menu.
+
 - Keep Finish categories open while selecting nested foil patterns, isolate custom values, and remove the stray test value.
 
 - Add a shared-style Finish selector with nested foil patterns and in-place custom entry in Vault card editing.

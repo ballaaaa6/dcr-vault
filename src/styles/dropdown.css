@@ -23,4 +23,5 @@
 .vault-finish-custom{position:relative}
 .vault-finish-custom .form-control{width:100%;padding-left:40px}
 .vault-finish-custom button{position:absolute;left:0;top:0;height:100%;width:38px;border:0;background:transparent;color:var(--dcr-black);font:inherit;cursor:pointer}
-.vault-finish-submenu.dropdown-menu{position:fixed;left:auto;right:auto;top:auto;bottom:auto;min-width:180px;max-height:min(316px,85vh);overflow-y:auto;z-index:30}
+.dropdown-menu .vault-finish-submenu button{padding-left:28px}
+[data-vault-finish] [aria-expanded="true"] > span:last-child{transform:rotate(90deg)}

@@ -1,4 +1,4 @@
-import {dropdown} from './dropdown.js';
+import {dropdown, positionPopup} from './dropdown.js';
 import {escapeHTML} from '../utils/format.js';
 
 const patterns = {
@@ -23,7 +23,7 @@ function renderDropdown(mount, value) {
   summary.setAttribute('aria-label', `Finish: ${display(value)}`);
   for (const button of mount.querySelectorAll('[data-dropdown-value]')) {
     if (patterns[button.dataset.dropdownValue]) {
-      button.setAttribute('aria-haspopup', 'menu');
+      button.setAttribute('aria-haspopup', 'true');
       button.setAttribute('aria-expanded', 'false');
       button.insertAdjacentHTML('beforeend', '<span aria-hidden="true">›</span>');
     }
@@ -31,20 +31,21 @@ function renderDropdown(mount, value) {
 }
 
 function openPatterns(mount, button, category, choose) {
+  const wasOpen = button.getAttribute('aria-expanded') === 'true';
   mount.querySelector('[data-finish-submenu]')?.remove();
-  mount.querySelectorAll('[aria-haspopup="menu"]').forEach(item => item.setAttribute('aria-expanded', 'false'));
+  mount.querySelectorAll('[aria-haspopup="true"]').forEach(item => item.setAttribute('aria-expanded', 'false'));
+  if (wasOpen) return;
   button.setAttribute('aria-expanded', 'true');
   const submenu = document.createElement('div');
-  submenu.className = 'dropdown-menu vault-finish-submenu';
+  submenu.className = 'vault-finish-submenu';
   submenu.dataset.finishSubmenu = '';
   submenu.setAttribute('role', 'menu');
   submenu.setAttribute('aria-label', `${category} pattern`);
   submenu.innerHTML = [...patterns[category], 'Unknown', 'Other'].map(value =>
     `<button type="button" role="menuitem" data-finish-pattern="${escapeHTML(value)}">${escapeHTML(value)}</button>`).join('');
-  mount.querySelector('.dropdown-control').append(submenu);
-  const rect = button.getBoundingClientRect();
-  submenu.style.left = `${rect.right + submenu.offsetWidth + 8 <= innerWidth ? rect.right + 4 : Math.max(4, rect.left - submenu.offsetWidth - 4)}px`;
-  submenu.style.top = `${Math.max(4, Math.min(rect.top, innerHeight - submenu.offsetHeight - 4))}px`;
+  button.insertAdjacentElement('afterend', submenu);
+  const control = mount.querySelector('.dropdown-control');
+  positionPopup(control, control.querySelector('summary'), control.querySelector(':scope > .dropdown-menu'));
   submenu.addEventListener('click', event => {
     const item = event.target.closest('[data-finish-pattern]');
     if (!item) return;
@@ -71,7 +72,7 @@ export function initializeVaultFinish(form) {
   }
   function choose(category, pattern) {
     if (pattern === 'Other') { save(''); custom(category); return; }
-    save(pattern === 'Standard' ? category : `${category} - ${pattern}`);
+    save(`${category} - ${pattern}`);
     renderDropdown(mount, saved.value);
     mount.querySelector('summary').focus();
   }
