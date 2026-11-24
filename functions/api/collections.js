@@ -26,7 +26,7 @@ export async function onRequestPost({request, env}) {
   const session = await authorize(request, env);
   if (session.response) return session.response;
   const name = clean((await readJson(request))?.name);
-  if (!name) return error('Enter a collection name.');
+  if (!/^[a-zA-Z0-9]{1,120}$/.test(name)) return error('Use English letters and numbers only for the collection name.');
   const id = crypto.randomUUID();
   try {
     await env.DB.prepare('INSERT INTO collections (id, user_id, name, name_key) VALUES (?, ?, ?, ?)').bind(id, session.user.id, name, name.toLowerCase()).run();
@@ -43,9 +43,17 @@ export async function onRequestPatch({request, env}) {
   const body = await readJson(request);
   const user = session.user.id;
   if (typeof body?.id === 'string' && typeof body.share === 'boolean') {
-    const token = body.share ? Array.from(crypto.getRandomValues(new Uint8Array(32)), byte => byte.toString(16).padStart(2, '0')).join('') : null;
-    const result = await env.DB.prepare('UPDATE collections SET share_token = ? WHERE id = ? AND user_id = ?').bind(token, body.id, user).run();
-    return result.meta?.changes ? json({shareToken: token}) : error('Collection not found.', 404);
+    let token = body.share ? Array.from(crypto.getRandomValues(new Uint8Array(16)), byte => byte.toString(16).padStart(2, '0')).join('') : null;
+    for (let attempt = 0; attempt < 5; attempt++) {
+      try {
+        const result = await env.DB.prepare('UPDATE collections SET share_token = ? WHERE id = ? AND user_id = ?').bind(token, body.id, user).run();
+        return result.meta?.changes ? json({shareToken: token}) : error('Collection not found.', 404);
+      } catch (cause) {
+        if (!body.share || !String(cause.message).includes('UNIQUE')) throw cause;
+        token = Array.from(crypto.getRandomValues(new Uint8Array(16)), byte => byte.toString(16).padStart(2, '0')).join('');
+      }
+    }
+    return error('Could not create a unique sharing link. Please try again.', 503);
   }
   if (typeof body?.id === 'string' && Array.isArray(body.cardOrder)) {
     const rows = await env.DB.prepare('SELECT cc.card_id FROM collection_cards cc JOIN collections c ON c.id = cc.collection_id JOIN cards ON cards.id = cc.card_id WHERE c.id = ? AND c.user_id = ? AND cards.user_id = ?').bind(body.id, user, user).all();
@@ -63,6 +71,10 @@ export async function onRequestPatch({request, env}) {
   }
   const name = clean(body?.name);
   if (!name || typeof body?.id !== 'string') return error('Enter a collection name.');
+  if (!/^[a-zA-Z0-9]{1,120}$/.test(name)) {
+    const existing = await env.DB.prepare('SELECT name FROM collections WHERE id = ? AND user_id = ?').bind(body.id, user).first();
+    if (!existing || existing.name !== name) return error('Use English letters and numbers only for the collection name.');
+  }
   try {
     const description = typeof body.description === 'string' ? body.description.trim().slice(0, 500) : '';
     const result = await env.DB.prepare('UPDATE collections SET name = ?, name_key = ?, description = CASE WHEN ? THEN ? ELSE description END WHERE id = ? AND user_id = ?').bind(name, name.toLowerCase(), typeof body.description === 'string' ? 1 : 0, description, body.id, user).run();

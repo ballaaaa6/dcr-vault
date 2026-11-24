@@ -12,7 +12,7 @@ export async function onRequestPatch({request, env, params}) {
   if (session.response) return session.response;
   const input = await readJson(request);
   if ('collectionNames' in (input || {})) {
-    if (!Array.isArray(input.collectionIds) || !Array.isArray(input.collectionNames) || input.collectionNames.some(name => typeof name !== 'string' || !name.trim() || name.trim().length > 120)) return error('Invalid collections.');
+    if (!Array.isArray(input.collectionIds) || !Array.isArray(input.collectionNames) || input.collectionNames.some(name => typeof name !== 'string' || !/^[a-zA-Z0-9]{1,120}$/.test(name))) return error('Invalid collections.');
     input.collectionNames = [...new Map(input.collectionNames.map(name => [name.trim().toLowerCase(), name.trim()])).values()];
   }
   if ('collectionIds' in (input || {})) {

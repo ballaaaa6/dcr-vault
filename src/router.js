@@ -50,7 +50,8 @@ export async function render() {
   const route = location.pathname + location.search;
   const path = location.pathname;
   const isCertificate = certificateFromPath(path) !== null;
-  const sharedToken = /^\/shared-collection\/([a-f0-9]{64})\/?$/.exec(path)?.[1];
+  const sharedToken = /^\/shared-collection\/([a-f0-9]{64})\/?$/.exec(path)?.[1] || /^\/showcase\/[^/]+\/([a-f0-9]{32}|[a-f0-9]{64})\/?$/.exec(path)?.[1];
+  const ownerCollection = /^\/showcase\/([^/]+)\/?$/.exec(path)?.[1];
   const app = document.getElementById('app');
   if (path !== '/login') showPageLoading(app, path, isCertificate);
   if (path === '/privacy' || path === '/privacy/') {
@@ -69,7 +70,7 @@ export async function render() {
   let user = null;
   try { user = await getCurrentUser(); } catch {}
   if (version !== renderVersion || location.pathname + location.search !== route) return;
-  if (privatePaths.has(path) && !user) { requireLogin(route); return; }
+  if ((privatePaths.has(path) || ownerCollection) && !user) { requireLogin(route); return; }
   const cached = cachedPageSkeleton(path, user?.id);
   if (cached) app.querySelector('[role="status"] > [aria-hidden="true"]').innerHTML = cached;
 
@@ -82,9 +83,9 @@ export async function render() {
       if (!response.ok) throw new Error('This collection link is unavailable or sharing has been turned off.');
       content = sharedView((await response.json()).collection);
     }
-    else if (path === '/showcase') {
+    else if (path === '/showcase' || ownerCollection) {
       const [groups, cards] = await Promise.all([collectionsRequest(), getCards()]);
-      collectionData = [groups.collections, await addVaultImages(cards)];
+      collectionData = [groups.collections, await addVaultImages(cards), ownerCollection];
       content = collectionsPage();
     }
     else if (path === '/gemini-usage') content = geminiUsage();
@@ -103,7 +104,7 @@ export async function render() {
   if (path === '/profile') initializeProfile(user);
   if (path === '/archive') initializeSearchPage();
   if (path === '/vault') initializeVault();
-  if (path === '/showcase') initializeCollections(...collectionData);
+  if (path === '/showcase' || ownerCollection) initializeCollections(...collectionData);
   if (path === '/label') initializeLabel();
   if (path === '/verify' || isCertificate) { initializeCertificateViewer(); initializeCertificateActions(); }
   savePageSkeleton(path, user?.id, app.querySelector('main'));

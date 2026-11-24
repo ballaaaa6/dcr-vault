@@ -24,5 +24,6 @@ window.addEventListener('vite:preloadError', event => {
     location.reload();
   } catch {}
 });
+window.addEventListener('popstate', render);
 render();
 initializeBackToTop();

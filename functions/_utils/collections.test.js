@@ -21,14 +21,16 @@ test('collections support overlapping membership and protect ownership and locat
     run: async () => ({success: true, meta: {changes: Number(sql.prepare(query).run(...values).changes)}})
   })}), batch: async statements => { sql.exec('BEGIN'); try { const results = []; for (const statement of statements) results.push(await statement.run()); sql.exec('COMMIT'); return results; } catch (cause) { sql.exec('ROLLBACK'); throw cause; } }};
   const call = (handler, user, method, body, params) => handler({request: new Request('https://vault.test/api/collections', {method, headers: {Cookie: `dcr_session=${user}`, Origin: 'https://vault.test', 'Content-Type': 'application/json'}, ...(body ? {body: JSON.stringify(body)} : {})}), env: {DB}, params});
-  const first = (await (await call(onRequestPost, 'a', 'POST', {name: ' Favorites '})).json()).collection;
+  const first = (await (await call(onRequestPost, 'a', 'POST', {name: 'Favorites'})).json()).collection;
+  assert.equal((await call(onRequestPost, 'a', 'POST', {name: 'ชื่อ ไทย'})).status, 400);
+  assert.equal((await call(onRequestPost, 'a', 'POST', {name: 'Bad name'})).status, 400);
   const second = (await (await call(onRequestPost, 'a', 'POST', {name: 'Pikachu'})).json()).collection;
   assert.equal((await call(onRequestPost, 'a', 'POST', {name: 'favorites'})).status, 409);
   assert.equal((await call(onRequestPut, 'a', 'PUT', {id: first.id, add: ['a', 'b'], remove: []})).status, 200);
   assert.equal((await call(onRequestPut, 'a', 'PUT', {id: second.id, add: ['a'], remove: []})).status, 200);
   assert.equal((await call(onRequestPatch, 'b', 'PATCH', {id: first.id, share: true})).status, 404);
   const token = (await (await call(onRequestPatch, 'a', 'PATCH', {id: first.id, share: true})).json()).shareToken;
-  assert.match(token, /^[a-f0-9]{64}$/);
+  assert.match(token, /^[a-f0-9]{32}$/);
   const shared = await getShared({env: {DB}, params: {token}});
   const publicGroup = (await shared.json()).collection;
   assert.equal(publicGroup.cards.length, 1);
@@ -43,13 +45,13 @@ test('collections support overlapping membership and protect ownership and locat
   groups = (await (await call(onRequestGet, 'a', 'GET')).json()).collections;
   assert.deepEqual(groups.map(group => group.cardIds), [[], ['a']]);
   assert.equal((await call(patchCard, 'b', 'PATCH', {storageLocation: '', collectionIds: [second.id]}, {id: 'b'})).status, 409);
-  assert.equal((await call(patchCard, 'a', 'PATCH', {storageLocation: 'Binder A', collectionIds: [second.id], collectionNames: [' New group ', 'new GROUP', 'FAVORITES']}, {id: 'a'})).status, 200);
+  assert.equal((await call(patchCard, 'a', 'PATCH', {storageLocation: 'Binder A', collectionIds: [second.id], collectionNames: ['Newgroup', 'newgroup', 'FAVORITES']}, {id: 'a'})).status, 200);
   groups = (await (await call(onRequestGet, 'a', 'GET')).json()).collections;
   assert.equal(groups.length, 3);
   assert.ok(groups.every(group => group.cardIds.includes('a')));
   assert.equal((await call(patchCard, 'a', 'PATCH', {storageLocation: '', collectionIds: [], collectionNames: [' '.repeat(3)]}, {id: 'a'})).status, 400);
-  assert.equal((await call(patchCard, 'b', 'PATCH', {storageLocation: '', collectionIds: [second.id], collectionNames: ['Not created']}, {id: 'b'})).status, 409);
-  assert.equal(sql.prepare('SELECT count(*) AS n FROM collections WHERE name = ?').get('Not created').n, 0);
+  assert.equal((await call(patchCard, 'b', 'PATCH', {storageLocation: '', collectionIds: [second.id], collectionNames: ['Notcreated']}, {id: 'b'})).status, 409);
+  assert.equal(sql.prepare('SELECT count(*) AS n FROM collections WHERE name = ?').get('Notcreated').n, 0);
   assert.equal((await call(onRequestDelete, 'a', 'DELETE', {id: second.id})).status, 200);
   assert.equal(sql.prepare('SELECT count(*) AS n FROM cards WHERE id = ? AND storage_location_id IS NOT NULL').get('a').n, 1);
   assert.equal(sql.prepare('SELECT count(*) AS n FROM collection_cards WHERE collection_id = ?').get(second.id).n, 0);
