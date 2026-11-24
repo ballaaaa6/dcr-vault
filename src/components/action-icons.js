@@ -2,3 +2,23 @@
 export const switchIcon = () => `<svg class="action-icon action-icon--switch" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.5 V10 A3.5 3.5 0 0 1 7.5 6.5 H20"/><path d="M16.5 3 L20 6.5 L16.5 10"/><path d="M20 12.5 V14 A3.5 3.5 0 0 1 16.5 17.5 H4"/><path d="M7.5 14 L4 17.5 L7.5 21"/></svg>`;
 
 export const optionsIcon = () => `<svg class="action-icon action-icon--options" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3.5 7h17M3.5 12h17M3.5 17h17" opacity=".35"/><circle class="action-icon__knob action-icon__knob--one" cx="9" cy="7" r="2.2"/><circle class="action-icon__knob action-icon__knob--two" cx="15" cy="12" r="2.2"/><circle class="action-icon__knob action-icon__knob--three" cx="8" cy="17" r="2.2"/></svg>`;
+
+export function animateActionIcon(control) {
+  if (!control) return;
+  control.classList.remove('action-icon-animate');
+  void control.offsetWidth;
+  control.classList.add('action-icon-animate');
+}
+
+export function initializeActionIcons() {
+  document.addEventListener('click', event => {
+    const control = event.target.closest('button, summary');
+    if (!control || control.disabled || control.classList.contains('vault-detail-flip')) return;
+    if (control.querySelector('.action-icon')) animateActionIcon(control);
+  });
+  document.addEventListener('animationend', event => {
+    if (event.animationName === 'action-switch' || event.animationName === 'action-knob-three') {
+      event.target.closest('.action-icon-animate')?.classList.remove('action-icon-animate');
+    }
+  });
+}

@@ -1,4 +1,4 @@
-import {switchIcon, optionsIcon} from '../components/action-icons.js';
+import {switchIcon, optionsIcon, animateActionIcon} from '../components/action-icons.js';
 import {vaultTooltip} from '../components/vault-tooltip.js';
 import {compareVaultCards, vaultSortSelect} from '../utils/vault-sort.js';
 import {searchClearButton} from '../components/search-clear.js';
@@ -249,9 +249,10 @@ async function changeMode(mode) {
   document.querySelector('#vault-edit input, #vault-edit select')?.focus();
 }
 
-window.__flipVault = () => {
+window.__flipVault = async () => {
   const isPrivate = !!document.querySelector('.vault-private, #vault-edit[data-mode="edit-private"]');
-  changeMode(isPrivate ? 'item' : 'private');
+  await changeMode(isPrivate ? 'item' : 'private');
+  animateActionIcon(document.querySelector('.vault-detail-flip'));
 };
 window.__editVault = mode => changeMode(`edit-${mode}`);
 window.__cancelVault = () => changeMode(document.getElementById('vault-edit')?.dataset.mode === 'edit-private' ? 'private' : 'item');

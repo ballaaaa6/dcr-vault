@@ -1,3 +1,5 @@
+- Play shared switch and options icon animations on activation and enlarge the options icon.
+
 - Use shared red animated switch and options icons throughout Vault controls.
 
 - Align Personal details labels with their values by removing empty status spacing.

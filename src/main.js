@@ -1,3 +1,4 @@
+import {initializeActionIcons} from './components/action-icons.js';
 import './styles/action-icons.css';
 // DCR Card Vault - Entry - English only
 import {render} from './router.js';
@@ -7,6 +8,7 @@ import {initializeBackToTop} from './components/back-to-top.js';
 import {initializeImageLoading} from './components/image-loading.js';
 import {initializeTextCursor} from './utils/text-cursor.js';
 import './styles/image-loading.css';
+initializeActionIcons();
 initializeTooltips();
 initializeImageLoading();
 initializeTextCursor();
