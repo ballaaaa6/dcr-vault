@@ -1,3 +1,7 @@
+# Showcase edit dialog
+
+- Remove the Delete showcase button from the edit dialog.
+
 # Vault showcase navigation
 
 - Move Showcase from the main navigation to a button beside the Vault heading.
