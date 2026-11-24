@@ -1,5 +1,7 @@
 # Showcase sharing controls
 
+- Use the original Uiverse showcase switch and align it with the dialog title.
+
 - Updated showcase sharing with a lock switch and persistent link when copying is disabled.
 
 - Simplify the sharing dialog with a status-colored lock control and an inline copy button.

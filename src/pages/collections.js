@@ -59,9 +59,21 @@ function manageCardsDialog() {
 function shareDialog() {
   const group = current(), enabled = Boolean(group.shareEnabled);
   const link = group.shareToken ? `${location.origin}/showcase/${encodeURIComponent(group.name.replace(/[^a-zA-Z0-9]/g, '') || 'collection')}/${group.shareToken}` : '';
-  const status = enabled ? 'Copy unlocked' : 'Copy locked';
-  const lock = enabled ? '<path d="M8 10V7a4 4 0 0 1 7-2.6"/>' : '<path d="M8 10V7a4 4 0 0 1 8 0v3"/>';
-  openDialog('Share showcase', `<div class="collections-share"><button type="button" class="collections-share-toggle ${enabled ? 'is-enabled' : ''}" role="switch" aria-checked="${enabled}" aria-label="${status}. Toggle link copying" aria-describedby="share-status" data-action="${enabled ? 'disable-share' : 'enable-share'}"><span class="collections-share-knob"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${lock}<rect x="5" y="10" width="14" height="11" rx="2"/></svg><span id="share-status" class="collections-share-status" role="tooltip">${status}</span></button><p>Anyone with the link can view and forward selected cards and their public details. Prices, notes and storage locations stay private. Photos and certificate details may already be public.</p><div class="search-bar collections-share-link ${enabled ? '' : 'is-disabled'}"><input id="collection-share-link" aria-label="Share link" readonly value="${esc(link)}" placeholder="Turn on sharing to create a link"><button type="button" data-action="copy" ${enabled ? '' : 'disabled'}>Copy</button></div></div>`);
+  const status = enabled ? 'Public' : 'Private';
+  openDialog('Share showcase', `<div class="collections-share"><p>Anyone with the link can view and forward selected cards and their public details. Prices, notes and storage locations stay private. Photos and certificate details may already be public.</p><div class="search-bar collections-share-link ${enabled ? '' : 'is-disabled'}"><input id="collection-share-link" aria-label="Share link" readonly value="${esc(link)}" placeholder="Turn on sharing to create a link"><button type="button" data-action="copy" ${enabled ? '' : 'disabled'}>Copy</button></div></div>`);
+  dialog().querySelector('header').insertAdjacentHTML('beforeend', `<label class="relative inline-flex items-center cursor-pointer collections-share-toggle">
+  <input type="checkbox" value="" class="sr-only peer" role="switch" aria-label="Link copying: ${status}" aria-describedby="share-status" data-share-switch ${enabled ? '' : 'checked'}>
+  <div class="group peer ring-0 bg-rose-400  rounded-full outline-none duration-300 after:duration-300 w-24 h-12  shadow-md peer-checked:bg-emerald-500  peer-focus:outline-none  after:content-[''] after:rounded-full after:absolute after:bg-gray-50 after:outline-none after:h-10 after:w-10 after:top-1 after:left-1 after:flex after:justify-center after:items-center peer-checked:after:translate-x-12 peer-hover:after:scale-95">
+    <svg class="absolute  top-1 left-12 stroke-gray-900 w-10 h-10" height="100" preserveAspectRatio="xMidYMid meet" viewBox="0 0 100 100" width="100" x="0" xmlns="http://www.w3.org/2000/svg" y="0">
+ <path class="svg-fill-primary" d="M50,18A19.9,19.9,0,0,0,30,38v8a8,8,0,0,0-8,8V74a8,8,0,0,0,8,8H70a8,8,0,0,0,8-8V54a8,8,0,0,0-8-8H38V38a12,12,0,0,1,23.6-3,4,4,0,1,0,7.8-2A20.1,20.1,0,0,0,50,18Z">
+ </path>
+</svg>
+    <svg class="absolute top-1 left-1 stroke-gray-900  w-10 h-10" height="100" preserveAspectRatio="xMidYMid meet" viewBox="0 0 100 100" width="100" x="0" xmlns="http://www.w3.org/2000/svg" y="0">
+ <path d="M30,46V38a20,20,0,0,1,40,0v8a8,8,0,0,1,8,8V74a8,8,0,0,1-8,8H30a8,8,0,0,1-8-8V54A8,8,0,0,1,30,46Zm32-8v8H38V38a12,12,0,0,1,24,0Z" fill-rule="evenodd">
+ </path>
+</svg>
+  </div><span id="share-status" class="collections-share-status" role="tooltip">${status}</span>
+</label>`);
 }
 async function updateMembership(next) {
   const group = current();
@@ -85,7 +97,7 @@ async function handleAction(action) {
   if (action === 'back') { selectedId = ''; preview = false; navigate(); return draw(); }
   if (action === 'preview') { preview = !preview; return draw(); }
   if (action === 'copy') { await navigator.clipboard.writeText(document.getElementById('collection-share-link').value); return showToast('Link copied.', 'success'); }
-  if (action === 'enable-share' || action === 'disable-share') { await collectionsRequest('PATCH', {id: selectedId, share: action === 'enable-share'}); await refresh(); shareDialog(); dialog().querySelector('.collections-share-toggle').focus(); return; }
+  if (action === 'enable-share' || action === 'disable-share') { await collectionsRequest('PATCH', {id: selectedId, share: action === 'enable-share'}); await refresh(); shareDialog(); dialog().querySelector('[data-share-switch]').focus(); return; }
   if (action === 'delete') return openDeleteConfirmation();
   if (action === 'confirm-delete') { await collectionsRequest('DELETE', {id: selectedId}); selectedId = ''; navigate(); dialog().close(); await refresh(); showToast('Showcase deleted.', 'success'); }
 }
@@ -123,7 +135,7 @@ export function initializeCollections(initialGroups, initialCards, ownerCollecti
     if (event.target.id === 'collections-search') filterList();
     if (event.target.id === 'collection-name') event.target.value = event.target.value.replace(/[^a-zA-Z0-9]/g, '');
   });
-  page.addEventListener('change', event => { if (event.target.id === 'collections-sort') filterList(); changePicker(event); });
+  page.addEventListener('change', event => { if (event.target.matches('[data-share-switch]')) handleAction(event.target.checked ? 'disable-share' : 'enable-share').catch(error => { shareDialog(); showToast(error.message, 'error'); }); if (event.target.id === 'collections-sort') filterList(); changePicker(event); });
   page.addEventListener('submit', event => {
     event.preventDefault();
     const form = event.target;

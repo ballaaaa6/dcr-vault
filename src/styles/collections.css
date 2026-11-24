@@ -86,16 +86,22 @@
 .collections-page .content-dialog:has(.label-vault-list) header h2{margin-bottom:5px}
 .collections-page .content-dialog:has(.label-vault-list) .label-dialog-description{margin:0 0 18px}
 
-.collections-share-toggle{position:absolute;top:22px;right:55px;display:flex;align-items:center;justify-content:flex-end;width:68px;height:34px;padding:5px 8px;border:0;border-radius:999px;background:var(--dcr-pink);color:var(--dcr-black);cursor:pointer;box-shadow:var(--shadow)}
-.collections-share-toggle.is-enabled{justify-content:flex-start;background:var(--dcr-green-dark)}
-.collections-share-toggle svg{width:20px;height:20px}
-.collections-share-knob{position:absolute;left:4px;width:26px;height:26px;border-radius:50%;background:var(--dcr-white);transition:transform .2s}
-.collections-share-toggle.is-enabled .collections-share-knob{transform:translateX(34px)}
-.collections-share-toggle:focus-visible{outline:2px solid var(--dcr-red);outline-offset:2px}
+/* Uiverse switch by Javierrocadev; see docs/licenses/uiverse-switch.txt. */
+.collections-page .content-dialog:has(.collections-share) header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-right:34px}
+.collections-page .content-dialog:has(.collections-share) header h2{margin:0}
+.collections-share-toggle{position:relative;display:inline-flex;align-items:center;cursor:pointer;flex:none}
+.collections-share-toggle .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.collections-share-toggle .group{position:relative;width:96px;height:48px;border-radius:9999px;background:#fb7185;box-shadow:0 4px 6px -1px rgb(0 0 0 / .1),0 2px 4px -2px rgb(0 0 0 / .1);transition:all .3s}
+.collections-share-toggle .group::after{content:'';position:absolute;top:4px;left:4px;width:40px;height:40px;border-radius:9999px;background:#f9fafb;transition:all .3s}
+.collections-share-toggle input:checked+.group{background:#10b981}
+.collections-share-toggle input:checked+.group::after{transform:translateX(48px)}
+.collections-share-toggle:hover .group::after{scale:.95}
+.collections-share-toggle input:focus-visible+.group{outline:2px solid var(--dcr-red);outline-offset:3px}
+.collections-share-toggle svg{position:absolute;top:4px;width:40px;height:40px;stroke:#111827;fill:#111827}
+.collections-share-toggle svg:first-child{left:48px}.collections-share-toggle svg:nth-child(2){left:4px}
 .collections-share-status{position:absolute;z-index:2;bottom:calc(100% + 7px);right:0;padding:6px 9px;border-radius:6px;background:var(--dcr-red);color:var(--dcr-white);font-size:var(--font-size-small);white-space:nowrap;visibility:hidden;opacity:0;pointer-events:none}
-.collections-share-toggle.is-enabled .collections-share-status{background:var(--dcr-green-dark)}
-.collections-share-toggle:hover .collections-share-status,.collections-share-toggle:focus-visible .collections-share-status{visibility:visible;opacity:1}
+.collections-share-toggle:hover .collections-share-status,.collections-share-toggle:focus-within .collections-share-status{visibility:visible;opacity:1}
 .collections-share-link{min-height:42px;margin-top:14px;border-radius:12px}.collections-share-link input{padding:8px 12px}.collections-share-link button{padding:0 18px}.collections-share-link button:disabled{opacity:.5;cursor:not-allowed}.collections-share-link.is-disabled input{color:var(--dcr-gray)}
-.collections-page .content-dialog:has(.collections-share) header h2{padding-right:120px}
+
 
 .collections-page .content-dialog:has(.collections-share) .content-dialog__panel{overflow:visible}
