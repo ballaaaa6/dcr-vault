@@ -25,7 +25,7 @@ import {collectionsPage, sharedView} from './pages/collections-view.js';
 import {initializeCollections} from './pages/collections.js';
 
 let renderVersion = 0;
-const privatePaths = new Set(['/archive', '/vault', '/collections', '/label', '/import', '/profile', '/billing', '/gemini-usage']);
+const privatePaths = new Set(['/archive', '/vault', '/showcase', '/label', '/import', '/profile', '/billing', '/gemini-usage']);
 
 function footer() {
   return `<footer class="site-footer no-print"><span>© ${new Date().getFullYear()} DCR Card Vault</span><span>Certificate details are public. Your vault details remain private.</span></footer>`;
@@ -82,7 +82,7 @@ export async function render() {
       if (!response.ok) throw new Error('This collection link is unavailable or sharing has been turned off.');
       content = sharedView((await response.json()).collection);
     }
-    else if (path === '/collections') {
+    else if (path === '/showcase') {
       const [groups, cards] = await Promise.all([collectionsRequest(), getCards()]);
       collectionData = [groups.collections, await addVaultImages(cards)];
       content = collectionsPage();
@@ -103,7 +103,7 @@ export async function render() {
   if (path === '/profile') initializeProfile(user);
   if (path === '/archive') initializeSearchPage();
   if (path === '/vault') initializeVault();
-  if (path === '/collections') initializeCollections(...collectionData);
+  if (path === '/showcase') initializeCollections(...collectionData);
   if (path === '/label') initializeLabel();
   if (path === '/verify' || isCertificate) { initializeCertificateViewer(); initializeCertificateActions(); }
   savePageSkeleton(path, user?.id, app.querySelector('main'));

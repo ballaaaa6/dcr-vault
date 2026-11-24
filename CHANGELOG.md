@@ -1,3 +1,5 @@
+- Rename the Collections page to Showcase and move its route to /showcase.
+
 - Make collection dialogs compact and reusable, add field help, and distinguish private and public sharing badges.
 
 - Align collection cards by reserving a description row and shorten the Create button label.

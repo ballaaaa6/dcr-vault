@@ -62,7 +62,7 @@ const pageSkeletons = {
   '/': homeSkeleton,
   '/archive': intakeSkeleton,
   '/vault': vaultSkeleton,
-  '/collections': collectionsSkeleton,
+  '/showcase': collectionsSkeleton,
   '/label': labelSkeleton,
   '/profile': profileSkeleton,
   '/billing': billingSkeleton,
