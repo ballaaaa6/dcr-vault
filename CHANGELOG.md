@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Share content-sized dialog spacing
+- Reserve button clearance once in content dialogs and hide empty status messages, including in location management.
+
 ## 2026-11-24 - Fit the location list to its contents
 - Show up to four complete locations and scroll additional locations within the list.
 

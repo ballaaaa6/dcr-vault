@@ -32,3 +32,5 @@
 21. Text inputs and textareas use the shared cursor behavior initialized in src/utils/text-cursor.js; keep new text controls compatible with it.
 
 22. Buttons must remain fully visible, including shadows, hover movement, and focus outlines, at supported viewport sizes. Use `--button-effect-space` from src/styles/buttons.css for clearance at clipping edges and the shared `button-safe-scroll` class when appropriate for a scrollable container. Verify scrolling, responsive layout, and keyboard focus when adding or changing button containers.
+
+23. Content-sized dialogs use the shared bottom clearance in src/styles/confirmation-dialog.css. Reserve button-effect space once, including when the dialog body scrolls, and hide empty status or alert messages. Preserve specialized full-screen image viewers.

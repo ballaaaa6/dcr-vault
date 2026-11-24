@@ -3,3 +3,12 @@
 .two-choice-dialog:not(.profile-crop-dialog):not(.vault-delete-dialog){position:fixed;box-sizing:border-box;width:min(440px,94vw);margin:auto;padding:32px 24px var(--button-effect-space);border:0;border-radius:16px;background:var(--dcr-white);color:var(--dcr-black);box-shadow:var(--shadow)}
 .two-choice-dialog:not(.profile-crop-dialog):not(.vault-delete-dialog)::backdrop{background:rgba(17,17,17,.74)}
 .two-choice-dialog:not(.profile-crop-dialog):not(.vault-delete-dialog)>h2{margin:0 0 8px}.two-choice-dialog:not(.profile-crop-dialog):not(.vault-delete-dialog)>p{color:var(--dcr-gray)}.two-choice-dialog:not(.profile-crop-dialog):not(.vault-delete-dialog)>.two-choice-actions{margin-top:20px}
+
+/* Content-sized dialogs reserve button clearance once, including in scrollable bodies. */
+:is(.two-choice-dialog,.label-dialog,.location-dialog){--dialog-bottom-space:var(--button-effect-space);padding-bottom:var(--dialog-bottom-space)}
+dialog :is([role="status"],[role="alert"]):empty{display:none}
+.location-dialog{padding-bottom:0}
+.location-dialog > .button-safe-scroll{padding-bottom:var(--dialog-bottom-space)}
+.location-dialog > .location-list-body{padding-bottom:24px}
+.location-dialog:has(> [data-location-error]:not(:empty)) > .button-safe-scroll{padding-bottom:0}
+.location-dialog > [data-location-error]:not(:empty){padding-bottom:var(--dialog-bottom-space)}
