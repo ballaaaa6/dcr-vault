@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Refine certificate sharing icons
+- Use outlined sharing icons with platform-colored hover states and animated tooltips.
+
 ## 2026-11-24 - Update certificate share menu
 - Replace the certificate share dialog with an app-themed expandable share menu, retaining its existing destinations.
 
