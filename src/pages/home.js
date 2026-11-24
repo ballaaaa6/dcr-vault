@@ -27,7 +27,7 @@ export function home() {
             <a class="home-benefit" href="/label"><img src="/assets/home/labels.png" alt=""><strong>Labels</strong><span>Create and print card labels</span></a>
           </nav>
         </div>
-        <div class="home-art" aria-hidden="true"></div>
+        <div class="home-art" aria-hidden="true"><iframe class="home-glitter" src="https://benrilab.com/en/app/movie-particle/?mode=obs#v1;p=glitter;n=40;z=75;v=70" title="" tabindex="-1" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe></div>
       </section>
     </main>`;
 }

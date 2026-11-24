@@ -1,3 +1,5 @@
+- Add the Benri Lab Glitter effect over the home page artwork.
+
 - Remove the scanner grid and shade its original dots by their distance from the scan line.
 
 - Use the original LottieFiles scanner animation for card identification.
