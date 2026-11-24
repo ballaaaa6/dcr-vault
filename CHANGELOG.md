@@ -1,3 +1,5 @@
+- Prevent field help from appearing automatically when collection dialogs open, and improve shared tooltip keyboard, touch, and dismissal behavior.
+
 - Rename the Collections page to Showcase and move its route to /showcase.
 
 - Make collection dialogs compact and reusable, add field help, and distinguish private and public sharing badges.

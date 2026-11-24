@@ -60,4 +60,4 @@
 }
 
 .collections-badge--public{background:var(--dcr-green-light);color:var(--dcr-green-dark)}
- .collections-form .shared-tooltip__content{left:-65px;transform:none}.collections-form .shared-tooltip:hover .shared-tooltip__content,.collections-form .shared-tooltip:focus-within .shared-tooltip__content{transform:none;animation:none}.collections-form .shared-tooltip__content::after{left:72px}
+ .collections-form .shared-tooltip__content{left:-65px;transform:none}.collections-form .shared-tooltip:hover .shared-tooltip__content,.collections-form .shared-tooltip__trigger:focus-visible + .shared-tooltip__content,.collections-form .shared-tooltip__trigger[aria-expanded="true"] + .shared-tooltip__content{transform:none;animation:none}.collections-form .shared-tooltip__content::after{left:72px}
