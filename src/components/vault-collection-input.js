@@ -33,5 +33,5 @@ function CollectionInput({cardId}) {
     onInputChange: (value, action) => { if (action.action === 'input-change') setInputValue(value.slice(0, 120)); },
     isValidNewOption: value => Boolean(value.trim()) && ![...selected, ...options].some(item => item.label.toLowerCase() === value.trim().toLowerCase()),
     onChange: value => { update(value.map(item => item.__isNew__ ? {...item, label: item.label.trim()} : item)); setInputValue(''); }, onBlur: addTyped,
-    formatCreateLabel: value => `Add “${value.trim()}”`});
+    formatCreateLabel: value => `Create “${value.trim()}”`});
 }

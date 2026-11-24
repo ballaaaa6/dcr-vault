@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Align collection creation wording
+- Use Create for new collection suggestions.
+
 ## 2026-11-24 - Separate management entries
 - Give storage and collection management entries rounded individual surfaces with gaps that reveal the background.
 
