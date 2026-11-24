@@ -1,3 +1,7 @@
+# Shared switch icon
+
+- Enlarge and thicken the shared switch icon across Vault controls.
+
 # Vault card backgrounds
 
 - Reduce unselected card background opacity to 15%.

@@ -105,8 +105,8 @@
 
 .vault-detail-controls{float:right;display:flex;gap:6px;position:relative;z-index:1}
 .vault-detail .vault-edit-button{float:none}
-.vault-detail-flip{padding:10px}
-.vault-detail-flip svg{width:20px;height:20px}
+.vault-detail-flip{padding:0}
+
 .vault-menu{position:relative}
 .vault-menu summary{list-style:none}
 .vault-menu summary::-webkit-details-marker{display:none}
