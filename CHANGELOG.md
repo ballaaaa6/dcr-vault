@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Soften location dialog background
+- Reduce the koi illustration to 20% visibility in location management dialogs.
+
 ## 2026-11-24 - Soften private vault placeholders
 - Match empty acquisition and date prompts to the other placeholder text.
 
