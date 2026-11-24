@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Fit five cards in vault pickers
+- Size both card picker lists to show five complete rows on opening while keeping their actions close below.
+
 ## 2026-11-24 - Apply shared button clearance across the app
 - Reserve shared space for button effects in existing dialogs, scrolling content, and the sign-in footer; document the requirement for future controls.
 
