@@ -13,7 +13,6 @@
 .search-bar:focus-within{border-color:var(--dcr-red);box-shadow:0 0 0 4px var(--dcr-red-light)}
 .search-bar input{flex:1;min-width:0;border:0;outline:0;padding:14px 20px;background:transparent;color:var(--dcr-black)}
 .search-bar input{font-family:Arial,sans-serif;font-size:14px}
-.search-bar input::placeholder{color:var(--dcr-gray);opacity:.8}
 .search-bar button{display:inline-flex;align-items:center;justify-content:center;gap:9px;flex-shrink:0;border:0;padding:0 23px;background:var(--dcr-red);color:var(--dcr-white);font-weight:700;transition:background .18s}
 .search-bar button:hover{background:var(--dcr-red-dark)}
 .search-bar button svg{width:18px;height:18px;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}

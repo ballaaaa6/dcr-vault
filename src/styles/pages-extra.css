@@ -225,6 +225,3 @@
 .location-drag-handle{flex:none;border:0;background:transparent;color:var(--dcr-gray);font-size:20px;line-height:1;padding:8px;cursor:grab;touch-action:none}
 .location-drag-handle:focus-visible{outline:2px solid var(--dcr-red);outline-offset:2px}
 .location-row{position:relative;justify-content:initial;touch-action:pan-y}.location-row > span{flex:1}.location-row.is-dragging{opacity:.5}.location-row.drop-before::before,.location-row.drop-after::after{content:"";position:absolute;left:0;right:0;height:3px;background:var(--dcr-red);z-index:1}.location-row.drop-before::before{top:-2px}.location-row.drop-after::after{bottom:-2px}
-
-.vault-edit[data-mode="edit-private"] select[name="sourceChoice"]:has(option[value=""]:checked),.vault-edit[data-mode="edit-private"] [data-date-value][data-empty="true"]{color:color-mix(in srgb,var(--dcr-placeholder) 50%,var(--dcr-white))}
-.vault-edit[data-mode="edit-private"] select[name="sourceChoice"] option{color:var(--dcr-black)}

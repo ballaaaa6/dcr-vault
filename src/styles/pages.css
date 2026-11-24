@@ -46,7 +46,6 @@
 .intake-card .upload-field:hover,.intake-card .upload-field:focus-within,.intake-card .upload-field.is-dragging{background:var(--dcr-red-light)}
 .intake-card .form-control{background-color:color-mix(in srgb,var(--dcr-white) 96%,transparent)}
 .intake-card .section-heading p,.intake-card .identification-notice,.intake-card .upload-preview{color:var(--dcr-text-secondary)}
-.intake-card .form-control::placeholder{color:var(--dcr-placeholder);opacity:.5}
 
 .section-heading{display:flex;align-items:flex-start;gap:14px;margin-bottom:24px}
 .section-heading h2{margin:0 0 4px;font-size:19px}
@@ -135,8 +134,6 @@
 .intake-card #m-grade + .dropdown-control{--dropdown-max-height:280px}
 .intake-card #m-grade + .dropdown-control .dropdown-menu button{padding:5px 10px}
 .intake-card .dropdown-control summary[data-empty="false"]{background:var(--dcr-border)}
-.intake-card .dropdown-control summary[data-empty="true"] [data-dropdown-current]{color:var(--dcr-placeholder);opacity:.5}
-.intake-card .catalog-select__placeholder{color:var(--dcr-placeholder);opacity:.5}
 .intake-card .catalog-select__menu{z-index:30}
 .intake-card .catalog-select__menu-list{padding:0}
 .intake-card .catalog-select__indicator-separator{display:none}

@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Unify empty-field guidance
+- Apply one shared placeholder color to empty inputs, choices, dates, and profile guidance across the app.
+
 ## 2026-11-24 - Soften location dialog background
 - Reduce the koi illustration to 20% visibility in location management dialogs.
 

@@ -2,7 +2,7 @@
 :root{--calendar-background:#fff;--calendar-border:#E5E7EB;--calendar-muted:#6B7280;--calendar-outside:#9ca3af;--calendar-selected:#C8102E}
 :root{--rocket-label-red:#f94137}
 
-:root{--dcr-text-secondary:#435064;--dcr-placeholder:#596678}
+:root{--dcr-text-secondary:#435064;--dcr-placeholder:#596678;--dcr-placeholder-color:color-mix(in srgb,var(--dcr-placeholder) 50%,var(--dcr-white))}
 
 /* Main red blended equally with white, for hover surfaces. */
 :root{--dcr-red-hover:#e38897}

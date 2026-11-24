@@ -1,0 +1,5 @@
+/* Shared empty-field guidance. Keep entered values and menu choices at normal contrast. */
+input::placeholder,textarea::placeholder{color:var(--dcr-placeholder-color);opacity:1}
+.dropdown-control summary[data-empty="true"] [data-dropdown-current],.catalog-select-wrap .catalog-select__placeholder,[data-date-value][data-empty="true"],.inline-edit-display[data-empty="true"]{color:var(--dcr-placeholder-color)}
+select:has(option[value=""]:checked){color:var(--dcr-placeholder-color)}
+select option{color:var(--dcr-black)}
