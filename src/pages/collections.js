@@ -2,7 +2,7 @@ import {collectionsRequest} from '../store/collections.js';
 import {escapeHTML as esc} from '../utils/format.js';
 import {heartCheckbox} from '../components/heart-checkbox.js';
 import {showToast} from '../components/toast.js';
-import {listView, detailView} from './collections-view.js';
+import {listView, detailView, collectionItems} from './collections-view.js';
 
 let groups = [], cards = [], selectedId = '', preview = false;
 const content = () => document.getElementById('collections-content');
@@ -57,6 +57,7 @@ function openDeleteConfirmation() {
 async function handleClick(event) {
   const target = event.target.closest('button'); if (!target) return;
   if (target.hasAttribute('data-close')) return dialog().close();
+  if (target.dataset.groupAction) { selectedId = target.dataset.groupId; draw(); return handleAction(target.dataset.groupAction); }
   if (target.dataset.open) { selectedId = target.dataset.open; return draw(); }
   if (target.dataset.action) return handleAction(target.dataset.action);
   if (target.dataset.remove) return updateMembership(current().cardIds.filter(id => id !== target.dataset.remove));
@@ -70,6 +71,15 @@ export function initializeCollections(initialGroups, initialCards) {
   groups = initialGroups; cards = initialCards; selectedId = ''; preview = false; draw();
   const page = document.querySelector('.collections-page');
   page.addEventListener('click', event => { handleClick(event).catch(error => showToast(error.message, 'error')); });
+  const filterList = () => {
+    const query = page.querySelector('#collections-search').value.trim().toLocaleLowerCase();
+    const sort = page.querySelector('#collections-sort').value;
+    const filtered = groups.filter(group => group.name.toLocaleLowerCase().includes(query));
+    filtered.sort((a, b) => sort === 'count' ? b.cardIds.length - a.cardIds.length || a.name.localeCompare(b.name) : a.name.localeCompare(b.name));
+    page.querySelector('#collections-list').innerHTML = collectionItems(filtered, cards);
+  };
+  page.addEventListener('input', event => { if (event.target.id === 'collections-search') filterList(); });
+  page.addEventListener('change', event => { if (event.target.id === 'collections-sort') filterList(); });
   page.addEventListener('submit', event => {
     event.preventDefault();
     const form = event.target;
