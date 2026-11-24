@@ -40,7 +40,23 @@ export async function label(cards = []) {
   </main>`;
 }
 
-export function initializeLabel() { refresh(); }
+export function initializeLabel() { refresh(); updateListClip(); }
+
+function updateListClip() {
+  const list = document.getElementById('label-list');
+  const heading = page()?.querySelector('.label-list-heading');
+  if (!list || !heading) return;
+  const hiddenHeight = Math.max(0, heading.getBoundingClientRect().bottom - list.getBoundingClientRect().top);
+  list.style.setProperty('--label-hidden-height', `${hiddenHeight}px`);
+}
+
+let clipFrame;
+function scheduleListClip() {
+  if (!page() || clipFrame) return;
+  clipFrame = requestAnimationFrame(() => { clipFrame = null; updateListClip(); });
+}
+window.addEventListener('scroll', scheduleListClip, {passive: true});
+window.addEventListener('resize', scheduleListClip);
 
 async function addCards(cards) {
   let added = 0;
@@ -71,6 +87,7 @@ function refresh() {
   document.getElementById('label-count').textContent = `${valid} ready · ${Math.ceil(valid / 40)} sheets${entries.length - valid ? ` · ${entries.length - valid} need attention` : ''}`;
   const list = document.getElementById('label-list');
   list.innerHTML = entries.length ? `<div class="label-rows">${entries.map((item, i) => `<div class="label-row"><span class="label-row-number">${i + 1}</span><div class="label-row-info"><strong>${esc(item.name || 'Certificate')}</strong><span>Cert ${esc(item.cert)}</span>${item.error ? `<small>${esc(item.error)}</small>` : ''}</div><div class="label-row-actions"><span class="label-card-image">${cardPhoto(item)}</span><button class="btn btn-ghost" data-label-action="view" data-cert="${item.cert}">View</button><button class="label-remove" data-label-action="remove" data-cert="${item.cert}" aria-label="Remove ${item.cert}">×</button></div></div>`).join('')}</div>` : '<p class="label-empty">No labels added yet. Enter certificate numbers or choose cards from your vault.</p>';
+  scheduleListClip();
   for (const action of ['preview', 'download']) page().querySelector(`[data-label-action="${action}"]`).disabled = !valid || busy;
   page().querySelector('[data-label-action="clear"]').disabled = !entries.length || busy;
   for (const action of ['search', 'vault']) page().querySelector(`[data-label-action="${action}"]`).disabled = busy;
