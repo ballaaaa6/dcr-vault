@@ -45,7 +45,10 @@ export function initializeLabel() { refresh(); updateListClip(); }
 function updateListClip() {
   const list = document.getElementById('label-list');
   const heading = page()?.querySelector('.label-list-heading');
-  if (!list || !heading) return;
+  const section = page()?.querySelector('.label-list-section');
+  if (!list || !heading || !section) return;
+  const hiddenSection = Math.max(0, heading.getBoundingClientRect().top - section.getBoundingClientRect().top - 1);
+  section.style.setProperty('--label-section-hidden', `${hiddenSection}px`);
   const hiddenHeight = Math.max(0, heading.getBoundingClientRect().bottom - list.getBoundingClientRect().top);
   list.style.setProperty('--label-hidden-height', `${hiddenHeight}px`);
 }

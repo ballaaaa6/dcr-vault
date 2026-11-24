@@ -1,3 +1,5 @@
+- Clip the whole Labels sheet block at its sticky rounded heading while scrolling.
+
 - Restore rounded Labels heading corners and clip list rows as they scroll behind the sticky heading.
 
 - Keep the Labels heading opaque while scrolling, align sheet controls and move operation messages to toast notifications.
