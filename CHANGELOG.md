@@ -1,3 +1,7 @@
+# Shared settings icon
+
+- Replace the shared options icon with the animated useAnimations gear across Vault and Showcases.
+
 # Showcase handle alignment
 
 - Align each showcase's drag handle with its card count.

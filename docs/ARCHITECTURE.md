@@ -82,3 +82,5 @@ Google Identity Services
 - Use jsPDF to create a single A4 PDF with alternating front and back pages for each 40-label sheet. The exporter inlines the label SVGs and uses svg2pdf.js to preserve vector artwork instead of rasterizing the sheet. The back master's constant-color SVG filter is converted to equivalent solid fills because svg2pdf.js does not support that filter. PDF viewers may show fine seams when antialiasing adjacent shapes.
 
 - Sheet cut guides are 0.10 mm wide, centered on cell boundaries, and stop 2 mm outside the label grid.
+
+- The shared options icon uses the [useAnimations Settings animation](https://useanimations.com/icons/settings), under the MIT license, with the existing lottie-web player.
