@@ -5,7 +5,7 @@ import {emptyPhotoMarkup, searchMarkup, validatePhoto} from './search-view.js';
 import './search-photo-preview.js';
 import {formatRarity} from '../utils/rarity.js';
 import {checkCert, deleteCardImage, uploadCardImage} from '../store/cards.js';
-import {destroyCatalogSuggestions, initializeCatalogSuggestions, installCatalogSuggestions, invalidateCatalogSuggestions} from './search-catalog.js';
+import {destroyCatalogSuggestions, initializeCatalogSuggestions, installCatalogSuggestions, invalidateCatalogSuggestions, closeCatalogOnOutsideClick} from './search-catalog.js';
 import {initializeCardRarity, invalidateCardResolution, resolveExactTypedCard} from './search-card-resolution.js';
 import {hasNonLatinScript} from '../utils/language.js';
 import {findAvailableCert, normalizeCert} from '../utils/cert.js';
@@ -288,7 +288,7 @@ document.addEventListener('click', event => {
   if (clear) { clearPhoto(clear.dataset.clearImage); return; }
   if (event.target.closest('[data-cert-random]')) { generateCert(); return; }
   if (event.target.closest('#manual-submit')) saveIntake();
-  if (!event.target.closest('[data-catalog-control]')) invalidateCatalogSuggestions();
+  closeCatalogOnOutsideClick(event.target);
 });
 
 document.addEventListener('focusout', event => {

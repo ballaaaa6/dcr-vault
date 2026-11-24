@@ -39,6 +39,10 @@ export function invalidateCatalogSuggestions() {
   window.dispatchEvent(new Event('intake-catalog-close'));
 }
 
+export function closeCatalogOnOutsideClick(target, root = document) {
+  if (root.querySelector('.intake-page') && !target.closest('[data-catalog-control]')) invalidateCatalogSuggestions();
+}
+
 export function destroyCatalogSuggestions() {
   mountVersion += 1;
   roots.forEach(root => root.unmount());

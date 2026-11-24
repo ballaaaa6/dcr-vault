@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Keep storage location suggestions open
+- Limit Add Card outside-click handling to its own page so Vault location suggestions remain available while editing.
+
 ## 2026-11-24 - Private storage locations
 - Add private storage locations and positions, location filtering, and shared location management.
 
