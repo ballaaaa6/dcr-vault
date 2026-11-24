@@ -36,3 +36,5 @@
 23. Content-sized dialogs use the shared bottom clearance in src/styles/confirmation-dialog.css. Reserve button-effect space once, including when the dialog body scrolls, and hide empty status or alert messages. Preserve specialized full-screen image viewers.
 
 24. Empty input guidance uses the shared placeholder color in src/styles/placeholders.css. Use native placeholders, the shared dropdown, catalog select, or date picker; for other empty-value guidance, expose a data-empty state and apply the shared placeholder color. Keep selected and entered values at normal contrast.
+
+25. Dismissible content dialogs use the shared `dialog-close` red corner control from `src/styles/confirmation-dialog.css`, with an accessible Close label. Keep task-specific Cancel choices where they are meaningful.

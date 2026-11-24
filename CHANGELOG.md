@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Unify dialog close controls
+- Use the shared red corner close control and compact labeled sharing icons in the certificate dialog.
+
 ## 2026-11-24 - Update certificate action icons
 - Use matching regular-weight download and share icons on certificate actions.
 

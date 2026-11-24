@@ -79,7 +79,7 @@ function refresh() {
 function status(text) { const el = document.getElementById('label-status'); if (el) el.textContent = text; }
 function dialog(html) { document.getElementById('label-dialog-content').innerHTML = html; document.getElementById('label-dialog').showModal(); }
 function closeDialog() { document.getElementById('label-dialog').close(); }
-function dialogHead(title, cornerClose = false) { return `<div class="label-dialog-head"><h2>${title}</h2>${cornerClose ? '<button class="location-close" type="button" aria-label="Close" data-label-action="close">×</button>' : '<button class="btn btn-ghost" data-label-action="close">Close</button>'}</div>`; }
+function dialogHead(title) { return `<div class="label-dialog-head"><h2>${title}</h2><button class="dialog-close location-close" type="button" aria-label="Close" title="Close" data-label-action="close">×</button></div>`; }
 
 async function searchCerts() {
   let certs;

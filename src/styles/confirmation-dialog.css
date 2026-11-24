@@ -12,3 +12,6 @@ dialog :is([role="status"],[role="alert"]):empty{display:none}
 .location-dialog > .location-list-body{padding-bottom:24px}
 .location-dialog:has(> [data-location-error]:not(:empty)) > .button-safe-scroll{padding-bottom:0}
 .location-dialog > [data-location-error]:not(:empty){padding-bottom:var(--dialog-bottom-space)}
+
+/* Shared corner close control for dismissible dialogs. */
+.dialog-close{position:absolute;top:10px;right:10px;display:grid;place-items:center;box-sizing:border-box;width:38px;height:38px;padding:0;border:0;border-radius:50%;background:var(--dcr-red);color:var(--dcr-white);font-size:26px;line-height:1;cursor:pointer}.dialog-close:focus-visible{outline:2px solid var(--dcr-red);outline-offset:3px}.two-choice-dialog:has(>.dialog-close)>h2{padding-right:40px}
