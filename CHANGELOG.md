@@ -1,3 +1,5 @@
+- Apply the shared scale animation to the Vault image preview close button.
+
 - Animate corner close buttons with a scale interaction.
 
 - Open View Cert from the Vault card image in a new tab.
