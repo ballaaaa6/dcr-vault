@@ -37,7 +37,7 @@ function requireLogin(route) {
 
 function showPageLoading(app, path, isCertificate) {
   const privacy = path === '/privacy' || path === '/privacy/';
-  const loadingHeader = `<header class="site-header" aria-hidden="true"><div class="header-inner wrap"><span class="logo-wrap"><img class="logo" src="/assets/logo/dcr-mark.svg" alt=""><span>Distinguished Card Registry</span></span><span class="skeleton sk-nav-placeholder"></span></div></header>`;
+  const loadingHeader = `<header class="site-header" aria-hidden="true"><div class="header-inner wrap"><span class="logo-wrap"><img class="logo" src="/assets/logo/dcr-mark.svg" alt=""><span>Distinguished Card Registry</span></span><div class="sk-header-nav"><span class="skeleton sk-nav-item sk-nav-home"></span><span class="skeleton sk-nav-item sk-nav-add"></span><span class="skeleton sk-nav-item sk-nav-vault"></span><span class="skeleton sk-nav-item sk-nav-labels"></span><span class="skeleton sk-nav-account"></span></div><span class="skeleton sk-menu-toggle"></span></div></header>`;
   app.innerHTML = (privacy ? '' : loadingHeader) + pageSkeleton(path, isCertificate, isCertificate) + (privacy ? '' : footer());
 }
 

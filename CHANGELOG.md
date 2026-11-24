@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Match navigation loading skeleton
+- Match the loading header to the navigation links, account control, and responsive menu button.
+
 ## 2026-11-24 - Standardize dropdown text
 - Use the 16px body size and normal weight for dropdown options.
 
