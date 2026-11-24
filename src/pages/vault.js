@@ -17,6 +17,7 @@ import {escapeHTML} from '../utils/format.js';
 import {normalizeCert} from '../utils/cert.js';
 import {classificationFields} from '../utils/card-classification.js';
 import {vaultClassificationInput, vaultEnergyInput, initializeVaultClassification} from '../components/vault-classification.js';
+import {vaultCatalogField, mountVaultCatalog, unmountVaultCatalog} from '../components/vault-catalog-input.js';
 import {vaultFinishInput, initializeVaultFinish} from '../components/vault-finish.js';
 import {vaultBackground, preloadSelectedBackgrounds} from '../utils/vault-background.js';
 import {prefetchNearbyImages} from '../utils/prefetch-images.js';
@@ -34,7 +35,7 @@ const publicFields = [
   ['gradeLabel', 'Condition', 60], ['sourceFinish', 'Finish', 80]
 ];
 function editFields(card) {
-  return publicFields.map(([key, label, limit]) => key === 'sourceFinish' ? vaultFinishInput(card[key]) : classificationFields.some(([field]) => field === key)
+  return publicFields.map(([key, label, limit]) => key === 'sourceFinish' ? vaultFinishInput(card[key]) : ['name', 'year', 'series', 'setName', 'cardNumber', 'rarity'].includes(key) ? vaultCatalogField(key, label, limit, card[key]) : classificationFields.some(([field]) => field === key)
     ? vaultClassificationInput(key, label, card[key]) + (key === 'energyType' ? vaultEnergyInput(card) : '') : `<div class="form-field${key === 'name' ? ' vault-edit-full' : ''}"><div><label for="vault-field-${key}">${label}</label>${vaultTooltip(key, label)}</div>
     <input id="vault-field-${key}" class="form-control" name="${key}" maxlength="${limit}" value="${escapeHTML(card[key] || '')}" ${key === 'certNumber' ? 'inputmode="numeric" pattern="[0-9]{1,8}" required' : key === 'name' ? 'required' : ''}></div>`).join('');
 }
@@ -147,9 +148,10 @@ function selectCard(id, mode = 'item') {
   document.querySelector('.vault-layout').classList.remove('is-unselected');
   unmountLocationInput();
   unmountCollectionInput();
+  unmountVaultCatalog();
   document.querySelector('.vault-detail').innerHTML = detailMarkup(card, mode);
   if (mode === 'edit-private') { mountLocationInput(card.storageLocation || ''); mountCollectionInput(card.id); }
-  if (mode === 'edit-card') { initializeVaultClassification(document.getElementById('vault-edit')); initializeVaultFinish(document.getElementById('vault-edit')); }
+  if (mode === 'edit-card') { mountVaultCatalog(card); initializeVaultClassification(document.getElementById('vault-edit')); initializeVaultFinish(document.getElementById('vault-edit')); }
   document.querySelector('.vault-photo-panel').innerHTML = vaultPhoto(card);
   initializeVaultPhoto(document.querySelector('.vault-photo-panel'));
   initializeDatePicker(document.querySelector('.vault-detail'));
@@ -260,6 +262,11 @@ window.__cancelVault = () => changeMode(document.getElementById('vault-edit')?.d
 window.__saveDetail = async (event, id) => {
   event.preventDefault();
   if (!id) return;
+  if (event.target.dataset.mode === 'edit-card' && !event.target.elements.name.value.trim()) {
+    document.getElementById('vault-edit-message').textContent = 'Enter a card name.';
+    document.getElementById('vault-catalog-name-input')?.focus();
+    return;
+  }
   const button = document.querySelector('.detail-actions .btn-primary');
   button.disabled = true;
   vaultBusy = true;

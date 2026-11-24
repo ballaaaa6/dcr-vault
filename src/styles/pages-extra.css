@@ -279,3 +279,7 @@
 @keyframes sheet-waka{50%{transform:rotate(0)}}
 @media(prefers-reduced-motion:reduce){.sheet-pagination .sheet-pacman::before,.sheet-pagination .sheet-pacman::after{animation:none}}
 .sheet-preview-paged .sheet-preview-pair+.sheet-preview-pair{margin-top:0}
+
+.vault-edit .catalog-select__control{min-height:46px;border-radius:14px}
+.vault-edit .catalog-select__indicator-separator{display:none}
+.vault-edit .catalog-select__menu{z-index:30}

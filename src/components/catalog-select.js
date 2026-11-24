@@ -46,8 +46,8 @@ function useExternalValues(field, proxy, current, setSelected, setInput, setOpen
   }, []);
 }
 
-export function catalogSelect({field, label, placeholder, maxLength, optionsFor, onEdit, onBlur, restricted = false, initialValue = ''}) {
-  const proxy = () => document.getElementById(`m-${field}`);
+export function catalogSelect({field, label, placeholder, maxLength, optionsFor, onEdit, onBlur, restricted = false, initialValue = '', idPrefix = 'm'}) {
+  const proxy = () => document.getElementById(`${idPrefix}-${field}`);
   const [selected, setSelected] = useState(initialValue ? {value: initialValue, label: initialValue} : null);
   const [input, setInput] = useState('');
   const [open, setOpen] = useState(false);
@@ -71,7 +71,7 @@ export function catalogSelect({field, label, placeholder, maxLength, optionsFor,
     setInput('');
   };
   const select = createElement(restricted ? Select : CreatableSelect, {
-    inputId: `m-${field}-input`, 'aria-label': label, placeholder, options, value: selected,
+    inputId: `${idPrefix}-${field}-input`, 'aria-label': label, placeholder, options, value: selected,
     inputValue: input, menuIsOpen: open, menuPlacement: 'auto', menuShouldScrollIntoView: false, isClearable: false, classNamePrefix: 'catalog-select', components: selectComponents, classNames: selectClassNames,
     onFocus: () => { if (!restricted && selected) { setInput(current.current); setSelected(null); } },
     onMenuOpen: () => { window.dispatchEvent(new CustomEvent('intake-catalog-close', {detail: field})); setOpen(true); },
@@ -87,6 +87,6 @@ export function catalogSelect({field, label, placeholder, maxLength, optionsFor,
     noOptionsMessage: () => 'No matching options'
   });
   const clear = selected || input ? createElement('button', {type: 'button', className: 'catalog-clear', 'aria-label': `Clear ${label}`,
-    onMouseDown: event => event.preventDefault(), onClick: () => { commit(''); document.getElementById(`m-${field}-input`)?.focus(); }}, '×') : null;
+    onMouseDown: event => event.preventDefault(), onClick: () => { commit(''); document.getElementById(`${idPrefix}-${field}-input`)?.focus(); }}, '×') : null;
   return createElement('div', {className: `catalog-select-wrap${clear ? ' has-clear has-value' : ''}`}, select, clear);
 }

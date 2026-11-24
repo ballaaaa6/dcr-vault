@@ -1,3 +1,5 @@
+- Add catalog suggestions to matching fields when editing Vault card details.
+
 - Add the Benri Lab Glitter effect over the home page artwork.
 
 - Remove the scanner grid and shade its original dots by their distance from the scan line.
