@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Highlight Vault filter groups
+- Use the brand red divider between storage location and collection filters.
+
 ## 2026-11-24 - Align collection creation wording
 - Use Create for new collection suggestions.
 
