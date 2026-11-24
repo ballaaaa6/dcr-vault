@@ -208,3 +208,6 @@
 .location-dialog.location-picker{width:min(900px,calc(100% - 48px));background-image:linear-gradient(color-mix(in srgb,var(--dcr-white) 85%,transparent),color-mix(in srgb,var(--dcr-white) 85%,transparent)),url('/assets/labels/vault-picker.png');background-position:top center;background-size:100% auto;background-repeat:no-repeat}
 .location-picker-actions{display:flex;justify-content:flex-end;gap:12px}
 @media(max-width:600px){.location-row{align-items:center;flex-direction:row}}
+
+.label-dialog:has(.label-vault-list){width:min(900px,calc(100% - 48px));overflow:visible}
+.label-vault-actions{justify-content:flex-end}

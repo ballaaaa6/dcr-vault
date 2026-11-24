@@ -79,7 +79,7 @@ function refresh() {
 function status(text) { const el = document.getElementById('label-status'); if (el) el.textContent = text; }
 function dialog(html) { document.getElementById('label-dialog-content').innerHTML = html; document.getElementById('label-dialog').showModal(); }
 function closeDialog() { document.getElementById('label-dialog').close(); }
-function dialogHead(title) { return `<div class="label-dialog-head"><h2>${title}</h2><button class="btn btn-ghost" data-label-action="close">Close</button></div>`; }
+function dialogHead(title, cornerClose = false) { return `<div class="label-dialog-head"><h2>${title}</h2>${cornerClose ? '<button class="location-close" type="button" aria-label="Close" data-label-action="close">×</button>' : '<button class="btn btn-ghost" data-label-action="close">Close</button>'}</div>`; }
 
 async function searchCerts() {
   let certs;
@@ -104,7 +104,7 @@ async function searchCerts() {
 
 function chooseVault() {
   const cards = vaultCards.filter(card => String(card.game).toLowerCase() === 'pokemon').sort((a, b) => compareVaultCards(a, b, 'date-desc'));
-  dialog(`${dialogHead('Choose from My Vault')}<p class="muted label-dialog-description">Select the cards to add to your sheets.</p><div class="label-vault-toolbar"><label class="label-select-all">${heartCheckbox(`data-label-select-all ${cards.some(card => !entries.some(item => item.cert === normalizeCert(card.certNumber))) ? '' : 'disabled'}`)} Select all</label>${vaultSortSelect('label-vault-sort')}</div><div class="label-vault-list">${cards.map(card => `<label>${heartCheckbox(`value="${esc(normalizeCert(card.certNumber))}" ${entries.some(item => item.cert === normalizeCert(card.certNumber)) ? 'disabled' : ''}`)}<span><strong>${esc(card.name)}</strong><small>Cert ${esc(normalizeCert(card.certNumber))}</small></span><span class="label-card-image">${cardPhoto(card)}</span></label>`).join('') || '<p>No Pokémon cards in your vault.</p>'}</div><div class="label-controls"><button class="btn btn-primary" data-label-action="add-vault">Add selected</button></div>`);
+  dialog(`${dialogHead('Choose from My Vault', true)}<p class="muted label-dialog-description">Select the cards to add to your sheets.</p><div class="label-vault-toolbar"><label class="label-select-all">${heartCheckbox(`data-label-select-all ${cards.some(card => !entries.some(item => item.cert === normalizeCert(card.certNumber))) ? '' : 'disabled'}`)} Select all</label>${vaultSortSelect('label-vault-sort')}</div><div class="label-vault-list">${cards.map(card => `<label>${heartCheckbox(`value="${esc(normalizeCert(card.certNumber))}" ${entries.some(item => item.cert === normalizeCert(card.certNumber)) ? 'disabled' : ''}`)}<span><strong>${esc(card.name)}</strong><small>Cert ${esc(normalizeCert(card.certNumber))}</small></span><span class="label-card-image">${cardPhoto(card)}</span></label>`).join('') || '<p>No Pokémon cards in your vault.</p>'}</div><div class="label-controls label-vault-actions"><button class="btn btn-primary" data-label-action="add-vault">Add selected</button></div>`);
 }
 
 function viewLabel(cert) {

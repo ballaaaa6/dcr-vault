@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Refine vault label picker controls
+- Use the location dialog close button and right-align Add selected in the vault label picker.
+
 ## 2026-11-24 - Use Lucide settings icon
 - Replace the location menu gear symbol with the Lucide Settings icon.
 
