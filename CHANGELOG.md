@@ -1,3 +1,5 @@
+- Add field guidance tooltips to Add Card, preserving the existing card-reading review warning.
+
 - Add a reusable informational tooltip with the existing bounce and rotation animations, a gray trigger, and red hover styling.
 
 - Keep the Finish field fixed in size when entering a custom pattern.

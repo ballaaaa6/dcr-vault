@@ -1,3 +1,4 @@
+import {intakeTooltip} from './intake-tooltip.js';
 import {catalogField} from './search-catalog.js';
 import {dropdown} from '../components/dropdown.js';
 import {CONDITION_OPTIONS, conditionOptionLabel} from '../utils/label-options.js';
@@ -38,8 +39,8 @@ export function searchMarkup() {
             ${catalogField('name', 'Name', 'e.g. Charizard', {wide: true})}
             ${catalogField('rarity', 'Rarity', 'e.g. Rare', {wide: true})}
             <input type="hidden" id="m-cardTypeLabel" value="POKÉMON"><input type="hidden" id="m-sourceLanguage"><input type="hidden" id="m-languageLabel"><input type="hidden" id="m-artist">
-            <div class="form-field"><label for="m-grade-trigger">Condition / Grade <span class="required-mark" aria-hidden="true">*</span></label>${dropdown({id: 'm-grade', label: 'Condition / Grade', options: [['', 'Choose condition'], ...CONDITION_OPTIONS.map(value => [value, conditionOptionLabel(value)])], value: '', required: true})}</div>
-            <div class="form-field cert-field"><label for="m-cert">Cert number <span class="required-mark" aria-hidden="true">*</span></label><span class="cert-input-row">
+            <div class="form-field"><div class="reading-label"><label for="m-grade-trigger">Condition / Grade <span class="required-mark" aria-hidden="true">*</span></label>${intakeTooltip('grade', 'Condition / Grade')}</div>${dropdown({id: 'm-grade', label: 'Condition / Grade', options: [['', 'Choose condition'], ...CONDITION_OPTIONS.map(value => [value, conditionOptionLabel(value)])], value: '', required: true})}</div>
+            <div class="form-field cert-field"><div class="reading-label"><label for="m-cert">Cert number <span class="required-mark" aria-hidden="true">*</span></label>${intakeTooltip('cert', 'Cert number')}</div><span class="cert-input-row">
               <input class="form-control" id="m-cert" inputmode="numeric" maxlength="8" pattern="[0-9]{1,8}" placeholder="1 to 8 digits" required>
               <button class="btn btn-ghost cert-random" data-cert-random type="button" aria-label="Generate an available Cert number" title="Generate an available Cert number">
                 <svg aria-hidden="true" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 10 H12 A2 2 0 0 1 14 12 V19 A2 2 0 0 1 12 21 H5 A2 2 0 0 1 3 19 V12 A2 2 0 0 1 5 10 Z"></path><path d="M10 6.75 L10 5 A2 2 0 0 1 12 3 L19 3 A2 2 0 0 1 21 5 L21 12 A2 2 0 0 1 19 14 L17.25 14"></path><path d="M6.5 13.25 V13.75 M10.5 17.25 V17.75 M17.5 6.25 V6.75"></path></svg>

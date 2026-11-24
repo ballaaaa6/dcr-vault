@@ -7,3 +7,6 @@
 .shared-tooltip__trigger:hover,.shared-tooltip__trigger:focus-visible{border-color:transparent;background:var(--dcr-red);color:var(--dcr-white);transform:rotate(360deg) scale(1.2)}
 @keyframes shared-tooltip-bounce{0%,20%,50%,80%,100%{transform:translate(-50%,0)}40%{transform:translate(-50%,-30px)}60%{transform:translate(-50%,-15px)}}
 @media(prefers-reduced-motion:reduce){.shared-tooltip__content,.shared-tooltip__trigger{transition:none!important;animation:none!important}}
+
+.shared-tooltip__content{text-wrap:balance;overflow-wrap:normal;word-break:normal}
+.reading-label:has(.reading-help:not([hidden])) .shared-tooltip{display:none}
