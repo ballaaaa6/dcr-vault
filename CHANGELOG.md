@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Adjust share tooltip colors
+- Invert the share tooltips and restore the copy-link button hover colors.
+
 ## 2026-11-24 - Refine certificate sharing icons
 - Use outlined sharing icons with platform-colored hover states and animated tooltips.
 
