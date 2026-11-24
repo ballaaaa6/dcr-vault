@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Update certificate action icons
+- Use matching regular-weight download and share icons on certificate actions.
+
 ## 2026-11-24 - Add certificate sharing destinations
 - Offer LINE, Facebook, X, and supported device sharing from the certificate share dialog.
 
