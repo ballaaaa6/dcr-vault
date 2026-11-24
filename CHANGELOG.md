@@ -1,3 +1,5 @@
+- Open View Cert from the Vault card image in a new tab.
+
 - Fix certificate share hover colors and remove the white rings around social icons.
 
 - Invert certificate social share icons and animate each platform color rising on focus and receding on blur.
