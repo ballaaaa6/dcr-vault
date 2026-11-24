@@ -256,7 +256,8 @@ async function analyzeFront() {
   const version = ++analysisVersion;
   analysisBusy = true;
   button.disabled = true;
-  button.textContent = 'Identifying card…';
+  button.textContent = 'Analyzing…';
+  button.dataset.busy = 'true';
   const status = document.getElementById('manual-status');
   status.dataset.toastKey = 'identification';
   status.dataset.state = 'pending';
@@ -289,6 +290,7 @@ async function analyzeFront() {
       status.textContent = 'Card reading was interrupted. Review the details and try again.';
     }
     analysisBusy = false;
+    button.dataset.busy = 'false';
     button.textContent = 'Identify card';
     updateButton();
   }

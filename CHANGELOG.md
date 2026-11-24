@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-24 - Clarify Add Card action states
+- Align the existing card actions to the right and keep their dimensions stable while analyzing, saving, and retrying.
+- Preserve the form and retry only failed photo uploads after a saved card.
+
 ## 2026-11-24 - Highlight uncertain card readings
 - Mark AI-flagged fields with a yellow border and an accessible red review tooltip.
 

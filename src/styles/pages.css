@@ -22,7 +22,7 @@
   .intake-page .upload-grid{flex:1;align-items:stretch}
   .intake-page .upload-item{grid-template-rows:auto minmax(0,1fr);align-content:stretch}
   .intake-page .upload-field{height:100%;min-height:260px;max-height:none;aspect-ratio:auto}
-  .intake-page .manual-submit{justify-self:start;margin-top:0}
+  .intake-page .manual-submit{justify-self:end;margin-top:0}
   #app:has(.intake-page) .site-footer{padding-top:8px;padding-bottom:10px}
 }
 .intake-page .form-field:has(> .catalog-control[data-catalog-control="name"]){grid-column:1/-1}
@@ -144,7 +144,13 @@
 .catalog-clear{position:absolute;top:50%;right:36px;display:grid;width:28px;height:28px;place-items:center;transform:translateY(-50%);padding:0;border:0;background:transparent;color:var(--dcr-gray);font-size:21px;line-height:1;cursor:pointer}
 .catalog-clear:focus-visible{outline:2px solid var(--dcr-red);border-radius:5px}
 @media(min-width:761px){.intake-card .catalog-select__control{min-height:42px}}
-.manual-submit{grid-column:1/-1;justify-self:start;margin-top:2px}
+.manual-submit{grid-column:1/-1;justify-self:end;margin-top:2px}
+
+/* Keep each action's footprint fixed when its label changes. */
+.intake-page #identify-card{width:152px}
+.intake-page #manual-submit{width:144px}
+.intake-page .identification-actions{display:flex;justify-content:flex-end}
+.intake-page #identify-card[data-busy="true"],.intake-page #manual-submit[data-busy="true"]{background:color-mix(in srgb,var(--dcr-red) 50%,var(--dcr-white));border-color:transparent;color:var(--dcr-white);opacity:1;cursor:wait;transform:none}
 .vault-heading{margin-bottom:22px}
 .vault-toolbar{display:flex;align-items:center;gap:10px;margin-bottom:18px}
 .vault-query{flex:1;min-width:0;min-height:50px}

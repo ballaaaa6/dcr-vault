@@ -167,7 +167,7 @@ function selectedPhotos() {
 }
 
 async function uploadPhotos(card) {
-  const photos = selectedPhotos();
+  const photos = selectedPhotos().filter(item => !uploadedSides.has(item.side));
   const results = await Promise.allSettled(photos.map(item => uploadCardImage(card.id, item.side, item.file)));
   const failed = [];
   results.forEach((result, index) => {
@@ -211,9 +211,10 @@ async function saveIntake() {
   }
   if (!certNumber) { setCertState(false, 'Enter 1 to 8 digits.', 'error'); certInput.focus(); return; }
   button.dataset.busy = 'true';
+  button.textContent = 'Saving…';
   updateSubmitState();
   try {
-    if (certInput.dataset.certAvailable !== 'true' && !await checkCertInput()) { certInput.focus(); return; }
+    if (!window.__intakeSavedCard && certInput.dataset.certAvailable !== 'true' && !await checkCertInput()) { button.textContent = 'Add to Vault'; certInput.focus(); return; }
     status.dataset.toastKey = 'save';
     status.dataset.state = 'pending';
     status.textContent = 'Adding card to your vault…';
@@ -221,10 +222,11 @@ async function saveIntake() {
     if (selectedPhotos().length) {
       status.textContent = 'Uploading selected photos…';
       const failed = await uploadPhotos(card);
-      if (failed.length) { status.dataset.state = 'error'; status.textContent = `Card saved. Retry the photos that failed: ${failed.join('; ')}`; button.textContent = 'Retry photo upload'; return; }
+      if (failed.length) { status.dataset.state = 'error'; status.textContent = `Card saved. Retry the photos that failed: ${failed.join('; ')}`; button.textContent = 'Try again'; return; }
     }
     completeIntake();
   } catch (error) {
+    button.textContent = 'Try again';
     if (error.status === 409) {
       status.dataset.state = 'error';
       status.textContent = 'This Cert number is already used. Choose another number.';
@@ -262,6 +264,7 @@ document.addEventListener('change', event => {
   if (event.target.closest('.intake-page')) updateSubmitState();
   const input = event.target.closest('[data-upload-side]');
   if (!input) return;
+  uploadedSides.delete(input.dataset.uploadSide);
   try { updatePhotoPreview(input.dataset.uploadSide, validatePhoto(input)); document.getElementById('photo-status').textContent = ''; }
   catch (error) {
     input.value = '';
