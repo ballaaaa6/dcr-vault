@@ -1,3 +1,5 @@
+- Reduce the Certificate Verification background image opacity to 20%.
+
 - Stack the Vault image preview switch below the close button along the right edge.
 
 - Fit the Vault image preview around the card and align its switch and close controls across the top edge.
