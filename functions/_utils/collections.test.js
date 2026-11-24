@@ -33,6 +33,13 @@ test('collections support overlapping membership and protect ownership and locat
   groups = (await (await call(onRequestGet, 'a', 'GET')).json()).collections;
   assert.deepEqual(groups.map(group => group.cardIds), [[], ['a']]);
   assert.equal((await call(patchCard, 'b', 'PATCH', {storageLocation: '', collectionIds: [second.id]}, {id: 'b'})).status, 409);
+  assert.equal((await call(patchCard, 'a', 'PATCH', {storageLocation: 'Binder A', collectionIds: [second.id], collectionNames: [' New group ', 'new GROUP', 'FAVORITES']}, {id: 'a'})).status, 200);
+  groups = (await (await call(onRequestGet, 'a', 'GET')).json()).collections;
+  assert.equal(groups.length, 3);
+  assert.ok(groups.every(group => group.cardIds.includes('a')));
+  assert.equal((await call(patchCard, 'a', 'PATCH', {storageLocation: '', collectionIds: [], collectionNames: [' '.repeat(3)]}, {id: 'a'})).status, 400);
+  assert.equal((await call(patchCard, 'b', 'PATCH', {storageLocation: '', collectionIds: [second.id], collectionNames: ['Not created']}, {id: 'b'})).status, 409);
+  assert.equal(sql.prepare('SELECT count(*) AS n FROM collections WHERE name = ?').get('Not created').n, 0);
   assert.equal((await call(onRequestDelete, 'a', 'DELETE', {id: second.id})).status, 200);
   assert.equal(sql.prepare('SELECT count(*) AS n FROM cards WHERE id = ? AND storage_location_id IS NOT NULL').get('a').n, 1);
   assert.equal(sql.prepare('SELECT count(*) AS n FROM collection_cards WHERE collection_id = ?').get(second.id).n, 0);

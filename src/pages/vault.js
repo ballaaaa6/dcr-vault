@@ -114,7 +114,7 @@ function privateInputs(card) {
     ${card.boughtFrom ? `<p class="detail-note">Bought from (previous): ${escapeHTML(card.boughtFrom)}</p>` : ''}
     ${datePicker(card.receivedDate)}
     <div class="form-field"><label for="m-storageLocation-input">Storage location</label><input type="hidden" id="m-storageLocation" name="storageLocation" value="${escapeHTML(card.storageLocation || '')}"><div id="vault-location-mount"></div></div>
-    <div class="form-field"><label for="vault-collections-input">Collections</label><input type="hidden" id="vault-collection-values" value="${escapeHTML(JSON.stringify(getCollections().filter(group => group.cardIds.includes(card.id)).map(group => group.id)))}"><div id="vault-collection-mount"></div></div>
+    <div class="form-field"><label for="vault-collections-input">Collections</label><input type="hidden" id="vault-collection-values" value="${escapeHTML(JSON.stringify(getCollections().filter(group => group.cardIds.includes(card.id)).map(group => ({id: group.id, name: group.name}))))}"><div id="vault-collection-mount"></div></div>
     <label class="form-field"><span>Position</span><input class="form-control" name="position" maxlength="200" value="${escapeHTML(card.position || '')}" placeholder="e.g. Page 3"></label>
     <label class="form-field"><span>Notes</span><textarea class="form-control" name="notes" maxlength="2000" rows="3">${escapeHTML(card.notes || '')}</textarea></label>`;
 }
@@ -247,7 +247,11 @@ window.__saveDetail = async (event, id) => {
   const privateMode = event.target.dataset.mode === 'edit-private';
   const keys = privateMode ? privateKeys.filter(key => key !== 'purchaseSource') : publicFields.map(([key]) => key);
   const patch = Object.fromEntries(keys.map(key => [key, event.target.elements[key].value]));
-  if (privateMode) patch.collectionIds = JSON.parse(document.getElementById('vault-collection-values').value);
+  if (privateMode) {
+    const selected = JSON.parse(document.getElementById('vault-collection-values').value);
+    patch.collectionIds = selected.filter(item => item.id).map(item => item.id);
+    patch.collectionNames = selected.filter(item => !item.id).map(item => item.name);
+  }
   if (privateMode) patch.purchaseSource = event.target.elements.sourceChoice.value === 'Other' ? event.target.elements.customSource.value : event.target.elements.sourceChoice.value;
   if (!privateMode) patch.certNumber = normalizeCert(patch.certNumber);
   try {

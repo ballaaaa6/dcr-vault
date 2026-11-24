@@ -108,7 +108,7 @@
 .vault-menu{position:relative}
 .vault-menu summary{list-style:none}
 .vault-menu summary::-webkit-details-marker{display:none}
-.vault-menu.dropdown-control summary{display:grid;place-items:center;min-height:0;padding:0;border:1px solid var(--dcr-border);border-radius:50%;background:var(--dcr-white)}
+.vault-menu.dropdown-control summary{display:grid;place-items:center;justify-content:center;align-content:center;min-height:0;padding:0;border:1px solid var(--dcr-border);border-radius:50%;background:var(--dcr-white);line-height:1;text-align:center}
 .vault-menu-options.dropdown-menu{min-width:140px}
 .vault-menu-options button{display:block;width:100%;padding:10px;text-align:left;border:0;background:transparent;color:var(--dcr-black);cursor:pointer}
 .vault-menu-options button:hover,.vault-menu-options button:focus-visible{background:var(--dcr-red-light)}
