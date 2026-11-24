@@ -189,7 +189,7 @@
 .location-dialog::backdrop{background:rgba(17,17,17,.74)}
 .location-dialog-head{display:flex;align-items:center;gap:16px}.location-dialog-head h2{margin:0}.location-add[hidden]{display:none}
 .location-dialog [data-location-body]{max-height:calc(85vh - 120px);overflow:auto}.dialog-close.location-close{top:-19px;right:-19px}
-.location-actions{display:flex;justify-content:flex-end;margin:14px 0}.location-list{display:grid}.location-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--dcr-border)}.location-row small{display:block}.location-row-actions{display:flex;gap:8px}.location-empty{text-align:center;padding:20px}.location-choices{display:grid;gap:10px;border:0;padding:0;margin:18px 0}.location-choices label{display:flex;gap:8px}.location-dialog .two-choice-actions{margin-top:20px}
+.location-actions{display:flex;justify-content:flex-end;margin:14px 0}.location-list{display:grid;gap:8px}.location-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 8px;border:1px solid var(--dcr-border);border-radius:var(--radius);background:var(--dcr-white)}.location-row small{display:block}.location-row-actions{display:flex;gap:8px}.location-empty{text-align:center;padding:20px}.location-choices{display:grid;gap:10px;border:0;padding:0;margin:18px 0}.location-choices label{display:flex;gap:8px}.location-dialog .two-choice-actions{margin-top:20px}
 @media(max-width:600px){.location-row{align-items:flex-start;flex-direction:column}}
 
 .location-dialog .two-choice-actions{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:12px}
@@ -210,7 +210,7 @@
 .location-gear{display:block;width:24px;height:24px;background:currentColor;mask:url('/assets/lucide-settings.svg') center/contain no-repeat;color:var(--dcr-gray)}
 .location-menu summary:hover .location-gear,.location-menu[open] .location-gear{color:var(--dcr-red)}
 .location-dialog .location-list-body{overflow:visible}
-.location-list-body .location-list{max-height:min(304px,max(76px,round(down,calc(85dvh - 160px),76px)));overflow-y:auto;overscroll-behavior:contain}
+.location-list-body .location-list{max-height:min(328px,max(76px,calc(round(down,calc(85dvh - 152px),84px) - 8px)));overflow-y:auto;overscroll-behavior:contain}
 .location-list-body .location-row{height:76px;box-sizing:border-box}
 .location-row > span{min-width:0}.location-row strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .location-menu .dropdown-menu{position:fixed;min-width:0}

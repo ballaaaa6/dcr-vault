@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Separate management entries
+- Give storage and collection management entries rounded individual surfaces with gaps that reveal the background.
+
 ## 2026-11-24 - Allow new collections while editing cards
 - Turn typed collection names into selectable chips and create them when card details are saved; center the Vault card options icon.
 
