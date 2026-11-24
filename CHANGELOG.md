@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Refine certificate share buttons
+- Add app-styled share tooltips, authentic platform logos, and a red copy-link hover state.
+
 ## 2026-11-24 - Unify dialog close controls
 - Use the shared red corner close control and compact labeled sharing icons in the certificate dialog.
 
