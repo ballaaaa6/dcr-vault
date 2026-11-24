@@ -1,3 +1,7 @@
+# Showcase handle alignment
+
+- Align each showcase's drag handle with its card count.
+
 # Showcase ordering
 
 - Reorder showcases and their cards directly with drag handles; remove the separate Manage cards menu.

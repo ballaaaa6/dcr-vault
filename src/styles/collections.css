@@ -107,7 +107,10 @@
 .collections-page .content-dialog:has(.collections-share) .content-dialog__panel{overflow:visible}
 
 .collections-sort-line{display:flex;align-items:center;justify-content:space-between;min-height:24px;gap:4px}
-.collections-item>.collections-drag-handle{position:absolute;right:8px;bottom:38px}
+.collections-item .collections-open{position:absolute;inset:0;height:100%;z-index:1}
+.collections-item .collections-drag-handle{position:relative;z-index:2}
+.collections-item .collections-sort-line small{margin:0}
+.collections-item:has(.collections-open:hover) .collections-view-link{color:var(--dcr-red-dark)}
 .collections-drag-handle{display:grid;place-items:center;width:24px;height:24px;padding:0;border:0;background:transparent;color:var(--dcr-gray);font:inherit;cursor:grab;touch-action:none}
 .collections-drag-handle:focus-visible{outline:2px solid var(--dcr-red);outline-offset:1px}
 .collections-page .is-dragging{opacity:.5}.collections-page .drop-before{box-shadow:inset 3px 0 var(--dcr-red)}.collections-page .drop-after{box-shadow:inset -3px 0 var(--dcr-red)}

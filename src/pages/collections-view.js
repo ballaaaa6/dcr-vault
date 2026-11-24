@@ -25,11 +25,11 @@ export function collectionItems(groups, cards) {
     const cover = group.cardIds.map(id => cards.find(card => card.id === id)).find(Boolean);
     const count = group.cardIds.length;
     return `<article class="surface-card collections-item" data-sort-id="${esc(group.id)}">
-      <button type="button" class="collections-open" data-open="${esc(group.id)}" aria-label="View ${esc(group.name)}">
+      <button type="button" class="collections-open" data-open="${esc(group.id)}" aria-label="View ${esc(group.name)}"></button>
         <span class="collections-cover">${cover ? vaultImage(cover, 'collection-photo-empty', 'No photo') : '<span class="collection-photo-empty">No cards yet</span>'}</span>
         <span class="collections-item-body"><span class="collections-item-top"><strong>${esc(group.name)}</strong><span class="collections-badge ${group.shareToken ? 'collections-badge--public' : ''}">${group.shareToken ? 'Public' : 'Private'}</span></span>
-        <span class="collections-description">${esc(group.description || '')}</span><span class="collections-sort-line"><small>${count} ${count === 1 ? 'card' : 'cards'}</small></span><span class="collections-view-link">View showcase <span aria-hidden="true">→</span></span></span>
-      </button>${dragHandle(group.name)}</article>`;
+        <span class="collections-description">${esc(group.description || '')}</span><span class="collections-sort-line"><small>${count} ${count === 1 ? 'card' : 'cards'}</small>${dragHandle(group.name)}</span><span class="collections-view-link">View showcase <span aria-hidden="true">→</span></span></span>
+      </article>`;
   }).join('');
 }
 
