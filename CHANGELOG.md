@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Animate the Cert dice button
+- Use the with icons dice design and motion on the Cert generator button, following the existing button color and reduced-motion preference.
+
 ## 2026-11-24 - Improve content-driven layouts
 - Align usage date filters and reserve button clearance, constrain calendar size, allow form rows and card content to grow without overlap, and reserve inline editing status space.
 

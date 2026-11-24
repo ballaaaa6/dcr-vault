@@ -118,11 +118,12 @@
 .cert-input-row{display:flex;align-items:center;gap:8px}
 .cert-input-row .form-control{flex:1}
 .cert-random{width:46px;height:46px;flex:0 0 46px;padding:10px}
-.cert-random svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8}
-.cert-random svg circle{fill:currentColor;stroke:none}
-.cert-random[aria-busy="true"] svg{animation:cert-spin 1s linear infinite}
-@keyframes cert-spin{to{transform:rotate(360deg)}}
-@media(prefers-reduced-motion:reduce){.cert-random[aria-busy="true"] svg{animation:none}}
+.cert-random svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.75;transform-origin:50% 83.3333%;animation:cert-rock 2.6s infinite}
+.cert-random:hover svg,.cert-random:focus-visible svg,.cert-random[aria-busy="true"] svg{transform-origin:center;animation:cert-spin .7s}
+.cert-random[aria-busy="true"] svg{animation-iteration-count:infinite}
+@keyframes cert-rock{0%,50%,100%{transform:rotate(0)}25%{transform:rotate(6deg)}75%{transform:rotate(-6deg)}}
+@keyframes cert-spin{0%{transform:rotate(0);animation-timing-function:cubic-bezier(.6,0,.25,1)}72%{transform:rotate(368.4deg);animation-timing-function:cubic-bezier(.65,0,.35,1)}100%{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.cert-random svg,.cert-random:hover svg,.cert-random:focus-visible svg,.cert-random[aria-busy="true"] svg{animation:none}}
 .field-status{min-height:16px;color:var(--dcr-gray);font-size:13px;font-weight:450}
 .field-grid .form-field>label{display:block;min-height:17px;margin:0;line-height:17px}
 .cert-field .cert-input-row{min-height:46px}
