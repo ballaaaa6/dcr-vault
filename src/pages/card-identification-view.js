@@ -10,13 +10,9 @@ function classificationMarkup(key, label, value) {
   return `<div class="identification-read-field identification-classification" data-classification-row="${key}"><b>${escapeHTML(label)}</b>${dropdown({id: `reading-${key}`, label, options: options.map(option => [option, option || 'Not selected']), value: value || ''})}</div>`;
 }
 
-function confidenceLabel(fields, key) {
-  const confidence = Number(fields.fieldConfidence?.[key]);
-  return Number.isFinite(confidence) ? `${Math.round(confidence * 100)}%` : 'not scored';
-}
-function fieldMarkup(fields, key, label, value) {
+function fieldMarkup(label, value) {
   if (!value) return '';
-  return `<div class="identification-read-field"><b>${escapeHTML(label)}</b><span>${escapeHTML(value)}</span><small>${confidenceLabel(fields, key)}</small></div>`;
+  return `<div class="identification-read-field"><b>${escapeHTML(label)}</b><span>${escapeHTML(value)}</span></div>`;
 }
 
 function attackSummary(attacks) {
@@ -29,25 +25,25 @@ function attackSummary(attacks) {
 
 export function readingSummaryMarkup(fields, source, adequate, classification = {}) {
   const rows = [
-    fieldMarkup(fields, 'name', 'Printed name', fields.name),
-    fieldMarkup(fields, 'englishName', 'English name (suggested translation)', fields.englishName),
-    fieldMarkup(fields, 'language', 'Language', fields.language),
-    fieldMarkup(fields, 'setName', 'Printed set', fields.setName),
-    fieldMarkup(fields, 'englishSetName', 'English set (unverified)', fields.englishSetName),
-    fieldMarkup(fields, 'setCode', 'Printed set code', fields.setCode),
-    fieldMarkup(fields, 'setSymbol', 'Set symbol', fields.setSymbol),
-    fieldMarkup(fields, 'stamp', 'Stamp', fields.stamp),
-    fieldMarkup(fields, 'copyrightText', 'Copyright text', fields.copyrightText),
+    fieldMarkup('Printed name', fields.name),
+    fieldMarkup('English name (suggested translation)', fields.englishName),
+    fieldMarkup('Language', fields.language),
+    fieldMarkup('Printed set', fields.setName),
+    fieldMarkup('English set (unverified)', fields.englishSetName),
+    fieldMarkup('Printed set code', fields.setCode),
+    fieldMarkup('Set symbol', fields.setSymbol),
+    fieldMarkup('Stamp', fields.stamp),
+    fieldMarkup('Copyright text', fields.copyrightText),
     ...classificationFields.map(([key, label]) => classificationMarkup(key, label, classification[key])),
-    fieldMarkup(fields, 'cardNumber', 'Collector number', fields.cardNumber),
-    fieldMarkup(fields, 'dexNumber', 'Pokédex No.', fields.dexNumber),
-    fieldMarkup(fields, 'level', 'Level', fields.level),
-    fieldMarkup(fields, 'year', 'Year', fields.year),
-    fieldMarkup(fields, 'hp', 'HP', fields.hp),
-    fieldMarkup(fields, 'illustrator', 'Illustrator', fields.illustrator),
-    fieldMarkup(fields, 'finish', 'Finish', fields.finish),
-    fieldMarkup(fields, 'rarity', 'Rarity', fields.rarity),
-    fieldMarkup(fields, 'attacks', 'Attacks and effects', attackSummary(fields.attacks))
+    fieldMarkup('Collector number', fields.cardNumber),
+    fieldMarkup('Pokédex No.', fields.dexNumber),
+    fieldMarkup('Level', fields.level),
+    fieldMarkup('Year', fields.year),
+    fieldMarkup('HP', fields.hp),
+    fieldMarkup('Illustrator', fields.illustrator),
+    fieldMarkup('Finish', fields.finish),
+    fieldMarkup('Rarity', fields.rarity),
+    fieldMarkup('Attacks and effects', attackSummary(fields.attacks))
   ].filter(Boolean).join('');
   const missing = Object.entries(fields.form || {}).filter(([, value]) => !value).map(([key]) => key);
   const missingNote = missing.length ? `<p>Fill or check: ${escapeHTML(missing.join(', '))}</p>` : '';

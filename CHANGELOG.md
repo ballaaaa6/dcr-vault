@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Hide reading confidence scores
+- Remove confidence percentages and unscored labels from the card reading review.
+
 ## 2026-11-24 - Align card reading and standardize dropdown menus
 - Align review values and controls, position the close button on the corner, and show up to eight dropdown options before scrolling.
 
