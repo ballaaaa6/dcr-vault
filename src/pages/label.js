@@ -32,7 +32,7 @@ export async function label(cards = []) {
       <p class="muted">Enter individual numbers or ranges separated by commas. Up to 500 numbers per search.</p>
       <div class="label-controls"><button class="btn btn-primary" data-label-action="search">Find and add</button><button class="btn btn-ghost" data-label-action="vault">Choose from My Vault</button></div>
     </section>
-    <section class="surface-card label-list-section"><div class="label-list-heading"><div><h2>Labels on your sheets</h2><p class="muted" id="label-count"></p></div><button class="btn btn-ghost" data-label-action="clear">Clear all</button></div>
+    <section class="surface-card label-list-section"><div class="label-list-heading"><div><h2>Print queue</h2><p class="muted" id="label-count"></p></div><button class="btn btn-ghost" data-label-action="clear">Clear all</button></div>
       <div id="label-list"></div><div class="label-bottom"><p class="label-print-note">Print at actual size, double-sided, flip on long edge. Each sheet contains up to 40 labels.</p><div class="label-controls"><button class="btn btn-ghost" data-label-action="preview">Preview sheets</button><button class="btn btn-primary" data-label-action="download">Download PDF</button></div></div>
     </section>
     </div>
@@ -70,7 +70,7 @@ function refresh() {
   const valid = ready().length;
   document.getElementById('label-count').textContent = `${valid} ready · ${Math.ceil(valid / 40)} sheets${entries.length - valid ? ` · ${entries.length - valid} need attention` : ''}`;
   const list = document.getElementById('label-list');
-  list.innerHTML = entries.length ? `<div class="label-rows">${entries.map((item, i) => `<div class="label-row"><span class="label-row-number">${i + 1}</span><div class="label-row-info"><strong>${esc(item.name || 'Certificate')}</strong><span>Cert ${esc(item.cert)}</span>${item.error ? `<small>${esc(item.error)}</small>` : ''}</div><div class="label-row-actions"><span class="label-card-image">${cardPhoto(item)}</span><button class="btn btn-ghost" data-label-action="view" data-cert="${item.cert}">View</button><button class="label-remove" data-label-action="remove" data-cert="${item.cert}" aria-label="Remove ${item.cert}">×</button></div></div>`).join('')}</div>` : '<p class="label-empty">No labels added yet. Enter certificate numbers or choose cards from your vault.</p>';
+  list.innerHTML = entries.length ? `<div class="label-rows">${entries.map((item, i) => `<div class="label-row"><span class="label-row-number">${i + 1}</span><div class="label-row-info"><strong>${esc(item.name || 'Certificate')}</strong><span>Cert ${esc(item.cert)}</span>${item.error ? `<small>${esc(item.error)}</small>` : ''}</div><div class="label-row-actions"><span class="label-card-image">${cardPhoto(item)}</span><button class="btn btn-ghost" data-label-action="view" data-cert="${item.cert}">View</button><button class="label-remove" data-label-action="remove" data-cert="${item.cert}" aria-label="Remove ${item.cert}">×</button></div></div>`).join('')}</div>` : '<p class="label-empty">No labels in your queue yet.<br>Add cards to get started.</p>';
   for (const action of ['preview', 'download']) page().querySelector(`[data-label-action="${action}"]`).disabled = !valid || busy;
   page().querySelector('[data-label-action="clear"]').disabled = !entries.length || busy;
   for (const action of ['search', 'vault']) page().querySelector(`[data-label-action="${action}"]`).disabled = busy;
