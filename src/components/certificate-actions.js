@@ -51,6 +51,13 @@ function initializeShareDialog(record) {
   const dialog = record.querySelector('.cert-share-dialog');
   const open = record.querySelector('[data-cert-share]');
   const url = new URL(`/cert/${encodeURIComponent(record.dataset.cert)}`, location.origin).href;
+  const targets = {line: 'https://social-plugins.line.me/lineit/share', facebook: 'https://www.facebook.com/sharer/sharer.php', x: 'https://twitter.com/intent/tweet'};
+  dialog.querySelectorAll('[data-share-platform]').forEach(link => {
+    const platform = link.dataset.sharePlatform;
+    const target = new URL(targets[platform]);
+    target.searchParams.set(platform === 'facebook' ? 'u' : 'url', url);
+    link.href = target.href;
+  });
   const nativeShare = dialog.querySelector('[data-cert-native-share]');
   nativeShare.hidden = !navigator.share;
   open.addEventListener('click', () => dialog.showModal());

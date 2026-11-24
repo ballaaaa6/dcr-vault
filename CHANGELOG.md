@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Add certificate sharing destinations
+- Offer LINE, Facebook, X, and supported device sharing from the certificate share dialog.
+
 ## 2026-11-24 - Refine certificate sharing
 - Tighten certificate action spacing and show sharing details in the shared app dialog before copying or sharing the link.
 
