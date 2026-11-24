@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Standardize typography
+- Add shared typography sizes for page titles, section titles, subheadings, body text, descriptions, and small supporting text. Apply the scale to shared headings, forms, and card review.
+
 ## 2026-11-24 - Refine card reading review
 - Highlight populated reading rows on hover and style catalog suggestions to match the review dialog.
 

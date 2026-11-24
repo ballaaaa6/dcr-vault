@@ -6,26 +6,26 @@
 .home-page{display:flex;flex:1;padding:22px 0 18px}
 .home-hero{position:relative;display:grid;grid-template-columns:1.08fr .92fr;align-items:center;gap:32px;width:min(1320px,calc(100% - 48px));min-height:0;margin:0 auto;overflow:hidden;border:1px solid var(--dcr-border);border-radius:34px;background:linear-gradient(90deg,rgba(255,255,255,.98) 0%,rgba(255,255,255,.88) 34%,rgba(255,255,255,.3) 53%,transparent 69%),url(/assets/home/crimson-peak-hero.png) center / cover no-repeat;box-shadow:var(--shadow)}
 .home-copy{container-type:inline-size;position:relative;z-index:2;padding:clamp(28px,4vw,68px)}
-.home-eyebrow{margin-bottom:20px;color:var(--dcr-red);font-size:13px;font-weight:750;letter-spacing:.14em;text-transform:uppercase}
-.home-title{max-width:680px;margin:0;font-size:clamp(1rem,10cqw,3.75rem);line-height:1.03;letter-spacing:-.055em}
+.home-eyebrow{margin-bottom:20px;color:var(--dcr-red);font-size:var(--font-size-small);font-weight:750;letter-spacing:.14em;text-transform:uppercase}
+.home-title{max-width:680px;margin:0;font-size:var(--font-size-page-title);line-height:1.03;letter-spacing:-.055em}
 .home-title span{color:var(--dcr-red)}
-.home-description{max-width:540px;margin:18px 0 22px;color:var(--dcr-gray);font-size:19px;line-height:1.7}
+.home-description{max-width:540px;margin:18px 0 22px;color:var(--dcr-gray);font-size:var(--font-size-description);line-height:1.7}
 .home-search-form{width:100%}
-.search-label{display:block;margin:0 0 9px 4px;font-size:15px;font-weight:700}
+.search-label{display:block;margin:0 0 9px 4px;font-size:var(--font-size-body);font-weight:700}
 .home-search-form .search-bar{min-height:42px}
 .home-search-form .search-bar input{padding:7px 16px}
-.home-search-form .search-bar button{padding:0 18px;font-size:15px}
+.home-search-form .search-bar button{padding:0 18px;font-size:var(--font-size-body)}
 .home-search-form .search-button{min-width:96px}
 .home-search-form .search-button svg{width:16px;height:16px}
-.search-hint{margin:11px 4px 0;color:var(--dcr-gray);font-size:14px}
+.search-hint{margin:11px 4px 0;color:var(--dcr-gray);font-size:var(--font-size-description)}
 .home-benefits{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:26px}
-.home-benefit{position:relative;display:flex;min-width:0;flex-direction:column;padding:12px;border:1px solid var(--dcr-border);border-radius:12px;background:var(--dcr-white);color:var(--dcr-gray);font-size:13px;line-height:1.4}
+.home-benefit{position:relative;display:flex;min-width:0;flex-direction:column;padding:12px;border:1px solid var(--dcr-border);border-radius:12px;background:var(--dcr-white);color:var(--dcr-gray);font-size:var(--font-size-description);line-height:1.4}
 .home-benefit::after{position:absolute;inset:-1px;content:'';border:1px solid var(--dcr-red);border-radius:inherit;clip-path:inset(0 100% 0 0);pointer-events:none;transition:clip-path .45s ease}
 .home-benefit:hover{background:var(--dcr-red-light)}
 .home-benefit:is(:hover,:focus-visible)::after{clip-path:inset(0)}
 @media(prefers-reduced-motion:reduce){.home-benefit::after{transition:none}}
 .home-benefit img{width:38px;height:38px;object-fit:contain;margin-bottom:8px}
-.home-benefit strong{color:var(--dcr-black);font-size:14px}
+.home-benefit strong{color:var(--dcr-black);font-size:var(--font-size-description)}
 .home-art{position:relative;display:grid;min-height:400px;place-items:center;overflow:hidden}
 @media(max-width:980px){
   .home-hero{grid-template-columns:1fr 0.8fr;min-height:0}
@@ -36,7 +36,7 @@
   .home-page{padding:14px 0 18px}
   .home-hero{grid-template-columns:1fr;width:calc(100% - 28px);min-height:0;border-radius:26px;background:var(--dcr-white)}
   .home-copy{padding:38px 26px 20px}
-  .home-description{margin:18px 0 24px;font-size:17px}
+  .home-description{margin:18px 0 24px;font-size:var(--font-size-description)}
   .home-art{min-height:350px;background:url(/assets/home/crimson-peak-hero.png) right center / cover no-repeat}
 }
 @media(max-width:420px){
@@ -50,8 +50,8 @@
   .home-page{padding:12px 0 8px}
   .home-copy{padding:24px clamp(28px,4vw,60px)}
   .home-eyebrow{margin-bottom:10px}
-  .home-title{font-size:clamp(1rem,8.5cqw,3.1rem)}
-  .home-description{margin:12px 0 14px;font-size:17px;line-height:1.4}
+  .home-title{font-size:var(--font-size-page-title)}
+  .home-description{margin:12px 0 14px;font-size:var(--font-size-description);line-height:1.4}
   .home-search-form .search-bar{min-height:42px}
   .search-hint{margin-top:6px}
   .home-benefits{margin-top:14px}

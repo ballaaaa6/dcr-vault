@@ -5,6 +5,6 @@
 .back-to-top-label{position:absolute;left:42%;top:58%;width:24%;height:10%;display:grid;place-items:center;background:var(--rocket-label-red);color:var(--dcr-white);font:700 10px/1 Arial,sans-serif;transform:rotate(9deg)}
 .back-to-top:hover .back-to-top-art{transform:translateY(-8px) rotate(-4deg)}
 .back-to-top:focus-visible{outline:3px solid var(--dcr-red);outline-offset:4px}
-@media(max-width:650px){.back-to-top{width:86px;height:122px;right:3px;bottom:12px}.back-to-top-label{font-size:8px}}
+@media(max-width:650px){.back-to-top{width:86px;height:122px;right:3px;bottom:12px}.back-to-top-label{font-size:var(--font-size-small)}}
 @media(prefers-reduced-motion:reduce){.back-to-top,.back-to-top-art{transition:none}.back-to-top:hover .back-to-top-art{transform:none}}
 @media print{.back-to-top{display:none!important}}

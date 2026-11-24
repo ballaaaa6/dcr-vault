@@ -2,24 +2,24 @@
 .label-fields .form-field{margin-bottom:12px}
 .label-fields [data-label-field="certNumber"]{grid-column:1/-1}
 .label-editor>.btn{width:100%;margin-top:2px}
-.label-status{min-height:20px;margin:12px 0 0;color:var(--dcr-gray);font-size:14px}
+.label-status{min-height:20px;margin:12px 0 0;color:var(--dcr-gray);font-size:var(--font-size-description)}
 .label-previews{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .preview-card{min-width:0;padding:18px}
-.preview-card h2{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 14px;font-size:17px}
-.preview-card h2 span{color:var(--dcr-gray);font-size:13px;font-weight:500}
+.preview-card h2{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 14px;font-size:var(--font-size-section-title)}
+.preview-card h2 span{color:var(--dcr-gray);font-size:var(--font-size-description);font-weight:500}
 .label-preview-frame{width:min(100%,350px);aspect-ratio:3.5/1;overflow:hidden;background:var(--dcr-white)}
 .label-preview-svg,.label-preview-placeholder{display:block;width:100%;height:100%}
 .label-preview-svg svg{display:block;width:100%;height:100%}
-.label-preview-placeholder{display:grid;place-items:center;padding:10px;color:var(--dcr-gray);font-size:14px;text-align:center}
+.label-preview-placeholder{display:grid;place-items:center;padding:10px;color:var(--dcr-gray);font-size:var(--font-size-description);text-align:center}
 .label-print-actions{grid-column:1/-1;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
-.label-print-actions p{margin:0 auto 0 0;font-size:15px}
+.label-print-actions p{margin:0 auto 0 0;font-size:var(--font-size-body)}
 .label-sheet-preview{margin-top:28px;padding:24px}
 .label-sheet-preview .section-heading{margin-bottom:16px}
 .sheet-preview-pages{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 .sheet-page{min-width:0;margin:0}
-.sheet-page figcaption{margin-bottom:8px;color:var(--dcr-gray);font-size:14px;font-weight:650}
+.sheet-page figcaption{margin-bottom:8px;color:var(--dcr-gray);font-size:var(--font-size-description);font-weight:650}
 .sheet-page-image{display:block;width:100%;height:auto;border:1px solid var(--dcr-border);background:var(--dcr-white)}
-.label-print-note{margin:14px 0;color:var(--dcr-gray);font-size:14px}
+.label-print-note{margin:14px 0;color:var(--dcr-gray);font-size:var(--font-size-description)}
 .print-sheet-output{display:none}
 .import-page{max-width:920px}
 .import-card{max-width:760px}
@@ -30,11 +30,11 @@
 .import-entry input{width:17px;height:17px;flex:0 0 17px;accent-color:var(--dcr-red)}
 .import-entry>span:nth-of-type(1){display:grid;flex:1;gap:2px;min-width:0}
 .import-list strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.import-list small{color:var(--dcr-gray);font-size:13px}
-.import-notice{display:grid;gap:5px;padding:14px 16px;border-radius:14px;background:var(--dcr-red-light);font-size:14px}
-.import-notice span,.import-privacy{color:var(--dcr-gray);font-size:14px}
+.import-list small{color:var(--dcr-gray);font-size:var(--font-size-description)}
+.import-notice{display:grid;gap:5px;padding:14px 16px;border-radius:14px;background:var(--dcr-red-light);font-size:var(--font-size-description)}
+.import-notice span,.import-privacy{color:var(--dcr-gray);font-size:var(--font-size-description)}
 .import-privacy{margin:14px 0 0}
-.import-status{min-height:20px;margin:12px 0 0;color:var(--dcr-gray);font-size:14px}
+.import-status{min-height:20px;margin:12px 0 0;color:var(--dcr-gray);font-size:var(--font-size-description)}
 @media(max-width:980px){
   .label-layout{grid-template-columns:300px minmax(0,1fr)}
   .label-previews{grid-template-columns:1fr}
@@ -52,7 +52,7 @@
   .upload-grid,.field-grid,.label-previews{grid-template-columns:1fr}
   .identification-dialog{width:calc(100% - 20px);max-height:90vh;border-radius:18px}
   .identification-dialog-header{padding:18px 18px 14px}
-  .identification-dialog-header h2{font-size:18px}
+  .identification-dialog-header h2{font-size:var(--font-size-section-title)}
   .identification-dialog-content{padding:15px 16px var(--button-effect-space)}
   .vault-toolbar{align-items:stretch;flex-wrap:wrap}
   .vault-query{flex:1 1 100%}
@@ -60,8 +60,8 @@
   .vault-status select{width:100%}
   .vault-row{gap:9px;padding:9px}
   .vault-row img{width:50px;height:68px;flex-basis:50px}
-  .vault-row .badge{font-size:12px;padding:4px 7px}
-  .vault-row-main .muted{font-size:13px}
+  .vault-row .badge{font-size:var(--font-size-small);padding:4px 7px}
+  .vault-row-main .muted{font-size:var(--font-size-description)}
   .label-fields{grid-template-columns:1fr}
   .label-fields [data-label-field="certNumber"]{grid-column:auto}
   .label-print-actions{align-items:stretch;flex-direction:column}
@@ -113,7 +113,7 @@
 .vault-menu-options button{display:block;width:100%;padding:10px;text-align:left;border:0;background:transparent;color:var(--dcr-black);cursor:pointer}
 .vault-menu-options button:hover,.vault-menu-options button:focus-visible{background:var(--dcr-red-light)}
 .vault-detail .vault-edit{margin:0;padding:8px 0 0;border:0}
-.vault-edit h2{font-size:1.25rem;margin:0 0 20px}
+.vault-edit h2{font-size:var(--font-size-section-title);margin:0 0 20px}
 .vault-private dd{text-transform:none;white-space:pre-wrap}
 
 .vault-price-input{display:grid;grid-template-columns:minmax(0,1fr) 100px;gap:8px}
@@ -129,7 +129,7 @@
 .label-dialog:has(.label-vault-list){--label-background:url('/assets/labels/vault-picker.png')}
 .label-add h2,.label-list-heading h2{margin:0 0 12px}
 .label-add textarea{resize:vertical;min-height:64px}
-.label-add>.muted{margin:8px 0 16px;font-size:14px}
+.label-add>.muted{margin:8px 0 16px;font-size:var(--font-size-description)}
 .label-controls{display:flex;flex-wrap:wrap;gap:10px}
 .label-list-heading{position:sticky;top:76px;z-index:2;display:flex;align-items:start;justify-content:space-between;gap:12px;margin:-24px -24px 0;padding:24px 24px 0;background-color:var(--dcr-white);background-image:linear-gradient(color-mix(in srgb,var(--dcr-white) 85%,transparent),color-mix(in srgb,var(--dcr-white) 85%,transparent)),var(--label-background);background-position:top center;background-size:100% auto;background-repeat:no-repeat;border-radius:21px 21px 0 0}
 .label-list-heading p{margin:0 0 16px}
@@ -137,7 +137,7 @@
 .label-row{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--dcr-border)}
 .label-row-number{color:var(--dcr-gray);min-width:24px}
 .label-row-info{display:grid;gap:3px;flex:1;min-width:0}
-.label-row-info span,.label-row-info small,.label-row-state{color:var(--dcr-gray);font-size:14px}
+.label-row-info span,.label-row-info small,.label-row-state{color:var(--dcr-gray);font-size:var(--font-size-description)}
 .label-row-info small{color:var(--dcr-red)}
 .label-row .btn{padding:8px 12px}
 .label-empty{padding:24px 0;color:var(--dcr-gray)}
@@ -163,7 +163,7 @@
 .label-row-actions{display:flex;align-items:center;gap:12px;margin-left:auto}
 .label-card-image{display:flex;align-items:center;justify-content:center;width:48px;height:64px;flex:none;overflow:hidden;border-radius:6px;background:var(--dcr-border)}
 .label-card-image img{width:100%;height:100%;object-fit:contain}
-.label-image-empty{font-size:10px;text-align:center;color:var(--dcr-gray)}
+.label-image-empty{font-size:var(--font-size-small);text-align:center;color:var(--dcr-gray)}
 .label-remove{border:0;background:transparent;color:var(--dcr-red);font-size:30px;line-height:1;cursor:pointer;padding:6px}
 .label-vault-list label:has(input:checked),.label-vault-list label:has(input:disabled){background:var(--dcr-border)}
 .label-vault-list label > span:not(.label-card-image):not(.label-heart){flex:1;min-width:0}
