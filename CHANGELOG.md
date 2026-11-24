@@ -1,3 +1,5 @@
+- Keep the Finish field fixed in size when entering a custom pattern.
+
 - Make nested dropdown interaction, red branch styling, and typography a reusable shared standard.
 
 - Show the selected Finish category beside the custom pattern input.

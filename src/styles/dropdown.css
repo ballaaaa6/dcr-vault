@@ -20,10 +20,12 @@
 #vault-collection-mount .catalog-select__multi-value{background:var(--dcr-red-light);border-radius:6px}
 #vault-collection-mount .catalog-select__multi-value__label{color:var(--dcr-black)}
 #vault-collection-mount .catalog-select__multi-value__remove:hover{background:var(--dcr-red-hover);color:var(--dcr-black)}
-.vault-finish-custom.form-control{display:flex;align-items:center;gap:8px;padding:0 10px}
+[data-vault-finish]{grid-template-columns:minmax(0,1fr)}
+[data-finish-control]{min-width:0}
+.vault-finish-custom.form-control{display:flex;align-items:center;gap:8px;height:50px;padding:0 10px}
 .vault-finish-custom:focus-within{border-color:var(--dcr-red);box-shadow:0 0 0 3px var(--dcr-red-light)}
 .vault-finish-custom button{flex:none;padding:0;border:0;background:transparent;color:var(--dcr-black);font:inherit;cursor:pointer}
-.vault-finish-prefix{flex:none;white-space:nowrap}
+.vault-finish-prefix{flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .vault-finish-custom input{flex:1;min-width:0;padding:10px 0;border:0;outline:0;background:transparent;color:var(--dcr-black);font:inherit}
 .dropdown-nested{position:relative;margin-left:19px}
 .dropdown-nested::before{content:"";position:absolute;left:0;top:-10px;bottom:19px;border-left:1px solid var(--dcr-red)}
