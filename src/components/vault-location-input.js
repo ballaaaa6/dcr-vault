@@ -16,5 +16,5 @@ export function mountLocationInput(value) {
 export function locationFilter(value = '') {
   return dropdown({id: 'vault-location-filter', label: 'Storage location',
     options: [['', 'All locations'], ...getLocations().map(item => [item.id, item.name])], value,
-    action: {label: 'Manage locations…', attribute: 'data-manage-locations'}});
+    action: {label: '⚙ Manage', attribute: 'data-manage-locations'}});
 }

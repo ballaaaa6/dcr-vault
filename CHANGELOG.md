@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Shorten location menu action
+- Rename the location management action to Manage and add a gear symbol.
+
 ## 2026-11-24 - Reposition location dialog controls
 - Place the add button beside the heading and the close button on the upper-right corner.
 
