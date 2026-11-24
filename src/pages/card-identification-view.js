@@ -1,11 +1,10 @@
 import {escapeHTML} from '../utils/format.js';
-import {classificationFields} from '../utils/card-classification.js';
+import {classificationFields, classificationChoices} from '../utils/card-classification.js';
 import {dropdown} from '../components/dropdown.js';
 
-const choices = {category: ['Pokemon', 'Trainer', 'Energy'], pokemonTypes: ['Grass', 'Fire', 'Water', 'Lightning', 'Psychic', 'Fighting', 'Darkness', 'Metal', 'Fairy', 'Dragon', 'Colorless'], trainerType: ['Item', 'Supporter', 'Stadium', 'Pokemon Tool'], energyKind: ['Basic', 'Special'], energyType: ['Grass', 'Fire', 'Water', 'Lightning', 'Psychic', 'Fighting', 'Darkness', 'Metal', 'Fairy']};
 
 function classificationMarkup(key, label, value) {
-  const options = ['', ...choices[key]];
+  const options = ['', ...classificationChoices[key]];
   if (value && !options.includes(value)) options.push(value);
   return `<div class="identification-read-field identification-classification" data-classification-row="${key}"><b>${escapeHTML(label)}</b>${dropdown({id: `reading-${key}`, label, options: options.map(option => [option, option || 'Not selected']), value: value || ''})}</div>`;
 }

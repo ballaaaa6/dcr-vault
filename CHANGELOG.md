@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Streamline Vault card editing
+- Compact the card editor, remove its explanatory text and language inputs, and match classification choices to the identification review.
+
 ## 2026-11-24 - Compact private vault editor
 - Remove the privacy note, reduce field spacing, and show two lines in Notes initially.
 

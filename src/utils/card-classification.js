@@ -1,5 +1,7 @@
 import {escapeHTML} from './format.js';
 
+export const classificationChoices = {category: ['Pokemon', 'Trainer', 'Energy'], pokemonTypes: ['Grass', 'Fire', 'Water', 'Lightning', 'Psychic', 'Fighting', 'Darkness', 'Metal', 'Fairy', 'Dragon', 'Colorless'], trainerType: ['Item', 'Supporter', 'Stadium', 'Pokemon Tool'], energyKind: ['Basic', 'Special'], energyType: ['Grass', 'Fire', 'Water', 'Lightning', 'Psychic', 'Fighting', 'Darkness', 'Metal', 'Fairy']};
+
 export const classificationFields = [
   ['category', 'Category', 40], ['pokemonTypes', 'Pokémon type(s)', 120],
   ['trainerType', 'Trainer type', 60], ['energyKind', 'Energy kind', 40], ['energyType', 'Energy type', 40]

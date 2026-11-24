@@ -117,7 +117,10 @@
 .vault-private dd{text-transform:none;white-space:pre-wrap}
 
 .vault-price-input{display:grid;grid-template-columns:minmax(0,1fr) 100px;gap:8px}
-.vault-edit[data-mode="edit-private"] h2{margin-bottom:12px}
+.vault-edit:is([data-mode="edit-private"],[data-mode="edit-card"]) h2{margin-bottom:12px}
+.vault-edit[data-mode="edit-card"] .vault-edit-grid{margin-top:12px}
+.vault-edit[data-mode="edit-card"] .form-field{gap:4px;margin-bottom:8px}
+.vault-edit[data-mode="edit-card"] .form-field[data-disabled="true"]{opacity:.5}
 .vault-edit[data-mode="edit-private"] .form-field{gap:4px;margin-bottom:8px}
 .vault-edit[data-mode="edit-private"] textarea{min-height:calc(2 * 1.5em + 22px);line-height:1.5;resize:vertical}
 .vault-edit .form-field[hidden]{display:none}

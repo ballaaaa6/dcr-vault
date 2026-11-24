@@ -13,7 +13,8 @@ import {vaultPhoto, initializeVaultPhoto} from '../components/vault-photo.js';
 import {itemInformation} from './verify.js';
 import {escapeHTML} from '../utils/format.js';
 import {normalizeCert} from '../utils/cert.js';
-import {classificationFields, classificationInput} from '../utils/card-classification.js';
+import {classificationFields} from '../utils/card-classification.js';
+import {vaultClassificationInput, initializeVaultClassification} from '../components/vault-classification.js';
 import {vaultBackground, preloadSelectedBackgrounds} from '../utils/vault-background.js';
 import {prefetchNearbyImages} from '../utils/prefetch-images.js';
 import {confirmDiscard, discardDialog} from '../components/confirm-discard.js';
@@ -25,13 +26,13 @@ let vaultBusy = false;
 let stopImagePrefetch = () => {};
 const publicFields = [
   ['certNumber', 'Cert number', 8], ['name', 'Card name', 120], ['game', 'Brand / Title', 30], ['year', 'Year', 4],
-  ['cardTypeLabel', 'Card type', 60], ['series', 'Series', 120], ['languageLabel', 'Language label', 60],
+  ['cardTypeLabel', 'Card type', 60], ['series', 'Series', 120],
   ['setName', 'Set name', 120], ...classificationFields, ['cardNumber', 'Card number', 30], ['rarity', 'Rarity', 80],
-  ['gradeLabel', 'Condition', 60], ['sourceFinish', 'Finish', 30], ['sourceLanguage', 'Language code', 20]
+  ['gradeLabel', 'Condition', 60], ['sourceFinish', 'Finish', 30]
 ];
 function editFields(card) {
   return publicFields.map(([key, label, limit]) => classificationFields.some(([field]) => field === key)
-    ? classificationInput(key, label, limit, card[key]) : `<label class="form-field"><span>${label}</span>
+    ? vaultClassificationInput(key, label, card[key]) : `<label class="form-field"><span>${label}</span>
     <input class="form-control" name="${key}" maxlength="${limit}" value="${escapeHTML(card[key] || '')}" ${key === 'certNumber' ? 'inputmode="numeric" pattern="[0-9]{1,8}" required' : key === 'name' ? 'required' : ''}></label>`).join('');
 }
 export function vault(cards = [], locations = [], collections = []) {
@@ -131,7 +132,6 @@ function detailMarkup(card, mode = 'item') {
     <button type="button" role="menuitem" onclick="window.__editVault('card')">Edit card</button><button type="button" role="menuitem" onclick="window.__editVault('private')">Edit private</button><button class="vault-delete" type="button" role="menuitem" onclick="window.__deleteVault('${escapeHTML(card.id)}')">Delete card</button></div></details></div>
     ${editing ? `<form id="vault-edit" class="vault-edit" data-mode="${mode}" onsubmit="window.__saveDetail(event, '${escapeHTML(card.id)}')">
       <h2>${privateMode ? 'Private vault details' : 'Edit card details'}</h2>
-      ${privateMode ? '' : '<p class="detail-note">These card details appear on the public certificate.</p>'}
       ${privateMode ? privateInputs(card) : `<div class="vault-edit-grid">${editFields(card)}</div>`}
       <div class="detail-actions"><button class="btn btn-primary" type="submit">Save details</button><button class="btn btn-ghost" type="button" onclick="window.__cancelVault()">Cancel</button></div>
       <p class="detail-note" id="vault-edit-message" role="status"></p></form>` : (privateMode ? privateInformation(card) : itemInformation(card, {showClassification: true}))}`;
@@ -147,6 +147,7 @@ function selectCard(id, mode = 'item') {
   unmountCollectionInput();
   document.querySelector('.vault-detail').innerHTML = detailMarkup(card, mode);
   if (mode === 'edit-private') { mountLocationInput(card.storageLocation || ''); mountCollectionInput(card.id); }
+  if (mode === 'edit-card') initializeVaultClassification(document.getElementById('vault-edit'));
   document.querySelector('.vault-photo-panel').innerHTML = vaultPhoto(card);
   initializeVaultPhoto(document.querySelector('.vault-photo-panel'));
   initializeDatePicker(document.querySelector('.vault-detail'));
@@ -195,6 +196,10 @@ export function initializeVault() {
   if (location.search) history.replaceState(history.state, '', '/vault');
   if (selectedId) selectCard(selectedId);
   document.querySelector('.vault-detail')?.addEventListener('input', event => {
+    const form = event.target.closest('#vault-edit');
+    if (form) form.dataset.dirty = 'true';
+  });
+  document.querySelector('.vault-detail')?.addEventListener('change', event => {
     const form = event.target.closest('#vault-edit');
     if (form) form.dataset.dirty = 'true';
   });
