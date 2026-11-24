@@ -7,7 +7,7 @@
 .home-hero{position:relative;display:grid;grid-template-columns:1.08fr .92fr;align-items:center;gap:32px;width:min(1320px,calc(100% - 48px));min-height:0;margin:0 auto;overflow:hidden;border:1px solid var(--dcr-border);border-radius:34px;background:linear-gradient(90deg,rgba(255,255,255,.98) 0%,rgba(255,255,255,.88) 34%,rgba(255,255,255,.3) 53%,transparent 69%),url(/assets/home/crimson-peak-hero.png) center / cover no-repeat;box-shadow:var(--shadow)}
 .home-copy{container-type:inline-size;position:relative;z-index:2;padding:clamp(28px,4vw,68px)}
 .home-eyebrow{margin-bottom:20px;color:var(--dcr-red);font-size:var(--font-size-small);font-weight:750;letter-spacing:.14em;text-transform:uppercase}
-.home-title{max-width:680px;margin:0;font-size:var(--font-size-page-title);line-height:1.03;letter-spacing:-.055em}
+.home-title{max-width:680px;margin:0;font-size:var(--font-size-hero-title);line-height:1.03;letter-spacing:-.055em}
 .home-title span{color:var(--dcr-red)}
 .home-description{max-width:540px;margin:18px 0 22px;color:var(--dcr-gray);font-size:var(--font-size-description);line-height:1.7}
 .home-search-form{width:100%}
@@ -50,7 +50,7 @@
   .home-page{padding:12px 0 8px}
   .home-copy{padding:24px clamp(28px,4vw,60px)}
   .home-eyebrow{margin-bottom:10px}
-  .home-title{font-size:var(--font-size-page-title)}
+  .home-title{font-size:var(--font-size-hero-title-compact)}
   .home-description{margin:12px 0 14px;font-size:var(--font-size-description);line-height:1.4}
   .home-search-form .search-bar{min-height:42px}
   .search-hint{margin-top:6px}

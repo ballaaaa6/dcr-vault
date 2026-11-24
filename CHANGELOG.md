@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Restore home hero title
+- Restore the original responsive home hero title sizes as shared typography tokens.
+
 ## 2026-11-24 - Standardize typography
 - Add shared typography sizes for page titles, section titles, subheadings, body text, descriptions, and small supporting text. Apply the scale to shared headings, forms, and card review.
 
