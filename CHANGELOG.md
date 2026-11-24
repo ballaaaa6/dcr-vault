@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Allow custom card games
+- Keep and save typed Card game values when they are not in the suggestions.
+
 ## 2026-11-24 - Refine location dialog controls
 - Shorten the add button label and move the close button to the upper-left corner.
 

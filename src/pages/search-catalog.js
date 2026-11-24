@@ -7,7 +7,7 @@ let onEdit = () => {};
 let mountVersion = 0;
 
 export function catalogField(id, label, placeholder, {wide = false, required = true} = {}) {
-  const maxLength = id === 'year' ? 4 : id === 'cardNumber' ? 30 : 120;
+  const maxLength = id === 'year' ? 4 : ['game', 'cardNumber'].includes(id) ? 30 : 120;
   return `<div class="form-field${wide ? ' intake-wide' : ''}"><label for="m-${id}-input">${label}${required ? ' <span class="required-mark" aria-hidden="true">*</span>' : ''}</label><div class="catalog-control" data-catalog-control="${id}">
     <input type="hidden" id="m-${id}" ${required ? 'required' : ''} data-catalog-field="${id}">
     <div data-catalog-mount="${id}" data-label="${label}" data-placeholder="${placeholder}" data-maxlength="${maxLength}"></div>
@@ -60,7 +60,7 @@ export async function initializeCatalogSuggestions() {
     const field = element.dataset.catalogMount;
     const root = createRoot(element);
     root.render(createElement(catalogSelect, {field, label: element.dataset.label, placeholder: element.dataset.placeholder,
-      maxLength: Number(element.dataset.maxlength), optionsFor, onEdit, onBlur: warnIfUnmatched, restricted: field === 'game'}));
+      maxLength: Number(element.dataset.maxlength), optionsFor, onEdit, onBlur: warnIfUnmatched}));
     roots.push(root);
   });
 }

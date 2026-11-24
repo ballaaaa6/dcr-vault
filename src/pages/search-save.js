@@ -10,7 +10,7 @@ function formCard(certNumber) {
   const sourceLanguage = document.getElementById('m-sourceLanguage').value.trim().toLowerCase();
   const sourceMatches = sourceLanguage && sourceLanguage === metadata.sourceLanguage;
   return {
-    ...identificationProvenance(), ...intakeClassification(), game: document.getElementById('m-game').value === 'Pokémon TCG' ? 'pokemon' : '', name: document.getElementById('m-name').value.trim(), certNumber,
+    ...identificationProvenance(), ...intakeClassification(), game: document.getElementById('m-game').value.trim() === 'Pokémon TCG' ? 'pokemon' : document.getElementById('m-game').value.trim(), name: document.getElementById('m-name').value.trim(), certNumber,
     setName: displaySetName(document.getElementById('m-setName').value), year: document.getElementById('m-year').value.trim(),
     cardTypeLabel: document.getElementById('m-cardTypeLabel').value.trim(),
     series: document.getElementById('m-series').value.trim(), languageLabel: document.getElementById('m-languageLabel').value.trim(),
