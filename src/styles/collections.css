@@ -70,7 +70,8 @@
 .collections-detail-actions{display:flex;align-items:center;gap:10px}.collections-detail-actions .btn{padding:8px 14px;white-space:nowrap}
 .collections-detail-description{grid-column:1/-1;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;min-height:4.5em;line-height:1.5;margin:0;overflow-wrap:anywhere}
 .collections-detail-options{position:relative;z-index:3}
-.collections-detail-options.dropdown-control summary{display:grid;min-height:0;padding:0;border:0;background:transparent;place-items:center;width:48px;height:48px;border-radius:10px;cursor:pointer;list-style:none}
+.collections-detail-options.dropdown-control summary{display:grid;min-height:0;padding:0;border:0;background:var(--dcr-pink);place-items:center;width:48px;height:48px;border-radius:10px;cursor:pointer;list-style:none}
+.collections-detail-options .action-icon__knob{fill:var(--dcr-pink)}
 .collections-detail-options summary::-webkit-details-marker{display:none}.collections-detail-options .dropdown-menu{top:calc(100% + 5px);left:auto;right:0;min-width:180px}
 .collections-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
 .collection-card{min-width:0;padding:8px}.collection-card-photo{height:clamp(40px,calc((100svh - 380px)/2),260px)}

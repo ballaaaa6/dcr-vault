@@ -1,3 +1,7 @@
+# Showcase settings icon
+
+- Restore the settings button background and use pink for its background and icon accents.
+
 # Showcase layout and menus
 
 - Align the showcase count, move Add cards beside settings, and remove the All showcases menu item.
