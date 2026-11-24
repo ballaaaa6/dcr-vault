@@ -12,6 +12,8 @@ async function animateSettingsIcon(icon) {
   activeSettingsAnimations.get(icon)?.destroy();
   const fallback = optionsIcon();
   const data = structuredClone(settingsOriginal);
+  const gearTransform = data.layers[0].shapes[0].it.find(item => item.ty === 'tr');
+  gearTransform.s = {a: 0, k: [100, 100]};
   for (const group of data.layers[0].shapes) {
     for (const item of group.it || []) if (item.ty === 'st') item.c.k = [1, 1, 1, 1];
   }

@@ -1,3 +1,7 @@
+# Settings icon animation
+
+- Keep the settings gear at its normal size while it spins.
+
 # Shared settings icon
 
 - Replace the shared options icon with the animated useAnimations gear across Vault and Showcases.
