@@ -10,12 +10,12 @@
 .vault-photo-flip:disabled{opacity:.45;cursor:not-allowed}
 .vault-photo-actions{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:grid;gap:8px}
 .vault-photo-preview,.vault-photo-cert{display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;border:0;border-radius:30px;background:var(--dcr-white);color:var(--dcr-black);padding:12px 22px;font:inherit;font-weight:700;text-decoration:none;white-space:nowrap;cursor:pointer}
-.vault-photo-dialog{width:calc(100% - 64px);max-width:none;height:calc(100% - 64px);max-height:none;margin:auto;border:0;border-radius:20px;padding:20px;background:var(--dcr-white)}
+.vault-photo-dialog{width:min(calc(100vw - 64px),690px,calc((100dvh - 104px) * var(--image-ratio, .7) + 40px));max-width:none;max-height:none;margin:auto;border:0;border-radius:20px;padding:20px;background:var(--dcr-white)}
 .vault-photo-dialog::backdrop{background:var(--dcr-black)}
-.vault-photo-toolbar{display:flex;justify-content:flex-end;gap:8px}
-.vault-photo-close{top:-19px;right:-19px;flex:none}
-.vault-photo-stage{display:flex;justify-content:center;align-items:center;height:calc(100dvh - 84px);perspective:1200px}
-.vault-photo-view{position:relative;width:min(70vw,650px,calc((100dvh - 84px) * var(--image-ratio, .7)));height:min(calc(100dvh - 84px),calc(min(70vw,650px) / var(--image-ratio, .7)));overflow:hidden;line-height:0}
+.vault-photo-toolbar{position:absolute;z-index:1;top:-20px;right:-19px;display:flex;align-items:center;gap:8px}
+.vault-photo-close{position:static;flex:none}
+.vault-photo-stage{perspective:1200px}
+.vault-photo-view{position:relative;width:100%;aspect-ratio:var(--image-ratio, .7);overflow:hidden;line-height:0}
 .vault-photo-view .vault-photo-flipper{height:100%}
 .vault-photo-view:hover .cert-zoom{display:block}
 @media(hover:none){.vault-photo-view:hover .cert-zoom{display:none}}
@@ -34,5 +34,3 @@
 .vault-photo-dialog{box-sizing:border-box;overflow:visible}
 .vault-photo-dialog[open]{display:flex;flex-direction:column}
 .vault-photo-toolbar{flex:none}
-.vault-photo-stage{flex:1;min-height:0;height:auto}
-.vault-photo-view{width:min(70vw,650px,calc((100dvh - 80px) * var(--image-ratio, .7)));height:min(100%,calc(min(70vw,650px) / var(--image-ratio, .7)))}

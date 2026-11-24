@@ -34,7 +34,7 @@ export function initializeVaultPhoto(panel) {
     const image = frame.querySelector(back ? '.vault-photo-back img' : '.vault-photo-face img');
     if (image) {
       zoom.style.backgroundImage = `url(${JSON.stringify(image.src)})`;
-      if (image.naturalWidth) frame.style.setProperty('--image-ratio', image.naturalWidth / image.naturalHeight);
+      if (image.naturalWidth) dialog.style.setProperty('--image-ratio', image.naturalWidth / image.naturalHeight);
     }
   }
   panel.querySelectorAll('.vault-photo-face img').forEach(image => {
@@ -44,7 +44,7 @@ export function initializeVaultPhoto(panel) {
     });
   });
   frame.querySelectorAll('img').forEach(image => {
-    const size = () => frame.style.setProperty('--image-ratio', image.naturalWidth / image.naturalHeight);
+    const size = () => dialog.style.setProperty('--image-ratio', image.naturalWidth / image.naturalHeight);
     image.addEventListener('load', () => { if (image === frame.querySelector(back ? '.vault-photo-back img' : '.vault-photo-face img')) size(); });
   });
   flips.forEach(button => button.addEventListener('click', () => { back = !back; update(); }));
