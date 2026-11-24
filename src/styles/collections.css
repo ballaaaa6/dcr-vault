@@ -40,7 +40,7 @@
 .collections-item-top{gap:4px;padding-right:27px;min-height:32px}
 .collections-item-top strong{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:var(--font-size-subheading)}
 .collections-badge{padding:3px 5px;white-space:nowrap}
-.collections-description{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:2px}
+.collections-description{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:2px;min-height:1lh}
 .collections-item-body small{margin-top:2px}
 .collections-view-link{margin-top:6px;padding-top:6px}
 .collections-options{top:calc(clamp(40px, (100svh - 530px)/2, 190px) + 5px);right:6px}

@@ -1,3 +1,5 @@
+- Align collection cards by reserving a description row and shorten the Create button label.
+
 - Fit the Collections overview to two responsive rows and place sorting before search.
 
 - Redesign Collections with card covers, search, sorting, sharing status, and quick actions.
