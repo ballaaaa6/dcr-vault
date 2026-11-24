@@ -33,3 +33,5 @@
 @media(min-width:1101px){.account-popover{max-height:var(--dropdown-available-height,80vh);overflow-y:auto}}
 @media(max-width:1100px){.account-menu[data-dropdown-placement="top"] .account-popover{bottom:auto}}
 .profile-section .inline-edit-status:empty{display:none}
+
+.profile-identity .inline-edit-display{font-size:var(--font-size-username)}

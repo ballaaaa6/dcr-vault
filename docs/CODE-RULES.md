@@ -39,7 +39,7 @@
 
 25. Dismissible content dialogs use the shared `dialog-close` red corner control from `src/styles/confirmation-dialog.css`, with an accessible Close label. Keep task-specific Cancel choices where they are meaningful.
 
-26. Use the shared typography tokens in src/styles/tokens.css: hero title (responsive, with a compact viewport variant), page title 32px, section/dialog title 20px, subheading 16px, body and form values 16px, descriptions 14px, and small supporting text 12px. Choose tokens by purpose; retain special sizing only for icons, branding, and artwork. Update the tokens to change the scale globally.
+26. Use the shared typography tokens in src/styles/tokens.css: hero title (responsive, with a compact viewport variant), page title 32px, username 30px, section/dialog title 20px, subheading 16px, body and form values 16px, descriptions 14px, and small supporting text 12px. Choose tokens by purpose; retain special sizing only for icons, branding, and artwork. Update the tokens to change the scale globally.
 
 27. For new informational tooltips, use tooltip({id, label, message}) from src/components/tooltip.js. Supply a unique ID and an accessible label for the information button; the shared component handles keyboard focus, touch, and Escape. Keep existing specialized tooltips unchanged.
 

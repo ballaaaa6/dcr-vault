@@ -1,4 +1,9 @@
+## Profile username size - 2026-11-24
+
+- Added a shared 30px username typography token and applied it to the profile name.
+
 ## Work completion rule - 2026-11-22
+
 - Require the full authorized code change and final diff review before commit and push; leave incomplete work local unless a partial publication is requested.
 
 ## Gemini direct form values - 2026-11-22
