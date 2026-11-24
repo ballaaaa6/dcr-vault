@@ -72,7 +72,7 @@ function cleanPatch(input) {
     cardTypeLabel: ['card_type_label', 60], languageLabel: ['language_label', 60], series: ['series', 120],
     category: ['category', 40], pokemonTypes: ['pokemon_types', 120], trainerType: ['trainer_type', 60],
     energyKind: ['energy_kind', 40], energyType: ['energy_type', 40],
-    sourceFinish: ['source_finish', 30], sourceLanguage: ['source_language', 20]};
+    sourceFinish: ['source_finish', 80], sourceLanguage: ['source_language', 20]};
   for (const [key, [column, limit]] of Object.entries(fields)) {
     if (typeof input[key] === 'string') patch[column] = input[key].trim().slice(0, limit);
   }

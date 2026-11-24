@@ -15,6 +15,7 @@ import {escapeHTML} from '../utils/format.js';
 import {normalizeCert} from '../utils/cert.js';
 import {classificationFields} from '../utils/card-classification.js';
 import {vaultClassificationInput, initializeVaultClassification} from '../components/vault-classification.js';
+import {vaultFinishInput, initializeVaultFinish} from '../components/vault-finish.js';
 import {vaultBackground, preloadSelectedBackgrounds} from '../utils/vault-background.js';
 import {prefetchNearbyImages} from '../utils/prefetch-images.js';
 import {confirmDiscard, discardDialog} from '../components/confirm-discard.js';
@@ -28,10 +29,10 @@ const publicFields = [
   ['certNumber', 'Cert number', 8], ['name', 'Card name', 120], ['game', 'Brand / Title', 30], ['year', 'Year', 4],
   ['cardTypeLabel', 'Card type', 60], ['series', 'Series', 120],
   ['setName', 'Set name', 120], ...classificationFields, ['cardNumber', 'Card number', 30], ['rarity', 'Rarity', 80],
-  ['gradeLabel', 'Condition', 60], ['sourceFinish', 'Finish', 30]
+  ['gradeLabel', 'Condition', 60], ['sourceFinish', 'Finish', 80]
 ];
 function editFields(card) {
-  return publicFields.map(([key, label, limit]) => classificationFields.some(([field]) => field === key)
+  return publicFields.map(([key, label, limit]) => key === 'sourceFinish' ? vaultFinishInput(card[key]) : classificationFields.some(([field]) => field === key)
     ? vaultClassificationInput(key, label, card[key]) : `<label class="form-field"><span>${label}</span>
     <input class="form-control" name="${key}" maxlength="${limit}" value="${escapeHTML(card[key] || '')}" ${key === 'certNumber' ? 'inputmode="numeric" pattern="[0-9]{1,8}" required' : key === 'name' ? 'required' : ''}></label>`).join('');
 }
@@ -147,7 +148,7 @@ function selectCard(id, mode = 'item') {
   unmountCollectionInput();
   document.querySelector('.vault-detail').innerHTML = detailMarkup(card, mode);
   if (mode === 'edit-private') { mountLocationInput(card.storageLocation || ''); mountCollectionInput(card.id); }
-  if (mode === 'edit-card') initializeVaultClassification(document.getElementById('vault-edit'));
+  if (mode === 'edit-card') { initializeVaultClassification(document.getElementById('vault-edit')); initializeVaultFinish(document.getElementById('vault-edit')); }
   document.querySelector('.vault-photo-panel').innerHTML = vaultPhoto(card);
   initializeVaultPhoto(document.querySelector('.vault-photo-panel'));
   initializeDatePicker(document.querySelector('.vault-detail'));

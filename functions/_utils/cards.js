@@ -44,7 +44,7 @@ export function normalizeCard(input) {
     year: text(input.year, 4), yearSeries: text(input.yearSeries, 160),
     catalogCardId: text(input.catalogCardId, 80), sourceLanguage: text(input.sourceLanguage, 20),
     sourceSetId: text(input.sourceSetId, 80), sourceCardId: text(input.sourceCardId, 100),
-    sourceFinish: text(input.sourceFinish, 30), cardNumber: text(input.cardNumber, 30), rarity: text(input.rarity, 80),
+    sourceFinish: text(input.sourceFinish, 80), cardNumber: text(input.cardNumber, 30), rarity: text(input.rarity, 80),
     gradeLabel: text(input.gradeLabel, 60), artist: text(input.artist, 120), certNumber, status,
     buyPrice: price(input.buyPrice), sellPrice: price(input.sellPrice), buyDate: text(input.buyDate, 20),
     soldDate: text(input.soldDate, 20), boughtFrom: text(input.boughtFrom, 120),

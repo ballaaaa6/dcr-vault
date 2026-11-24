@@ -20,3 +20,6 @@
 #vault-collection-mount .catalog-select__multi-value{background:var(--dcr-red-light);border-radius:6px}
 #vault-collection-mount .catalog-select__multi-value__label{color:var(--dcr-black)}
 #vault-collection-mount .catalog-select__multi-value__remove:hover{background:var(--dcr-red-hover);color:var(--dcr-black)}
+.vault-finish-custom{position:relative}
+.vault-finish-custom .form-control{width:100%;padding-left:40px}
+.vault-finish-custom button{position:absolute;left:0;top:0;height:100%;width:38px;border:0;background:transparent;color:var(--dcr-black);font:inherit;cursor:pointer}

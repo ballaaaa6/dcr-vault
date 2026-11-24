@@ -1,3 +1,5 @@
+- Add a shared-style Finish selector with nested foil patterns and in-place custom entry in Vault card editing.
+
 # Changelog
 
 ## 2026-11-24 - Streamline Vault card editing
