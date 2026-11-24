@@ -1,3 +1,7 @@
+# Settings gear size during clicks
+
+- Keep the shared gear mounted and full-sized during its click animation, while retaining the hover effect.
+
 # Manage dialog alignment
 
 - Align the Add button with the settings controls in the location and showcase management dialogs.

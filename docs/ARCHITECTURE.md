@@ -83,4 +83,4 @@ Google Identity Services
 
 - Sheet cut guides are 0.10 mm wide, centered on cell boundaries, and stop 2 mm outside the label grid.
 
-- The shared options icon uses the [useAnimations Settings animation](https://useanimations.com/icons/settings), under the MIT license, with the existing lottie-web player.
+- The shared options icon uses the [useAnimations Settings animation](https://useanimations.com/icons/settings), under the MIT license; its shared SVG stays mounted while CSS animates the gear.
