@@ -1,3 +1,4 @@
+import {heartCheckbox} from '../components/heart-checkbox.js';
 import {compareVaultCards, vaultSortSelect} from '../utils/vault-sort.js';
 import {getCertificate} from '../store/cards.js';
 import {vaultImage} from '../components/card-item.js';
@@ -100,9 +101,6 @@ async function searchCerts() {
   details.querySelector('p').textContent = [missing.length ? `Not found: ${missing.join(', ')}` : '', failed.length ? `Search failed; retry: ${failed.join(', ')}` : ''].filter(Boolean).join(' · ');
 }
 
-function heartCheckbox(attributes) {
-  return `<span class="label-heart"><input type="checkbox" ${attributes}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-9-5.7-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.3-9 12-9 12Z"/></svg></span>`;
-}
 
 function chooseVault() {
   const cards = vaultCards.filter(card => String(card.game).toLowerCase() === 'pokemon').sort((a, b) => compareVaultCards(a, b, 'date-desc'));

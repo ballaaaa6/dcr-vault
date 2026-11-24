@@ -200,3 +200,11 @@
 .location-choices input[type="radio"]:focus-visible{outline:2px solid var(--dcr-red-dark);outline-offset:3px}
 
 @media(prefers-reduced-motion:reduce){.location-choices input[type="radio"]::before{transition:none}}
+
+.location-row .location-menu summary{min-height:40px;padding:8px;border:0;background:transparent}
+.location-gear{display:block;width:24px;height:24px;background:currentColor;mask:url('/assets/lucide-settings.svg') center/contain no-repeat;color:var(--dcr-gray)}
+.location-menu summary:hover .location-gear,.location-menu[open] .location-gear{color:var(--dcr-red)}
+.location-dialog:has(.location-menu[open]) [data-location-body]{overflow:visible}
+.location-dialog.location-picker{width:min(900px,calc(100% - 48px));background-image:linear-gradient(color-mix(in srgb,var(--dcr-white) 85%,transparent),color-mix(in srgb,var(--dcr-white) 85%,transparent)),url('/assets/labels/vault-picker.png');background-position:top center;background-size:100% auto;background-repeat:no-repeat}
+.location-picker-actions{display:flex;justify-content:flex-end;gap:12px}
+@media(max-width:600px){.location-row{align-items:center;flex-direction:row}}

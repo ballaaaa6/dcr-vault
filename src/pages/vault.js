@@ -181,7 +181,7 @@ export function initializeVault() {
       selectCard(selectedId, 'private');
     }
     return true;
-  });
+  }, () => activeCards);
   preloadSelectedBackgrounds(activeCards);
   stopImagePrefetch();
   stopImagePrefetch = prefetchNearbyImages(document.querySelector('#vault-list'));

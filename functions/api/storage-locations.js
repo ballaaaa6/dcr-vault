@@ -63,3 +63,20 @@ export async function onRequestDelete({request, env}) {
   await env.DB.batch(statements);
   return json({ok: true});
 }
+
+export async function onRequestPut({request, env}) {
+  if (!sameOrigin(request)) return error('Invalid request origin.', 403);
+  const session = await currentUser(request, env);
+  if (session.response) return session.response;
+  const body = await readJson(request);
+  if (typeof body?.id !== 'string' || !Array.isArray(body.add) || !Array.isArray(body.remove) ||
+      [...body.add, ...body.remove].some(id => typeof id !== 'string')) return error('Invalid location request.');
+  const found = await env.DB.prepare('SELECT id FROM storage_locations WHERE id = ? AND user_id = ?').bind(body.id, session.user.id).first();
+  if (!found) return error('Location not found.', 404);
+  const statements = [
+    ...body.add.map(id => env.DB.prepare('UPDATE cards SET storage_location_id = ? WHERE id = ? AND user_id = ?').bind(body.id, id, session.user.id)),
+    ...body.remove.map(id => env.DB.prepare('UPDATE cards SET storage_location_id = NULL WHERE id = ? AND user_id = ? AND storage_location_id = ?').bind(id, session.user.id, body.id))
+  ];
+  if (statements.length) await env.DB.batch(statements);
+  return json({ok: true});
+}

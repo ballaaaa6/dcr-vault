@@ -59,7 +59,7 @@ document.addEventListener('keydown', event => {
   if (!menu || !menu.open) return;
   if (event.key === 'Escape') { menu.open = false; menu.querySelector('summary').focus(); event.preventDefault(); }
   if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) return;
-  const items = [...menu.querySelectorAll('[data-dropdown-value], .dropdown-action')];
+  const items = [...menu.querySelectorAll('[data-dropdown-value], .dropdown-action, [role=menuitem]' )];
   const index = items.indexOf(document.activeElement);
   const next = event.key === 'Home' || (index < 0 && event.key === 'ArrowDown') ? 0 : event.key === 'End' || index < 0 ? items.length - 1 : (index + (event.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length;
   items[next].focus();

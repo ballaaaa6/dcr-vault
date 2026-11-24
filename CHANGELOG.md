@@ -1054,3 +1054,5 @@ Times are commit times in Bangkok time (UTC+7); older entries without a time hav
 
 ## 2026-11-22 - Separate profile editing
 - Save profile photos independently from personal details and allow positioning photos with a circular crop guide.
+
+- Added location card management with the shared vault picker, sorting, and location options menu.

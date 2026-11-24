@@ -1,9 +1,11 @@
 import {escapeHTML as esc} from '../utils/format.js';
+import {manageLocationCards} from './vault-location-cards.js';
 import {locationsRequest} from '../store/locations.js';
 
 let locations = [];
 let refresh = () => {};
 let busy = false;
+let getCards = () => [];
 let openerHandler = null;
 export function setLocations(items) { locations = items; }
 export function getLocations() { return locations; }
@@ -18,10 +20,24 @@ function listView() {
   const body = document.querySelector('[data-location-body]');
   const add = document.querySelector('[data-location-add]');
   add.hidden = false;
-  body.innerHTML = `${locations.length ? `<div class="location-list">${locations.map(item => `<div class="location-row"><span><strong>${esc(item.name)}</strong><small>${item.cardCount} ${item.cardCount === 1 ? 'card' : 'cards'}</small></span><span class="location-row-actions"><button class="btn btn-ghost" type="button" data-location-rename="${esc(item.id)}">Rename</button><button class="btn btn-ghost" type="button" data-location-delete="${esc(item.id)}">Delete</button></span></div>`).join('')}</div>` : '<p class="location-empty">No locations yet.</p>'}`;
+  document.getElementById('location-title').textContent = 'Manage locations';
+  body.innerHTML = `${locations.length ? `<div class="location-list">${locations.map(item => `<div class="location-row"><span><strong>${esc(item.name)}</strong><small>${item.cardCount} ${item.cardCount === 1 ? 'card' : 'cards'}</small></span><details class="dropdown-control location-menu" data-dropdown-align="end"><summary aria-label="Options for ${esc(item.name)}"><span class="location-gear" aria-hidden="true"></span></summary><div class="dropdown-menu" role="menu"><button type="button" role="menuitem" data-location-cards="${esc(item.id)}">Manage cards</button><button type="button" role="menuitem" data-location-rename="${esc(item.id)}">Rename</button><button type="button" role="menuitem" data-location-delete="${esc(item.id)}">Delete</button></div></details></div>`).join('')}</div>` : '<p class="location-empty">No locations yet.</p>'}`;
   add.onclick = () => editView();
+  body.querySelectorAll('[data-location-cards]').forEach(button => { button.onclick = () => openCards(locations.find(item => item.id === button.dataset.locationCards)); });
   body.querySelectorAll('[data-location-rename]').forEach(button => { button.onclick = () => editView(locations.find(item => item.id === button.dataset.locationRename)); });
   body.querySelectorAll('[data-location-delete]').forEach(button => { button.onclick = () => deleteView(locations.find(item => item.id === button.dataset.locationDelete)); });
+}
+
+function openCards(item) {
+  document.querySelector('[data-location-add]').hidden = true;
+  const dialog = document.querySelector('.location-dialog');
+  dialog.classList.add('location-picker');
+  document.getElementById('location-title').textContent = `Manage cards · ${item.name}`;
+  manageLocationCards(document.querySelector('[data-location-body]'), item, getCards(), async (add, remove) => {
+    busy = true;
+    try { await locationsRequest('PUT', {id: item.id, add, remove}); await refresh(); }
+    finally { busy = false; }
+  }, () => { dialog.classList.remove('location-picker'); listView(); });
 }
 
 function editView(item) {
@@ -72,7 +88,8 @@ async function perform(method, data) {
   finally { busy = false; dialog.querySelectorAll('button,input').forEach(element => { element.disabled = false; }); }
 }
 
-export function initializeLocations(onRefresh, canOpen = async () => true) {
+export function initializeLocations(onRefresh, canOpen = async () => true, cards = () => []) {
+  getCards = cards;
   refresh = onRefresh;
   const dialog = document.querySelector('.location-dialog');
   if (!dialog?.querySelector('[data-location-close]')) return;
@@ -84,7 +101,7 @@ export function initializeLocations(onRefresh, canOpen = async () => true) {
     if (!button || !document.querySelector('.location-dialog')) return;
     button.closest('.dropdown-control').open = false;
     if (!await canOpen()) return;
-    showError(''); listView(); dialog.showModal();
+    dialog.classList.remove('location-picker'); showError(''); listView(); dialog.showModal();
   };
   document.addEventListener('click', openerHandler);
 }
