@@ -9,7 +9,7 @@ export async function onRequestGet({request, env}) {
   if (session.response) return session.response;
   const rows = await env.DB.prepare(`SELECT l.id, l.name, COUNT(c.id) AS cardCount FROM storage_locations l
     LEFT JOIN cards c ON c.storage_location_id = l.id AND c.user_id = l.user_id
-    WHERE l.user_id = ? GROUP BY l.id ORDER BY l.name COLLATE NOCASE`).bind(session.user.id).all();
+    WHERE l.user_id = ? GROUP BY l.id ORDER BY l.sort_order IS NULL, l.sort_order, l.name COLLATE NOCASE`).bind(session.user.id).all();
   return json({locations: rows.results || []});
 }
 
@@ -35,6 +35,7 @@ export async function onRequestPatch({request, env}) {
   const session = await currentUser(request, env);
   if (session.response) return session.response;
   const body = await readJson(request);
+  if (Array.isArray(body?.order)) return reorderLocations(env.DB, session.user.id, body.order);
   const name = cleanName(body?.name);
   if (!name || typeof body?.id !== 'string') return error('Enter a location name.');
   try {
@@ -45,6 +46,15 @@ export async function onRequestPatch({request, env}) {
     if (String(cause.message).includes('UNIQUE')) return error('This location already exists.', 409);
     throw cause;
   }
+  return json({ok: true});
+}
+
+async function reorderLocations(db, userId, order) {
+  if (order.some(id => typeof id !== 'string') || new Set(order).size !== order.length) return error('Invalid location order.');
+  const rows = await db.prepare('SELECT id FROM storage_locations WHERE user_id = ?').bind(userId).all();
+  const existing = new Set((rows.results || []).map(row => row.id));
+  if (order.length !== existing.size || order.some(id => !existing.has(id))) return error('Location list changed. Please try again.', 409);
+  if (order.length) await db.batch(order.map((id, index) => db.prepare('UPDATE storage_locations SET sort_order = ? WHERE id = ? AND user_id = ?').bind(index, id, userId)));
   return json({ok: true});
 }
 

@@ -11,7 +11,7 @@ test('locations are private, reusable, renamed together and deleted with optiona
   const sql = new DatabaseSync(':memory:');
   const migrations = ['0001_users_sessions_cards','0002_card_images','0003_card_label_metadata','0004_card_source_print_identity',
     '0005_identification_logs','0006_card_identification_provenance','0008_card_artist','0009_private_vault_details',
-    '0010_label_reading_fields','0011_profile_details','0012_collector_profile','0013_card_classification','0014_profile_full_photo','0016_storage_locations'];
+    '0010_label_reading_fields','0011_profile_details','0012_collector_profile','0013_card_classification','0014_profile_full_photo','0016_storage_locations','0017_location_order'];
   for (const name of migrations) sql.exec(readFileSync(new URL(`../../migrations/${name}.sql`, import.meta.url), 'utf8'));
   for (const user of ['a','b']) {
     sql.prepare('INSERT INTO users(id,google_sub,email,created_at,updated_at) VALUES (?,?,?,?,?)').run(user,user,user,0,0);
@@ -28,6 +28,13 @@ test('locations are private, reusable, renamed together and deleted with optiona
   let response = await call(onRequestPost,'a','POST',{name:' Binder A '});
   const location = (await response.json()).location;
   assert.equal(location.name,'Binder A');
+  const second = (await (await call(onRequestPost,'a','POST',{name:'Z shelf'})).json()).location;
+  assert.equal((await call(onRequestPatch,'a','PATCH',{order:[second.id, location.id]})).status,200);
+  assert.deepEqual((await (await call(onRequestGet,'a','GET')).json()).locations.map(item => item.id),[second.id, location.id]);
+  assert.equal((await call(onRequestPatch,'b','PATCH',{order:[second.id, location.id]})).status,409);
+  assert.equal((await call(onRequestPatch,'a','PATCH',{order:[location.id, location.id]})).status,400);
+  assert.equal((await call(onRequestPatch,'a','PATCH',{order:[location.id]})).status,409);
+  await call(onRequestDelete,'a','DELETE',{id:second.id,clearPositions:false});
   assert.equal((await call(onRequestPost,'a','POST',{name:'binder a'})).status,409);
   assert.equal((await call(onRequestGet,'b','GET')).status,200);
   assert.deepEqual((await (await call(onRequestGet,'b','GET')).json()).locations,[]);

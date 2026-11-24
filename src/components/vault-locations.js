@@ -1,6 +1,7 @@
 import {escapeHTML as esc} from '../utils/format.js';
 import {manageLocationCards} from './vault-location-cards.js';
 import {locationsRequest} from '../store/locations.js';
+import {initializeLocationSorting} from './vault-location-sorting.js';
 
 let locations = [];
 let refresh = () => {};
@@ -22,11 +23,22 @@ function listView() {
   add.hidden = false;
   body.classList.add('location-list-body');
   document.getElementById('location-title').textContent = 'Manage locations';
-  body.innerHTML = `${locations.length ? `<div class="location-list">${locations.map(item => `<div class="location-row"><span><strong>${esc(item.name)}</strong><small>${item.cardCount} ${item.cardCount === 1 ? 'card' : 'cards'}</small></span><details class="dropdown-control location-menu" data-dropdown-align="end"><summary aria-label="Options for ${esc(item.name)}"><span class="location-gear" aria-hidden="true"></span></summary><div class="dropdown-menu" role="menu"><button type="button" role="menuitem" data-location-cards="${esc(item.id)}">Manage cards</button><button type="button" role="menuitem" data-location-rename="${esc(item.id)}">Rename</button><button type="button" role="menuitem" data-location-delete="${esc(item.id)}">Delete</button></div></details></div>`).join('')}</div>` : '<p class="location-empty">No locations yet.</p>'}`;
+  body.innerHTML = `${locations.length ? `<div class="location-list">${locations.map(item => `<div class="location-row" data-location-id="${esc(item.id)}"><button class="location-drag-handle" type="button" aria-label="Reorder ${esc(item.name)}" aria-describedby="location-sort-help">⠿</button><span><strong>${esc(item.name)}</strong><small>${item.cardCount} ${item.cardCount === 1 ? 'card' : 'cards'}</small></span><details class="dropdown-control location-menu" data-dropdown-align="end"><summary aria-label="Options for ${esc(item.name)}"><span class="location-gear" aria-hidden="true"></span></summary><div class="dropdown-menu" role="menu"><button type="button" role="menuitem" data-location-cards="${esc(item.id)}">Manage cards</button><button type="button" role="menuitem" data-location-rename="${esc(item.id)}">Rename</button><button type="button" role="menuitem" data-location-delete="${esc(item.id)}">Delete</button></div></details></div>`).join('')}</div>` : '<p class="location-empty">No locations yet.</p>'}`;
+  body.insertAdjacentHTML('beforeend', '<p class="sr-only" id="location-sort-help">Press Space to pick up, arrow keys to move, and Space to drop. Press Escape to cancel.</p><p class="sr-only" data-location-sort-status aria-live="polite"></p>');
+  initializeLocationSorting(body, saveOrder);
   add.onclick = () => editView();
   body.querySelectorAll('[data-location-cards]').forEach(button => { button.onclick = () => openCards(locations.find(item => item.id === button.dataset.locationCards)); });
   body.querySelectorAll('[data-location-rename]').forEach(button => { button.onclick = () => editView(locations.find(item => item.id === button.dataset.locationRename)); });
   body.querySelectorAll('[data-location-delete]').forEach(button => { button.onclick = () => deleteView(locations.find(item => item.id === button.dataset.locationDelete)); });
+}
+
+async function saveOrder(ids) {
+  if (busy) return false;
+  busy = true;
+  showError('');
+  try { await locationsRequest('PATCH', {order: ids}); await refresh(); return true; }
+  catch (error) { showError(error.message); try { await refresh(); } catch {} return false; }
+  finally { busy = false; }
 }
 
 function openCards(item) {

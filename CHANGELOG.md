@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Reorder locations
+- Drag or use the keyboard to reorder locations, with a red drop indicator and saved account order.
+
 ## 2026-11-24 - Add location management background
 - Use a softened koi illustration across all location management views, scaled and anchored to the bottom right.
 
