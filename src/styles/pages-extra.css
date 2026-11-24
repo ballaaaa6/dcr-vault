@@ -247,3 +247,22 @@
 .sheet-preview-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;scroll-snap-align:start;scroll-snap-stop:always}
 .sheet-preview-pair+.sheet-preview-pair{margin-top:16px}
 .label-dialog:has(.sheet-preview-pages) .sheet-page-image{max-height:calc(85dvh - 150px);width:auto;max-width:100%;margin:auto}
+
+/* Pac-Man motion adapted from Paraskevas Dinakis: https://codepen.io/perry_nt/pen/bvjBWo */
+.label-dialog:has(.sheet-preview-paged){width:min(900px,calc(120.2dvh - 205px),calc(100% - 48px))}
+.label-dialog:has(.sheet-preview-paged) .sheet-preview-paged{overflow:visible;max-height:none}
+.label-dialog:has(.sheet-preview-paged) .sheet-page-image{max-height:calc(85dvh - 205px)}
+.sheet-preview-pair[hidden]{display:none}
+.sheet-pagination-wrap{display:flex;justify-content:center;max-width:100%;overflow-x:auto;padding:8px 4px 4px;margin-top:10px}
+.sheet-pagination{display:flex;width:max-content;margin:auto}
+.sheet-pagination-dot{position:relative;flex:none;display:grid;place-items:center;width:36px;height:36px;padding:0;border:0;background:transparent;cursor:pointer}
+.sheet-pagination-dot::before{content:"";width:10px;height:10px;background:var(--dcr-red-hover)}
+.sheet-pagination-dot:focus-visible{outline:2px solid var(--dcr-red-dark);outline-offset:-2px;border-radius:4px}
+.sheet-pacman{position:absolute;inset:3px;pointer-events:none;z-index:1}
+.sheet-pacman::before,.sheet-pacman::after{content:"";position:absolute;left:0;width:30px;height:15px;background:var(--dcr-red)}
+.sheet-pacman::before{top:0;border-radius:30px 30px 0 0;transform-origin:bottom center;transform:rotate(-45deg)}
+.sheet-pacman::after{bottom:0;border-radius:0 0 30px 30px;transform-origin:top center;transform:rotate(45deg)}
+.sheet-pagination:hover .sheet-pacman::before,.sheet-pagination:hover .sheet-pacman::after,.sheet-pagination:focus-within .sheet-pacman::before,.sheet-pagination:focus-within .sheet-pacman::after{animation:sheet-waka 500ms infinite}
+@keyframes sheet-waka{50%{transform:rotate(0)}}
+@media(prefers-reduced-motion:reduce){.sheet-pagination .sheet-pacman::before,.sheet-pagination .sheet-pacman::after{animation:none}}
+.sheet-preview-paged .sheet-preview-pair+.sheet-preview-pair{margin-top:0}

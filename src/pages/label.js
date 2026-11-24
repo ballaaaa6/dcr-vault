@@ -1,5 +1,6 @@
 import {showToast, dismissToast} from '../components/toast.js';
 import {sheetPreviewSkeleton} from '../components/page-skeleton.js';
+import {sheetPreviewMarkup, initializeSheetPreview} from '../components/sheet-preview.js';
 import {heartCheckbox} from '../components/heart-checkbox.js';
 import {compareVaultCards, vaultSortSelect} from '../utils/vault-sort.js';
 import {getCertificate} from '../store/cards.js';
@@ -128,7 +129,11 @@ async function previewSheets() {
       }
       sheets.push(`<div class="sheet-preview-pair">${sides.join('')}</div>`);
     }
-    if (document.getElementById('label-dialog')?.open) document.getElementById('label-dialog-content').innerHTML = `${dialogHead('Sheet preview')}<div class="sheet-preview-pages">${sheets.join('')}</div>`;
+    if (document.getElementById('label-dialog')?.open) {
+      const content = document.getElementById('label-dialog-content');
+      content.innerHTML = `${dialogHead('Sheet preview')}${sheetPreviewMarkup(sheets)}`;
+      initializeSheetPreview(content);
+    }
   } catch (error) { status(error.message || 'Could not preview sheets.', 'error'); closeDialog(); }
 }
 

@@ -1,3 +1,5 @@
+- Add animated Pac-Man sheet pagination, retaining the original scroll mode as a configurable fallback.
+
 - Use regular body weight for the certificate numbers field label.
 
 - Refresh the empty print queue text and align its initial height with Add certificates.
