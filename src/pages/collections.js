@@ -57,9 +57,11 @@ function manageCardsDialog() {
   openDialog('Manage cards', `<div class="collections-manage-list button-safe-scroll">${items || '<p>No cards in this showcase yet.</p>'}</div>`);
 }
 function shareDialog() {
-  const group = current();
-  const link = group.shareToken ? `${location.origin}/showcase/${encodeURIComponent(group.name.replace(/[^a-zA-Z0-9]/g, '') || 'collection')}/${group.shareToken}` : '';
-  openDialog('Share showcase', `<p>Anyone with the link can view and forward this showcase. Only the selected cards and their public details are shown; prices, notes and storage locations stay private.</p><p>Card photos and certificate details may already be public. Turning off this link does not make them private.</p>${link ? `<label class="form-field">Share link<input class="form-control" id="collection-share-link" readonly value="${esc(link)}"></label><div class="collections-actions"><button class="btn btn-primary" data-action="copy">Copy link</button><button class="btn btn-ghost" data-action="disable-share">Turn off sharing</button></div>` : '<button class="btn btn-primary" data-action="enable-share">Enable link sharing</button>'}`);
+  const group = current(), enabled = Boolean(group.shareToken);
+  const link = enabled ? `${location.origin}/showcase/${encodeURIComponent(group.name.replace(/[^a-zA-Z0-9]/g, '') || 'collection')}/${group.shareToken}` : '';
+  const status = enabled ? 'Sharing on' : 'Sharing off';
+  const lock = enabled ? '<path d="M8 10V7a4 4 0 0 1 8 0v3"/>' : '<path d="M8 10V7a4 4 0 0 1 7-2.6"/>';
+  openDialog('Share showcase', `<div class="collections-share"><button type="button" class="collections-share-toggle ${enabled ? 'is-enabled' : ''}" role="switch" aria-checked="${enabled}" aria-label="${status}. Toggle link sharing" aria-describedby="share-status" data-action="${enabled ? 'disable-share' : 'enable-share'}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${lock}<rect x="5" y="10" width="14" height="11" rx="2"/><path d="M12 14v3"/></svg><span id="share-status" class="collections-share-status" role="tooltip">${status}</span></button><p>Anyone with the link can view and forward selected cards and their public details. Prices, notes and storage locations stay private. Photos and certificate details may already be public.</p><label class="form-field" for="collection-share-link">Share link</label><div class="search-bar collections-share-link"><input id="collection-share-link" readonly value="${esc(link)}" placeholder="Turn on sharing to create a link"><button type="button" data-action="copy" ${enabled ? '' : 'disabled'}>Copy</button></div></div>`);
 }
 async function updateMembership(next) {
   const group = current();
@@ -83,7 +85,7 @@ async function handleAction(action) {
   if (action === 'back') { selectedId = ''; preview = false; navigate(); return draw(); }
   if (action === 'preview') { preview = !preview; return draw(); }
   if (action === 'copy') { await navigator.clipboard.writeText(document.getElementById('collection-share-link').value); return showToast('Link copied.', 'success'); }
-  if (action === 'enable-share' || action === 'disable-share') { await collectionsRequest('PATCH', {id: selectedId, share: action === 'enable-share'}); dialog().close(); await refresh(); shareDialog(); return; }
+  if (action === 'enable-share' || action === 'disable-share') { await collectionsRequest('PATCH', {id: selectedId, share: action === 'enable-share'}); await refresh(); shareDialog(); dialog().querySelector('.collections-share-toggle').focus(); return; }
   if (action === 'delete') return openDeleteConfirmation();
   if (action === 'confirm-delete') { await collectionsRequest('DELETE', {id: selectedId}); selectedId = ''; navigate(); dialog().close(); await refresh(); showToast('Showcase deleted.', 'success'); }
 }

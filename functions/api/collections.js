@@ -1,6 +1,17 @@
 import {error, json, readJson, sameOrigin} from '../_utils/http.js';
 import {currentUser} from '../_utils/sessions.js';
 
+function newShareToken() {
+  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let token = '';
+  while (token.length < 8) {
+    for (const byte of crypto.getRandomValues(new Uint8Array(12))) {
+      if (byte < 248 && token.length < 8) token += alphabet[byte % alphabet.length];
+    }
+  }
+  return token;
+}
+
 const clean = value => typeof value === 'string' ? value.trim().slice(0, 120) : '';
 
 export async function onRequestGet({request, env}) {
@@ -43,14 +54,14 @@ export async function onRequestPatch({request, env}) {
   const body = await readJson(request);
   const user = session.user.id;
   if (typeof body?.id === 'string' && typeof body.share === 'boolean') {
-    let token = body.share ? Array.from(crypto.getRandomValues(new Uint8Array(16)), byte => byte.toString(16).padStart(2, '0')).join('') : null;
+    let token = body.share ? newShareToken() : null;
     for (let attempt = 0; attempt < 5; attempt++) {
       try {
         const result = await env.DB.prepare('UPDATE collections SET share_token = ? WHERE id = ? AND user_id = ?').bind(token, body.id, user).run();
         return result.meta?.changes ? json({shareToken: token}) : error('Showcase not found.', 404);
       } catch (cause) {
         if (!body.share || !String(cause.message).includes('UNIQUE')) throw cause;
-        token = Array.from(crypto.getRandomValues(new Uint8Array(16)), byte => byte.toString(16).padStart(2, '0')).join('');
+        token = newShareToken();
       }
     }
     return error('Could not create a unique sharing link. Please try again.', 503);

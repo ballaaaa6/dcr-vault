@@ -85,3 +85,13 @@
 .collections-page .content-dialog:has(.label-vault-list) .content-dialog__panel{background-color:var(--dcr-white);background-image:linear-gradient(color-mix(in srgb,var(--dcr-white) 85%,transparent),color-mix(in srgb,var(--dcr-white) 85%,transparent)),url('/assets/labels/vault-picker.png');background-position:top center;background-size:100% auto;background-repeat:no-repeat}
 .collections-page .content-dialog:has(.label-vault-list) header h2{margin-bottom:5px}
 .collections-page .content-dialog:has(.label-vault-list) .label-dialog-description{margin:0 0 18px}
+
+.collections-share-toggle{position:absolute;top:14px;right:55px;display:grid;place-items:center;width:36px;height:36px;padding:6px;border:0;border-radius:50%;background:transparent;color:var(--dcr-red);cursor:pointer}
+.collections-share-toggle.is-enabled{color:var(--dcr-green-dark)}
+.collections-share-toggle svg{width:24px;height:24px}
+.collections-share-toggle:focus-visible{outline:2px solid currentColor;outline-offset:2px}
+.collections-share-status{position:absolute;z-index:2;top:calc(100% + 5px);right:0;padding:6px 9px;border-radius:6px;background:var(--dcr-red);color:var(--dcr-white);font-size:var(--font-size-small);white-space:nowrap;visibility:hidden;opacity:0;pointer-events:none}
+.collections-share-toggle.is-enabled .collections-share-status{background:var(--dcr-green-dark)}
+.collections-share-toggle:hover .collections-share-status,.collections-share-toggle:focus-visible .collections-share-status{visibility:visible;opacity:1}
+.collections-share-link{min-height:42px;margin-top:6px;border-radius:12px}.collections-share-link input{padding:8px 12px}.collections-share-link button{padding:0 18px}.collections-share-link button:disabled{opacity:.5;cursor:not-allowed}
+.collections-page .content-dialog:has(.collections-share) header h2{padding-right:80px}
