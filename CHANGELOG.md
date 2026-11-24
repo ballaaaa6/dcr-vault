@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Standardize dropdown text
+- Use the 16px body size and normal weight for dropdown options.
+
 ## 2026-11-24 - Size shared notifications
 - Reduce the shared toast width to 320px, with 16px viewport clearance on smaller screens.
 
