@@ -1,3 +1,5 @@
+- Fix certificate share hover colors and remove the white rings around social icons.
+
 - Invert certificate social share icons and animate each platform color rising on focus and receding on blur.
 
 - Reduce the Certificate Verification background image opacity to 20%.
