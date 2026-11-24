@@ -11,6 +11,7 @@ export async function onRequestGet({request, env}) {
   const session = await currentUser(request, env);
   if (session.response) return session.response;
   const rows = await env.DB.prepare(`SELECT cards.*,
+    (SELECT name FROM storage_locations WHERE id = cards.storage_location_id AND user_id = cards.user_id) AS storage_location,
     (SELECT object_key FROM card_images WHERE card_id = cards.id AND side = 'front') AS front_object_key,
     (SELECT object_key FROM card_images WHERE card_id = cards.id AND side = 'back') AS back_object_key
     FROM cards WHERE user_id = ? ORDER BY created_at DESC`)

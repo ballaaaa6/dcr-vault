@@ -17,7 +17,7 @@ function intakeSkeleton() {
 
 function vaultSkeleton() {
   const rows = Array.from({length: 3}, () => `<div class="list-row sk-vault-row">${bar('sk-thumbnail')}<div>${bar('sk-medium')}${bar()}</div></div>`).join('');
-  return `<main class="app-page vault-page sk-page">${heading()}<div class="vault-toolbar">${bar('sk-sort')}${bar('sk-input')}</div><div class="vault-layout"><div class="vault-list">${rows}</div>${panel(`${paragraphs()}${field()}${field()}${field()}`)}${panel(`${bar('sk-section-title')}${bar('sk-card-photo')}`)}</div></main>`;
+  return `<main class="app-page vault-page sk-page">${heading()}<div class="vault-toolbar">${bar('sk-sort')}${bar('sk-sort')}${bar('sk-input')}</div><div class="vault-layout"><div class="vault-list">${rows}</div>${panel(`${paragraphs()}${field()}${field()}${field()}`)}${panel(`${bar('sk-section-title')}${bar('sk-card-photo')}`)}</div></main>`;
 }
 
 function labelSkeleton() {

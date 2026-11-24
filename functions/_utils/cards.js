@@ -68,6 +68,7 @@ export function cardResponse(row) {
     sellPrice: row.sell_price, buyDate: row.buy_date, soldDate: row.sold_date,
     boughtFrom: row.bought_from, soldTo: row.sold_to, buyCurrency: row.buy_currency || 'THB',
     purchaseSource: row.purchase_source || '', seller: row.seller || '', receivedDate: row.received_date || '', notes: row.notes,
+    storageLocationId: row.storage_location_id || '', storageLocation: row.storage_location || '', position: row.storage_position || '',
     frontImage: row.front_object_key ? `/api/cards/${encodeURIComponent(row.id)}/images/front` : '',
     backImage: row.back_object_key ? `/api/cards/${encodeURIComponent(row.id)}/images/back` : '',
     createdAt: row.created_at, updatedAt: row.updated_at

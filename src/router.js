@@ -13,6 +13,7 @@ import {verify} from './pages/verify.js';
 import {initializeCertificateViewer} from './components/certificate-viewer.js';
 import {importPage} from './pages/import.js';
 import {getCards, getCertificate} from './store/cards.js';
+import {locationsRequest} from './store/locations.js';
 import {addVaultImages} from './store/vault-images.js';
 import {escapeHTML} from './utils/format.js';
 import {certificateFromPath, normalizeCert} from './utils/cert.js';
@@ -91,7 +92,7 @@ export async function render() {
 
 async function privatePage(path) {
   const cards = await getCards();
-  if (path === '/vault') return vault(await addVaultImages(cards));
+  if (path === '/vault') return vault(await addVaultImages(cards), (await locationsRequest()).locations);
   if (path === '/label') return label(cards);
 }
 

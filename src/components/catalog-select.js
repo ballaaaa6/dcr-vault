@@ -46,13 +46,13 @@ function useExternalValues(field, proxy, current, setSelected, setInput, setOpen
   }, []);
 }
 
-export function catalogSelect({field, label, placeholder, maxLength, optionsFor, onEdit, onBlur, restricted = false}) {
+export function catalogSelect({field, label, placeholder, maxLength, optionsFor, onEdit, onBlur, restricted = false, initialValue = ''}) {
   const proxy = () => document.getElementById(`m-${field}`);
-  const [selected, setSelected] = useState(null);
+  const [selected, setSelected] = useState(initialValue ? {value: initialValue, label: initialValue} : null);
   const [input, setInput] = useState('');
   const [open, setOpen] = useState(false);
   const options = useCatalogOptions(field, input, open, optionsFor);
-  const current = useRef('');
+  const current = useRef(initialValue);
   useExternalValues(field, proxy, current, setSelected, setInput, setOpen);
 
   function update(value) {

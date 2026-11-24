@@ -1,7 +1,10 @@
 import {compareVaultCards, vaultSortSelect} from '../utils/vault-sort.js';
 import {searchClearButton} from '../components/search-clear.js';
 import {datePicker, initializeDatePicker} from '../components/date-picker.js';
-import {deleteCard, updateCard} from '../store/cards.js';
+import {deleteCard, updateCard, getCards} from '../store/cards.js';
+import {locationsRequest} from '../store/locations.js';
+import {locationDialog, initializeLocations, setLocations, getLocations} from '../components/vault-locations.js';
+import {locationFilter, mountLocationInput, unmountLocationInput} from '../components/vault-location-input.js';
 import {listRow} from '../components/card-item.js';
 import {vaultPhoto, initializeVaultPhoto} from '../components/vault-photo.js';
 import {itemInformation} from './verify.js';
@@ -32,9 +35,10 @@ function editFields(card) {
     <input class="form-control" name="${key}" maxlength="${limit}" value="${escapeHTML(card[key] || '')}" ${key === 'certNumber' ? 'inputmode="numeric" pattern="[0-9]{1,8}" required' : key === 'name' ? 'required' : ''}></label>`).join('');
 }
 
-export function vault(cards = []) {
+export function vault(cards = [], locations = []) {
   activeCards = cards;
-  if (!cards.length) return '<main class="app-page vault-page"><header class="page-heading"><h1>My Vault</h1></header><section class="surface-card empty-state"><p>Your private vault is ready for its first card.</p><a class="btn btn-primary" href="/archive">Add a card</a></section></main>';
+  setLocations(locations);
+  if (!cards.length) return `<main class="app-page vault-page"><header class="page-heading"><h1>My Vault</h1></header><div class="vault-toolbar"><div id="location-filter-wrap">${locationFilter()}</div></div><section class="surface-card empty-state"><p>Your private vault is ready for its first card.</p><a class="btn btn-primary" href="/archive">Add a card</a></section>${locationDialog()}</main>`;
   const params = new URLSearchParams(location.search);
   const sortedCards = [...cards].sort((a, b) => compareVaultCards(a, b, 'date-desc'));
   const focus = cards.find(card => card.id === params.get('id')) || sortedCards[0];
@@ -50,6 +54,7 @@ export function vault(cards = []) {
       </header>
       <form class="vault-toolbar" onsubmit="event.preventDefault(); window.__filterVault()">
         ${vaultSortSelect('vault-sort')}
+        <div id="location-filter-wrap">${locationFilter()}</div>
         <div class="search-bar vault-query">
           <label class="sr-only" for="vault-q">Search your cards</label><input id="vault-q" placeholder="Search name, set or Cert number">
           ${searchClearButton()}
@@ -70,16 +75,33 @@ export function vault(cards = []) {
         <div class="vault-delete-actions two-choice-actions"><button class="btn btn-ghost" type="button" data-delete-cancel autofocus>Cancel</button><button class="btn btn-primary" type="button" data-delete-confirm>Delete card</button></div>
       </dialog>
       ${discardDialog()}
+      ${locationDialog()}
     </main>`;
 }
 
+function renderLocationFilter() {
+  const wrap = document.getElementById('location-filter-wrap');
+  if (!wrap) return;
+  const current = document.getElementById('vault-location-filter')?.value || '';
+  wrap.innerHTML = locationFilter(getLocations().some(item => item.id === current) ? current : '');
+}
+
+async function refreshLocations() {
+  const [result, cards] = await Promise.all([locationsRequest(), getCards()]);
+  setLocations(result.locations);
+  for (const card of cards) Object.assign(activeCards.find(item => item.id === card.id) || {}, card);
+  renderLocationFilter();
+  if (selectedId && document.querySelector('.vault-detail')) selectCard(selectedId, 'private');
+  if (document.getElementById('vault-q')) window.__filterVault();
+}
+
 const flipIcon = '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-5V2M4 17h5v5M20 7a8 8 0 0 0-14-2M4 17a8 8 0 0 0 14 2"/></svg>';
-const privateKeys = ['buyPrice', 'buyCurrency', 'purchaseSource', 'seller', 'receivedDate', 'notes'];
+const privateKeys = ['buyPrice', 'buyCurrency', 'purchaseSource', 'seller', 'receivedDate', 'storageLocation', 'position', 'notes'];
 
 function privateInformation(card) {
   const price = card.buyPrice == null || card.buyPrice === '' ? '-' : `${card.buyPrice} ${card.buyCurrency || 'THB'}`;
   const fields = [['Buy price', price], ['Acquisition', card.purchaseSource], ['Seller', card.seller],
-    ['Date received', card.receivedDate], ['Notes', card.notes]];
+    ['Date received', card.receivedDate], ['Storage location', card.storageLocation], ['Position', card.position], ['Notes', card.notes]];
   if (card.boughtFrom) fields.push(['Bought from (previous)', card.boughtFrom]);
   return `<section class="cert-information vault-private"><h2>Private vault details</h2><dl>${fields.map(([label, value]) =>
     `<div><dt>${label}</dt><dd>${escapeHTML(value || '-')}</dd></div>`).join('')}</dl></section>`;
@@ -95,6 +117,8 @@ function privateInputs(card) {
     <label class="form-field"><span>Seller</span><input class="form-control" name="seller" maxlength="120" value="${escapeHTML(card.seller || '')}"></label>
     ${card.boughtFrom ? `<p class="detail-note">Bought from (previous): ${escapeHTML(card.boughtFrom)}</p>` : ''}
     ${datePicker(card.receivedDate)}
+    <div class="form-field"><label for="m-storageLocation-input">Storage location</label><input type="hidden" id="m-storageLocation" name="storageLocation" value="${escapeHTML(card.storageLocation || '')}"><div id="vault-location-mount"></div></div>
+    <label class="form-field"><span>Position</span><input class="form-control" name="position" maxlength="200" value="${escapeHTML(card.position || '')}" placeholder="e.g. Page 3"></label>
     <label class="form-field"><span>Notes</span><textarea class="form-control" name="notes" maxlength="2000" rows="3">${escapeHTML(card.notes || '')}</textarea></label>`;
 }
 
@@ -122,7 +146,9 @@ function selectCard(id, mode = 'item') {
   selectedId = id;
   document.querySelector('.vault-selected').dataset.vaultArt = vaultBackground(card);
   document.querySelector('.vault-layout').classList.remove('is-unselected');
+  unmountLocationInput();
   document.querySelector('.vault-detail').innerHTML = detailMarkup(card, mode);
+  if (mode === 'edit-private') mountLocationInput(card.storageLocation || '');
   document.querySelector('.vault-photo-panel').innerHTML = vaultPhoto(card);
   initializeVaultPhoto(document.querySelector('.vault-photo-panel'));
   initializeDatePicker(document.querySelector('.vault-detail'));
@@ -148,6 +174,14 @@ function closeVaultMenuOnOutsideClick(event) {
 }
 
 export function initializeVault() {
+  initializeLocations(refreshLocations, async () => {
+    const form = document.getElementById('vault-edit');
+    if (form?.dataset.dirty === 'true') {
+      if (!await confirmDiscard()) return false;
+      selectCard(selectedId, 'private');
+    }
+    return true;
+  });
   preloadSelectedBackgrounds(activeCards);
   stopImagePrefetch();
   stopImagePrefetch = prefetchNearbyImages(document.querySelector('#vault-list'));
@@ -169,7 +203,7 @@ window.__filterVault = () => {
   const sort = document.getElementById('vault-sort').value;
   const matches = activeCards.filter(card => {
     const searchable = [card.name, card.setName, card.certNumber, card.cardNumber].join(' ').toLowerCase();
-    return (!query || (cert ? normalizeCert(card.certNumber) === cert : searchable.includes(query)));
+    return (!document.getElementById('vault-location-filter')?.value || card.storageLocationId === document.getElementById('vault-location-filter').value) && (!query || (cert ? normalizeCert(card.certNumber) === cert : searchable.includes(query)));
   });
   matches.sort((a, b) => compareVaultCards(a, b, sort));
   const list = document.getElementById('vault-list');
@@ -212,7 +246,13 @@ window.__saveDetail = async (event, id) => {
   if (!privateMode) patch.certNumber = normalizeCert(patch.certNumber);
   try {
     await updateCard(id, patch);
-    Object.assign(activeCards.find(card => card.id === id), patch);
+    if (privateMode) {
+      const [cards, result] = await Promise.all([getCards(), locationsRequest()]);
+      setLocations(result.locations);
+      const updated = cards.find(card => card.id === id);
+      Object.assign(activeCards.find(card => card.id === id), updated);
+      renderLocationFilter();
+    } else Object.assign(activeCards.find(card => card.id === id), patch);
     selectCard(id, privateMode ? 'private' : 'item');
     window.__filterVault();
   } catch (error) {
@@ -255,5 +295,5 @@ async function removeVaultCard(id) {
 }
 
 document.addEventListener('change', event => {
-  if (event.target.id === 'vault-sort') window.__filterVault();
+  if (event.target.id === 'vault-sort' || event.target.id === 'vault-location-filter') { if (document.getElementById('vault-q')) window.__filterVault(); }
 });
