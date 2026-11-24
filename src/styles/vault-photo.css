@@ -4,7 +4,7 @@
 .vault-photo-face{grid-area:1/1;display:grid;place-items:center;backface-visibility:hidden;min-width:0;min-height:0}
 .vault-photo-face img{display:block;width:100%;height:100%;min-height:0;object-fit:contain}
 .vault-photo-back{transform:rotateY(180deg)}
-.vault-photo-flip,.vault-photo-close{display:grid;place-items:center;width:40px;height:40px;padding:9px;border:1px solid var(--dcr-border);border-radius:50%;background:var(--dcr-white);color:var(--dcr-black);cursor:pointer}
+.vault-photo-flip{display:grid;place-items:center;width:40px;height:40px;padding:9px;border:1px solid var(--dcr-border);border-radius:50%;background:var(--dcr-white);color:var(--dcr-black);cursor:pointer}
 .vault-detail-photo>.vault-photo-flip{position:absolute;right:10px;top:10px}
 .vault-photo-flip svg,.vault-photo-preview svg{width:20px;height:20px}
 .vault-photo-flip:disabled{opacity:.45;cursor:not-allowed}
@@ -13,7 +13,7 @@
 .vault-photo-dialog{width:100%;max-width:none;height:100%;max-height:none;border:0;padding:20px;background:var(--dcr-white)}
 .vault-photo-dialog::backdrop{background:var(--dcr-black)}
 .vault-photo-toolbar{display:flex;justify-content:flex-end;gap:8px}
-.vault-photo-close{font-size:28px;line-height:1}
+.vault-photo-close{position:static;flex:none}
 .vault-photo-stage{display:flex;justify-content:center;align-items:center;height:calc(100dvh - 84px);perspective:1200px}
 .vault-photo-view{position:relative;width:min(70vw,650px,calc((100dvh - 84px) * var(--image-ratio, .7)));height:min(calc(100dvh - 84px),calc(min(70vw,650px) / var(--image-ratio, .7)));overflow:hidden;line-height:0}
 .vault-photo-view .vault-photo-flipper{height:100%}

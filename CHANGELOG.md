@@ -1,3 +1,5 @@
+- Use the shared red close button in the Vault card image preview.
+
 - Play shared switch and options icon animations on activation and enlarge the options icon.
 
 - Use shared red animated switch and options icons throughout Vault controls.
