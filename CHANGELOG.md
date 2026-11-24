@@ -1,3 +1,7 @@
+# Cert number button
+
+- Switch the random Cert number button to a red background and white icon while pressed.
+
 # Search and showcase buttons
 
 - Add a white gallery icon to the red Showcase button and place search icons before their labels.

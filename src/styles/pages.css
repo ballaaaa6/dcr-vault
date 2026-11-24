@@ -143,6 +143,7 @@
 .cert-input-row{display:flex;align-items:center;gap:8px}
 .cert-input-row .form-control{flex:1}
 .cert-random{width:46px;height:46px;flex:0 0 46px;padding:10px}
+.cert-random:active{background:var(--dcr-red);color:var(--dcr-white)}
 .cert-random svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.75;transform-origin:center}
 .cert-random:hover svg{animation:cert-rock 2.6s ease-in-out infinite}
 .cert-random svg.cert-dice-spin{animation:cert-spin .7s}
