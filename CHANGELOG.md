@@ -1,3 +1,5 @@
+- Replace the print queue clear button with an animated corner trash button.
+
 - Align the Labels page action buttons across both panels and keep the print note with the right-hand actions.
 
 - Add animated Pac-Man sheet pagination, retaining the original scroll mode as a configurable fallback.

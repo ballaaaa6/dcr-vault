@@ -145,6 +145,19 @@
 .label-list-heading::before{inset:0;z-index:-1;background-color:var(--dcr-white);background-image:linear-gradient(color-mix(in srgb,var(--dcr-white) 85%,transparent),color-mix(in srgb,var(--dcr-white) 85%,transparent)),var(--label-background);background-position:top center;background-size:100% auto;background-repeat:no-repeat;border-radius:21px 21px 0 0}
 .label-list-heading::after{top:-100vh;right:-1px;bottom:0;left:-1px;z-index:-2;background:var(--dcr-white)}
 .label-list-heading p{margin:0 0 16px}
+
+.label-clear{position:absolute;top:0;right:8px;transform:translate(35%,-35%);width:48px;height:48px;border:0;border-radius:50%;background:var(--dcr-red);color:var(--dcr-white);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;z-index:1;transition:transform .2s,background-color .2s,color .2s}
+.label-clear:hover:not(:disabled){transform:translate(35%,-35%) scale(.92)}
+.label-clear:focus-visible{outline:3px solid var(--dcr-red-dark);outline-offset:3px}
+.label-clear:disabled{cursor:not-allowed}
+.label-clear svg{width:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.label-clear-lid{height:6px;transform-origin:20% 100%}
+.label-clear-bin{height:20px}
+.label-clear.is-clearing{background:var(--dcr-red-light);color:var(--dcr-red)}
+.label-clear.is-clearing .label-clear-lid{animation:label-clear-lid .6s ease}
+@keyframes label-clear-lid{0%,100%{transform:rotate(0)}35%,65%{transform:rotate(-45deg) translateY(-2px)}}
+@media(prefers-reduced-motion:reduce){.label-clear{transition:none}.label-clear.is-clearing .label-clear-lid{animation:none}}
+
 .label-rows{border-top:1px solid var(--dcr-border)}
 .label-row{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--dcr-border)}
 .label-row-number{color:var(--dcr-gray);min-width:24px}

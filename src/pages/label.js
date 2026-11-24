@@ -33,7 +33,7 @@ export async function label(cards = []) {
       <p class="muted">Enter individual numbers or ranges separated by commas. Up to 500 numbers per search.</p>
       <div class="label-controls"><button class="btn btn-primary" data-label-action="search">Find and add</button><button class="btn btn-ghost" data-label-action="vault">Choose from My Vault</button></div>
     </section>
-    <section class="surface-card label-list-section"><div class="label-list-heading"><div><h2>Print queue</h2><p class="muted" id="label-count"></p></div><button class="btn btn-ghost" data-label-action="clear">Clear all</button></div>
+    <section class="surface-card label-list-section"><div class="label-list-heading"><div><h2>Print queue</h2><p class="muted" id="label-count"></p></div><button class="label-clear" type="button" data-label-action="clear" aria-label="Clear all labels" title="Clear all labels"><svg class="label-clear-lid" viewBox="0 0 24 6" aria-hidden="true"><path d="M4 5h16M9 5V2h6v3"/></svg><svg class="label-clear-bin" viewBox="0 0 24 20" aria-hidden="true"><path d="M5 1l1 16a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-16M10 5v10M14 5v10"/></svg></button></div>
       <div id="label-list"></div><div class="label-bottom"><p class="label-print-note">Print at actual size, double-sided, flip on long edge. Each sheet contains up to 40 labels.</p><div class="label-controls"><button class="btn btn-ghost" data-label-action="preview">Preview sheets</button><button class="btn btn-primary" data-label-action="download">Download PDF</button></div></div>
     </section>
     </div>
@@ -158,7 +158,11 @@ document.addEventListener('click', async event => {
     busy = false; refresh(); status(`Added ${result.added} labels.`);
   }
   if (action === 'remove') { entries = entries.filter(item => item.cert !== button.dataset.cert); refresh(); }
-  if (action === 'clear' && !busy) { entries = []; refresh(); status('Labels cleared.'); }
+  if (action === 'clear' && !busy && entries.length) {
+    button.classList.add('is-clearing');
+    setTimeout(() => button.classList.remove('is-clearing'), 600);
+    entries = []; refresh(); status('Labels cleared.');
+  }
   if (action === 'view') viewLabel(button.dataset.cert);
   if (action === 'preview') await previewSheets();
   if (action === 'download' && !busy) await download();
