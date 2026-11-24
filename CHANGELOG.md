@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Balance manage cards footer spacing
+- Remove duplicated bottom padding while retaining clearance for button effects.
+
 ## 2026-11-24 - Keep scrolling inside the card list
 - Fit the Manage cards dialog around its contents and confine scrolling to its card list.
 
