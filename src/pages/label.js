@@ -1,3 +1,4 @@
+import {sheetPreviewSkeleton} from '../components/page-skeleton.js';
 import {heartCheckbox} from '../components/heart-checkbox.js';
 import {compareVaultCards, vaultSortSelect} from '../utils/vault-sort.js';
 import {getCertificate} from '../store/cards.js';
@@ -118,7 +119,7 @@ function viewLabel(cert) {
 
 async function previewSheets() {
   const labels = ready();
-  dialog(`${dialogHead('Sheet preview')}<p class="muted">Loading preview…</p>`);
+  dialog(`${dialogHead('Sheet preview')}${sheetPreviewSkeleton(Math.ceil(labels.length / 40) * 2)}`);
   try {
     const sheets = [];
     for (let i = 0; i < labels.length; i += 40) for (const side of ['front', 'back']) {

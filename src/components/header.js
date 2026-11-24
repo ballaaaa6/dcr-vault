@@ -41,6 +41,11 @@ function accountPopover(user) {
   return `<div class="account-popover" id="account-popover" hidden><div class="account-identity">${avatar(user)}<div><strong>${escapeHTML(user.displayName || user.email)}</strong><small>${escapeHTML(user.email)}</small></div></div>${groups.map(group => `<div class="account-group">${group.map(accountItem).join('')}</div>`).join('')}</div>`;
 }
 
+export function headerSkeleton() {
+  const links = items.map(([, label]) => `<span class="sk-nav-link"><span class="skeleton sk-nav-text">${label}</span></span>`).join('');
+  return `<header class="site-header no-print" aria-hidden="true"><div class="header-inner wrap"><span class="logo-wrap"><img class="logo" src="/assets/logo/dcr-mark.svg" alt=""><span>Distinguished Card Registry</span></span><div class="sk-header-nav">${links}<span class="skeleton sk-nav-account"></span></div><span class="skeleton sk-menu-toggle"></span></div></header>`;
+}
+
 export function header(activePath, user = null) {
   const links = items.map(([href, label]) => {
     const active = href === activePath;

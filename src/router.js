@@ -1,4 +1,4 @@
-import {header, bindHeader} from './components/header.js';
+import {header, bindHeader, headerSkeleton} from './components/header.js';
 import {getCurrentUser} from './auth.js';
 import {home} from './pages/home.js';
 import {billing} from './pages/billing.js';
@@ -20,6 +20,7 @@ import {addVaultImages} from './store/vault-images.js';
 import {escapeHTML} from './utils/format.js';
 import {certificateFromPath, normalizeCert} from './utils/cert.js';
 import {pageSkeleton} from './components/page-skeleton.js';
+import {cachedPageSkeleton, savePageSkeleton} from './components/skeleton-from-layout.js';
 
 let renderVersion = 0;
 const privatePaths = new Set(['/archive', '/vault', '/label', '/import', '/profile', '/billing', '/gemini-usage']);
@@ -38,8 +39,7 @@ function requireLogin(route) {
 
 function showPageLoading(app, path, isCertificate) {
   const privacy = path === '/privacy' || path === '/privacy/';
-  const loadingHeader = `<header class="site-header" aria-hidden="true"><div class="header-inner wrap"><span class="logo-wrap"><img class="logo" src="/assets/logo/dcr-mark.svg" alt=""><span>Distinguished Card Registry</span></span><div class="sk-header-nav"><span class="skeleton sk-nav-item sk-nav-home"></span><span class="skeleton sk-nav-item sk-nav-add"></span><span class="skeleton sk-nav-item sk-nav-vault"></span><span class="skeleton sk-nav-item sk-nav-labels"></span><span class="skeleton sk-nav-account"></span></div><span class="skeleton sk-menu-toggle"></span></div></header>`;
-  app.innerHTML = (privacy ? '' : loadingHeader) + pageSkeleton(path, isCertificate, isCertificate) + (privacy ? '' : footer());
+  app.innerHTML = (privacy ? '' : headerSkeleton()) + pageSkeleton(path, isCertificate) + (privacy ? '' : footer());
 }
 
 export async function render() {
@@ -67,6 +67,8 @@ export async function render() {
   try { user = await getCurrentUser(); } catch {}
   if (version !== renderVersion || location.pathname + location.search !== route) return;
   if (privatePaths.has(path) && !user) { requireLogin(route); return; }
+  const cached = cachedPageSkeleton(path, user?.id);
+  if (cached) app.querySelector('[role="status"] > [aria-hidden="true"]').innerHTML = cached;
 
   let content = home();
   let failed = false;
@@ -89,6 +91,7 @@ export async function render() {
   if (path === '/vault') initializeVault();
   if (path === '/label') initializeLabel();
   if (path === '/verify' || isCertificate) { initializeCertificateViewer(); initializeCertificateActions(); }
+  savePageSkeleton(path, user?.id, app.querySelector('main'));
   window.scrollTo(0, 0);
 }
 

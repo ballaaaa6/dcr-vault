@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Refine loading layouts
+- Generate reusable loading layouts from rendered page structure without retaining displayed values, align first-visit placeholders, and add sheet preview skeletons.
+
 ## 2026-11-24 - Organize cards into collections
 - Add private collections with multi-select card membership, shared Vault filtering, and collection management alongside storage locations.
 
