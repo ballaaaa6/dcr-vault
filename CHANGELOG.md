@@ -1,3 +1,5 @@
+- Rename the navigation links to Vault and Showcase and keep menu labels on one line.
+
 - Add a Collections page between My Vault and Labels with private-by-default sharing, preview, and revocable links.
 
 - Reorder item information from certificate and set details through card attributes and condition.
