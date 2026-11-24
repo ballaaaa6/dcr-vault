@@ -1,3 +1,7 @@
+# Vault card backgrounds
+
+- Reduce unselected card background opacity to 15%.
+
 # Settings gear size during clicks
 
 - Keep the shared gear mounted and full-sized during its click animation, while retaining the hover effect.
