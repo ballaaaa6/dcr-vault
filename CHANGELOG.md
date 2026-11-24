@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Align card identification guidance
+- Place the identification guidance beside its action, aligning the button with Add card and giving the photo areas more space.
+
 ## 2026-11-24 - Restore home hero title
 - Restore the original responsive home hero title sizes as shared typography tokens.
 

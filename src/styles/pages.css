@@ -77,8 +77,9 @@
 .upload-clear[hidden]{display:none}
 .upload-frame:hover .upload-clear,.upload-frame:focus-within .upload-clear{opacity:1}
 @media (hover:none){.upload-clear{opacity:1}}
-.identification-actions{margin-top:14px}
-.identification-notice{margin:10px 0 0;color:var(--dcr-gray);font-size:var(--font-size-description)}
+.identification-actions{display:flex;align-items:flex-end;gap:12px;margin-top:14px}
+.identification-actions .btn{flex:none}
+.identification-notice{flex:1;min-width:0;margin:0;color:var(--dcr-gray);font-size:var(--font-size-description)}
 .identification-dialog{position:fixed;width:min(820px,calc(100% - 32px));max-width:none;max-height:min(86vh,900px);margin:auto;padding:0;overflow:visible;border:1px solid var(--dcr-border);border-radius:22px;background:linear-gradient(color-mix(in srgb,var(--dcr-white) 80%,transparent),color-mix(in srgb,var(--dcr-white) 80%,transparent)),url('/assets/labels/reading-maple.png') right top/cover no-repeat var(--dcr-white);color:var(--dcr-black);box-shadow:var(--shadow-lg)}
 .identification-dialog[open]{display:grid;grid-template-rows:auto minmax(0,1fr)}
 .identification-dialog::backdrop{background:rgba(0,0,0,.45);backdrop-filter:blur(3px)}

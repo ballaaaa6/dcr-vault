@@ -24,8 +24,7 @@ export function searchMarkup() {
         <section class="surface-card intake-card" aria-labelledby="scan-title">
           <div class="section-heading"><div><h2 id="scan-title">Card images</h2><p>Choose a front and/or back photo to store in your private image vault.</p></div></div>
           <div class="upload-grid">${photoField('front', 'Front image')}${photoField('back', 'Back image')}</div>
-          <div class="identification-actions"><button class="btn btn-ghost" id="identify-card" type="button" disabled><span>Identify card</span><span class="action-sizer" aria-hidden="true">Identify card</span><span class="action-sizer" aria-hidden="true">Analyzing…</span></button></div>
-          <p class="identification-notice">Give your card a head start. Upload a front photo and let us fill in the details for you. Take a moment to review them before adding your card to the vault.</p>
+          <div class="identification-actions"><p class="identification-notice">Give your card a head start. Upload a front photo and let us fill in the details for you. Take a moment to review them before adding your card to the vault.</p><button class="btn btn-ghost" id="identify-card" type="button" disabled><span>Identify card</span><span class="action-sizer" aria-hidden="true">Identify card</span><span class="action-sizer" aria-hidden="true">Analyzing…</span></button></div>
         </section>
         <section class="surface-card intake-card" aria-labelledby="manual-title">
           <div class="section-heading"><div><div class="card-details-title"><h2 id="manual-title">Card details</h2><button id="identification-info" class="identification-info" type="button" aria-label="View card reading details" title="View card reading details" hidden>i</button></div><p>Review the printed card number and English card details; Cert and Grade stay independent.</p></div></div>

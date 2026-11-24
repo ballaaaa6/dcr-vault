@@ -12,7 +12,7 @@ function homeSkeleton() {
 function intakeSkeleton() {
   const photos = Array.from({length: 2}, () => `<div>${bar('sk-label')}${bar('sk-upload')}</div>`).join('');
   const fields = Array.from({length: 10}, (_, index) => `<div class="${[0, 5, 6, 7].includes(index) ? 'sk-wide' : ''}">${field()}</div>`).join('');
-  return `<main class="app-page intake-page sk-page">${heading()}<div class="intake-grid">${panel(`${paragraphs()}<div class="upload-grid">${photos}</div>${bar('sk-button')}${bar()}`)}${panel(`${paragraphs()}<div class="field-grid">${fields}</div>${bar('sk-button')}`)}</div></main>`;
+  return `<main class="app-page intake-page sk-page">${heading()}<div class="intake-grid">${panel(`${paragraphs()}<div class="upload-grid">${photos}</div><div class="identification-actions">${bar('identification-notice')}${bar('sk-button')}</div>`)}${panel(`${paragraphs()}<div class="field-grid">${fields}</div>${bar('sk-button')}`)}</div></main>`;
 }
 
 function vaultSkeleton() {
