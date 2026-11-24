@@ -1,3 +1,5 @@
+- Move the back-to-top rocket above the notification stack and return it as notifications disappear.
+
 - Keep the Labels sheet heading stable and mask the block smoothly during scrolling.
 
 - Clip the whole Labels sheet block at its sticky rounded heading while scrolling.

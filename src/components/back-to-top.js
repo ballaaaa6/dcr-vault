@@ -7,6 +7,17 @@ export function initializeBackToTop() {
   button.innerHTML = '<span class="back-to-top-art"><img src="/assets/rocket-return.png" alt=""><span class="back-to-top-label" aria-hidden="true">TOP</span></span>';
   document.body.append(button);
 
+  const stack = document.getElementById('toast-stack');
+  if (stack) {
+    const updateToastClearance = () => {
+      const clearance = stack.childElementCount ? window.innerHeight - stack.getBoundingClientRect().top + 10 : 0;
+      button.style.setProperty('--toast-clearance', `${clearance}px`);
+    };
+    new ResizeObserver(updateToastClearance).observe(stack);
+    window.addEventListener('resize', updateToastClearance);
+    updateToastClearance();
+  }
+
   function updateVisibility() {
     const visible = window.scrollY > 0;
     button.classList.toggle('is-visible', visible);
