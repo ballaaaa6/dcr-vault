@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Update certificate social icons
+- Refresh LINE, Facebook, and X share icons and their brand hover colors; invert the More button on hover and focus like Copy.
+
 ## 2026-11-24 - Adjust share tooltip colors
 - Invert the share tooltips and restore the copy-link button hover colors.
 

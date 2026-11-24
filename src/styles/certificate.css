@@ -20,7 +20,7 @@
 .cert-share-icon{position:relative;color:var(--dcr-gray);border-color:var(--dcr-border);transition:color .2s,border-color .2s}
 .cert-share-icon:hover,.cert-share-icon:focus-visible{background:var(--dcr-white);color:var(--dcr-red);border-color:currentColor}
 .cert-share-icon[data-cert-copy]{color:var(--dcr-red);border-color:var(--dcr-red)}
-.cert-share-icon[data-cert-copy]:is(:hover,:focus-visible){background:var(--dcr-red);color:var(--dcr-white);border-color:var(--dcr-red)}
+.cert-share-icon:is([data-cert-copy],[data-cert-native-share]):is(:hover,:focus-visible){background:var(--dcr-red);color:var(--dcr-white);border-color:var(--dcr-red)}
 .cert-share-icon[data-share-platform="line"]:is(:hover,:focus-visible){color:var(--share-line)}
 .cert-share-icon[data-share-platform="facebook"]:is(:hover,:focus-visible){color:var(--share-facebook)}
 .cert-share-icon[data-share-platform="x"]:is(:hover,:focus-visible){color:var(--share-x)}
