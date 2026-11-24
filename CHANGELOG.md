@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Refine card review tooltip
+- Use a neutral review message and a smaller yellow information icon with inverted hover colors.
+
 ## 2026-11-24 - Clarify Add Card action states
 - Align the existing card actions to the right and keep their dimensions stable while analyzing, saving, and retrying.
 - Preserve the form and retry only failed photo uploads after a saved card.
