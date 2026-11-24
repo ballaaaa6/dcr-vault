@@ -18,16 +18,16 @@ function openDialog(title, body) {
   if (!dialog().open) dialog().showModal();
 }
 function editDialog(group) {
-  openDialog(group ? 'Edit collection' : 'Create collection', `<form id="collection-form" class="collections-form"><div class="form-field"><label for="collection-name">Name</label>${tooltip({id: 'collection-name-help', label: 'About collection name', message: 'Use English letters and numbers only, without spaces.'})}<input id="collection-name" class="form-control" name="name" autofocus maxlength="120" required value="${esc(group?.name || '')}"></div><div class="form-field"><label for="collection-description">Description</label>${tooltip({id: 'collection-description-help', label: 'About collection description', message: 'Optionally describe this collection. The description is visible to anyone with its share link.'})}<textarea id="collection-description" class="form-control" name="description" maxlength="500">${esc(group?.description || '')}</textarea></div><div class="collections-actions collections-form-actions">${group ? '<button class="btn btn-ghost" type="button" data-action="delete">Delete collection</button>' : ''}<button class="btn btn-primary" type="submit">Save</button></div></form>`);
+  openDialog(group ? 'Edit showcase' : 'Create showcase', `<form id="collection-form" class="collections-form"><div class="form-field"><label for="collection-name">Name</label>${tooltip({id: 'collection-name-help', label: 'About showcase name', message: 'Use English letters and numbers only, without spaces.'})}<input id="collection-name" class="form-control" name="name" autofocus maxlength="120" required value="${esc(group?.name || '')}"></div><div class="form-field"><label for="collection-description">Description</label>${tooltip({id: 'collection-description-help', label: 'About showcase description', message: 'Optionally describe this showcase. The description is visible to anyone with its share link.'})}<textarea id="collection-description" class="form-control" name="description" maxlength="500">${esc(group?.description || '')}</textarea></div><div class="collections-actions collections-form-actions">${group ? '<button class="btn btn-ghost" type="button" data-action="delete">Delete showcase</button>' : ''}<button class="btn btn-primary" type="submit">Save</button></div></form>`);
 }
 function addDialog() {
   const group = current();
-  openDialog('Choose cards from My Vault', `<form id="collection-cards-form"><p class="page-description">Select the cards you want in this collection.</p><div class="collections-picker button-safe-scroll">${cards.map(card => `<label class="list-row">${heartCheckbox(`name="card" value="${esc(card.id)}" ${group.cardIds.includes(card.id) ? 'checked' : ''}`)}<span><strong>${esc(card.name)}</strong><small>Cert ${esc(card.certNumber)}</small></span></label>`).join('') || '<p>No cards in My Vault yet.</p>'}</div><button class="btn btn-primary" type="submit">Save selection</button></form>`);
+  openDialog('Choose cards from Vault', `<form id="collection-cards-form"><p class="page-description">Select the cards you want in this showcase.</p><div class="collections-picker button-safe-scroll">${cards.map(card => `<label class="list-row">${heartCheckbox(`name="card" value="${esc(card.id)}" ${group.cardIds.includes(card.id) ? 'checked' : ''}`)}<span><strong>${esc(card.name)}</strong><small>Cert ${esc(card.certNumber)}</small></span></label>`).join('') || '<p>No cards in Vault yet.</p>'}</div><button class="btn btn-primary" type="submit">Save selection</button></form>`);
 }
 function shareDialog() {
   const group = current();
   const link = group.shareToken ? `${location.origin}/showcase/${encodeURIComponent(group.name.replace(/[^a-zA-Z0-9]/g, '') || 'collection')}/${group.shareToken}` : '';
-  openDialog('Share collection', `<p>Anyone with the link can view and forward this collection. Only the selected cards and their public details are shown; prices, notes and storage locations stay private.</p><p>Card photos and certificate details may already be public. Turning off this link does not make them private.</p>${link ? `<label class="form-field">Share link<input class="form-control" id="collection-share-link" readonly value="${esc(link)}"></label><div class="collections-actions"><button class="btn btn-primary" data-action="copy">Copy link</button><button class="btn btn-ghost" data-action="disable-share">Turn off sharing</button></div>` : '<button class="btn btn-primary" data-action="enable-share">Enable link sharing</button>'}`);
+  openDialog('Share showcase', `<p>Anyone with the link can view and forward this showcase. Only the selected cards and their public details are shown; prices, notes and storage locations stay private.</p><p>Card photos and certificate details may already be public. Turning off this link does not make them private.</p>${link ? `<label class="form-field">Share link<input class="form-control" id="collection-share-link" readonly value="${esc(link)}"></label><div class="collections-actions"><button class="btn btn-primary" data-action="copy">Copy link</button><button class="btn btn-ghost" data-action="disable-share">Turn off sharing</button></div>` : '<button class="btn btn-primary" data-action="enable-share">Enable link sharing</button>'}`);
 }
 async function updateMembership(next) {
   const group = current();
@@ -36,11 +36,11 @@ async function updateMembership(next) {
 }
 async function saveForm(form) {
   const data = new FormData(form), name = String(data.get('name')).trim(), description = String(data.get('description')).trim();
-  if (!name) throw new Error('Enter a collection name.');
+  if (!name) throw new Error('Enter a showcase name.');
   let id = selectedId;
   if (!id) id = (await collectionsRequest('POST', {name})).collection.id;
   await collectionsRequest('PATCH', {id, name, description});
-  selectedId = id; dialog().close(); await refresh(); history.replaceState({}, '', collectionPath(current())); showToast('Collection saved.', 'success');
+  selectedId = id; dialog().close(); await refresh(); history.replaceState({}, '', collectionPath(current())); showToast('Showcase saved.', 'success');
 }
 async function handleAction(action) {
   if (action === 'create') return editDialog();
@@ -52,10 +52,10 @@ async function handleAction(action) {
   if (action === 'copy') { await navigator.clipboard.writeText(document.getElementById('collection-share-link').value); return showToast('Link copied.', 'success'); }
   if (action === 'enable-share' || action === 'disable-share') { await collectionsRequest('PATCH', {id: selectedId, share: action === 'enable-share'}); dialog().close(); await refresh(); shareDialog(); return; }
   if (action === 'delete') return openDeleteConfirmation();
-  if (action === 'confirm-delete') { await collectionsRequest('DELETE', {id: selectedId}); selectedId = ''; navigate(); dialog().close(); await refresh(); showToast('Collection deleted.', 'success'); }
+  if (action === 'confirm-delete') { await collectionsRequest('DELETE', {id: selectedId}); selectedId = ''; navigate(); dialog().close(); await refresh(); showToast('Showcase deleted.', 'success'); }
 }
 function openDeleteConfirmation() {
-  document.getElementById('collections-dialog-content').innerHTML = `<div class="collections-delete-confirmation"><h2>Delete collection?</h2><p class="two-choice-description">Cards will remain in My Vault. Any share link will stop working.</p><div class="two-choice-actions collections-actions"><button class="btn btn-ghost" data-action="edit">Cancel</button><button class="btn btn-primary" data-action="confirm-delete">Delete</button></div></div>`;
+  document.getElementById('collections-dialog-content').innerHTML = `<div class="collections-delete-confirmation"><h2>Delete showcase?</h2><p class="two-choice-description">Cards will remain in Vault. Any share link will stop working.</p><div class="two-choice-actions collections-actions"><button class="btn btn-ghost" data-action="edit">Cancel</button><button class="btn btn-primary" data-action="confirm-delete">Delete</button></div></div>`;
 }
 async function handleClick(event) {
   const target = event.target.closest('button'); if (!target) return;

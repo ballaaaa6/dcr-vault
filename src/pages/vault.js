@@ -43,7 +43,7 @@ export function vault(cards = [], locations = [], collections = []) {
   activeCards = cards;
   setLocations(locations);
   setCollections(collections);
-  if (!cards.length) return `<main class="app-page vault-page"><header class="page-heading"><h1>My Vault</h1></header><div class="vault-toolbar"><div id="location-filter-wrap">${vaultFilter()}</div></div><section class="surface-card empty-state"><p>Your private vault is ready for its first card.</p><a class="btn btn-primary" href="/archive">Add a card</a></section>${locationDialog()}</main>`;
+  if (!cards.length) return `<main class="app-page vault-page"><header class="page-heading"><h1>Vault</h1></header><div class="vault-toolbar"><div id="location-filter-wrap">${vaultFilter()}</div></div><section class="surface-card empty-state"><p>Your private vault is ready for its first card.</p><a class="btn btn-primary" href="/archive">Add a card</a></section>${locationDialog()}</main>`;
   const params = new URLSearchParams(location.search);
   const sortedCards = [...cards].sort((a, b) => compareVaultCards(a, b, 'date-desc'));
   const focus = cards.find(card => card.id === params.get('id')) || sortedCards[0];
@@ -52,7 +52,7 @@ export function vault(cards = [], locations = [], collections = []) {
   return `
     <main class="app-page vault-page">
       <header class="page-heading vault-heading">
-        <h1>My Vault</h1>
+        <h1>Vault</h1>
         <p id="vault-count" class="page-description">${cards.length} ${cards.length === 1 ? 'card' : 'cards'} · Prices stay private to your account and never appear on labels.</p>
       </header>
       <form class="vault-toolbar" onsubmit="event.preventDefault(); window.__filterVault()">
@@ -101,7 +101,7 @@ const privateKeys = ['buyPrice', 'buyCurrency', 'purchaseSource', 'seller', 'rec
 function privateInformation(card) {
   const price = card.buyPrice == null || card.buyPrice === '' ? '-' : `${card.buyPrice} ${card.buyCurrency || 'THB'}`;
   const fields = [['Buy price', price], ['Acquisition', card.purchaseSource], ['Seller', card.seller],
-    ['Date received', card.receivedDate], ['Storage location', card.storageLocation], ['Position', card.position], ['Collections', getCollections().filter(group => group.cardIds.includes(card.id)).map(group => group.name).join(', ')], ['Notes', card.notes]];
+    ['Date received', card.receivedDate], ['Storage location', card.storageLocation], ['Position', card.position], ['Showcases', getCollections().filter(group => group.cardIds.includes(card.id)).map(group => group.name).join(', ')], ['Notes', card.notes]];
   if (card.boughtFrom) fields.push(['Bought from (previous)', card.boughtFrom]);
   return `<section class="cert-information vault-private"><h2>Private vault details</h2><dl>${fields.map(([label, value]) =>
     `<div><dt>${label}</dt><dd>${escapeHTML(value || '-')}</dd></div>`).join('')}</dl></section>`;
@@ -118,7 +118,7 @@ function privateInputs(card) {
     ${card.boughtFrom ? `<p class="detail-note">Bought from (previous): ${escapeHTML(card.boughtFrom)}</p>` : ''}
     ${datePicker(card.receivedDate, {help: vaultTooltip('receivedDate', 'Date received')})}
     <div class="form-field"><div><label for="m-storageLocation-input">Storage location</label>${vaultTooltip('storageLocation', 'Storage location')}</div><input type="hidden" id="m-storageLocation" name="storageLocation" value="${escapeHTML(card.storageLocation || '')}"><div id="vault-location-mount"></div></div>
-    <div class="form-field"><div><label for="vault-collections-input">Collections</label>${vaultTooltip('collections', 'Collections')}</div><input type="hidden" id="vault-collection-values" value="${escapeHTML(JSON.stringify(getCollections().filter(group => group.cardIds.includes(card.id)).map(group => ({id: group.id, name: group.name}))))}"><div id="vault-collection-mount"></div></div>
+    <div class="form-field"><div><label for="vault-collections-input">Showcases</label>${vaultTooltip('collections', 'Showcases')}</div><input type="hidden" id="vault-collection-values" value="${escapeHTML(JSON.stringify(getCollections().filter(group => group.cardIds.includes(card.id)).map(group => ({id: group.id, name: group.name}))))}"><div id="vault-collection-mount"></div></div>
     <div class="form-field"><div><label for="vault-position">Position</label>${vaultTooltip('position', 'Position')}</div><input id="vault-position" class="form-control" name="position" maxlength="200" value="${escapeHTML(card.position || '')}" placeholder="e.g. Page 3"></div>
     <div class="form-field"><div><label for="vault-notes">Notes</label>${vaultTooltip('notes', 'Notes')}</div><textarea id="vault-notes" class="form-control" name="notes" maxlength="2000" rows="2">${escapeHTML(card.notes || '')}</textarea></div>`;
 }

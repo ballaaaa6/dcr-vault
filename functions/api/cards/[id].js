@@ -12,14 +12,14 @@ export async function onRequestPatch({request, env, params}) {
   if (session.response) return session.response;
   const input = await readJson(request);
   if ('collectionNames' in (input || {})) {
-    if (!Array.isArray(input.collectionIds) || !Array.isArray(input.collectionNames) || input.collectionNames.some(name => typeof name !== 'string' || !/^[a-zA-Z0-9]{1,120}$/.test(name))) return error('Invalid collections.');
+    if (!Array.isArray(input.collectionIds) || !Array.isArray(input.collectionNames) || input.collectionNames.some(name => typeof name !== 'string' || !/^[a-zA-Z0-9]{1,120}$/.test(name))) return error('Invalid showcases.');
     input.collectionNames = [...new Map(input.collectionNames.map(name => [name.trim().toLowerCase(), name.trim()])).values()];
   }
   if ('collectionIds' in (input || {})) {
-    if (typeof input.storageLocation !== 'string' || !Array.isArray(input.collectionIds) || input.collectionIds.some(id => typeof id !== 'string') || new Set(input.collectionIds).size !== input.collectionIds.length) return error('Invalid collections.');
+    if (typeof input.storageLocation !== 'string' || !Array.isArray(input.collectionIds) || input.collectionIds.some(id => typeof id !== 'string') || new Set(input.collectionIds).size !== input.collectionIds.length) return error('Invalid showcases.');
     const groups = await env.DB.prepare('SELECT id FROM collections WHERE user_id = ?').bind(session.user.id).all();
     const allowed = new Set((groups.results || []).map(group => group.id));
-    if (input.collectionIds.some(id => !allowed.has(id))) return error('Collection list changed. Please try again.', 409);
+    if (input.collectionIds.some(id => !allowed.has(id))) return error('Showcase list changed. Please try again.', 409);
   }
   const patch = cleanPatch(input);
   if (!patch) return error('No valid card details were provided.');

@@ -10,7 +10,7 @@ let collections = [];
 let isCollection = false;
 const items = () => isCollection ? collections : locations;
 const request = (...args) => (isCollection ? collectionsRequest : locationsRequest)(...args);
-const kind = () => isCollection ? 'collection' : 'location';
+const kind = () => isCollection ? 'showcase' : 'location';
 export function setCollections(value) { collections = value; }
 export function getCollections() { return collections; }
 let refresh = () => {};
@@ -94,7 +94,7 @@ function deleteView(item) {
   document.querySelector('[data-location-add]').hidden = true;
   showError('');
   const body = document.querySelector('[data-location-body]');
-  body.innerHTML = `<h3>Delete ${esc(item.name)}?</h3>${isCollection ? `<p class="two-choice-description">This deletes the collection. Its cards and their storage locations stay in your vault.</p>` : `<p class="two-choice-description">This removes the location from all ${item.cardCount} ${item.cardCount === 1 ? 'card' : 'cards'} using it. What should happen to their positions?</p>
+  body.innerHTML = `<h3>Delete ${esc(item.name)}?</h3>${isCollection ? `<p class="two-choice-description">This deletes the showcase. Its cards and their storage locations stay in your vault.</p>` : `<p class="two-choice-description">This removes the location from all ${item.cardCount} ${item.cardCount === 1 ? 'card' : 'cards'} using it. What should happen to their positions?</p>
     <fieldset class="location-choices" aria-label="Card positions"><label><input type="radio" name="clear-positions" value="false" checked> Keep positions</label><label><input type="radio" name="clear-positions" value="true"> Clear positions</label></fieldset>`}
     <div class="two-choice-actions"><button class="btn btn-ghost" type="button" data-location-back>Cancel</button><button class="btn btn-primary" type="button" data-location-confirm>Delete ${kind()}</button></div>`;
   body.querySelector('[data-location-back]').onclick = listView;

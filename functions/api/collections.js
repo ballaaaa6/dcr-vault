@@ -26,12 +26,12 @@ export async function onRequestPost({request, env}) {
   const session = await authorize(request, env);
   if (session.response) return session.response;
   const name = clean((await readJson(request))?.name);
-  if (!/^[a-zA-Z0-9]{1,120}$/.test(name)) return error('Use English letters and numbers only for the collection name.');
+  if (!/^[a-zA-Z0-9]{1,120}$/.test(name)) return error('Use English letters and numbers only for the showcase name.');
   const id = crypto.randomUUID();
   try {
     await env.DB.prepare('INSERT INTO collections (id, user_id, name, name_key) VALUES (?, ?, ?, ?)').bind(id, session.user.id, name, name.toLowerCase()).run();
   } catch (cause) {
-    if (String(cause.message).includes('UNIQUE')) return error('This collection already exists.', 409);
+    if (String(cause.message).includes('UNIQUE')) return error('This showcase already exists.', 409);
     throw cause;
   }
   return json({collection: {id, name, cardIds: [], cardCount: 0}}, 201);
@@ -47,7 +47,7 @@ export async function onRequestPatch({request, env}) {
     for (let attempt = 0; attempt < 5; attempt++) {
       try {
         const result = await env.DB.prepare('UPDATE collections SET share_token = ? WHERE id = ? AND user_id = ?').bind(token, body.id, user).run();
-        return result.meta?.changes ? json({shareToken: token}) : error('Collection not found.', 404);
+        return result.meta?.changes ? json({shareToken: token}) : error('Showcase not found.', 404);
       } catch (cause) {
         if (!body.share || !String(cause.message).includes('UNIQUE')) throw cause;
         token = Array.from(crypto.getRandomValues(new Uint8Array(16)), byte => byte.toString(16).padStart(2, '0')).join('');
@@ -65,22 +65,22 @@ export async function onRequestPatch({request, env}) {
   if (Array.isArray(body?.order)) {
     const rows = await env.DB.prepare('SELECT id FROM collections WHERE user_id = ?').bind(user).all();
     const ids = new Set((rows.results || []).map(row => row.id));
-    if (body.order.length !== ids.size || new Set(body.order).size !== ids.size || body.order.some(id => !ids.has(id))) return error('Collection list changed. Please try again.', 409);
+    if (body.order.length !== ids.size || new Set(body.order).size !== ids.size || body.order.some(id => !ids.has(id))) return error('Showcase list changed. Please try again.', 409);
     if (body.order.length) await env.DB.batch(body.order.map((id, index) => env.DB.prepare('UPDATE collections SET sort_order = ? WHERE id = ? AND user_id = ?').bind(index, id, user)));
     return json({ok: true});
   }
   const name = clean(body?.name);
-  if (!name || typeof body?.id !== 'string') return error('Enter a collection name.');
+  if (!name || typeof body?.id !== 'string') return error('Enter a showcase name.');
   if (!/^[a-zA-Z0-9]{1,120}$/.test(name)) {
     const existing = await env.DB.prepare('SELECT name FROM collections WHERE id = ? AND user_id = ?').bind(body.id, user).first();
-    if (!existing || existing.name !== name) return error('Use English letters and numbers only for the collection name.');
+    if (!existing || existing.name !== name) return error('Use English letters and numbers only for the showcase name.');
   }
   try {
     const description = typeof body.description === 'string' ? body.description.trim().slice(0, 500) : '';
     const result = await env.DB.prepare('UPDATE collections SET name = ?, name_key = ?, description = CASE WHEN ? THEN ? ELSE description END WHERE id = ? AND user_id = ?').bind(name, name.toLowerCase(), typeof body.description === 'string' ? 1 : 0, description, body.id, user).run();
-    if (!result.meta?.changes) return error('Collection not found.', 404);
+    if (!result.meta?.changes) return error('Showcase not found.', 404);
   } catch (cause) {
-    if (String(cause.message).includes('UNIQUE')) return error('This collection already exists.', 409);
+    if (String(cause.message).includes('UNIQUE')) return error('This showcase already exists.', 409);
     throw cause;
   }
   return json({ok: true});
@@ -90,9 +90,9 @@ export async function onRequestDelete({request, env}) {
   const session = await authorize(request, env);
   if (session.response) return session.response;
   const body = await readJson(request);
-  if (typeof body?.id !== 'string') return error('Invalid collection request.');
+  if (typeof body?.id !== 'string') return error('Invalid showcase request.');
   const result = await env.DB.prepare('DELETE FROM collections WHERE id = ? AND user_id = ?').bind(body.id, session.user.id).run();
-  return result.meta?.changes ? json({ok: true}) : error('Collection not found.', 404);
+  return result.meta?.changes ? json({ok: true}) : error('Showcase not found.', 404);
 }
 
 export async function onRequestPut({request, env}) {
@@ -100,9 +100,9 @@ export async function onRequestPut({request, env}) {
   if (session.response) return session.response;
   const body = await readJson(request);
   const user = session.user.id;
-  if (typeof body?.id !== 'string' || !Array.isArray(body.add) || !Array.isArray(body.remove) || [...body.add, ...body.remove].some(id => typeof id !== 'string')) return error('Invalid collection request.');
+  if (typeof body?.id !== 'string' || !Array.isArray(body.add) || !Array.isArray(body.remove) || [...body.add, ...body.remove].some(id => typeof id !== 'string')) return error('Invalid showcase request.');
   const group = await env.DB.prepare('SELECT id FROM collections WHERE id = ? AND user_id = ?').bind(body.id, user).first();
-  if (!group) return error('Collection not found.', 404);
+  if (!group) return error('Showcase not found.', 404);
   const statements = [
     ...body.add.map(id => env.DB.prepare('INSERT OR IGNORE INTO collection_cards (collection_id, card_id) SELECT ?, id FROM cards WHERE id = ? AND user_id = ?').bind(body.id, id, user)),
     ...body.remove.map(id => env.DB.prepare('DELETE FROM collection_cards WHERE collection_id = ? AND card_id = ? AND EXISTS (SELECT 1 FROM cards WHERE id = ? AND user_id = ?)').bind(body.id, id, id, user))

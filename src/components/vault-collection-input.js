@@ -27,8 +27,8 @@ function CollectionInput({cardId}) {
     if (!selected.some(item => item.label.toLowerCase() === name.toLowerCase())) update([...selected, existing || {value: name, label: name, __isNew__: true}]);
     setInputValue('');
   }
-  return createElement(CreatableSelect, {inputId: 'vault-collections-input', 'aria-label': 'Collections', isMulti: true,
-    options, value: selected, inputValue, className: selected.length || inputValue.trim() ? 'has-value' : '', placeholder: 'Select or enter collections', classNamePrefix: 'catalog-select',
+  return createElement(CreatableSelect, {inputId: 'vault-collections-input', 'aria-label': 'Showcases', isMulti: true,
+    options, value: selected, inputValue, className: selected.length || inputValue.trim() ? 'has-value' : '', placeholder: 'Select or enter showcases', classNamePrefix: 'catalog-select',
     classNames: {menu: () => 'dropdown-menu', option: state => `dropdown-menu-option${state.isFocused ? ' dropdown-menu-option--focused' : ''}`},
     onInputChange: (value, action) => { if (action.action === 'input-change') setInputValue(value.replace(/[^a-zA-Z0-9]/g, '').slice(0, 120)); },
     isValidNewOption: value => Boolean(value.trim()) && ![...selected, ...options].some(item => item.label.toLowerCase() === value.trim().toLowerCase()),

@@ -14,7 +14,7 @@ export function vaultFilter(location = '', collection = '') {
     <details class="dropdown-control vault-filter"><summary aria-label="Filter cards: ${esc(label)}"><span data-vault-filter-label>${esc(label)}</span><svg class="dropdown-chevron" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m8 9 4-4 4 4M8 15l4 4 4-4"/></svg></summary>
     <div class="dropdown-menu" role="menu" aria-label="Filter cards"><div class="vault-filter-heading">Storage location</div>${options(getLocations(), loc?.id || '', 'location', 'All locations')}
     <button type="button" role="menuitem" class="dropdown-action" data-manage-locations><img class="dropdown-action-icon" src="/assets/lucide-settings.svg" alt=""><span>Manage</span></button>
-    <div class="vault-filter-heading">Collections</div>${options(getCollections(), col?.id || '', 'collection', 'All collections')}
+    <div class="vault-filter-heading">Showcases</div>${options(getCollections(), col?.id || '', 'collection', 'All showcases')}
     <button type="button" role="menuitem" class="dropdown-action" data-manage-collections><img class="dropdown-action-icon" src="/assets/lucide-settings.svg" alt=""><span>Manage</span></button></div></details></div>`;
 }
 

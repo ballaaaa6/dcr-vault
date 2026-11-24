@@ -6,7 +6,7 @@ import {heartCheckbox} from './heart-checkbox.js';
 export function manageLocationCards(body, location, cards, save, back, isCollection = false) {
   const original = new Set(isCollection ? location.cardIds : cards.filter(card => card.storageLocationId === location.id).map(card => card.id));
   const selected = new Set(original);
-  body.innerHTML = `<div class="location-picker-content"><p class="muted label-dialog-description">${isCollection ? `Select cards to add to ${esc(location.name)}. Cards can belong to multiple collections.` : `Select the cards to keep in ${esc(location.name)}. Selecting a card moves it from its current location.`}</p>
+  body.innerHTML = `<div class="location-picker-content"><p class="muted label-dialog-description">${isCollection ? `Select cards to add to ${esc(location.name)}. Cards can belong to multiple showcases.` : `Select the cards to keep in ${esc(location.name)}. Selecting a card moves it from its current location.`}</p>
     <div class="label-vault-toolbar"><label class="label-select-all">${heartCheckbox('data-picker-all')} Select all</label>${vaultSortSelect('location-card-sort')}</div>
     <div class="label-vault-list" data-picker-list></div><p class="detail-note" role="alert" data-picker-error></p>
     <div class="location-picker-actions"><button type="button" class="btn btn-ghost" data-picker-back>Cancel</button><button type="button" class="btn btn-primary" data-picker-save>Save changes</button></div></div>`;

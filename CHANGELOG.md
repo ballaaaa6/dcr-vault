@@ -1,3 +1,5 @@
+- Use Showcase and Vault consistently across the interface and related error messages.
+
 - Prevent field help from appearing automatically when collection dialogs open, and improve shared tooltip keyboard, touch, and dismissal behavior.
 
 - Showcase collection pages now have their own URLs, with readable share paths and English-letter-and-number names for new collections. Existing share links remain valid.

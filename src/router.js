@@ -32,7 +32,7 @@ function footer() {
 }
 
 function failurePage(error) {
-  return `<main class="app-page"><section class="surface-card"><h1>We couldn’t load your collection.</h1><p class="page-description">${escapeHTML(error.message || 'Please try again in a moment.')}</p><button class="btn btn-primary" type="button" onclick="location.reload()">Try again</button></section></main>`;
+  return `<main class="app-page"><section class="surface-card"><h1>We couldn’t load this page.</h1><p class="page-description">${escapeHTML(error.message || 'Please try again in a moment.')}</p><button class="btn btn-primary" type="button" onclick="location.reload()">Try again</button></section></main>`;
 }
 
 function requireLogin(route) {
@@ -80,7 +80,7 @@ export async function render() {
   try {
     if (sharedToken) {
       const response = await fetch(`/api/shared-collection/${sharedToken}`, {referrerPolicy: 'no-referrer'});
-      if (!response.ok) throw new Error('This collection link is unavailable or sharing has been turned off.');
+      if (!response.ok) throw new Error('This showcase link is unavailable or sharing has been turned off.');
       content = sharedView((await response.json()).collection);
     }
     else if (path === '/showcase' || ownerCollection) {

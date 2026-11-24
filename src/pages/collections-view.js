@@ -16,7 +16,7 @@ export function collectionsPage() {
 }
 
 export function collectionItems(groups, cards) {
-  if (!groups.length) return '<p class="collections-no-results">No collections match your search.</p>';
+  if (!groups.length) return '<p class="collections-no-results">No showcases match your search.</p>';
   return groups.map(group => {
     const cover = group.cardIds.map(id => cards.find(card => card.id === id)).find(Boolean);
     const count = group.cardIds.length;
@@ -24,23 +24,23 @@ export function collectionItems(groups, cards) {
       <button type="button" class="collections-open" data-open="${esc(group.id)}" aria-label="View ${esc(group.name)}">
         <span class="collections-cover">${cover ? vaultImage(cover, 'collection-photo-empty', 'No photo') : '<span class="collection-photo-empty">No cards yet</span>'}</span>
         <span class="collections-item-body"><span class="collections-item-top"><strong>${esc(group.name)}</strong><span class="collections-badge ${group.shareToken ? 'collections-badge--public' : ''}">${group.shareToken ? 'Public' : 'Private'}</span></span>
-        <span class="collections-description">${esc(group.description || '')}</span><small>${count} ${count === 1 ? 'card' : 'cards'}</small><span class="collections-view-link">View collection <span aria-hidden="true">→</span></span></span>
+        <span class="collections-description">${esc(group.description || '')}</span><small>${count} ${count === 1 ? 'card' : 'cards'}</small><span class="collections-view-link">View showcase <span aria-hidden="true">→</span></span></span>
       </button><details class="collections-options"><summary aria-label="Options for ${esc(group.name)}">${optionsIcon()}</summary><div class="dropdown-menu"><button type="button" data-group-action="edit" data-group-id="${esc(group.id)}">Edit</button><button type="button" data-group-action="share" data-group-id="${esc(group.id)}">${group.shareToken ? 'Manage sharing' : 'Share'}</button><button type="button" data-group-action="delete" data-group-id="${esc(group.id)}">Delete</button></div></details></article>`;
   }).join('');
 }
 
 export function listView(groups, cards) {
   return `<header class="page-heading collections-heading"><div><h1>Showcase</h1><p class="page-description">Organize your cards and share the ones you choose.</p></div><button class="btn btn-primary" data-action="create">+ Create</button></header>
-    ${groups.length ? `<div class="collections-list-toolbar">${dropdown({id: 'collections-sort', label: 'Sort collections', value: 'name', options: [['name', 'Name A–Z'], ['count', 'Most cards']]})}<label class="collections-search"><span class="sr-only">Search collections</span><input class="form-control" id="collections-search" type="search" placeholder="Search collections"></label></div><div class="collections-list" id="collections-list">${collectionItems([...groups].sort((a, b) => a.name.localeCompare(b.name)), cards)}</div>` : `<section class="surface-card collections-empty"><h2>Create your first collection</h2><p>Choose cards from My Vault to make a collection. Keep it private or share it when you are ready.</p><button class="btn btn-primary" data-action="create">+ Create</button></section>`}`;
+    ${groups.length ? `<div class="collections-list-toolbar">${dropdown({id: 'collections-sort', label: 'Sort showcases', value: 'name', options: [['name', 'Name A–Z'], ['count', 'Most cards']]})}<label class="collections-search"><span class="sr-only">Search showcases</span><input class="form-control" id="collections-search" type="search" placeholder="Search showcases"></label></div><div class="collections-list" id="collections-list">${collectionItems([...groups].sort((a, b) => a.name.localeCompare(b.name)), cards)}</div>` : `<section class="surface-card collections-empty"><h2>Create your first showcase</h2><p>Choose cards from Vault to make a showcase. Keep it private or share it when you are ready.</p><button class="btn btn-primary" data-action="create">+ Create</button></section>`}`;
 }
 
 export function detailView(group, cards, preview = false) {
   const selected = group.cardIds.map(id => cards.find(card => card.id === id)).filter(Boolean).map(card => preview ? {...card, referenceImage: ''} : card);
   return `<button class="btn btn-ghost" data-action="back">← Showcase</button><header class="page-heading collections-heading"><div><p class="collection-status">${preview ? 'Share preview' : group.shareToken ? 'Public' : 'Private'}</p><h1>${esc(group.name)}</h1><p class="page-description">${esc(group.description || '')}</p><p>${selected.length} cards</p></div>${preview ? '<button class="btn btn-ghost" data-action="preview">Close preview</button>' : `<div class="collections-actions"><button class="btn btn-ghost" data-action="edit">Edit</button><button class="btn btn-ghost" data-action="preview">Preview</button><button class="btn btn-primary" data-action="share">${group.shareToken ? 'Manage sharing' : 'Share'}</button></div>`}</header>
     ${preview ? '<p class="page-description">Anyone with the link can view and forward it. Certificate details and card photos may already be public.</p>' : '<div class="collections-toolbar"><h2>Cards</h2><button class="btn btn-primary" data-action="add">+ Add cards</button></div>'}
-    ${selected.length ? cardGrid(selected, !preview) : '<section class="surface-card collections-empty"><h2>No cards in this collection yet</h2><p>Add cards from My Vault to get started.</p></section>'}`;
+    ${selected.length ? cardGrid(selected, !preview) : '<section class="surface-card collections-empty"><h2>No cards in this showcase yet</h2><p>Add cards from Vault to get started.</p></section>'}`;
 }
 
 export function sharedView(group) {
-  return `<main class="app-page collections-page"><header class="page-heading"><h1>${esc(group.name)}</h1><p class="page-description">${esc(group.description || '')}</p><p>${group.cards.length} cards</p></header>${group.cards.length ? cardGrid(group.cards) : '<section class="surface-card collections-empty"><h2>No cards in this collection yet</h2></section>'}</main>`;
+  return `<main class="app-page collections-page"><header class="page-heading"><h1>${esc(group.name)}</h1><p class="page-description">${esc(group.description || '')}</p><p>${group.cards.length} cards</p></header>${group.cards.length ? cardGrid(group.cards) : '<section class="surface-card collections-empty"><h2>No cards in this showcase yet</h2></section>'}</main>`;
 }

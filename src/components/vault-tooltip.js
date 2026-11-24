@@ -16,7 +16,7 @@ const vaultMessages = {
   seller: 'Enter the seller’s name.',
   receivedDate: 'Select the date you received the card.',
   storageLocation: 'Select where the card is stored.',
-  collections: 'Select the collections for this card.',
+  collections: 'Select the showcases for this card.',
   position: 'Enter the card’s position within its storage location.',
   notes: 'Add any private notes about the card.'
 };
