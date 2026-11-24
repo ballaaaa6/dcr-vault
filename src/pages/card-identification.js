@@ -1,3 +1,4 @@
+import {startCardScan} from '../components/card-scan.js';
 import {clearReadingHighlights, showReadingHighlights} from './reading-highlights.js';
 import {formatRarity} from '../utils/rarity.js';
 import {identifyCardImage} from '../store/cards.js';
@@ -293,6 +294,7 @@ async function analyzeFront() {
   button.disabled = true;
   button.querySelector('span').textContent = 'Analyzing…';
   button.dataset.busy = 'true';
+  const stopScan = startCardScan();
   const status = document.getElementById('manual-status');
   status.dataset.toastKey = 'identification';
   status.dataset.state = 'pending';
@@ -320,6 +322,7 @@ async function analyzeFront() {
   } catch {
     if (version === analysisVersion) showError('Card reading could not be completed. Try again.');
   } finally {
+    stopScan();
     if (version !== analysisVersion && status.dataset.state === 'pending') {
       status.dataset.state = 'warning';
       status.textContent = 'Card reading was interrupted. Review the details and try again.';

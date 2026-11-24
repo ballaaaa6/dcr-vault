@@ -1,3 +1,5 @@
+- Add a red scanning effect during card identification and animate both image removal controls.
+
 - Place the animated red close control across the Add Card image preview corner.
 
 - Position the Vault card image switch across the photo panel’s right border.

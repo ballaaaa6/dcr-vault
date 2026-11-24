@@ -73,10 +73,15 @@
 .photo-viewer::backdrop{background:rgba(0,0,0,.45)}
 .photo-viewer img{display:block;max-width:100%;max-height:calc(100dvh - 114px);width:auto;height:auto;object-fit:contain;margin:auto}
 .dialog-close.photo-viewer-close{top:-19px;right:-19px}
-.upload-clear{position:absolute;top:10px;right:10px;display:grid;width:40px;height:40px;place-items:center;padding:0;border:1px solid var(--dcr-border);border-radius:50%;background:var(--dcr-white);color:var(--dcr-black);font-size:27px;line-height:1;cursor:pointer;opacity:0;transition:opacity .2s}
+ .upload-clear{position:absolute;top:10px;right:10px;display:grid;width:40px;height:40px;place-items:center;padding:0;border:0;border-radius:50%;background:var(--dcr-red);color:var(--dcr-white);font-size:27px;line-height:1;cursor:pointer;opacity:0;transition:opacity .2s,transform 100ms ease-in-out}
 .upload-clear[hidden]{display:none}
 .upload-frame:hover .upload-clear,.upload-frame:focus-within .upload-clear{opacity:1}
+.upload-clear:focus-visible{outline:2px solid var(--dcr-red);outline-offset:3px}
+@media (hover:hover){.upload-clear:hover{transform:scale(.9)}}
+.upload-frame .upload-clear.is-closing{transform:scale(1.6);opacity:0;transition:transform 200ms ease-in-out,opacity 200ms ease-in-out;pointer-events:none}
 @media (hover:none){.upload-clear{opacity:1}}
+@media (prefers-reduced-motion:reduce){.upload-clear{transition:none}}
+.card-scan{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .identification-actions{display:flex;align-items:flex-end;gap:12px;margin-top:14px}
 .identification-actions .btn{flex:none}
 .identification-notice{flex:1;min-width:0;margin:0;color:var(--dcr-gray);font-size:var(--font-size-description)}
