@@ -19,7 +19,7 @@ export async function onRequestGet({request, env}) {
   if (session.response) return session.response;
   const user = session.user.id;
   const [groups, members] = await Promise.all([
-    env.DB.prepare('SELECT id, name, description, share_token AS shareToken FROM collections WHERE user_id = ? ORDER BY sort_order IS NULL, sort_order, name COLLATE NOCASE').bind(user).all(),
+    env.DB.prepare('SELECT id, name, description, share_token AS shareToken, share_enabled AS shareEnabled FROM collections WHERE user_id = ? ORDER BY sort_order IS NULL, sort_order, name COLLATE NOCASE').bind(user).all(),
     env.DB.prepare('SELECT cc.collection_id, cc.card_id FROM collection_cards cc JOIN collections c ON c.id = cc.collection_id JOIN cards ON cards.id = cc.card_id WHERE c.user_id = ? AND cards.user_id = ? ORDER BY cc.sort_order IS NULL, cc.sort_order, cards.name COLLATE NOCASE').bind(user, user).all()
   ]);
   return json({collections: (groups.results || []).map(group => {
@@ -57,7 +57,7 @@ export async function onRequestPatch({request, env}) {
     let token = body.share ? newShareToken() : null;
     for (let attempt = 0; attempt < 5; attempt++) {
       try {
-        const result = await env.DB.prepare('UPDATE collections SET share_token = ? WHERE id = ? AND user_id = ?').bind(token, body.id, user).run();
+        const result = await env.DB.prepare('UPDATE collections SET share_token = COALESCE(share_token, ?), share_enabled = ? WHERE id = ? AND user_id = ?').bind(token, Number(body.share), body.id, user).run();
         return result.meta?.changes ? json({shareToken: token}) : error('Showcase not found.', 404);
       } catch (cause) {
         if (!body.share || !String(cause.message).includes('UNIQUE')) throw cause;

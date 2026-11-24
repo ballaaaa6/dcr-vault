@@ -9,7 +9,7 @@ import {onRequestGet as getShared} from '../api/shared-collection/[token].js';
 
 test('collections support overlapping membership and protect ownership and locations', async () => {
   const sql = new DatabaseSync(':memory:');
-  for (const name of ['0001_users_sessions_cards','0002_card_images','0003_card_label_metadata','0004_card_source_print_identity', '0005_identification_logs','0006_card_identification_provenance','0008_card_artist','0009_private_vault_details','0010_label_reading_fields','0011_profile_details','0012_collector_profile','0013_card_classification','0014_profile_full_photo','0016_storage_locations','0017_location_order','0018_collections','0020_collection_sharing']) sql.exec(readFileSync(new URL(`../../migrations/${name}.sql`, import.meta.url), 'utf8'));
+  for (const name of ['0001_users_sessions_cards','0002_card_images','0003_card_label_metadata','0004_card_source_print_identity', '0005_identification_logs','0006_card_identification_provenance','0008_card_artist','0009_private_vault_details','0010_label_reading_fields','0011_profile_details','0012_collector_profile','0013_card_classification','0014_profile_full_photo','0016_storage_locations','0017_location_order','0018_collections','0020_collection_sharing','0022_collection_share_enabled']) sql.exec(readFileSync(new URL(`../../migrations/${name}.sql`, import.meta.url), 'utf8'));
   for (const user of ['a', 'b']) {
     sql.prepare('INSERT INTO users(id,google_sub,email,created_at,updated_at) VALUES (?,?,?,?,?)').run(user,user,user,0,0);
     sql.prepare('INSERT INTO sessions(token_hash,user_id,expires_at,created_at) VALUES (?,?,?,?)').run(await tokenHash(user),user,Math.floor(Date.now()/1000)+1000,0);
@@ -43,7 +43,10 @@ test('collections support overlapping membership and protect ownership and locat
   assert.equal(publicGroup.cards.length, 1);
   assert.deepEqual(Object.keys(publicGroup.cards[0]).sort(), ['certNumber', 'frontImage', 'gradeLabel', 'name', 'setName', 'year'].sort());
   assert.equal((await call(onRequestPatch, 'a', 'PATCH', {id: first.id, share: false})).status, 200);
-  assert.equal((await getShared({env: {DB}, params: {token}})).status, 404);
+  assert.equal((await getShared({env: {DB}, params: {token}})).status, 200);
+  assert.equal((await (await call(onRequestGet, 'a', 'GET')).json()).collections.find(group => group.id === first.id).shareToken, token);
+  await call(onRequestPatch, 'a', 'PATCH', {id: first.id, share: true});
+  assert.equal((await (await call(onRequestGet, 'a', 'GET')).json()).collections.find(group => group.id === first.id).shareToken, token);
   let groups = (await (await call(onRequestGet, 'a', 'GET')).json()).collections;
   assert.deepEqual(groups.map(group => group.cardIds), [['a'], ['a']]);
   assert.deepEqual((await (await call(onRequestGet, 'b', 'GET')).json()).collections, []);

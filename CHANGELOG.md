@@ -1,5 +1,7 @@
 # Showcase sharing controls
 
+- Updated showcase sharing with a lock switch and persistent link when copying is disabled.
+
 - Simplify the sharing dialog with a status-colored lock control and an inline copy button.
 - Replace existing long sharing links with eight-character alphanumeric tokens and reject old links.
 

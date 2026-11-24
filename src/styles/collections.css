@@ -86,12 +86,16 @@
 .collections-page .content-dialog:has(.label-vault-list) header h2{margin-bottom:5px}
 .collections-page .content-dialog:has(.label-vault-list) .label-dialog-description{margin:0 0 18px}
 
-.collections-share-toggle{position:absolute;top:14px;right:55px;display:grid;place-items:center;width:36px;height:36px;padding:6px;border:0;border-radius:50%;background:transparent;color:var(--dcr-red);cursor:pointer}
-.collections-share-toggle.is-enabled{color:var(--dcr-green-dark)}
-.collections-share-toggle svg{width:24px;height:24px}
-.collections-share-toggle:focus-visible{outline:2px solid currentColor;outline-offset:2px}
-.collections-share-status{position:absolute;z-index:2;top:calc(100% + 5px);right:0;padding:6px 9px;border-radius:6px;background:var(--dcr-red);color:var(--dcr-white);font-size:var(--font-size-small);white-space:nowrap;visibility:hidden;opacity:0;pointer-events:none}
+.collections-share-toggle{position:absolute;top:22px;right:55px;display:flex;align-items:center;justify-content:flex-end;width:68px;height:34px;padding:5px 8px;border:0;border-radius:999px;background:var(--dcr-pink);color:var(--dcr-black);cursor:pointer;box-shadow:var(--shadow)}
+.collections-share-toggle.is-enabled{justify-content:flex-start;background:var(--dcr-green-dark)}
+.collections-share-toggle svg{width:20px;height:20px}
+.collections-share-knob{position:absolute;left:4px;width:26px;height:26px;border-radius:50%;background:var(--dcr-white);transition:transform .2s}
+.collections-share-toggle.is-enabled .collections-share-knob{transform:translateX(34px)}
+.collections-share-toggle:focus-visible{outline:2px solid var(--dcr-red);outline-offset:2px}
+.collections-share-status{position:absolute;z-index:2;bottom:calc(100% + 7px);right:0;padding:6px 9px;border-radius:6px;background:var(--dcr-red);color:var(--dcr-white);font-size:var(--font-size-small);white-space:nowrap;visibility:hidden;opacity:0;pointer-events:none}
 .collections-share-toggle.is-enabled .collections-share-status{background:var(--dcr-green-dark)}
 .collections-share-toggle:hover .collections-share-status,.collections-share-toggle:focus-visible .collections-share-status{visibility:visible;opacity:1}
-.collections-share-link{min-height:42px;margin-top:6px;border-radius:12px}.collections-share-link input{padding:8px 12px}.collections-share-link button{padding:0 18px}.collections-share-link button:disabled{opacity:.5;cursor:not-allowed}
-.collections-page .content-dialog:has(.collections-share) header h2{padding-right:80px}
+.collections-share-link{min-height:42px;margin-top:14px;border-radius:12px}.collections-share-link input{padding:8px 12px}.collections-share-link button{padding:0 18px}.collections-share-link button:disabled{opacity:.5;cursor:not-allowed}.collections-share-link.is-disabled input{color:var(--dcr-gray)}
+.collections-page .content-dialog:has(.collections-share) header h2{padding-right:120px}
+
+.collections-page .content-dialog:has(.collections-share) .content-dialog__panel{overflow:visible}
