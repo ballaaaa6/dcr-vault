@@ -1,6 +1,6 @@
-.action-icon{display:block;width:20px;height:20px;flex:none;color:var(--dcr-red)}
+.action-icon{display:block;width:20px;height:20px;flex:none;color:var(--dcr-white)}
 .action-icon--options{width:34px;height:34px}
-.action-icon--options .action-icon__knob{fill:var(--dcr-white);stroke:currentColor}
+.action-icon--options .action-icon__knob{fill:var(--dcr-red);stroke:currentColor}
 .action-icon-animate .action-icon--switch{animation:action-switch .65s ease-in-out}
 .action-icon-animate .action-icon__knob--one{animation:action-knob-one .8s ease-in-out}
 .action-icon-animate .action-icon__knob--two{animation:action-knob-two .8s ease-in-out}
@@ -10,3 +10,6 @@
 @keyframes action-knob-two{33%{transform:translateX(-5px)}66%{transform:translateX(2.5px)}}
 @keyframes action-knob-three{33%{transform:translateX(4px)}66%{transform:translateX(-2px)}}
 @media(prefers-reduced-motion:reduce){.action-icon,.action-icon__knob{animation:none!important}}
+
+:is(button, summary):has(> .action-icon){background:var(--dcr-red);border-color:var(--dcr-red);color:var(--dcr-white)}
+.location-row .location-menu summary:has(> .action-icon){display:grid;place-items:center;width:40px;height:40px;padding:0;border-radius:50%;background:var(--dcr-red)}

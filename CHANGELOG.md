@@ -1,3 +1,5 @@
+- Give shared switch and options buttons red backgrounds with white icons.
+
 - Inset the Vault card image preview from the viewport and place its close button across the top-right corner.
 
 - Use the shared red close button in the Vault card image preview.
