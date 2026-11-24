@@ -31,7 +31,7 @@ function collectionsSkeleton() {
 
 function collectionDetailSkeleton() {
   const items = Array.from({length: 10}, () => panel(`${bar('sk-card-photo')}${bar('sk-medium')}${bar('sk-label')}`, 'collection-card')).join('');
-  return `<main class="app-page collections-page sk-page"><div class="collections-detail-heading"><div class="collections-detail-title">${bar('sk-title')}${bar('sk-button')}</div><div class="collections-detail-description">${bar()}${bar()}${bar('sk-medium')}</div></div><div class="collections-grid">${items}</div></main>`;
+  return `<main class="app-page collections-page sk-page"><div class="collections-detail-heading"><div class="collections-detail-title">${bar('sk-title')}${bar('sk-label')}</div><div class="collections-detail-actions">${bar('sk-button')}${bar('sk-icon')}</div><div class="collections-detail-description">${bar()}${bar()}${bar('sk-medium')}</div></div><div class="collections-grid">${items}</div></main>`;
 }
 
 function profileSkeleton() {

@@ -1,3 +1,8 @@
+# Showcase layout and menus
+
+- Align the showcase count, move Add cards beside settings, and remove the All showcases menu item.
+- Dismiss showcase settings on outside clicks and size showcase cards for two responsive rows.
+
 - Move Showcase settings and card management into each showcase, and fit its cards into a compact responsive grid.
 
 - Use Showcase and Vault consistently across the interface and related error messages.
