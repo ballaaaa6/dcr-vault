@@ -24,7 +24,7 @@ async function saveCertificate(record) {
   const background = document.querySelector('.lookup-background')?.cloneNode();
   if (background) { background.className = 'cert-export-background'; container.append(background); }
   const copy = record.cloneNode(true);
-  copy.querySelectorAll('.cert-actions, .cert-sharing-note, dialog, [hidden]').forEach(element => element.remove());
+  copy.querySelectorAll('.cert-actions, dialog, [hidden]').forEach(element => element.remove());
   container.append(copy);
   document.body.append(container);
   let urls = [];
@@ -47,14 +47,30 @@ async function saveCertificate(record) {
   }
 }
 
-async function shareCertificate(record) {
+function initializeShareDialog(record) {
+  const dialog = record.querySelector('.cert-share-dialog');
+  const open = record.querySelector('[data-cert-share]');
   const url = new URL(`/cert/${encodeURIComponent(record.dataset.cert)}`, location.origin).href;
-  if (navigator.share) {
-    await navigator.share({title: record.querySelector('h2').textContent, url});
-    return;
-  }
-  await navigator.clipboard.writeText(url);
-  showToast('Certificate link copied.', 'success');
+  const nativeShare = dialog.querySelector('[data-cert-native-share]');
+  nativeShare.hidden = !navigator.share;
+  open.addEventListener('click', () => dialog.showModal());
+  dialog.querySelector('[data-cert-share-close]').addEventListener('click', () => dialog.close());
+  dialog.addEventListener('close', () => open.focus());
+  dialog.querySelector('[data-cert-copy]').addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(url);
+      dialog.close();
+      showToast('Certificate link copied.', 'success');
+    } catch { showToast('Unable to copy the link. Please try again.', 'error'); }
+  });
+  nativeShare.addEventListener('click', async () => {
+    try {
+      await navigator.share({title: record.querySelector('h2').textContent, url});
+      dialog.close();
+    } catch (error) {
+      if (error.name !== 'AbortError') showToast('Unable to share the certificate. Please try again.', 'error');
+    }
+  });
 }
 
 export function initializeCertificateActions() {
@@ -67,8 +83,5 @@ export function initializeCertificateActions() {
     catch { showToast('Unable to save the card summary. Please try again.', 'error'); }
     finally { button.disabled = false; }
   });
-  record.querySelector('[data-cert-share]').addEventListener('click', async () => {
-    try { await shareCertificate(record); }
-    catch (error) { if (error.name !== 'AbortError') showToast('Unable to share the certificate. Please try again.', 'error'); }
-  });
+  initializeShareDialog(record);
 }

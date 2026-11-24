@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Refine certificate sharing
+- Tighten certificate action spacing and show sharing details in the shared app dialog before copying or sharing the link.
+
 ## 2026-11-24 - Save and share certificates
 - Add PNG export of the public certificate details and a direct sharing action.
 
