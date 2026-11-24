@@ -1,3 +1,5 @@
+- Use regular body weight for the certificate numbers field label.
+
 - Refresh the empty print queue text and align its initial height with Add certificates.
 
 - Move the back-to-top rocket above the notification stack and return it as notifications disappear.

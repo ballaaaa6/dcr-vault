@@ -136,6 +136,7 @@
 .label-list-section{--label-background:url('/assets/labels/sheets.png');box-shadow:none}
 .label-dialog:has(.label-vault-list){--label-background:url('/assets/labels/vault-picker.png')}
 .label-add h2,.label-list-heading h2{margin:0 0 12px}
+.label-add .form-field>span{font-weight:400}
 .label-add textarea{resize:vertical;min-height:64px}
 .label-add>.muted{margin:8px 0 16px;font-size:var(--font-size-description)}
 .label-controls{display:flex;flex-wrap:wrap;gap:10px}
