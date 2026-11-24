@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Refine card details information icon
+- Reduce the information icon size and add the card review icon’s rotating red hover effect.
+
 ## 2026-11-24 - Keep Add Card buttons on one line
 - Rename the save action to Add card and size both action buttons to their longest labels.
 

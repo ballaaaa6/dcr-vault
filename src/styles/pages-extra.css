@@ -72,7 +72,9 @@
 
 .card-details-title{display:flex;align-items:center;gap:8px;margin-bottom:4px}
 .card-details-title h2{margin:0}
-.identification-info{width:22px;height:22px;padding:0;border:1px solid var(--dcr-gray);border-radius:50%;background:var(--dcr-white);color:var(--dcr-gray);font:600 14px var(--font-sans);cursor:pointer}
+.identification-info{width:18px;height:18px;padding:0;border:1px solid var(--dcr-gray);border-radius:50%;background:var(--dcr-white);color:var(--dcr-gray);font:600 12px var(--font-sans);cursor:pointer;transition:transform .5s ease-in-out}
+.identification-info:hover{border-color:transparent;background:var(--dcr-red);color:var(--dcr-white);transform:rotate(360deg) scale(1.2)}
+@media(prefers-reduced-motion:reduce){.identification-info{transition:none}}
 .identification-info[hidden]{display:none}
 #identify-card:disabled{background:var(--dcr-border);border-color:var(--dcr-border);color:var(--dcr-gray);cursor:not-allowed}
 
