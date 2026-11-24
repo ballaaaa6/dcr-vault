@@ -1,7 +1,8 @@
 .dropdown-control{--dropdown-max-height:316px;position:relative;font-family:var(--font-sans);font-size:var(--font-size-body)}
 .dropdown-control summary{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:50px;padding:10px 14px;border:1px solid var(--dcr-border);border-radius:12px;background:var(--dcr-white);cursor:pointer;list-style:none}
 .dropdown-control summary::-webkit-details-marker{display:none}
-.dropdown-chevron{width:16px;height:16px;flex:none;color:var(--dcr-red-hover)}
+.dropdown-chevron{width:16px;height:16px;flex:none}
+.dropdown-chevron,.catalog-indicator,.catalog-select__dropdown-indicator,.catalog-select__dropdown-indicator:hover{color:var(--dcr-red)}
 .dropdown-menu,.catalog-select__menu.dropdown-menu{font-size:var(--font-size-body);font-weight:400;position:absolute;z-index:20;left:0;min-width:100%;width:max-content;max-width:min(300px,90vw);padding:5px;border:1px solid var(--dcr-border);border-radius:10px;background:var(--dcr-white);box-shadow:var(--shadow)}
 .dropdown-control > .dropdown-menu{top:calc(100% + 5px);max-height:min(var(--dropdown-available-height,80vh),var(--dropdown-max-height,100vh));overflow-y:auto;overscroll-behavior:contain}
 .dropdown-control[data-dropdown-placement="top"] > .dropdown-menu{top:auto;bottom:calc(100% + 5px)}

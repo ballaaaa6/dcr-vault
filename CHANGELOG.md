@@ -1,3 +1,7 @@
+# Shared dropdown indicators
+
+- Use the shared red color for dropdown indicators throughout the app.
+
 # Shared close button animation
 
 - Apply the shared hover and click animation to every dialog close button, including future instances.

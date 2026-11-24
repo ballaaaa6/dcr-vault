@@ -160,7 +160,7 @@
 .intake-card .catalog-select__menu{z-index:30}
 .intake-card .catalog-select__menu-list{padding:0}
 .intake-card .catalog-select__indicator-separator{display:none}
-.catalog-indicator{display:flex;align-items:center;justify-content:center;width:36px;align-self:stretch;color:var(--dcr-gray);cursor:pointer}
+.catalog-indicator{display:flex;align-items:center;justify-content:center;width:36px;align-self:stretch;cursor:pointer}
 .catalog-select-wrap{position:relative}
 .catalog-select-wrap.has-clear .catalog-select__value-container{padding-right:30px}
 .catalog-clear{position:absolute;top:50%;right:36px;display:grid;width:28px;height:28px;place-items:center;transform:translateY(-50%);padding:0;border:0;background:transparent;color:var(--dcr-gray);font-size:var(--font-size-section-title);line-height:1;cursor:pointer}
