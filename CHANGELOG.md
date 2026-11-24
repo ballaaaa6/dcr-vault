@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Keep scrolling inside the card list
+- Fit the Manage cards dialog around its contents and confine scrolling to its card list.
+
 ## 2026-11-24 - Fit five cards in vault pickers
 - Size both card picker lists to show five complete rows on opening while keeping their actions close below.
 
