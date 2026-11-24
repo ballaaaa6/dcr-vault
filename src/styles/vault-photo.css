@@ -5,7 +5,7 @@
 .vault-photo-face img{display:block;width:100%;height:100%;min-height:0;object-fit:contain}
 .vault-photo-back{transform:rotateY(180deg)}
 .vault-photo-flip{display:grid;place-items:center;width:40px;height:40px;padding:9px;border:1px solid var(--dcr-border);border-radius:50%;background:var(--dcr-white);color:var(--dcr-black);cursor:pointer}
-.vault-detail-photo>.vault-photo-flip{position:absolute;right:10px;top:10px}
+.vault-photo-panel>.vault-photo-flip{position:absolute;right:-20px;top:34px;z-index:1}
 .vault-photo-flip svg,.vault-photo-preview svg{width:20px;height:20px}
 .vault-photo-flip:disabled{opacity:.45;cursor:not-allowed}
 .vault-photo-actions{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:grid;gap:8px}
@@ -21,12 +21,12 @@
 @media(hover:none){.vault-photo-view:hover .cert-zoom{display:none}}
 @media(prefers-reduced-motion:reduce){.vault-photo-flipper{transition:none}}
 .vault-selected{grid-column:span 2;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:18px;min-width:0}
-.vault-photo-panel{align-self:stretch;height:0;min-height:100%}
+.vault-photo-panel{position:relative;align-self:stretch;height:0;min-height:100%}
 .vault-photo-panel .vault-detail-photo{height:100%;min-height:0}
 .vault-photo-panel .vault-detail-photo .vault-photo-flipper{height:100%}
 @media(hover:hover){
-  .vault-detail-photo>.vault-photo-flip,.vault-detail-photo>.vault-photo-actions{opacity:0;pointer-events:none;transition:opacity .2s ease}
-  .vault-detail-photo:hover>.vault-photo-flip,.vault-detail-photo:hover>.vault-photo-actions,.vault-detail-photo:has(:focus-visible)>.vault-photo-flip,.vault-detail-photo:has(:focus-visible)>.vault-photo-actions{opacity:1;pointer-events:auto}
+  .vault-photo-panel>.vault-photo-flip,.vault-detail-photo>.vault-photo-actions{opacity:0;pointer-events:none;transition:opacity .2s ease}
+  .vault-photo-panel:hover>.vault-photo-flip,.vault-detail-photo:hover>.vault-photo-actions,.vault-photo-panel:has(:focus-visible)>.vault-photo-flip,.vault-detail-photo:has(:focus-visible)>.vault-photo-actions{opacity:1;pointer-events:auto}
 }
 @media(max-width:760px){.vault-selected{grid-column:auto;grid-template-columns:1fr}.vault-photo-panel{align-self:start;height:auto;min-height:0}.vault-photo-panel .vault-detail-photo{height:auto;min-height:150px}.vault-photo-panel .vault-detail-photo .vault-photo-flipper{height:320px}}
 
@@ -34,3 +34,5 @@
 .vault-photo-dialog{box-sizing:border-box;overflow:visible}
 .vault-photo-dialog[open]{display:flex;flex-direction:column}
 .vault-photo-toolbar{flex:none}
+
+@media(max-width:540px){.vault-photo-panel>.vault-photo-flip{top:29px}}

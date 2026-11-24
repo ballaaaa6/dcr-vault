@@ -1,3 +1,5 @@
+- Position the Vault card image switch across the photo panel’s right border.
+
 - Replace the print queue clear button with an animated corner trash button.
 
 - Align the Labels page action buttons across both panels and keep the print note with the right-hand actions.
