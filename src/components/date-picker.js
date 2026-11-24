@@ -23,7 +23,7 @@ export function calendarOpensUp(triggerTop, triggerBottom, calendarHeight, viewp
 export function datePicker(value = '', {name = 'receivedDate', label = 'Date received', id = 'received-date'} = {}) {
   return `<div class="form-field"><span id="${id}-label">${escapeHTML(label)}</span><div class="date-picker" data-date-picker>
     <input type="hidden" name="${escapeHTML(name)}" value="${escapeHTML(value)}">
-    <button type="button" class="form-control date-picker-trigger" aria-labelledby="${id}-label ${id}-value" aria-expanded="false" aria-controls="${id}-calendar"><span data-date-value id="${id}-value">${escapeHTML(displayDate(value))}</span>${calendarIcon}</button>
+    <button type="button" class="form-control date-picker-trigger" aria-labelledby="${id}-label ${id}-value" aria-expanded="false" aria-controls="${id}-calendar"><span data-date-value data-empty="${!value}" id="${id}-value">${escapeHTML(displayDate(value))}</span>${calendarIcon}</button>
     <div id="${id}-calendar" class="date-picker-calendar" hidden></div></div></div>`;
 }
 
@@ -81,6 +81,7 @@ export function initializeDatePicker(container) {
     if (!day && !event.target.closest('[data-clear]')) return;
     input.value = day ? day.dataset.date : '';
     picker.querySelector('[data-date-value]').textContent = displayDate(input.value);
+    picker.querySelector('[data-date-value]').dataset.empty = String(!input.value);
     input.dispatchEvent(new Event('input', {bubbles: true}));
     close(); trigger.focus();
   });

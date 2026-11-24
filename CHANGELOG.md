@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Soften private vault placeholders
+- Match empty acquisition and date prompts to the other placeholder text.
+
 ## 2026-11-24 - Reorder locations
 - Drag or use the keyboard to reorder locations, with a red drop indicator and saved account order.
 
