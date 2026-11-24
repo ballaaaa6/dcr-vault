@@ -1,6 +1,8 @@
 import {collectionsRequest} from '../store/collections.js';
 import {escapeHTML as esc} from '../utils/format.js';
 import {heartCheckbox} from '../components/heart-checkbox.js';
+import {vaultImage} from '../components/card-item.js';
+import {compareVaultCards, vaultSortSelect} from '../utils/vault-sort.js';
 import {tooltip} from '../components/tooltip.js';
 import {showToast} from '../components/toast.js';
 import {listView, detailView, collectionItems} from './collections-view.js';
@@ -22,7 +24,28 @@ function editDialog(group) {
 }
 function addDialog() {
   const group = current();
-  openDialog('Choose cards from Vault', `<form id="collection-cards-form"><p class="page-description">Select the cards you want in this showcase.</p><div class="collections-picker button-safe-scroll">${cards.map(card => `<label class="list-row">${heartCheckbox(`name="card" value="${esc(card.id)}" ${group.cardIds.includes(card.id) ? 'checked' : ''}`)}<span><strong>${esc(card.name)}</strong><small>Cert ${esc(card.certNumber)}</small></span></label>`).join('') || '<p>No cards in Vault yet.</p>'}</div><button class="btn btn-primary" type="submit">Save selection</button></form>`);
+  const sorted = [...cards].sort((a, b) => compareVaultCards(a, b, 'date-desc'));
+  const rows = sorted.map(card => `<label>${heartCheckbox(`name="card" value="${esc(card.id)}" ${group.cardIds.includes(card.id) ? 'checked' : ''}`)}<span><strong>${esc(card.name)}</strong><small>Cert ${esc(card.certNumber || '')}</small></span><span class="label-card-image">${vaultImage({...card, referenceImage: card.frontImage || card.referenceImage, frontImage: card.referenceImage}, 'label-image-empty', 'No photo')}</span></label>`).join('');
+  openDialog('Choose from Vault', `<form id="collection-cards-form"><p class="muted label-dialog-description">Select the cards you want in this showcase.</p><div class="label-vault-toolbar"><label class="label-select-all">${heartCheckbox(`data-collection-select-all ${cards.length ? '' : 'disabled'}`)} Select all</label>${vaultSortSelect('collection-vault-sort')}</div><div class="label-vault-list">${rows || '<p>No cards in your vault.</p>'}</div><div class="label-controls label-vault-actions"><button class="btn btn-primary" type="submit">Save selection</button></div></form>`);
+  updatePickerSelection();
+}
+function updatePickerSelection() {
+  const all = dialog().querySelector('[data-collection-select-all]');
+  if (!all) return;
+  const boxes = [...dialog().querySelectorAll('.label-vault-list input')];
+  const count = boxes.filter(box => box.checked).length;
+  all.checked = boxes.length > 0 && count === boxes.length;
+  all.indeterminate = count > 0 && count < boxes.length;
+}
+function changePicker(event) {
+  const list = dialog().querySelector('.label-vault-list');
+  if (!list) return;
+  if (event.target.id === 'collection-vault-sort') {
+    const byId = new Map(cards.map(card => [card.id, card]));
+    [...list.querySelectorAll('label')].sort((a, b) => compareVaultCards(byId.get(a.querySelector('input').value), byId.get(b.querySelector('input').value), event.target.value)).forEach(row => list.append(row));
+  }
+  if (event.target.matches('[data-collection-select-all]')) list.querySelectorAll('input').forEach(box => { box.checked = event.target.checked; });
+  if (event.target.matches('[data-collection-select-all], .label-vault-list input')) updatePickerSelection();
 }
 function manageCardsDialog() {
   const group = current();
@@ -98,7 +121,7 @@ export function initializeCollections(initialGroups, initialCards, ownerCollecti
     if (event.target.id === 'collections-search') filterList();
     if (event.target.id === 'collection-name') event.target.value = event.target.value.replace(/[^a-zA-Z0-9]/g, '');
   });
-  page.addEventListener('change', event => { if (event.target.id === 'collections-sort') filterList(); });
+  page.addEventListener('change', event => { if (event.target.id === 'collections-sort') filterList(); changePicker(event); });
   page.addEventListener('submit', event => {
     event.preventDefault();
     const form = event.target;

@@ -24,5 +24,5 @@ const sortOptions = [
 ];
 
 export function vaultSortSelect(id) {
-  return `<div class="vault-status">${dropdown({id, label: 'Sort by', options: sortOptions, value: 'date-desc', align: id === 'label-vault-sort' ? 'end' : 'start'})}</div>`;
+  return `<div class="vault-status">${dropdown({id, label: 'Sort by', options: sortOptions, value: 'date-desc', align: ['label-vault-sort', 'collection-vault-sort'].includes(id) ? 'end' : 'start'})}</div>`;
 }

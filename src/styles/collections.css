@@ -80,3 +80,8 @@
 @media (orientation:portrait),(max-width:600px){.collections-detail-heading{grid-template-columns:1fr auto}.collections-detail-title{min-width:0}.collections-detail-actions{gap:6px}.collections-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.collection-card-photo{height:clamp(35px,calc((100svh - 380px)/2),260px)}.collections-detail-title{gap:8px}.collections-manage-row{flex-wrap:wrap}}
 
 .collections-item-top{padding-right:0}.collections-detail-options summary:focus-visible{outline:2px solid var(--dcr-red);outline-offset:3px}.sk-page .collection-card .sk-card-photo{height:clamp(40px,calc((100svh - 380px)/2),260px);margin:0 0 6px}@media (orientation:portrait),(max-width:600px){.sk-page .collections-grid .collection-card:nth-child(n+5){display:none}}
+
+.collections-page .content-dialog:has(.label-vault-list){width:min(938px,calc(100% - 10px));max-width:none}
+.collections-page .content-dialog:has(.label-vault-list) .content-dialog__panel{background-color:var(--dcr-white);background-image:linear-gradient(color-mix(in srgb,var(--dcr-white) 85%,transparent),color-mix(in srgb,var(--dcr-white) 85%,transparent)),url('/assets/labels/vault-picker.png');background-position:top center;background-size:100% auto;background-repeat:no-repeat}
+.collections-page .content-dialog:has(.label-vault-list) header h2{margin-bottom:5px}
+.collections-page .content-dialog:has(.label-vault-list) .label-dialog-description{margin:0 0 18px}

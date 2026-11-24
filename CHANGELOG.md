@@ -1,3 +1,7 @@
+# Showcase vault picker
+
+- Match the label vault picker with card images, sorting, and select all while retaining showcase selections.
+
 # Showcase settings button
 
 - Make the settings button circular and center its icon.
