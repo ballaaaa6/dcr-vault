@@ -26,3 +26,5 @@
 .date-picker-choices button.is-selected{background:var(--calendar-selected);color:var(--dcr-white)}
 .date-picker-choices button:disabled{opacity:.3;cursor:not-allowed}
 .date-picker-day{border-radius:50%}
+
+.date-picker-calendar{max-height:calc(100dvh - 24px);overflow-y:auto}

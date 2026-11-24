@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Improve content-driven layouts
+- Align usage date filters and reserve button clearance, constrain calendar size, allow form rows and card content to grow without overlap, and reserve inline editing status space.
+
 ## 2026-11-24 - Unify empty-field guidance
 - Apply one shared placeholder color to empty inputs, choices, dates, and profile guidance across the app.
 

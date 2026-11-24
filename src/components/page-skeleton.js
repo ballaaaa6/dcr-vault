@@ -48,6 +48,10 @@ function billingSkeleton() {
   return `<main class="app-page billing-page sk-page"><div class="billing-heading">${bar('sk-title')}${bar('sk-subtitle')}</div><div class="billing-grid">${cards}</div>${bar('sk-label')}</main>`;
 }
 
+function usageSkeleton() {
+  return `<main class="app-page sk-page">${heading()}${panel(`<div class="form-toolbar"><div class="form-field">${field()}</div><div class="form-field">${field()}</div>${bar('sk-button')}</div>${paragraphs()}`)}</main>`;
+}
+
 function genericSkeleton() {
   return `<main class="app-page sk-page">${heading()}${panel(paragraphs())}</main>`;
 }
@@ -59,7 +63,7 @@ const pageSkeletons = {
   '/label': labelSkeleton,
   '/profile': profileSkeleton,
   '/billing': billingSkeleton,
-  '/gemini-usage': genericSkeleton,
+  '/gemini-usage': usageSkeleton,
   '/import': importSkeleton,
   '/privacy': privacySkeleton,
   '/privacy/': privacySkeleton,
