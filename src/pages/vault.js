@@ -43,7 +43,7 @@ export function vault(cards = [], locations = [], collections = []) {
   activeCards = cards;
   setLocations(locations);
   setCollections(collections);
-  if (!cards.length) return `<main class="app-page vault-page"><header class="page-heading"><h1>Vault</h1></header><div class="vault-toolbar"><div id="location-filter-wrap">${vaultFilter()}</div></div><section class="surface-card empty-state"><p>Your private vault is ready for its first card.</p><a class="btn btn-primary" href="/archive">Add a card</a></section>${locationDialog()}</main>`;
+  if (!cards.length) return `<main class="app-page vault-page"><header class="page-heading vault-heading"><h1>Vault</h1><a class="btn btn-ghost vault-showcase" href="/showcase">My Showcase</a></header><div class="vault-toolbar"><div id="location-filter-wrap">${vaultFilter()}</div></div><section class="surface-card empty-state"><p>Your private vault is ready for its first card.</p><a class="btn btn-primary" href="/archive">Add a card</a></section>${locationDialog()}</main>`;
   const params = new URLSearchParams(location.search);
   const sortedCards = [...cards].sort((a, b) => compareVaultCards(a, b, 'date-desc'));
   const focus = cards.find(card => card.id === params.get('id')) || sortedCards[0];
@@ -53,6 +53,7 @@ export function vault(cards = [], locations = [], collections = []) {
     <main class="app-page vault-page">
       <header class="page-heading vault-heading">
         <h1>Vault</h1>
+        <a class="btn btn-ghost vault-showcase" href="/showcase">My Showcase</a>
         <p id="vault-count" class="page-description">${cards.length} ${cards.length === 1 ? 'card' : 'cards'} · Prices stay private to your account and never appear on labels.</p>
       </header>
       <form class="vault-toolbar" onsubmit="event.preventDefault(); window.__filterVault()">

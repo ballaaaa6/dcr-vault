@@ -8,7 +8,6 @@ const items = [
   ['/', 'Home'],
   ['/archive', 'Add Card'],
   ['/vault', 'Vault'],
-  ['/showcase', 'Showcase'],
   ['/label', 'Labels']
 ];
 

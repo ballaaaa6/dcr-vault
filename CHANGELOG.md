@@ -1,3 +1,7 @@
+# Vault showcase navigation
+
+- Move Showcase from the main navigation to a button beside the Vault heading.
+
 # Shared switch icon
 
 - Enlarge and thicken the shared switch icon across Vault controls.
