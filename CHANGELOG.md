@@ -1,7 +1,7 @@
 # Showcase sharing controls
 
 - Simplify the sharing dialog with a status-colored lock control and an inline copy button.
-- Generate eight-character alphanumeric tokens for new sharing links while preserving existing links.
+- Replace existing long sharing links with eight-character alphanumeric tokens and reject old links.
 
 # Showcase card count
 

@@ -50,7 +50,7 @@ export async function render() {
   const route = location.pathname + location.search;
   const path = location.pathname;
   const isCertificate = certificateFromPath(path) !== null;
-  const sharedToken = /^\/shared-collection\/([a-f0-9]{64})\/?$/.exec(path)?.[1] || /^\/showcase\/[^/]+\/([A-Za-z0-9]{8}|[a-f0-9]{32}|[a-f0-9]{64})\/?$/.exec(path)?.[1];
+  const sharedToken =  /^\/showcase\/[^/]+\/([A-Za-z0-9]{8})\/?$/.exec(path)?.[1];
   const ownerCollection = /^\/showcase\/([^/]+)\/?$/.exec(path)?.[1];
   const app = document.getElementById('app');
   if (path !== '/login') showPageLoading(app, path, isCertificate);

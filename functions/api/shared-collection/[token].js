@@ -3,7 +3,7 @@ import {error, json, requireDatabase} from '../../_utils/http.js';
 export async function onRequestGet({env, params}) {
   const unavailable = requireDatabase(env);
   if (unavailable) return unavailable;
-  if (!/^(?:[A-Za-z0-9]{8}|[a-f0-9]{32}|[a-f0-9]{64})$/.test(params.token || '')) return error('Showcase not found.', 404);
+  if (!/^(?:[A-Za-z0-9]{8})$/.test(params.token || '')) return error('Showcase not found.', 404);
   const group = await env.DB.prepare('SELECT id, user_id, name, description FROM collections WHERE share_token = ?').bind(params.token).first();
   if (!group) return error('Showcase not found.', 404);
   const rows = await env.DB.prepare(`SELECT cards.id, cards.name, cards.set_name, cards.year, cards.grade_label, cards.cert_number,

@@ -33,7 +33,11 @@ test('collections support overlapping membership and protect ownership and locat
   assert.match(token, /^[A-Za-z0-9]{8}$/);
   const legacyToken = 'f8bc065b2433b9233f65e5bdbc28cb828eee408f75b7c8f623fa8cc9f9d2c8e9';
   sql.prepare('UPDATE collections SET share_token = ? WHERE id = ?').run(legacyToken, second.id);
-  assert.equal((await getShared({env: {DB}, params: {token: legacyToken}})).status, 200);
+  assert.equal((await getShared({env: {DB}, params: {token: legacyToken}})).status, 404);
+  sql.exec(readFileSync(new URL('../../migrations/0021_short_share_tokens.sql', import.meta.url), 'utf8'));
+  const rotatedToken = sql.prepare('SELECT share_token FROM collections WHERE id = ?').get(second.id).share_token;
+  assert.match(rotatedToken, /^[A-Za-z0-9]{8}$/);
+  assert.equal((await getShared({env: {DB}, params: {token: rotatedToken}})).status, 200);
   const shared = await getShared({env: {DB}, params: {token}});
   const publicGroup = (await shared.json()).collection;
   assert.equal(publicGroup.cards.length, 1);
