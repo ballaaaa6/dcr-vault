@@ -20,6 +20,7 @@ function listView() {
   const body = document.querySelector('[data-location-body]');
   const add = document.querySelector('[data-location-add]');
   add.hidden = false;
+  body.classList.add('location-list-body');
   document.getElementById('location-title').textContent = 'Manage locations';
   body.innerHTML = `${locations.length ? `<div class="location-list">${locations.map(item => `<div class="location-row"><span><strong>${esc(item.name)}</strong><small>${item.cardCount} ${item.cardCount === 1 ? 'card' : 'cards'}</small></span><details class="dropdown-control location-menu" data-dropdown-align="end"><summary aria-label="Options for ${esc(item.name)}"><span class="location-gear" aria-hidden="true"></span></summary><div class="dropdown-menu" role="menu"><button type="button" role="menuitem" data-location-cards="${esc(item.id)}">Manage cards</button><button type="button" role="menuitem" data-location-rename="${esc(item.id)}">Rename</button><button type="button" role="menuitem" data-location-delete="${esc(item.id)}">Delete</button></div></details></div>`).join('')}</div>` : '<p class="location-empty">No locations yet.</p>'}`;
   add.onclick = () => editView();
@@ -29,6 +30,7 @@ function listView() {
 }
 
 function openCards(item) {
+  document.querySelector('[data-location-body]').classList.remove('location-list-body');
   document.querySelector('[data-location-add]').hidden = true;
   const dialog = document.querySelector('.location-dialog');
   dialog.classList.add('location-picker');
@@ -41,6 +43,7 @@ function openCards(item) {
 }
 
 function editView(item) {
+  document.querySelector('[data-location-body]').classList.remove('location-list-body');
   document.querySelector('[data-location-add]').hidden = true;
   showError('');
   const body = document.querySelector('[data-location-body]');
@@ -66,6 +69,7 @@ function renameView(item, name) {
 }
 
 function deleteView(item) {
+  document.querySelector('[data-location-body]').classList.remove('location-list-body');
   document.querySelector('[data-location-add]').hidden = true;
   showError('');
   const body = document.querySelector('[data-location-body]');

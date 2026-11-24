@@ -207,7 +207,12 @@
 .location-row .location-menu summary{min-height:40px;padding:8px;border:0;background:transparent}
 .location-gear{display:block;width:24px;height:24px;background:currentColor;mask:url('/assets/lucide-settings.svg') center/contain no-repeat;color:var(--dcr-gray)}
 .location-menu summary:hover .location-gear,.location-menu[open] .location-gear{color:var(--dcr-red)}
-.location-dialog:has(.location-menu[open]) [data-location-body]{overflow:visible}
+.location-dialog .location-list-body{overflow:visible;padding-bottom:0}
+.location-list-body .location-list{max-height:min(304px,max(76px,round(down,calc(85dvh - 160px),76px)));overflow-y:auto;overscroll-behavior:contain}
+.location-list-body .location-row{height:76px;box-sizing:border-box}
+.location-row > span{min-width:0}.location-row strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.location-menu .dropdown-menu{position:fixed;min-width:0}
+.location-menu[data-dropdown-placement="top"] > .dropdown-menu{bottom:auto}
 .location-dialog.location-picker{width:min(900px,calc(100% - 48px));background-image:linear-gradient(color-mix(in srgb,var(--dcr-white) 85%,transparent),color-mix(in srgb,var(--dcr-white) 85%,transparent)),url('/assets/labels/vault-picker.png');background-position:top center;background-size:100% auto;background-repeat:no-repeat}
 .location-picker{padding-bottom:var(--button-effect-space)}
 .location-picker [data-location-body]{max-height:none;overflow:visible;padding-bottom:0}

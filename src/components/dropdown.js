@@ -17,6 +17,11 @@ export function positionPopup(control, trigger, menu) {
   const {placement, availableHeight} = dropdownPlacement(trigger.getBoundingClientRect(), viewportTop, viewportHeight, Math.min(menu.scrollHeight, maxHeight));
   control.dataset.dropdownPlacement = placement;
   menu.style.setProperty('--dropdown-available-height', `${availableHeight}px`);
+  if (control.classList.contains('location-menu')) {
+    const rect = trigger.getBoundingClientRect();
+    menu.style.right = `${window.innerWidth - rect.right}px`;
+    menu.style.top = placement === 'top' ? `${rect.top - Math.min(menu.scrollHeight, availableHeight) - 5}px` : `${rect.bottom + 5}px`;
+  }
 }
 
 function positionDropdown(control) {

@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Fit the location list to its contents
+- Show up to four complete locations and scroll additional locations within the list.
+
 ## 2026-11-24 - Balance manage cards footer spacing
 - Remove duplicated bottom padding while retaining clearance for button effects.
 
