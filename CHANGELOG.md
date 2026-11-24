@@ -1,3 +1,5 @@
+- Fit the Collections overview to two responsive rows and place sorting before search.
+
 - Redesign Collections with card covers, search, sorting, sharing status, and quick actions.
 
 - Rename the navigation links to Vault and Showcase and keep menu labels on one line.

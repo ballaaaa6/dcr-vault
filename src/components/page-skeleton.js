@@ -25,8 +25,8 @@ function labelSkeleton() {
 }
 
 function collectionsSkeleton() {
-  const items = Array.from({length: 3}, () => panel(`<div class="collections-cover">${bar('sk-card-photo')}</div><div class="collections-item-body">${bar('sk-section-title')}${bar('sk-medium')}</div>`, 'collections-item')).join('');
-  return `<main class="app-page collections-page sk-page">${heading()}<div class="collections-list-toolbar">${bar('sk-input')}${bar('sk-sort')}</div><div class="collections-list">${items}</div></main>`;
+  const items = Array.from({length: 10}, () => panel(`<div class="collections-cover">${bar('sk-card-photo')}</div><div class="collections-item-body">${bar('sk-section-title')}${bar('sk-medium')}</div>`, 'collections-item')).join('');
+  return `<main class="app-page collections-page sk-page"><div class="collections-heading">${heading()}${bar('sk-button')}</div><div class="collections-list-toolbar">${bar('sk-sort')}${bar('sk-input')}</div><div class="collections-list">${items}</div></main>`;
 }
 
 function profileSkeleton() {
