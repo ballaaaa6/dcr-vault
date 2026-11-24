@@ -1,3 +1,7 @@
+# Manage dialog alignment
+
+- Align the Add button with the settings controls in the location and showcase management dialogs.
+
 # Settings icon animation
 
 - Keep the settings gear at its normal size while it spins.
