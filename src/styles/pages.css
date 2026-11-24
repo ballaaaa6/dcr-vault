@@ -87,20 +87,21 @@
 .identification-dialog-header h2{margin:0 0 5px;font-size:21px}
 .identification-dialog-header p{margin:0;color:var(--dcr-gray);font-size:14px}
 .identification-dialog-header>div{padding-right:36px}
+.identification-dialog .dialog-close{top:-19px;right:-19px}
 .identification-dialog-content{min-height:0;overflow:auto;padding:18px 24px var(--button-effect-space)}
 .identification-error-actions{display:flex;justify-content:flex-start;margin-top:14px}
 .identification-match-note{margin:0;color:var(--dcr-gray);font-size:13px}
 .identification-read-summary{display:grid;gap:8px;margin-bottom:16px;padding:12px;border:1px solid var(--dcr-border);border-radius:14px;background:var(--dcr-red-light)}
 .identification-read-summary>p{margin:0;color:var(--dcr-gray);font-size:13px}
 .identification-read-grid{display:grid;gap:0}
-.identification-read-field{display:grid;grid-template-columns:minmax(140px,1fr) minmax(0,2fr) auto;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid var(--dcr-border)}
+.identification-read-field{display:grid;grid-template-columns:minmax(140px,32%) minmax(0,1fr) 70px;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid var(--dcr-border)}
 .identification-read-field:last-child{border-bottom:0}
 .identification-read-field b,.identification-read-field small{color:var(--dcr-gray);font-size:12px;font-weight:550}
 .identification-read-field span{overflow-wrap:anywhere;font-size:13px}
-.identification-classification{grid-template-columns:minmax(140px,1fr) minmax(0,2fr)}
+.identification-classification .dropdown{grid-column:2 / 4}
 .identification-classification[data-disabled="true"]{opacity:.5}
 .identification-classification .dropdown{min-width:0}
-@media(max-width:500px){.identification-read-field,.identification-classification{grid-template-columns:1fr;gap:4px}}
+@media(max-width:500px){.identification-read-field{grid-template-columns:1fr;gap:4px}.identification-classification .dropdown{grid-column:auto}}
 .panel-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:20px}
 .scan-result{margin-top:18px}
 .scan-result:empty{display:none}
@@ -135,8 +136,6 @@
 .catalog-control{position:relative;min-width:0}
 .intake-card .catalog-select__control{min-height:46px;border-radius:14px;font-weight:450}
 .intake-card .catalog-select-wrap.has-value .catalog-select__control{background:var(--dcr-border)}
-.intake-card #m-grade + .dropdown-control{--dropdown-max-height:280px}
-.intake-card #m-grade + .dropdown-control .dropdown-menu button{padding:5px 10px}
 .intake-card .dropdown-control summary[data-empty="false"]{background:var(--dcr-border)}
 .intake-card .catalog-select__menu{z-index:30}
 .intake-card .catalog-select__menu-list{padding:0}

@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Align card reading and standardize dropdown menus
+- Align review values and controls, position the close button on the corner, and show up to eight dropdown options before scrolling.
+
 ## 2026-11-24 - Add card reading dialog background
 - Add a subtle maple illustration anchored to the top right of the card reading dialog.
 
