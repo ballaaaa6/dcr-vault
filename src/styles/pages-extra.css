@@ -192,3 +192,8 @@
 
 .location-list,.location-empty{margin-top:16px}
 @media(max-width:480px){.location-dialog-head{flex-wrap:wrap}.location-dialog-head h2{flex:1}.location-add{order:3;flex-basis:100%}}
+.location-choices label{align-items:center;gap:12px;cursor:pointer;border-radius:100px;padding:6px 10px;transition:background .3s}
+.location-choices label:hover,.location-choices label:focus-within{background:var(--dcr-red-light)}
+.location-choices input[type="radio"]{appearance:none;flex:none;width:24px;height:24px;margin:0;border:0;border-radius:50%;background:var(--dcr-border);cursor:pointer;transition:background .3s,transform .3s}
+.location-choices input[type="radio"]:checked{background:linear-gradient(135deg,var(--dcr-red-hover),var(--dcr-red),var(--dcr-red-dark))}
+.location-choices input[type="radio"]:focus-visible{outline:2px solid var(--dcr-red-dark);outline-offset:3px}

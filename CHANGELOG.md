@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Style location choices
+- Give location deletion radio choices a red gradient inspired by the selected Uiverse design.
+
 ## 2026-11-24 - Keep storage location suggestions open
 - Limit Add Card outside-click handling to its own page so Vault location suggestions remain available while editing.
 
