@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Refine location choices
+- Animate the selection reveal, outline choices in red, and simplify the position labels.
+
 ## 2026-11-24 - Style location choices
 - Give location deletion radio choices a red gradient inspired by the selected Uiverse design.
 
