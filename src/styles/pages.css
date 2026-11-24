@@ -88,7 +88,7 @@
 .identification-dialog-header h2{margin:0 0 5px;font-size:21px}
 .identification-dialog-header p{margin:0;color:var(--dcr-gray);font-size:14px}
 .identification-close{width:40px;height:40px;flex:0 0 40px;padding:0;font-size:24px}
-.identification-dialog-content{min-height:0;overflow:auto;padding:18px 24px 24px}
+.identification-dialog-content{min-height:0;overflow:auto;padding:18px 24px var(--button-effect-space)}
 .identification-error-actions{display:flex;justify-content:flex-start;margin-top:14px}
 .identification-match-note{margin:0;color:var(--dcr-gray);font-size:13px}
 .identification-read-summary{display:grid;gap:8px;margin-bottom:16px;padding:12px;border:1px solid var(--dcr-border);border-radius:14px;background:var(--dcr-red-light)}

@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Apply shared button clearance across the app
+- Reserve shared space for button effects in existing dialogs, scrolling content, and the sign-in footer; document the requirement for future controls.
+
 ## 2026-11-24 - Share popup placement
 - Reuse viewport-aware dropdown placement for location, card, and account menus, flipping upward when space below is limited.
 

@@ -53,7 +53,7 @@
   .identification-dialog{width:calc(100% - 20px);max-height:90vh;border-radius:18px}
   .identification-dialog-header{padding:18px 18px 14px}
   .identification-dialog-header h2{font-size:18px}
-  .identification-dialog-content{padding:15px 16px 18px}
+  .identification-dialog-content{padding:15px 16px var(--button-effect-space)}
   .vault-toolbar{align-items:stretch;flex-wrap:wrap}
   .vault-query{flex:1 1 100%}
   .vault-status{width:100%}
@@ -88,7 +88,7 @@
 .vault-row{width:100%;text-align:left;cursor:pointer;font:inherit;color:inherit;background:var(--dcr-white)}
 .vault-row[aria-pressed=true]{border-color:var(--dcr-red)}
 
-.vault-delete-dialog{width:min(440px,calc(100% - 32px));margin:auto;padding:28px;border:1px solid var(--dcr-border);border-radius:20px;background:var(--dcr-white);color:var(--dcr-black);box-shadow:var(--shadow-lg)}
+.vault-delete-dialog{width:min(440px,calc(100% - 32px));margin:auto;padding:28px 28px var(--button-effect-space);border:1px solid var(--dcr-border);border-radius:20px;background:var(--dcr-white);color:var(--dcr-black);box-shadow:var(--shadow-lg)}
 .vault-delete-dialog::backdrop{background:rgba(0,0,0,.45)}
 .vault-delete-dialog h2{margin:0 0 12px}.vault-delete-dialog p{color:var(--dcr-gray);line-height:1.5}.vault-delete-actions{display:flex;justify-content:center;gap:10px;margin-top:24px}
 
@@ -140,7 +140,7 @@
 .label-row .btn{padding:8px 12px}
 .label-empty{padding:24px 0;color:var(--dcr-gray)}
 .label-bottom{justify-content:flex-end;margin-top:20px}
-.label-dialog{width:min(900px,calc(100% - 32px));max-height:85vh;overflow:auto;border:1px solid var(--dcr-border);border-radius:20px;padding:24px;background-color:var(--dcr-white);color:var(--dcr-black)}
+.label-dialog{width:min(900px,calc(100% - 32px));max-height:85vh;overflow:auto;border:1px solid var(--dcr-border);border-radius:20px;padding:24px 24px var(--button-effect-space);background-color:var(--dcr-white);color:var(--dcr-black)}
 .label-dialog::backdrop{background:rgba(0,0,0,.5)}
 .label-dialog-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}
 .label-dialog-head h2{margin:0}

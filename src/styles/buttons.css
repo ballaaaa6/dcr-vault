@@ -6,8 +6,9 @@
 .btn-white:hover{transform:translateY(-2px)}
 .btn-white:active{transform:translateY(2px);box-shadow:0 1px 0 var(--dcr-red-light)}
 .btn-ghost{background:var(--dcr-white);color:var(--dcr-red);border-color:var(--dcr-red)}
-/* Give button shadows and focus outlines room inside scrollable containers. */
-.button-safe-scroll{padding:8px 24px 32px;margin:0 -24px}
+/* Reserve room for button shadows, hover movement, and focus outlines. */
+:root{--button-effect-space:32px}
+.button-safe-scroll{padding:8px 24px var(--button-effect-space);margin:0 -24px}
 .search-bar{display:flex;min-height:60px;gap:0;overflow:hidden;border:1px solid var(--dcr-border);border-radius:999px;background:var(--dcr-white);box-shadow:0 8px 28px rgba(17,17,17,.06);transition:border-color .18s,box-shadow .18s}
 .search-bar:focus-within{border-color:var(--dcr-red);box-shadow:0 0 0 4px var(--dcr-red-light)}
 .search-bar input{flex:1;min-width:0;border:0;outline:0;padding:14px 20px;background:transparent;color:var(--dcr-black)}
