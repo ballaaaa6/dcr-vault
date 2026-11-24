@@ -1,6 +1,7 @@
 import {collectionsRequest} from '../store/collections.js';
 import {escapeHTML as esc} from '../utils/format.js';
 import {heartCheckbox} from '../components/heart-checkbox.js';
+import {tooltip} from '../components/tooltip.js';
 import {showToast} from '../components/toast.js';
 import {listView, detailView, collectionItems} from './collections-view.js';
 
@@ -11,11 +12,11 @@ const dialog = () => document.getElementById('collections-dialog');
 function draw() { if (content()) content().innerHTML = current() ? detailView(current(), cards, preview) : listView(groups, cards); }
 async function refresh() { groups = (await collectionsRequest()).collections; draw(); }
 function openDialog(title, body) {
-  document.getElementById('collections-dialog-content').innerHTML = `<header><h2>${title}</h2><button class="dialog-close" type="button" data-close aria-label="Close">×</button></header>${body}`;
+  document.getElementById('collections-dialog-content').innerHTML = `<header><h2>${title}</h2></header>${body}`;
   if (!dialog().open) dialog().showModal();
 }
 function editDialog(group) {
-  openDialog(group ? 'Edit collection' : 'Create collection', `<form id="collection-form" class="collections-form"><label class="form-field">Name<input class="form-control" name="name" maxlength="120" required value="${esc(group?.name || '')}"></label><label class="form-field">Description<textarea class="form-control" name="description" maxlength="500">${esc(group?.description || '')}</textarea></label><div class="collections-actions"><button class="btn btn-primary" type="submit">Save</button>${group ? '<button class="btn btn-ghost" type="button" data-action="delete">Delete collection</button>' : ''}</div></form>`);
+  openDialog(group ? 'Edit collection' : 'Create collection', `<form id="collection-form" class="collections-form"><div class="form-field"><label for="collection-name">Name</label>${tooltip({id: 'collection-name-help', label: 'About collection name', message: 'Choose a name for this collection.'})}<input id="collection-name" class="form-control" name="name" maxlength="120" required value="${esc(group?.name || '')}"></div><div class="form-field"><label for="collection-description">Description</label>${tooltip({id: 'collection-description-help', label: 'About collection description', message: 'Optionally describe this collection. The description is visible to anyone with its share link.'})}<textarea id="collection-description" class="form-control" name="description" maxlength="500">${esc(group?.description || '')}</textarea></div><div class="collections-actions collections-form-actions">${group ? '<button class="btn btn-ghost" type="button" data-action="delete">Delete collection</button>' : ''}<button class="btn btn-primary" type="submit">Save</button></div></form>`);
 }
 function addDialog() {
   const group = current();
@@ -52,7 +53,7 @@ async function handleAction(action) {
   if (action === 'confirm-delete') { await collectionsRequest('DELETE', {id: selectedId}); selectedId = ''; dialog().close(); await refresh(); showToast('Collection deleted.', 'success'); }
 }
 function openDeleteConfirmation() {
-  document.getElementById('collections-dialog-content').innerHTML = `<div class="two-choice-dialog"><h2>Delete collection?</h2><p class="two-choice-description">Cards will remain in My Vault. Any share link will stop working.</p><div class="two-choice-actions collections-actions"><button class="btn btn-ghost" data-action="edit">Cancel</button><button class="btn btn-primary" data-action="confirm-delete">Delete</button></div></div>`;
+  document.getElementById('collections-dialog-content').innerHTML = `<div class="collections-delete-confirmation"><h2>Delete collection?</h2><p class="two-choice-description">Cards will remain in My Vault. Any share link will stop working.</p><div class="two-choice-actions collections-actions"><button class="btn btn-ghost" data-action="edit">Cancel</button><button class="btn btn-primary" data-action="confirm-delete">Delete</button></div></div>`;
 }
 async function handleClick(event) {
   const target = event.target.closest('button'); if (!target) return;

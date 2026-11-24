@@ -12,7 +12,7 @@ export function cardGrid(cards, owner = false) {
 }
 
 export function collectionsPage() {
-  return `<main class="app-page collections-page"><div id="collections-content"></div><dialog id="collections-dialog" class="collections-dialog"><div id="collections-dialog-content"></div></dialog></main>`;
+  return `<main class="app-page collections-page"><div id="collections-content"></div><dialog id="collections-dialog" class="content-dialog"><div class="content-dialog__panel" id="collections-dialog-content"></div><button class="dialog-close content-dialog__close" type="button" data-close aria-label="Close">×</button></dialog></main>`;
 }
 
 export function collectionItems(groups, cards) {
@@ -23,7 +23,7 @@ export function collectionItems(groups, cards) {
     return `<article class="surface-card collections-item">
       <button type="button" class="collections-open" data-open="${esc(group.id)}" aria-label="View ${esc(group.name)}">
         <span class="collections-cover">${cover ? vaultImage(cover, 'collection-photo-empty', 'No photo') : '<span class="collection-photo-empty">No cards yet</span>'}</span>
-        <span class="collections-item-body"><span class="collections-item-top"><strong>${esc(group.name)}</strong><span class="collections-badge">${group.shareToken ? 'Shared by link' : 'Private'}</span></span>
+        <span class="collections-item-body"><span class="collections-item-top"><strong>${esc(group.name)}</strong><span class="collections-badge ${group.shareToken ? 'collections-badge--public' : ''}">${group.shareToken ? 'Public' : 'Private'}</span></span>
         <span class="collections-description">${esc(group.description || '')}</span><small>${count} ${count === 1 ? 'card' : 'cards'}</small><span class="collections-view-link">View collection <span aria-hidden="true">→</span></span></span>
       </button><details class="collections-options"><summary aria-label="Options for ${esc(group.name)}">${optionsIcon()}</summary><div class="dropdown-menu"><button type="button" data-group-action="edit" data-group-id="${esc(group.id)}">Edit</button><button type="button" data-group-action="share" data-group-id="${esc(group.id)}">${group.shareToken ? 'Manage sharing' : 'Share'}</button><button type="button" data-group-action="delete" data-group-id="${esc(group.id)}">Delete</button></div></details></article>`;
   }).join('');
@@ -36,7 +36,7 @@ export function listView(groups, cards) {
 
 export function detailView(group, cards, preview = false) {
   const selected = group.cardIds.map(id => cards.find(card => card.id === id)).filter(Boolean).map(card => preview ? {...card, referenceImage: ''} : card);
-  return `<button class="btn btn-ghost" data-action="back">← Collections</button><header class="page-heading collections-heading"><div><p class="collection-status">${preview ? 'Share preview' : group.shareToken ? 'Shared by link' : 'Private'}</p><h1>${esc(group.name)}</h1><p class="page-description">${esc(group.description || '')}</p><p>${selected.length} cards</p></div>${preview ? '<button class="btn btn-ghost" data-action="preview">Close preview</button>' : `<div class="collections-actions"><button class="btn btn-ghost" data-action="edit">Edit</button><button class="btn btn-ghost" data-action="preview">Preview</button><button class="btn btn-primary" data-action="share">${group.shareToken ? 'Manage sharing' : 'Share'}</button></div>`}</header>
+  return `<button class="btn btn-ghost" data-action="back">← Collections</button><header class="page-heading collections-heading"><div><p class="collection-status">${preview ? 'Share preview' : group.shareToken ? 'Public' : 'Private'}</p><h1>${esc(group.name)}</h1><p class="page-description">${esc(group.description || '')}</p><p>${selected.length} cards</p></div>${preview ? '<button class="btn btn-ghost" data-action="preview">Close preview</button>' : `<div class="collections-actions"><button class="btn btn-ghost" data-action="edit">Edit</button><button class="btn btn-ghost" data-action="preview">Preview</button><button class="btn btn-primary" data-action="share">${group.shareToken ? 'Manage sharing' : 'Share'}</button></div>`}</header>
     ${preview ? '<p class="page-description">Anyone with the link can view and forward it. Certificate details and card photos may already be public.</p>' : '<div class="collections-toolbar"><h2>Cards</h2><button class="btn btn-primary" data-action="add">+ Add cards</button></div>'}
     ${selected.length ? cardGrid(selected, !preview) : '<section class="surface-card collections-empty"><h2>No cards in this collection yet</h2><p>Add cards from My Vault to get started.</p></section>'}`;
 }

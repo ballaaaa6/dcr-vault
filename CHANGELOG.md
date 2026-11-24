@@ -1,3 +1,5 @@
+- Make collection dialogs compact and reusable, add field help, and distinguish private and public sharing badges.
+
 - Align collection cards by reserving a description row and shorten the Create button label.
 
 - Fit the Collections overview to two responsive rows and place sorting before search.
