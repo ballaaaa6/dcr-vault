@@ -25,7 +25,7 @@ export function intakeClassification() { return {...classification}; }
 export function identificationDialogMarkup() {
   return `<dialog id="identification-result" class="identification-dialog" aria-labelledby="identification-title">
     <header class="identification-dialog-header"><div><h2 id="identification-title">Review card reading</h2><p>Review the details read from the photo before adding it.</p></div>
-      <button class="btn btn-ghost identification-close" type="button" data-close-identification aria-label="Close card result">×</button></header>
+      <button class="dialog-close" type="button" data-close-identification aria-label="Close">×</button></header>
     <div id="identification-dialog-content" class="identification-dialog-content" aria-live="polite"></div>
   </dialog>`;
 }
@@ -97,12 +97,47 @@ function setResult(content) {
   const panel = document.getElementById('identification-dialog-content');
   if (!dialog || !panel) return;
   panel.innerHTML = content;
+  updateClassificationControls();
   const info = document.getElementById('identification-info');
   if (info) info.hidden = false;
 }
 
+
+function updateClassificationControls() {
+  const category = classification.category;
+  const groups = {pokemonTypes: 'Pokemon', trainerType: 'Trainer', energyKind: 'Energy', energyType: 'Energy'};
+  document.querySelectorAll('#identification-result [data-classification-row]').forEach(row => {
+    const key = row.dataset.classificationRow;
+    const disabled = Boolean(category && groups[key] && groups[key] !== category);
+    const control = row.querySelector('.dropdown-control');
+    if (control) { control.inert = disabled; control.open = false; }
+    row.dataset.disabled = String(disabled);
+  });
+}
+
+function changeClassification(target) {
+  if (!target.id?.startsWith('reading-')) return;
+  const key = target.id.slice(8);
+  const groups = {pokemonTypes: 'Pokemon', trainerType: 'Trainer', energyKind: 'Energy', energyType: 'Energy'};
+  classification[key] = target.value;
+  if (key === 'category') {
+    for (const [field, group] of Object.entries(groups)) if (group !== target.value) classification[field] = '';
+  } else if (target.value && !classification.category) classification.category = groups[key];
+  else if (!target.value && !Object.keys(groups).some(field => groups[field] === classification.category && classification[field])) classification.category = '';
+  const panel = document.getElementById('identification-dialog-content');
+  for (const [field, value] of Object.entries(classification)) {
+    const select = panel.querySelector(`#reading-${field}`);
+    if (!select || select.value === value) continue;
+    const item = [...select.parentElement.querySelectorAll('[data-dropdown-value]')].find(option => option.dataset.dropdownValue === value);
+    if (item) item.click();
+  }
+  updateClassificationControls();
+}
+
 function fillGeminiValues(fields, requestId) {
   classification = classificationFromReading(fields);
+  const groups = {pokemonTypes: 'Pokemon', trainerType: 'Trainer', energyKind: 'Energy', energyType: 'Energy'};
+  for (const [field, group] of Object.entries(groups)) if (classification.category && group !== classification.category) classification[field] = '';
   const game = document.getElementById('m-game');
   const gameFromReading = !game.value && Boolean(standardLabelValues(fields).cardTypeLabel);
   if (gameFromReading) game.value = 'Pokémon TCG';
@@ -313,7 +348,7 @@ document.addEventListener('input', event => {
 });
 
 document.addEventListener('change', event => {
-  if (event.target.matches('#identification-result [data-classification]')) classification[event.target.dataset.classification] = event.target.value;
+  if (event.target.closest('#identification-result')) changeClassification(event.target);
   if (!event.target.matches('[data-upload-side="front"]')) return;
   invalidatePhotoIdentity();
   updateButton();

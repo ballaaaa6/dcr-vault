@@ -1,5 +1,14 @@
 import {escapeHTML} from '../utils/format.js';
-import {classificationFields, classificationInput} from '../utils/card-classification.js';
+import {classificationFields} from '../utils/card-classification.js';
+import {dropdown} from '../components/dropdown.js';
+
+const choices = {category: ['Pokemon', 'Trainer', 'Energy'], pokemonTypes: ['Grass', 'Fire', 'Water', 'Lightning', 'Psychic', 'Fighting', 'Darkness', 'Metal', 'Fairy', 'Dragon', 'Colorless'], trainerType: ['Item', 'Supporter', 'Stadium', 'Pokemon Tool'], energyKind: ['Basic', 'Special'], energyType: ['Grass', 'Fire', 'Water', 'Lightning', 'Psychic', 'Fighting', 'Darkness', 'Metal', 'Fairy']};
+
+function classificationMarkup(key, label, value) {
+  const options = ['', ...choices[key]];
+  if (value && !options.includes(value)) options.push(value);
+  return `<div class="identification-read-field identification-classification" data-classification-row="${key}"><b>${escapeHTML(label)}</b>${dropdown({id: `reading-${key}`, label, options: options.map(option => [option, option || 'Not selected']), value: value || ''})}</div>`;
+}
 
 function confidenceLabel(fields, key) {
   const confidence = Number(fields.fieldConfidence?.[key]);
@@ -29,7 +38,7 @@ export function readingSummaryMarkup(fields, source, adequate, classification = 
     fieldMarkup(fields, 'setSymbol', 'Set symbol', fields.setSymbol),
     fieldMarkup(fields, 'stamp', 'Stamp', fields.stamp),
     fieldMarkup(fields, 'copyrightText', 'Copyright text', fields.copyrightText),
-    ...classificationFields.map(([key, label, limit]) => `<div class="identification-read-field">${classificationInput(key, label, limit, classification[key])}</div>`),
+    ...classificationFields.map(([key, label]) => classificationMarkup(key, label, classification[key])),
     fieldMarkup(fields, 'cardNumber', 'Collector number', fields.cardNumber),
     fieldMarkup(fields, 'dexNumber', 'Pokédex No.', fields.dexNumber),
     fieldMarkup(fields, 'level', 'Level', fields.level),
@@ -44,12 +53,10 @@ export function readingSummaryMarkup(fields, source, adequate, classification = 
   const missingNote = missing.length ? `<p>Fill or check: ${escapeHTML(missing.join(', '))}</p>` : '';
   const status = fields.identificationSummary || (adequate
     ? 'Review the evidence read from the photo.' : 'The photo did not provide enough clear identity details.');
-  const evidence = (fields.evidence || []).map(item => `<li>${escapeHTML(item)}</li>`).join('');
   const uncertainty = (fields.uncertainFields || []).length
     ? `<p>Needs a check: ${escapeHTML(fields.uncertainFields.join(', '))}</p>` : '';
   return `<section class="identification-read-summary" aria-label="Details read from the photo">
-    <div class="identification-read-heading"><b>Read from photo</b></div>
-    <p>${escapeHTML(status)}</p>${uncertainty}${missingNote}${evidence ? `<ul class="identification-read-evidence">${evidence}</ul>` : ''}
+    <p>${escapeHTML(status)}</p>${uncertainty}${missingNote}
     <div class="identification-read-grid">${rows || '<small>No identity details were read.</small>'}</div>
   </section>`;
 }

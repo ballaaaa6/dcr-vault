@@ -28,7 +28,7 @@ function positionDropdown(control) {
   positionPopup(control, control.querySelector('summary'), control.querySelector(':scope > .dropdown-menu'));
 }
 
-document.addEventListener('toggle', event => {
+globalThis.document?.addEventListener('toggle', event => {
   const control = event.target;
   if (control.matches?.('.dropdown-control') && control.open) positionDropdown(control);
 }, true);
@@ -39,12 +39,12 @@ function repositionOpenDropdowns() {
     positionPopup(control, control.querySelector('.account-trigger'), control.querySelector('.account-popover'));
   });
 }
-window.addEventListener?.('resize', repositionOpenDropdowns);
-window.addEventListener?.('scroll', repositionOpenDropdowns, true);
-window.visualViewport?.addEventListener('resize', repositionOpenDropdowns);
-window.visualViewport?.addEventListener('scroll', repositionOpenDropdowns);
+globalThis.window?.addEventListener?.('resize', repositionOpenDropdowns);
+globalThis.window?.addEventListener?.('scroll', repositionOpenDropdowns, true);
+globalThis.window?.visualViewport?.addEventListener('resize', repositionOpenDropdowns);
+globalThis.window?.visualViewport?.addEventListener('scroll', repositionOpenDropdowns);
 
-document.addEventListener('click', event => {
+globalThis.document?.addEventListener('click', event => {
   const item = event.target.closest('[data-dropdown-value]');
   document.querySelectorAll('.dropdown-control[open]').forEach(menu => {
     if (!menu.contains(event.target)) menu.open = false;
@@ -64,7 +64,7 @@ document.addEventListener('click', event => {
   select.dispatchEvent(new Event('change', {bubbles: true}));
 });
 
-document.addEventListener('keydown', event => {
+globalThis.document?.addEventListener('keydown', event => {
   const menu = event.target.closest('.dropdown-control');
   if (!menu || !menu.open) return;
   if (event.key === 'Escape') { menu.open = false; menu.querySelector('summary').focus(); event.preventDefault(); }

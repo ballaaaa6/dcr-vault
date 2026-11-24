@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Simplify card reading review
+- List photo details in order and use shared controls for the dialog and mutually exclusive card classifications.
+
 ## 2026-11-24 - Refine card details information icon
 - Reduce the information icon size and add the card review icon’s rotating red hover effect.
 
