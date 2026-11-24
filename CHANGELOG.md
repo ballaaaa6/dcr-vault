@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Save and share certificates
+- Add PNG export of the public certificate details and a direct sharing action.
+
 ## 2026-11-24 - Refine Cert dice motion
 - Keep the dice still at rest, rock them on hover, and spin once on activation.
 

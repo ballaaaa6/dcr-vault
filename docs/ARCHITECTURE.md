@@ -7,6 +7,8 @@
 - Cloudflare D1 stores user profiles, hashed session identifiers, and card records.
 - The browser uses `src/store/cards.js` as an API client. D1 is the source of truth for signed-in accounts.
 
+- Certificate image export uses html2canvas to capture the rendered public card details and photos as a PNG. Images are fetched before capture so failed or inaccessible photos cannot silently disappear from the export.
+
 ## Authentication and account creation
 
 - The official Google Identity Services button returns a short-lived Google ID token.

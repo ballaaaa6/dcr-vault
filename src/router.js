@@ -11,6 +11,7 @@ import {label, initializeLabel} from './pages/label.js';
 import {loginPage, initializeLogin} from './pages/login.js';
 import {verify} from './pages/verify.js';
 import {initializeCertificateViewer} from './components/certificate-viewer.js';
+import {initializeCertificateActions} from './components/certificate-actions.js';
 import {importPage} from './pages/import.js';
 import {getCards, getCertificate} from './store/cards.js';
 import {locationsRequest} from './store/locations.js';
@@ -86,7 +87,7 @@ export async function render() {
   if (path === '/archive') initializeSearchPage();
   if (path === '/vault') initializeVault();
   if (path === '/label') initializeLabel();
-  if (path === '/verify' || isCertificate) initializeCertificateViewer();
+  if (path === '/verify' || isCertificate) { initializeCertificateViewer(); initializeCertificateActions(); }
   window.scrollTo(0, 0);
 }
 
