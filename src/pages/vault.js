@@ -14,7 +14,7 @@ import {itemInformation} from './verify.js';
 import {escapeHTML} from '../utils/format.js';
 import {normalizeCert} from '../utils/cert.js';
 import {classificationFields} from '../utils/card-classification.js';
-import {vaultClassificationInput, initializeVaultClassification} from '../components/vault-classification.js';
+import {vaultClassificationInput, vaultEnergyInput, initializeVaultClassification} from '../components/vault-classification.js';
 import {vaultFinishInput, initializeVaultFinish} from '../components/vault-finish.js';
 import {vaultBackground, preloadSelectedBackgrounds} from '../utils/vault-background.js';
 import {prefetchNearbyImages} from '../utils/prefetch-images.js';
@@ -26,14 +26,14 @@ let selectedId = '';
 let vaultBusy = false;
 let stopImagePrefetch = () => {};
 const publicFields = [
-  ['certNumber', 'Cert number', 8], ['name', 'Card name', 120], ['game', 'Brand / Title', 30], ['year', 'Year', 4],
+  ['name', 'Card name', 120], ['certNumber', 'Cert number', 8], ['game', 'Brand / Title', 30], ['year', 'Year', 4],
   ['cardTypeLabel', 'Card type', 60], ['series', 'Series', 120],
   ['setName', 'Set name', 120], ...classificationFields, ['cardNumber', 'Card number', 30], ['rarity', 'Rarity', 80],
   ['gradeLabel', 'Condition', 60], ['sourceFinish', 'Finish', 80]
 ];
 function editFields(card) {
   return publicFields.map(([key, label, limit]) => key === 'sourceFinish' ? vaultFinishInput(card[key]) : classificationFields.some(([field]) => field === key)
-    ? vaultClassificationInput(key, label, card[key]) : `<label class="form-field"><span>${label}</span>
+    ? vaultClassificationInput(key, label, card[key]) + (key === 'energyType' ? vaultEnergyInput(card) : '') : `<label class="form-field${key === 'name' ? ' vault-edit-full' : ''}"><span>${label}</span>
     <input class="form-control" name="${key}" maxlength="${limit}" value="${escapeHTML(card[key] || '')}" ${key === 'certNumber' ? 'inputmode="numeric" pattern="[0-9]{1,8}" required' : key === 'name' ? 'required' : ''}></label>`).join('');
 }
 export function vault(cards = [], locations = [], collections = []) {

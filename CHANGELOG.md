@@ -2,6 +2,9 @@
 
 # Changelog
 
+## 2026-11-24 - Adapt Vault classification fields
+- Show classification choices relevant to the selected category, combine Energy kind and type into one choice, and give Card name and Finish full-width rows.
+
 ## 2026-11-24 - Highlight filled Vault edit fields
 - Match filled card and private detail fields to the Add Card form background.
 
