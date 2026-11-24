@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Add card reading dialog background
+- Add a subtle maple illustration anchored to the top right of the card reading dialog.
+
 ## 2026-11-24 - Simplify card reading review
 - List photo details in order and use shared controls for the dialog and mutually exclusive card classifications.
 

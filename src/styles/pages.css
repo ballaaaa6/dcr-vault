@@ -79,7 +79,7 @@
 @media (hover:none){.upload-clear{opacity:1}}
 .identification-actions{margin-top:14px}
 .identification-notice{margin:10px 0 0;color:var(--dcr-gray);font-size:13px}
-.identification-dialog{position:fixed;width:min(820px,calc(100% - 32px));max-width:none;max-height:min(86vh,900px);margin:auto;padding:0;overflow:visible;border:1px solid var(--dcr-border);border-radius:22px;background:var(--dcr-white);color:var(--dcr-black);box-shadow:var(--shadow-lg)}
+.identification-dialog{position:fixed;width:min(820px,calc(100% - 32px));max-width:none;max-height:min(86vh,900px);margin:auto;padding:0;overflow:visible;border:1px solid var(--dcr-border);border-radius:22px;background:linear-gradient(color-mix(in srgb,var(--dcr-white) 80%,transparent),color-mix(in srgb,var(--dcr-white) 80%,transparent)),url('/assets/labels/reading-maple.png') right top/cover no-repeat var(--dcr-white);color:var(--dcr-black);box-shadow:var(--shadow-lg)}
 .identification-dialog[open]{display:grid;grid-template-rows:auto minmax(0,1fr)}
 .identification-dialog::backdrop{background:rgba(0,0,0,.45);backdrop-filter:blur(3px)}
 .identification-dialog-header{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;padding:22px 24px 16px;border-bottom:1px solid var(--dcr-border)}
