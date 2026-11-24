@@ -29,6 +29,11 @@ function collectionsSkeleton() {
   return `<main class="app-page collections-page sk-page"><div class="collections-heading">${heading()}${bar('sk-button')}</div><div class="collections-list-toolbar">${bar('sk-sort')}${bar('sk-input')}</div><div class="collections-list">${items}</div></main>`;
 }
 
+function collectionDetailSkeleton() {
+  const items = Array.from({length: 10}, () => panel(`${bar('sk-card-photo')}${bar('sk-medium')}${bar('sk-label')}`, 'collection-card')).join('');
+  return `<main class="app-page collections-page sk-page"><div class="collections-detail-heading"><div class="collections-detail-title">${bar('sk-title')}${bar('sk-button')}</div><div class="collections-detail-description">${bar()}${bar()}${bar('sk-medium')}</div></div><div class="collections-grid">${items}</div></main>`;
+}
+
 function profileSkeleton() {
   const rows = Array.from({length: 4}, () => `<div class="sk-profile-row">${bar('sk-label')}${bar('sk-medium')}</div>`).join('');
   return `<main class="app-page profile-page sk-page">${heading()}<div class="profile-form">${panel(`${bar('sk-avatar')}<div>${bar('sk-section-title')}${bar()}${bar('sk-medium')}</div>`, 'profile-identity sk-profile-identity')}${panel(`${bar('sk-section-title')}<div class="sk-profile-details">${rows}</div>`, 'profile-section')}</div></main>`;
@@ -79,7 +84,7 @@ export function usageResultsSkeleton() {
 export function pageSkeleton(path, isCertificate) {
   const content = path === '/verify' || isCertificate
     ? certificateSkeleton(isCertificate)
-    : (pageSkeletons[path] || homeSkeleton)();
+    : (/^\/showcase\/[^/]+/.test(path) ? collectionDetailSkeleton : pageSkeletons[path] || homeSkeleton)();
   return `<div role="status" aria-live="polite"><span class="sr-only">Loading page…</span><div aria-hidden="true" inert>${content}</div></div>`;
 }
 

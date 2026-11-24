@@ -1,3 +1,5 @@
+- Move Showcase settings and card management into each showcase, and fit its cards into a compact responsive grid.
+
 - Use Showcase and Vault consistently across the interface and related error messages.
 
 - Prevent field help from appearing automatically when collection dialogs open, and improve shared tooltip keyboard, touch, and dismissal behavior.

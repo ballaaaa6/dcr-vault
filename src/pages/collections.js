@@ -24,6 +24,15 @@ function addDialog() {
   const group = current();
   openDialog('Choose cards from Vault', `<form id="collection-cards-form"><p class="page-description">Select the cards you want in this showcase.</p><div class="collections-picker button-safe-scroll">${cards.map(card => `<label class="list-row">${heartCheckbox(`name="card" value="${esc(card.id)}" ${group.cardIds.includes(card.id) ? 'checked' : ''}`)}<span><strong>${esc(card.name)}</strong><small>Cert ${esc(card.certNumber)}</small></span></label>`).join('') || '<p>No cards in Vault yet.</p>'}</div><button class="btn btn-primary" type="submit">Save selection</button></form>`);
 }
+function manageCardsDialog() {
+  const group = current();
+  const items = group.cardIds.map((id, index) => {
+    const card = cards.find(item => item.id === id);
+    if (!card) return '';
+    return `<div class="collections-manage-row"><strong>${esc(card.name)}</strong><div><button type="button" class="btn btn-ghost" data-move="${index}" data-direction="-1" ${index === 0 ? 'disabled' : ''} aria-label="Move ${esc(card.name)} earlier">↑</button><button type="button" class="btn btn-ghost" data-move="${index}" data-direction="1" ${index === group.cardIds.length - 1 ? 'disabled' : ''} aria-label="Move ${esc(card.name)} later">↓</button><button type="button" class="btn btn-ghost" data-remove="${esc(id)}">Remove</button></div></div>`;
+  }).join('');
+  openDialog('Manage cards', `<div class="collections-manage-list button-safe-scroll">${items || '<p>No cards in this showcase yet.</p>'}</div>`);
+}
 function shareDialog() {
   const group = current();
   const link = group.shareToken ? `${location.origin}/showcase/${encodeURIComponent(group.name.replace(/[^a-zA-Z0-9]/g, '') || 'collection')}/${group.shareToken}` : '';
@@ -46,6 +55,7 @@ async function handleAction(action) {
   if (action === 'create') return editDialog();
   if (action === 'edit') return editDialog(current());
   if (action === 'add') return addDialog();
+  if (action === 'manage-cards') return manageCardsDialog();
   if (action === 'share') return shareDialog();
   if (action === 'back') { selectedId = ''; preview = false; navigate(); return draw(); }
   if (action === 'preview') { preview = !preview; return draw(); }
@@ -55,6 +65,7 @@ async function handleAction(action) {
   if (action === 'confirm-delete') { await collectionsRequest('DELETE', {id: selectedId}); selectedId = ''; navigate(); dialog().close(); await refresh(); showToast('Showcase deleted.', 'success'); }
 }
 function openDeleteConfirmation() {
+  openDialog('Delete showcase?', '<p>Loading…</p>');
   document.getElementById('collections-dialog-content').innerHTML = `<div class="collections-delete-confirmation"><h2>Delete showcase?</h2><p class="two-choice-description">Cards will remain in Vault. Any share link will stop working.</p><div class="two-choice-actions collections-actions"><button class="btn btn-ghost" data-action="edit">Cancel</button><button class="btn btn-primary" data-action="confirm-delete">Delete</button></div></div>`;
 }
 async function handleClick(event) {
@@ -62,12 +73,12 @@ async function handleClick(event) {
   if (target.hasAttribute('data-close')) return dialog().close();
   if (target.dataset.groupAction) { selectedId = target.dataset.groupId; navigate(current()); draw(); return handleAction(target.dataset.groupAction); }
   if (target.dataset.open) { selectedId = target.dataset.open; navigate(current()); return draw(); }
-  if (target.dataset.action) return handleAction(target.dataset.action);
-  if (target.dataset.remove) return updateMembership(current().cardIds.filter(id => id !== target.dataset.remove));
+  if (target.dataset.action) { target.closest('details')?.removeAttribute('open'); return handleAction(target.dataset.action); }
+  if (target.dataset.remove) { await updateMembership(current().cardIds.filter(id => id !== target.dataset.remove)); return manageCardsDialog(); }
   if (target.dataset.move !== undefined) {
     const order = [...current().cardIds], from = Number(target.dataset.move), to = from + Number(target.dataset.direction);
     [order[from], order[to]] = [order[to], order[from]];
-    await collectionsRequest('PATCH', {id: selectedId, cardOrder: order}); await refresh();
+    await collectionsRequest('PATCH', {id: selectedId, cardOrder: order}); await refresh(); manageCardsDialog();
   }
 }
 export function initializeCollections(initialGroups, initialCards, ownerCollection) {

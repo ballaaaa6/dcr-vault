@@ -4,11 +4,11 @@ import {dropdown} from '../components/dropdown.js';
 import {optionsIcon} from '../components/action-icons.js';
 import {certificatePath} from '../utils/cert.js';
 
-export function cardGrid(cards, owner = false) {
-  return `<div class="collections-grid">${cards.map((card, index) => `<article class="collection-card surface-card">
+export function cardGrid(cards) {
+  return `<div class="collections-grid">${cards.map(card => `<article class="collection-card surface-card">
     <a href="${certificatePath(card.certNumber)}" class="collection-card-photo">${vaultImage(card, 'collection-photo-empty', 'No photo')}</a>
     <h3>${esc(card.name)}</h3><p>${esc(card.setName || '—')} ${esc(card.year || '')}</p><p>${esc(card.gradeLabel || '')}</p>
-    ${owner ? `<div class="collection-card-actions"><button type="button" class="btn btn-ghost" data-move="${index}" data-direction="-1" ${index === 0 ? 'disabled' : ''} aria-label="Move ${esc(card.name)} earlier">↑</button><button type="button" class="btn btn-ghost" data-move="${index}" data-direction="1" ${index === cards.length - 1 ? 'disabled' : ''} aria-label="Move ${esc(card.name)} later">↓</button><button type="button" class="btn btn-ghost" data-remove="${esc(card.id)}">Remove</button></div>` : ''}</article>`).join('')}</div>`;
+    </article>`).join('')}</div>`;
 }
 
 export function collectionsPage() {
@@ -25,7 +25,7 @@ export function collectionItems(groups, cards) {
         <span class="collections-cover">${cover ? vaultImage(cover, 'collection-photo-empty', 'No photo') : '<span class="collection-photo-empty">No cards yet</span>'}</span>
         <span class="collections-item-body"><span class="collections-item-top"><strong>${esc(group.name)}</strong><span class="collections-badge ${group.shareToken ? 'collections-badge--public' : ''}">${group.shareToken ? 'Public' : 'Private'}</span></span>
         <span class="collections-description">${esc(group.description || '')}</span><small>${count} ${count === 1 ? 'card' : 'cards'}</small><span class="collections-view-link">View showcase <span aria-hidden="true">→</span></span></span>
-      </button><details class="collections-options"><summary aria-label="Options for ${esc(group.name)}">${optionsIcon()}</summary><div class="dropdown-menu"><button type="button" data-group-action="edit" data-group-id="${esc(group.id)}">Edit</button><button type="button" data-group-action="share" data-group-id="${esc(group.id)}">${group.shareToken ? 'Manage sharing' : 'Share'}</button><button type="button" data-group-action="delete" data-group-id="${esc(group.id)}">Delete</button></div></details></article>`;
+      </button></article>`;
   }).join('');
 }
 
@@ -36,9 +36,9 @@ export function listView(groups, cards) {
 
 export function detailView(group, cards, preview = false) {
   const selected = group.cardIds.map(id => cards.find(card => card.id === id)).filter(Boolean).map(card => preview ? {...card, referenceImage: ''} : card);
-  return `<button class="btn btn-ghost" data-action="back">← Showcase</button><header class="page-heading collections-heading"><div><p class="collection-status">${preview ? 'Share preview' : group.shareToken ? 'Public' : 'Private'}</p><h1>${esc(group.name)}</h1><p class="page-description">${esc(group.description || '')}</p><p>${selected.length} cards</p></div>${preview ? '<button class="btn btn-ghost" data-action="preview">Close preview</button>' : `<div class="collections-actions"><button class="btn btn-ghost" data-action="edit">Edit</button><button class="btn btn-ghost" data-action="preview">Preview</button><button class="btn btn-primary" data-action="share">${group.shareToken ? 'Manage sharing' : 'Share'}</button></div>`}</header>
-    ${preview ? '<p class="page-description">Anyone with the link can view and forward it. Certificate details and card photos may already be public.</p>' : '<div class="collections-toolbar"><h2>Cards</h2><button class="btn btn-primary" data-action="add">+ Add cards</button></div>'}
-    ${selected.length ? cardGrid(selected, !preview) : '<section class="surface-card collections-empty"><h2>No cards in this showcase yet</h2><p>Add cards from Vault to get started.</p></section>'}`;
+  return `<header class="collections-detail-heading"><div class="collections-detail-title"><h1>${esc(group.name)}</h1><span>${selected.length} ${selected.length === 1 ? 'card' : 'cards'}</span>${preview ? '' : '<button class="btn btn-primary" data-action="add">+ Add cards</button>'}</div>${preview ? '<button class="btn btn-ghost" data-action="preview">Close preview</button>' : `<details class="collections-detail-options"><summary aria-label="Showcase settings">${optionsIcon()}</summary><div class="dropdown-menu"><button type="button" data-action="edit">Edit</button><button type="button" data-action="preview">Preview</button><button type="button" data-action="share">${group.shareToken ? 'Manage sharing' : 'Share'}</button><button type="button" data-action="manage-cards">Manage cards</button><button type="button" data-action="delete">Delete showcase</button><button type="button" data-action="back">All showcases</button></div></details>`}<p class="page-description collections-detail-description">${esc(group.description || '')}</p></header>
+    ${preview ? '<p class="page-description">Anyone with the link can view and forward it. Certificate details and card photos may already be public.</p>' : ''}
+    ${selected.length ? cardGrid(selected) : '<section class="surface-card collections-empty"><h2>No cards in this showcase yet</h2><p>Add cards from Vault to get started.</p></section>'}`;
 }
 
 export function sharedView(group) {

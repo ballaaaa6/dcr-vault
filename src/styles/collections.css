@@ -61,3 +61,20 @@
 
 .collections-badge--public{background:var(--dcr-green-light);color:var(--dcr-green-dark)}
  .collections-form .shared-tooltip__content{left:-65px;transform:none}.collections-form .shared-tooltip:hover .shared-tooltip__content,.collections-form .shared-tooltip__trigger:focus-visible + .shared-tooltip__content,.collections-form .shared-tooltip__trigger[aria-expanded="true"] + .shared-tooltip__content{transform:none;animation:none}.collections-form .shared-tooltip__content::after{left:72px}
+
+/* Showcase detail */
+.collections-detail-heading{position:relative;padding-right:58px;margin-bottom:12px}
+.collections-detail-title{display:flex;align-items:center;gap:12px;flex-wrap:wrap;min-height:48px}
+.collections-detail-title h1{margin:0;overflow-wrap:anywhere}.collections-detail-title span{white-space:nowrap}
+.collections-detail-title .btn{padding:8px 14px}
+.collections-detail-description{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;min-height:4.5em;line-height:1.5;margin:4px -58px 0 0;overflow-wrap:anywhere}
+.collections-detail-options{position:absolute;top:0;right:0;z-index:3}
+.collections-detail-options summary{display:grid;place-items:center;width:48px;height:48px;border-radius:10px;cursor:pointer;list-style:none}
+.collections-detail-options summary::-webkit-details-marker{display:none}.collections-detail-options .dropdown-menu{top:calc(100% + 5px);left:auto;right:0;min-width:180px}
+.collections-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.collection-card{min-width:0;padding:8px}.collection-card-photo{height:clamp(40px,calc((100svh - 480px)/2),200px)}
+.collection-card h3,.collection-card p{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.collection-card h3{margin:6px 0 2px}.collection-card p{margin:2px 0}
+.collections-manage-list{max-height:50vh;overflow:auto;padding:var(--button-effect-space)}.collections-manage-row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 0}.collections-manage-row>div{display:flex;gap:4px}.collections-manage-row .btn{padding:7px 10px}
+@media (orientation:portrait),(max-width:600px){.collections-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.collection-card-photo{height:clamp(35px,calc((100svh - 480px)/2),200px)}.collections-detail-title{gap:8px}.collections-manage-row{flex-wrap:wrap}}
+
+.collections-item-top{padding-right:0}.collections-detail-options summary:focus-visible{outline:2px solid var(--dcr-red);outline-offset:3px}.sk-page .collection-card .sk-card-photo{height:clamp(40px,calc((100svh - 480px)/2),200px);margin:0 0 6px}@media (orientation:portrait),(max-width:600px){.sk-page .collections-grid .collection-card:nth-child(n+5){display:none}}
