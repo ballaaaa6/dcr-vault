@@ -1,3 +1,5 @@
+- Stack the Vault image preview switch below the close button along the right edge.
+
 - Fit the Vault image preview around the card and align its switch and close controls across the top edge.
 
 - Give shared switch and options buttons red backgrounds with white icons.

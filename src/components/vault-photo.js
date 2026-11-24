@@ -18,7 +18,7 @@ export function vaultPhoto(card) {
   const flip = `<button class="vault-photo-flip" type="button" aria-label="Show back image" title="Switch image"${disabled}>${switchIcon()}</button>`;
   const cert = normalizeCert(card.certNumber);
   return `<div class="vault-detail-photo">${faces(card)}${flip}<div class="vault-photo-actions">${hasFront ? `<button class="vault-photo-preview" type="button">${searchIcon}Preview</button>` : ''}${cert ? `<a class="vault-photo-cert" href="${escapeHTML(certificatePath(cert))}">View Cert</a>` : ''}</div></div>
-    <dialog class="vault-photo-dialog" aria-label="Card image preview"><div class="vault-photo-toolbar">${flip}<button class="dialog-close vault-photo-close" type="button" aria-label="Close preview">×</button></div><div class="vault-photo-stage"><div class="vault-photo-view">${faces(card, true)}<span class="cert-zoom" aria-hidden="true"></span></div></div></dialog>`;
+    <dialog class="vault-photo-dialog" aria-label="Card image preview"><div class="vault-photo-toolbar"><button class="dialog-close vault-photo-close" type="button" aria-label="Close preview">×</button>${flip}</div><div class="vault-photo-stage"><div class="vault-photo-view">${faces(card, true)}<span class="cert-zoom" aria-hidden="true"></span></div></div></dialog>`;
 }
 
 export function initializeVaultPhoto(panel) {

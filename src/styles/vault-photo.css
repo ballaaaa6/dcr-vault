@@ -12,7 +12,7 @@
 .vault-photo-preview,.vault-photo-cert{display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;border:0;border-radius:30px;background:var(--dcr-white);color:var(--dcr-black);padding:12px 22px;font:inherit;font-weight:700;text-decoration:none;white-space:nowrap;cursor:pointer}
 .vault-photo-dialog{width:min(calc(100vw - 64px),690px,calc((100dvh - 104px) * var(--image-ratio, .7) + 40px));max-width:none;max-height:none;margin:auto;border:0;border-radius:20px;padding:20px;background:var(--dcr-white)}
 .vault-photo-dialog::backdrop{background:var(--dcr-black)}
-.vault-photo-toolbar{position:absolute;z-index:1;top:-20px;right:-19px;display:flex;align-items:center;gap:8px}
+.vault-photo-toolbar{position:absolute;z-index:1;top:-20px;right:-20px;display:flex;flex-direction:column;align-items:center;gap:8px}
 .vault-photo-close{position:static;flex:none}
 .vault-photo-stage{perspective:1200px}
 .vault-photo-view{position:relative;width:100%;aspect-ratio:var(--image-ratio, .7);overflow:hidden;line-height:0}
