@@ -13,7 +13,7 @@ export function getLocations() { return locations; }
 export function locationDialog() {
   return `<dialog class="location-dialog" aria-labelledby="location-title"><div class="location-dialog-head">
     <h2 id="location-title">Manage locations</h2><button class="btn btn-primary location-add" type="button" data-location-add>+ Add</button><button class="location-close" type="button" aria-label="Close" data-location-close>×</button></div>
-    <div data-location-body></div><p class="detail-note" data-location-error role="alert"></p></dialog>`;
+    <div class="button-safe-scroll" data-location-body></div><p class="detail-note" data-location-error role="alert"></p></dialog>`;
 }
 
 function listView() {

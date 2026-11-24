@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Preserve button visibility in scrollable areas
+- Provide shared clearance for button effects and apply it to the location dialog so its buttons are not clipped.
+
 ## 2026-11-24 - Refine vault label picker controls
 - Use the location dialog close button and right-align Add selected in the vault label picker.
 

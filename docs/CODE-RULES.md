@@ -30,3 +30,5 @@
 20. Use the shared `showToast(message, type)` from src/components/toast.js for toast notifications throughout the app. Choose `success`, `warning`, or `error` for the outcome; the component handles stacking, dismissal, and timing. Give related updates the same `key` and set `pending: true` while an operation is in progress.
 
 21. Text inputs and textareas use the shared cursor behavior initialized in src/utils/text-cursor.js; keep new text controls compatible with it.
+
+22. Scrollable containers with buttons must leave room for button shadows, hover movement, and focus outlines. Use the shared `button-safe-scroll` class from src/styles/buttons.css when the container needs this clearance, and verify that surrounding layout and scrolling remain usable.
