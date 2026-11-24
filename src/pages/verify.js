@@ -33,9 +33,10 @@ function languageName(value) {
 }
 
 export function itemInformation(card, {showClassification = false} = {}) {
-  const fields = [['Cert Number', card.certNumber], ['Condition', card.gradeLabel], ['Brand/Title', card.game],
-    ['Year', card.year], ['Card Name', card.name], ['Set Name', card.setName], ...(showClassification ? [['Type', classificationLabel(card) || '—']] : []), ['Card Number', card.cardNumber],
-    ['Rarity', card.rarity], ['Finish', card.sourceFinish], ['Language', languageName(card.sourceLanguage)]];
+  const fields = [['Cert Number', card.certNumber], ['Brand/Title', card.game], ['Year', card.year],
+    ['Set Name', card.setName], ['Card Name', card.name], ['Card Number', card.cardNumber],
+    ...(showClassification ? [['Type', classificationLabel(card) || '—']] : []), ['Rarity', card.rarity],
+    ['Finish', card.sourceFinish], ['Language', languageName(card.sourceLanguage)], ['Condition', card.gradeLabel]];
   return `<section class="cert-information"><h2>Item Information</h2><dl>${fields.filter(([, value]) => value).map(([label, value]) =>
     `<div><dt>${escapeHTML(label)}</dt><dd>${escapeHTML(value)}</dd></div>`).join('')}</dl></section>`;
 }

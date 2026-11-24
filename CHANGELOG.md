@@ -1,3 +1,5 @@
+- Reorder item information from certificate and set details through card attributes and condition.
+
 - Add catalog suggestions to matching fields when editing Vault card details.
 
 - Add the Benri Lab Glitter effect over the home page artwork.
