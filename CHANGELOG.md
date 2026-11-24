@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-24 - Use Lucide settings icon
+- Replace the location menu gear symbol with the Lucide Settings icon.
+
 ## 2026-11-24 - Shorten location menu action
 - Rename the location management action to Manage and add a gear symbol.
 

@@ -12,3 +12,6 @@
 .dropdown-check{visibility:hidden}.dropdown-menu [aria-checked="true"] .dropdown-check{visibility:visible}
 [data-dropdown-align="end"] .dropdown-menu{right:0;left:auto}
 .dropdown-menu .dropdown-action{border-top:1px solid var(--dcr-border);border-radius:0;margin-top:5px;padding-top:12px}
+
+.dropdown-menu .dropdown-action{justify-content:flex-start;gap:8px}
+.dropdown-action-icon{width:16px;height:16px;flex:none}
