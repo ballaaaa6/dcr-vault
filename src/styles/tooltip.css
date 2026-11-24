@@ -1,6 +1,6 @@
 /* Animation adapted from Cksunandh's Uiverse tooltip; see docs/licenses/cksunandh-tooltip.txt. */
-.shared-tooltip{display:inline-block;position:relative;vertical-align:middle;margin-left:5px}
-.shared-tooltip__trigger{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;padding:0;border:1px solid currentColor;border-radius:50%;background:var(--dcr-white);color:var(--dcr-gray);font:700 10px var(--font-sans);cursor:pointer;transition:transform .5s ease-in-out}
+.shared-tooltip{display:inline-flex;position:relative;align-items:center;justify-content:center;width:15px;height:15px;vertical-align:middle;margin-left:5px;line-height:0;flex:none}
+.shared-tooltip__trigger{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;padding:0;border:1px solid currentColor;border-radius:50%;background:var(--dcr-white);color:var(--dcr-gray);font:700 10px/1 var(--font-sans);cursor:pointer;transition:transform .5s ease-in-out}
 .shared-tooltip__content{position:absolute;z-index:50;bottom:calc(100% + 9px);left:50%;width:210px;max-width:65vw;padding:9px 11px;border-radius:8px;background:var(--dcr-red);color:var(--dcr-white);font-size:var(--font-size-description);line-height:1.35;font-weight:400;visibility:hidden;opacity:0;transform:translate(-50%,4px);text-align:center;transition:opacity .5s,transform .5s;pointer-events:none}
 .shared-tooltip__content::after{content:'';position:absolute;top:100%;left:50%;border:6px solid transparent;border-top-color:var(--dcr-red);transform:translateX(-50%)}
 .shared-tooltip:hover .shared-tooltip__content,.shared-tooltip:focus-within .shared-tooltip__content{visibility:visible;opacity:1;transform:translate(-50%,0);animation:shared-tooltip-bounce .6s ease}

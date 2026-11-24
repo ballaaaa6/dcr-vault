@@ -1,3 +1,5 @@
+- Align shared tooltip icons with field labels across Add Card and Vault.
+
 - Add reusable field guidance tooltips to card and private vault editing.
 
 - Add field guidance tooltips to Add Card, preserving the existing card-reading review warning.
