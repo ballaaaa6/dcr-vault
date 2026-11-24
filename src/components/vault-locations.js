@@ -1,3 +1,4 @@
+import {optionsIcon} from './action-icons.js';
 import {escapeHTML as esc} from '../utils/format.js';
 import {manageLocationCards} from './vault-location-cards.js';
 import {locationsRequest} from '../store/locations.js';
@@ -31,7 +32,7 @@ function listView() {
   add.hidden = false;
   body.classList.add('location-list-body');
   document.getElementById('location-title').textContent = `Manage ${kind()}s`;
-  body.innerHTML = `${items().length ? `<div class="location-list">${items().map(item => `<div class="location-row" data-location-id="${esc(item.id)}"><button class="location-drag-handle" type="button" aria-label="Reorder ${esc(item.name)}" aria-describedby="location-sort-help">⠿</button><span><strong>${esc(item.name)}</strong><small>${item.cardCount} ${item.cardCount === 1 ? 'card' : 'cards'}</small></span><details class="dropdown-control location-menu" data-dropdown-align="end"><summary aria-label="Options for ${esc(item.name)}"><span class="location-gear" aria-hidden="true"></span></summary><div class="dropdown-menu" role="menu"><button type="button" role="menuitem" data-location-cards="${esc(item.id)}">Manage cards</button><button type="button" role="menuitem" data-location-rename="${esc(item.id)}">Rename</button><button type="button" role="menuitem" data-location-delete="${esc(item.id)}">Delete</button></div></details></div>`).join('')}</div>` : `<p class="location-empty">No ${kind()}s yet.</p>`}`;
+  body.innerHTML = `${items().length ? `<div class="location-list">${items().map(item => `<div class="location-row" data-location-id="${esc(item.id)}"><button class="location-drag-handle" type="button" aria-label="Reorder ${esc(item.name)}" aria-describedby="location-sort-help">⠿</button><span><strong>${esc(item.name)}</strong><small>${item.cardCount} ${item.cardCount === 1 ? 'card' : 'cards'}</small></span><details class="dropdown-control location-menu" data-dropdown-align="end"><summary aria-label="Options for ${esc(item.name)}">${optionsIcon()}</summary><div class="dropdown-menu" role="menu"><button type="button" role="menuitem" data-location-cards="${esc(item.id)}">Manage cards</button><button type="button" role="menuitem" data-location-rename="${esc(item.id)}">Rename</button><button type="button" role="menuitem" data-location-delete="${esc(item.id)}">Delete</button></div></details></div>`).join('')}</div>` : `<p class="location-empty">No ${kind()}s yet.</p>`}`;
   body.insertAdjacentHTML('beforeend', '<p class="sr-only" id="location-sort-help">Press Space to pick up, arrow keys to move, and Space to drop. Press Escape to cancel.</p><p class="sr-only" data-location-sort-status aria-live="polite"></p>');
   initializeLocationSorting(body, saveOrder);
   add.onclick = () => editView();

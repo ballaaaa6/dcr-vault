@@ -1,3 +1,5 @@
+- Use shared red animated switch and options icons throughout Vault controls.
+
 - Align Personal details labels with their values by removing empty status spacing.
 
 - Align shared tooltip icons with field labels across Add Card and Vault.

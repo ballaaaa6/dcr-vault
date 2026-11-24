@@ -1,3 +1,4 @@
+import {switchIcon, optionsIcon} from '../components/action-icons.js';
 import {vaultTooltip} from '../components/vault-tooltip.js';
 import {compareVaultCards, vaultSortSelect} from '../utils/vault-sort.js';
 import {searchClearButton} from '../components/search-clear.js';
@@ -95,7 +96,6 @@ async function refreshLocations() {
   if (selectedId && document.querySelector('.vault-detail')) selectCard(selectedId, 'private');
   if (document.getElementById('vault-q')) window.__filterVault();
 }
-const flipIcon = '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-5V2M4 17h5v5M20 7a8 8 0 0 0-14-2M4 17a8 8 0 0 0 14 2"/></svg>';
 const privateKeys = ['buyPrice', 'buyCurrency', 'purchaseSource', 'seller', 'receivedDate', 'storageLocation', 'position', 'notes'];
 function privateInformation(card) {
   const price = card.buyPrice == null || card.buyPrice === '' ? '-' : `${card.buyPrice} ${card.buyCurrency || 'THB'}`;
@@ -129,8 +129,8 @@ window.__vaultSourceChange = select => {
 function detailMarkup(card, mode = 'item') {
   const editing = mode.startsWith('edit-');
   const privateMode = mode === 'private' || mode === 'edit-private';
-  return `<div class="vault-detail-controls"><button class="vault-edit-button vault-detail-flip" type="button" onclick="window.__flipVault()" aria-label="${privateMode ? 'Show item information' : 'Show private vault details'}" title="Switch details">${flipIcon}</button>
-    <details class="vault-menu dropdown-control" data-dropdown-align="end"><summary class="vault-edit-button" aria-label="Card options" title="Card options">⋯</summary><div class="vault-menu-options dropdown-menu" role="menu">
+  return `<div class="vault-detail-controls"><button class="vault-edit-button vault-detail-flip" type="button" onclick="window.__flipVault()" aria-label="${privateMode ? 'Show item information' : 'Show private vault details'}" title="Switch details">${switchIcon()}</button>
+    <details class="vault-menu dropdown-control" data-dropdown-align="end"><summary class="vault-edit-button" aria-label="Card options" title="Card options">${optionsIcon()}</summary><div class="vault-menu-options dropdown-menu" role="menu">
     <button type="button" role="menuitem" onclick="window.__editVault('card')">Edit card</button><button type="button" role="menuitem" onclick="window.__editVault('private')">Edit private</button><button class="vault-delete" type="button" role="menuitem" onclick="window.__deleteVault('${escapeHTML(card.id)}')">Delete card</button></div></details></div>
     ${editing ? `<form id="vault-edit" class="vault-edit" data-mode="${mode}" onsubmit="window.__saveDetail(event, '${escapeHTML(card.id)}')">
       <h2>${privateMode ? 'Private vault details' : 'Edit card details'}</h2>

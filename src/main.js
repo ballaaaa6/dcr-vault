@@ -1,3 +1,4 @@
+import './styles/action-icons.css';
 // DCR Card Vault - Entry - English only
 import {render} from './router.js';
 import {initializeTooltips} from './components/tooltip.js';

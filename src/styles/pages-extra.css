@@ -215,8 +215,6 @@
 @media(prefers-reduced-motion:reduce){.location-choices input[type="radio"]::before{transition:none}}
 
 .location-row .location-menu summary{min-height:40px;padding:8px;border:0;background:transparent}
-.location-gear{display:block;width:24px;height:24px;background:currentColor;mask:url('/assets/lucide-settings.svg') center/contain no-repeat;color:var(--dcr-gray)}
-.location-menu summary:hover .location-gear,.location-menu[open] .location-gear{color:var(--dcr-red)}
 .location-dialog .location-list-body{overflow:visible}
 .location-list-body .location-list{max-height:min(328px,max(76px,calc(round(down,calc(85dvh - 152px),84px) - 8px)));overflow-y:auto;overscroll-behavior:contain}
 .location-list-body .location-row{height:76px;box-sizing:border-box}
