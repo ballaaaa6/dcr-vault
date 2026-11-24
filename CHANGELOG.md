@@ -1,3 +1,5 @@
+- Keep the Labels heading opaque while scrolling, align sheet controls and move operation messages to toast notifications.
+
 - Fit each sheet preview and its close button within the viewport, with paired front and back pages when scrolling through multiple sheets.
 
 - Apply the shared scale animation to the Vault image preview close button.

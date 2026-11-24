@@ -1,3 +1,4 @@
+import {showToast, dismissToast} from '../components/toast.js';
 import {sheetPreviewSkeleton} from '../components/page-skeleton.js';
 import {heartCheckbox} from '../components/heart-checkbox.js';
 import {compareVaultCards, vaultSortSelect} from '../utils/vault-sort.js';
@@ -30,11 +31,9 @@ export async function label(cards = []) {
       <label class="form-field" for="label-cert-input"><span>Certificate numbers</span><textarea class="form-control" id="label-cert-input" rows="2" placeholder="1-10, 12-18, 25"></textarea></label>
       <p class="muted">Enter individual numbers or ranges separated by commas. Up to 500 numbers per search.</p>
       <div class="label-controls"><button class="btn btn-primary" data-label-action="search">Find and add</button><button class="btn btn-ghost" data-label-action="vault">Choose from My Vault</button></div>
-      <p id="label-status" class="label-status" role="status" aria-live="polite"></p><details id="label-missing" hidden><summary>View unavailable certificate numbers</summary><p></p></details>
     </section>
     <section class="surface-card label-list-section"><div class="label-list-heading"><div><h2>Labels on your sheets</h2><p class="muted" id="label-count"></p></div><button class="btn btn-ghost" data-label-action="clear">Clear all</button></div>
-      <div id="label-list"></div><div class="label-controls label-bottom"><button class="btn btn-ghost" data-label-action="preview">Preview sheets</button><button class="btn btn-primary" data-label-action="download">Download PDF</button></div>
-      <p class="label-print-note">Print at actual size, double-sided, flip on long edge. Each sheet contains up to 40 labels.</p>
+      <div id="label-list"></div><div class="label-bottom"><p class="label-print-note">Print at actual size, double-sided, flip on long edge. Each sheet contains up to 40 labels.</p><div class="label-controls"><button class="btn btn-ghost" data-label-action="preview">Preview sheets</button><button class="btn btn-primary" data-label-action="download">Download PDF</button></div></div>
     </section>
     </div>
     <dialog class="label-dialog" id="label-dialog"><div id="label-dialog-content"></div></dialog>
@@ -77,7 +76,7 @@ function refresh() {
   for (const action of ['search', 'vault']) page().querySelector(`[data-label-action="${action}"]`).disabled = busy;
 }
 
-function status(text) { const el = document.getElementById('label-status'); if (el) el.textContent = text; }
+function status(text, type = 'success', pending = false) { showToast(text, type, {key: 'label-operation', pending}); }
 function dialog(html) { document.getElementById('label-dialog-content').innerHTML = html; document.getElementById('label-dialog').showModal(); }
 function closeDialog() { document.getElementById('label-dialog').close(); }
 function dialogHead(title) { return `<div class="label-dialog-head"><h2>${title}</h2><button class="dialog-close location-close" type="button" aria-label="Close" title="Close" data-label-action="close">×</button></div>`; }
@@ -85,21 +84,20 @@ function dialogHead(title) { return `<div class="label-dialog-head"><h2>${title}
 async function searchCerts() {
   let certs;
   try { certs = parseCertRanges(document.getElementById('label-cert-input').value); }
-  catch (error) { status(error.message); return; }
-  busy = true; refresh(); status(`Searching ${certs.length} certificates…`);
+  catch (error) { status(error.message, 'warning'); return; }
+  busy = true; refresh(); status(`Searching ${certs.length} certificates…`, 'warning', true);
   const results = new Array(certs.length);
   let next = 0;
   const worker = async () => { while (next < certs.length) { const i = next++; try { results[i] = {card: await getCertificate(certs[i])}; } catch { results[i] = {failed: true}; } } };
   await Promise.all(Array.from({length: Math.min(8, certs.length)}, worker));
-  if (!page()) { busy = false; return; }
+  if (!page()) { busy = false; dismissToast('label-operation'); return; }
   const missing = certs.filter((_, i) => !results[i].card && !results[i].failed);
   const failed = certs.filter((_, i) => results[i].failed);
   const result = await addCards(results.map(item => item.card).filter(Boolean));
   busy = false; refresh();
-  status(`Added ${result.added} · Not found ${missing.length} · Already added ${result.duplicate} · Search failed ${failed.length}`);
-  const details = document.getElementById('label-missing');
-  details.hidden = !missing.length && !failed.length;
-  details.querySelector('p').textContent = [missing.length ? `Not found: ${missing.join(', ')}` : '', failed.length ? `Search failed; retry: ${failed.join(', ')}` : ''].filter(Boolean).join(' · ');
+  const summary = `Added ${result.added} · Not found ${missing.length} · Already added ${result.duplicate} · Search failed ${failed.length}`;
+  const details = [missing.length ? `Not found: ${missing.join(', ')}` : '', failed.length ? `Search failed; retry: ${failed.join(', ')}` : ''].filter(Boolean).join(' · ');
+  status([summary, details].filter(Boolean).join(' · '), missing.length || failed.length ? 'warning' : 'success');
 }
 
 
@@ -131,13 +129,13 @@ async function previewSheets() {
       sheets.push(`<div class="sheet-preview-pair">${sides.join('')}</div>`);
     }
     if (document.getElementById('label-dialog')?.open) document.getElementById('label-dialog-content').innerHTML = `${dialogHead('Sheet preview')}<div class="sheet-preview-pages">${sheets.join('')}</div>`;
-  } catch (error) { status(error.message); closeDialog(); }
+  } catch (error) { status(error.message || 'Could not preview sheets.', 'error'); closeDialog(); }
 }
 
 async function download() {
-  busy = true; refresh(); status('Preparing PDF…');
+  busy = true; refresh(); status('Preparing PDF…', 'warning', true);
   try { const {downloadLabelPdf} = await import('../utils/label-pdf.js'); await downloadLabelPdf(ready(), api); status('PDF downloaded.'); }
-  catch (error) { status(error.message || 'Could not create PDF.'); }
+  catch (error) { status(error.message || 'Could not create PDF.', 'error'); }
   finally { busy = false; refresh(); }
 }
 
@@ -150,7 +148,7 @@ document.addEventListener('click', async event => {
   if (action === 'close') closeDialog();
   if (action === 'add-vault') {
     const selected = new Set([...document.querySelectorAll('.label-vault-list input:checked')].map(input => input.value));
-    closeDialog(); busy = true; refresh(); status('Preparing labels…');
+    closeDialog(); busy = true; refresh(); status('Preparing labels…', 'warning', true);
     const result = await addCards(vaultCards.filter(card => selected.has(normalizeCert(card.certNumber))));
     busy = false; refresh(); status(`Added ${result.added} labels.`);
   }
