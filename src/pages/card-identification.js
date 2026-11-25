@@ -295,7 +295,6 @@ async function analyzeFront() {
   clearResult();
   clearReadingHighlights();
   const version = ++analysisVersion;
-  const again = hasIdentifiedPhoto;
   hasIdentifiedPhoto = true;
   analysisBusy = true;
   button.disabled = true;
@@ -308,7 +307,7 @@ async function analyzeFront() {
   status.textContent = 'Reading card…';
   try {
     let result;
-    try { result = await identifyCardImage(file, again); }
+    try { result = await identifyCardImage(file); }
     catch (error) {
       if (version === analysisVersion) showError(safeReadingErrorMessage(error), canRetryIdentification(error));
       return;

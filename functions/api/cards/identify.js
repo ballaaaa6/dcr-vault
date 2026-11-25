@@ -1,7 +1,7 @@
 import {error, json, sameOrigin} from '../../_utils/http.js';
 import {IMAGE_MAX_BYTES, readImageBody, supportedImageType} from '../../_utils/images.js';
 import {currentUser} from '../../_utils/sessions.js';
-import {analyzeWithGemini, MODEL, REPEAT_MODEL} from '../../_utils/gemini-card-reader.js';
+import {analyzeWithGemini, MODEL} from '../../_utils/gemini-card-reader.js';
 import {safeRecordIdentification} from '../../_utils/identification-log.js';
 
 function requestAllowed(request) {
@@ -35,7 +35,7 @@ export async function onRequestPost({request, env}) {
   const image = await readImageBody(request);
   if (image.error) return error(image.error, image.error.includes('10 MB') ? 413 : 400);
   if (image.body.byteLength > IMAGE_MAX_BYTES) return error('Each photo must be 10 MB or smaller.', 413);
-  const model = request.headers.get('X-Identify-Again') === 'true' ? REPEAT_MODEL : MODEL;
+  const model = MODEL;
   return identifyWithGemini(image.body, contentType, env, session.user.id, model);
 }
 

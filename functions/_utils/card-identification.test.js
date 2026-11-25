@@ -118,7 +118,7 @@ test('returns a Gemini suggestion even when identity details need manual review'
   }
 });
 
-test('repeat identification selects the higher model and reports it', async () => {
+test('repeat identification uses the standard model and reports it', async () => {
   const originalFetch = globalThis.fetch;
   let endpoint;
   globalThis.fetch = async url => {
@@ -129,8 +129,8 @@ test('repeat identification selects the higher model and reports it', async () =
     const response = await onRequestPost({request: identifyRequest(true), env: testEnvironment()});
     const result = await response.json();
     assert.equal(response.status, 200);
-    assert.equal(result.model, 'gemini-3.8-flash');
-    assert.match(endpoint, /models\/gemini-3\.8-flash:generateContent$/);
+    assert.equal(result.model, 'gemini-3.6-flash');
+    assert.match(endpoint, /models\/gemini-3\.6-flash:generateContent$/);
   } finally { globalThis.fetch = originalFetch; }
 });
 
