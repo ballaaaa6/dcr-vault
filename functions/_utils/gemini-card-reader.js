@@ -1,7 +1,7 @@
 import {cleanReading} from './card-reading-normalization.js';
 import {reserveKey, recordAttempt, keyIdentifier} from './gemini-usage.js';
 
-export const MODEL = 'gemini-3.5-flash-lite';
+export const MODEL = 'gemini-3.6-flash';
 const ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
 const API_TIMEOUT_MS = 45000;
 const RETRY_DELAY_MS = 400;

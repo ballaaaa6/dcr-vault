@@ -1,3 +1,7 @@
+# Gemini model update
+
+- Use Gemini 3.6 Flash for card identification.
+
 # Calendar layout and duration
 
 - Remove calendar scrollbars, paginate year selection, and refine range previews and duration labels.
