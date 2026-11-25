@@ -42,3 +42,7 @@
 .date-picker-day.is-range-start.is-range-end:not(.is-selected){border-radius:50%}
 .date-picker-day[data-duration]{position:relative}
 .date-picker-day[data-duration]::after{content:attr(data-duration);position:absolute;z-index:2;bottom:100%;left:50%;transform:translateX(-50%);white-space:nowrap;padding:5px 8px;border-radius:6px;background:var(--dcr-red);color:var(--dcr-white);font-size:var(--font-size-small);pointer-events:none}
+
+.date-picker-day.is-range.is-range-start,.date-picker-day.is-range.is-range-end{background:radial-gradient(circle closest-side,var(--dcr-pink) 98%,transparent 100%),linear-gradient(to right,transparent 50%,var(--dcr-red-light) 50%);color:var(--dcr-white);font-weight:700;border-radius:0}
+.date-picker-day.is-range.is-range-end{background:radial-gradient(circle closest-side,var(--dcr-pink) 98%,transparent 100%),linear-gradient(to left,transparent 50%,var(--dcr-red-light) 50%)}
+.date-picker-day.is-range.is-range-start.is-range-end{background:var(--dcr-pink);border-radius:50%}

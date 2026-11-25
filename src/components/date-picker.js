@@ -20,8 +20,8 @@ export function calendarOpensUp(triggerTop, triggerBottom, calendarHeight, viewp
   return below < calendarHeight && above > below;
 }
 
-export function datePicker(value = '', {name = 'receivedDate', label = 'Date received', id = 'received-date', help = '', allowFuture = false, rangeStart = ''} = {}) {
-  return `<div class="form-field">${help ? `<div><span id="${id}-label">${escapeHTML(label)}</span>${help}</div>` : `<span id="${id}-label">${escapeHTML(label)}</span>`}<div class="date-picker" data-date-picker data-allow-future="${allowFuture}" data-range-start="${escapeHTML(rangeStart)}">
+export function datePicker(value = '', {name = 'receivedDate', label = 'Date received', id = 'received-date', help = '', allowFuture = false, rangeStart = '', rangeEnd = ''} = {}) {
+  return `<div class="form-field">${help ? `<div><span id="${id}-label">${escapeHTML(label)}</span>${help}</div>` : `<span id="${id}-label">${escapeHTML(label)}</span>`}<div class="date-picker" data-date-picker data-allow-future="${allowFuture}" data-range-start="${escapeHTML(rangeStart)}" data-range-end="${escapeHTML(rangeEnd)}">
     <input type="hidden" name="${escapeHTML(name)}" value="${escapeHTML(value)}">
     <button type="button" class="form-control date-picker-trigger" aria-labelledby="${id}-label ${id}-value" aria-expanded="false" aria-controls="${id}-calendar"><span data-date-value data-empty="${!value}" id="${id}-value">${escapeHTML(displayDate(value))}</span>${calendarIcon}</button>
     <div id="${id}-calendar" class="date-picker-calendar" hidden></div></div></div>`;
@@ -41,9 +41,28 @@ export function dateDuration(startValue, endValue) {
   return `${Math.floor(totalMonths / 12)}y ${totalMonths % 12}m ${days}d`;
 }
 
-function rangeStartValue(picker) {
-  const id = picker.dataset.rangeStart;
+function linkedValue(id) {
   return id ? document.getElementById(id)?.closest('[data-date-picker]')?.querySelector('input')?.value || '' : '';
+}
+
+function rangeStartValue(picker) { return linkedValue(picker.dataset.rangeStart); }
+
+function paintRange(calendar, start, end) {
+  calendar.querySelectorAll('.is-range, .is-range-start, .is-range-end').forEach(item => item.classList.remove('is-range', 'is-range-start', 'is-range-end'));
+  if (!start || !end || end < start) return;
+  calendar.querySelectorAll('[data-date]').forEach(item => {
+    const value = item.dataset.date;
+    if (value >= start && value <= end) item.classList.add('is-range');
+    if (value === start) item.classList.add('is-range-start');
+    if (value === end) item.classList.add('is-range-end');
+  });
+}
+
+function paintSavedRange(picker, calendar) {
+  if (!picker.dataset.rangeStart && !picker.dataset.rangeEnd) return;
+  const value = picker.querySelector('input').value;
+  paintRange(calendar, picker.dataset.rangeStart ? rangeStartValue(picker) : value,
+    picker.dataset.rangeEnd ? linkedValue(picker.dataset.rangeEnd) : value);
 }
 
 function renderCalendar(picker, view, level) {
@@ -76,7 +95,7 @@ export function initializeDatePicker(container) {
   let view = parseDate(input.value) || new Date();
   let level = 'day';
   let rendering = false;
-  const render = () => { rendering = true; renderCalendar(picker, view, level); rendering = false; };
+  const render = () => { rendering = true; renderCalendar(picker, view, level); paintSavedRange(picker, calendar); rendering = false; };
   const close = () => { calendar.hidden = true; trigger.setAttribute('aria-expanded', 'false'); };
   trigger.addEventListener('click', () => {
     if (!calendar.hidden) return close();
@@ -111,14 +130,9 @@ export function initializeDatePicker(container) {
   const preview = event => {
     const day = event.target.closest('[data-date]');
     const start = rangeStartValue(picker);
-    calendar.querySelectorAll('.is-range, .is-range-start, .is-range-end').forEach(item => item.classList.remove('is-range', 'is-range-start', 'is-range-end'));
     calendar.querySelectorAll('[data-duration]').forEach(item => delete item.dataset.duration);
-    if (!day || day.disabled || !start) return;
-    calendar.querySelectorAll('[data-date]').forEach(item => {
-      if (item.dataset.date >= start && item.dataset.date <= day.dataset.date) item.classList.add('is-range');
-      if (item.dataset.date === start) item.classList.add('is-range-start');
-    });
-    day.classList.add('is-range-end');
+    if (!day || day.disabled || !start) { paintSavedRange(picker, calendar); return; }
+    paintRange(calendar, start, day.dataset.date);
     day.dataset.duration = dateDuration(start, day.dataset.date);
   };
   calendar.addEventListener('pointerover', preview);

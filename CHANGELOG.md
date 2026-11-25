@@ -1,3 +1,7 @@
+# Date range display
+
+- Keep selected date ranges visible in both calendars with pink endpoints and restore them after previews.
+
 # Shared calendar improvements
 
 - Add Today and Clear actions, configurable future dates, and date-range previews with durations.

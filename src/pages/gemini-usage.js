@@ -3,7 +3,7 @@ import {escapeHTML} from '../utils/format.js';
 import {datePicker, initializeDatePicker} from '../components/date-picker.js';
 
 export function geminiUsage() {
-  return `<main class="app-page"><header class="page-heading"><h1>Gemini usage</h1><p class="page-description">Attempts and tokens recorded by this site since tracking began. Dates use UTC.</p></header><section class="surface-card"><form id="usage-filter" class="form-toolbar">${datePicker('', {name: 'from', label: 'From', id: 'usage-from'})}${datePicker('', {name: 'to', label: 'To', id: 'usage-to', rangeStart: 'usage-from-calendar'})} <button class="btn btn-primary">Show usage</button></form><div id="usage-results" role="status">${usageResultsSkeleton()}</div></section></main>`;
+  return `<main class="app-page"><header class="page-heading"><h1>Gemini usage</h1><p class="page-description">Attempts and tokens recorded by this site since tracking began. Dates use UTC.</p></header><section class="surface-card"><form id="usage-filter" class="form-toolbar">${datePicker('', {name: 'from', label: 'From', id: 'usage-from', rangeEnd: 'usage-to-calendar'})}${datePicker('', {name: 'to', label: 'To', id: 'usage-to', rangeStart: 'usage-from-calendar'})} <button class="btn btn-primary">Show usage</button></form><div id="usage-results" role="status">${usageResultsSkeleton()}</div></section></main>`;
 }
 
 export function initializeGeminiUsage() {
