@@ -10,11 +10,11 @@ function testEnvironment() {
   };
 }
 
-function identifyRequest() {
+function identifyRequest(again = false) {
   return new Request('https://vault.example.test/api/cards/identify', {
     method: 'POST',
     headers: {Origin: 'https://vault.example.test', 'Sec-Fetch-Site': 'same-origin',
-      'Content-Type': 'image/jpeg', Cookie: 'dcr_session=test-session'},
+      'Content-Type': 'image/jpeg', Cookie: 'dcr_session=test-session', 'X-Identify-Again': String(again)},
     body: new Uint8Array([0xff, 0xd8, 0xff, 0xd9])
   });
 }
@@ -107,6 +107,7 @@ test('returns a Gemini suggestion even when identity details need manual review'
     const result = await response.json();
     assert.equal(response.status, 200);
     assert.equal(result.source, 'gemini');
+    assert.equal(result.model, 'gemini-3.6-flash');
     assert.equal(result.fields.name, 'Pikachu');
     assert.equal(result.fields.identityStatus, 'needs_review');
     assert.equal(result.readingAdequate, true);
@@ -115,6 +116,22 @@ test('returns a Gemini suggestion even when identity details need manual review'
   } finally {
     globalThis.fetch = originalFetch;
   }
+});
+
+test('repeat identification selects the higher model and reports it', async () => {
+  const originalFetch = globalThis.fetch;
+  let endpoint;
+  globalThis.fetch = async url => {
+    endpoint = String(url);
+    return Response.json({candidates: [{content: {parts: [{text: JSON.stringify({name: 'Pikachu'})}]}}]});
+  };
+  try {
+    const response = await onRequestPost({request: identifyRequest(true), env: testEnvironment()});
+    const result = await response.json();
+    assert.equal(response.status, 200);
+    assert.equal(result.model, 'gemini-3.8-flash');
+    assert.match(endpoint, /models\/gemini-3\.8-flash:generateContent$/);
+  } finally { globalThis.fetch = originalFetch; }
 });
 
 test('identification log retains raw and normalized Pokémon types', async () => {

@@ -1,3 +1,7 @@
+# Repeated card identification
+
+- Use Gemini 3.8 Flash when identifying the same front photo again, and label the button accordingly.
+
 # Gemini model update
 
 - Use Gemini 3.6 Flash for card identification.

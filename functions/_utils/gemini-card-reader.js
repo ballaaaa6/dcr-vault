@@ -2,7 +2,7 @@ import {cleanReading} from './card-reading-normalization.js';
 import {reserveKey, recordAttempt, keyIdentifier} from './gemini-usage.js';
 
 export const MODEL = 'gemini-3.6-flash';
-const ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
+export const REPEAT_MODEL = 'gemini-3.8-flash';
 const API_TIMEOUT_MS = 45000;
 const RETRY_DELAY_MS = 400;
 const PROMPT = [
@@ -187,11 +187,11 @@ function fetchDiagnostics(cause, elapsedMs) {
   };
 }
 
-async function postGemini(apiKey, payload, track) {
+async function postGemini(apiKey, payload, track, model) {
   const startedAt = Date.now();
   let response;
   try {
-    response = await fetch(ENDPOINT, {
+    response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
       method: 'POST', headers: {'Content-Type': 'application/json', 'x-goog-api-key': apiKey},
       body: payload, redirect: 'manual', signal: AbortSignal.timeout(API_TIMEOUT_MS)
     });
@@ -230,7 +230,7 @@ export function configuredApiKeys(env) {
   return [...new Set([...pool, legacyKey].filter(Boolean))];
 }
 
-export async function analyzeWithGemini(env, body, contentType, requestId, onParsed = () => {}) {
+export async function analyzeWithGemini(env, body, contentType, requestId, onParsed = () => {}, model = MODEL) {
   const apiKeys = configuredApiKeys(env);
   if (!apiKeys.length) throw readingError('not_configured', 503);
   const payload = JSON.stringify({contents: [{role: 'user', parts: [
@@ -240,12 +240,12 @@ export async function analyzeWithGemini(env, body, contentType, requestId, onPar
     try {
       const slot = env.DB ? await reserveKey(env.DB, apiKeys.length) : index;
       const keyId = await keyIdentifier(apiKeys[slot]);
-      const track = (outcome, status, usage) => recordAttempt(env.DB, {requestId, slot, keyId, outcome, status, usage, model: MODEL});
-      const output = await postGemini(apiKeys[slot], payload, track);
+      const track = (outcome, status, usage) => recordAttempt(env.DB, {requestId, slot, keyId, outcome, status, usage, model});
+      const output = await postGemini(apiKeys[slot], payload, track, model);
       const parsed = parseOutput(output);
       onParsed(parsed);
       const fields = cleanReading(parsed);
-      if (!fields) console.warn('Gemini returned no identity fields.', {model: MODEL, ...responseDiagnostics(output, parsed)});
+      if (!fields) console.warn('Gemini returned no identity fields.', {model, ...responseDiagnostics(output, parsed)});
       return fields;
     } catch (cause) {
       if (!canFailOver(cause)) throw cause;
@@ -253,7 +253,7 @@ export async function analyzeWithGemini(env, body, contentType, requestId, onPar
         if (cause?.code === 'key_rejected') throw readingError('configuration', 503);
         throw cause;
       }
-      console.warn('Gemini request failed; trying the next configured API key.', {model: MODEL, requestId,
+      console.warn('Gemini request failed; trying the next configured API key.', {model, requestId,
         reasonCode: cause.code, upstreamStatus: cause.upstreamStatus || null});
       if (retryableFailure(cause)) await new Promise(resolve => setTimeout(resolve, RETRY_DELAY_MS));
     }

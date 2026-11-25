@@ -40,9 +40,9 @@ export async function uploadCardImage(id, side, file) {
   });
 }
 
-export async function identifyCardImage(file) {
+export async function identifyCardImage(file, again = false) {
   return requestJson('/api/cards/identify', {
-    method: 'POST', headers: {'Content-Type': file.type}, body: file
+    method: 'POST', headers: {'Content-Type': file.type, 'X-Identify-Again': String(again)}, body: file
   });
 }
 

@@ -16,6 +16,7 @@ import {readingConflict} from '../utils/intake-reading-guards.js';
 
 let analysisVersion = 0;
 let analysisBusy = false;
+let hasIdentifiedPhoto = false;
 let appliedValues = null;
 let candidateState = null;
 let readingRequestId = '';
@@ -34,7 +35,10 @@ export function identificationDialogMarkup() {
 function updateButton() {
   const button = document.getElementById('identify-card');
   const file = document.getElementById('m-image-front')?.files?.[0];
-  if (button) button.disabled = analysisBusy || !file;
+  if (button) {
+    button.disabled = analysisBusy || !file;
+    if (!analysisBusy) button.querySelector('span').textContent = hasIdentifiedPhoto && file ? 'Identify again' : 'Identify card';
+  }
 }
 
 function clearResult() {
@@ -47,6 +51,7 @@ function clearResult() {
 }
 
 export function resetCardIdentificationState() {
+  hasIdentifiedPhoto = false;
   analysisVersion += 1;
   candidateState = null;
   clearReadingHighlights();
@@ -290,6 +295,8 @@ async function analyzeFront() {
   clearResult();
   clearReadingHighlights();
   const version = ++analysisVersion;
+  const again = hasIdentifiedPhoto;
+  hasIdentifiedPhoto = true;
   analysisBusy = true;
   button.disabled = true;
   button.querySelector('span').textContent = 'Analyzing…';
@@ -301,7 +308,7 @@ async function analyzeFront() {
   status.textContent = 'Reading card…';
   try {
     let result;
-    try { result = await identifyCardImage(file); }
+    try { result = await identifyCardImage(file, again); }
     catch (error) {
       if (version === analysisVersion) showError(safeReadingErrorMessage(error), canRetryIdentification(error));
       return;
@@ -329,7 +336,6 @@ async function analyzeFront() {
     }
     analysisBusy = false;
     button.dataset.busy = 'false';
-    button.querySelector('span').textContent = 'Identify card';
     updateButton();
   }
 }

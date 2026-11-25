@@ -1,7 +1,7 @@
 import {error, json, sameOrigin} from '../../_utils/http.js';
 import {IMAGE_MAX_BYTES, readImageBody, supportedImageType} from '../../_utils/images.js';
 import {currentUser} from '../../_utils/sessions.js';
-import {analyzeWithGemini, MODEL} from '../../_utils/gemini-card-reader.js';
+import {analyzeWithGemini, MODEL, REPEAT_MODEL} from '../../_utils/gemini-card-reader.js';
 import {safeRecordIdentification} from '../../_utils/identification-log.js';
 
 function requestAllowed(request) {
@@ -9,7 +9,7 @@ function requestAllowed(request) {
   return sameOrigin(request) && (!fetchSite || ['same-origin', 'none'].includes(fetchSite));
 }
 
-function geminiFailure(cause, requestId) {
+function geminiFailure(cause, requestId, model) {
   const failures = {
     not_configured: ['Card reading is not configured for this deployment.', 503, 'gemini_not_configured'],
     configuration: ['Card reading configuration is invalid. Contact the site administrator.', 503, 'gemini_configuration'],
@@ -21,7 +21,7 @@ function geminiFailure(cause, requestId) {
   const [message, status, code] = failures[cause?.code] || [
     'Card reading is temporarily unavailable. Try again in a moment.', 503, 'gemini_unknown'
   ];
-  console.error('Card reading failed.', {model: MODEL, requestId, reasonCode: cause?.code || 'unknown',
+  console.error('Card reading failed.', {model, requestId, reasonCode: cause?.code || 'unknown',
     upstreamStatus: cause?.upstreamStatus || null, failureDiagnostics: cause?.diagnostics || null});
   return json({error: message, code, requestId}, status);
 }
@@ -35,24 +35,25 @@ export async function onRequestPost({request, env}) {
   const image = await readImageBody(request);
   if (image.error) return error(image.error, image.error.includes('10 MB') ? 413 : 400);
   if (image.body.byteLength > IMAGE_MAX_BYTES) return error('Each photo must be 10 MB or smaller.', 413);
-  return identifyWithGemini(image.body, contentType, env, session.user.id);
+  const model = request.headers.get('X-Identify-Again') === 'true' ? REPEAT_MODEL : MODEL;
+  return identifyWithGemini(image.body, contentType, env, session.user.id, model);
 }
 
-async function identifyWithGemini(image, contentType, env, userId) {
+async function identifyWithGemini(image, contentType, env, userId, model) {
   const startedAt = Date.now();
   const requestId = crypto.randomUUID();
   let fields;
   let rawReading;
   let failure;
   try {
-    fields = await analyzeWithGemini(env, image, contentType, requestId, value => { rawReading = value; });
+    fields = await analyzeWithGemini(env, image, contentType, requestId, value => { rawReading = value; }, model);
   } catch (cause) { failure = cause; }
-  await safeRecordIdentification(env.DB, userId, {requestId, model: MODEL, durationMs: Date.now() - startedAt,
+  await safeRecordIdentification(env.DB, userId, {requestId, model, durationMs: Date.now() - startedAt,
     outcome: failure?.code || (fields ? 'success' : 'unreadable'), reading: {raw: safeRawReading(rawReading), normalized: safeRawReading(fields)}});
-  if (failure) return geminiFailure(failure, requestId);
+  if (failure) return geminiFailure(failure, requestId, model);
   if (!fields) return json({error: 'Gemini could not identify this card from the image.',
     code: 'card_unreadable', requestId}, 422);
-  return json({source: 'gemini', model: MODEL, fields,
+  return json({source: 'gemini', model, fields,
     readingAdequate: Boolean(fields.name || fields.englishName || fields.language && fields.cardNumber), requestId});
 }
 
