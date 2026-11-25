@@ -1,3 +1,7 @@
+# Search and showcase buttons
+
+- Enlarge and thicken the search and showcase icons and tighten button spacing.
+
 # Cert button animation
 
 - Keep the random Cert button colored during its spin and fade it back as the animation finishes.
