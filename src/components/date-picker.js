@@ -38,7 +38,8 @@ export function dateDuration(startValue, endValue) {
   if (anniversary(totalMonths) > end) totalMonths--;
   const anchor = anniversary(totalMonths);
   const days = Math.round((Date.UTC(end.getFullYear(), end.getMonth(), end.getDate()) - Date.UTC(anchor.getFullYear(), anchor.getMonth(), anchor.getDate())) / 86400000);
-  return `${Math.floor(totalMonths / 12)}y ${totalMonths % 12}m ${days}d`;
+  const parts = [[Math.floor(totalMonths / 12), 'y'], [totalMonths % 12, 'm'], [days, 'd']];
+  return parts.filter(([amount]) => amount).map(([amount, unit]) => `${amount}${unit}`).join(' ') || '0d';
 }
 
 function linkedValue(id) {
@@ -78,13 +79,18 @@ function renderCalendar(picker, view, level) {
     const value = isoDate(date);
     return `<button type="button" class="date-picker-day${date.getMonth() !== view.getMonth() ? ' is-outside' : ''}${value === selected ? ' is-selected' : ''}" data-date="${value}" aria-label="${displayDate(value)}"${value === selected ? ' aria-current="date"' : ''}${value > today ? ' is-future' : ''}${(!allowFuture && value > today) || (rangeStart && value < rangeStart) ? ' disabled' : ''}>${date.getDate()}</button>`;
   }).join('');
-  const header = `<div class="date-picker-header"><button type="button" class="date-picker-title" data-level="${level === 'day' ? 'year' : 'day'}" aria-label="${level === 'day' ? 'Choose year and month' : 'Return to calendar'}">${months[view.getMonth()]} ${view.getFullYear()} <span aria-hidden="true">▾</span></button><button type="button" data-month="-1" aria-label="Previous month"${view.getFullYear() === 1900 && view.getMonth() === 0 ? ' disabled' : ''}>‹</button><button type="button" data-month="1" aria-label="Next month"${!allowFuture && view.getFullYear() === now.getFullYear() && view.getMonth() >= now.getMonth() ? ' disabled' : ''}>›</button></div>`;
   const maxYear = allowFuture ? Math.max(now.getFullYear() + 100, view.getFullYear()) : now.getFullYear();
-  const years = Array.from({length: maxYear - 1899}, (_, index) => maxYear - index).map(year => `<button type="button" data-year="${year}" class="${year === view.getFullYear() ? 'is-selected' : ''}">${year}</button>`).join('');
+  const yearPageStart = 1900 + Math.floor((view.getFullYear() - 1900) / 12) * 12;
+  const previousDisabled = level === 'year' ? yearPageStart <= 1900 : view.getFullYear() === 1900 && view.getMonth() === 0;
+  const nextDisabled = level === 'year' ? yearPageStart + 12 > maxYear : !allowFuture && view.getFullYear() === now.getFullYear() && view.getMonth() >= now.getMonth();
+  const header = `<div class="date-picker-header"><button type="button" class="date-picker-title" data-level="${level === 'day' ? 'year' : 'day'}" aria-label="${level === 'day' ? 'Choose year and month' : 'Return to calendar'}">${months[view.getMonth()]} ${view.getFullYear()} <span aria-hidden="true">▾</span></button><button type="button" data-month="-1" aria-label="${level === 'year' ? 'Previous years' : 'Previous month'}"${previousDisabled ? ' disabled' : ''}>‹</button><button type="button" data-month="1" aria-label="${level === 'year' ? 'Next years' : 'Next month'}"${nextDisabled ? ' disabled' : ''}>›</button></div>`;
+  const years = Array.from({length: Math.min(12, maxYear - yearPageStart + 1)}, (_, index) => yearPageStart + index).map(year => `<button type="button" data-year="${year}" class="${year === view.getFullYear() ? 'is-selected' : ''}">${year}</button>`).join('');
   const monthChoices = months.map((month, index) => `<button type="button" data-choice-month="${index}" class="${index === view.getMonth() ? 'is-selected' : ''}"${!allowFuture && view.getFullYear() === now.getFullYear() && index > now.getMonth() ? ' disabled' : ''}>${month.slice(0, 3)}</button>`).join('');
   const content = level === 'year' ? `<div class="date-picker-choices date-picker-years">${years}</div>` : level === 'month' ? `<div class="date-picker-choices">${monthChoices}</div>` : `<div class="date-picker-grid">${weekdays.map(day => `<span>${day}</span>`).join('')}${days}</div>`;
   picker.querySelector('.date-picker-calendar').innerHTML = `${header}${content}<div class="date-picker-actions"><button type="button" data-today${rangeStart && today < rangeStart ? ' disabled' : ''}>Today</button><button type="button" class="date-picker-clear" data-clear>Clear</button></div>`;
 }
+
+function maxViewYear(picker) { return new Date().getFullYear() + (picker.dataset.allowFuture === 'true' ? 100 : 0); }
 
 export function initializeDatePicker(container) {
   const picker = container.querySelector('[data-date-picker]');
@@ -117,7 +123,7 @@ export function initializeDatePicker(container) {
     const choice = event.target.closest('[data-choice-month]');
     if (choice) { view = new Date(view.getFullYear(), Number(choice.dataset.choiceMonth), 1); level = 'day'; render(); calendar.querySelector('[data-level]').focus(); return; }
     const month = event.target.closest('[data-month]');
-    if (month) { view = new Date(view.getFullYear(), view.getMonth() + Number(month.dataset.month), 1); render(); (calendar.querySelector(`[data-month="${month.dataset.month}"]:not(:disabled)`) || calendar.querySelector("[data-level]")).focus(); return; }
+    if (month) { const step = Number(month.dataset.month); view = level === 'year' ? new Date(Math.max(1900, Math.min(maxViewYear(picker), view.getFullYear() + step * 12)), view.getMonth(), 1) : new Date(view.getFullYear(), view.getMonth() + step, 1); render(); (calendar.querySelector(`[data-month="${month.dataset.month}"]:not(:disabled)`) || calendar.querySelector("[data-level]")).focus(); return; }
     const day = event.target.closest('[data-date]');
     const todayButton = event.target.closest('[data-today]');
     if (!day && !todayButton && !event.target.closest('[data-clear]')) return;

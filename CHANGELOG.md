@@ -1,3 +1,7 @@
+# Calendar layout and duration
+
+- Remove calendar scrollbars, paginate year selection, and refine range previews and duration labels.
+
 # Date range display
 
 - Keep selected date ranges visible in both calendars with pink endpoints and restore them after previews.

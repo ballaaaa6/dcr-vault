@@ -20,14 +20,14 @@
 
 .date-picker-header .date-picker-title{display:flex;align-items:center;gap:10px;color:inherit;font-size:var(--font-size-description);font-weight:700;text-align:left;border-radius:8px;padding:0 6px}
 .date-picker-title span{font-size:var(--font-size-description)}
-.date-picker-choices{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-height:260px;overflow-y:auto;padding:4px}
+.date-picker-choices{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:4px}
 .date-picker-choices button{min-height:36px;border:0;border-radius:18px;background:transparent;color:inherit;cursor:pointer;font:inherit}
 .date-picker-choices button:hover{background:var(--calendar-border)}
 .date-picker-choices button.is-selected{background:var(--calendar-selected);color:var(--dcr-white)}
 .date-picker-choices button:disabled{opacity:.3;cursor:not-allowed}
 .date-picker-day{border-radius:50%}
 
-.date-picker-calendar{max-height:calc(100dvh - 24px);overflow-y:auto}
+.date-picker-calendar{overflow:visible}
 
 .date-picker-header .date-picker-title{background:var(--dcr-red);color:var(--dcr-white)}
 .date-picker-header .date-picker-title:hover{background:var(--dcr-red-dark)}
@@ -46,3 +46,8 @@
 .date-picker-day.is-range.is-range-start,.date-picker-day.is-range.is-range-end{background:radial-gradient(circle closest-side,var(--dcr-pink) 98%,transparent 100%),linear-gradient(to right,transparent 50%,var(--dcr-red-light) 50%);color:var(--dcr-white);font-weight:700;border-radius:0}
 .date-picker-day.is-range.is-range-end{background:radial-gradient(circle closest-side,var(--dcr-pink) 98%,transparent 100%),linear-gradient(to left,transparent 50%,var(--dcr-red-light) 50%)}
 .date-picker-day.is-range.is-range-start.is-range-end{background:var(--dcr-pink);border-radius:50%}
+
+.date-picker-day.is-selected.is-range:not(.is-range-start):not(.is-range-end){border-radius:0;background:radial-gradient(circle closest-side,var(--calendar-selected) 98%,transparent 100%),var(--dcr-red-light)}
+@media (max-height:600px){.date-picker-calendar{padding:8px}.date-picker-header{margin-bottom:4px}.date-picker-grid>span{padding:2px 0}.date-picker-day{aspect-ratio:auto;height:min(32px,calc((100dvh - 165px)/6))}.date-picker-choices{gap:2px}.date-picker-choices button{min-height:28px}.date-picker-actions{margin-top:4px}}
+.date-picker-day[data-duration]:nth-child(7n + 1)::after,.date-picker-day[data-duration]:nth-child(7n + 2)::after{left:0;transform:none}
+.date-picker-day[data-duration]:nth-child(7n)::after,.date-picker-day[data-duration]:nth-child(7n - 1)::after{left:auto;right:0;transform:none}
