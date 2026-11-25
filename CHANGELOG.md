@@ -1,3 +1,7 @@
+# Cert button animation
+
+- Keep the random Cert button colored during its spin and fade it back as the animation finishes.
+
 # Cert number button
 
 - Switch the random Cert number button to a red background and white icon while pressed.

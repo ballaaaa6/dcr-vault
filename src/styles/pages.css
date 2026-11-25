@@ -144,12 +144,14 @@
 .cert-input-row .form-control{flex:1}
 .cert-random{width:46px;height:46px;flex:0 0 46px;padding:10px}
 .cert-random:active{background:var(--dcr-red);color:var(--dcr-white)}
+.cert-random:has(svg.cert-dice-spin){animation:cert-button-color .7s}
 .cert-random svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.75;transform-origin:center}
 .cert-random:hover svg{animation:cert-rock 2.6s ease-in-out infinite}
 .cert-random svg.cert-dice-spin{animation:cert-spin .7s}
 @keyframes cert-rock{0%,50%,100%{transform:rotate(0)}25%{transform:rotate(6deg)}75%{transform:rotate(-6deg)}}
 @keyframes cert-spin{0%{transform:rotate(0);animation-timing-function:cubic-bezier(.6,0,.25,1)}72%{transform:rotate(368.4deg);animation-timing-function:cubic-bezier(.65,0,.35,1)}100%{transform:rotate(360deg)}}
-@media(prefers-reduced-motion:reduce){.cert-random:hover svg,.cert-random svg.cert-dice-spin{animation:none}}
+@keyframes cert-button-color{0%,70%{background:var(--dcr-red);color:var(--dcr-white)}100%{background:var(--dcr-white);color:var(--dcr-red)}}
+@media(prefers-reduced-motion:reduce){.cert-random:has(svg.cert-dice-spin),.cert-random:hover svg,.cert-random svg.cert-dice-spin{animation:none}}
 .field-status{min-height:16px;color:var(--dcr-gray);font-size:var(--font-size-description);font-weight:450}
 .field-grid .form-field>label{display:block;min-height:17px;margin:0;line-height:17px}
 .cert-field .cert-input-row{min-height:46px}
