@@ -1,3 +1,7 @@
+# Shared calendar improvements
+
+- Add Today and Clear actions, configurable future dates, and date-range previews with durations.
+
 # Search and showcase buttons
 
 - Enlarge and thicken the search and showcase icons and tighten button spacing.

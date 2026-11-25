@@ -28,3 +28,17 @@
 .date-picker-day{border-radius:50%}
 
 .date-picker-calendar{max-height:calc(100dvh - 24px);overflow-y:auto}
+
+.date-picker-header .date-picker-title{background:var(--dcr-red);color:var(--dcr-white)}
+.date-picker-header .date-picker-title:hover{background:var(--dcr-red-dark)}
+.date-picker-actions{display:flex;justify-content:center;gap:8px;margin-top:8px}
+.date-picker-actions button{border:0;border-radius:8px;padding:6px 10px;background:var(--dcr-border);color:var(--calendar-muted);font:inherit;cursor:pointer}
+.date-picker-actions .date-picker-clear{margin:0;background:var(--dcr-red);color:var(--dcr-white)}
+.date-picker-actions button:disabled{opacity:.3;cursor:not-allowed}
+.date-picker-day.is-future:not(.is-selected){color:var(--calendar-outside)}
+.date-picker-day.is-range:not(.is-selected){background:var(--dcr-red-light);border-radius:0}
+.date-picker-day.is-range-start:not(.is-selected){border-radius:50% 0 0 50%}
+.date-picker-day.is-range-end:not(.is-selected){border-radius:0 50% 50% 0}
+.date-picker-day.is-range-start.is-range-end:not(.is-selected){border-radius:50%}
+.date-picker-day[data-duration]{position:relative}
+.date-picker-day[data-duration]::after{content:attr(data-duration);position:absolute;z-index:2;bottom:100%;left:50%;transform:translateX(-50%);white-space:nowrap;padding:5px 8px;border-radius:6px;background:var(--dcr-red);color:var(--dcr-white);font-size:var(--font-size-small);pointer-events:none}
