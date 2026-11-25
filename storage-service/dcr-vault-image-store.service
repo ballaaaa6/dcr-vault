@@ -9,7 +9,7 @@ User=dcr-image-store
 Group=dcr-image-store
 WorkingDirectory=/opt/dcr-vault-image-store
 Environment=DCR_IMAGE_ROOT=/srv/dcr-vault-media
-Environment=DCR_AUTHORIZATION_URL=https://dcr-vault.pages.dev/api/media/authorize
+Environment=DCR_AUTHORIZATION_URL=https://dcrcards.pages.dev/api/media/authorize
 Environment=DCR_BIND_HOST=127.0.0.1
 Environment=DCR_PORT=8788
 ExecStart=/usr/local/bin/node /opt/dcr-vault-image-store/server.mjs

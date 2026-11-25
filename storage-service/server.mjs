@@ -6,7 +6,7 @@ import {createHash, randomUUID} from 'node:crypto';
 import path from 'node:path';
 
 const ROOT = path.resolve(process.env.DCR_IMAGE_ROOT || '/srv/dcr-vault-media');
-const AUTHORIZATION_URL = process.env.DCR_AUTHORIZATION_URL || 'https://dcr-vault.pages.dev/api/media/authorize';
+const AUTHORIZATION_URL = process.env.DCR_AUTHORIZATION_URL || 'https://dcrcards.pages.dev/api/media/authorize';
 const HOST = process.env.DCR_BIND_HOST || '127.0.0.1';
 const PORT = Number(process.env.DCR_PORT || 8788);
 const MAX_BYTES = 10 * 1024 * 1024;

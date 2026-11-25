@@ -3,14 +3,14 @@
 ## Current production target
 
 - Site: https://dcrcards.pages.dev
-- Pages project: `dcrcards`. Keep `dcr-vault` available: the Oracle image service uses its `/api/media/authorize` endpoint, and existing links still point to it.
+- Pages project: `dcrcards`. The Oracle image service uses its `/api/media/authorize` endpoint.
 - The project uses Direct Upload. `.github/workflows/pages-deployment.yml` builds the site and deploys with Wrangler; Functions are included from the root `functions/` directory.
 - The workflow applies pending D1 migrations before deployment. It skips publishing if Google OAuth, D1, or the validated Oracle origin configuration is missing.
 
 ## One-time Google sign-in setup
 
 1. In Google Cloud Console, configure an External OAuth app for DCR Card Vault and select a support email. The current app is in Testing status.
-2. Create a Web application OAuth client with authorized JavaScript origins `https://dcrcards.pages.dev`, `https://dcr-vault.pages.dev`, and `http://localhost:5173`.
+2. Create a Web application OAuth client with authorized JavaScript origins `https://dcrcards.pages.dev` and `http://localhost:5173`.
 3. Add the client ID as the GitHub Actions repository variable `GOOGLE_CLIENT_ID`. It is a public identifier, not a client secret. The app requests only the basic sign-in scopes `openid`, `email`, and `profile`; it does not request Gmail API access.
 Google's current OAuth app-state documentation says external apps in Testing are generally limited to test users, but apps that request only `openid`, `email`, and `profile` are an exception and can be accessed by any Google account. Users may still see a testing notice. This setup is intended to allow self-registration with those basic scopes.
 

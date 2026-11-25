@@ -1,3 +1,8 @@
+# Changelog
+
+## Retire old DCR Vault site - 2026-11-25
+- Point image authorization to dcrcards.pages.dev before retiring the old Pages project.
+
 # Gemini model for repeated readings
 
 - Use Gemini 3.6 Flash for every card reading, including repeated readings.
