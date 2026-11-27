@@ -1,5 +1,8 @@
 # Changelog
 
+## Local card series reading - 2026-11-27
+- Ask Gemini for local series names only for Pokemon and Vanguard, leaving the series empty for other games and uncertain printings.
+
 ## Gemini 3.5 Flash high - 2026-11-27
 - Use Gemini 3.5 Flash with high thinking for card identification.
 
