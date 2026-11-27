@@ -4,8 +4,8 @@ import {currentUser} from '../_utils/sessions.js';
 
 const INSERT_CARD = `INSERT INTO cards (id, user_id, game, name, set_name, year, year_series, catalog_card_id,
   source_language, source_set_id, source_card_id, source_finish, card_number, rarity, grade_label,
-  cert_number, status, buy_price, sell_price, buy_date, sold_date, bought_from, sold_to, notes, identification_status, field_provenance, artist, buy_currency, purchase_source, seller, received_date, card_type_label, language_label, series, category, pokemon_types, trainer_type, energy_kind, energy_type, created_at, updated_at)
-  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+  cert_number, status, buy_price, sell_price, buy_date, sold_date, bought_from, sold_to, notes, identification_status, field_provenance, artist, buy_currency, purchase_source, seller, received_date, card_type_label, language_label, series, category, pokemon_types, trainer_type, energy_kind, energy_type, color_elements, subtype_detail, set_source, inferred_fields, created_at, updated_at)
+  VALUES (${Array(45).fill('?').join(', ')})`;
 
 export async function onRequestGet({request, env}) {
   const session = await currentUser(request, env);

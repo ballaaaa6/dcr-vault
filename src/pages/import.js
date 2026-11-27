@@ -14,7 +14,7 @@ function cardSummary(card, index) {
 
 function importPayload(records) {
   const fields = ['game', 'name', 'setName', 'year', 'cardTypeLabel', 'languageLabel', 'series', 'yearSeries', 'catalogCardId', 'sourceLanguage', 'sourceSetId',
-    'category', 'pokemonTypes', 'trainerType', 'energyKind', 'energyType', 'cardNumber', 'rarity', 'gradeLabel', 'certNumber',
+    'category', 'pokemonTypes', 'trainerType', 'energyKind', 'energyType', 'colorElements', 'subtypeDetail', 'setSource', 'inferredFields', 'cardNumber', 'rarity', 'gradeLabel', 'certNumber',
     'artist', 'status', 'buyPrice', 'sellPrice', 'buyDate', 'soldDate', 'boughtFrom', 'soldTo', 'notes'];
   return records.map(record => Object.fromEntries(fields.map(field => [field, record[field]])));
 }

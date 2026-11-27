@@ -16,9 +16,7 @@ import {vaultPhoto, initializeVaultPhoto} from '../components/vault-photo.js';
 import {itemInformation} from './verify.js';
 import {escapeHTML} from '../utils/format.js';
 import {normalizeCert} from '../utils/cert.js';
-import {classificationFields} from '../utils/card-classification.js';
-import {vaultClassificationInput, vaultEnergyInput, initializeVaultClassification} from '../components/vault-classification.js';
-import {vaultCatalogField, mountVaultCatalog, unmountVaultCatalog} from '../components/vault-catalog-input.js';
+import {languageCode, languageName} from '../utils/card-language.js';
 import {vaultFinishInput, initializeVaultFinish} from '../components/vault-finish.js';
 import {vaultBackground, preloadSelectedBackgrounds} from '../utils/vault-background.js';
 import {prefetchNearbyImages} from '../utils/prefetch-images.js';
@@ -33,14 +31,13 @@ let vaultBusy = false;
 let stopImagePrefetch = () => {};
 const publicFields = [
   ['name', 'Card name', 120], ['certNumber', 'Cert number', 8], ['game', 'Brand / Title', 30], ['year', 'Year', 4],
-  ['cardTypeLabel', 'Card type', 60], ['series', 'Series', 120],
-  ['setName', 'Set name', 120], ...classificationFields, ['cardNumber', 'Card number', 30], ['rarity', 'Rarity', 80],
+  ['cardTypeLabel', 'Card type', 60], ['sourceLanguage', 'Language code', 20], ['series', 'Series', 120],
+  ['setName', 'Set name', 120], ['category', 'Category', 40], ['colorElements', 'Colors / elements', 120], ['subtypeDetail', 'Subtype', 60], ['cardNumber', 'Card number', 30], ['rarity', 'Rarity', 80],
   ['gradeLabel', 'Condition', 60], ['sourceFinish', 'Finish', 80]
 ];
 function editFields(card) {
-  return publicFields.map(([key, label, limit]) => key === 'sourceFinish' ? vaultFinishInput(card[key]) : ['name', 'year', 'series', 'setName', 'cardNumber', 'rarity'].includes(key) ? vaultCatalogField(key, label, limit, card[key]) : classificationFields.some(([field]) => field === key)
-    ? vaultClassificationInput(key, label, card[key]) + (key === 'energyType' ? vaultEnergyInput(card) : '') : `<div class="form-field${key === 'name' ? ' vault-edit-full' : ''}"><div><label for="vault-field-${key}">${label}</label>${vaultTooltip(key, label)}</div>
-    <input id="vault-field-${key}" class="form-control" name="${key}" maxlength="${limit}" value="${escapeHTML(card[key] || '')}" ${key === 'certNumber' ? 'inputmode="numeric" pattern="[0-9]{1,8}" required' : key === 'name' ? 'required' : ''}></div>`).join('');
+  return publicFields.map(([key, label, limit]) => key === 'sourceFinish' ? vaultFinishInput(card[key]) : `<div class="form-field${key === 'name' ? ' vault-edit-full' : ''}"><div><label for="vault-field-${key}">${label}</label>${vaultTooltip(key, label)}</div>
+    <input id="vault-field-${key}" class="form-control" name="${key}" maxlength="${limit}" value="${escapeHTML(Array.isArray(card[key]) ? card[key].join(', ') : card[key] || '')}" ${key === 'certNumber' ? 'inputmode="numeric" pattern="[0-9]{1,8}" required' : key === 'name' ? 'required' : ''}></div>`).join('');
 }
 export function vault(cards = [], locations = [], collections = []) {
   activeCards = cards;
@@ -152,10 +149,9 @@ function selectCard(id, mode = 'item') {
   document.querySelector('.vault-layout').classList.remove('is-unselected');
   unmountLocationInput();
   unmountCollectionInput();
-  unmountVaultCatalog();
   document.querySelector('.vault-detail').innerHTML = detailMarkup(card, mode);
   if (mode === 'edit-private') { mountLocationInput(card.storageLocation || ''); mountCollectionInput(card.id); }
-  if (mode === 'edit-card') { mountVaultCatalog(card); initializeVaultClassification(document.getElementById('vault-edit')); initializeVaultFinish(document.getElementById('vault-edit')); }
+  if (mode === 'edit-card') initializeVaultFinish(document.getElementById('vault-edit'));
   document.querySelector('.vault-photo-panel').innerHTML = vaultPhoto(card);
   initializeVaultPhoto(document.querySelector('.vault-photo-panel'));
   initializeDatePicker(document.querySelector('.vault-detail'));
@@ -268,7 +264,7 @@ window.__saveDetail = async (event, id) => {
   if (!id) return;
   if (event.target.dataset.mode === 'edit-card' && !event.target.elements.name.value.trim()) {
     document.getElementById('vault-edit-message').textContent = 'Enter a card name.';
-    document.getElementById('vault-catalog-name-input')?.focus();
+    document.getElementById('vault-field-name')?.focus();
     return;
   }
   const button = document.querySelector('.detail-actions .btn-primary');
@@ -283,7 +279,15 @@ window.__saveDetail = async (event, id) => {
     patch.collectionNames = selected.filter(item => !item.id).map(item => item.name);
   }
   if (privateMode) patch.purchaseSource = event.target.elements.sourceChoice.value === 'Other' ? event.target.elements.customSource.value : event.target.elements.sourceChoice.value;
-  if (!privateMode) patch.certNumber = normalizeCert(patch.certNumber);
+  if (!privateMode) {
+    patch.certNumber = normalizeCert(patch.certNumber);
+    patch.colorElements = patch.colorElements.split(',').map(value => value.trim()).filter(Boolean);
+    const existing = activeCards.find(card => card.id === id);
+    patch.sourceLanguage = languageCode(patch.sourceLanguage);
+    patch.languageLabel = patch.sourceLanguage === 'en' ? '' : languageName(patch.sourceLanguage).toUpperCase();
+    patch.inferredFields = (existing.inferredFields || []).filter(field => patch[field === 'set' ? 'setName' : field] === existing[field === 'set' ? 'setName' : field]);
+    if (patch.setName !== existing.setName) patch.setSource = '';
+  }
   try {
     await updateCard(id, patch);
     if (privateMode) {

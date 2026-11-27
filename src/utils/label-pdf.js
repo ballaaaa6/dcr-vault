@@ -30,6 +30,26 @@ function inlineSheetImages(svg) {
   return document.documentElement;
 }
 
+async function rasterSheet(svg) {
+  const source = new XMLSerializer().serializeToString(svg);
+  const url = URL.createObjectURL(new Blob([source], {type: 'image/svg+xml;charset=utf-8'}));
+  try {
+    const image = new Image();
+    await new Promise((resolve, reject) => {
+      image.onload = resolve;
+      image.onerror = () => reject(new Error('Label sheet could not be rendered.'));
+      image.src = url;
+    });
+    const canvas = document.createElement('canvas');
+    canvas.width = 2480; canvas.height = 3508;
+    const context = canvas.getContext('2d');
+    if (!context) throw new Error('Label sheet could not be rendered.');
+    context.fillStyle = '#fff'; context.fillRect(0, 0, canvas.width, canvas.height);
+    context.drawImage(image, 0, 0, canvas.width, canvas.height);
+    return canvas.toDataURL('image/png');
+  } finally { URL.revokeObjectURL(url); }
+}
+
 export async function createLabelPdf(labels, api) {
   const pdf = new jsPDF({orientation: 'portrait', unit: 'mm', format: 'a4', compress: true});
   let page = 0;
@@ -38,7 +58,8 @@ export async function createLabelPdf(labels, api) {
     for (const side of ['front', 'back']) {
       const svg = inlineSheetImages(await api.renderSheetSvg(sheet, side));
       if (page++) pdf.addPage();
-      await pdf.svg(svg, {x: 0, y: 0, width: 210, height: 297});
+      if (/[^\u0000-\u024f]/u.test(svg.textContent || '')) pdf.addImage(await rasterSheet(svg), 'PNG', 0, 0, 210, 297);
+      else await pdf.svg(svg, {x: 0, y: 0, width: 210, height: 297});
     }
   }
   return pdf;

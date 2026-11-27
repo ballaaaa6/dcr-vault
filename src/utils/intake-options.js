@@ -1,20 +1,10 @@
 import {formatRarity} from './rarity.js';
 import {collectorNumbersCompatible} from './card-identification-matching.js';
 
-const languages = {en: 'English', ja: 'Japanese', th: 'Thai', ko: 'Korean', 'zh-tw': 'Chinese (Traditional)',
-  'zh-cn': 'Chinese (Simplified)', de: 'German', fr: 'French', es: 'Spanish', it: 'Italian', pt: 'Portuguese',
-  id: 'Indonesian', nl: 'Dutch', pl: 'Polish', ru: 'Russian'};
+import {languageCode, languageName} from './card-language.js';
+export {languageCode, languageName};
 
 const normal = value => String(value || '').trim().normalize('NFKC').toLocaleLowerCase();
-
-export function languageCode(value) {
-  const text = normal(value);
-  return Object.entries(languages).find(([code, label]) => text === code || text === normal(label))?.[0] || text;
-}
-
-export function languageName(value) {
-  return languages[languageCode(value)] || value || '';
-}
 
 function fieldValue(card, field) {
   if (field === 'language') return languageName(card.language);

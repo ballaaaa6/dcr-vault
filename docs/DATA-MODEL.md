@@ -19,11 +19,11 @@ All timestamps are Unix seconds unless noted otherwise. D1 is the source of trut
 
 - `id`: random UUID
 - `user_id`: owner, references `users.id`
-- `game`: pokemon | yugioh | other
+- `game`: card game name, such as Pokemon, One Piece, or MTG
 - `name`, `set_name`, `year`, `card_number`, `rarity`
-- `year_series`: legacy intake metadata. Label generation uses `year`, `card_type_label`, `source_language`, `language_label`, and the reviewed `series`; older records may resolve the source-set series from the catalog.
-- `catalog_card_id`: exact English catalog printing used for label values
-- `source_language`, `source_set_id`, `source_card_id`, `source_finish`: exact printed-language source identity and observed finish used to audit the localized-to-English match
+- `category`, `color_elements`, `subtype_detail`: game-neutral classification; `color_elements` is a JSON array.
+- `set_source`: printed_name, inferred_name, printed_code, or empty; `inferred_fields`: JSON array of series, set, or year inferred by Gemini.
+- `source_language` identifies the printed language. `source_finish` is user-entered; catalog IDs and `year_series` remain legacy fields and do not determine new reading values.
 - `grade_label`: one of the DCR condition terms when assessed; the label prints the condition term without a numeric grade
 - `cert_number`: stored as 8 digits; input accepts one to eight digits and is left-padded with zeroes; unique across all accounts
 - `status`: in-vault | for-sale | sold | grading

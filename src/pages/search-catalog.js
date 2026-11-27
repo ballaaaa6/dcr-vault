@@ -1,8 +1,7 @@
 import {intakeTooltip} from './intake-tooltip.js';
-import {loadCatalogCards} from '../store/catalog.js';
-import {catalogHasMatches, catalogOptions} from '../utils/intake-options.js';
+import {CARD_GAMES} from '../utils/card-games.js';
+import {languageName} from '../utils/card-language.js';
 
-const FIELDS = ['language', 'year', 'series', 'setName', 'cardNumber', 'name', 'rarity'];
 let roots = [];
 let onEdit = () => {};
 let mountVersion = 0;
@@ -15,25 +14,13 @@ export function catalogField(id, label, placeholder, {wide = false, required = t
   </div></div>`;
 }
 
-function fieldValues() {
-  return Object.fromEntries(FIELDS.map(field => [field, document.getElementById(`m-${field}`)?.value || '']));
-}
-
 async function optionsFor(field, query) {
-  if (field === 'game') return ['Pokémon TCG'];
-  return catalogOptions(await loadCatalogCards(), field, {...fieldValues(), [field]: query});
+  const values = field === 'game' ? CARD_GAMES : field === 'language' ? ['en', 'ja', 'th', 'ko', 'zh-cn', 'zh-tw', 'de', 'fr', 'it', 'pt', 'es', 'id', 'nl', 'pl', 'ru'].map(languageName) : [];
+  return values.filter(value => value.toLowerCase().includes(query.toLowerCase()));
 }
 
 async function warnIfUnmatched() {
-  const values = fieldValues();
-  if (Object.values(values).filter(value => value.trim()).length < 2) return;
-  try {
-    const cards = await loadCatalogCards();
-    if (!document.getElementById('m-language') || JSON.stringify(fieldValues()) !== JSON.stringify(values) || catalogHasMatches(cards, values)) return;
-    const status = document.getElementById('manual-status');
-    status.dataset.state = 'warning';
-    status.textContent = 'No matching catalog record for these details. You can keep your entries and review them manually.';
-  } catch { /* Manual entry remains available when the catalog is unavailable. */ }
+  // Free-form values need no catalog match.
 }
 
 export function invalidateCatalogSuggestions() {

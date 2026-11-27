@@ -28,7 +28,7 @@ export function searchMarkup() {
           <div class="identification-actions"><p class="identification-notice">Give your card a head start. Upload a front photo and let us fill in the details for you. Take a moment to review them before adding your card to the vault.</p><button class="btn btn-ghost" id="identify-card" type="button" disabled><span>Identify card</span><span class="action-sizer" aria-hidden="true">Identify card</span><span class="action-sizer" aria-hidden="true">Analyzing…</span></button></div>
         </section>
         <section class="surface-card intake-card" aria-labelledby="manual-title">
-          <div class="section-heading"><div><div class="card-details-title"><h2 id="manual-title">Card details</h2><button id="identification-info" class="identification-info" type="button" aria-label="View card reading details" hidden>i</button></div><p>Review the printed card number and English card details; Cert and Grade stay independent.</p></div></div>
+          <div class="section-heading"><div><div class="card-details-title"><h2 id="manual-title">Card details</h2><button id="identification-info" class="identification-info" type="button" aria-label="View card reading details" hidden>i</button></div><p>Review the card details; Cert and Grade stay independent.</p></div></div>
           <div class="field-grid">
             ${catalogField('game', 'Card game', 'Choose card game', {wide: true})}
             ${catalogField('language', 'Language', 'e.g. English')}
@@ -38,7 +38,7 @@ export function searchMarkup() {
             ${catalogField('cardNumber', 'Card number', 'e.g. 4', {wide: true})}
             ${catalogField('name', 'Name', 'e.g. Charizard', {wide: true})}
             ${catalogField('rarity', 'Rarity', 'e.g. Rare', {wide: true})}
-            <input type="hidden" id="m-cardTypeLabel" value="POKÉMON"><input type="hidden" id="m-sourceLanguage"><input type="hidden" id="m-languageLabel"><input type="hidden" id="m-artist">
+            <input type="hidden" id="m-cardTypeLabel"><input type="hidden" id="m-sourceLanguage"><input type="hidden" id="m-languageLabel"><input type="hidden" id="m-artist">
             <div class="form-field"><div class="reading-label"><label for="m-grade-trigger">Condition / Grade <span class="required-mark" aria-hidden="true">*</span></label>${intakeTooltip('grade', 'Condition / Grade')}</div>${dropdown({id: 'm-grade', label: 'Condition / Grade', options: [['', 'Choose condition'], ...CONDITION_OPTIONS.map(value => [value, conditionOptionLabel(value)])], value: '', required: true})}</div>
             <div class="form-field cert-field"><div class="reading-label"><label for="m-cert">Cert number <span class="required-mark" aria-hidden="true">*</span></label>${intakeTooltip('cert', 'Cert number')}</div><span class="cert-input-row">
               <input class="form-control" id="m-cert" inputmode="numeric" maxlength="8" pattern="[0-9]{1,8}" placeholder="1 to 8 digits" required>

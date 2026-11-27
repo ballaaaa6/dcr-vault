@@ -1,7 +1,7 @@
 export const messages = {
   game: 'Select the game this card belongs to.',
   language: 'Select the language printed on the card.',
-  year: 'Enter the year printed on the card.',
+  year: 'Enter the release year of this printing or set.',
   series: 'Select the series this set belongs to.',
   setName: 'Select the set this card belongs to.',
   cardNumber: 'Enter the number printed on the card.',

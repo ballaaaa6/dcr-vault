@@ -6,14 +6,15 @@ function normalize(value) {
 }
 
 export function vaultBackground(card = {}) {
+  if (card.game && normalize(card.game) !== 'pokemon' && normalize(card.game) !== 'pokemon tcg') return 'unknown';
   const category = normalize(card.category);
   if (category === 'pokemon') {
-    const type = normalize(String(card.pokemonTypes || '').split(',')[0]);
+    const type = normalize(card.colorElements?.[0] || String(card.pokemonTypes || '').split(',')[0]);
     return pokemonTypes.has(type) ? type : 'unknown';
   }
-  if (category === 'trainer') return trainerTypes[normalize(card.trainerType)] || 'unknown';
+  if (category === 'trainer') return trainerTypes[normalize(card.subtypeDetail || card.trainerType)] || 'unknown';
   if (category === 'energy') {
-    const kind = normalize(card.energyKind);
+    const kind = normalize(card.subtypeDetail || card.energyKind);
     return kind === 'basic' || kind === 'special' ? `${kind}-energy` : 'unknown';
   }
   return 'unknown';

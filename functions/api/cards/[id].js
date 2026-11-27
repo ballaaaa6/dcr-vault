@@ -71,10 +71,14 @@ function cleanPatch(input) {
     cardNumber: ['card_number', 30], rarity: ['rarity', 80], gradeLabel: ['grade_label', 60],
     cardTypeLabel: ['card_type_label', 60], languageLabel: ['language_label', 60], series: ['series', 120],
     category: ['category', 40], pokemonTypes: ['pokemon_types', 120], trainerType: ['trainer_type', 60],
+    subtypeDetail: ['subtype_detail', 60], setSource: ['set_source', 30],
     energyKind: ['energy_kind', 40], energyType: ['energy_type', 40],
     sourceFinish: ['source_finish', 80], sourceLanguage: ['source_language', 20]};
   for (const [key, [column, limit]] of Object.entries(fields)) {
     if (typeof input[key] === 'string') patch[column] = input[key].trim().slice(0, limit);
+  }
+  for (const [key, column] of [['colorElements', 'color_elements'], ['inferredFields', 'inferred_fields']]) {
+    if (Array.isArray(input[key])) patch[column] = JSON.stringify([...new Set(input[key].filter(item => typeof item === 'string').map(item => item.trim().slice(0, 60)).filter(Boolean))].slice(0, 10));
   }
   if ('name' in input && !patch.name) return null;
   if ('buyPrice' in input) patch.buy_price = validPrice(input.buyPrice);

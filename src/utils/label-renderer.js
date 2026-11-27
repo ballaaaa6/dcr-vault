@@ -1,11 +1,9 @@
 import JsBarcode from 'jsbarcode';
 import QRCode from 'qrcode';
-import {formatRarity} from './rarity.js';
 import {publicCertificateUrl} from './cert.js';
 import frontMasterUrl from '../../dcr-tag-70x20/source/dcr-tag-front.svg?url';
 import backMasterUrl from '../../dcr-tag-70x20/source/dcr-tag-back.svg?url';
 import sheetMasterUrl from '../../dcr-tag-70x20/source/a4-40up-portrait.svg?url';
-import {hasNonLatinScript} from './language.js';
 import {CONDITION_OPTIONS} from './label-options.js';
 import {cardLabelMetadata, cardSeries} from './label-metadata.js';
 
@@ -25,10 +23,10 @@ async function loadTemplate(url) {
   return response.text();
 }
 
-export const normalizeRarity = formatRarity;
+export const normalizeRarity = value => String(value ?? '').trim();
 
 function normalizeCardNumber(value) {
-  const first = String(value ?? '').trim().split('/')[0].trim();
+  const first = String(value ?? '').trim();
   if (!first) return '';
   return first.startsWith('#') ? first : `#${first}`;
 }
@@ -89,7 +87,7 @@ function pairFitError(left, right, leftValue, rightValue) {
 }
 
 function shortenToFit(value, rightValue) {
-  const words = [...value.matchAll(/\p{L}{2,}/gu)];
+  const words = [...value.matchAll(/\p{Script=Latin}{2,}/gu)];
   let result = value;
   for (let index = words.length - 1; index >= 0; index -= 1) {
     if (!pairFitError('Text', 'value', result, rightValue)) break;
@@ -105,8 +103,8 @@ const SERIES_SHORT = {'SCARLET & VIOLET': 'SV', 'SWORD & SHIELD': 'SWSH', 'SUN &
   'HEARTGOLD & SOULSILVER': 'HGSS', 'ADVANCED GENERATION': 'ADV'};
 
 export function firstLine(value) {
-  const language = value.language === 'en' ? '' : value.languageLabel || LANGUAGE_LABELS[value.language];
-  if (language === undefined || !value.year || !value.cardType || !value.series) return '';
+  const language = value.language === 'en' ? '' : value.languageLabel || LANGUAGE_LABELS[value.language] || value.language.toUpperCase();
+  if (!value.year || !value.cardType) return '';
   const build = series => [value.year, value.cardType, language, series].filter(Boolean).join(' ');
   const full = build(value.series);
   if (!pairFitError('First line', 'card number', full, value.cardNumber)) return full;
@@ -116,12 +114,9 @@ export function firstLine(value) {
 
 export function validateLabelData(data) {
   const value = cleanLabelData(data);
-  const required = ['year', 'cardType', 'series', 'language', 'name', 'setName', 'cardNumber', 'condition', 'rarity', 'certNumber'];
+  const required = ['year', 'cardType', 'language', 'name', 'setName', 'cardNumber', 'condition', 'rarity', 'certNumber'];
   const missing = required.find(key => !value[key]);
   if (missing) return [`${missing.replace(/[A-Z]/g, letter => ` ${letter.toLowerCase()}`)} is required.`];
-  if (!(value.language in LANGUAGE_LABELS)) return ['Card language must be English, Thai, or Japanese.'];
-  if (value.language !== 'en' && value.languageLabel && value.languageLabel !== LANGUAGE_LABELS[value.language]) return ['Language label must match the card language.'];
-  if ([value.name, value.setName].some(hasNonLatinScript)) return ['Card name and set must use English text.'];
   if (!/^\d{8}$/.test(value.certNumber)) return ['Cert number must contain exactly 8 digits.'];
   if (!CONDITION_OPTIONS.includes(value.condition)) return ['Choose a condition from the DCR list.'];
 
@@ -233,6 +228,8 @@ export async function renderLabelSvgPair(data) {
   const value = cleanLabelData(data);
   const [frontSource, backSource] = await Promise.all([frontMaster, backMaster]);
   const front = parseSvg(frontSource);
+  if (front.querySelector('title')) front.querySelector('title').textContent = 'DCR card label — front';
+  if (front.querySelector('desc')) front.querySelector('desc').textContent = 'Card details and certificate barcode.';
   svgText(front, 'front-year-series', firstLine(value));
   svgText(front, 'front-card-name', shortenToFit(value.name, value.condition));
   svgText(front, 'front-collection', shortenToFit(value.setName, value.rarity));
@@ -243,6 +240,8 @@ export async function renderLabelSvgPair(data) {
   replaceFrontBarcode(front, makeBarcodePattern(value.certNumber));
 
   const back = parseSvg(backSource);
+  if (back.querySelector('title')) back.querySelector('title').textContent = 'DCR card label — back';
+  if (back.querySelector('desc')) back.querySelector('desc').textContent = 'Certificate QR code and barcode.';
   svgText(back, 'back-serial', value.certNumber);
   replaceBackBarcode(back, makeBarcodePattern(value.certNumber));
   replaceQrCode(back, value.certNumber);

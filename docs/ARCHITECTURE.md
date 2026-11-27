@@ -33,18 +33,13 @@
 - Pages Functions check the card owner for image changes; public photo reads and owner changes use one-use, short-lived image capabilities. The Oracle service consumes each capability by calling the private-card API and never receives the user's DCR session cookie or a long-lived storage token.
 - Existing `dcr-cards-v1` browser records are never uploaded automatically. After first sign-in on a browser, the user reviews every card name and Cert number and selects which records to import. The legacy copy is retained either way, and images are excluded.
 
-## Card suggestions
+## Card identification
 
-- The Add Card editable selectors use React Select's Creatable component, with React and React DOM limited to mounting those controls in the otherwise vanilla JavaScript app. This dependency preserves the requested component's editing, keyboard navigation, and creation behavior while catalog filtering and form persistence remain in the app.
-- `public/data/card-catalog.json` is a compact TCGdex metadata index generated from the pinned local catalog snapshot. It contains names, sets, years, collector numbers, languages, rarity, variants, series IDs, card counts, and localized attack/ability effects; it contains no card images or collection records.
-- Gemini identifies one card directly from the image using its visible name, artwork, attacks, HP, set code, collector number, rarity, and print marks. It returns the read details, short evidence, and fields that need review. Reading normalization fills rarity as `Promo` when Gemini leaves it blank but the printed set, set code, or collector number explicitly marks the card as a promo. The browser fills English form values from Gemini, then links a catalog record only when the exact English name/set/number resolves uniquely. Missing catalog data does not hide Gemini's answer; missing label series/profile data can still require correction before printing.
-- Catalog suggestions use the exact card image for each catalog record through a same-origin image endpoint, with a direct TCGdex URL fallback for that same image only. If an image is unavailable, no other printing's artwork is substituted. The Add Card rarity field can be filled from Gemini or a selected catalog record and remains editable for correction.
-
-## Gemini image intake
-
-- On explicit button click, the authenticated `/api/cards/identify` Pages Function validates the front image and sends it to the Gemini Developer API using server-only `GEMINI_API_KEYS` (or legacy `GEMINI_API_KEY`) and the `gemini-3.6-flash` model for every reading. Each attempt selects the next key using a shared D1 counter, including after key rejection, configuration errors, timeouts, network errors, or upstream failures; quota/rate-limit responses never trigger key switching. Gemini returns a direct identification, visible evidence, English form values where clear, and fields that need review. Pages returns that reading without OCR or catalog gates. No key is sent to the browser or written to D1.
-- The browser fills the English name, set, year, printed card number, rarity, card type, language and parent series from Gemini's answer for user review. It then performs an optional exact catalog lookup to attach the card ID and approved label metadata. An absent or ambiguous catalog record leaves the reading visible and the form editable; the app does not substitute a same-name print. Label printing uses the reviewed series and label fields; older records can resolve a source-set series from the catalog, and missing series or unsupported languages block printing.
-- Identification is a draft. The image and reading response are not written to D1 or Oracle image storage. No card is saved until Add to Vault is clicked. The separate image-save flow uses the Oracle media service.
+- Add Card sends the selected front photo to the authenticated Pages Function, which sends it with an English prompt and structured JSON schema to Gemini 3.6 Flash. The server keeps API keys private and rotates configured keys through D1. Quota errors do not trigger key switching.
+- Gemini reads printed names, numbers, rarity and classification, and may infer the series, set and release year. It reports inferred fields and whether a set value is a printed name, inferred name or printed code. The user reviews and can edit all values.
+- The intake form uses the Gemini result directly and does not match or fill it from the card catalog. An unreadable field remains editable. Card names and sets retain their printed-language script. Condition and certificate number are entered by the user.
+- D1 stores game, category, color elements and subtype as shared fields for all games. Vault, certificates and labels use those saved details. Saved card images, not catalog reference images, are used in Vault.
+- Identification is a draft. A limited raw and normalized reading is logged for seven days; the photo is not stored until the card is saved and its separate photo upload succeeds.
 
 ## Data flow
 
@@ -54,8 +49,8 @@ Google Identity Services
   -> users + sessions in D1
   -> HttpOnly session cookie
   -> authenticated Pages Function APIs
-  -> Gemini 3.5 Flash-Lite identifies the card and returns structured evidence
-  -> optional exact English catalog lookup for approved label metadata
+  -> Gemini 3.6 Flash returns the structured card reading
+  -> normalize the reading without a catalog lookup
   -> editable intake form for user review
   -> owner-scoped card and image metadata in D1
   -> one-use capability -> Oracle image service on the VM

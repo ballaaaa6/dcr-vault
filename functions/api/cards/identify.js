@@ -54,11 +54,11 @@ async function identifyWithGemini(image, contentType, env, userId, model) {
   if (!fields) return json({error: 'Gemini could not identify this card from the image.',
     code: 'card_unreadable', requestId}, 422);
   return json({source: 'gemini', model, fields,
-    readingAdequate: Boolean(fields.name || fields.englishName || fields.language && fields.cardNumber), requestId});
+    readingAdequate: true, requestId});
 }
 
 function safeRawReading(value) {
-  const keys = ['cardTypeLabel', 'languageLabel', 'series', 'category', 'trainerType', 'energyKind', 'energyType', 'formName', 'formSetName', 'formYear', 'formCardNumber', 'formRarity', 'name', 'englishName', 'setName', 'englishSetName', 'setCode', 'cardNumber', 'language', 'year',
+  const keys = ['game', 'set', 'set_source', 'card_number', 'color_element', 'subtype_detail', 'inferred_fields', 'setSource', 'colorElements', 'subtypeDetail', 'inferredFields', 'cardTypeLabel', 'languageLabel', 'series', 'category', 'trainerType', 'energyKind', 'energyType', 'formName', 'formSetName', 'formYear', 'formCardNumber', 'formRarity', 'name', 'englishName', 'setName', 'englishSetName', 'setCode', 'cardNumber', 'language', 'year',
     'rarity', 'hp', 'illustrator', 'types', 'stamp', 'setSymbol', 'copyrightText', 'identificationSummary', 'identityStatus', 'evidence', 'uncertainFields'];
   if (!value || typeof value !== 'object') return {};
   const form = value.form && typeof value.form === 'object' ? Object.fromEntries(

@@ -33,7 +33,7 @@ function languageName(value) {
   }
 }
 
-export function itemInformation(card, {showClassification = false} = {}) {
+export function itemInformation(card, {showClassification = true} = {}) {
   const fields = [['Cert Number', card.certNumber], ['Brand/Title', card.game], ['Year', card.year],
     ['Set Name', card.setName], ['Card Name', card.name], ['Card Number', card.cardNumber],
     ...(showClassification ? [['Type', classificationLabel(card) || '—']] : []), ['Rarity', card.rarity],

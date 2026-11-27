@@ -3,15 +3,11 @@ import {showToast} from '../components/toast.js';
 import {createIntakeCard} from './search-save.js';
 import {emptyPhotoMarkup, searchMarkup, validatePhoto} from './search-view.js';
 import './search-photo-preview.js';
-import {formatRarity} from '../utils/rarity.js';
 import {checkCert, deleteCardImage, uploadCardImage} from '../store/cards.js';
 import {destroyCatalogSuggestions, initializeCatalogSuggestions, installCatalogSuggestions, invalidateCatalogSuggestions, closeCatalogOnOutsideClick} from './search-catalog.js';
-import {initializeCardRarity, invalidateCardResolution, resolveExactTypedCard} from './search-card-resolution.js';
-import {hasNonLatinScript} from '../utils/language.js';
 import {findAvailableCert, normalizeCert} from '../utils/cert.js';
 import {clearAppliedReading, resetCardIdentificationState} from './card-identification.js';
-import {languageCode, languageName} from '../utils/intake-options.js';
-import {standardLabelValues} from './card-identification-helpers.js';
+import {languageCode, languageName} from '../utils/card-language.js';
 
 let certCheckVersion = 0;
 let certCheckTimer;
@@ -20,7 +16,7 @@ let uploadedSides = new Set();
 let statusObserver;
 
 export function initializeSearchPage() {
-  initializeCardRarity();
+  document.getElementById('m-rarity').value = '';
   initializeCatalogSuggestions().catch(() => {
     const status = document.getElementById('manual-status');
     if (status) { status.dataset.state = 'error'; status.textContent = 'Card fields could not be loaded. Reload and try again.'; }
@@ -36,7 +32,7 @@ export function search() {
   clearAppliedReading();
   uploadedSides = new Set();
   window.__intakeSavedCard = null;
-  window.__intakeCatalogGame = 'pokemon';
+  window.__intakeCatalogGame = '';
   window.__intakeCatalogCard = null;
   window.__intakeIdentification = null;
   window.__intakeIdentityReviewRequired = false;
@@ -181,7 +177,6 @@ function completeIntake() {
   certCheckVersion += 1;
   clearTimeout(certCheckTimer);
   invalidateCatalogSuggestions();
-  invalidateCardResolution();
   document.querySelector('.intake-page').outerHTML = search();
   initializeSearchPage();
   showToast('Card added to your vault.', 'success', {key: 'intake-save'});
@@ -199,14 +194,6 @@ async function saveIntake() {
     const visible = missing.dataset.catalogField ? document.getElementById(`${missing.id}-input`) : document.getElementById(`${missing.id}-trigger`) || missing;
     visible?.scrollIntoView({behavior: 'smooth', block: 'center'});
     visible?.focus({preventScroll: true});
-    return;
-  }
-  const rarityInput = document.getElementById('m-rarity');
-  rarityInput.value = formatRarity(rarityInput.value);
-  const englishFields = ['m-name', 'm-setName'].map(id => document.getElementById(id).value.trim());
-  if (englishFields.some(hasNonLatinScript)) {
-    status.textContent = 'Use English card and set names from the catalog before saving.';
-    document.getElementById('m-name').focus();
     return;
   }
   if (!certNumber) { setCertState(false, 'Enter 1 to 8 digits.', 'error'); certInput.focus(); return; }
@@ -308,8 +295,6 @@ document.addEventListener('click', event => {
 });
 
 document.addEventListener('focusout', event => {
-  const field = event.target.closest('[data-catalog-field]');
-  if (field) resolveExactTypedCard();
   if (event.target.id === 'm-cert') {
     const normalized = normalizeCert(event.target.value);
     if (normalized) event.target.value = normalized;
@@ -317,14 +302,11 @@ document.addEventListener('focusout', event => {
 });
 
 installCatalogSuggestions(field => {
-  invalidateCardResolution();
   window.__intakeCatalogCard = null;
   if (['language', 'year', 'series', 'setName', 'cardNumber', 'name'].includes(field)) document.getElementById('m-artist').value = '';
   if (field === 'language') {
     const code = languageCode(document.getElementById('m-language').value);
     document.getElementById('m-sourceLanguage').value = code;
-    document.getElementById('m-languageLabel').value = standardLabelValues({cardTypeLabel: 'POKÉMON', language: code}).languageLabel;
+    document.getElementById('m-languageLabel').value = code === 'en' ? '' : languageName(code).toUpperCase();
   }
-  const language = document.getElementById('m-sourceLanguage').value;
-  window.__intakeIdentification = language ? {language, sourceLanguage: language} : null;
 });

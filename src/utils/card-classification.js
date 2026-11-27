@@ -15,6 +15,7 @@ export function classificationFromReading(fields = {}) {
 
 export function classificationLabel(card = {}) {
   const category = card.category || '';
+  if (card.colorElements?.length || card.subtypeDetail) return [category, ...(card.colorElements || []), card.subtypeDetail].filter(Boolean).join(' · ');
   const detail = category.toLowerCase() === 'pokemon' ? card.pokemonTypes : category.toLowerCase() === 'trainer'
     ? card.trainerType : category.toLowerCase() === 'energy' ? [card.energyKind, card.energyType].filter(Boolean).join(' · ') : '';
   return [category, detail].filter(Boolean).join(' · ');

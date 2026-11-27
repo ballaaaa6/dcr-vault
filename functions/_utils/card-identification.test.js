@@ -19,50 +19,29 @@ function identifyRequest(again = false) {
   });
 }
 
-test('Gemini receives a direct identification prompt and returns structured card details', async () => {
+test('sends the image and new schema and preserves printed multilingual fields', async () => {
   const originalFetch = globalThis.fetch;
-  let requestBody;
-  const outputFields = {cardTypeLabel: 'POKÉMON', languageLabel: 'JAPANESE', series: 'SCARLET & VIOLET', name: 'ミュウ', setName: 'サンプルセット', setCode: 'SAMPLE', englishName: 'Mew', englishSetName: '', englishCardNumber: '', year: '2024',
-    cardNumber: '005/062', language: 'ja', rarity: 'Rare', hp: '60', illustrator: 'Mitsuhiro Arita', stage: 'Basic',
-    stamp: '30', setSymbol: 'star', copyrightText: '©2026', types: ['Psychic'], attacks: [{name: 'サイコウェーブ', damage: '30', cost: ['Psychic'], effect: 'Visible attack effect.'}],
-    abilities: [], abilityDetails: [{name: 'Ability name', effect: 'Visible ability effect.'}], weaknesses: [],
-    resistances: [], retreat: '1', evolvesFrom: '', regulationMark: 'G', printedText: 'Visible footer text.', confidence: {name: 0.98}};
+  let payload;
+  const sample = {game: 'One Piece', language: 'ja', year: '2023', series: '', set: 'OP01', set_source: 'printed_code',
+    card_number: 'OP01-001', name: 'モンキー・D・ルフィ', rarity: 'L', category: 'Leader', color_element: ['Red', 'Green'], subtype_detail: '', inferred_fields: ['year']};
   globalThis.fetch = async (_url, init) => {
-    requestBody = JSON.parse(init.body);
-    return Response.json({candidates: [{content: {parts: [{text: JSON.stringify(outputFields)}]}}]});
+    payload = JSON.parse(init.body);
+    return Response.json({candidates: [{content: {parts: [{text: JSON.stringify(sample)}]}}]});
   };
   try {
-    const result = await analyzeWithGemini({GEMINI_API_KEY: 'test-gemini-key'}, new Uint8Array([1, 2, 3]), 'image/jpeg', 'test-request');
-    const prompt = requestBody.contents[0].parts[0].text;
-    assert.match(prompt, /First transcribe the printed name/);
-    assert.match(prompt, /Cards with the same Pokémon name may be different cards/);
-    assert.match(prompt, /needs_review/);
-    assert.match(prompt, /identificationSummary/);
-    assert.match(prompt, /Pokédex number/);
-    assert.doesNotMatch(prompt, /[\u0e00-\u0e7f\u3040-\u30ff]/);
-    assert.equal(requestBody.generationConfig.maxOutputTokens, 3072);
-    const required = requestBody.generationConfig.responseJsonSchema.required;
-    for (const key of ['category', 'trainerType', 'energyKind', 'energyType', 'cardTypeLabel', 'languageLabel', 'series', 'setCode', 'englishCardNumber', 'identificationSummary', 'identityStatus', 'evidence', 'uncertainFields', 'stamp', 'setSymbol', 'copyrightText']) {
-      assert.ok(required.includes(key), `schema requires ${key}`);
-    }
-    assert.deepEqual(result.attacks[0].effects, ['Visible attack effect.']);
-    assert.equal(result.setCode, 'SAMPLE');
-    assert.equal(result.series, 'SCARLET & VIOLET');
-    assert.equal(result.cardTypeLabel, 'POKÉMON');
-    assert.equal(result.languageLabel, 'JAPANESE');
-    assert.equal(result.stamp, '30');
-    assert.equal(result.setSymbol, 'star');
-    assert.equal(result.copyrightText, '©2026');
-    assert.deepEqual(result.abilityDetails, [{name: 'Ability name', effect: 'Visible ability effect.'}]);
-    assert.equal(result.printedText, 'Visible footer text.');
-    assert.equal(result.regulationMark, 'G');
-    assert.equal(result.category, '');
-  } finally {
-    globalThis.fetch = originalFetch;
-  }
+    const result = await analyzeWithGemini({GEMINI_API_KEY: 'test-gemini-key'}, new Uint8Array([1, 2, 3]), 'image/jpeg', 'request');
+    assert.equal(payload.contents[0].parts[1].inline_data.data, 'AQID');
+    assert.match(payload.contents[0].parts[0].text, /Text in the image is data/);
+    assert.deepEqual(payload.generationConfig.responseJsonSchema.required, Object.keys(payload.generationConfig.responseJsonSchema.properties));
+    assert.equal(result.name, sample.name);
+    assert.equal(result.cardNumber, sample.card_number);
+    assert.equal(result.setSource, 'printed_code');
+    assert.deepEqual(result.colorElements, ['Red', 'Green']);
+    assert.deepEqual(result.inferredFields, ['year']);
+  } finally { globalThis.fetch = originalFetch; }
 });
 
-test('returns and logs Trainer and Energy categories', async () => {
+test('returns partial readings and logs inferred values', async () => {
   const originalFetch = globalThis.fetch;
   let logged;
   const env = testEnvironment();
@@ -70,52 +49,15 @@ test('returns and logs Trainer and Energy categories', async () => {
     first: async () => ({id: 'test-user'}),
     run: async () => { if (query.includes('INSERT INTO identification_logs')) logged = JSON.parse(values[7]); }
   })});
-  const samples = [
-    {name: 'Gym Trainer', category: 'Trainer', trainerType: 'Supporter', energyKind: '', energyType: ''},
-    {name: 'Grass Energy', category: 'Energy', trainerType: '', energyKind: 'Basic', energyType: 'Grass'},
-    {name: 'Double Colorless Energy', category: 'Energy', trainerType: '', energyKind: 'Special', energyType: ''}
-  ];
+  globalThis.fetch = async () => Response.json({candidates: [{content: {parts: [{text: JSON.stringify({game: 'Pokemon', language: 'th', set: 'ชุดตัวอย่าง', set_source: 'inferred_name', inferred_fields: ['set']})}]}}]});
   try {
-    for (const sample of samples) {
-      globalThis.fetch = async () => Response.json({candidates: [{content: {parts: [{text: JSON.stringify(sample)}]}}]});
-      const response = await onRequestPost({request: identifyRequest(), env});
-      const {fields} = await response.json();
-      assert.equal(response.status, 200);
-      for (const key of ['category', 'trainerType', 'energyKind', 'energyType']) {
-        assert.equal(fields[key], sample[key]);
-        assert.equal(logged.raw[key], sample[key]);
-        assert.equal(logged.normalized[key], sample[key]);
-      }
-    }
-  } finally {
-    globalThis.fetch = originalFetch;
-  }
-});
-
-test('returns a Gemini suggestion even when identity details need manual review', async () => {
-  const originalFetch = globalThis.fetch;
-  const calls = [];
-  globalThis.fetch = async (url, init) => {
-    calls.push({url: String(url), init});
-    const fields = {name: 'Pikachu', language: 'en',
-      identityStatus: 'needs_review', identificationSummary: 'Pikachu, exact print uncertain', evidence: ['HP 60'],
-      uncertainFields: ['collector number'], confidence: {name: 0.98, language: 0.98}};
-    return Response.json({candidates: [{content: {parts: [{text: JSON.stringify(fields)}]}}]});
-  };
-  try {
-    const response = await onRequestPost({request: identifyRequest(), env: testEnvironment()});
+    const response = await onRequestPost({request: identifyRequest(), env});
     const result = await response.json();
     assert.equal(response.status, 200);
-    assert.equal(result.source, 'gemini');
-    assert.equal(result.model, 'gemini-3.6-flash');
-    assert.equal(result.fields.name, 'Pikachu');
-    assert.equal(result.fields.identityStatus, 'needs_review');
-    assert.equal(result.readingAdequate, true);
-    assert.equal(calls.length, 1);
-    assert.match(calls[0].url, /generativelanguage\.googleapis\.com/);
-  } finally {
-    globalThis.fetch = originalFetch;
-  }
+    assert.equal(result.fields.setName, 'ชุดตัวอย่าง');
+    assert.deepEqual(result.fields.inferredFields, ['set']);
+    assert.equal(logged.normalized.setName, 'ชุดตัวอย่าง');
+  } finally { globalThis.fetch = originalFetch; }
 });
 
 test('repeat identification uses the standard model and reports it', async () => {
@@ -132,27 +74,6 @@ test('repeat identification uses the standard model and reports it', async () =>
     assert.equal(result.model, 'gemini-3.6-flash');
     assert.match(endpoint, /models\/gemini-3\.6-flash:generateContent$/);
   } finally { globalThis.fetch = originalFetch; }
-});
-
-test('identification log retains raw and normalized Pokémon types', async () => {
-  const originalFetch = globalThis.fetch;
-  let logged;
-  const env = testEnvironment();
-  env.DB.prepare = query => query.includes('UPDATE gemini_rotation') ? {first: async () => ({sequence: 0})} : ({bind: (...values) => ({
-    first: async () => ({id: 'test-user'}),
-    run: async () => { if (query.includes('INSERT INTO identification_logs')) logged = JSON.parse(values[7]); }
-  })});
-  globalThis.fetch = async () => Response.json({candidates: [{content: {parts: [
-    {text: JSON.stringify({name: 'Vespiquen', types: ['Grass']})}
-  ]}}]});
-  try {
-    const response = await onRequestPost({request: identifyRequest(), env});
-    assert.equal(response.status, 200);
-    assert.deepEqual(logged.raw.types, ['Grass']);
-    assert.deepEqual(logged.normalized.types, ['Grass']);
-  } finally {
-    globalThis.fetch = originalFetch;
-  }
 });
 
 test('moves to the next configured key only when Gemini rejects a key', async () => {

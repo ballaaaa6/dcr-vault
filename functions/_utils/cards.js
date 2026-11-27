@@ -28,6 +28,15 @@ function parseProvenance(value) {
   try { return normalizeProvenance(JSON.parse(value || '{}')); } catch { return {}; }
 }
 
+function stringList(value, limit = 10) {
+  if (!Array.isArray(value)) return [];
+  return [...new Set(value.filter(item => typeof item === 'string').map(item => text(item, 60)).filter(Boolean))].slice(0, limit);
+}
+
+function parseList(value) {
+  try { return stringList(JSON.parse(value || '[]')); } catch { return []; }
+}
+
 export function normalizeCard(input) {
   if (!input || typeof input !== 'object') return null;
   const certNumber = normalizeCertNumber(input.certNumber);
@@ -39,6 +48,9 @@ export function normalizeCard(input) {
     fieldProvenance: normalizeProvenance(input.fieldProvenance),
     game: text(input.game, 30) || 'other', name, setName: text(input.setName, 120),
     category: text(input.category, 40), pokemonTypes: text(input.pokemonTypes, 120), trainerType: text(input.trainerType, 60),
+    colorElements: stringList(input.colorElements), subtypeDetail: text(input.subtypeDetail, 60),
+    setSource: ['printed_name', 'printed_code', 'inferred_name'].includes(input.setSource) ? input.setSource : '',
+    inferredFields: stringList(input.inferredFields).filter(field => ['series', 'set', 'year'].includes(field)),
     energyKind: text(input.energyKind, 40), energyType: text(input.energyType, 40),
     cardTypeLabel: text(input.cardTypeLabel, 60), languageLabel: text(input.languageLabel, 60), series: text(input.series, 120),
     year: text(input.year, 4), yearSeries: text(input.yearSeries, 160),
@@ -58,6 +70,8 @@ export function cardResponse(row) {
     identificationStatus: row.identification_status || 'unknown', fieldProvenance: parseProvenance(row.field_provenance),
     id: row.id, game: row.game, name: row.name, setName: row.set_name, year: row.year,
     category: row.category || '', pokemonTypes: row.pokemon_types || '', trainerType: row.trainer_type || '',
+    colorElements: parseList(row.color_elements), subtypeDetail: row.subtype_detail || '',
+    setSource: row.set_source || '', inferredFields: parseList(row.inferred_fields),
     energyKind: row.energy_kind || '', energyType: row.energy_type || '',
     cardTypeLabel: row.card_type_label || '', languageLabel: row.language_label || '', series: row.series || '',
     yearSeries: row.year_series || '', catalogCardId: row.catalog_card_id || '',
@@ -81,5 +95,6 @@ export function cardValues(card) {
     card.gradeLabel, card.certNumber, card.status, card.buyPrice, card.sellPrice,
     card.buyDate, card.soldDate, card.boughtFrom, card.soldTo, card.notes,
     card.identificationStatus, JSON.stringify(card.fieldProvenance), card.artist, card.buyCurrency, card.purchaseSource, card.seller, card.receivedDate, card.cardTypeLabel, card.languageLabel, card.series,
-    card.category, card.pokemonTypes, card.trainerType, card.energyKind, card.energyType];
+    card.category, card.pokemonTypes, card.trainerType, card.energyKind, card.energyType,
+    JSON.stringify(card.colorElements), card.subtypeDetail, card.setSource, JSON.stringify(card.inferredFields)];
 }
