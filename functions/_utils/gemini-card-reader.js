@@ -51,7 +51,7 @@ function outputText(output) {
   return '';
 }
 
-export function parseJsonText(text) {
+function parseJsonText(text) {
   const source = text.trim().replace(/^\s*\x60{3}(?:json)?\s*/i, '').replace(/\s*\x60{3}\s*$/, '');
   try {
     const reading = findReadingObject(JSON.parse(source));

@@ -1,5 +1,8 @@
 # Changelog
 
+## Restore Gemini card reading - 2026-11-27
+- Remove the Z.ai trial and restore Gemini 3.6 Flash card identification.
+
 ## Z.ai card reading trial - 2026-11-27
 - Add a switchable Z.ai vision reader while retaining Gemini.
 

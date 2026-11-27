@@ -16,7 +16,7 @@ export function normalizeCertNumber(value) {
 }
 
 const provenanceFields = ['name', 'setName', 'year', 'cardNumber', 'rarity', 'cardTypeLabel', 'languageLabel', 'series', 'sourceLanguage'];
-const provenanceSources = new Set(['unknown', 'user', 'gemini', 'zai', 'catalog']);
+const provenanceSources = new Set(['unknown', 'user', 'gemini', 'catalog']);
 
 function normalizeProvenance(value) {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return {};
