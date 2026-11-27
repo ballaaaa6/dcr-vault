@@ -1,5 +1,8 @@
 # Changelog
 
+## Gemini card reader model - 2026-11-27
+- Use Gemini 3.5 Flash-Lite for every card reading.
+
 ## Cross-game promotional rarity - 2026-11-27
 - Ask Gemini for game-specific rarity codes and use Promo for promotional cards across games.
 - Preserve rarity inference metadata without adding response fields.
