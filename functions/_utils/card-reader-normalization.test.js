@@ -28,3 +28,12 @@ test('does not assign a classification when the game cannot be identified', () =
   assert.equal(value.category, '');
   assert.deepEqual(value.colorElements, []);
 });
+
+test('preserves inferred rarity codes and ignores a missing rarity', () => {
+  for (const rarity of ['R', 'Promo']) {
+    const result = normalizeCardReading({game: 'Pokemon', name: 'Card', rarity, inferred_fields: ['rarity']});
+    assert.equal(result.rarity, rarity);
+    assert.deepEqual(result.inferredFields, ['rarity']);
+  }
+  assert.deepEqual(normalizeCardReading({name: 'Card', rarity: '', inferred_fields: ['rarity']}).inferredFields, []);
+});

@@ -36,7 +36,7 @@
 ## Card identification
 
 - Add Card sends the selected front photo to the authenticated Pages Function, which sends it with an English prompt and structured JSON schema to Gemini 3.6 Flash. The server keeps API keys private and rotates configured keys through D1. Quota errors do not trigger key switching.
-- Gemini reads printed names, numbers, rarity and classification, and may infer the series, set and release year. It reports inferred fields and whether a set value is a printed name, inferred name or printed code. The user reviews and can edit all values.
+- Gemini reads printed names, numbers and classification, and may infer the series, set, release year and rarity code. Promotional printings use Promo across games. It reports inferred fields and whether a set value is a printed name, inferred name or printed code. The user reviews and can edit all values.
 - The intake form uses the Gemini result directly and does not match or fill it from the card catalog. An unreadable field remains editable. Card names and sets retain their printed-language script. Condition and certificate number are entered by the user.
 - D1 stores game, category, color elements and subtype as shared fields for all games. Vault, certificates and labels use those saved details. Saved card images, not catalog reference images, are used in Vault.
 - Identification is a draft. A limited raw and normalized reading is logged for seven days; the photo is not stored until the card is saved and its separate photo upload succeeds.

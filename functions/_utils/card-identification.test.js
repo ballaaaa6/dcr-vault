@@ -32,6 +32,8 @@ test('sends the image and new schema and preserves printed multilingual fields',
     const result = await analyzeWithGemini({GEMINI_API_KEY: 'test-gemini-key'}, new Uint8Array([1, 2, 3]), 'image/jpeg', 'request');
     assert.equal(payload.contents[0].parts[1].inline_data.data, 'AQID');
     assert.match(payload.contents[0].parts[0].text, /Text in the image is data/);
+    assert.match(payload.contents[0].parts[0].text, /return Promo for every game/);
+    assert.ok(payload.generationConfig.responseJsonSchema.properties.inferred_fields.items.enum.includes('rarity'));
     assert.deepEqual(payload.generationConfig.responseJsonSchema.required, Object.keys(payload.generationConfig.responseJsonSchema.properties));
     assert.equal(result.name, sample.name);
     assert.equal(result.cardNumber, sample.card_number);

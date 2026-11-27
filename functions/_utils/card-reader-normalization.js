@@ -11,7 +11,7 @@ export function normalizeCardReading(value) {
   const year = clean(value.year, 12);
   const setSource = ['printed_name', 'inferred_name', 'printed_code'].includes(value.set_source) && setName ? value.set_source : '';
   const inferredFields = Array.isArray(value.inferred_fields) ? [...new Set(value.inferred_fields.filter(key =>
-    (key === 'series' && clean(value.series)) || (key === 'set' && setSource === 'inferred_name') || (key === 'year' && /^\d{4}$/.test(year))))] : [];
+    (key === 'series' && clean(value.series)) || (key === 'set' && setSource === 'inferred_name') || (key === 'year' && /^\d{4}$/.test(year)) || (key === 'rarity' && clean(value.rarity))))] : [];
   if (setSource === 'inferred_name' && !inferredFields.includes('set')) inferredFields.push('set');
   const reading = {game: games.has(game) ? game : '', language: languages.has(language) ? language : '',
     year: /^\d{4}$/.test(year) ? year : '', series: clean(value.series), setName, setSource,

@@ -1,5 +1,9 @@
 # Changelog
 
+## Cross-game promotional rarity - 2026-11-27
+- Ask Gemini for game-specific rarity codes and use Promo for promotional cards across games.
+- Preserve rarity inference metadata without adding response fields.
+
 ## Direct multi-game card reading - 2026-11-27
 - Read the front photo with a compact Gemini schema and fill editable original-language details directly, without catalog matching.
 - Save game-neutral category, colors, subtype and inference metadata; use saved details for Vault, certificates and multilingual labels.

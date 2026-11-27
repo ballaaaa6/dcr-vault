@@ -50,7 +50,7 @@ export function normalizeCard(input) {
     category: text(input.category, 40), pokemonTypes: text(input.pokemonTypes, 120), trainerType: text(input.trainerType, 60),
     colorElements: stringList(input.colorElements), subtypeDetail: text(input.subtypeDetail, 60),
     setSource: ['printed_name', 'printed_code', 'inferred_name'].includes(input.setSource) ? input.setSource : '',
-    inferredFields: stringList(input.inferredFields).filter(field => ['series', 'set', 'year'].includes(field)),
+    inferredFields: stringList(input.inferredFields).filter(field => ['series', 'set', 'year', 'rarity'].includes(field)),
     energyKind: text(input.energyKind, 40), energyType: text(input.energyType, 40),
     cardTypeLabel: text(input.cardTypeLabel, 60), languageLabel: text(input.languageLabel, 60), series: text(input.series, 120),
     year: text(input.year, 4), yearSeries: text(input.yearSeries, 160),
