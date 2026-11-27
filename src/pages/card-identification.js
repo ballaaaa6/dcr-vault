@@ -15,7 +15,7 @@ export function intakeClassification() {
   return {category: reading.category || '', colorElements: reading.colorElements || [], subtypeDetail: reading.subtypeDetail || '',
     setNameEn: reading.setNameEn || '', setNameLocal: reading.setNameLocal || '', setCode: reading.setCode || '',
     setNameEnSource: reading.setNameEnSource || '', setNameLocalSource: reading.setNameLocalSource || '',
-    setNameEnType: reading.setNameEnType || '', releaseYear: reading.releaseYear || '', copyrightYear: reading.copyrightYear || '',
+    setNameEnType: reading.setNameEnType || '', releaseYear: reading.releaseYear || '',
     yearSource: provenance.year === 'user' ? 'user' : reading.yearSource || '', setSource: reading.setSource || '', inferredFields: reading.inferredFields || []};
 }
 export function identificationProvenance() { return {identificationStatus: identified ? 'unresolved' : 'unknown', fieldProvenance: {...provenance}}; }
@@ -71,9 +71,13 @@ function applyReading(fields, id) {
     applied[key] = input.value;
     provenance[key] = input.value ? 'gemini' : 'unknown';
   }
+  const fieldStates = Object.fromEntries(['year', 'series', 'setName'].map(key => [key,
+    provenance[key] === 'user' ? 'user_preserved' : values[key] ? 'applied' : 'empty_reading']));
+  const displayed = Object.fromEntries(['name', 'setName', 'year', 'series', 'cardNumber', 'rarity'].map(key =>
+    [key, document.getElementById(`m-${key}`)?.value || '']));
   logIdentificationStage('browser', {yearSource: provenance.year === 'user' ? 'user' : fields.yearSource,
     setValueSource: provenance.setName === 'user' ? 'user' : fields.setNameEn ? 'english' : fields.setNameLocal ? 'local' : '',
-    values: {name: values.name, setName: values.setName, year: values.year, cardNumber: values.cardNumber, rarity: values.rarity}, provenance});
+    values: displayed, fieldStates, provenance});
   window.dispatchEvent(new Event('intake-values-updated'));
   const panel = document.getElementById('identification-dialog-content');
   panel.innerHTML = detailMarkup();

@@ -35,12 +35,32 @@ test('sends the image and new schema and preserves printed multilingual fields',
     assert.match(payload.contents[0].parts[0].text, /return Promo for every game/);
     assert.deepEqual(payload.generationConfig.thinkingConfig, {thinkingLevel: 'high'});
     assert.ok(payload.generationConfig.responseJsonSchema.properties.inferred_fields.items.enum.includes('rarity'));
+    assert.equal('copyright_year' in payload.generationConfig.responseJsonSchema.properties, false);
+    assert.ok(payload.generationConfig.responseJsonSchema.required.includes('series_missing_reason'));
     assert.deepEqual(payload.generationConfig.responseJsonSchema.required, Object.keys(payload.generationConfig.responseJsonSchema.properties));
     assert.equal(result.name, sample.name);
     assert.equal(result.cardNumber, sample.card_number);
     assert.equal(result.setSource, 'inferred_name');
     assert.deepEqual(result.colorElements, ['Red', 'Green']);
     assert.deepEqual(result.inferredFields, ['year', 'set']);
+  } finally { globalThis.fetch = originalFetch; }
+});
+
+test('logs model explanations and distinguishes rejected year from empty fields', async () => {
+  const originalFetch = globalThis.fetch;
+  let logged;
+  const env = testEnvironment();
+  env.DB.prepare = query => query.includes('UPDATE gemini_rotation') ? {first: async () => ({sequence: 0})} : ({bind: (...values) => ({
+    first: async () => ({id: 'test-user'}),
+    run: async () => { if (query.includes('INSERT INTO identification_logs')) logged = JSON.parse(values[7]); }
+  })});
+  globalThis.fetch = async () => Response.json({candidates: [{content: {parts: [{text: JSON.stringify({name: 'Card', release_year: '2025?',
+    series: '', set_name_en: '', set_name_local: '', series_missing_reason: 'Printing is unclear', set_missing_reason: 'Set code unreadable'})}]}}]});
+  try {
+    const response = await onRequestPost({request: identifyRequest(), env});
+    assert.equal(response.status, 200);
+    assert.equal(logged.raw.series_missing_reason, 'Printing is unclear');
+    assert.deepEqual(logged.fieldStates, {year: 'invalid_format', series: 'empty_from_model', setName: 'empty_from_model'});
   } finally { globalThis.fetch = originalFetch; }
 });
 

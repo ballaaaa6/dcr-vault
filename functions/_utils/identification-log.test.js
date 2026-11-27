@@ -27,7 +27,7 @@ test('logs are owner-scoped, bounded, and deleted at expiry', async () => {
   const req = (user, options = {}) => new Request(`https://vault.test/api/cards/identification-log?requestId=${requestId}`,
     {headers: {Cookie: `dcr_session=${user}`, Origin: 'https://vault.test', 'Content-Type': 'application/json'}, ...options});
   assert.equal((await onRequestGet({request: req('other'), env: {DB}})).status, 404);
-  const post = {method: 'POST', body: JSON.stringify({requestId, match: 'unresolved', values: {name: 'Mew'}})};
+  const post = {method: 'POST', body: JSON.stringify({requestId, match: 'unresolved', values: {name: 'Mew', series: 'Neo'}, fieldStates: {series: 'user_preserved'}})};
   assert.equal((await onRequestPost({request: req('other', post), env: {DB}})).status, 404);
   assert.equal((await onRequestPost({request: req('owner', post), env: {DB}})).status, 200);
   const selection = {method: 'POST', body: JSON.stringify({requestId, stage: 'selection', selected: 'candidate-1'})};
@@ -38,6 +38,8 @@ test('logs are owner-scoped, bounded, and deleted at expiry', async () => {
   assert.equal((await onRequestPost({request: req('owner', save), env: {DB}})).status, 200);
   const found = await (await onRequestGet({request: req('owner'), env: {DB}})).json();
   assert.equal(JSON.parse(found.log.browser_json).values.name, 'Mew');
+  assert.equal(JSON.parse(found.log.browser_json).values.series, 'Neo');
+  assert.equal(JSON.parse(found.log.browser_json).fieldStates.series, 'user_preserved');
   assert.equal(JSON.parse(found.log.selection_json).selected, 'candidate-1');
   assert.equal(JSON.parse(found.log.save_json).values.name, 'Edited');
   assert.equal(JSON.parse(found.log.save_json).priorOutcome, 'error');

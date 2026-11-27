@@ -1,3 +1,8 @@
+## Direct card reading and missing-field diagnostics - 2026-11-28
+
+- Request release year only, direct series and set readings, and per-field explanations when Gemini leaves year, series or set empty. Ask Gemini to capitalize English form values while preserving names and codes.
+- Record model explanations, server field status and browser values and status for year, series and set; retain the existing seven-day log lifetime.
+
 ## 2026-11-27 - Separate set and year reading details
 
 - Keep Gemini set names, printed code, release year and copyright year separate, with full-name and year fallback for intake.

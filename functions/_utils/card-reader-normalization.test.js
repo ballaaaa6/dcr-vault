@@ -39,7 +39,7 @@ test('preserves inferred rarity codes and ignores a missing rarity', () => {
 });
 
 
-test('keeps set and year details separate and selects fallbacks', () => {
+test('uses release year only and preserves local set fallback', () => {
   const value = normalizeCardReading({name: 'Card', set_name_en: 'Full Name', set_name_local: '本名', set_code: 'ABC', set_name_en_type: 'translation', release_year: '2025', copyright_year: '2024'});
   assert.equal(value.setName, 'Full Name');
   assert.equal(value.setNameLocal, '本名');
@@ -48,7 +48,7 @@ test('keeps set and year details separate and selects fallbacks', () => {
   assert.equal(value.yearSource, 'release');
   const fallback = normalizeCardReading({name: 'Card', set_name_local: '本名', set_code: 'ABC', copyright_year: '2024'});
   assert.equal(fallback.setName, '本名');
-  assert.equal(fallback.year, '2024');
-  assert.equal(fallback.yearSource, 'copyright');
+  assert.equal(fallback.year, '');
+  assert.equal(fallback.yearSource, '');
   assert.equal(normalizeCardReading({name: 'Card', set_code: 'ABC'}).setName, '');
 });
