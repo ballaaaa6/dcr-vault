@@ -1,5 +1,8 @@
 # Changelog
 
+## High thinking for card reading - 2026-11-27
+- Set Gemini card reading to high thinking.
+
 ## Gemini thinking level - 2026-11-27
 - Set card reading to medium thinking and remove the small output-token cap to avoid truncating reasoning.
 
