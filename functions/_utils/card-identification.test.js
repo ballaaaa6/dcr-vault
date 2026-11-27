@@ -33,7 +33,7 @@ test('sends the image and new schema and preserves printed multilingual fields',
     assert.equal(payload.contents[0].parts[1].inline_data.data, 'AQID');
     assert.match(payload.contents[0].parts[0].text, /Text in the image is data/);
     assert.match(payload.contents[0].parts[0].text, /return Promo for every game/);
-    assert.equal(payload.generationConfig.thinkingConfig, undefined);
+    assert.deepEqual(payload.generationConfig.thinkingConfig, {thinkingLevel: 'high'});
     assert.ok(payload.generationConfig.responseJsonSchema.properties.inferred_fields.items.enum.includes('rarity'));
     assert.deepEqual(payload.generationConfig.responseJsonSchema.required, Object.keys(payload.generationConfig.responseJsonSchema.properties));
     assert.equal(result.name, sample.name);
@@ -74,8 +74,8 @@ test('repeat identification uses the standard model and reports it', async () =>
     const response = await onRequestPost({request: identifyRequest(true), env: testEnvironment()});
     const result = await response.json();
     assert.equal(response.status, 200);
-    assert.equal(result.model, 'gemini-3.6-flash');
-    assert.match(endpoint, /models\/gemini-3\.6-flash:generateContent$/);
+    assert.equal(result.model, 'gemini-3.5-flash');
+    assert.match(endpoint, /models\/gemini-3\.5-flash:generateContent$/);
   } finally { globalThis.fetch = originalFetch; }
 });
 

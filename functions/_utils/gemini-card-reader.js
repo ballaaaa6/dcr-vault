@@ -2,7 +2,7 @@ import {normalizeCardReading} from './card-reader-normalization.js';
 import {CARD_READING_PROMPT, CARD_READING_SCHEMA} from './card-reader-contract.js';
 import {reserveKey, recordAttempt, keyIdentifier} from './gemini-usage.js';
 
-export const MODEL = 'gemini-3.6-flash';
+export const MODEL = 'gemini-3.5-flash';
 const API_TIMEOUT_MS = 45000;
 const RETRY_DELAY_MS = 400;
 const READING_KEYS = ['game', 'language', 'name', 'set', 'series', 'year', 'card_number', 'rarity', 'category', 'color_element', 'subtype_detail'];
@@ -188,7 +188,7 @@ export async function analyzeWithGemini(env, body, contentType, requestId, onPar
   if (!apiKeys.length) throw readingError('not_configured', 503);
   const payload = JSON.stringify({contents: [{role: 'user', parts: [
     {text: CARD_READING_PROMPT}, {inline_data: {mime_type: contentType, data: base64(body)}}
-  ]}], generationConfig: {temperature: 0, responseMimeType: 'application/json', responseJsonSchema: CARD_READING_SCHEMA}});
+  ]}], generationConfig: {thinkingConfig: {thinkingLevel: "high"}, temperature: 0, responseMimeType: 'application/json', responseJsonSchema: CARD_READING_SCHEMA}});
   for (let index = 0; index < apiKeys.length; index += 1) {
     try {
       const slot = env.DB ? await reserveKey(env.DB, apiKeys.length) : index;

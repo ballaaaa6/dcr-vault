@@ -1,5 +1,8 @@
 # Changelog
 
+## Gemini 3.5 Flash high - 2026-11-27
+- Use Gemini 3.5 Flash with high thinking for card identification.
+
 ## Restore Gemini card reading - 2026-11-27
 - Remove the Z.ai trial and restore Gemini 3.6 Flash card identification.
 
