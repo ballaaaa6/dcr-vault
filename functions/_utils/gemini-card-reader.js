@@ -2,7 +2,7 @@ import {normalizeCardReading} from './card-reader-normalization.js';
 import {CARD_READING_PROMPT, CARD_READING_SCHEMA} from './card-reader-contract.js';
 import {reserveKey, recordAttempt, keyIdentifier} from './gemini-usage.js';
 
-export const MODEL = 'gemini-3.5-flash-lite';
+export const MODEL = 'gemini-3.6-flash';
 const API_TIMEOUT_MS = 45000;
 const RETRY_DELAY_MS = 400;
 const READING_KEYS = ['game', 'language', 'name', 'set', 'series', 'year', 'card_number', 'rarity', 'category', 'color_element', 'subtype_detail'];

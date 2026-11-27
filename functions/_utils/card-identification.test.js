@@ -74,8 +74,8 @@ test('repeat identification uses the standard model and reports it', async () =>
     const response = await onRequestPost({request: identifyRequest(true), env: testEnvironment()});
     const result = await response.json();
     assert.equal(response.status, 200);
-    assert.equal(result.model, 'gemini-3.5-flash-lite');
-    assert.match(endpoint, /models\/gemini-3\.5-flash-lite:generateContent$/);
+    assert.equal(result.model, 'gemini-3.6-flash');
+    assert.match(endpoint, /models\/gemini-3\.6-flash:generateContent$/);
   } finally { globalThis.fetch = originalFetch; }
 });
 

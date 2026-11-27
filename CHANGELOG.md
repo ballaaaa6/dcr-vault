@@ -1,5 +1,8 @@
 # Changelog
 
+## Restore Gemini 3.6 Flash - 2026-11-27
+- Use Gemini 3.6 Flash with high thinking for card reading.
+
 ## High thinking for card reading - 2026-11-27
 - Set Gemini card reading to high thinking.
 
