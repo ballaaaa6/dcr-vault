@@ -21,9 +21,9 @@ Star Wars Unlimited: C,U,R,L,S,Promo.
 For Lorcana use C=Common, UC=Uncommon, R=Rare, SR=Super Rare, L=Legendary, E=Epic, EN=Enchanted, I=Iconic. For Riftbound use C=Common, UC=Uncommon, R=Rare, E=Epic, S=Showcase, O=Overnumbered, SIG=Signature, U=Ultimate. For MTG use C=Common, U=Uncommon, R=Rare, M=Mythic, S=Special, B=Bonus. For Star Wars Unlimited use C=Common, U=Uncommon, R=Rare, L=Legendary, S=Special. These are output codes, not claims that the codes are printed on the card.
 Do not return treatments or finishes as rarity; interpret SP and Showcase in the context of the game because their meanings differ. Return No Rarity for a confidently identified 1996 Japanese Pokemon Base Set printing with a blank rarity corner. Return Classic Collection for a confidently identified 30th Celebration gold-border reprint. Pokemon promo collector codes such as XY-P or S-P support Promo; do not apply a code from one game indiscriminately to another.
 
-You may use knowledge of the exact printed-language set to identify series, set and release year using the set code, symbol and card number together. Do not equate copyright year with release year. Do not substitute an English set for a Japanese or other local set. Copy a visible set name when possible; otherwise return the official name in the printed language if known, or a visible set code. Set set_source to printed_name, inferred_name, printed_code or empty. List only values inferred from knowledge in inferred_fields; do not list a printed code. Never invent details. Do not identify condition, grade, finish, price or certificate number.
+Identify the exact printing and its printed language. Return separate fields: set_name_en is the full English name of this exact local set, not a different English set containing the same card; set_name_local is its full name in the printed language; set_name_en_type is official or translation when known, otherwise empty. set_code is the code visible on the card, copied exactly; do not guess it or use a collector number unless it is visibly also the set code. release_year is the four-digit release year of this exact printing or local set, if known. copyright_year is the four-digit copyright year visible on the card, only if legible. Never infer either year from the other. Use knowledge for series and full set names when reasonably confident. Do not invent values; return empty strings when uncertain. Do not put codes or abbreviations in full-name fields. For each nonempty set_name_en and set_name_local, set its corresponding source to printed if copied visibly from the card or inferred if supplied from knowledge; otherwise use empty. List knowledge-based series, set, release year and rarity in inferred_fields. Never identify condition, grade, finish, price or certificate number.
 
-Allowed game values: Pokemon, Yu-Gi-Oh, One Piece, Dragon Ball Fusion World, Digimon, Lorcana, Riftbound, Vanguard, MTG, Gundam, Star Wars Unlimited. If unsure, leave game and its classification empty. Preserve the card's original language for name, set and series.
+Allowed game values: Pokemon, Yu-Gi-Oh, One Piece, Dragon Ball Fusion World, Digimon, Lorcana, Riftbound, Vanguard, MTG, Gundam, Star Wars Unlimited. If unsure, leave game and its classification empty. Preserve the card's original language for name and series.
 
 Use language codes en, ja, th, ko, zh-cn, zh-tw, de, fr, it, pt, es, id, nl, pl or ru. Classify using only the values below for the detected game. If no value applies leave it empty. For Pokemon Trainer return no color; for Yu-Gi-Oh Spell and Trap return no attribute. For MTG choose the first applicable category in this priority: Creature, Planeswalker, Land, Artifact, Enchantment, Instant, Sorcery, Battle. Return all visible colors.
 Pokemon: category Pokemon, Trainer, Energy; color Grass, Fire, Water, Lightning, Psychic, Fighting, Darkness, Metal, Fairy, Dragon, Colorless; subtype Pokemon Tool, Item, Supporter, Stadium, Basic, Special.
@@ -47,12 +47,13 @@ export const CARD_READING_SCHEMA = {
   properties: {
     game: {type: 'string', enum: ['', ...CARD_GAMES]},
     language: {type: 'string', enum: ['', 'en', 'ja', 'th', 'ko', 'zh-cn', 'zh-tw', 'de', 'fr', 'it', 'pt', 'es', 'id', 'nl', 'pl', 'ru']},
-    year: string, series: string, set: string,
-    set_source: {type: 'string', enum: ['', 'printed_name', 'inferred_name', 'printed_code']},
+    series: string, set_name_en: string, set_name_local: string, set_code: string,
+    set_name_en_source: {type: 'string', enum: ['', 'printed', 'inferred']}, set_name_local_source: {type: 'string', enum: ['', 'printed', 'inferred']},
+    set_name_en_type: {type: 'string', enum: ['', 'official', 'translation']}, release_year: string, copyright_year: string,
     card_number: string, name: string, rarity: {type: 'string', description: 'Rarity code for the detected game, Promo for promotional printings, or empty when uncertain.'}, category: string,
     color_element: stringArray, subtype_detail: string,
     inferred_fields: {type: 'array', items: {type: 'string', enum: ['series', 'set', 'year', 'rarity']}}
   },
-  required: ['game', 'language', 'year', 'series', 'set', 'set_source', 'card_number', 'name',
+  required: ['game', 'language', 'series', 'set_name_en', 'set_name_local', 'set_code', 'set_name_en_source', 'set_name_local_source', 'set_name_en_type', 'release_year', 'copyright_year', 'card_number', 'name',
     'rarity', 'category', 'color_element', 'subtype_detail', 'inferred_fields']
 };

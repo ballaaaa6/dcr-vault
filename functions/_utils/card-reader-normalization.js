@@ -7,14 +7,23 @@ export function normalizeCardReading(value) {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return null;
   const game = clean(value.game, 40);
   const language = clean(value.language, 20).toLowerCase();
-  const setName = clean(value.set);
-  const year = clean(value.year, 12);
-  const setSource = ['printed_name', 'inferred_name', 'printed_code'].includes(value.set_source) && setName ? value.set_source : '';
+  const setNameEn = clean(value.set_name_en);
+  const setNameLocal = clean(value.set_name_local);
+  const setName = setNameEn || setNameLocal;
+  const releaseYear = /^\d{4}$/.test(clean(value.release_year)) ? clean(value.release_year) : '';
+  const copyrightYear = /^\d{4}$/.test(clean(value.copyright_year)) ? clean(value.copyright_year) : '';
+  const year = releaseYear || copyrightYear;
+  const nameSource = source => ['printed', 'inferred'].includes(source) ? source : '';
+  const setNameEnSource = setNameEn ? nameSource(value.set_name_en_source) : '';
+  const setNameLocalSource = setNameLocal ? nameSource(value.set_name_local_source) : '';
+  const selectedSource = setNameEn ? setNameEnSource : setNameLocalSource;
+  const setSource = selectedSource === 'printed' ? 'printed_name' : selectedSource === 'inferred' ? 'inferred_name' : '';
   const inferredFields = Array.isArray(value.inferred_fields) ? [...new Set(value.inferred_fields.filter(key =>
     (key === 'series' && clean(value.series)) || (key === 'set' && setSource === 'inferred_name') || (key === 'year' && /^\d{4}$/.test(year)) || (key === 'rarity' && clean(value.rarity))))] : [];
   if (setSource === 'inferred_name' && !inferredFields.includes('set')) inferredFields.push('set');
   const reading = {game: games.has(game) ? game : '', language: languages.has(language) ? language : '',
-    year: /^\d{4}$/.test(year) ? year : '', series: clean(value.series), setName, setSource,
+    year: /^\d{4}$/.test(year) ? year : '', releaseYear, copyrightYear, yearSource: releaseYear ? 'release' : copyrightYear ? 'copyright' : '',
+    setNameEn, setNameLocal, setNameEnSource, setNameLocalSource, setCode: clean(value.set_code, 32), setNameEnType: ['official', 'translation'].includes(value.set_name_en_type) ? value.set_name_en_type : '', series: clean(value.series), setName, setSource,
     cardNumber: clean(value.card_number, 30), name: clean(value.name), rarity: clean(value.rarity, 80),
     category: clean(value.category, 40), colorElements: Array.isArray(value.color_element) ? value.color_element.map(item => clean(item, 40)).filter(Boolean).slice(0, 10) : [],
     subtypeDetail: clean(value.subtype_detail, 60), inferredFields};

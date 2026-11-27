@@ -28,7 +28,7 @@ export async function onRequestPost({request, env}) {
   const stage = data.stage || 'browser';
   const column = {browser: 'browser_json', selection: 'selection_json', save: 'save_json'}[stage];
   if (!['browser', 'selection', 'save'].includes(stage)) return json({error: 'Invalid log stage.'}, 400);
-  const browser = {stage, match: short(data.match), selected: short(data.selected), outcome: short(data.outcome),
+  const browser = {stage, yearSource: short(data.yearSource), setValueSource: short(data.setValueSource), match: short(data.match), selected: short(data.selected), outcome: short(data.outcome),
     provenance: Object.fromEntries(['name', 'setName', 'year', 'cardNumber', 'rarity'].map(key => [key, short(data.provenance?.[key])])), candidates: Array.isArray(data.candidates) ? data.candidates.slice(0, 12).map(short) : [],
     values: Object.fromEntries(['name', 'setName', 'year', 'cardNumber', 'rarity'].map(key => [key, short(data.values?.[key])])),
     conflicts: Array.isArray(data.conflicts) ? data.conflicts.slice(0, 8).map(short) : []};

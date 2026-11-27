@@ -11,7 +11,7 @@ import {tokenHash} from './sessions.js';
 function database() {
   const sql = new DatabaseSync(':memory:');
   for (const name of ['0001_users_sessions_cards.sql', '0011_profile_details.sql', '0012_collector_profile.sql', '0014_profile_full_photo.sql', '0002_card_images.sql', '0003_card_label_metadata.sql',
-    '0004_card_source_print_identity.sql', '0005_identification_logs.sql', '0006_card_identification_provenance.sql', '0008_card_artist.sql', '0009_private_vault_details.sql', '0010_label_reading_fields.sql', '0013_card_classification.sql', '0023_card_reading_fields.sql']) {
+    '0004_card_source_print_identity.sql', '0005_identification_logs.sql', '0024_reading_details.sql', '0006_card_identification_provenance.sql', '0008_card_artist.sql', '0009_private_vault_details.sql', '0010_label_reading_fields.sql', '0013_card_classification.sql', '0023_card_reading_fields.sql']) {
     sql.exec(readFileSync(new URL(`../../migrations/${name}`, import.meta.url), 'utf8'));
   }
   const DB = {prepare: query => ({bind: (...values) => ({

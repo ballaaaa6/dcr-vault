@@ -13,7 +13,10 @@ let requestId = '';
 
 export function intakeClassification() {
   return {category: reading.category || '', colorElements: reading.colorElements || [], subtypeDetail: reading.subtypeDetail || '',
-    setSource: reading.setSource || '', inferredFields: reading.inferredFields || []};
+    setNameEn: reading.setNameEn || '', setNameLocal: reading.setNameLocal || '', setCode: reading.setCode || '',
+    setNameEnSource: reading.setNameEnSource || '', setNameLocalSource: reading.setNameLocalSource || '',
+    setNameEnType: reading.setNameEnType || '', releaseYear: reading.releaseYear || '', copyrightYear: reading.copyrightYear || '',
+    yearSource: provenance.year === 'user' ? 'user' : reading.yearSource || '', setSource: reading.setSource || '', inferredFields: reading.inferredFields || []};
 }
 export function identificationProvenance() { return {identificationStatus: identified ? 'unresolved' : 'unknown', fieldProvenance: {...provenance}}; }
 export function clearAppliedReading() { reading = {}; applied = {}; provenance = {}; requestId = ''; identified = false; }
@@ -68,6 +71,9 @@ function applyReading(fields, id) {
     applied[key] = input.value;
     provenance[key] = input.value ? 'gemini' : 'unknown';
   }
+  logIdentificationStage('browser', {yearSource: provenance.year === 'user' ? 'user' : fields.yearSource,
+    setValueSource: provenance.setName === 'user' ? 'user' : fields.setNameEn ? 'english' : fields.setNameLocal ? 'local' : '',
+    values: {name: values.name, setName: values.setName, year: values.year, cardNumber: values.cardNumber, rarity: values.rarity}, provenance});
   window.dispatchEvent(new Event('intake-values-updated'));
   const panel = document.getElementById('identification-dialog-content');
   panel.innerHTML = detailMarkup();

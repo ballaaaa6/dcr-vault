@@ -80,6 +80,7 @@ function cleanPatch(input) {
   for (const [key, column] of [['colorElements', 'color_elements'], ['inferredFields', 'inferred_fields']]) {
     if (Array.isArray(input[key])) patch[column] = JSON.stringify([...new Set(input[key].filter(item => typeof item === 'string').map(item => item.trim().slice(0, 60)).filter(Boolean))].slice(0, 10));
   }
+  if ('year' in input && typeof input.year === 'string') patch.year_source = 'user';
   if ('name' in input && !patch.name) return null;
   if ('buyPrice' in input) patch.buy_price = validPrice(input.buyPrice);
   if ('sellPrice' in input) patch.sell_price = validPrice(input.sellPrice);

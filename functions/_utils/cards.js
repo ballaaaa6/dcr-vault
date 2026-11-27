@@ -49,6 +49,11 @@ export function normalizeCard(input) {
     game: text(input.game, 30) || 'other', name, setName: text(input.setName, 120),
     category: text(input.category, 40), pokemonTypes: text(input.pokemonTypes, 120), trainerType: text(input.trainerType, 60),
     colorElements: stringList(input.colorElements), subtypeDetail: text(input.subtypeDetail, 60),
+    setNameEn: text(input.setNameEn, 120), setNameLocal: text(input.setNameLocal, 120), setCode: text(input.setCode, 32),
+    setNameEnSource: ['printed', 'inferred'].includes(input.setNameEnSource) ? input.setNameEnSource : '',
+    setNameLocalSource: ['printed', 'inferred'].includes(input.setNameLocalSource) ? input.setNameLocalSource : '',
+    setNameEnType: ['official', 'translation'].includes(input.setNameEnType) ? input.setNameEnType : '',
+    releaseYear: text(input.releaseYear, 4), copyrightYear: text(input.copyrightYear, 4), yearSource: ['release', 'copyright', 'user'].includes(input.yearSource) ? input.yearSource : '',
     setSource: ['printed_name', 'printed_code', 'inferred_name'].includes(input.setSource) ? input.setSource : '',
     inferredFields: stringList(input.inferredFields).filter(field => ['series', 'set', 'year', 'rarity'].includes(field)),
     energyKind: text(input.energyKind, 40), energyType: text(input.energyType, 40),
@@ -71,6 +76,9 @@ export function cardResponse(row) {
     id: row.id, game: row.game, name: row.name, setName: row.set_name, year: row.year,
     category: row.category || '', pokemonTypes: row.pokemon_types || '', trainerType: row.trainer_type || '',
     colorElements: parseList(row.color_elements), subtypeDetail: row.subtype_detail || '',
+    setNameEn: row.set_name_en || '', setNameLocal: row.set_name_local || '', setCode: row.set_code || '',
+    setNameEnSource: row.set_name_en_source || '', setNameLocalSource: row.set_name_local_source || '',
+    setNameEnType: row.set_name_en_type || '', releaseYear: row.release_year || '', copyrightYear: row.copyright_year || '', yearSource: row.year_source || '',
     setSource: row.set_source || '', inferredFields: parseList(row.inferred_fields),
     energyKind: row.energy_kind || '', energyType: row.energy_type || '',
     cardTypeLabel: row.card_type_label || '', languageLabel: row.language_label || '', series: row.series || '',
@@ -96,5 +104,6 @@ export function cardValues(card) {
     card.buyDate, card.soldDate, card.boughtFrom, card.soldTo, card.notes,
     card.identificationStatus, JSON.stringify(card.fieldProvenance), card.artist, card.buyCurrency, card.purchaseSource, card.seller, card.receivedDate, card.cardTypeLabel, card.languageLabel, card.series,
     card.category, card.pokemonTypes, card.trainerType, card.energyKind, card.energyType,
-    JSON.stringify(card.colorElements), card.subtypeDetail, card.setSource, JSON.stringify(card.inferredFields)];
+    JSON.stringify(card.colorElements), card.subtypeDetail, card.setSource, JSON.stringify(card.inferredFields),
+    card.setNameEn, card.setNameLocal, card.setCode, card.setNameEnType, card.releaseYear, card.copyrightYear, card.yearSource, card.setNameEnSource, card.setNameLocalSource];
 }

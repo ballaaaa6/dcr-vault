@@ -30,7 +30,7 @@ async function insertLegacyCard(db, userId, card) {
   const id = crypto.randomUUID();
   return db.prepare(`INSERT OR IGNORE INTO cards (id, user_id, game, name, set_name, year, year_series, catalog_card_id,
     source_language, source_set_id, source_card_id, source_finish, card_number, rarity, grade_label, cert_number, status, buy_price, sell_price, buy_date, sold_date,
-    bought_from, sold_to, notes, identification_status, field_provenance, artist, buy_currency, purchase_source, seller, received_date, card_type_label, language_label, series, category, pokemon_types, trainer_type, energy_kind, energy_type, color_elements, subtype_detail, set_source, inferred_fields, created_at, updated_at)
-    VALUES (${Array(45).fill('?').join(', ')})`)
+    bought_from, sold_to, notes, identification_status, field_provenance, artist, buy_currency, purchase_source, seller, received_date, card_type_label, language_label, series, category, pokemon_types, trainer_type, energy_kind, energy_type, color_elements, subtype_detail, set_source, inferred_fields, set_name_en, set_name_local, set_code, set_name_en_type, release_year, copyright_year, year_source, set_name_en_source, set_name_local_source, created_at, updated_at)
+    VALUES (${Array(54).fill('?').join(', ')})`)
     .bind(id, userId, ...cardValues(card), now, now).run();
 }

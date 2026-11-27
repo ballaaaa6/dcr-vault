@@ -22,7 +22,7 @@ function identifyRequest(again = false) {
 test('sends the image and new schema and preserves printed multilingual fields', async () => {
   const originalFetch = globalThis.fetch;
   let payload;
-  const sample = {game: 'One Piece', language: 'ja', year: '2023', series: '', set: 'OP01', set_source: 'printed_code',
+  const sample = {game: 'One Piece', language: 'ja', release_year: '2023', series: '', set_name_en: 'Romance Dawn', set_name_en_source: 'inferred', set_code: 'OP01', set_source: 'inferred_name',
     card_number: 'OP01-001', name: 'モンキー・D・ルフィ', rarity: 'L', category: 'Leader', color_element: ['Red', 'Green'], subtype_detail: '', inferred_fields: ['year']};
   globalThis.fetch = async (_url, init) => {
     payload = JSON.parse(init.body);
@@ -38,9 +38,9 @@ test('sends the image and new schema and preserves printed multilingual fields',
     assert.deepEqual(payload.generationConfig.responseJsonSchema.required, Object.keys(payload.generationConfig.responseJsonSchema.properties));
     assert.equal(result.name, sample.name);
     assert.equal(result.cardNumber, sample.card_number);
-    assert.equal(result.setSource, 'printed_code');
+    assert.equal(result.setSource, 'inferred_name');
     assert.deepEqual(result.colorElements, ['Red', 'Green']);
-    assert.deepEqual(result.inferredFields, ['year']);
+    assert.deepEqual(result.inferredFields, ['year', 'set']);
   } finally { globalThis.fetch = originalFetch; }
 });
 
@@ -52,7 +52,7 @@ test('returns partial readings and logs inferred values', async () => {
     first: async () => ({id: 'test-user'}),
     run: async () => { if (query.includes('INSERT INTO identification_logs')) logged = JSON.parse(values[7]); }
   })});
-  globalThis.fetch = async () => Response.json({candidates: [{content: {parts: [{text: JSON.stringify({game: 'Pokemon', language: 'th', set: 'ชุดตัวอย่าง', set_source: 'inferred_name', inferred_fields: ['set']})}]}}]});
+  globalThis.fetch = async () => Response.json({candidates: [{content: {parts: [{text: JSON.stringify({game: 'Pokemon', language: 'th', set_name_local: 'ชุดตัวอย่าง', set_name_local_source: 'inferred', set_source: 'inferred_name', inferred_fields: ['set']})}]}}]});
   try {
     const response = await onRequestPost({request: identifyRequest(), env});
     const result = await response.json();

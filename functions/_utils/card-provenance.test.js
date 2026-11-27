@@ -10,7 +10,7 @@ import {tokenHash} from './sessions.js';
 test('create and import retain provenance; legacy records remain unknown', async () => {
   const sql = new DatabaseSync(':memory:');
   for (const name of ['0001_users_sessions_cards.sql', '0011_profile_details.sql', '0012_collector_profile.sql', '0014_profile_full_photo.sql', '0002_card_images.sql', '0003_card_label_metadata.sql',
-    '0004_card_source_print_identity.sql', '0005_identification_logs.sql', '0006_card_identification_provenance.sql', '0008_card_artist.sql', '0009_private_vault_details.sql', '0010_label_reading_fields.sql', '0013_card_classification.sql', '0023_card_reading_fields.sql', '0016_storage_locations.sql', '0017_location_order.sql']) {
+    '0004_card_source_print_identity.sql', '0005_identification_logs.sql', '0024_reading_details.sql', '0006_card_identification_provenance.sql', '0008_card_artist.sql', '0009_private_vault_details.sql', '0010_label_reading_fields.sql', '0013_card_classification.sql', '0023_card_reading_fields.sql', '0016_storage_locations.sql', '0017_location_order.sql']) {
     sql.exec(readFileSync(new URL(`../../migrations/${name}`, import.meta.url), 'utf8'));
   }
   sql.prepare('INSERT INTO users(id,google_sub,email,created_at,updated_at) VALUES (?,?,?,?,?)').run('u','g','e',0,0);
@@ -24,13 +24,14 @@ test('create and import retain provenance; legacy records remain unknown', async
   const req = (path, body) => new Request(`https://vault.test${path}`, {method: body ? 'POST' : 'GET',
     headers: {Cookie: 'dcr_session=token', Origin: 'https://vault.test', 'Content-Type': 'application/json'},
     ...(body ? {body: JSON.stringify(body)} : {})});
-  const card = {game:'One Piece', category:'Leader', colorElements:['Red', 'Green'], subtypeDetail:'', setSource:'inferred_name', inferredFields:['set', 'year', 'rarity'], pokemonTypes:'', cardTypeLabel:'One Piece', languageLabel:'JAPANESE', series:'', name:'ルフィ', setName:'セット', year:'2020', cardNumber:'OP01-001', rarity:'L', gradeLabel:'Mint', artist:'Artist', notes:'Note', certNumber:'1', identificationStatus:'user_selected', fieldProvenance:{name:'gemini', rarity:'catalog', secret:'user'}};
+  const card = {setNameEn:'Romance Dawn', setNameLocal:'ロマンス', setCode:'OP01', setNameEnType:'official', setNameEnSource:'inferred', setNameLocalSource:'printed', releaseYear:'2020', copyrightYear:'2019', yearSource:'release', game:'One Piece', category:'Leader', colorElements:['Red', 'Green'], subtypeDetail:'', setSource:'inferred_name', inferredFields:['set', 'year', 'rarity'], pokemonTypes:'', cardTypeLabel:'One Piece', languageLabel:'JAPANESE', series:'', name:'ルフィ', setName:'セット', year:'2020', cardNumber:'OP01-001', rarity:'L', gradeLabel:'Mint', artist:'Artist', notes:'Note', certNumber:'1', identificationStatus:'user_selected', fieldProvenance:{name:'gemini', rarity:'catalog', secret:'user'}};
   assert.equal((await create({request:req('/api/cards',{...card, rarity:''}),env:{DB}})).status,400);
   assert.equal((await create({request:req('/api/cards',card),env:{DB}})).status,201);
   assert.equal((await importCards({request:req('/api/cards/import',{cards:[{name:'Mew',certNumber:'2'}]}),env:{DB}})).status,200);
   const cards = (await (await list({request:req('/api/cards'),env:{DB}})).json()).cards;
   const first = cards.find(x => x.certNumber === '00000001');
   assert.equal(first.artist, 'Artist');
+  assert.deepEqual([first.setNameEn, first.setNameLocal, first.setCode, first.setNameEnType, first.setNameEnSource, first.setNameLocalSource, first.releaseYear, first.copyrightYear, first.yearSource], ['Romance Dawn', 'ロマンス', 'OP01', 'official', 'inferred', 'printed', '2020', '2019', 'release']);
   assert.equal(first.notes, 'Note');
   assert.equal(first.identificationStatus,'user_selected');
   assert.equal(first.series, '');

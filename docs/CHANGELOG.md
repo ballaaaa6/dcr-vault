@@ -1,3 +1,7 @@
+## 2026-11-27 - Separate set and year reading details
+
+- Keep Gemini set names, printed code, release year and copyright year separate, with full-name and year fallback for intake.
+
 ## Profile username size - 2026-11-24
 
 - Added a shared 30px username typography token and applied it to the profile name.

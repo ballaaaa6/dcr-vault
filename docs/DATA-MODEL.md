@@ -22,6 +22,7 @@ All timestamps are Unix seconds unless noted otherwise. D1 is the source of trut
 - `game`: card game name, such as Pokemon, One Piece, or MTG
 - `name`, `set_name`, `year`, `card_number`, `rarity`
 - `category`, `color_elements`, `subtype_detail`: game-neutral classification; `color_elements` is a JSON array.
+- `set_name_en`, `set_name_local`, `set_code`, `set_name_en_type`, `set_name_en_source`, `set_name_local_source`, `release_year`, `copyright_year`, `year_source`: separate Gemini reading details and the selected year source. Existing records default to empty values.
 - `set_source`: printed_name, inferred_name, printed_code, or empty; `inferred_fields`: JSON array of series, set, year, or rarity inferred by Gemini.
 - `source_language` identifies the printed language. `source_finish` is user-entered; catalog IDs and `year_series` remain legacy fields and do not determine new reading values.
 - `grade_label`: one of the DCR condition terms when assessed; the label prints the condition term without a numeric grade

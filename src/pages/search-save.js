@@ -15,7 +15,7 @@ export async function createIntakeCard(certNumber) {
   try { card = await addCard(input); }
   catch (error) { logIdentificationStage('save', {outcome: 'error'}); throw error; }
   const values = Object.fromEntries(['name', 'setName', 'year', 'cardNumber', 'rarity'].map(key => [key, input[key]]));
-  logIdentificationStage('save', {outcome: 'saved', values, provenance: input.fieldProvenance});
+  logIdentificationStage('save', {outcome: 'saved', values, yearSource: input.yearSource, setValueSource: input.fieldProvenance.setName === 'user' ? 'user' : input.setNameEn ? 'english' : input.setNameLocal ? 'local' : '', provenance: input.fieldProvenance});
   window.__intakeSavedCard = card;
   return card;
 }
