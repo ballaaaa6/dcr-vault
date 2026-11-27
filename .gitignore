@@ -6,6 +6,7 @@ dist/
 .dev.vars*
 wrangler.toml
 gemini key.txt
+zai api.txt
 *.log
 __pycache__/
 *.py[cod]

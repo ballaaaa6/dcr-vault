@@ -2,6 +2,7 @@ import {error, json, sameOrigin} from '../../_utils/http.js';
 import {IMAGE_MAX_BYTES, readImageBody, supportedImageType} from '../../_utils/images.js';
 import {currentUser} from '../../_utils/sessions.js';
 import {analyzeWithGemini, MODEL} from '../../_utils/gemini-card-reader.js';
+import {analyzeWithZai, ZAI_MODEL} from '../../_utils/zai-card-reader.js';
 import {safeRecordIdentification} from '../../_utils/identification-log.js';
 
 function requestAllowed(request) {
@@ -35,25 +36,27 @@ export async function onRequestPost({request, env}) {
   const image = await readImageBody(request);
   if (image.error) return error(image.error, image.error.includes('10 MB') ? 413 : 400);
   if (image.body.byteLength > IMAGE_MAX_BYTES) return error('Each photo must be 10 MB or smaller.', 413);
-  const model = MODEL;
-  return identifyWithGemini(image.body, contentType, env, session.user.id, model);
+  const provider = env.CARD_READER_PROVIDER === 'zai' ? 'zai' : 'gemini';
+  const model = provider === 'zai' ? ZAI_MODEL : MODEL;
+  return identifyCard(image.body, contentType, env, session.user.id, model, provider);
 }
 
-async function identifyWithGemini(image, contentType, env, userId, model) {
+async function identifyCard(image, contentType, env, userId, model, provider) {
   const startedAt = Date.now();
   const requestId = crypto.randomUUID();
   let fields;
   let rawReading;
   let failure;
   try {
-    fields = await analyzeWithGemini(env, image, contentType, requestId, value => { rawReading = value; }, model);
+    const analyze = provider === 'zai' ? analyzeWithZai : analyzeWithGemini;
+    fields = await analyze(env, image, contentType, requestId, value => { rawReading = value; }, model);
   } catch (cause) { failure = cause; }
   await safeRecordIdentification(env.DB, userId, {requestId, model, durationMs: Date.now() - startedAt,
     outcome: failure?.code || (fields ? 'success' : 'unreadable'), reading: {raw: safeRawReading(rawReading), normalized: safeRawReading(fields)}});
   if (failure) return geminiFailure(failure, requestId, model);
-  if (!fields) return json({error: 'Gemini could not identify this card from the image.',
+  if (!fields) return json({error: 'The card reader could not identify this card from the image.',
     code: 'card_unreadable', requestId}, 422);
-  return json({source: 'gemini', model, fields,
+  return json({source: provider, model, fields,
     readingAdequate: true, requestId});
 }
 

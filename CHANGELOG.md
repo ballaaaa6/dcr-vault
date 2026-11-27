@@ -1,5 +1,8 @@
 # Changelog
 
+## Z.ai card reading trial - 2026-11-27
+- Add a switchable Z.ai vision reader while retaining Gemini.
+
 ## Default Gemini thinking - 2026-11-27
 - Use the default thinking level for Gemini 3.6 Flash card reading.
 

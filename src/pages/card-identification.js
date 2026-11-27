@@ -41,7 +41,7 @@ function detailMarkup() {
   const source = reading.setSource === 'printed_code' ? 'The set field contains a printed code.' : reading.setSource === 'inferred_name' ? 'The set name was inferred.' : '';
   return `<section class="identification-read-summary"><p>Review the values and edit them if needed.</p>${inferred ? `<p>Inferred from model knowledge: ${escapeHTML(inferred)}</p>` : ''}${source ? `<p>${escapeHTML(source)}</p>` : ''}<div class="identification-read-grid">${rows}</div></section>`;
 }
-function applyReading(fields, id) {
+function applyReading(fields, id, source = 'gemini') {
   const previous = reading;
   reading = {...fields, colorElements: [...(fields.colorElements || [])], inferredFields: [...(fields.inferredFields || [])]};
   for (const key of ['category', 'colorElements', 'subtypeDetail']) if (provenance[key] === 'user') reading[key] = previous[key];
@@ -66,7 +66,7 @@ function applyReading(fields, id) {
     if (!input || provenance[key] === 'user') continue;
     input.value = value || '';
     applied[key] = input.value;
-    provenance[key] = input.value ? 'gemini' : 'unknown';
+    provenance[key] = input.value ? source : 'unknown';
   }
   window.dispatchEvent(new Event('intake-values-updated'));
   const panel = document.getElementById('identification-dialog-content');
@@ -95,7 +95,7 @@ async function analyzeFront() {
     const result = await identifyCardImage(file);
     if (current !== version) return;
     if (!result.fields || !result.readingAdequate) throw new Error('Could not read enough details. Try a clearer photo.');
-    applyReading(result.fields, result.requestId);
+    applyReading(result.fields, result.requestId, result.source);
   } catch (error) {
     if (current === version) { status.dataset.state = 'error'; status.textContent = error.message || 'Card reading failed. Try again.'; }
   } finally {

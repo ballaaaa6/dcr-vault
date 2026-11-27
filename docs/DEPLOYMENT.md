@@ -26,6 +26,10 @@ Google's ID token is verified by the server before account creation. Do not repl
 4. Keep `CLOUDFLARE_ACCOUNT_ID` configured as a GitHub Actions secret.
 5. Once all values are present, the next push applies pending migrations, adds the D1 binding `DB`, `GOOGLE_CLIENT_ID`, and `ORCL_MEDIA_ORIGIN` generated from `ORCL_SERVICE_ORIGIN` to the Pages deployment, then publishes the site. Add `GEMINI_API_KEYS` as a Cloudflare Pages secret before using card identification; it must never be a repository variable or browser setting.
 
+## Z.ai card-reading trial
+
+Set the Pages secret `ZAI_API_KEY` and set `CARD_READER_PROVIDER` to `zai` as a Pages secret to use `glm-4.6v-flash` for card identification. The image is sent to Z.ai for inference. The existing Gemini keys remain in place. Set `CARD_READER_PROVIDER` to `gemini` to restore Gemini; an absent or different value also selects Gemini. Do not commit the key or expose it in browser code. Z.ai requests are not included in the Gemini usage dashboard. Model availability and quota depend on the Z.ai account.
+
 ## Gemini card-reading secret
 
 The Add Card identification Function calls `gemini-3.6-flash` for every reading directly from Cloudflare Pages, using its default thinking level. Set `GEMINI_API_KEYS` as a Pages secret for the `dcrcards` project, with one key per line. Every Gemini attempt atomically selects the next key through D1, wrapping to the first key after the last, including retries and failovers. It advances on key rejection, configuration errors, timeouts, network errors, or upstream failures. A quota/rate-limit response is returned immediately without trying another key. The legacy single-key `GEMINI_API_KEY` secret remains supported and is appended as a final fallback when both secrets exist. Use a newly issued key if a prior key was pasted into a chat or committed by mistake. Do not put keys in source, `wrangler.template.toml`, GitHub Actions logs, or browser code. Wrangler can add the pool with `npx wrangler pages secret put GEMINI_API_KEYS --project-name dcrcards`, reading the value from secure input; never append key values as command arguments.
