@@ -1,5 +1,8 @@
 # Changelog
 
+## Gemini thinking level - 2026-11-27
+- Set card reading to medium thinking and remove the small output-token cap to avoid truncating reasoning.
+
 ## Gemini card reader model - 2026-11-27
 - Use Gemini 3.5 Flash-Lite for every card reading.
 

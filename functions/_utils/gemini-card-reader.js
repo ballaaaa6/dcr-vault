@@ -188,7 +188,7 @@ export async function analyzeWithGemini(env, body, contentType, requestId, onPar
   if (!apiKeys.length) throw readingError('not_configured', 503);
   const payload = JSON.stringify({contents: [{role: 'user', parts: [
     {text: CARD_READING_PROMPT}, {inline_data: {mime_type: contentType, data: base64(body)}}
-  ]}], generationConfig: {temperature: 0, maxOutputTokens: 3072, responseMimeType: 'application/json', responseJsonSchema: CARD_READING_SCHEMA}});
+  ]}], generationConfig: {temperature: 0, thinkingConfig: {thinkingLevel: 'medium'}, responseMimeType: 'application/json', responseJsonSchema: CARD_READING_SCHEMA}});
   for (let index = 0; index < apiKeys.length; index += 1) {
     try {
       const slot = env.DB ? await reserveKey(env.DB, apiKeys.length) : index;
