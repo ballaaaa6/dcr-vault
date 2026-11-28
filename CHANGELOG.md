@@ -1,5 +1,7 @@
 #
 
+- Make Vault selection controls and bulk action buttons more compact.
+
 - Add heart selection and confirmed bulk deletion to Vault.
 
 - Match the Add Card upload border reveal to the existing dashed outline.

@@ -184,7 +184,7 @@
 .intake-page .identification-actions{display:flex;justify-content:flex-end}
 .intake-page #identify-card[data-busy="true"],.intake-page #manual-submit[data-busy="true"]{background:color-mix(in srgb,var(--dcr-red) 50%,var(--dcr-white));border-color:transparent;color:var(--dcr-white);opacity:1;cursor:wait;transform:none}
 .vault-heading{margin-bottom:22px}
-.vault-toolbar{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.vault-toolbar{display:flex;align-items:center;gap:10px;margin-bottom:8px}
 .vault-query{flex:1;min-width:0;min-height:50px}
 .vault-query input{padding:7px 16px}
 .vault-query button{padding:0 18px;font-size:var(--font-size-body)}
@@ -254,7 +254,7 @@
 .review-locked{opacity:.5;filter:grayscale(1);pointer-events:none}
 .identification-read-field.review-changed .form-control{border-color:var(--reading-review-yellow);box-shadow:0 0 0 1px var(--reading-review-yellow)}
 
-.vault-bulk-toolbar{display:flex;align-items:center;gap:12px;min-height:44px;margin-bottom:10px;flex-wrap:wrap}
-.vault-bulk-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.vault-bulk-actions[hidden]{display:none}
-.vault-bulk-actions .btn{padding:8px 14px}
+.vault-bulk-toolbar{display:flex;align-items:center;gap:8px;min-height:30px;margin-bottom:6px;flex-wrap:wrap}
+.vault-bulk-actions{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.vault-bulk-actions[hidden]{display:none}
+.vault-bulk-actions .btn{padding:4px 10px;white-space:nowrap}
 .vault-select-row{position:relative;min-width:0}.vault-row-select{position:absolute;z-index:1;top:8px;right:8px}.vault-select-row .vault-row{padding-right:38px}
