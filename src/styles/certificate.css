@@ -35,3 +35,15 @@
 @media(hover:hover){.cert-share::after{content:"";position:absolute;top:100%;left:0;right:0;height:12px}}
 @media(max-width:480px){.cert-share-options{left:auto;right:0;transform:translateY(-6px)}.cert-share-options::before{left:auto;right:32px;transform:none}.cert-share.is-open .cert-share-options{transform:translateY(0)}}
 @media(max-width:480px) and (hover:hover){.cert-share:hover .cert-share-options{transform:translateY(0)}}
+
+/* Keep the image viewer compact while fitting the card and controls on screen. */
+.cert-viewer{width:min(calc(min(650px, (100dvh - 180px) * var(--image-ratio, .7)) + 208px), calc(100vw - 32px));max-width:calc(100vw - 32px);height:auto;max-height:calc(100dvh - 32px);border-radius:20px;overflow:auto}
+.cert-viewer::backdrop{background:rgba(0,0,0,.45)}
+.cert-viewer-body{flex:none;width:auto}
+.cert-viewer-stage{width:auto;height:auto}
+.cert-viewer-image{height:auto;max-height:none}
+.cert-viewer-image>img{width:min(650px,calc((100dvh - 180px) * var(--image-ratio, .7)),calc(100vw - 240px));max-height:none}
+.cert-viewer-hint{max-width:100%}
+.cert-viewer-download-status{position:static}
+.cert-viewer-download-status:empty{display:none}
+@media(max-width:600px){.cert-viewer{width:min(calc(min(650px, (100dvh - 180px) * var(--image-ratio, .7)) + 124px), calc(100vw - 32px))}.cert-viewer-image>img{width:min(650px,calc((100dvh - 180px) * var(--image-ratio, .7)),calc(100vw - 156px))}}

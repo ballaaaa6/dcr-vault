@@ -49,7 +49,7 @@ export function initializeCertificateViewer() {
   const label = dialog.querySelector('[data-viewer-label]');
   const status = dialog.querySelector('.cert-viewer-download-status');
   image.addEventListener('load', () => {
-    image.style.setProperty('--image-ratio', image.naturalWidth / image.naturalHeight);
+    dialog.style.setProperty('--image-ratio', image.naturalWidth / image.naturalHeight);
   });
   let opener;
   let selectedSide = 'front';

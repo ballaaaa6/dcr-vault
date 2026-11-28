@@ -1,5 +1,7 @@
 #
 
+- Fit the certificate image viewer popup around its image and controls while keeping the page visible behind it.
+
 - Match the corner image switch to the red Vault image switch and flip its arrows along the Y axis.
 
 - Add four back-corner photos to Card images, cycle them in Vault, and show them in the public certificate viewer.
