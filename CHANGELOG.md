@@ -1,5 +1,6 @@
 #
 
+- Shorten the shared footer privacy message.
 - Make each front and back image upload fill its available width on mobile.
 
 - Prevent the Print queue background from covering Add certificates on mobile.

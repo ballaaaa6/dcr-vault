@@ -28,7 +28,7 @@ let renderVersion = 0;
 const privatePaths = new Set(['/archive', '/vault', '/showcase', '/label', '/import', '/profile', '/billing', '/gemini-usage']);
 
 function footer() {
-  return `<footer class="site-footer no-print"><span>© ${new Date().getFullYear()} DCR Card Vault</span><span>Certificate details are public. Your vault details remain private.</span></footer>`;
+  return `<footer class="site-footer no-print"><span>© ${new Date().getFullYear()} DCR Card Vault</span><span>Public certificates. Private vault.</span></footer>`;
 }
 
 function failurePage(error) {
