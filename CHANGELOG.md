@@ -1,5 +1,8 @@
 # Changelog
 
+## Review card readings - 2026-11-28
+- Ask Gemini to review and complete applicable card details, choosing the most likely value when uncertain.
+
 ## Simplify rarity prompt - 2026-11-28
 - Ask Gemini for rarity as an uppercase abbreviation without game-specific prompt rules.
 
