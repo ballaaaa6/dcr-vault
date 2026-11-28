@@ -1,5 +1,6 @@
 #
 
+- Keep Vault details available while scrolling in both edit modes.
 - Show a tooltip for the random Cert number button.
 
 - Show descriptive hover tooltips on red icon actions throughout the app.

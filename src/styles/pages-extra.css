@@ -262,7 +262,7 @@
 /* Keep each sheet's front and back together within the viewport. */
 .label-dialog:has(.sheet-preview-pages){width:min(900px,calc(120.2dvh - 148px),calc(100% - 48px));max-height:none;overflow:visible}
 .label-dialog:has(.sheet-preview-pages) .label-dialog-head{padding-right:32px}
-.label-dialog:has(.sheet-preview-pages) .sheet-preview-pages{display:block;max-height:calc(85dvh - 120px);overflow-y:auto;overscroll-behavior:contain;scroll-snap-type:y mandatory}
+.label-dialog:has(.sheet-preview-pages) .sheet-preview-pages{display:block;max-height:calc(85dvh - 120px);overflow-y:auto;scroll-snap-type:y mandatory}
 .sheet-preview-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;scroll-snap-align:start;scroll-snap-stop:always}
 .sheet-preview-pair+.sheet-preview-pair{margin-top:16px}
 .label-dialog:has(.sheet-preview-pages) .sheet-page-image{max-height:calc(85dvh - 150px);width:auto;max-width:100%;margin:auto}
@@ -294,3 +294,5 @@
 
 .label-dialog{overflow:visible;width:min(900px,calc(100% - 48px))}
 .label-dialog:not(:has(.label-vault-list,.sheet-preview-pages)) #label-dialog-content{max-height:calc(85vh - 48px);overflow:auto}
+
+@media(min-width:761px){.vault-detail:has(.vault-edit){max-height:calc(100dvh - 112px);overflow-y:auto;scroll-padding:var(--button-effect-space)}}
