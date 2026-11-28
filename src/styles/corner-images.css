@@ -6,8 +6,9 @@
 @keyframes corner-arrow-flip{to{transform:rotateY(360deg)}}
 @keyframes corner-arrow-flip-reverse{to{transform:rotateY(-360deg)}}
 .intake-card:has(.intake-corner-switch){position:relative}
-.sk-intake-images{position:relative}.sk-corner-switch{position:absolute;right:42px;top:-20px;width:40px;height:40px;border-radius:50%}
-.intake-corner-switch{position:absolute;right:42px;top:-20px;z-index:3}
+.sk-intake-images{position:relative}.sk-corner-switch{position:absolute;right:18px;top:18px;width:40px;height:40px;border-radius:50%}
+.intake-corner-switch{position:absolute;right:18px;top:18px;z-index:3}
+.intake-card:has(.intake-corner-switch)>.section-heading,.sk-intake-images>.section-heading{padding-right:52px}
 .corner-upload-shell{min-width:0;min-height:0;perspective:1200px}
 .corner-upload-flipper{position:relative;height:100%;transform-style:preserve-3d;transition:transform .55s ease}
 .corner-upload-flipper.show-corners{transform:rotateY(180deg)}

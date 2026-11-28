@@ -1,5 +1,7 @@
 #
 
+- Move the Card images corner switch inside the upper-right corner of its block.
+
 - Fit the certificate image viewer popup around its image and controls while keeping the page visible behind it.
 
 - Match the corner image switch to the red Vault image switch and flip its arrows along the Y axis.
