@@ -15,7 +15,7 @@
 .collection-card h3{font-size:var(--font-size-subheading);margin:12px 0 4px}.collection-card p{font-size:var(--font-size-description);color:var(--dcr-gray);margin:4px 0}
 .collection-card-actions{display:flex;gap:4px;flex-wrap:wrap;padding:8px 4px var(--button-effect-space)}.collection-card-actions .btn{padding:7px 10px}
 .collection-status{color:var(--dcr-gray);font-size:var(--font-size-description)}
-.collections-page .content-dialog p{margin:12px 0}.collections-page .content-dialog header h2{margin:0 0 14px}.collections-delete-confirmation h2{margin:0 0 8px}.collections-delete-confirmation .two-choice-description{text-align:center}.collections-delete-confirmation .two-choice-actions{justify-content:center}
+.collections-page .content-dialog p{margin:12px 0}.collections-page .content-dialog header h2{margin:0 0 14px}
 .collections-form,.collections-picker{display:grid;gap:12px}.collections-form .form-field{display:block;margin-bottom:0}.collections-form .form-control{display:block;width:100%;margin-top:6px}.collections-form textarea{min-height:72px}.collections-form-actions{justify-content:flex-end}.collections-picker{max-height:40vh;overflow:auto;margin:16px 0}.collections-picker label{cursor:pointer}
 @media(max-width:600px){.collections-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.collection-card-photo{height:160px}.collections-heading{flex-direction:column}}
 
@@ -117,3 +117,4 @@
 .collections-list{padding:var(--button-effect-space);margin:calc(-1 * var(--button-effect-space))}
 .collections-delete{position:absolute;top:-12px;right:-6px;z-index:2;display:grid;place-items:center;width:32px;height:32px;padding:7px;border:0;border-radius:50%;background:var(--dcr-red);color:var(--dcr-white);cursor:pointer;transition:transform 100ms ease-in-out}
 .collections-delete:hover{transform:scale(1.1)}.collections-delete:active{transform:scale(.95)}.collections-delete:focus-visible{outline:2px solid var(--dcr-red);outline-offset:3px}.collections-delete svg{width:100%;height:100%}
+#collections-delete-title{overflow-wrap:anywhere}

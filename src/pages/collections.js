@@ -12,6 +12,7 @@ let groups = [], cards = [], selectedId = '', deleteId = '', preview = false;
 const content = () => document.getElementById('collections-content');
 const current = () => groups.find(group => group.id === selectedId);
 const dialog = () => document.getElementById('collections-dialog');
+const deleteDialog = () => document.getElementById('collections-delete-dialog');
 function collectionPath(group) { return `/showcase/${encodeURIComponent(group.name)}`; }
 function navigate(group) { history.pushState({}, '', group ? collectionPath(group) : '/showcase'); }
 function draw() { if (content()) content().innerHTML = current() ? detailView(current(), cards, preview) : listView(groups, cards); }
@@ -90,16 +91,16 @@ async function handleAction(action) {
   if (action === 'copy') { await navigator.clipboard.writeText(document.getElementById('collection-share-link').value); return showToast('Link copied.', 'success'); }
   if (action === 'enable-share' || action === 'disable-share') { await collectionsRequest('PATCH', {id: selectedId, share: action === 'enable-share'}); await refresh(); shareDialog(); dialog().querySelector('[data-share-switch]').focus(); return; }
   if (action === 'delete') return openDeleteConfirmation(selectedId);
-  if (action === 'confirm-delete') { await collectionsRequest('DELETE', {id: deleteId}); if (selectedId === deleteId) { selectedId = ''; navigate(); } deleteId = ''; dialog().close(); await refresh(); showToast('Showcase deleted.', 'success'); }
+  if (action === 'confirm-delete') { await collectionsRequest('DELETE', {id: deleteId}); if (selectedId === deleteId) { selectedId = ''; navigate(); } deleteId = ''; deleteDialog().close(); await refresh(); showToast('Showcase deleted.', 'success'); }
 }
 function openDeleteConfirmation(id) {
   deleteId = id;
-  openDialog('Delete showcase?', '<p>Loading…</p>');
-  document.getElementById('collections-dialog-content').innerHTML = `<div class="collections-delete-confirmation"><h2>Delete ${esc(groups.find(group => group.id === id)?.name || 'showcase')}?</h2><p class="two-choice-description">Cards will remain in Vault. Any share link will stop working.</p><div class="two-choice-actions collections-actions"><button class="btn btn-ghost" data-close>Cancel</button><button class="btn btn-primary" data-action="confirm-delete">Delete</button></div></div>`;
+  document.getElementById('collections-delete-title').textContent = `Delete ${groups.find(group => group.id === id)?.name || 'showcase'}?`;
+  deleteDialog().showModal();
 }
 async function handleClick(event) {
   const target = event.target.closest('button'); if (!target) return;
-  if (target.hasAttribute('data-close')) return dialog().close();
+  if (target.hasAttribute('data-close')) return target.closest('dialog').close();
   if (target.dataset.deleteId) return openDeleteConfirmation(target.dataset.deleteId);
   if (target.dataset.groupAction) { selectedId = target.dataset.groupId; navigate(current()); draw(); return handleAction(target.dataset.groupAction); }
   if (target.dataset.open) { selectedId = target.dataset.open; navigate(current()); return draw(); }

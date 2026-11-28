@@ -1,5 +1,7 @@
 #
 
+- Use the shared confirmation dialog for showcase deletion.
+
 - Add a corner delete button and confirmation to each showcase.
 
 - Render celebration fireworks above the ribbon and message.
