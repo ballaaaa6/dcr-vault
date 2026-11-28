@@ -1,5 +1,7 @@
 #
 
+- Fit certificate viewer images and compact thumbnails into separate columns on mobile.
+
 - Shorten the shared footer privacy message.
 - Make each front and back image upload fill its available width on mobile.
 

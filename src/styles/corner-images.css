@@ -25,7 +25,7 @@
 .vault-photo-panel>.vault-corner-switch{position:absolute;right:-20px;top:82px;z-index:1}
 .cert-corner-source{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);pointer-events:none}
 .cert-viewer-corners{min-width:60px}
-@media(max-width:600px){.cert-viewer-corners{min-width:42px}.cert-viewer-stage{width:min(650px,calc(100vw - 140px))}.cert-viewer-image>img{width:min(650px,calc(100vw - 140px),calc((100dvh - 120px) * var(--image-ratio, .7)))}}
+@media(max-width:600px){.cert-viewer-body{display:grid;grid-template-columns:42px minmax(0,1fr) 42px;width:100%;gap:6px}.cert-viewer-thumbs,.cert-viewer-corners{min-width:0;width:42px}.cert-viewer-thumbs button{width:42px;padding:1px}.cert-viewer-thumbs img{height:auto}.cert-viewer-stage{width:100%;min-width:0}.cert-viewer-image{width:min(100%,calc(var(--viewer-height) * var(--selected-ratio, .7)))}.cert-viewer-image>img{width:100%;max-width:100%;max-height:100%}}
 @media(hover:hover){.vault-photo-panel>.vault-corner-switch{opacity:0;pointer-events:none;transition:opacity .2s ease}.vault-photo-panel:hover>.vault-corner-switch,.vault-photo-panel:has(:focus-visible)>.vault-corner-switch{opacity:1;pointer-events:auto}.vault-photo-panel:hover>.vault-corner-switch:disabled{opacity:.4}}
 @media(max-width:540px){.vault-photo-panel>.vault-corner-switch{top:77px}}
 @media(max-width:540px){.corner-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.corner-grid .upload-preview small{display:none}}
