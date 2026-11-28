@@ -1,5 +1,7 @@
 #
 
+- Show a tooltip for the random Cert number button.
+
 - Show descriptive hover tooltips on red icon actions throughout the app.
 
 - Place shared dialog close buttons across the top-right corner and document the reusable layout.

@@ -1,7 +1,7 @@
 const selector = [
   'button:has(> .action-icon)', 'summary:has(> .action-icon)', '.corner-switch',
   '.collections-delete', '.label-clear', '.dialog-close', '.upload-clear',
-  '.profile-avatar-remove', '[data-viewer-download]'
+  '.profile-avatar-remove', '[data-viewer-download]', '[data-cert-random]'
 ].join(',');
 
 export function initializeActionTooltips() {
