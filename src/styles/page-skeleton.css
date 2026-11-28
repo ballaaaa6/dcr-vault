@@ -41,3 +41,4 @@
 .sk-auto{overflow-x:clip}.sk-auto .dropdown-menu,.sk-auto .vault-menu-options{display:none!important}
 
 @media(min-width:761px){.sk-page .intake-card .upload-grid{margin-bottom:0}}
+@media(max-width:760px){.sk-page .intake-card .sk-upload{width:100%}}

@@ -1,5 +1,7 @@
 #
 
+- Make each front and back image upload fill its available width on mobile.
+
 - Prevent the Print queue background from covering Add certificates on mobile.
 
 - Show selected Vault details and photo between card rows on mobile, and scroll to the details when opening or editing.

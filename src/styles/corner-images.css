@@ -14,6 +14,7 @@
 .corner-upload-flipper.show-corners{transform:rotateY(180deg)}
 .corner-main,.corner-grid{backface-visibility:hidden}
 .corner-main{height:100%}
+@media(max-width:760px){.corner-main .upload-field{width:100%}}
 .corner-grid{position:absolute;inset:0;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));transform:rotateY(180deg)}
 .intake-page .corner-grid .upload-item{min-height:0;grid-template-rows:auto minmax(0,1fr)}
 .intake-page .corner-grid .upload-frame,.intake-page .corner-grid .upload-field{height:100%;min-height:0;max-height:none;aspect-ratio:auto}
