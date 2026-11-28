@@ -1,5 +1,9 @@
 # Changelog
 
+## Universal card game names - 2026-11-28
+- Allow Gemini to identify any card game and normalize recognized names consistently when reading and saving cards.
+- Preserve unknown or ambiguous names for review and support longer game names.
+
 - Detect first-printing symbols during card identification and apply the latest reading to the set name.
 
 ## Card review evidence - 2026-11-28
@@ -11,8 +15,7 @@
 ## Full official set names - 2026-11-28
 - Ask Gemini not to shorten official set names while preserving abbreviations in those names.
 
-## Review card details - 2026-11-28
-- Review current details against the image when identifying again, highlighting changes and locking fields while waiting.
+- Review current card details against the image when identifying again, highlighting changes and locking fields while waiting.
 
 ## Complete missing card details - 2026-11-28
 - Ask Gemini for all main card details and retry missing fields once, preserving available values and showing any remaining gaps.
@@ -29,21 +32,14 @@
 ## Full language names - 2026-11-28
 - Use the full language name from card identification through saved cards and labels, while retaining compatibility with older language codes; remove Language code from Edit card details.
 
-## Simplify release year reading - 2026-11-28
-- Ask Gemini for the card release year and omit the missing-year explanation.
-
-## One Piece rarity stars - 2026-11-28
-- Preserve clearly visible One Piece rarity stars in card readings.
-
-## Simplify set reading - 2026-11-28
-- Ask Gemini for one set name in the card language and remove redundant set fields from the reading schema.
-
-## Set identification instructions - 2026-11-28
-- Clarify local set evidence, source fields and English name handling; clear stale set metadata when edited in Vault.
-
 ## Local set names and labels - 2026-11-28
 - Remove Series from intake, Vault and labels; identify the local set directly with Gemini.
 - Remove card catalog lookup and reference image endpoints from the app.
+
+## Local catalog review v4 - 2026-11-28
+- Add a review-only Set options export and versioned SQL candidate with exact-language names, a duplicate/non-standalone crosswalk, manual evidence, and unresolved-field tracking.
+- Add official product names for One Piece's available language catalogs and for Gundam's Japanese catalog; deduplicate combined One Piece card-origin codes and mark future products from publisher release dates.
+- Keep the candidate local; do not upload or deploy it.
 
 ## Gemini 3.5 Flash-Lite high - 2026-11-27
 - Use Gemini 3.5 Flash-Lite with high thinking for card identification.
@@ -82,6 +78,9 @@
 ## Direct multi-game card reading - 2026-11-27
 - Read the front photo with a compact Gemini schema and fill editable original-language details directly, without catalog matching.
 - Save game-neutral category, colors, subtype and inference metadata; use saved details for Vault, certificates and multilingual labels.
+
+## Project workspace organization - 2026-11-25
+- Keep project work, previews, temporary files, and worktrees within the project root.
 
 ## Retire old DCR Vault site - 2026-11-25
 - Point image authorization to dcrcards.pages.dev before retiring the old Pages project.

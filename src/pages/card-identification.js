@@ -2,7 +2,6 @@ import {formatFirstEdition} from '../utils/first-edition.js';
 import {startCardScan} from '../components/card-scan.js';
 import {identifyCardImage} from '../store/cards.js';
 import {escapeHTML} from '../utils/format.js';
-import {GAME_CLASSIFICATIONS} from '../utils/card-games.js';
 
 let version = 0;
 let busy = false;
@@ -143,12 +142,6 @@ async function analyzeFront() {
       const merged = {...result.fields};
       for (const key of [...reviewKeys, 'category', 'subtypeDetail']) if (!merged[key]) merged[key] = before[key];
       if (!merged.colorElements?.length) merged.colorElements = before.colorElements;
-      const choices = GAME_CLASSIFICATIONS[merged.game];
-      if (choices) {
-        if (!choices.category.includes(merged.category)) merged.category = '';
-        merged.colorElements = merged.colorElements.filter(value => choices.colors.includes(value));
-        if (!(choices.subtypes || []).includes(merged.subtypeDetail)) merged.subtypeDetail = '';
-      }
       // Keep a manually entered set name while applying the latest image reading.
       const setBase = provenance.setName === 'user' ? before.setName : merged.setName;
       merged.setName = formatFirstEdition(setBase, merged.hasFirstEdition);

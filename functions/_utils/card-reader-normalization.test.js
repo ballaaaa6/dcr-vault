@@ -12,14 +12,14 @@ test('preserves printed multilingual identity and derives inferred set provenanc
   assert.deepEqual(value.colorElements, ['Lightning']);
 });
 
-test('rejects invalid years and unrelated classifications without changing printed fields', () => {
+test('rejects invalid years while preserving game-neutral classifications for review', () => {
   const value = normalizeCardReading({game: 'One Piece', release_year: '20240', name: 'ルフィ', category: 'Trainer',
     color_element: ['Red', 'Psychic', 'Green', 'Red'], subtype_detail: 'Supporter', inferred_fields: ['year']});
   assert.equal(value.name, 'ルフィ');
   assert.equal(value.year, '');
-  assert.equal(value.category, '');
-  assert.deepEqual(value.colorElements, ['Red', 'Green']);
-  assert.equal(value.subtypeDetail, '');
+  assert.equal(value.category, 'Trainer');
+  assert.deepEqual(value.colorElements, ['Red', 'Psychic', 'Green', 'Red']);
+  assert.equal(value.subtypeDetail, 'Supporter');
   assert.deepEqual(value.inferredFields, []);
 });
 

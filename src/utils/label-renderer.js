@@ -42,7 +42,7 @@ export function cardLabelData(card) {
   const metadata = cardLabelMetadata(card);
   return {
     year: String(card.year ?? '').trim(),
-    cardType: String((String(card.game || '').toLowerCase() === 'pokemon' ? 'POKÉMON' : card.game) || card.cardTypeLabel || '').trim(),
+    cardType: String(card.game || card.cardTypeLabel || '').trim(),
     language: String(card.sourceLanguage || card.language || '').toLowerCase(),
     languageLabel: String(card.languageLabel || '').trim(),
     name: String(card.name ?? '').trim(),

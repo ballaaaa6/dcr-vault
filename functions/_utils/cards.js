@@ -1,3 +1,5 @@
+import {normalizeGameName} from '../../src/utils/card-games.js';
+
 const statuses = new Set(['in-vault', 'for-sale', 'sold', 'grading']);
 
 function text(value, limit = 160) {
@@ -46,7 +48,7 @@ export function normalizeCard(input) {
   return {
     identificationStatus: ['unknown', 'unresolved', 'matched', 'user_selected'].includes(input.identificationStatus) ? input.identificationStatus : 'unknown',
     fieldProvenance: normalizeProvenance(input.fieldProvenance),
-    game: text(input.game, 30) || 'other', name, setName: text(input.setName, 120),
+    game: normalizeGameName(text(input.game, 120)) || 'other', name, setName: text(input.setName, 120),
     category: text(input.category, 40), pokemonTypes: text(input.pokemonTypes, 120), trainerType: text(input.trainerType, 60),
     colorElements: stringList(input.colorElements), subtypeDetail: text(input.subtypeDetail, 60),
     setNameEn: text(input.setNameEn, 120), setNameLocal: text(input.setNameLocal, 120), setCode: text(input.setCode, 32),

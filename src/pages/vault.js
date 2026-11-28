@@ -5,6 +5,7 @@ import {compareVaultCards, vaultSortSelect} from '../utils/vault-sort.js';
 import {searchClearButton} from '../components/search-clear.js';
 import {datePicker, initializeDatePicker} from '../components/date-picker.js';
 import {deleteCard, updateCard, getCards} from '../store/cards.js';
+import {normalizeGameName} from '../utils/card-games.js';
 import {locationsRequest} from '../store/locations.js';
 import {collectionsRequest} from '../store/collections.js';
 import {vaultFilter, initializeVaultFilter} from '../components/vault-filter.js';
@@ -29,7 +30,7 @@ let selectedId = '';
 let vaultBusy = false;
 let stopImagePrefetch = () => {};
 const publicFields = [
-  ['name', 'Card name', 120], ['certNumber', 'Cert number', 8], ['game', 'Brand / Title', 30], ['year', 'Year', 4],
+  ['name', 'Card name', 120], ['certNumber', 'Cert number', 8], ['game', 'Brand / Title', 120], ['year', 'Year', 4],
   ['cardTypeLabel', 'Card type', 60],
   ['setName', 'Set name', 120], ['category', 'Category', 40], ['colorElements', 'Colors / elements', 120], ['subtypeDetail', 'Subtype', 60], ['cardNumber', 'Card number', 30], ['rarity', 'Rarity', 80],
   ['gradeLabel', 'Condition', 60], ['sourceFinish', 'Finish', 80]
@@ -279,6 +280,7 @@ window.__saveDetail = async (event, id) => {
   }
   if (privateMode) patch.purchaseSource = event.target.elements.sourceChoice.value === 'Other' ? event.target.elements.customSource.value : event.target.elements.sourceChoice.value;
   if (!privateMode) {
+    patch.game = normalizeGameName(patch.game);
     patch.certNumber = normalizeCert(patch.certNumber);
     patch.colorElements = patch.colorElements.split(',').map(value => value.trim()).filter(Boolean);
     const existing = activeCards.find(card => card.id === id);

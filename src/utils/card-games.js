@@ -1,15 +1,20 @@
-export const CARD_GAMES = ['Pokemon', 'Yu-Gi-Oh', 'One Piece', 'Dragon Ball Fusion World', 'Digimon', 'Lorcana', 'Riftbound', 'Vanguard', 'MTG', 'Gundam', 'Star Wars Unlimited'];
+import {gameNames} from './card-game-names.js';
 
-export const GAME_CLASSIFICATIONS = {
-  Pokemon: {category: ['Pokemon', 'Trainer', 'Energy'], colors: ['Grass', 'Fire', 'Water', 'Lightning', 'Psychic', 'Fighting', 'Darkness', 'Metal', 'Fairy', 'Dragon', 'Colorless'], subtypes: ['Pokemon Tool', 'Item', 'Supporter', 'Stadium', 'Basic', 'Special']},
-  'Yu-Gi-Oh': {category: ['Monster', 'Spell', 'Trap'], colors: ['DARK', 'LIGHT', 'FIRE', 'WATER', 'EARTH', 'WIND', 'DIVINE'], subtypes: ['Normal', 'Effect', 'Fusion', 'Synchro', 'Xyz', 'Link', 'Ritual', 'Pendulum', 'Quick-Play', 'Continuous', 'Equip', 'Field', 'Counter']},
-  'One Piece': {category: ['Leader', 'Character', 'Event', 'Stage', 'DON!!'], colors: ['Red', 'Green', 'Blue', 'Purple', 'Black', 'Yellow']},
-  'Dragon Ball Fusion World': {category: ['Leader', 'Battle', 'Extra'], colors: ['Red', 'Blue', 'Green', 'Yellow', 'Black']},
-  Digimon: {category: ['Digimon', 'Digi-Egg', 'Tamer', 'Option'], colors: ['Red', 'Blue', 'Yellow', 'Green', 'Black', 'Purple', 'White']},
-  Lorcana: {category: ['Character', 'Action', 'Item', 'Location'], colors: ['Amber', 'Amethyst', 'Emerald', 'Ruby', 'Sapphire', 'Steel']},
-  Riftbound: {category: ['Legend', 'Unit', 'Spell', 'Gear', 'Battlefield'], colors: ['Fury', 'Calm', 'Body', 'Mind', 'Chaos', 'Order']},
-  Vanguard: {category: ['Unit', 'Order'], colors: ['Dragon Empire', 'Dark States', 'Brandt Gate', 'Keter Sanctuary', 'Stoicheia', 'Lyrical Monasterio']},
-  MTG: {category: ['Creature', 'Instant', 'Sorcery', 'Artifact', 'Enchantment', 'Planeswalker', 'Land', 'Battle'], colors: ['White', 'Blue', 'Black', 'Red', 'Green', 'Colorless']},
-  Gundam: {category: ['Unit', 'Pilot', 'Command', 'Base'], colors: ['Blue', 'Green', 'Red', 'White', 'Purple']},
-  'Star Wars Unlimited': {category: ['Leader', 'Base', 'Unit', 'Event', 'Upgrade'], colors: ['Vigilance', 'Command', 'Aggression', 'Cunning', 'Heroism', 'Villainy']}
-};
+export const CARD_GAMES = gameNames.map(game => game.name);
+const key = value => value.toLowerCase().replaceAll('ß', 'ss').normalize('NFKD')
+  .replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
+const shortKey = value => key(value).replace(/\s+(trading card game|collectible card game|card game|tcg|ccg)$/, '');
+
+export function normalizeGameName(value) {
+  const original = typeof value === 'string' ? value.trim().slice(0, 120) : '';
+  if (!original) return '';
+  const exact = key(original);
+  if (!exact) return original;
+  const match = gameNames.filter(game => game.matching !== 'review' &&
+    [game.name, ...game.aliases].some(name => key(name) === exact));
+  if (match.length === 1) return match[0].name;
+  if (match.length) return original;
+  const normalized = shortKey(original);
+  const candidates = gameNames.filter(game => shortKey(game.name) === normalized);
+  return candidates.length === 1 && candidates[0].matching !== 'review' ? candidates[0].name : original;
+}

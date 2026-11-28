@@ -1,5 +1,3 @@
-import {CARD_GAMES} from '../../src/utils/card-games.js';
-
 export const FIRST_EDITION_PROMPT = `Check the front of the card for a first-printing symbol. Set has_first_edition to true only if the symbol is visible on the card. If it is not found or is unclear, set it to false. Do not infer it from the set name or other card details. Return the set name without adding a first-printing label.`;
 
 // The card reader returns printed details and separately marks inferred values.
@@ -21,31 +19,18 @@ Do not put codes or abbreviations in full set-name fields, except when they are 
 
 For English text values intended for the form, capitalize the first letter of each word, for example "Neo" and "Scarlet & Violet". Preserve established spelling and capitalization of names, abbreviations and codes, such as McDonald's, XY, EX, and collector numbers. Preserve non-English scripts and copy legible collector numbers exactly; do not change internal capitalization of printed names or codes.
 
-Allowed game values: Pokemon, Yu-Gi-Oh, One Piece, Dragon Ball Fusion World, Digimon, Lorcana, Riftbound, Vanguard, MTG, Gundam, Star Wars Unlimited. Choose the most likely game from this list. Preserve the card's printed language for the card name.
+Identify the card game from the image. Return its commonly used full name, including the game title or edition needed to distinguish it from other games in the same franchise. If you cannot identify the game, leave game empty. Preserve the card's printed language for the card name.
 
-Return the card's printed language as its full English name, for example Japanese or English. Choose the most likely language if uncertain. Classify using only the values below for the detected game. If no value applies leave it empty. For Pokemon Trainer return no color; for Yu-Gi-Oh Spell and Trap return no attribute. For MTG choose the first applicable category in this priority: Creature, Planeswalker, Land, Artifact, Enchantment, Instant, Sorcery, Battle. Return all visible colors.
-Pokemon: category Pokemon, Trainer, Energy; color Grass, Fire, Water, Lightning, Psychic, Fighting, Darkness, Metal, Fairy, Dragon, Colorless; subtype Pokemon Tool, Item, Supporter, Stadium, Basic, Special.
-Yu-Gi-Oh: category Monster, Spell, Trap; color DARK, LIGHT, FIRE, WATER, EARTH, WIND, DIVINE; subtype Normal, Effect, Fusion, Synchro, Xyz, Link, Ritual, Pendulum, Quick-Play, Continuous, Equip, Field, Counter.
-One Piece: category Leader, Character, Event, Stage, DON!!; color Red, Green, Blue, Purple, Black, Yellow.
-Dragon Ball Fusion World: category Leader, Battle, Extra; color Red, Blue, Green, Yellow, Black.
-Digimon: category Digimon, Digi-Egg, Tamer, Option; color Red, Blue, Yellow, Green, Black, Purple, White.
-Lorcana: category Character, Action, Item, Location; color Amber, Amethyst, Emerald, Ruby, Sapphire, Steel.
-Riftbound: category Legend, Unit, Spell, Gear, Battlefield; color Fury, Calm, Body, Mind, Chaos, Order.
-Vanguard: category Unit, Order; color Dragon Empire, Dark States, Brandt Gate, Keter Sanctuary, Stoicheia, Lyrical Monasterio.
-MTG: category Creature, Instant, Sorcery, Artifact, Enchantment, Planeswalker, Land, Battle; color White, Blue, Black, Red, Green, Colorless.
-Gundam: category Unit, Pilot, Command, Base; color Blue, Green, Red, White, Purple.
-Star Wars Unlimited: category Leader, Base, Unit, Event, Upgrade; color Vigilance, Command, Aggression, Cunning, Heroism, Villainy.
-For Pokemon use the type symbol, not attack costs. For Yu-Gi-Oh use the Attribute icon. For MTG use mana cost and color indicator, not symbols in rules text. For One Piece, Digimon, Dragon Ball Fusion World and Gundam use the card's color indicator; for Lorcana use ink, Riftbound domain, Vanguard nation and Star Wars Unlimited aspects. Never use artwork color.
-For games without listed subtypes, return an empty subtype. For Pokemon Trainer prefer Pokemon Tool over Item when both are printed. For Yu-Gi-Oh Monster use priority Fusion, Synchro, Xyz, Link, Ritual, Pendulum, Effect, Normal. For Spell use Field, Equip, Continuous, Quick-Play, Ritual; for Trap use Counter, Continuous. If a subtype applies but is not visible, choose the most likely listed subtype.
+Return the card's printed language as its full English name. For category, color and subtype, use the terms of the identified game. Prefer information visible on the card. Leave a field empty if it does not apply or cannot be determined. Return all visible colors.
 
-Before returning the final answer, review all fields against the image and available card details. Correct errors and fill missing applicable fields. When uncertain, choose the most likely value based on the available evidence. Always provide game, language, release_year, set_name, card_number, name and rarity. If uncertain, choose the most likely value. Leave other fields empty only when they do not apply. Return one final JSON response.`;
+Before returning the final answer, review all fields against the image and available card details. Correct errors and fill missing applicable fields. Always provide language, release_year, set_name, card_number, name and rarity; choose the most likely value if uncertain. Leave game empty if it cannot be identified, and leave other fields empty when they do not apply or cannot be determined. Return one final JSON response.`;
 
 const string = {type: 'string'};
 const stringArray = {type: 'array', items: string};
 export const CARD_READING_SCHEMA = {
   type: 'object',
   properties: {
-    game: {type: 'string', enum: ['', ...CARD_GAMES]},
+    game: {type: 'string'},
     language: {type: 'string'},
     set_name: string, release_year: string, has_first_edition: {type: 'boolean'},
     card_number: string, name: string, rarity: {type: 'string', description: 'Card rarity as an uppercase abbreviation.'}, category: string,

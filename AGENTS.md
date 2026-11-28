@@ -2,6 +2,8 @@
 
 ## Project layout
 
+- Keep project work, temporary files, previews, and any worktrees inside this project root. Do not create sibling project folders outside it unless the user explicitly requests an external location. Use existing appropriate subfolders and clean up temporary work when finished.
+- Keep previews and their generated assets local; do not commit or push them unless the user explicitly asks to publish them.
 - The workspace root is the DCR Card Vault web app. Keep `index.html`, `package.json`, `package-lock.json`, and `vite.config.js` here so the app runs from the root.
 - Put browser application code in `src/`: pages in `src/pages/`, reusable UI in `src/components/`, data and persistence in `src/store/`, helpers in `src/utils/`, and styles in `src/styles/`.
 - Put files served as static assets in `public/`. Keep source code out of `public/`.

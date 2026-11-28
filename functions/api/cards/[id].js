@@ -3,6 +3,7 @@ import {currentUser} from '../../_utils/sessions.js';
 import {onRequestDelete as deleteImage} from './[id]/images/[side].js';
 import {normalizeCertNumber} from '../../_utils/cards.js';
 import {locationKey} from '../storage-locations.js';
+import {normalizeGameName} from '../../../src/utils/card-games.js';
 
 const statuses = new Set(['in-vault', 'for-sale', 'sold', 'grading']);
 
@@ -67,7 +68,7 @@ function cleanPatch(input) {
     patch.cert_number = normalizeCertNumber(input.certNumber);
     if (!patch.cert_number) return null;
   }
-  const fields = {name: ['name', 120], game: ['game', 30], setName: ['set_name', 120], year: ['year', 4],
+  const fields = {name: ['name', 120], game: ['game', 120], setName: ['set_name', 120], year: ['year', 4],
     cardNumber: ['card_number', 30], rarity: ['rarity', 80], gradeLabel: ['grade_label', 60],
     cardTypeLabel: ['card_type_label', 60], languageLabel: ['language_label', 60], series: ['series', 120],
     category: ['category', 40], pokemonTypes: ['pokemon_types', 120], trainerType: ['trainer_type', 60],
@@ -78,6 +79,7 @@ function cleanPatch(input) {
   for (const [key, [column, limit]] of Object.entries(fields)) {
     if (typeof input[key] === 'string') patch[column] = input[key].trim().slice(0, limit);
   }
+  if (typeof patch.game === 'string') patch.game = normalizeGameName(patch.game);
   for (const [key, column] of [['colorElements', 'color_elements'], ['inferredFields', 'inferred_fields']]) {
     if (Array.isArray(input[key])) patch[column] = JSON.stringify([...new Set(input[key].filter(item => typeof item === 'string').map(item => item.trim().slice(0, 60)).filter(Boolean))].slice(0, 10));
   }
