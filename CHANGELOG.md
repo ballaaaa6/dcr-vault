@@ -1,5 +1,8 @@
 # Changelog
 
+## Review card details - 2026-11-28
+- Review current details against the image when identifying again, highlighting changes and locking fields while waiting.
+
 ## Complete missing card details - 2026-11-28
 - Ask Gemini for all main card details and retry missing fields once, preserving available values and showing any remaining gaps.
 

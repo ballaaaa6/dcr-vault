@@ -40,7 +40,13 @@ export async function uploadCardImage(id, side, file) {
   });
 }
 
-export async function identifyCardImage(file) {
+export async function identifyCardImage(file, details = null) {
+  if (details) {
+    const body = new FormData();
+    body.append('image', file);
+    body.append('details', JSON.stringify(details));
+    return requestJson('/api/cards/identify', {method: 'POST', body});
+  }
   return requestJson('/api/cards/identify', {
     method: 'POST', headers: {'Content-Type': file.type}, body: file
   });

@@ -1,7 +1,7 @@
 import {error, json, sameOrigin} from '../../_utils/http.js';
 import {IMAGE_MAX_BYTES, readImageBody, supportedImageType} from '../../_utils/images.js';
 import {currentUser} from '../../_utils/sessions.js';
-import {analyzeWithGemini, MODEL} from '../../_utils/gemini-card-reader.js';
+import {analyzeWithGemini, reviewWithGemini, MODEL} from '../../_utils/gemini-card-reader.js';
 import {safeRecordIdentification} from '../../_utils/identification-log.js';
 
 function requestAllowed(request) {
@@ -30,16 +30,42 @@ export async function onRequestPost({request, env}) {
   if (!requestAllowed(request)) return json({error: 'Invalid request origin.'}, 403);
   const session = await currentUser(request, env);
   if (session.response) return session.response;
-  const contentType = supportedImageType(request.headers.get('content-type'));
-  if (!contentType) return error('Choose a JPEG, PNG, or WebP front image.');
-  const image = await readImageBody(request);
-  if (image.error) return error(image.error, image.error.includes('10 MB') ? 413 : 400);
-  if (image.body.byteLength > IMAGE_MAX_BYTES) return error('Each photo must be 10 MB or smaller.', 413);
-  const model = MODEL;
-  return identifyWithGemini(image.body, contentType, env, session.user.id, model);
+  let contentType, image, details = null;
+  if ((request.headers.get('content-type') || '').startsWith('multipart/form-data')) {
+    if (Number(request.headers.get('content-length') || 0) > IMAGE_MAX_BYTES + 16384) return error('Each photo must be 10 MB or smaller.', 413);
+    let form;
+    try {
+      const reader = request.body?.getReader();
+      if (!reader) return error('Invalid review request.');
+      const chunks = []; let size = 0;
+      while (true) {
+        const {done, value} = await reader.read();
+        if (done) break;
+        size += value.length;
+        if (size > IMAGE_MAX_BYTES + 16384) { await reader.cancel(); return error('Each photo must be 10 MB or smaller.', 413); }
+        chunks.push(value);
+      }
+      form = await new Request(request.url, {method: 'POST', headers: {'Content-Type': request.headers.get('content-type')}, body: new Blob(chunks)}).formData();
+    } catch { return error('Invalid review request.'); }
+    const file = form.get('image');
+    contentType = supportedImageType(file?.type);
+    const raw = form.get('details');
+    if (!contentType || !file?.size || file.size > IMAGE_MAX_BYTES || typeof raw !== 'string' || raw.length > 5000) return error('Invalid review request.');
+    try { details = JSON.parse(raw); } catch { return error('Invalid review details.'); }
+    if (!details || typeof details !== 'object' || Array.isArray(details)) return error('Invalid review details.');
+    const allowed = ['game', 'language', 'year', 'setName', 'cardNumber', 'name', 'rarity', 'category', 'subtypeDetail'];
+    details = Object.fromEntries(allowed.map(key => [key, typeof details[key] === 'string' ? details[key].slice(0, 120) : '']).concat([['colorElements', Array.isArray(details.colorElements) ? details.colorElements.filter(v => typeof v === 'string').slice(0, 10).map(v => v.slice(0, 40)) : []]]));
+    image = {body: new Uint8Array(await file.arrayBuffer())};
+  } else {
+    contentType = supportedImageType(request.headers.get('content-type'));
+    if (!contentType) return error('Choose a JPEG, PNG, or WebP front image.');
+    image = await readImageBody(request);
+    if (image.error) return error(image.error, image.error.includes('10 MB') ? 413 : 400);
+  }
+  return identifyWithGemini(image.body, contentType, env, session.user.id, MODEL, details);
 }
 
-async function identifyWithGemini(image, contentType, env, userId, model) {
+async function identifyWithGemini(image, contentType, env, userId, model, details = null) {
   const startedAt = Date.now();
   const requestId = crypto.randomUUID();
   let fields;
@@ -47,7 +73,10 @@ async function identifyWithGemini(image, contentType, env, userId, model) {
   let review;
   let failure;
   try {
-    fields = await analyzeWithGemini(env, image, contentType, requestId, (value, info) => { rawReading = value; review = info; }, model);
+    if (details) {
+      const result = await reviewWithGemini(env, image, contentType, requestId, details, model);
+      fields = result.fields; rawReading = result.parsed;
+    } else fields = await analyzeWithGemini(env, image, contentType, requestId, (value, info) => { rawReading = value; review = info; }, model);
   } catch (cause) { failure = cause; }
   await safeRecordIdentification(env.DB, userId, {requestId, model, durationMs: Date.now() - startedAt,
     outcome: failure?.code || (fields ? 'success' : 'unreadable'), reading: {raw: safeRawReading(rawReading), normalized: safeRawReading(fields),

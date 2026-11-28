@@ -1,6 +1,7 @@
 import {startCardScan} from '../components/card-scan.js';
 import {identifyCardImage} from '../store/cards.js';
 import {escapeHTML} from '../utils/format.js';
+import {GAME_CLASSIFICATIONS} from '../utils/card-games.js';
 
 let version = 0;
 let busy = false;
@@ -9,13 +10,15 @@ let applied = {};
 let provenance = {};
 let reading = {};
 let requestId = '';
+const reviewKeys = ['game', 'language', 'year', 'setName', 'cardNumber', 'name', 'rarity'];
+let detailChanges = {};
 
 export function intakeClassification() {
   return {category: reading.category || '', colorElements: reading.colorElements || [], subtypeDetail: reading.subtypeDetail || '',
     releaseYear: reading.releaseYear || '', yearSource: provenance.year === 'user' ? 'user' : reading.yearSource || '', inferredFields: reading.inferredFields || []};
 }
 export function identificationProvenance() { return {identificationStatus: identified ? 'unresolved' : 'unknown', fieldProvenance: {...provenance}}; }
-export function clearAppliedReading() { reading = {}; applied = {}; provenance = {}; requestId = ''; identified = false; }
+export function clearAppliedReading() { detailChanges = {}; reading = {}; applied = {}; provenance = {}; requestId = ''; identified = false; }
 export function resetCardIdentificationState() { version += 1; identified = false; closeResult(); }
 export function identificationDialogMarkup() {
   return `<dialog id="identification-result" class="identification-dialog" aria-labelledby="identification-title"><header class="identification-dialog-header"><div><h2 id="identification-title">Review card reading</h2><p>Review and edit the details read from the photo.</p></div><button class="dialog-close" type="button" data-close-identification aria-label="Close">×</button></header><div id="identification-dialog-content" class="identification-dialog-content"></div></dialog>`;
@@ -33,9 +36,35 @@ function updateButton() {
   button.disabled = busy || !file;
   if (!busy) button.querySelector('span').textContent = identified && file ? 'Identify again' : 'Identify card';
 }
+function currentDetails() {
+  return {...Object.fromEntries(reviewKeys.map(key => [key, document.getElementById(`m-${key}`).value])),
+    category: reading.category || '', colorElements: reading.colorElements || [], subtypeDetail: reading.subtypeDetail || ''};
+}
+function lockReview(locked) {
+  document.querySelectorAll('[data-catalog-control], #identification-dialog-content, #manual-submit').forEach(node => {
+    node.inert = locked; node.classList.toggle('review-locked', locked);
+  });
+}
+function clearHighlights() {
+  document.querySelectorAll('.reading-help').forEach(help => { help.hidden = true; });
+  detailChanges = {};
+}
+function markChanges(before, after) {
+  clearHighlights();
+  for (const key of reviewKeys) {
+    if (before[key] === after[key]) continue;
+    const help = document.querySelector(`[data-catalog-control="${key}"]`)?.parentElement.querySelector('.reading-help');
+    if (!help) continue;
+    help.querySelector('.reading-tooltip').textContent = before[key] ? `Changed from ${before[key]}` : 'Filled during review';
+    help.hidden = false;
+  }
+  for (const key of ['category', 'colorElements', 'subtypeDetail']) {
+    if (JSON.stringify(before[key]) !== JSON.stringify(after[key])) detailChanges[key] = before[key];
+  }
+}
 function detailMarkup() {
   const fields = [['category', 'Category', reading.category], ['colorElements', 'Colors / elements', (reading.colorElements || []).join(', ')], ['subtypeDetail', 'Subtype', reading.subtypeDetail]];
-  const rows = fields.map(([key, label, value]) => `<label class="identification-read-field"><b>${label}</b><input class="form-control" data-reading-field="${key}" value="${escapeHTML(value || '')}" maxlength="120"></label>`).join('');
+  const rows = fields.map(([key, label, value]) => `<div class="identification-read-field${key in detailChanges ? ' review-changed' : ''}"><b><label for="reading-${key}">${label}</label>${key in detailChanges ? ` <span class="reading-help"><button type="button" class="reading-help-button" aria-label="Changed detail" aria-describedby="detail-change-${key}">i</button><span class="reading-tooltip" id="detail-change-${key}" role="tooltip">${escapeHTML(detailChanges[key]?.length ? `Changed from ${detailChanges[key]}` : 'Filled during review')}</span></span>` : ''}</b><input id="reading-${key}" class="form-control" data-reading-field="${key}" value="${escapeHTML(value || '')}" maxlength="120"></div>`).join('');
   const inferred = (reading.inferredFields || []).join(', ');
   return `<section class="identification-read-summary"><p>Review the values and edit them if needed.</p>${inferred ? `<p>Inferred from model knowledge: ${escapeHTML(inferred)}</p>` : ''}<div class="identification-read-grid">${rows}</div></section>`;
 }
@@ -93,27 +122,48 @@ async function analyzeFront() {
   const button = document.getElementById('identify-card');
   if (!file || !button || busy) return;
   const current = ++version;
-  busy = true; identified = true; button.disabled = true;
+  const reviewing = identified;
+  const before = reviewing ? currentDetails() : null;
+  busy = true; button.disabled = true;
+  if (reviewing) lockReview(true);
   button.querySelector('span').textContent = 'Analyzing…';
   const stop = startCardScan();
   const status = document.getElementById('manual-status');
   status.dataset.state = 'pending'; status.textContent = 'Reading card…';
   try {
-    const result = await identifyCardImage(file);
+    const result = await identifyCardImage(file, before);
     if (current !== version) return;
     if (!result.fields || !result.readingAdequate) throw new Error('Could not read enough details. Try a clearer photo.');
-    applyReading(result.fields, result.requestId);
+    if (reviewing) {
+      const merged = {...result.fields};
+      for (const key of [...reviewKeys, 'category', 'subtypeDetail']) if (!merged[key]) merged[key] = before[key];
+      if (!merged.colorElements?.length) merged.colorElements = before.colorElements;
+      const choices = GAME_CLASSIFICATIONS[merged.game];
+      if (choices) {
+        if (!choices.category.includes(merged.category)) merged.category = '';
+        merged.colorElements = merged.colorElements.filter(value => choices.colors.includes(value));
+        if (!(choices.subtypes || []).includes(merged.subtypeDetail)) merged.subtypeDetail = '';
+      }
+      merged.releaseYear = merged.year;
+      merged.yearSource = merged.year ? 'release' : '';
+      for (const key of [...reviewKeys, 'category', 'colorElements', 'subtypeDetail']) {
+        if (JSON.stringify(merged[key]) !== JSON.stringify(before[key])) provenance[key] = 'gemini';
+      }
+      markChanges(before, merged);
+      applyReading(merged, result.requestId);
+    } else applyReading(result.fields, result.requestId);
+    identified = true;
   } catch (error) {
     if (current === version) { status.dataset.state = 'error'; status.textContent = error.message || 'Card reading failed. Try again.'; }
   } finally {
-    stop(); busy = false; updateButton();
+    stop(); busy = false; if (reviewing) lockReview(false); updateButton();
     if (current !== version && status.dataset.state === 'pending') {
       status.dataset.state = 'warning'; status.textContent = 'The photo changed. Review the details before saving.';
     }
   }
 }
 function invalidatePhoto() {
-  version += 1; identified = false; closeResult();
+  version += 1; identified = false; closeResult(); clearHighlights();
   for (const [key, value] of Object.entries(applied)) {
     const input = document.getElementById(`m-${key}`);
     if (input && input.value === value) input.value = '';
@@ -127,12 +177,16 @@ function invalidatePhoto() {
 document.addEventListener('input', event => {
   const detail = event.target.dataset?.readingField;
   if (detail) {
+    delete detailChanges[detail]; event.target.closest('.review-changed')?.classList.remove('review-changed');
+    event.target.closest('.identification-read-field')?.querySelector('.reading-help')?.remove();
     reading[detail] = detail === 'colorElements' ? event.target.value.split(',').map(item => item.trim()).filter(Boolean) : event.target.value;
     provenance[detail] = 'user';
     return;
   }
   const key = event.target.id?.replace(/^m-/, '');
   if (!['game', 'language', 'name', 'setName', 'year', 'cardNumber', 'rarity'].includes(key)) return;
+  const help = event.target.closest('.form-field')?.querySelector('.reading-help');
+  if (help) help.hidden = true;
   provenance[key] = 'user'; delete applied[key];
   if (key === 'game' && reading.game && event.target.value !== reading.game) {
     reading.category = ''; reading.colorElements = []; reading.subtypeDetail = '';
