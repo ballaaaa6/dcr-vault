@@ -79,7 +79,7 @@ export function vault(cards = [], locations = [], collections = []) {
       </div>
       <dialog class="vault-delete-dialog two-choice-dialog" aria-labelledby="delete-card-title" aria-describedby="delete-card-description">
         <button class="dialog-close" type="button" data-delete-close aria-label="Close">×</button><h2 id="delete-card-title">Delete this card?</h2>
-        <p id="delete-card-description" class="two-choice-description">This will permanently delete the card and its photos. Its certificate number will be available for another card.</p>
+        <p id="delete-card-description" class="two-choice-description">This card and its photos will be permanently deleted. Its certificate number can be reused.</p>
         <p class="detail-note" data-delete-message role="status"></p>
         <div class="vault-delete-actions two-choice-actions"><button class="btn btn-ghost" type="button" data-delete-cancel autofocus>Cancel</button><button class="btn btn-primary" type="button" data-delete-confirm>Delete card</button></div>
       </dialog>
@@ -357,7 +357,7 @@ function confirmBulkDelete() {
   const dialog = document.querySelector('.vault-delete-dialog');
   const count = bulkSelection.size;
   dialog.querySelector('#delete-card-title').textContent = `Delete ${count} selected ${count === 1 ? 'card' : 'cards'}?`;
-  dialog.querySelector('#delete-card-description').textContent = 'This will permanently delete the selected cards and their photos. Their certificate numbers will be available for other cards.';
+  dialog.querySelector('#delete-card-description').textContent = 'Cards and photos will be permanently deleted. Certificate numbers can be reused.';
   dialog.querySelector('[data-delete-message]').textContent = '';
   dialog.querySelector('[data-delete-confirm]').textContent = `Delete (${count})`;
   dialog.querySelector('[data-delete-cancel]').onclick = () => dialog.close();
@@ -395,7 +395,7 @@ window.__deleteVault = id => {
   if (vaultBusy) return;
   dialog.querySelector('[data-delete-message]').textContent = '';
   dialog.querySelector('#delete-card-title').textContent = 'Delete this card?';
-  dialog.querySelector('#delete-card-description').textContent = 'This will permanently delete the card and its photos. Its certificate number will be available for another card.';
+  dialog.querySelector('#delete-card-description').textContent = 'This card and its photos will be permanently deleted. Its certificate number can be reused.';
   confirmButton.textContent = 'Delete card';
   document.querySelector('.vault-menu').open = false;
   cancel.onclick = () => dialog.close();
