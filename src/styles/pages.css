@@ -82,7 +82,6 @@
 .photo-viewer{width:min(calc(100vw - 48px),900px);max-width:none;max-height:calc(100dvh - 48px);margin:auto;padding:48px 16px 16px;overflow:visible;border:1px solid var(--dcr-border);border-radius:16px;background:var(--dcr-white);box-shadow:var(--shadow-lg)}
 .photo-viewer::backdrop{background:rgba(0,0,0,.45)}
 .photo-viewer img{display:block;max-width:100%;max-height:calc(100dvh - 114px);width:auto;height:auto;object-fit:contain;margin:auto}
-.dialog-close.photo-viewer-close{top:-19px;right:-19px}
  .upload-clear{position:absolute;top:10px;right:10px;display:grid;width:40px;height:40px;place-items:center;padding:0;border:0;border-radius:50%;background:var(--dcr-red);color:var(--dcr-white);font-size:27px;line-height:1;cursor:pointer;opacity:0;transition:opacity .2s,transform 100ms ease-in-out}
 .upload-clear[hidden]{display:none}
 .upload-frame:hover .upload-clear,.upload-frame:focus-within .upload-clear{opacity:1}
@@ -103,7 +102,6 @@
 .identification-dialog-header h2{margin:0 0 5px;font-size:var(--font-size-section-title)}
 .identification-dialog-header p{margin:0;color:var(--dcr-gray);font-size:var(--font-size-description)}
 .identification-dialog-header>div{padding-right:36px}
-.identification-dialog .dialog-close{top:-19px;right:-19px}
 .identification-dialog-content{min-height:0;overflow:auto;padding:18px 24px var(--button-effect-space)}
 .identification-error-actions{display:flex;justify-content:flex-start;margin-top:14px}
 .identification-match-note{margin:0;padding:12px 14px;border:1px solid var(--dcr-border);border-left:3px solid var(--dcr-red);border-radius:12px;background:var(--dcr-white);color:var(--dcr-text-secondary);font-size:var(--font-size-description)}

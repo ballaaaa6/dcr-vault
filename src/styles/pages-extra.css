@@ -93,7 +93,6 @@
 .vault-row[aria-pressed=true]{border-color:var(--dcr-red)}
 
 .vault-delete-dialog{overflow:visible;width:min(440px,calc(100% - 32px));margin:auto;padding:28px 28px var(--button-effect-space);border:1px solid var(--dcr-border);border-radius:20px;background:var(--dcr-white);color:var(--dcr-black);box-shadow:var(--shadow-lg)}
-.vault-delete-dialog .dialog-close{top:-19px;right:-19px}
 .vault-delete-dialog::backdrop{background:rgba(0,0,0,.45)}
 .vault-delete-dialog h2{margin:0 0 12px}.vault-delete-dialog p{color:var(--dcr-gray);line-height:1.5}.vault-delete-actions{display:flex;justify-content:center;gap:10px;margin-top:24px}
 
@@ -220,7 +219,7 @@
 .location-dialog{width:min(620px,calc(100% - 48px));max-height:85vh;overflow:visible;border:1px solid var(--dcr-border);border-radius:18px;padding:24px;background:linear-gradient(color-mix(in srgb,var(--dcr-white) 80%,transparent),color-mix(in srgb,var(--dcr-white) 80%,transparent)),url('/assets/labels/location-koi.png') right bottom/cover no-repeat var(--dcr-white);box-shadow:var(--shadow)}
 .location-dialog::backdrop{background:rgba(17,17,17,.74)}
 .location-dialog-head{display:flex;align-items:center;gap:16px}.location-dialog-head h2{margin:0}.location-add{margin-left:auto;margin-right:14px}.location-add[hidden]{display:none}
-.location-dialog [data-location-body]{max-height:calc(85vh - 120px);overflow:auto}.dialog-close.location-close{top:-19px;right:-19px}
+.location-dialog [data-location-body]{max-height:calc(85vh - 120px);overflow:auto}
 .location-actions{display:flex;justify-content:flex-end;margin:14px 0}.location-list{display:grid;gap:8px}.location-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 8px;border:1px solid var(--dcr-border);border-radius:var(--radius);background:var(--dcr-white)}.location-row small{display:block}.location-row-actions{display:flex;gap:8px}.location-empty{text-align:center;padding:20px}.location-choices{display:grid;gap:10px;border:0;padding:0;margin:18px 0}.location-choices label{display:flex;gap:8px}.location-dialog .two-choice-actions{margin-top:20px}
 @media(max-width:600px){.location-row{align-items:flex-start;flex-direction:column}}
 
@@ -292,4 +291,6 @@
 .vault-edit .catalog-select__menu{z-index:30}
 
 #collections-delete-dialog{overflow:visible;width:min(440px,calc(100% - 48px))}
-#collections-delete-dialog .dialog-close{top:-19px;right:-19px}
+
+.label-dialog{overflow:visible;width:min(900px,calc(100% - 48px))}
+.label-dialog:not(:has(.label-vault-list,.sheet-preview-pages)) #label-dialog-content{max-height:calc(85vh - 48px);overflow:auto}

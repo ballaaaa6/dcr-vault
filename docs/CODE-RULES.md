@@ -45,4 +45,4 @@
 
 28. Use the shared switchIcon and optionsIcon from src/components/action-icons.js for switch controls and options menus; reuse their animation and color styles from src/styles/action-icons.css.
 
-29. Use the shared `dialog-close` class for red corner close buttons. Its hover and click animations are applied centrally to every instance; do not bypass or duplicate them.
+29. Use the shared `dialog-close` class for red corner close buttons. It sits across the top-right edge by default, with hover and click animations applied centrally. Keep the dialog overflow visible and leave viewport clearance; put scrolling content in an inner container. Full-screen viewers may retain their specialized controls. Do not duplicate the shared position or animations.

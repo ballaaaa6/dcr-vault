@@ -36,7 +36,7 @@ export async function label(cards = []) {
       <div id="label-list"></div><div class="label-bottom"><p class="label-print-note">Print at actual size, double-sided, flip on long edge. Each sheet contains up to 40 labels.</p><div class="label-controls"><button class="btn btn-ghost" data-label-action="preview">Preview sheets</button><button class="btn btn-primary" data-label-action="download">Download PDF</button></div></div>
     </section>
     </div>
-    <dialog class="label-dialog" id="label-dialog"><div id="label-dialog-content"></div></dialog>
+    <dialog class="label-dialog" id="label-dialog"><button class="dialog-close" type="button" aria-label="Close" data-label-action="close">×</button><div id="label-dialog-content"></div></dialog>
   </main>`;
 }
 
@@ -78,7 +78,7 @@ function refresh() {
 function status(text, type = 'success', pending = false) { showToast(text, type, {key: 'label-operation', pending}); }
 function dialog(html) { document.getElementById('label-dialog-content').innerHTML = html; document.getElementById('label-dialog').showModal(); }
 function closeDialog() { document.getElementById('label-dialog').close(); }
-function dialogHead(title) { return `<div class="label-dialog-head"><h2>${title}</h2><button class="dialog-close location-close" type="button" aria-label="Close" data-label-action="close">×</button></div>`; }
+function dialogHead(title) { return `<div class="label-dialog-head"><h2>${title}</h2></div>`; }
 
 async function searchCerts() {
   let certs;

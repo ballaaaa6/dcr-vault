@@ -1,6 +1,6 @@
 /* Shared layout for two-choice dialogs. */
 .two-choice-dialog>h2{text-align:left}.two-choice-dialog>.two-choice-description{text-align:center}.two-choice-dialog>.two-choice-actions{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:12px}
-.two-choice-dialog:not(.profile-crop-dialog):not(.vault-delete-dialog){position:fixed;box-sizing:border-box;width:min(440px,94vw);margin:auto;padding:32px 24px var(--button-effect-space);border:0;border-radius:16px;background:var(--dcr-white);color:var(--dcr-black);box-shadow:var(--shadow)}
+.two-choice-dialog:not(.profile-crop-dialog):not(.vault-delete-dialog){position:fixed;box-sizing:border-box;width:min(440px,calc(100% - 48px));overflow:visible;margin:auto;padding:32px 24px var(--button-effect-space);border:0;border-radius:16px;background:var(--dcr-white);color:var(--dcr-black);box-shadow:var(--shadow)}
 .two-choice-dialog:not(.profile-crop-dialog):not(.vault-delete-dialog)::backdrop{background:rgba(17,17,17,.74)}
 .two-choice-dialog:not(.profile-crop-dialog):not(.vault-delete-dialog)>h2{margin:0 0 8px}.two-choice-dialog:not(.profile-crop-dialog):not(.vault-delete-dialog)>p{color:var(--dcr-gray)}.two-choice-dialog:not(.profile-crop-dialog):not(.vault-delete-dialog)>.two-choice-actions{margin-top:20px}
 
@@ -14,7 +14,7 @@ dialog :is([role="status"],[role="alert"]):empty{display:none}
 .location-dialog > [data-location-error]:not(:empty){padding-bottom:var(--dialog-bottom-space)}
 
 /* Shared corner close control for dismissible dialogs. */
-.dialog-close{position:absolute;top:10px;right:10px;display:grid;place-items:center;box-sizing:border-box;width:38px;height:38px;padding:0;border:0;border-radius:50%;background:var(--dcr-red);color:var(--dcr-white);font-size:26px;line-height:1;cursor:pointer}.dialog-close:focus-visible{outline:2px solid var(--dcr-red);outline-offset:3px}.two-choice-dialog:has(>.dialog-close)>h2{padding-right:40px}
+.dialog-close{position:absolute;top:-19px;right:-19px;z-index:1;display:grid;place-items:center;box-sizing:border-box;width:38px;height:38px;padding:0;border:0;border-radius:50%;background:var(--dcr-red);color:var(--dcr-white);font-size:26px;line-height:1;cursor:pointer}.dialog-close:focus-visible{outline:2px solid var(--dcr-red);outline-offset:3px}.two-choice-dialog:has(>.dialog-close)>h2{padding-right:40px}
 
 /* Corner close controls follow the scale interaction. */
 .dialog-close{transition:transform 100ms ease-in-out,opacity 200ms ease-in-out}
