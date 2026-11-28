@@ -1,4 +1,6 @@
 #
+
+- Celebrate the first card added to an empty vault with a reusable randomized fireworks effect.
 ## Add Card image and field spacing - 2026-11-28
 - Extend the image and details areas toward the aligned action row on desktop.
 

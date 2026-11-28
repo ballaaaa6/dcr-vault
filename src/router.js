@@ -103,7 +103,11 @@ export async function render() {
   if (path === '/gemini-usage') initializeGeminiUsage();
   if (path === '/profile') initializeProfile(user);
   if (path === '/archive') initializeSearchPage();
-  if (path === '/vault') initializeVault();
+  if (path === '/vault') {
+    initializeVault();
+    import('./components/first-card-celebration.js').then(({celebrateFirstCard}) =>
+      celebrateFirstCard(() => version === renderVersion && location.pathname === '/vault'));
+  }
   if (path === '/showcase' || ownerCollection) initializeCollections(...collectionData);
   if (path === '/label') initializeLabel();
   if (path === '/verify' || isCertificate) { initializeCertificateViewer(); initializeCertificateActions(); }
