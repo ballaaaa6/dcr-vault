@@ -1,5 +1,7 @@
 #
 
+- Match certificate viewer copyright clearance to the page footer and give the remaining height to the image.
+
 - Add help tooltips to all six card image upload headings.
 
 - Center the certificate viewer heading, refine its controls and spacing, and keep its frame stable when changing images.

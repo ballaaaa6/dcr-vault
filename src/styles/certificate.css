@@ -61,3 +61,13 @@
 .cert-viewer-image>img{width:100%;max-height:var(--viewer-height);object-fit:contain}
 .cert-viewer-hint{margin:0;text-align:center}
 @media(max-width:600px){.cert-viewer{width:min(calc(min(650px, var(--viewer-height) * var(--image-ratio, .7)) + 124px), calc(100vw - 32px))}.cert-viewer-stage{width:min(650px,calc(var(--viewer-height) * var(--image-ratio, .7)),calc(100vw - 156px))}}
+
+/* Match the standard page footer clearance and give the remaining height to the image. */
+.cert-viewer{--viewer-height:max(0px,100dvh - 157px);height:calc(100dvh - 32px);padding-bottom:10px;width:min(calc(var(--viewer-height) * var(--image-ratio, .7) + 208px),calc(100vw - 32px))}
+.cert-viewer-body{flex:1;min-height:0}
+.cert-viewer-stage{width:min(calc(var(--viewer-height) * var(--image-ratio, .7)),calc(100vw - 240px));height:100%}
+.cert-viewer-image{width:min(100%,calc(var(--viewer-height) * var(--selected-ratio, .7)));max-height:100%}
+.cert-viewer-image>img{width:100%;max-width:100%;max-height:100%}
+.cert-viewer-thumbs{max-height:100%;overflow-y:auto}
+@media(max-width:760px){.cert-viewer{--viewer-height:max(0px,100dvh - 169px);padding-bottom:22px}}
+@media(max-width:600px){.cert-viewer{--viewer-height:max(0px,100dvh - 161px);width:min(calc(var(--viewer-height) * var(--image-ratio, .7) + 124px),calc(100vw - 32px))}.cert-viewer-stage{width:min(calc(var(--viewer-height) * var(--image-ratio, .7)),calc(100vw - 156px))}}
