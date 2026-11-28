@@ -1,4 +1,5 @@
 import {searchIcon} from '../components/search-icon.js';
+import {dropdown} from '../components/dropdown.js';
 import {switchIcon, optionsIcon, animateActionIcon} from '../components/action-icons.js';
 import {vaultTooltip} from '../components/vault-tooltip.js';
 import {compareVaultCards, vaultSortSelect} from '../utils/vault-sort.js';
@@ -130,7 +131,7 @@ function privateInputs(card) {
   const custom = source && !sources.includes(source);
   return `<div class="form-field"><div><span>Buy price</span>${vaultTooltip('buyPrice', 'Buy price')}</div><div class="vault-price-input"><input class="form-control" name="buyPrice" type="number" min="0" step="any" aria-label="Buy price" value="${escapeHTML(card.buyPrice ?? '')}">
     <select class="form-control" name="buyCurrency" aria-label="Currency">${currencies.map(code => `<option value="${code}"${code === (card.buyCurrency || 'THB') ? ' selected' : ''}>${code}</option>`).join('')}</select></div></div>
-    <div class="form-field"><div><label for="vault-source">Acquisition</label>${vaultTooltip('purchaseSource', 'Acquisition')}</div><select id="vault-source" class="form-control" name="sourceChoice" onchange="window.__vaultSourceChange(this)"><option value="">Select acquisition</option>${sources.map(value => `<option${value === source ? ' selected' : ''}>${escapeHTML(value)}</option>`).join('')}<option value="Other"${custom ? ' selected' : ''}>Other</option></select></div>
+    <div class="form-field"><div><label for="vault-source-trigger">Acquisition</label>${vaultTooltip('purchaseSource', 'Acquisition')}</div>${dropdown({id: 'vault-source', label: 'Acquisition', options: [['', 'Select acquisition'], ...sources.map(value => [value, value]), ['Other', 'Other']], value: custom ? 'Other' : source})}</div>
     <div class="form-field" id="vault-custom-source" ${custom ? '' : 'hidden'}><div><label for="vault-custom-source-input">Other acquisition</label>${vaultTooltip('customSource', 'Other acquisition')}</div><input id="vault-custom-source-input" class="form-control" name="customSource" maxlength="120" value="${escapeHTML(custom ? source : '')}"></div>
     <div class="form-field"><div><label for="vault-seller">Seller</label>${vaultTooltip('seller', 'Seller')}</div><input id="vault-seller" class="form-control" name="seller" maxlength="120" value="${escapeHTML(card.seller || '')}"></div>
     ${card.boughtFrom ? `<p class="detail-note">Bought from (previous): ${escapeHTML(card.boughtFrom)}</p>` : ''}
@@ -140,10 +141,6 @@ function privateInputs(card) {
     <div class="form-field"><div><label for="vault-position">Position</label>${vaultTooltip('position', 'Position')}</div><input id="vault-position" class="form-control" name="position" maxlength="200" value="${escapeHTML(card.position || '')}" placeholder="e.g. Page 3"></div>
     <div class="form-field"><div><label for="vault-notes">Notes</label>${vaultTooltip('notes', 'Notes')}</div><textarea id="vault-notes" class="form-control" name="notes" maxlength="2000" rows="2">${escapeHTML(card.notes || '')}</textarea></div>`;
 }
-
-window.__vaultSourceChange = select => {
-  document.getElementById('vault-custom-source').hidden = select.value !== 'Other';
-};
 
 function detailMarkup(card, mode = 'item') {
   const editing = mode.startsWith('edit-');
@@ -234,6 +231,7 @@ export function initializeVault() {
     const form = event.target.closest('#vault-edit');
     if (form) {
       form.dataset.dirty = 'true';
+      if (event.target.id === 'vault-source') document.getElementById('vault-custom-source').hidden = event.target.value !== 'Other';
       if (event.target.matches('.form-control')) updateFilledField(event.target);
     }
   });
@@ -304,7 +302,7 @@ window.__saveDetail = async (event, id) => {
     patch.collectionIds = selected.filter(item => item.id).map(item => item.id);
     patch.collectionNames = selected.filter(item => !item.id).map(item => item.name);
   }
-  if (privateMode) patch.purchaseSource = event.target.elements.sourceChoice.value === 'Other' ? event.target.elements.customSource.value : event.target.elements.sourceChoice.value;
+  if (privateMode) patch.purchaseSource = document.getElementById('vault-source').value === 'Other' ? event.target.elements.customSource.value : document.getElementById('vault-source').value;
   if (!privateMode) {
     patch.game = normalizeGameName(patch.game);
     patch.certNumber = normalizeCert(patch.certNumber);

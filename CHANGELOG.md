@@ -1,5 +1,7 @@
 #
 
+- Use the shared dropdown for Vault acquisition selection.
+
 - Keep tall Vault edit forms sticky without an inner scrollbar.
 
 - Keep Vault details available while scrolling in both edit modes.
