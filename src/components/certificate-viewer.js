@@ -36,6 +36,14 @@ function initializeThumbnails(buttons, gallery, thumbs, cornerThumbs, select, op
   });
 }
 
+function imageDimensions(source) {
+  if (source.complete) return Promise.resolve(source);
+  return new Promise(resolve => {
+    source.addEventListener('load', () => resolve(source), {once: true});
+    source.addEventListener('error', () => resolve(source), {once: true});
+  });
+}
+
 export function initializeCertificateViewer() {
   const gallery = document.querySelector('.cert-gallery');
   const dialog = document.querySelector('.cert-viewer');
@@ -48,14 +56,14 @@ export function initializeCertificateViewer() {
   const cornerThumbs = dialog.querySelector('.cert-viewer-corners');
   const label = dialog.querySelector('[data-viewer-label]');
   const status = dialog.querySelector('.cert-viewer-download-status');
-  image.addEventListener('load', () => {
-    dialog.style.setProperty('--image-ratio', image.naturalWidth / image.naturalHeight);
-  });
+  const dimensions = Promise.all(buttons.map(button => imageDimensions(button.querySelector('img'))));
+  let opening = false;
   let opener;
   let selectedSide = 'front';
   function select(button) {
     const source = button.querySelector('img');
     selectedSide = button.dataset.side;
+    frame.style.setProperty('--selected-ratio', source.naturalWidth / source.naturalHeight || .7);
     image.src = source.dataset.original || source.src;
     image.alt = source.alt;
     label.textContent = button.querySelector('span').textContent;
@@ -64,7 +72,17 @@ export function initializeCertificateViewer() {
     dialog.querySelectorAll('.cert-viewer-thumbs button').forEach(item => item.setAttribute('aria-pressed', String(item.dataset.side === button.dataset.side)));
     frame.classList.remove('is-zoomed');
   }
-  initializeThumbnails(buttons, gallery, thumbs, cornerThumbs, select, button => { opener = button; select(button); dialog.showModal(); });
+  initializeThumbnails(buttons, gallery, thumbs, cornerThumbs, select, async button => {
+    if (opening || dialog.open) return;
+    opening = true;
+    const sources = await dimensions;
+    const ratios = sources.filter(source => source.naturalWidth && source.naturalHeight).map(source => source.naturalWidth / source.naturalHeight);
+    dialog.style.setProperty('--image-ratio', (ratios.length ? Math.max(...ratios) : .7));
+    opener = button;
+    select(button);
+    dialog.showModal();
+    opening = false;
+  });
   dialog.querySelector('[data-viewer-download]').addEventListener('click', async () => {
     status.textContent = '';
     try {

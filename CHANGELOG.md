@@ -1,5 +1,7 @@
 #
 
+- Center the certificate viewer heading, refine its controls and spacing, and keep its frame stable when changing images.
+
 - Move the Card images corner switch inside the upper-right corner of its block.
 
 - Fit the certificate image viewer popup around its image and controls while keeping the page visible behind it.
