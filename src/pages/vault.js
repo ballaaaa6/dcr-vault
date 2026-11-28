@@ -16,7 +16,6 @@ import {vaultPhoto, initializeVaultPhoto} from '../components/vault-photo.js';
 import {itemInformation} from './verify.js';
 import {escapeHTML} from '../utils/format.js';
 import {normalizeCert} from '../utils/cert.js';
-import {languageCode, languageName} from '../utils/card-language.js';
 import {vaultFinishInput, initializeVaultFinish} from '../components/vault-finish.js';
 import {vaultBackground, preloadSelectedBackgrounds} from '../utils/vault-background.js';
 import {prefetchNearbyImages} from '../utils/prefetch-images.js';
@@ -31,7 +30,7 @@ let vaultBusy = false;
 let stopImagePrefetch = () => {};
 const publicFields = [
   ['name', 'Card name', 120], ['certNumber', 'Cert number', 8], ['game', 'Brand / Title', 30], ['year', 'Year', 4],
-  ['cardTypeLabel', 'Card type', 60], ['sourceLanguage', 'Language code', 20],
+  ['cardTypeLabel', 'Card type', 60],
   ['setName', 'Set name', 120], ['category', 'Category', 40], ['colorElements', 'Colors / elements', 120], ['subtypeDetail', 'Subtype', 60], ['cardNumber', 'Card number', 30], ['rarity', 'Rarity', 80],
   ['gradeLabel', 'Condition', 60], ['sourceFinish', 'Finish', 80]
 ];
@@ -283,8 +282,6 @@ window.__saveDetail = async (event, id) => {
     patch.certNumber = normalizeCert(patch.certNumber);
     patch.colorElements = patch.colorElements.split(',').map(value => value.trim()).filter(Boolean);
     const existing = activeCards.find(card => card.id === id);
-    patch.sourceLanguage = languageCode(patch.sourceLanguage);
-    patch.languageLabel = patch.sourceLanguage === 'en' ? '' : languageName(patch.sourceLanguage).toUpperCase();
     patch.inferredFields = (existing.inferredFields || []).filter(field => patch[field === 'set' ? 'setName' : field] === existing[field === 'set' ? 'setName' : field]);
     if (patch.setName !== existing.setName) Object.assign(patch, {setSource: '', setNameLocal: patch.setName, setNameLocalSource: '', setNameEn: '', setNameEnSource: '', setNameEnType: ''});
   }

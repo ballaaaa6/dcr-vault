@@ -24,7 +24,7 @@ test('create and import retain provenance; legacy records remain unknown', async
   const req = (path, body) => new Request(`https://vault.test${path}`, {method: body ? 'POST' : 'GET',
     headers: {Cookie: 'dcr_session=token', Origin: 'https://vault.test', 'Content-Type': 'application/json'},
     ...(body ? {body: JSON.stringify(body)} : {})});
-  const card = {setNameEn:'Romance Dawn', setNameLocal:'ロマンス', setCode:'OP01', setNameEnType:'official', setNameEnSource:'inferred', setNameLocalSource:'printed', releaseYear:'2020', copyrightYear:'2019', yearSource:'release', game:'One Piece', category:'Leader', colorElements:['Red', 'Green'], subtypeDetail:'', setSource:'inferred_name', inferredFields:['set', 'year', 'rarity'], pokemonTypes:'', cardTypeLabel:'One Piece', languageLabel:'JAPANESE', series:'', name:'ルフィ', setName:'セット', year:'2020', cardNumber:'OP01-001', rarity:'L', gradeLabel:'Mint', artist:'Artist', notes:'Note', certNumber:'1', identificationStatus:'user_selected', fieldProvenance:{name:'gemini', rarity:'catalog', secret:'user'}};
+  const card = {setNameEn:'Romance Dawn', setNameLocal:'ロマンス', setCode:'OP01', setNameEnType:'official', setNameEnSource:'inferred', setNameLocalSource:'printed', releaseYear:'2020', copyrightYear:'2019', yearSource:'release', game:'One Piece', category:'Leader', colorElements:['Red', 'Green'], subtypeDetail:'', setSource:'inferred_name', inferredFields:['set', 'year', 'rarity'], pokemonTypes:'', cardTypeLabel:'One Piece', sourceLanguage:'Chinese (Traditional)', languageLabel:'JAPANESE', series:'', name:'ルフィ', setName:'セット', year:'2020', cardNumber:'OP01-001', rarity:'L', gradeLabel:'Mint', artist:'Artist', notes:'Note', certNumber:'1', identificationStatus:'user_selected', fieldProvenance:{name:'gemini', rarity:'catalog', secret:'user'}};
   assert.equal((await create({request:req('/api/cards',{...card, rarity:''}),env:{DB}})).status,400);
   assert.equal((await create({request:req('/api/cards',card),env:{DB}})).status,201);
   assert.equal((await importCards({request:req('/api/cards/import',{cards:[{name:'Mew',certNumber:'2'}]}),env:{DB}})).status,200);
@@ -37,6 +37,7 @@ test('create and import retain provenance; legacy records remain unknown', async
   assert.equal(first.series, '');
   assert.equal(first.cardTypeLabel, 'One Piece');
   assert.equal(first.languageLabel, 'JAPANESE');
+  assert.equal(first.sourceLanguage, 'Chinese (Traditional)');
   assert.equal(first.category, 'Leader');
   assert.equal(first.name, 'ルフィ');
   assert.equal(first.setName, 'セット');

@@ -74,7 +74,7 @@ function cleanPatch(input) {
     subtypeDetail: ['subtype_detail', 60], setSource: ['set_source', 30],
     setNameLocal: ['set_name_local', 120], setNameEn: ['set_name_en', 120], setNameLocalSource: ['set_name_local_source', 20], setNameEnSource: ['set_name_en_source', 20], setNameEnType: ['set_name_en_type', 20],
     energyKind: ['energy_kind', 40], energyType: ['energy_type', 40],
-    sourceFinish: ['source_finish', 80], sourceLanguage: ['source_language', 20]};
+    sourceFinish: ['source_finish', 80], sourceLanguage: ['source_language', 60]};
   for (const [key, [column, limit]] of Object.entries(fields)) {
     if (typeof input[key] === 'string') patch[column] = input[key].trim().slice(0, limit);
   }

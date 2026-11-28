@@ -6,6 +6,7 @@ import backMasterUrl from '../../dcr-tag-70x20/source/dcr-tag-back.svg?url';
 import sheetMasterUrl from '../../dcr-tag-70x20/source/a4-40up-portrait.svg?url';
 import {CONDITION_OPTIONS} from './label-options.js';
 import {cardLabelMetadata} from './label-metadata.js';
+import {labelLanguage} from './card-language.js';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 const XLINK_NS = 'http://www.w3.org/1999/xlink';
@@ -95,9 +96,8 @@ function shortenToFit(value, rightValue) {
   return result;
 }
 
-const LANGUAGE_LABELS = {en: 'ENGLISH', th: 'THAI', ja: 'JAPANESE'};
 export function firstLine(value) {
-  const language = value.languageLabel || LANGUAGE_LABELS[value.language] || value.language.toUpperCase();
+  const language = labelLanguage(value.language, value.languageLabel);
   if (!value.year || !value.cardType) return '';
   return shortenToFit([value.year, value.cardType, language].filter(Boolean).join(' '), value.cardNumber);
 }

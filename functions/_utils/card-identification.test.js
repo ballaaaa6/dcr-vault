@@ -22,7 +22,7 @@ function identifyRequest(again = false) {
 test('sends the image and new schema and preserves printed multilingual fields', async () => {
   const originalFetch = globalThis.fetch;
   let payload;
-  const sample = {game: 'One Piece', language: 'ja', release_year: '2023', set_name: 'ロマンスドーン',
+  const sample = {game: 'One Piece', language: 'Japanese', release_year: '2023', set_name: 'ロマンスドーン',
     card_number: 'OP01-001', name: 'モンキー・D・ルフィ', rarity: 'L★', category: 'Leader', color_element: ['Red', 'Green'], subtype_detail: '', inferred_fields: []};
   globalThis.fetch = async (_url, init) => {
     payload = JSON.parse(init.body);
@@ -40,6 +40,9 @@ test('sends the image and new schema and preserves printed multilingual fields',
     assert.ok(payload.generationConfig.responseJsonSchema.required.includes('set_name'));
     assert.ok(!('set_name_local' in payload.generationConfig.responseJsonSchema.properties));
     assert.deepEqual(payload.generationConfig.responseJsonSchema.required, Object.keys(payload.generationConfig.responseJsonSchema.properties));
+    assert.equal(result.language, 'Japanese');
+    assert.deepEqual(payload.generationConfig.responseJsonSchema.properties.language, {type: 'string'});
+    assert.match(payload.contents[0].parts[0].text, /full English name/);
     assert.equal(result.name, sample.name);
     assert.equal(result.cardNumber, sample.card_number);
     assert.equal(result.rarity, 'L★');

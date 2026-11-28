@@ -7,7 +7,6 @@ import {checkCert, deleteCardImage, uploadCardImage} from '../store/cards.js';
 import {destroyCatalogSuggestions, initializeCatalogSuggestions, installCatalogSuggestions, invalidateCatalogSuggestions, closeCatalogOnOutsideClick} from './search-catalog.js';
 import {findAvailableCert, normalizeCert} from '../utils/cert.js';
 import {clearAppliedReading, resetCardIdentificationState} from './card-identification.js';
-import {languageCode, languageName} from '../utils/card-language.js';
 
 let certCheckVersion = 0;
 let certCheckTimer;
@@ -229,7 +228,7 @@ async function saveIntake() {
 window.addEventListener('intake-values-updated', () => {
   const language = document.getElementById('m-language');
   const code = document.getElementById('m-sourceLanguage');
-  if (language && code && document.activeElement !== language) language.value = languageName(code.value);
+  if (language && code && document.activeElement !== language) language.value = code.value;
   updateSubmitState();
 });
 
@@ -305,8 +304,8 @@ installCatalogSuggestions(field => {
   window.__intakeCatalogCard = null;
   if (['language', 'year', 'series', 'setName', 'cardNumber', 'name'].includes(field)) document.getElementById('m-artist').value = '';
   if (field === 'language') {
-    const code = languageCode(document.getElementById('m-language').value);
-    document.getElementById('m-sourceLanguage').value = code;
-    document.getElementById('m-languageLabel').value = code === 'en' ? '' : languageName(code).toUpperCase();
+    const language = document.getElementById('m-language').value.trim();
+    document.getElementById('m-sourceLanguage').value = language;
+    document.getElementById('m-languageLabel').value = '';
   }
 });

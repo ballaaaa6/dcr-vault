@@ -1,5 +1,8 @@
 # Changelog
 
+## Full language names - 2026-11-28
+- Use the full language name from card identification through saved cards and labels, while retaining compatibility with older language codes; remove Language code from Edit card details.
+
 ## Simplify release year reading - 2026-11-28
 - Ask Gemini for the card release year and omit the missing-year explanation.
 

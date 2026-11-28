@@ -10,10 +10,10 @@ function promoRarity(fields) {
 }
 
 export function intakeValues(fields, source) {
-  const englishSource = fields.language === 'en' ? source : null;
+  const englishSource = /^(english|en)$/i.test(fields.language || '') ? source : null;
   const latin = value => value && !hasNonLatinScript(value) ? value : '';
   return {
-    name: fields.form?.name || fields.englishName || englishSource?.name || (fields.language === 'en' ? fields.name : '') || '',
+    name: fields.form?.name || fields.englishName || englishSource?.name || (/^(english|en)$/i.test(fields.language || '') ? fields.name : '') || '',
     setName: displaySetName(latin(fields.form?.setName) || latin(fields.englishSetName) || englishSource?.setName || latin(source?.metadata?.englishSetName) || latin(source?.setName)),
     year: fields.form?.year || fields.year || source?.year || '',
     cardNumber: fields.form?.cardNumber || fields.cardNumber || source?.metadata?.verifiedPrintedNumber || '',

@@ -5,7 +5,7 @@ function formCard(certNumber) {
   const get = key => document.getElementById(`m-${key}`).value.trim();
   return {...identificationProvenance(), ...intakeClassification(), game: get('game'), name: get('name'), certNumber,
     setName: get('setName'), year: get('year'), cardTypeLabel: get('game'),
-    languageLabel: get('languageLabel'), sourceLanguage: get('sourceLanguage'), cardNumber: get('cardNumber'),
+    languageLabel: '', sourceLanguage: get('language'), cardNumber: get('cardNumber'),
     rarity: get('rarity'), gradeLabel: get('grade'), artist: get('artist'), status: 'in-vault'};
 }
 

@@ -34,7 +34,7 @@ For English text values intended for the form, capitalize the first letter of ea
 
 Allowed game values: Pokemon, Yu-Gi-Oh, One Piece, Dragon Ball Fusion World, Digimon, Lorcana, Riftbound, Vanguard, MTG, Gundam, Star Wars Unlimited. If unsure, leave game and its classification empty. Preserve the card's printed language for the card name.
 
-Use language codes en, ja, th, ko, zh-cn, zh-tw, de, fr, it, pt, es, id, nl, pl or ru. Classify using only the values below for the detected game. If no value applies leave it empty. For Pokemon Trainer return no color; for Yu-Gi-Oh Spell and Trap return no attribute. For MTG choose the first applicable category in this priority: Creature, Planeswalker, Land, Artifact, Enchantment, Instant, Sorcery, Battle. Return all visible colors.
+Return the card's printed language as its full English name, for example Japanese or English. If unsure, leave it empty. Classify using only the values below for the detected game. If no value applies leave it empty. For Pokemon Trainer return no color; for Yu-Gi-Oh Spell and Trap return no attribute. For MTG choose the first applicable category in this priority: Creature, Planeswalker, Land, Artifact, Enchantment, Instant, Sorcery, Battle. Return all visible colors.
 Pokemon: category Pokemon, Trainer, Energy; color Grass, Fire, Water, Lightning, Psychic, Fighting, Darkness, Metal, Fairy, Dragon, Colorless; subtype Pokemon Tool, Item, Supporter, Stadium, Basic, Special.
 Yu-Gi-Oh: category Monster, Spell, Trap; color DARK, LIGHT, FIRE, WATER, EARTH, WIND, DIVINE; subtype Normal, Effect, Fusion, Synchro, Xyz, Link, Ritual, Pendulum, Quick-Play, Continuous, Equip, Field, Counter.
 One Piece: category Leader, Character, Event, Stage, DON!!; color Red, Green, Blue, Purple, Black, Yellow.
@@ -55,7 +55,7 @@ export const CARD_READING_SCHEMA = {
   type: 'object',
   properties: {
     game: {type: 'string', enum: ['', ...CARD_GAMES]},
-    language: {type: 'string', enum: ['', 'en', 'ja', 'th', 'ko', 'zh-cn', 'zh-tw', 'de', 'fr', 'it', 'pt', 'es', 'id', 'nl', 'pl', 'ru']},
+    language: {type: 'string'},
     set_name: string, release_year: string,
     card_number: string, name: string, rarity: {type: 'string', description: 'Rarity code for the detected game, Promo for promotional printings, or empty when uncertain.'}, category: string,
     color_element: stringArray, subtype_detail: string,

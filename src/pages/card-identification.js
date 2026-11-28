@@ -1,6 +1,5 @@
 import {startCardScan} from '../components/card-scan.js';
 import {identifyCardImage} from '../store/cards.js';
-import {languageName} from '../utils/card-language.js';
 import {escapeHTML} from '../utils/format.js';
 
 let version = 0;
@@ -52,10 +51,10 @@ function applyReading(fields, id) {
   requestId = id || '';
   window.__intakeIdentification = {...fields, sourceLanguage: fields.language};
   window.__intakeCatalogCard = null;
-  const values = {game: fields.game, language: languageName(fields.language), sourceLanguage: fields.language,
+  const values = {game: fields.game, language: fields.language, sourceLanguage: fields.language,
     name: fields.name, setName: fields.setName, year: fields.year,
     cardNumber: fields.cardNumber, rarity: fields.rarity, cardTypeLabel: fields.game,
-    languageLabel: fields.language === 'en' ? '' : languageName(fields.language).toUpperCase()};
+    languageLabel: ''};
   applied = {};
   for (const [key, value] of Object.entries(values)) {
     const input = document.getElementById(`m-${key}`);

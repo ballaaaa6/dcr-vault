@@ -6,6 +6,7 @@ import {certificateFromPath, normalizeCert} from '../utils/cert.js';
 import {classificationLabel} from '../utils/card-classification.js';
 import {vaultBackground} from '../utils/vault-background.js';
 import {cardImageVariant} from '../utils/card-image-variant.js';
+import {languageName} from '../utils/card-language.js';
 
 export function certificateImages(card) {
   const actual = [['Front', card.frontImage], ['Back', card.backImage]].filter(([, url]) => url);
@@ -22,15 +23,6 @@ function imageGallery(card) {
     <dialog class="cert-viewer" data-cert="${escapeHTML(card.certNumber)}" aria-label="Enlarged card image"><div class="cert-viewer-toolbar"><span data-viewer-label></span><div class="cert-viewer-actions"><button type="button" data-viewer-download aria-label="Download image"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-4-4 4 4 4-4M5 20h14"/></svg></button><button type="button" data-viewer-close aria-label="Close image viewer">×</button></div></div>
       <div class="cert-viewer-body"><div class="cert-viewer-thumbs"></div><div class="cert-viewer-stage"><div class="cert-viewer-image"><img alt="" referrerpolicy="no-referrer"><span class="cert-zoom" aria-hidden="true"></span></div></div></div>
       <p class="cert-viewer-download-status" role="status"></p><p class="cert-viewer-hint">All images created by DCR Card Vault at <a href="/">DCR Card Vault</a> and are copyrights of DCR Card Vault, all rights reserved.</p></dialog>`;
-}
-
-function languageName(value) {
-  if (!value) return '';
-  try {
-    return new Intl.DisplayNames(['en'], {type: 'language'}).of(value) || value;
-  } catch {
-    return value;
-  }
 }
 
 export function itemInformation(card, {showClassification = true} = {}) {

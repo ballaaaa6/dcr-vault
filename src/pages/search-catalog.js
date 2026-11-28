@@ -1,6 +1,5 @@
 import {intakeTooltip} from './intake-tooltip.js';
 import {CARD_GAMES} from '../utils/card-games.js';
-import {languageName} from '../utils/card-language.js';
 
 let roots = [];
 let onEdit = () => {};
@@ -15,7 +14,7 @@ export function catalogField(id, label, placeholder, {wide = false, required = t
 }
 
 async function optionsFor(field, query) {
-  const values = field === 'game' ? CARD_GAMES : field === 'language' ? ['en', 'ja', 'th', 'ko', 'zh-cn', 'zh-tw', 'de', 'fr', 'it', 'pt', 'es', 'id', 'nl', 'pl', 'ru'].map(languageName) : [];
+  const values = field === 'game' ? CARD_GAMES : field === 'language' ? ['English', 'Japanese', 'Thai', 'Korean', 'Chinese (Simplified)', 'Chinese (Traditional)', 'German', 'French', 'Italian', 'Portuguese', 'Spanish', 'Indonesian', 'Dutch', 'Polish', 'Russian'] : [];
   return values.filter(value => value.toLowerCase().includes(query.toLowerCase()));
 }
 
