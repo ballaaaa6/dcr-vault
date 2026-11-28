@@ -58,7 +58,7 @@
 .section-number{display:grid;width:36px;height:36px;flex:0 0 36px;place-items:center;border-radius:50%;background:var(--dcr-red-light);color:var(--dcr-red);font-size:var(--font-size-description);font-weight:750}
 .upload-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .upload-item{display:grid;align-content:start;gap:8px;min-width:0}
-.upload-label{font-size:var(--font-size-body);font-weight:700}
+.upload-label{font-size:var(--font-size-body);font-weight:700;line-height:17px}
 .upload-frame{position:relative;min-width:0}
 .upload-field{display:block;position:relative;aspect-ratio:3/4;max-height:340px;overflow:hidden;border:1px dashed var(--dcr-gray);border-radius:16px;background:var(--dcr-white);cursor:pointer;transition:border-color .2s,background .2s}
 .upload-field:hover,.upload-field:focus-within,.upload-field.is-dragging{border-color:var(--dcr-red);background:var(--dcr-red-light)}
