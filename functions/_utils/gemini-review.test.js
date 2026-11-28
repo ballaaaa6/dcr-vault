@@ -13,6 +13,8 @@ test('review sends the image and current details with review instructions', asyn
     const result = await reviewWithGemini({GEMINI_API_KEY: 'test-key'}, new Uint8Array([1, 2]), 'image/jpeg', 'review', {name: 'Pikachu', cardNumber: '026'});
     assert.equal(result.fields.cardNumber, '025');
     assert.match(payload.contents[0].parts[0].text, /"cardNumber":"026"/);
+    assert.match(payload.contents[0].parts[0].text, /artwork, layout, and visible symbols/);
+    assert.match(payload.contents[0].parts[0].text, /Prioritize clearly visible text and card numbers over visual guesses/);
     assert.match(payload.contents[0].parts[0].text, /If unsure/);
     assert.equal(payload.contents[0].parts[1].inline_data.data, 'AQI=');
   } finally { globalThis.fetch = original; }

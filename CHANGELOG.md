@@ -1,5 +1,8 @@
 # Changelog
 
+## Card review evidence - 2026-11-28
+- Use artwork, layout, and symbols alongside printed evidence during repeated card identification.
+
 ## Card artwork identification - 2026-11-28
 - Use artwork and layout alongside printed evidence when identifying cards.
 
