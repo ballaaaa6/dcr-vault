@@ -1,5 +1,8 @@
 # Changelog
 
+## Card game suffix cleanup - 2026-11-28
+- Remove generic card game suffixes from unmatched and ambiguous game names.
+
 ## Universal card game names - 2026-11-28
 - Allow Gemini to identify any card game and normalize recognized names consistently when reading and saving cards.
 - Preserve unknown or ambiguous names for review and support longer game names.
