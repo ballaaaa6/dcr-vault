@@ -1,5 +1,7 @@
 #
 
+- Place Showcases above Storage location in Vault private editing.
+
 - Use the shared dropdown for Vault acquisition selection.
 
 - Keep tall Vault edit forms sticky without an inner scrollbar.
