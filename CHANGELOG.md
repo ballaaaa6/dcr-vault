@@ -1,7 +1,7 @@
 # Changelog
 
 ## Add Card label alignment - 2026-11-28
-- Align the image labels with the first card details label while retaining the shared action row.
+- Align the first card details label with the image labels while retaining the shared action row.
 
 ## Add Card button alignment - 2026-11-28
 - Center the identification button beside its notice and align both action buttons in a shared desktop row.
