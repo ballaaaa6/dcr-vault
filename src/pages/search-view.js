@@ -1,4 +1,5 @@
 import {intakeTooltip} from './intake-tooltip.js';
+import {tooltip} from '../components/tooltip.js';
 import {catalogField} from './search-catalog.js';
 import {dropdown} from '../components/dropdown.js';
 import {CONDITION_OPTIONS, conditionOptionLabel} from '../utils/label-options.js';
@@ -6,8 +7,17 @@ import {identificationDialogMarkup} from './card-identification.js';
 import {cornerSwitchIcon} from '../components/corner-switch.js';
 import {CARD_CORNERS} from '../utils/card-corners.js';
 
+const photoHelp = {
+  front: 'Upload a photo of the full front of the card.',
+  back: 'Upload a photo of the full back of the card.',
+  'back-top-left': 'Upload a close-up of the top left corner on the back of the card.',
+  'back-top-right': 'Upload a close-up of the top right corner on the back of the card.',
+  'back-bottom-left': 'Upload a close-up of the bottom left corner on the back of the card.',
+  'back-bottom-right': 'Upload a close-up of the bottom right corner on the back of the card.'
+};
+
 function photoField(side, label) {
-  return `<div class="upload-item"><span class="upload-label">${label}</span><div class="upload-frame">
+  return `<div class="upload-item"><span class="upload-label">${label}${tooltip({id: `photo-help-${side}`, label: `Help with ${label.toLowerCase()}`, message: photoHelp[side]})}</span><div class="upload-frame">
     <label class="upload-field" for="m-image-${side}" data-drop-side="${side}">
       <input id="m-image-${side}" data-upload-side="${side}" type="file" accept="image/jpeg,image/png,image/webp" aria-label="Choose ${label.toLowerCase()}">
       <div class="upload-preview" data-image-preview="${side}">${emptyPhotoMarkup()}</div>

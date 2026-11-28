@@ -1,5 +1,7 @@
 #
 
+- Add help tooltips to all six card image upload headings.
+
 - Center the certificate viewer heading, refine its controls and spacing, and keep its frame stable when changing images.
 
 - Move the Card images corner switch inside the upper-right corner of its block.
