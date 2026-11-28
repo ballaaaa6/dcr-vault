@@ -213,6 +213,7 @@
 
 
 @media(max-width:480px){.label-list-heading{top:68px}}
+@media(max-width:760px){.label-list-heading::after{display:none}}
 
 /* Keep these page titles close to the top of the content area. */
 .app-page:is(.vault-page,.label-page,.profile-page){padding-top:16px}

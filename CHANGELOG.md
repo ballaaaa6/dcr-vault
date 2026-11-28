@@ -1,5 +1,7 @@
 #
 
+- Prevent the Print queue background from covering Add certificates on mobile.
+
 - Show selected Vault details and photo between card rows on mobile, and scroll to the details when opening or editing.
 
 - Place Showcases above Storage location and Position in Vault private details.
