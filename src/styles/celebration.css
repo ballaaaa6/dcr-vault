@@ -1,5 +1,5 @@
 .celebration-overlay{position:fixed;inset:0;z-index:1000;pointer-events:none;animation:celebration-fade 4s linear forwards}
-.celebration-fireworks{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:min(100vw,720px);height:min(100vw,720px)}
+.celebration-fireworks{z-index:1;position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:min(100vw,720px);height:min(100vw,720px)}
 .celebration-message{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(900px,calc(100vw - 24px));color:var(--dcr-white)}
 .celebration-message svg{display:block;width:100%;height:auto;overflow:hidden}
 .celebration-message text{fill:var(--dcr-white);font-family:var(--font-sans);font-size:38px;font-weight:700}

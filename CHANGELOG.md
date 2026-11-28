@@ -1,5 +1,7 @@
 #
 
+- Render celebration fireworks above the ribbon and message.
+
 - Display the first-card celebration on a curved red ribbon with matching curved text.
 
 - Use a red background and white text for the first-card celebration.
