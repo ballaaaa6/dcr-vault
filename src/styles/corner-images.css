@@ -1,10 +1,10 @@
-.corner-switch{display:grid;place-items:center;width:40px;height:40px;padding:0;border:1px solid var(--dcr-border);border-radius:50%;background:var(--dcr-white);color:var(--dcr-red);cursor:pointer}
+.corner-switch{display:grid;place-items:center;width:40px;height:40px;padding:0;border:1px solid var(--dcr-red);border-radius:50%;background:var(--dcr-red);color:var(--dcr-white);cursor:pointer}
 .corner-switch:disabled{opacity:.4;cursor:not-allowed}
 .corner-switch-icon{display:block;width:34px;height:34px}
 .corner-switch-animate .corner-switch-icon path{transform-box:fill-box;transform-origin:center;animation:corner-arrow-flip .55s ease-in-out}
 .corner-switch-animate .corner-switch-icon path:nth-child(2){animation-name:corner-arrow-flip-reverse}
-@keyframes corner-arrow-flip{to{transform:rotateX(360deg)}}
-@keyframes corner-arrow-flip-reverse{to{transform:rotateX(-360deg)}}
+@keyframes corner-arrow-flip{to{transform:rotateY(360deg)}}
+@keyframes corner-arrow-flip-reverse{to{transform:rotateY(-360deg)}}
 .intake-card:has(.intake-corner-switch){position:relative}
 .sk-intake-images{position:relative}.sk-corner-switch{position:absolute;right:42px;top:-20px;width:40px;height:40px;border-radius:50%}
 .intake-corner-switch{position:absolute;right:42px;top:-20px;z-index:3}
