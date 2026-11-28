@@ -1,5 +1,8 @@
 # Changelog
 
+## Complete card reading responses - 2026-11-28
+- Explicitly require a value for every applicable field in the final Gemini response.
+
 ## Review card readings - 2026-11-28
 - Ask Gemini to review and complete applicable card details, choosing the most likely value when uncertain.
 

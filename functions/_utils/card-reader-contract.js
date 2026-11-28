@@ -34,7 +34,7 @@ Star Wars Unlimited: category Leader, Base, Unit, Event, Upgrade; color Vigilanc
 For Pokemon use the type symbol, not attack costs. For Yu-Gi-Oh use the Attribute icon. For MTG use mana cost and color indicator, not symbols in rules text. For One Piece, Digimon, Dragon Ball Fusion World and Gundam use the card's color indicator; for Lorcana use ink, Riftbound domain, Vanguard nation and Star Wars Unlimited aspects. Never use artwork color.
 For games without listed subtypes, return an empty subtype. For Pokemon Trainer prefer Pokemon Tool over Item when both are printed. For Yu-Gi-Oh Monster use priority Fusion, Synchro, Xyz, Link, Ritual, Pendulum, Effect, Normal. For Spell use Field, Equip, Continuous, Quick-Play, Ritual; for Trap use Counter, Continuous. If a subtype applies but is not visible, choose the most likely listed subtype.
 
-Before returning the final answer, review all fields against the image and available card details. Correct errors and fill missing applicable fields. When uncertain, choose the most likely value based on the available evidence. Return one complete JSON response.`;
+Before returning the final answer, review all fields against the image and available card details. Correct errors and fill missing applicable fields. When uncertain, choose the most likely value based on the available evidence. Return one final JSON response with every applicable field filled. Do not leave applicable fields empty.`;
 
 const string = {type: 'string'};
 const stringArray = {type: 'array', items: string};
