@@ -1,5 +1,7 @@
 #
 
+- Show the disabled Vault card-image flip button in light red.
+
 - Add Change Card Details to edit an existing card and its photos while retaining its reserved certificate.
 
 - Use the shared confirmation dialog for showcase deletion.
