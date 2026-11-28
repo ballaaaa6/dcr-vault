@@ -8,3 +8,7 @@ test('normalizes new and legacy values while preserving full names', () => {
     assert.equal(formatRarity(input), expected);
   }
 });
+
+test('preserves One Piece star marks', () => {
+  for (const value of ['SR★', 'R★', 'SEC★★', 'Promo★', 'SR']) assert.equal(formatRarity(value), value);
+});

@@ -23,7 +23,7 @@ test('sends the image and new schema and preserves printed multilingual fields',
   const originalFetch = globalThis.fetch;
   let payload;
   const sample = {game: 'One Piece', language: 'ja', release_year: '2023', set_name: 'ロマンスドーン',
-    card_number: 'OP01-001', name: 'モンキー・D・ルフィ', rarity: 'L', category: 'Leader', color_element: ['Red', 'Green'], subtype_detail: '', inferred_fields: ['year']};
+    card_number: 'OP01-001', name: 'モンキー・D・ルフィ', rarity: 'L★', category: 'Leader', color_element: ['Red', 'Green'], subtype_detail: '', inferred_fields: ['year']};
   globalThis.fetch = async (_url, init) => {
     payload = JSON.parse(init.body);
     return Response.json({candidates: [{content: {parts: [{text: JSON.stringify(sample)}]}}]});
@@ -42,6 +42,8 @@ test('sends the image and new schema and preserves printed multilingual fields',
     assert.deepEqual(payload.generationConfig.responseJsonSchema.required, Object.keys(payload.generationConfig.responseJsonSchema.properties));
     assert.equal(result.name, sample.name);
     assert.equal(result.cardNumber, sample.card_number);
+    assert.equal(result.rarity, 'L★');
+    assert.match(payload.contents[0].parts[0].text, /For One Piece only, append one ★/);
     assert.equal(result.setName, sample.set_name);
     assert.deepEqual(result.colorElements, ['Red', 'Green']);
     assert.deepEqual(result.inferredFields, ['year']);

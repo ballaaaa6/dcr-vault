@@ -1,5 +1,8 @@
 # Changelog
 
+## One Piece rarity stars - 2026-11-28
+- Preserve clearly visible One Piece rarity stars in card readings.
+
 ## Simplify set reading - 2026-11-28
 - Ask Gemini for one set name in the card language and remove redundant set fields from the reading schema.
 
