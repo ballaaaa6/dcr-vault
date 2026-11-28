@@ -27,7 +27,7 @@
   .intake-page .upload-grid{flex:1;align-items:stretch}
   .intake-page .upload-item{grid-template-rows:auto minmax(0,1fr);align-content:stretch}
   .intake-page .upload-field{height:100%;min-height:260px;max-height:none;aspect-ratio:auto}
-  .intake-page .manual-submit{justify-self:end;align-self:center;margin-top:28px}
+  .intake-page .manual-submit{justify-self:end;align-self:center;margin-top:18px}
   #app:has(.intake-page) .site-footer{padding-top:8px;padding-bottom:10px}
 }
 .intake-page .form-field:has(> .catalog-control[data-catalog-control="name"]){grid-column:1/-1}
@@ -87,7 +87,7 @@
 @media (hover:none){.upload-clear{opacity:1}}
 @media (prefers-reduced-motion:reduce){.upload-clear{transition:none}}
 .card-scan{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.identification-actions{display:flex;align-items:center;gap:12px;margin-top:14px}
+.identification-actions{display:flex;align-items:center;gap:12px;margin-top:18px}
 .identification-actions .btn{flex:none}
 .identification-notice{flex:1;min-width:0;margin:0;color:var(--dcr-gray);font-size:var(--font-size-description)}
 .identification-dialog{position:fixed;width:min(820px,calc(100% - 32px));max-width:none;max-height:min(86vh,900px);margin:auto;padding:0;overflow:visible;border:1px solid var(--dcr-border);border-radius:22px;background:linear-gradient(color-mix(in srgb,var(--dcr-white) 80%,transparent),color-mix(in srgb,var(--dcr-white) 80%,transparent)),url('/assets/labels/reading-maple.png') right top/cover no-repeat var(--dcr-white);color:var(--dcr-black);box-shadow:var(--shadow-lg)}

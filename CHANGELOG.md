@@ -1,5 +1,8 @@
 # Changelog
 
+## Add Card action spacing - 2026-11-28
+- Match the spacing above both action areas so their buttons share the same vertical alignment.
+
 ## Add Card label alignment - 2026-11-28
 - Align the first card details label with the image labels while retaining the shared action row.
 
