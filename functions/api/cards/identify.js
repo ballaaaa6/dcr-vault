@@ -44,13 +44,14 @@ async function identifyWithGemini(image, contentType, env, userId, model) {
   const requestId = crypto.randomUUID();
   let fields;
   let rawReading;
+  let review;
   let failure;
   try {
-    fields = await analyzeWithGemini(env, image, contentType, requestId, value => { rawReading = value; }, model);
+    fields = await analyzeWithGemini(env, image, contentType, requestId, (value, info) => { rawReading = value; review = info; }, model);
   } catch (cause) { failure = cause; }
   await safeRecordIdentification(env.DB, userId, {requestId, model, durationMs: Date.now() - startedAt,
     outcome: failure?.code || (fields ? 'success' : 'unreadable'), reading: {raw: safeRawReading(rawReading), normalized: safeRawReading(fields),
-      fieldStates: readingFieldStates(rawReading, fields, failure)}});
+      fieldStates: readingFieldStates(rawReading, fields, failure), ...(review ? {review: {initial: safeRawReading(review.initial), retryOutcome: review.retryOutcome, missingBefore: review.missingBefore, missingAfter: review.missingAfter}} : {})}});
   if (failure) return geminiFailure(failure, requestId, model);
   if (!fields) return json({error: 'Gemini could not identify this card from the image.',
     code: 'card_unreadable', requestId}, 422);

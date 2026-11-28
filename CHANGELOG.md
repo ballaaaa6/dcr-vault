@@ -1,5 +1,8 @@
 # Changelog
 
+## Complete missing card details - 2026-11-28
+- Ask Gemini for all main card details and retry missing fields once, preserving available values and showing any remaining gaps.
+
 ## Complete card reading responses - 2026-11-28
 - Explicitly require a value for every applicable field in the final Gemini response.
 

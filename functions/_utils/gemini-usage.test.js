@@ -44,7 +44,7 @@ test('each retry reserves the next shared key and the next request continues aft
   globalThis.fetch = async (_url, init) => {
     calls.push(init.headers['x-goog-api-key']);
     if (calls.length < 3) return Response.json({error: {status: 'UNAVAILABLE'}}, {status: 503});
-    return Response.json({name: 'Pikachu'});
+    return Response.json({game: 'Pokemon', language: 'English', name: 'Pikachu', set_name: 'Set', release_year: '2020', card_number: '1', rarity: 'C'});
   };
   try {
     await analyzeWithGemini(env, new Uint8Array([1]), 'image/jpeg', 'first');

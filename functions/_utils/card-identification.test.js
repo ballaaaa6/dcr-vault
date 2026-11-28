@@ -111,7 +111,7 @@ test('moves to the next configured key only when Gemini rejects a key', async ()
   globalThis.fetch = async (_url, init) => {
     calls.push(init.headers['x-goog-api-key']);
     if (calls.length === 1) return Response.json({error: {status: 'INVALID_ARGUMENT', message: 'API key not valid.', details: [{reason: 'API_KEY_INVALID'}]}}, {status: 400});
-    return Response.json({candidates: [{content: {parts: [{text: JSON.stringify({name: 'Pikachu', language: 'en'})}]}}]});
+    return Response.json({candidates: [{content: {parts: [{text: JSON.stringify({game: 'Pokemon', name: 'Pikachu', language: 'English', set_name: 'Set', release_year: '2020', card_number: '1', rarity: 'C'})}]}}]});
   };
   try {
     const result = await analyzeWithGemini({GEMINI_API_KEYS: 'bad-test-key\ngood-test-key'}, new Uint8Array([1]), 'image/jpeg', 'key-failover-test');

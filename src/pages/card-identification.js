@@ -77,8 +77,11 @@ function applyReading(fields, id) {
   panel.innerHTML = detailMarkup();
   document.getElementById('identification-info').hidden = false;
   const status = document.getElementById('manual-status');
-  status.dataset.state = 'success';
-  status.textContent = 'Card reading complete. Review the details before saving.';
+  const missing = [['game', 'Card game'], ['language', 'Language'], ['year', 'Year'], ['setName', 'Set'],
+    ['cardNumber', 'Card number'], ['name', 'Name'], ['rarity', 'Rarity']]
+    .filter(([key]) => !document.getElementById(`m-${key}`)?.value.trim()).map(([, label]) => label);
+  status.dataset.state = missing.length ? 'warning' : 'success';
+  status.textContent = missing.length ? `Review and fill missing details: ${missing.join(', ')}.` : 'Card reading complete. Review the details before saving.';
 }
 export function logIdentificationStage(stage, details) {
   if (!requestId) return;

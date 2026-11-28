@@ -5,7 +5,7 @@ export const CARD_READING_PROMPT = `You are a trading card identification assist
 
 Copy the card name and full collector number as printed, preserving script, punctuation, leading zeroes and any prefix, suffix or denominator. If partially unreadable, choose the most likely complete value. Identify the game and language from the available evidence. Classify category, color and subtype using the indicators for that game, not artwork or attack text.
 
-Rarity: Return the card's rarity as an uppercase abbreviation.
+Rarity: Return the card's rarity as an uppercase abbreviation. Provide the most likely rarity even if no rarity symbol is visible, using the available card details.
 
 Identify the exact physical printing and its printed language.
 
@@ -34,7 +34,7 @@ Star Wars Unlimited: category Leader, Base, Unit, Event, Upgrade; color Vigilanc
 For Pokemon use the type symbol, not attack costs. For Yu-Gi-Oh use the Attribute icon. For MTG use mana cost and color indicator, not symbols in rules text. For One Piece, Digimon, Dragon Ball Fusion World and Gundam use the card's color indicator; for Lorcana use ink, Riftbound domain, Vanguard nation and Star Wars Unlimited aspects. Never use artwork color.
 For games without listed subtypes, return an empty subtype. For Pokemon Trainer prefer Pokemon Tool over Item when both are printed. For Yu-Gi-Oh Monster use priority Fusion, Synchro, Xyz, Link, Ritual, Pendulum, Effect, Normal. For Spell use Field, Equip, Continuous, Quick-Play, Ritual; for Trap use Counter, Continuous. If a subtype applies but is not visible, choose the most likely listed subtype.
 
-Before returning the final answer, review all fields against the image and available card details. Correct errors and fill missing applicable fields. When uncertain, choose the most likely value based on the available evidence. Return one final JSON response with every applicable field filled. Do not leave applicable fields empty.`;
+Before returning the final answer, review all fields against the image and available card details. Correct errors and fill missing applicable fields. When uncertain, choose the most likely value based on the available evidence. Always provide game, language, release_year, set_name, card_number, name and rarity. If uncertain, choose the most likely value. Leave other fields empty only when they do not apply. Return one final JSON response.`;
 
 const string = {type: 'string'};
 const stringArray = {type: 'array', items: string};
