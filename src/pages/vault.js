@@ -32,6 +32,18 @@ let vaultBusy = false;
 let bulkSelection = new Set();
 const selectableRow = card => `<div class="vault-select-row">${listRow(card)}<label class="vault-row-select">${heartCheckbox(`data-vault-select="${escapeHTML(card.id)}" aria-label="Select ${escapeHTML(card.name)} for deletion" ${bulkSelection.has(card.id) ? 'checked' : ''}`)}</label></div>`;
 let stopImagePrefetch = () => {};
+let vaultSizeObserver;
+
+function observeVaultSize() {
+  vaultSizeObserver?.disconnect();
+  const selected = document.querySelector('.vault-selected');
+  if (!selected || typeof ResizeObserver === 'undefined') return;
+  vaultSizeObserver = new ResizeObserver(() => {
+    if (!selected.isConnected) return vaultSizeObserver.disconnect();
+    selected.style.setProperty('--vault-selected-height', `${selected.offsetHeight}px`);
+  });
+  vaultSizeObserver.observe(selected);
+}
 const publicFields = [
   ['name', 'Card name', 120], ['certNumber', 'Cert number', 8], ['game', 'Brand / Title', 120], ['year', 'Year', 4],
   ['cardTypeLabel', 'Card type', 60],
@@ -187,6 +199,7 @@ function updateFilledField(field) {
 }
 
 export function initializeVault() {
+  observeVaultSize();
   initializeVaultFilter(async () => {
     const form = document.getElementById('vault-edit');
     if (form?.dataset.dirty !== 'true') return true;

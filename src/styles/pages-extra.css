@@ -295,4 +295,4 @@
 .label-dialog{overflow:visible;width:min(900px,calc(100% - 48px))}
 .label-dialog:not(:has(.label-vault-list,.sheet-preview-pages)) #label-dialog-content{max-height:calc(85vh - 48px);overflow:auto}
 
-@media(min-width:761px){.vault-detail:has(.vault-edit){max-height:calc(100dvh - 112px);overflow-y:auto;scroll-padding:var(--button-effect-space)}}
+@media(min-width:761px){.vault-selected:has(.vault-edit){top:min(96px,calc(100dvh - var(--vault-selected-height, 0px) - 16px))}}

@@ -1,5 +1,7 @@
 #
 
+- Keep tall Vault edit forms sticky without an inner scrollbar.
+
 - Keep Vault details available while scrolling in both edit modes.
 - Show a tooltip for the random Cert number button.
 
