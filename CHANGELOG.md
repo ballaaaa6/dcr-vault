@@ -1,5 +1,8 @@
 # Changelog
 
+## Simplify release year reading - 2026-11-28
+- Ask Gemini for the card release year and omit the missing-year explanation.
+
 ## One Piece rarity stars - 2026-11-28
 - Preserve clearly visible One Piece rarity stars in card readings.
 

@@ -26,9 +26,9 @@ Identify the exact physical printing and its printed language.
 
 Set: Identify the set of the card shown. Use the card number, visible symbols and other evidence. Do not rely on the card name or artwork alone. Return the full set name used for this card's language in set_name. If unsure, leave it empty.
 
-Year: Return release_year as the four-digit release year of this exact printing or local set, if known. Do not use a copyright year as the release year or infer release year from copyright alone. Use the card's visible language, name, set code, collector number and other evidence together with your knowledge to identify the exact set and release year. Do not invent values. Return an empty string when a field cannot be identified with reasonable confidence. Do not put codes or abbreviations in full set-name fields, except when they are part of the actual name. List knowledge-based release year and rarity in inferred_fields. Never identify condition, grade, finish, price or certificate number.
+Year: Return the four-digit release year of this card in release_year. If unsure, leave it empty.
 
-If release_year is empty, explain the uncertainty briefly in year_missing_reason; otherwise leave it empty.
+Do not put codes or abbreviations in full set-name fields, except when they are part of the actual name. Never identify condition, grade, finish, price or certificate number.
 
 For English text values intended for the form, capitalize the first letter of each word, for example "Neo" and "Scarlet & Violet". Preserve established spelling and capitalization of names, abbreviations and codes, such as McDonald's, XY, EX, and collector numbers. Preserve non-English scripts and copy collector numbers exactly; do not change internal capitalization of printed names or codes.
 
@@ -57,11 +57,10 @@ export const CARD_READING_SCHEMA = {
     game: {type: 'string', enum: ['', ...CARD_GAMES]},
     language: {type: 'string', enum: ['', 'en', 'ja', 'th', 'ko', 'zh-cn', 'zh-tw', 'de', 'fr', 'it', 'pt', 'es', 'id', 'nl', 'pl', 'ru']},
     set_name: string, release_year: string,
-    year_missing_reason: string,
     card_number: string, name: string, rarity: {type: 'string', description: 'Rarity code for the detected game, Promo for promotional printings, or empty when uncertain.'}, category: string,
     color_element: stringArray, subtype_detail: string,
-    inferred_fields: {type: 'array', items: {type: 'string', enum: ['year', 'rarity']}}
+    inferred_fields: {type: 'array', items: {type: 'string', enum: ['rarity']}}
   },
-  required: ['game', 'language', 'set_name', 'release_year', 'year_missing_reason', 'card_number', 'name',
+  required: ['game', 'language', 'set_name', 'release_year', 'card_number', 'name',
     'rarity', 'category', 'color_element', 'subtype_detail', 'inferred_fields']
 };

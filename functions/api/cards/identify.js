@@ -68,7 +68,7 @@ function readingFieldStates(raw, fields, failure) {
 function safeRawReading(value) {
   const keys = ['set_name', 'set_name_en', 'set_name_local', 'set_name_en_source', 'set_name_local_source', 'setNameEnSource', 'setNameLocalSource', 'set_code', 'set_name_en_type', 'release_year', 'copyright_year', 'setNameEn', 'setNameLocal', 'setNameEnType', 'releaseYear', 'copyrightYear', 'yearSource', 'game', 'set', 'set_source', 'card_number', 'color_element', 'subtype_detail', 'inferred_fields', 'setSource', 'colorElements', 'subtypeDetail', 'inferredFields', 'cardTypeLabel', 'languageLabel', 'series', 'category', 'trainerType', 'energyKind', 'energyType', 'formName', 'formSetName', 'formYear', 'formCardNumber', 'formRarity', 'name', 'englishName', 'setName', 'englishSetName', 'setCode', 'cardNumber', 'language', 'year',
     'rarity', 'hp', 'illustrator', 'types', 'stamp', 'setSymbol', 'copyrightText', 'identificationSummary', 'identityStatus', 'evidence', 'uncertainFields',
-    'year_missing_reason', 'set_missing_reason'];
+    'set_missing_reason'];
   if (!value || typeof value !== 'object') return {};
   const form = value.form && typeof value.form === 'object' ? Object.fromEntries(
     Object.entries(value.form).filter(([, item]) => typeof item === 'string').map(([key, item]) => [key, item.slice(0, 300)])) : undefined;

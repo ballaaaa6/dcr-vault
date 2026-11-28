@@ -11,7 +11,7 @@ export function normalizeCardReading(value) {
   const releaseYear = /^\d{4}$/.test(clean(value.release_year)) ? clean(value.release_year) : '';
   const year = releaseYear;
   const inferredFields = Array.isArray(value.inferred_fields) ? [...new Set(value.inferred_fields.filter(key =>
-    (key === 'year' && year) || (key === 'rarity' && clean(value.rarity))))] : [];
+    key === 'rarity' && clean(value.rarity)))] : [];
   const reading = {game: games.has(game) ? game : '', language: languages.has(language) ? language : '',
     year, releaseYear, yearSource: releaseYear ? 'release' : '',
     setName,
