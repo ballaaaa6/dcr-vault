@@ -45,8 +45,8 @@ export function searchMarkup() {
                 <svg aria-hidden="true" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 10 H12 A2 2 0 0 1 14 12 V19 A2 2 0 0 1 12 21 H5 A2 2 0 0 1 3 19 V12 A2 2 0 0 1 5 10 Z"></path><path d="M10 6.75 L10 5 A2 2 0 0 1 12 3 L19 3 A2 2 0 0 1 21 5 L21 12 A2 2 0 0 1 19 14 L17.25 14"></path><path d="M6.5 13.25 V13.75 M10.5 17.25 V17.75 M17.5 6.25 V6.75"></path></svg>
               </button>
             </span></div>
-            <button class="btn btn-primary manual-submit" id="manual-submit" type="button"><span>Add card</span><span class="action-sizer" aria-hidden="true">Add card</span><span class="action-sizer" aria-hidden="true">Saving…</span><span class="action-sizer" aria-hidden="true">Try again</span></button>
           </div>
+          <button class="btn btn-primary manual-submit" id="manual-submit" type="button"><span>Add card</span><span class="action-sizer" aria-hidden="true">Add card</span><span class="action-sizer" aria-hidden="true">Saving…</span><span class="action-sizer" aria-hidden="true">Try again</span></button>
         </section>
       </div>
       <div class="intake-status-sources"><p id="photo-status" class="import-status" role="status" aria-live="polite"></p><p id="manual-status" class="import-status" role="status" aria-live="polite"></p><small id="m-cert-status" class="field-status" role="status" aria-live="polite"></small></div>

@@ -12,7 +12,7 @@ function homeSkeleton() {
 function intakeSkeleton() {
   const photos = Array.from({length: 2}, () => `<div class="upload-item">${bar('sk-label')}<div class="upload-frame">${bar('sk-upload')}</div></div>`).join('');
   const fields = Array.from({length: 9}, (_, index) => `<div class="${[0, 3, 4, 5, 6].includes(index) ? 'sk-wide' : ''}">${field()}</div>`).join('');
-  return `<main class="app-page intake-page sk-page">${heading()}<div class="intake-grid">${panel(`<div class="section-heading"><div>${bar('sk-section-title')}${bar()}</div></div><div class="upload-grid">${photos}</div><div class="identification-actions">${bar('identification-notice')}${bar('sk-button')}</div>`, 'intake-card')}${panel(`<div class="section-heading"><div>${bar('sk-section-title')}${bar()}</div></div><div class="field-grid">${fields}${bar('sk-button manual-submit')}</div>`, 'intake-card')}</div></main>`;
+  return `<main class="app-page intake-page sk-page">${heading()}<div class="intake-grid">${panel(`<div class="section-heading"><div>${bar('sk-section-title')}${bar()}</div></div><div class="upload-grid">${photos}</div><div class="identification-actions">${bar('identification-notice')}${bar('sk-button')}</div>`, 'intake-card')}${panel(`<div class="section-heading"><div>${bar('sk-section-title')}${bar()}</div></div><div class="field-grid">${fields}</div>${bar('sk-button manual-submit')}`, 'intake-card')}</div></main>`;
 }
 
 function vaultSkeleton() {

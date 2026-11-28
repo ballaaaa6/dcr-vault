@@ -1,7 +1,7 @@
 # Changelog
 
 ## Add Card button alignment - 2026-11-28
-- Center the identification button beside its notice and align the Add card button with it on desktop.
+- Center the identification button beside its notice and align both action buttons in a shared desktop row.
 
 ## Full set names in card reviews - 2026-11-28
 - Prefer identifiable full official set names during repeated card identification.
