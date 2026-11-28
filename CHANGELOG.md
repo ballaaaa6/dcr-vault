@@ -1,5 +1,7 @@
 #
 
+- Balance the collection deletion message and position its close button across the corner.
+
 - Animate shared heart selection with a rising and falling wave.
 
 - Align Vault Select all with the left edge of the card list.

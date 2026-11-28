@@ -290,3 +290,6 @@
 .vault-edit .catalog-select__control{min-height:46px;border-radius:14px}
 .vault-edit .catalog-select__indicator-separator{display:none}
 .vault-edit .catalog-select__menu{z-index:30}
+
+#collections-delete-dialog{overflow:visible;width:min(440px,calc(100% - 48px))}
+#collections-delete-dialog .dialog-close{top:-19px;right:-19px}
