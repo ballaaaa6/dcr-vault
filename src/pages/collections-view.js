@@ -25,6 +25,7 @@ export function collectionItems(groups, cards) {
     const cover = group.cardIds.map(id => cards.find(card => card.id === id)).find(Boolean);
     const count = group.cardIds.length;
     return `<article class="surface-card collections-item" data-sort-id="${esc(group.id)}">
+      <button type="button" class="collections-delete" data-delete-id="${esc(group.id)}" aria-label="Delete ${esc(group.name)}"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6M10 10v6M14 10v6"/></svg></button>
       <button type="button" class="collections-open" data-open="${esc(group.id)}" aria-label="View ${esc(group.name)}"></button>
         <span class="collections-cover">${cover ? vaultImage(cover, 'collection-photo-empty', 'No photo') : '<span class="collection-photo-empty">No cards yet</span>'}</span>
         <span class="collections-item-body"><span class="collections-item-top"><strong>${esc(group.name)}</strong><span class="collections-badge ${group.shareToken ? 'collections-badge--public' : ''}">${group.shareToken ? 'Public' : 'Private'}</span></span>

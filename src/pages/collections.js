@@ -8,7 +8,7 @@ import {showToast} from '../components/toast.js';
 import {listView, detailView, collectionItems} from './collections-view.js';
 import {initializeCollectionSorting} from './collections-sorting.js';
 
-let groups = [], cards = [], selectedId = '', preview = false;
+let groups = [], cards = [], selectedId = '', deleteId = '', preview = false;
 const content = () => document.getElementById('collections-content');
 const current = () => groups.find(group => group.id === selectedId);
 const dialog = () => document.getElementById('collections-dialog');
@@ -89,16 +89,18 @@ async function handleAction(action) {
   if (action === 'preview') { preview = !preview; return draw(); }
   if (action === 'copy') { await navigator.clipboard.writeText(document.getElementById('collection-share-link').value); return showToast('Link copied.', 'success'); }
   if (action === 'enable-share' || action === 'disable-share') { await collectionsRequest('PATCH', {id: selectedId, share: action === 'enable-share'}); await refresh(); shareDialog(); dialog().querySelector('[data-share-switch]').focus(); return; }
-  if (action === 'delete') return openDeleteConfirmation();
-  if (action === 'confirm-delete') { await collectionsRequest('DELETE', {id: selectedId}); selectedId = ''; navigate(); dialog().close(); await refresh(); showToast('Showcase deleted.', 'success'); }
+  if (action === 'delete') return openDeleteConfirmation(selectedId);
+  if (action === 'confirm-delete') { await collectionsRequest('DELETE', {id: deleteId}); if (selectedId === deleteId) { selectedId = ''; navigate(); } deleteId = ''; dialog().close(); await refresh(); showToast('Showcase deleted.', 'success'); }
 }
-function openDeleteConfirmation() {
+function openDeleteConfirmation(id) {
+  deleteId = id;
   openDialog('Delete showcase?', '<p>Loading…</p>');
-  document.getElementById('collections-dialog-content').innerHTML = `<div class="collections-delete-confirmation"><h2>Delete showcase?</h2><p class="two-choice-description">Cards will remain in Vault. Any share link will stop working.</p><div class="two-choice-actions collections-actions"><button class="btn btn-ghost" data-action="edit">Cancel</button><button class="btn btn-primary" data-action="confirm-delete">Delete</button></div></div>`;
+  document.getElementById('collections-dialog-content').innerHTML = `<div class="collections-delete-confirmation"><h2>Delete ${esc(groups.find(group => group.id === id)?.name || 'showcase')}?</h2><p class="two-choice-description">Cards will remain in Vault. Any share link will stop working.</p><div class="two-choice-actions collections-actions"><button class="btn btn-ghost" data-close>Cancel</button><button class="btn btn-primary" data-action="confirm-delete">Delete</button></div></div>`;
 }
 async function handleClick(event) {
   const target = event.target.closest('button'); if (!target) return;
   if (target.hasAttribute('data-close')) return dialog().close();
+  if (target.dataset.deleteId) return openDeleteConfirmation(target.dataset.deleteId);
   if (target.dataset.groupAction) { selectedId = target.dataset.groupId; navigate(current()); draw(); return handleAction(target.dataset.groupAction); }
   if (target.dataset.open) { selectedId = target.dataset.open; navigate(current()); return draw(); }
   if (target.dataset.action) { target.closest('details')?.removeAttribute('open'); return handleAction(target.dataset.action); }

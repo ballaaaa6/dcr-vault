@@ -1,5 +1,7 @@
 #
 
+- Add a corner delete button and confirmation to each showcase.
+
 - Render celebration fireworks above the ribbon and message.
 
 - Display the first-card celebration on a curved red ribbon with matching curved text.
