@@ -1,5 +1,5 @@
 .celebration-overlay{position:fixed;inset:0;z-index:1000;pointer-events:none;animation:celebration-fade 4s linear forwards}
 .celebration-fireworks{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:min(100vw,720px);height:min(100vw,720px)}
-.celebration-message{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:max-content;max-width:calc(100vw - 32px);box-sizing:border-box;padding:18px 24px;border:1px solid var(--dcr-border);border-radius:var(--radius);background:var(--dcr-white);box-shadow:var(--shadow-lg);color:var(--dcr-black);font-size:var(--font-size-hero-title);font-weight:700;text-align:center}
+.celebration-message{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:max-content;max-width:calc(100vw - 32px);box-sizing:border-box;padding:18px 24px;border:1px solid var(--dcr-border);border-radius:var(--radius);background:var(--dcr-red);box-shadow:var(--shadow-lg);color:var(--dcr-white);font-size:var(--font-size-hero-title);font-weight:700;text-align:center}
 @keyframes celebration-fade{0%,50%{opacity:1}100%{opacity:0}}
 @media (prefers-reduced-motion:reduce){.celebration-overlay{animation:none}.celebration-fireworks{display:none}}

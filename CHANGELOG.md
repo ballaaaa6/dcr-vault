@@ -1,5 +1,7 @@
 #
 
+- Use a red background and white text for the first-card celebration.
+
 - Match the first-card celebration message to the hero title size.
 
 - Celebrate the first card added to an empty vault with a reusable randomized fireworks effect.
