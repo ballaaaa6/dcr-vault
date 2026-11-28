@@ -255,6 +255,7 @@
 .identification-read-field.review-changed .form-control{border-color:var(--reading-review-yellow);box-shadow:0 0 0 1px var(--reading-review-yellow)}
 
 .vault-bulk-toolbar{display:flex;align-items:center;gap:8px;min-height:30px;margin-bottom:6px;flex-wrap:wrap}
+.vault-bulk-toolbar .label-select-all{padding:0}
 .vault-bulk-actions{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.vault-bulk-actions[hidden]{display:none}
 .vault-bulk-actions .btn{padding:4px 10px;white-space:nowrap}
 .vault-select-row{position:relative;min-width:0}.vault-row-select{position:absolute;z-index:1;top:8px;right:8px}.vault-select-row .vault-row{padding-right:38px}
