@@ -1,5 +1,8 @@
 # Changelog
 
+## Add Card panel balance - 2026-11-28
+- Expand the image areas and bring the aligned action row closer to the panel bottoms.
+
 ## Add Card action row clearance - 2026-11-28
 - Balance the space above and below the action row and align both buttons using matching panel clearance.
 
