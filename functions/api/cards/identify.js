@@ -1,3 +1,4 @@
+import {formatFirstEdition} from '../../../src/utils/first-edition.js';
 import {error, json, sameOrigin} from '../../_utils/http.js';
 import {IMAGE_MAX_BYTES, readImageBody, supportedImageType} from '../../_utils/images.js';
 import {currentUser} from '../../_utils/sessions.js';
@@ -81,6 +82,7 @@ async function identifyWithGemini(image, contentType, env, userId, model, detail
   await safeRecordIdentification(env.DB, userId, {requestId, model, durationMs: Date.now() - startedAt,
     outcome: failure?.code || (fields ? 'success' : 'unreadable'), reading: {raw: safeRawReading(rawReading), normalized: safeRawReading(fields),
       fieldStates: readingFieldStates(rawReading, fields, failure), ...(review ? {review: {initial: safeRawReading(review.initial), retryOutcome: review.retryOutcome, missingBefore: review.missingBefore, missingAfter: review.missingAfter}} : {})}});
+  if (fields) fields.setName = formatFirstEdition(fields.setName, fields.hasFirstEdition);
   if (failure) return geminiFailure(failure, requestId, model);
   if (!fields) return json({error: 'Gemini could not identify this card from the image.',
     code: 'card_unreadable', requestId}, 422);

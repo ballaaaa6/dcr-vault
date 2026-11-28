@@ -179,3 +179,27 @@ test('keeps a reading with a language and collector number when the name is unre
   assert.equal(fields.cardNumber, '151/XY-P');
   assert.equal(fields.language, 'ja');
 });
+
+
+test('review sends image and detection prompt and follows latest boolean', async () => {
+  const originalFetch = globalThis.fetch;
+  let found = true;
+  globalThis.fetch = async (_url, init) => {
+    const payload = JSON.parse(init.body);
+    assert.match(payload.contents[0].parts[0].text, /first-printing symbol/);
+    assert.equal(payload.generationConfig.responseJsonSchema.properties.has_first_edition.type, 'boolean');
+    return Response.json({candidates: [{content: {parts: [{text: JSON.stringify({name: 'Card', set_name: 'Set', has_first_edition: found})}]}}]});
+  };
+  try {
+    for (const expected of [true, false]) {
+      found = expected;
+      const form = new FormData();
+      form.append('image', new Blob([new Uint8Array([1, 2])], {type: 'image/jpeg'}), 'card.jpg');
+      form.append('details', JSON.stringify({setName: 'Set - 1st'}));
+      const request = new Request('https://vault.example.test/api/cards/identify', {method: 'POST', headers: {Origin: 'https://vault.example.test', Cookie: 'dcr_session=test-session'}, body: form});
+      const result = await (await onRequestPost({request, env: testEnvironment()})).json();
+      assert.equal(result.fields.setName, expected ? 'Set - 1st' : 'Set');
+      assert.equal(result.fields.hasFirstEdition, expected);
+    }
+  } finally { globalThis.fetch = originalFetch; }
+});

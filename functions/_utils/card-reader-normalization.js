@@ -13,7 +13,7 @@ export function normalizeCardReading(value) {
     key === 'rarity' && clean(value.rarity)))] : [];
   const reading = {game: games.has(game) ? game : '', language,
     year, releaseYear, yearSource: releaseYear ? 'release' : '',
-    setName,
+    setName, hasFirstEdition: value.has_first_edition === true,
     cardNumber: clean(value.card_number, 30), name: clean(value.name), rarity: clean(value.rarity, 80),
     category: clean(value.category, 40), colorElements: Array.isArray(value.color_element) ? value.color_element.map(item => clean(item, 40)).filter(Boolean).slice(0, 10) : [],
     subtypeDetail: clean(value.subtype_detail, 60), inferredFields};

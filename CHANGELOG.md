@@ -1,5 +1,7 @@
 # Changelog
 
+- Detect first-printing symbols during card identification and apply the latest reading to the set name.
+
 ## Card review evidence - 2026-11-28
 - Use artwork, layout, and symbols alongside printed evidence during repeated card identification.
 

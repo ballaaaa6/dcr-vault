@@ -1,3 +1,4 @@
+import {formatFirstEdition} from '../utils/first-edition.js';
 import {startCardScan} from '../components/card-scan.js';
 import {identifyCardImage} from '../store/cards.js';
 import {escapeHTML} from '../utils/format.js';
@@ -80,6 +81,10 @@ function applyReading(fields, id) {
   requestId = id || '';
   window.__intakeIdentification = {...fields, sourceLanguage: fields.language};
   window.__intakeCatalogCard = null;
+  if (provenance.setName === 'user') {
+    const input = document.getElementById('m-setName');
+    input.value = formatFirstEdition(input.value, fields.hasFirstEdition);
+  }
   const values = {game: fields.game, language: fields.language, sourceLanguage: fields.language,
     name: fields.name, setName: fields.setName, year: fields.year,
     cardNumber: fields.cardNumber, rarity: fields.rarity, cardTypeLabel: fields.game,
@@ -144,10 +149,19 @@ async function analyzeFront() {
         merged.colorElements = merged.colorElements.filter(value => choices.colors.includes(value));
         if (!(choices.subtypes || []).includes(merged.subtypeDetail)) merged.subtypeDetail = '';
       }
+      // Keep a manually entered set name while applying the latest image reading.
+      const setBase = provenance.setName === 'user' ? before.setName : merged.setName;
+      merged.setName = formatFirstEdition(setBase, merged.hasFirstEdition);
       merged.releaseYear = merged.year;
       merged.yearSource = merged.year ? 'release' : '';
+      const userSet = provenance.setName === 'user';
       for (const key of [...reviewKeys, 'category', 'colorElements', 'subtypeDetail']) {
+        if (key === 'setName' && userSet) continue;
         if (JSON.stringify(merged[key]) !== JSON.stringify(before[key])) provenance[key] = 'gemini';
+      }
+      // The latest scan decides the suffix even when the base was edited by the user.
+      if (userSet) {
+        document.getElementById('m-setName').value = merged.setName;
       }
       markChanges(before, merged);
       applyReading(merged, result.requestId);
