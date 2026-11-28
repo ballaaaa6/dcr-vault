@@ -1,5 +1,7 @@
 #
 
+- Animate shared heart selection with a rising and falling wave.
+
 - Align Vault Select all with the left edge of the card list.
 
 - Shorten Vault deletion confirmation text and place its close button across the top-right corner.
