@@ -3,7 +3,7 @@ import {currentUser} from '../../../../_utils/sessions.js';
 import {createImageCapability, imageServiceRequest, IMAGE_MAX_BYTES, readImageBody, supportedImageType} from '../../../../_utils/images.js';
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-const SIDES = new Set(['front', 'back']);
+const SIDES = new Set(['front', 'back', 'back-top-left', 'back-top-right', 'back-bottom-left', 'back-bottom-right']);
 
 async function scope(request, env, params, requireSameOrigin = false, publicRead = false) {
   const fetchSite = request.headers.get('Sec-Fetch-Site');
@@ -40,7 +40,7 @@ async function serviceFailure(response) {
 }
 
 function validStoredImage(result, scopeData, contentType) {
-  const match = String(result?.objectKey || '').match(/^([0-9a-f-]{36})\/([0-9a-f-]{36})\/(front|back)\.(jpg|png|webp)$/i);
+  const match = String(result?.objectKey || '').match(/^([0-9a-f-]{36})\/([0-9a-f-]{36})\/(front|back|back-top-left|back-top-right|back-bottom-left|back-bottom-right)\.(jpg|png|webp)$/i);
   const expectedExtension = {'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp'}[contentType];
   return result && result.contentType === contentType && result.byteSize > 0 && result.byteSize <= IMAGE_MAX_BYTES
     && /^[0-9a-f]{64}$/i.test(result.sha256 || '')

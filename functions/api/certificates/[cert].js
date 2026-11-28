@@ -11,7 +11,8 @@ export async function onRequestGet({env, params}) {
     rarity, grade_label, card_type_label, language_label, source_language, source_finish,
     category, pokemon_types, trainer_type, energy_kind, color_elements, subtype_detail,
     EXISTS(SELECT 1 FROM card_images WHERE card_id = cards.id AND side = 'front') AS has_front,
-    EXISTS(SELECT 1 FROM card_images WHERE card_id = cards.id AND side = 'back') AS has_back
+    EXISTS(SELECT 1 FROM card_images WHERE card_id = cards.id AND side = 'back') AS has_back,
+    (SELECT GROUP_CONCAT(side) FROM card_images WHERE card_id = cards.id AND side LIKE 'back-%') AS corner_sides
     FROM cards WHERE cert_number = ? LIMIT 1`).bind(cert).first();
   if (!row) return json({card: null});
   const image = side => `/api/cards/${encodeURIComponent(row.id)}/images/${side}`;
@@ -21,7 +22,8 @@ export async function onRequestGet({env, params}) {
     sourceLanguage: row.source_language, sourceFinish: row.source_finish,
     category: row.category || '', colorElements: safeColors(row.color_elements), subtypeDetail: row.subtype_detail || '',
     backgroundType: vaultBackground({game: row.game, category: row.category, colorElements: safeColors(row.color_elements), subtypeDetail: row.subtype_detail, pokemonTypes: row.pokemon_types, trainerType: row.trainer_type, energyKind: row.energy_kind}),
-    frontImage: row.has_front ? image('front') : '', backImage: row.has_back ? image('back') : ''}});
+    frontImage: row.has_front ? image('front') : '', backImage: row.has_back ? image('back') : '',
+    cornerImages: Object.fromEntries(String(row.corner_sides || '').split(',').filter(Boolean).map(side => [side, image(side)]))}});
 }
 
 function safeColors(value) {

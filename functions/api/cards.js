@@ -13,7 +13,8 @@ export async function onRequestGet({request, env}) {
   const rows = await env.DB.prepare(`SELECT cards.*,
     (SELECT name FROM storage_locations WHERE id = cards.storage_location_id AND user_id = cards.user_id) AS storage_location,
     (SELECT object_key FROM card_images WHERE card_id = cards.id AND side = 'front') AS front_object_key,
-    (SELECT object_key FROM card_images WHERE card_id = cards.id AND side = 'back') AS back_object_key
+    (SELECT object_key FROM card_images WHERE card_id = cards.id AND side = 'back') AS back_object_key,
+    (SELECT GROUP_CONCAT(side) FROM card_images WHERE card_id = cards.id AND side LIKE 'back-%') AS corner_sides
     FROM cards WHERE user_id = ? ORDER BY created_at DESC`)
     .bind(session.user.id).all();
   return json({cards: (rows.results || []).map(cardResponse)});

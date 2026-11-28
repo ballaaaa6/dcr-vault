@@ -95,6 +95,7 @@ export function cardResponse(row) {
     storageLocationId: row.storage_location_id || '', storageLocation: row.storage_location || '', position: row.storage_position || '',
     frontImage: row.front_object_key ? `/api/cards/${encodeURIComponent(row.id)}/images/front` : '',
     backImage: row.back_object_key ? `/api/cards/${encodeURIComponent(row.id)}/images/back` : '',
+    cornerImages: Object.fromEntries(String(row.corner_sides || '').split(',').filter(Boolean).map(side => [side, `/api/cards/${encodeURIComponent(row.id)}/images/${side}`])),
     createdAt: row.created_at, updatedAt: row.updated_at
   };
 }

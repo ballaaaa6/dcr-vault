@@ -13,7 +13,7 @@ async function downloadImage(url, cert, side) {
   setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
 }
 
-function initializeThumbnails(buttons, gallery, thumbs, select, open) {
+function initializeThumbnails(buttons, gallery, thumbs, cornerThumbs, select, open) {
   buttons.forEach(button => {
     const source = button.querySelector('img');
     const hideFailedImage = () => {
@@ -27,7 +27,8 @@ function initializeThumbnails(buttons, gallery, thumbs, select, open) {
     const preview = source.cloneNode();
     preview.alt = '';
     thumb.append(preview);
-    thumbs.append(thumb);
+    (button.dataset.side.startsWith('back-') ? cornerThumbs : thumbs).append(thumb);
+    thumb.dataset.side = button.dataset.side;
     source.addEventListener('error', hideFailedImage);
     if (source.complete && !source.naturalWidth) hideFailedImage();
     thumb.addEventListener('click', () => select(button));
@@ -44,6 +45,7 @@ export function initializeCertificateViewer() {
   const frame = dialog.querySelector('.cert-viewer-image');
   const zoom = dialog.querySelector('.cert-zoom');
   const thumbs = dialog.querySelector('.cert-viewer-thumbs');
+  const cornerThumbs = dialog.querySelector('.cert-viewer-corners');
   const label = dialog.querySelector('[data-viewer-label]');
   const status = dialog.querySelector('.cert-viewer-download-status');
   image.addEventListener('load', () => {
@@ -59,10 +61,10 @@ export function initializeCertificateViewer() {
     label.textContent = button.querySelector('span').textContent;
     status.textContent = '';
     zoom.style.backgroundImage = `url(${JSON.stringify(image.src)})`;
-    thumbs.querySelectorAll('button').forEach((item, index) => item.setAttribute('aria-pressed', String(buttons[index] === button)));
+    dialog.querySelectorAll('.cert-viewer-thumbs button').forEach(item => item.setAttribute('aria-pressed', String(item.dataset.side === button.dataset.side)));
     frame.classList.remove('is-zoomed');
   }
-  initializeThumbnails(buttons, gallery, thumbs, select, button => { opener = button; select(button); dialog.showModal(); });
+  initializeThumbnails(buttons, gallery, thumbs, cornerThumbs, select, button => { opener = button; select(button); dialog.showModal(); });
   dialog.querySelector('[data-viewer-download]').addEventListener('click', async () => {
     status.textContent = '';
     try {

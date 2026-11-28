@@ -49,3 +49,11 @@ test('variant validators are separate from the original and unknown variants are
   const invalid = await onRequestGet({request: new Request(`${url}x`), env, params});
   assert.equal(invalid.status, 400);
 });
+
+test('corner images accept cache validators while unknown image sides are rejected', async () => {
+  const env = {DB: database({object_key: 'key', content_type: 'image/jpeg', sha256: digest})};
+  const response = await onRequestGet({request: request(`"${digest}"`), env, params: {id: cardId, side: 'back-top-left'}});
+  assert.equal(response.status, 304);
+  const invalid = await onRequestGet({request: request(), env, params: {id: cardId, side: 'back-center'}});
+  assert.equal(invalid.status, 404);
+});

@@ -4,6 +4,8 @@ This small Node service stores private card images on the Oracle VM. Cloudflare 
 
 Files use opaque IDs under `/srv/dcr-vault-media/<owner-uuid>/<card-uuid>/<side>.<ext>`. The service accepts JPEG, PNG, and WebP files up to 10 MiB, verifies the file signature, and binds only to `127.0.0.1:8788`. Nginx/TLS is the public edge; never expose this Node listener directly.
 
+Image sides include `front`, `back`, and four independent back-corner positions (`back-top-left`, `back-top-right`, `back-bottom-left`, `back-bottom-right`). Deploy the compatible image service before the Pages release that uploads corners; the D1 migration preserves existing images and capabilities. Certificate pages intentionally make saved card images, including corners, publicly viewable.
+
 ## Image variants
 
 Install a dedicated Python virtual environment with Pillow 12.3.0 at `/opt/dcr-vault-image-store/.venv`, and deploy `image-variant.mjs` and `image-variant.py` alongside `server.mjs`. `DCR_IMAGE_PYTHON` can override the interpreter path. The service lazily writes bounded WebP variants under each card's `.variants` directory and checks the original digest before conversion. It falls back to the original if conversion is unavailable or the concurrency limit is reached. Replacements and deletions clear the side's variants. Existing originals require no migration. Test using `DCR_TEST_PYTHON=<python-with-pillow> node --test storage-service/image-variant.test.js storage-service/image-service.test.js`.

@@ -3,6 +3,8 @@ import {catalogField} from './search-catalog.js';
 import {dropdown} from '../components/dropdown.js';
 import {CONDITION_OPTIONS, conditionOptionLabel} from '../utils/label-options.js';
 import {identificationDialogMarkup} from './card-identification.js';
+import {cornerSwitchIcon} from '../components/corner-switch.js';
+import {CARD_CORNERS} from '../utils/card-corners.js';
 
 function photoField(side, label) {
   return `<div class="upload-item"><span class="upload-label">${label}</span><div class="upload-frame">
@@ -20,11 +22,12 @@ export function emptyPhotoMarkup() {
 export function searchMarkup(card = null) {
   return `
     <main class="app-page intake-page">
-      <header class="page-heading"><h1>Add a card to your vault</h1><p class="page-description">Saved card details and photos stay private to your signed-in account.</p></header>
+      <header class="page-heading"><h1>Add a card to your vault</h1><p class="page-description">Card details and photos appear on the public certificate; your vault details remain private.</p></header>
       <div class="intake-grid">
         <section class="surface-card intake-card" aria-labelledby="scan-title">
-          <div class="section-heading"><div><h2 id="scan-title">Card images</h2><p>Choose a front and/or back photo to store in your private image vault.</p></div></div>
-          <div class="upload-grid">${photoField('front', 'Front image')}${photoField('back', 'Back image')}</div>
+          <div class="section-heading"><div><h2 id="scan-title">Card images</h2><p>Choose front, back, and back-corner photos for this card.</p></div></div>
+          <button class="corner-switch intake-corner-switch" type="button" data-corner-switch aria-label="Show back corners" aria-pressed="false">${cornerSwitchIcon()}</button>
+          <div class="corner-upload-shell"><div class="corner-upload-flipper"><div class="upload-grid corner-main">${photoField('front', 'Front image')}${photoField('back', 'Back image')}</div><div class="upload-grid corner-grid" inert>${CARD_CORNERS.map(([side, label]) => photoField(side, label)).join('')}</div></div></div>
           <div class="identification-actions"><p class="identification-notice">Give your card a head start. Upload a front photo and let us fill in the details for you. Take a moment to review them before adding your card to the vault.</p><button class="btn btn-ghost" id="identify-card" type="button" disabled><span>Identify card</span><span class="action-sizer" aria-hidden="true">Identify card</span><span class="action-sizer" aria-hidden="true">Analyzing…</span></button></div>
         </section>
         <section class="surface-card intake-card" aria-labelledby="manual-title">

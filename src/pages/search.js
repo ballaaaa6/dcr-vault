@@ -4,6 +4,8 @@ import {createIntakeCard, updateIntakeCard} from './search-save.js';
 import {emptyPhotoMarkup, searchMarkup, validatePhoto} from './search-view.js';
 import './search-photo-preview.js';
 import {checkCert, deleteCardImage, uploadCardImage} from '../store/cards.js';
+import {CARD_CORNERS} from '../utils/card-corners.js';
+import {animateCornerSwitch} from '../components/corner-switch.js';
 import {destroyCatalogSuggestions, initializeCatalogSuggestions, installCatalogSuggestions, invalidateCatalogSuggestions, closeCatalogOnOutsideClick} from './search-catalog.js';
 import {findAvailableCert, normalizeCert} from '../utils/cert.js';
 import {clearAppliedReading, resetCardIdentificationState} from './card-identification.js';
@@ -160,11 +162,12 @@ function initializeEditCard(card) {
   document.querySelector('.page-heading h1').textContent = 'Change Card Details';
   document.querySelector('.page-heading .page-description').textContent = `Your Cert ${card.certNumber} stays reserved for this card.`;
   document.querySelector('#manual-submit span').textContent = 'Save changes';
-  for (const side of ['front', 'back']) {
-    if (!card[`${side}Image`]) continue;
+  for (const side of ['front', 'back', ...CARD_CORNERS.map(([key]) => key)]) {
+    const imageUrl = card[`${side}Image`] || card.cornerImages?.[side];
+    if (!imageUrl) continue;
     const preview = document.querySelector(`[data-image-preview="${side}"]`);
     const image = document.createElement('img');
-    image.src = card[`${side}Image`];
+    image.src = imageUrl;
     image.alt = `${side} photo preview`;
     preview.replaceChildren(image);
     preview.parentElement.classList.add('has-image');
@@ -187,7 +190,7 @@ async function clearPhoto(side) {
 }
 
 function selectedPhotos() {
-  return ['front', 'back'].map(side => ({side, file: document.querySelector(`[data-upload-side="${side}"]`).files?.[0]}))
+  return ['front', 'back', ...CARD_CORNERS.map(([key]) => key)].map(side => ({side, file: document.querySelector(`[data-upload-side="${side}"]`).files?.[0]}))
     .filter(item => item.file);
 }
 
@@ -242,7 +245,7 @@ async function saveIntake() {
     }
     if (editCard) {
       for (const side of removedSides) {
-        if (!selectedPhotos().some(photo => photo.side === side) && card[`${side}Image`]) await deleteCardImage(card.id, side);
+        if (!selectedPhotos().some(photo => photo.side === side) && (card[`${side}Image`] || card.cornerImages?.[side])) await deleteCardImage(card.id, side);
       }
       location.href = `/vault?id=${encodeURIComponent(card.id)}`;
       return;
@@ -324,6 +327,18 @@ document.addEventListener('drop', event => {
 });
 
 document.addEventListener('click', event => {
+  const cornerSwitch = event.target.closest('[data-corner-switch]');
+  if (cornerSwitch) {
+    const section = cornerSwitch.closest('.intake-card');
+    const showing = cornerSwitch.getAttribute('aria-pressed') !== 'true';
+    cornerSwitch.setAttribute('aria-pressed', String(showing));
+    cornerSwitch.setAttribute('aria-label', showing ? 'Show front and back images' : 'Show back corners');
+    section.querySelector('.corner-upload-flipper').classList.toggle('show-corners', showing);
+    section.querySelector('.corner-main').inert = showing;
+    section.querySelector('.corner-grid').inert = !showing;
+    animateCornerSwitch(cornerSwitch);
+    return;
+  }
   const clear = event.target.closest('[data-clear-image]');
   if (clear) { clearPhoto(clear.dataset.clearImage); return; }
   if (event.target.closest('[data-cert-random]')) { generateCert(); return; }

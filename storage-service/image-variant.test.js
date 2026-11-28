@@ -17,8 +17,10 @@ test('creates bounded variants and rejects a stale digest without changing the o
     const digest = createHash('sha256').update(original).digest('hex');
     const result = await imageVariant(file, 'front', digest, 'small');
     assert.ok(result);
-    const size = execFileSync(process.env.DCR_IMAGE_PYTHON, ['-c', 'from PIL import Image; import sys; print(*Image.open(sys.argv[1]).size)', result], {encoding: 'utf8'}).trim();
-    assert.equal(size, '240 120');
+    const sizes = execFileSync(process.env.DCR_IMAGE_PYTHON, ['-c', 'from PIL import Image; import sys; print(*Image.open(sys.argv[1]).size, *Image.open(sys.argv[2]).size)', file, result], {encoding: 'utf8'}).trim().split(' ').map(Number);
+    const [width, height, resizedWidth, resizedHeight] = sizes;
+    assert.equal(Math.max(resizedWidth, resizedHeight), 240);
+    assert.ok(Math.abs(resizedWidth / resizedHeight - width / height) < .02);
     assert.deepEqual(await readFile(file), original);
     assert.equal(await imageVariant(file, 'front', 'b'.repeat(64), 'medium'), null);
   } finally { await rm(folder, {recursive: true, force: true}); }

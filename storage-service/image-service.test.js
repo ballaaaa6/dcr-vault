@@ -35,7 +35,7 @@ test('image service creates variants, retains originals and removes derivatives 
     let body = ''; for await (const part of req) body += part;
     const grant = JSON.parse(body);
     res.writeHead(200, {'Content-Type': 'application/json'});
-    res.end(JSON.stringify({...grant, ownerId, objectKey: `${ownerId}/${cardId}/front.webp`}));
+    res.end(JSON.stringify({...grant, ownerId, objectKey: `${ownerId}/${cardId}/${grant.side}.webp`}));
   });
   auth.listen(0, '127.0.0.1'); await once(auth, 'listening');
   const env = {...process.env, DCR_IMAGE_ROOT: root, DCR_PORT: String(port), DCR_AUTHORIZATION_URL: `http://127.0.0.1:${auth.address().port}`, DCR_IMAGE_PYTHON: process.env.DCR_TEST_PYTHON || 'python'};
@@ -45,6 +45,19 @@ test('image service creates variants, retains originals and removes derivatives 
   try {
     await waitForService(port, child);
     const original = await readFile('public/assets/vault-background/short/fairy.webp');
+    const cornerUrl = `http://127.0.0.1:${port}/v1/cards/${cardId}/back-top-left`;
+    const cornerPut = await fetch(cornerUrl, {method: 'PUT', headers, body: original});
+    assert.equal(cornerPut.status, 200);
+    const cornerDigest = (await cornerPut.json()).sha256;
+    assert.equal((await fetch(`${cornerUrl}?variant=small&digest=${cornerDigest}`, {headers})).headers.get('x-dcr-variant'), 'small');
+    const backUrl = `http://127.0.0.1:${port}/v1/cards/${cardId}/back`;
+    assert.equal((await fetch(backUrl, {method: 'PUT', headers, body: original})).status, 200);
+    assert.equal((await fetch(backUrl, {method: 'DELETE', headers})).status, 200);
+    const variants = await import('node:fs/promises').then(fs => fs.readdir(path.join(root, ownerId, cardId, '.variants')));
+    assert.ok(variants.some(name => name.startsWith('back-top-left-')));
+    assert.deepEqual(Buffer.from(await (await fetch(cornerUrl, {headers})).arrayBuffer()), original);
+    assert.equal((await fetch(cornerUrl, {method: 'DELETE', headers})).status, 200);
+    assert.equal((await fetch(cornerUrl, {headers})).status, 404);
     const put = await fetch(url, {method: 'PUT', headers, body: original});
     assert.equal(put.status, 200);
     const {sha256} = await put.json();

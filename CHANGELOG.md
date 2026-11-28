@@ -1,5 +1,7 @@
 #
 
+- Add four back-corner photos to Card images, cycle them in Vault, and show them in the public certificate viewer.
+
 - Avoid moving focus to Condition when opening an existing card for editing.
 
 - Show the disabled Vault card-image flip button in light red.

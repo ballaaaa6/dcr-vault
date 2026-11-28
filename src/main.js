@@ -1,6 +1,7 @@
 import {initializeCornerCloseAnimation} from './components/corner-close.js';
 import {initializeActionIcons} from './components/action-icons.js';
 import './styles/action-icons.css';
+import './styles/corner-images.css';
 // DCR Card Vault - Entry - English only
 import {render} from './router.js';
 import './styles/tooltip.css';

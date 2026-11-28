@@ -27,6 +27,15 @@ test('certificate lookup renders a matching record and handles missing records',
   delete globalThis.location;
 });
 
+test('certificate viewer renders public corner sources and a separate right thumbnail group', () => {
+  globalThis.location = {pathname: '/cert/12', search: ''};
+  const markup = verify([{certNumber: '00000012', name: 'Card', frontImage: '/front', cornerImages: {'back-bottom-right': '/corner'}}]);
+  assert.match(markup, /data-side="back-bottom-right"/);
+  assert.match(markup, /cert-viewer-corners/);
+  assert.match(markup, /data-original="\/corner"/);
+  delete globalThis.location;
+});
+
 test('certificate lookup reads the number from the new path', () => {
   globalThis.location = {pathname: '/cert/00000001', search: ''};
   assert.match(verify([{certNumber: '00000001', name: 'First card'}]), /First card/);

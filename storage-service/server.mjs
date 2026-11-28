@@ -24,7 +24,7 @@ function sendJson(response, status, value) {
 
 function validateRequest(request) {
   const url = new URL(request.url, 'http://127.0.0.1');
-  const match = url.pathname.match(/^\/v1\/cards\/([^/]+)\/(front|back)$/);
+  const match = url.pathname.match(/^\/v1\/cards\/([^/]+)\/(front|back|back-top-left|back-top-right|back-bottom-left|back-bottom-right)$/);
   if (!match || !UUID.test(match[1])) throw new HttpError(404, 'Image route not found.');
   const operation = request.method === 'PUT' ? 'put' : request.method === 'GET' ? 'get' : request.method === 'DELETE' ? 'delete' : '';
   if (!operation) throw new HttpError(405, 'Method not allowed.');
@@ -50,7 +50,7 @@ async function authorize(request, target, contentType) {
 
 function imagePath(grant, extension) {
   const objectKey = grant.objectKey || `${grant.ownerId}/${grant.cardId}/${grant.side}.${extension}`;
-  const match = objectKey.match(/^([0-9a-f-]{36})\/([0-9a-f-]{36})\/(front|back)\.(jpg|png|webp)$/i);
+  const match = objectKey.match(/^([0-9a-f-]{36})\/([0-9a-f-]{36})\/(front|back|back-top-left|back-top-right|back-bottom-left|back-bottom-right)\.(jpg|png|webp)$/i);
   if (!match || match[1] !== grant.ownerId || match[2] !== grant.cardId || match[3] !== grant.side) throw new HttpError(403, 'Invalid image path.');
   const target = path.resolve(ROOT, match[1], match[2], `${match[3]}.${match[4]}`);
   if (!target.startsWith(`${ROOT}${path.sep}`)) throw new HttpError(403, 'Invalid image path.');
@@ -96,7 +96,8 @@ async function replaceImage(request, response, target, contentType, grant) {
 async function clearVariants(file, side) {
   const folder = path.join(path.dirname(file), '.variants');
   const files = await readdir(folder).catch(() => []);
-  await Promise.all(files.filter(name => name.startsWith(`${side}-`)).map(name => unlink(path.join(folder, name)).catch(() => {})));
+  const variantName = new RegExp(`^${side}-[0-9a-f]{64}-(small|medium)\\.webp$`);
+  await Promise.all(files.filter(name => variantName.test(name)).map(name => unlink(path.join(folder, name)).catch(() => {})));
 }
 
 async function serveImage(response, grant, requestTarget) {

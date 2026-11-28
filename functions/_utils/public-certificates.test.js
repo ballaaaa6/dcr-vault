@@ -7,6 +7,7 @@ import {onRequestPost as create} from '../api/cards.js';
 import {onRequestGet as check} from '../api/cards/cert-check.js';
 import {onRequestPatch as patch, onRequestDelete as remove} from '../api/cards/[id].js';
 import {tokenHash} from './sessions.js';
+import {onRequestPut as putImage, onRequestGet as getImage, onRequestDelete as deleteImage} from '../api/cards/[id]/images/[side].js';
 
 function database() {
   const sql = new DatabaseSync(':memory:');
@@ -31,6 +32,58 @@ test('migration rejects existing duplicates without changing certificates', () =
   assert.throws(() => sql.exec(readFileSync(new URL('../../migrations/0007_global_certificates.sql', import.meta.url), 'utf8')), /UNIQUE/);
   assert.equal(sql.prepare('SELECT COUNT(*) AS n FROM cards').get().n, 2);
   sql.close();
+});
+
+test('corner migration preserves existing photos and makes uploaded corners public on their certificate', async () => {
+  const {sql, DB} = database();
+  sql.prepare('INSERT INTO users(id,google_sub,email,created_at,updated_at) VALUES (?,?,?,?,?)').run('owner', 'owner', 'owner', 0, 0);
+  sql.prepare('INSERT INTO cards(id,user_id,name,cert_number,created_at,updated_at) VALUES (?,?,?,?,?,?)').run('card', 'owner', 'Card', '00000001', 0, 0);
+  const insert = sql.prepare('INSERT INTO card_images(card_id,user_id,side,object_key,content_type,byte_size,sha256,updated_at) VALUES (?,?,?,?,?,?,?,?)');
+  insert.run('card', 'owner', 'front', 'original', 'image/png', 10, 'digest', 0);
+  sql.exec(readFileSync(new URL('../../migrations/0026_card_corner_images.sql', import.meta.url), 'utf8'));
+  insert.run('card', 'owner', 'back-bottom-right', 'corner', 'image/png', 10, 'digest', 0);
+  assert.equal(sql.prepare("SELECT object_key FROM card_images WHERE side='front'").get().object_key, 'original');
+  const result = await (await lookup({env: {DB}, params: {cert: '1'}})).json();
+  assert.deepEqual(result.card.cornerImages, {'back-bottom-right': '/api/cards/card/images/back-bottom-right'});
+  assert.equal(result.card.frontImage, '/api/cards/card/images/front');
+  assert.throws(() => insert.run('card', 'owner', 'bad-side', 'invalid', 'image/png', 10, 'digest', 0));
+  sql.close();
+});
+
+test('corner upload and deletion enforce ownership and expose saved images to public certificate viewers', async () => {
+  const {sql, DB} = database();
+  sql.exec(readFileSync(new URL('../../migrations/0026_card_corner_images.sql', import.meta.url), 'utf8'));
+  const owner = '87654321-4321-4321-8321-cba987654321';
+  const other = '87654321-4321-4321-8321-cba987654322';
+  const cardId = '12345678-1234-4234-8234-123456789abc';
+  for (const [id, token] of [[owner, 'owner-token'], [other, 'other-token']]) {
+    sql.prepare('INSERT INTO users(id,google_sub,email,created_at,updated_at) VALUES (?,?,?,?,?)').run(id, id, id, 0, 0);
+    sql.prepare('INSERT INTO sessions(token_hash,user_id,expires_at,created_at) VALUES (?,?,?,?)').run(await tokenHash(token), id, Math.floor(Date.now()/1000)+1000, 0);
+  }
+  sql.prepare('INSERT INTO cards(id,user_id,name,cert_number,created_at,updated_at) VALUES (?,?,?,?,?,?)').run(cardId, owner, 'Card', '00000001', 0, 0);
+  const savedFetch = globalThis.fetch;
+  let deletedFromStore = 0;
+  globalThis.fetch = async (_url, options) => options.method === 'PUT'
+    ? Response.json({objectKey: `${owner}/${cardId}/back-top-left.png`, contentType: 'image/png', byteSize: 3, sha256: 'a'.repeat(64)})
+    : options.method === 'DELETE' ? (deletedFromStore++, Response.json({ok: true})) : new Response('image', {headers: {'Content-Type': 'image/png'}});
+  const params = {id: cardId, side: 'back-top-left'};
+  const env = {DB, ORCL_MEDIA_ORIGIN: 'https://images.example.com'};
+  const req = (method, token) => new Request(`https://vault.test/api/cards/${cardId}/images/back-top-left`, {method,
+    headers: {Cookie: `dcr_session=${token}`, ...(method === 'PUT' ? {'Content-Type': 'image/png'} : {})},
+    ...(method === 'PUT' ? {body: new Uint8Array([1, 2, 3])} : {})});
+  try {
+    assert.equal((await putImage({request: req('PUT', 'other-token'), env, params})).status, 404);
+    assert.equal((await putImage({request: req('PUT', 'owner-token'), env, params})).status, 200);
+    assert.equal((await getImage({request: req('GET', ''), env, params})).status, 200);
+    const certificate = await (await lookup({env, params: {cert: '1'}})).json();
+    assert.equal(certificate.card.cornerImages['back-top-left'], `/api/cards/${cardId}/images/back-top-left`);
+    assert.equal((await deleteImage({request: req('DELETE', 'other-token'), env, params})).status, 404);
+    assert.equal((await deleteImage({request: req('DELETE', 'owner-token'), env, params})).status, 200);
+    assert.equal((await getImage({request: req('GET', ''), env, params})).status, 404);
+    assert.equal((await putImage({request: req('PUT', 'owner-token'), env, params})).status, 200);
+    assert.equal((await remove({request: req('DELETE', 'owner-token'), env, params: {id: cardId}})).status, 200);
+    assert.equal(deletedFromStore, 2);
+  } finally { globalThis.fetch = savedFetch; sql.close(); }
 });
 
 test('global certificates prevent cross-account duplicates and expose only public fields', async () => {

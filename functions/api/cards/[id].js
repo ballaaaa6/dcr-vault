@@ -1,6 +1,7 @@
 import {error, json, readJson, sameOrigin} from '../../_utils/http.js';
 import {currentUser} from '../../_utils/sessions.js';
 import {onRequestDelete as deleteImage} from './[id]/images/[side].js';
+import {CARD_CORNERS} from '../../../src/utils/card-corners.js';
 import {normalizeCertNumber} from '../../_utils/cards.js';
 import {locationKey} from '../storage-locations.js';
 import {normalizeGameName} from '../../../src/utils/card-games.js';
@@ -112,7 +113,7 @@ export async function onRequestDelete({request, env, params}) {
   const card = await env.DB.prepare('SELECT id FROM cards WHERE id = ? AND user_id = ?')
     .bind(params.id, session.user.id).first();
   if (!card) return error('Card not found in your vault.', 404);
-  for (const side of ['front', 'back']) {
+  for (const side of ['front', 'back', ...CARD_CORNERS.map(([key]) => key)]) {
     const response = await deleteImage({request, env, params: {...params, side}});
     if (!response.ok) return response;
   }
