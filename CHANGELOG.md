@@ -1,5 +1,8 @@
 # Changelog
 
+## Simplify set reading - 2026-11-28
+- Ask Gemini for one set name in the card language and remove redundant set fields from the reading schema.
+
 ## Set identification instructions - 2026-11-28
 - Clarify local set evidence, source fields and English name handling; clear stale set metadata when edited in Vault.
 

@@ -13,10 +13,7 @@ let requestId = '';
 
 export function intakeClassification() {
   return {category: reading.category || '', colorElements: reading.colorElements || [], subtypeDetail: reading.subtypeDetail || '',
-    setNameEn: reading.setNameEn || '', setNameLocal: reading.setNameLocal || '', setCode: reading.setCode || '',
-    setNameEnSource: reading.setNameEnSource || '', setNameLocalSource: reading.setNameLocalSource || '',
-    setNameEnType: reading.setNameEnType || '', releaseYear: reading.releaseYear || '',
-    yearSource: provenance.year === 'user' ? 'user' : reading.yearSource || '', setSource: reading.setSource || '', inferredFields: reading.inferredFields || []};
+    releaseYear: reading.releaseYear || '', yearSource: provenance.year === 'user' ? 'user' : reading.yearSource || '', inferredFields: reading.inferredFields || []};
 }
 export function identificationProvenance() { return {identificationStatus: identified ? 'unresolved' : 'unknown', fieldProvenance: {...provenance}}; }
 export function clearAppliedReading() { reading = {}; applied = {}; provenance = {}; requestId = ''; identified = false; }
@@ -41,15 +38,13 @@ function detailMarkup() {
   const fields = [['category', 'Category', reading.category], ['colorElements', 'Colors / elements', (reading.colorElements || []).join(', ')], ['subtypeDetail', 'Subtype', reading.subtypeDetail]];
   const rows = fields.map(([key, label, value]) => `<label class="identification-read-field"><b>${label}</b><input class="form-control" data-reading-field="${key}" value="${escapeHTML(value || '')}" maxlength="120"></label>`).join('');
   const inferred = (reading.inferredFields || []).join(', ');
-  const source = reading.setSource === 'printed_code' ? 'The set field contains a printed code.' : reading.setSource === 'inferred_name' ? 'The set name was inferred.' : '';
-  return `<section class="identification-read-summary"><p>Review the values and edit them if needed.</p>${inferred ? `<p>Inferred from model knowledge: ${escapeHTML(inferred)}</p>` : ''}${source ? `<p>${escapeHTML(source)}</p>` : ''}<div class="identification-read-grid">${rows}</div></section>`;
+  return `<section class="identification-read-summary"><p>Review the values and edit them if needed.</p>${inferred ? `<p>Inferred from model knowledge: ${escapeHTML(inferred)}</p>` : ''}<div class="identification-read-grid">${rows}</div></section>`;
 }
 function applyReading(fields, id) {
   const previous = reading;
   reading = {...fields, colorElements: [...(fields.colorElements || [])], inferredFields: [...(fields.inferredFields || [])]};
   for (const key of ['category', 'colorElements', 'subtypeDetail']) if (provenance[key] === 'user') reading[key] = previous[key];
   reading.inferredFields = reading.inferredFields.filter(key => provenance[key === 'set' ? 'setName' : key] !== 'user');
-  if (provenance.setName === 'user') { reading.setSource = ''; reading.setNameLocal = previous.setNameLocal || ''; reading.setNameEn = ''; reading.setNameEnType = ''; reading.setNameEnSource = ''; reading.setNameLocalSource = ''; }
   const selectedGame = document.getElementById('m-game').value;
   if (provenance.game === 'user' && selectedGame && selectedGame !== fields.game) {
     reading.category = ''; reading.colorElements = []; reading.subtypeDetail = '';
@@ -76,7 +71,7 @@ function applyReading(fields, id) {
   const displayed = Object.fromEntries(['name', 'setName', 'year', 'cardNumber', 'rarity'].map(key =>
     [key, document.getElementById(`m-${key}`)?.value || '']));
   logIdentificationStage('browser', {yearSource: provenance.year === 'user' ? 'user' : fields.yearSource,
-    setValueSource: provenance.setName === 'user' ? 'user' : fields.setNameLocal ? 'local' : fields.setNameEn ? 'english' : '',
+    setValueSource: provenance.setName === 'user' ? 'user' : fields.setName ? 'gemini' : '',
     values: displayed, fieldStates, provenance});
   window.dispatchEvent(new Event('intake-values-updated'));
   const panel = document.getElementById('identification-dialog-content');
@@ -145,7 +140,6 @@ document.addEventListener('input', event => {
   }
   const inferred = key === 'setName' ? 'set' : key;
   reading.inferredFields = (reading.inferredFields || []).filter(field => field !== inferred);
-  if (key === 'setName') { reading.setSource = ''; reading.setNameLocal = event.target.value.trim(); reading.setNameEn = ''; reading.setNameEnType = ''; reading.setNameEnSource = ''; reading.setNameLocalSource = ''; }
 });
 document.addEventListener('change', event => { if (event.target.matches('[data-upload-side="front"]')) invalidatePhoto(); });
 window.addEventListener('intake-front-image-cleared', invalidatePhoto);

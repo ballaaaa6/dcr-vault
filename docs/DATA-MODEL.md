@@ -22,8 +22,8 @@ All timestamps are Unix seconds unless noted otherwise. D1 is the source of trut
 - `game`: card game name, such as Pokemon, One Piece, or MTG
 - `name`, `set_name`, `year`, `card_number`, `rarity`
 - `category`, `color_elements`, `subtype_detail`: game-neutral classification; `color_elements` is a JSON array.
-- `set_name_en`, `set_name_local`, `set_code`, `set_name_en_type`, `set_name_en_source`, `set_name_local_source`, `release_year`, `copyright_year`, `year_source`: separate reading details and the selected year source. New readings use release year only; legacy copyright data remains stored. Existing records default to empty values.
-- `set_source`: printed_name, inferred_name, printed_code, or empty; `inferred_fields`: JSON array of series, set, year, or rarity inferred by Gemini.
+- `set_name_en`, `set_name_local`, `set_code`, `set_name_en_type`, `set_name_en_source`, `set_name_local_source`, `release_year`, `copyright_year`, `year_source`: separate reading details and the selected year source. New readings use release year only; legacy copyright data remains stored. These set details are retained for older records; new readings return a single set name.
+- `set_source`: printed_name, inferred_name, printed_code, or empty; `inferred_fields`: JSON array of inferred year or rarity for new readings; legacy records may include series or set.
 - `source_language` identifies the printed language. `source_finish` is user-entered; catalog IDs and `year_series` remain legacy fields and do not determine new reading values.
 - `grade_label`: one of the DCR condition terms when assessed; the label prints the condition term without a numeric grade
 - `cert_number`: stored as 8 digits; input accepts one to eight digits and is left-padded with zeroes; unique across all accounts

@@ -23,17 +23,11 @@ Do not return treatments or finishes as rarity; interpret SP and Showcase in the
 
 Identify the exact physical printing and its printed language.
 
-Set: Identify the set of this exact physical printing in its local market. Use language, collector number, visible set code, set symbol, promo mark and other relevant evidence together. Do not identify a set from card name or artwork alone.
+Set: Identify the set of the card shown. Use the card number, visible symbols and other evidence. Do not rely on the card name or artwork alone. Return the full set name used for this card's language in set_name. If unsure, leave it empty.
 
-Return the full set name used in this printing's market in set_name_local. Preserve its established spelling and script; do not translate or romanize it. Do not substitute a broader series name when it differs from the set name; the same name may be used if it is actually both. For promos, reprints, decks and special products identify the actual printing's set or promo group. Do not assume the original release or outer product containing a booster is its set. Leave the local name empty if the evidence is insufficient or the set cannot be identified with reasonable confidence.
+Year: Return release_year as the four-digit release year of this exact printing or local set, if known. Do not use a copyright year as the release year or infer release year from copyright alone. Use the card's visible language, name, set code, collector number and other evidence together with your knowledge to identify the exact set and release year. Do not invent values. Return an empty string when a field cannot be identified with reasonable confidence. Do not put codes or abbreviations in full set-name fields, except when they are part of the actual name. List knowledge-based release year and rarity in inferred_fields. Never identify condition, grade, finish, price or certificate number.
 
-Set set_name_local_source to printed only if the full local name is visible on the card; otherwise use inferred when a name is provided, or empty if not. If known, return an English name for the same local set in set_name_en. Set set_name_en_type to official for an established official English name or translation for a faithful translation. Never substitute a different English set merely because it contains the same card. Leave both empty if neither is known with reasonable confidence. Set set_name_en_source to printed only if the full English name is visible, inferred if supplied from knowledge or translation, or empty if no name.
-
-Copy set_code only from visible text, without guessing or normalizing. If embedded in a collector number, extract a visible portion only when confident it is the set code for that game; otherwise leave it empty. Preserve the full collector number separately. Return names without source labels, explanations or annotations.
-
-Year: Return release_year as the four-digit release year of this exact printing or local set, if known. Do not use a copyright year as the release year or infer release year from copyright alone. Use the card's visible language, name, set code, collector number and other evidence together with your knowledge to identify the exact set and release year. Do not invent values. Return an empty string when a field cannot be identified with reasonable confidence. Do not put codes or abbreviations in full set-name fields, except when they are part of the actual name. List knowledge-based set, release year and rarity in inferred_fields. Never identify condition, grade, finish, price or certificate number.
-
-For each empty release_year or local set name, provide a concise English explanation in year_missing_reason or set_missing_reason respectively. Describe the specific uncertainty or missing evidence; do not assert facts you cannot know. When the field has a value, return an empty reason. If the local set name is known but its English name is not, return the local name without inventing an English name.
+If release_year is empty, explain the uncertainty briefly in year_missing_reason; otherwise leave it empty.
 
 For English text values intended for the form, capitalize the first letter of each word, for example "Neo" and "Scarlet & Violet". Preserve established spelling and capitalization of names, abbreviations and codes, such as McDonald's, XY, EX, and collector numbers. Preserve non-English scripts and copy collector numbers exactly; do not change internal capitalization of printed names or codes.
 
@@ -61,14 +55,12 @@ export const CARD_READING_SCHEMA = {
   properties: {
     game: {type: 'string', enum: ['', ...CARD_GAMES]},
     language: {type: 'string', enum: ['', 'en', 'ja', 'th', 'ko', 'zh-cn', 'zh-tw', 'de', 'fr', 'it', 'pt', 'es', 'id', 'nl', 'pl', 'ru']},
-    set_name_en: string, set_name_local: string, set_code: string,
-    set_name_en_source: {type: 'string', enum: ['', 'printed', 'inferred']}, set_name_local_source: {type: 'string', enum: ['', 'printed', 'inferred']},
-    set_name_en_type: {type: 'string', enum: ['', 'official', 'translation']}, release_year: string,
-    year_missing_reason: string, set_missing_reason: string,
+    set_name: string, release_year: string,
+    year_missing_reason: string,
     card_number: string, name: string, rarity: {type: 'string', description: 'Rarity code for the detected game, Promo for promotional printings, or empty when uncertain.'}, category: string,
     color_element: stringArray, subtype_detail: string,
-    inferred_fields: {type: 'array', items: {type: 'string', enum: ['set', 'year', 'rarity']}}
+    inferred_fields: {type: 'array', items: {type: 'string', enum: ['year', 'rarity']}}
   },
-  required: ['game', 'language', 'set_name_en', 'set_name_local', 'set_code', 'set_name_en_source', 'set_name_local_source', 'set_name_en_type', 'release_year', 'year_missing_reason', 'set_missing_reason', 'card_number', 'name',
+  required: ['game', 'language', 'set_name', 'release_year', 'year_missing_reason', 'card_number', 'name',
     'rarity', 'category', 'color_element', 'subtype_detail', 'inferred_fields']
 };

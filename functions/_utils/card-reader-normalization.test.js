@@ -4,11 +4,11 @@ import {normalizeCardReading} from './card-reader-normalization.js';
 
 test('preserves printed multilingual identity and derives inferred set provenance', () => {
   const value = normalizeCardReading({game: 'Pokemon', language: 'th', name: 'ปิกาจู', card_number: '001/100',
-    set_name_local: 'ชุดทดสอบ', set_name_local_source: 'inferred', set_source: 'inferred_name', inferred_fields: [], category: 'Pokemon', color_element: ['Lightning']});
+    set_name: 'ชุดทดสอบ', inferred_fields: [], category: 'Pokemon', color_element: ['Lightning']});
   assert.equal(value.name, 'ปิกาจู');
   assert.equal(value.cardNumber, '001/100');
   assert.equal(value.setName, 'ชุดทดสอบ');
-  assert.deepEqual(value.inferredFields, ['set']);
+  assert.deepEqual(value.inferredFields, []);
   assert.deepEqual(value.colorElements, ['Lightning']);
 });
 
@@ -39,25 +39,9 @@ test('preserves inferred rarity codes and ignores a missing rarity', () => {
 });
 
 
-test('uses release year only and preserves local set fallback', () => {
-  const value = normalizeCardReading({name: 'Card', set_name_en: 'Full Name', set_name_local: '本名', set_code: 'ABC', set_name_en_type: 'translation', release_year: '2025', copyright_year: '2024'});
+test('preserves local set names and only accepts release years', () => {
+  const value = normalizeCardReading({name: 'Card', set_name: '本名', release_year: '2025'});
   assert.equal(value.setName, '本名');
-  assert.equal(normalizeCardReading({name: 'Card', set_name_en: 'English'}).setName, '');
-  assert.equal(value.setNameLocal, '本名');
-  assert.equal(value.setCode, 'ABC');
   assert.equal(value.year, '2025');
-  assert.equal(value.yearSource, 'release');
-  const fallback = normalizeCardReading({name: 'Card', set_name_local: '本名', set_code: 'ABC', copyright_year: '2024'});
-  assert.equal(fallback.setName, '本名');
-  assert.equal(fallback.year, '');
-  assert.equal(fallback.yearSource, '');
-  assert.equal(normalizeCardReading({name: 'Card', set_code: 'ABC'}).setName, '');
-});
-
-test('keeps local set and English translation separate and ignores a type without a name', () => {
-  const reading = normalizeCardReading({name: 'Card', set_name_local: '拡張パック', set_name_local_source: 'inferred', set_name_en: 'Expansion Pack', set_name_en_type: 'translation', set_name_en_source: 'inferred'});
-  assert.equal(reading.setName, '拡張パック');
-  assert.equal(reading.setNameEnType, 'translation');
-  assert.equal(reading.setSource, 'inferred_name');
-  assert.equal(normalizeCardReading({name: 'Card', set_name_en_type: 'official'}).setNameEnType, '');
+  assert.equal(normalizeCardReading({name: 'Card', set_name: ''}).setName, '');
 });

@@ -22,7 +22,7 @@ function identifyRequest(again = false) {
 test('sends the image and new schema and preserves printed multilingual fields', async () => {
   const originalFetch = globalThis.fetch;
   let payload;
-  const sample = {game: 'One Piece', language: 'ja', release_year: '2023', series: '', set_name_en: 'Romance Dawn', set_name_en_source: 'inferred', set_name_local: 'ロマンスドーン', set_name_local_source: 'inferred', set_code: 'OP01', set_source: 'inferred_name',
+  const sample = {game: 'One Piece', language: 'ja', release_year: '2023', set_name: 'ロマンスドーン',
     card_number: 'OP01-001', name: 'モンキー・D・ルフィ', rarity: 'L', category: 'Leader', color_element: ['Red', 'Green'], subtype_detail: '', inferred_fields: ['year']};
   globalThis.fetch = async (_url, init) => {
     payload = JSON.parse(init.body);
@@ -37,13 +37,14 @@ test('sends the image and new schema and preserves printed multilingual fields',
     assert.ok(payload.generationConfig.responseJsonSchema.properties.inferred_fields.items.enum.includes('rarity'));
     assert.equal('copyright_year' in payload.generationConfig.responseJsonSchema.properties, false);
     assert.ok(!payload.generationConfig.responseJsonSchema.required.includes('series'));
-    assert.ok(payload.generationConfig.responseJsonSchema.required.includes('set_missing_reason'));
+    assert.ok(payload.generationConfig.responseJsonSchema.required.includes('set_name'));
+    assert.ok(!('set_name_local' in payload.generationConfig.responseJsonSchema.properties));
     assert.deepEqual(payload.generationConfig.responseJsonSchema.required, Object.keys(payload.generationConfig.responseJsonSchema.properties));
     assert.equal(result.name, sample.name);
     assert.equal(result.cardNumber, sample.card_number);
-    assert.equal(result.setSource, 'inferred_name');
+    assert.equal(result.setName, sample.set_name);
     assert.deepEqual(result.colorElements, ['Red', 'Green']);
-    assert.deepEqual(result.inferredFields, ['year', 'set']);
+    assert.deepEqual(result.inferredFields, ['year']);
   } finally { globalThis.fetch = originalFetch; }
 });
 
@@ -56,7 +57,7 @@ test('logs model explanations and distinguishes rejected year from empty fields'
     run: async () => { if (query.includes('INSERT INTO identification_logs')) logged = JSON.parse(values[7]); }
   })});
   globalThis.fetch = async () => Response.json({candidates: [{content: {parts: [{text: JSON.stringify({name: 'Card', release_year: '2025?',
-    series: '', set_name_en: '', set_name_local: '', series_missing_reason: 'Printing is unclear', set_missing_reason: 'Set code unreadable'})}]}}]});
+    set_name: ''})}]}}]});
   try {
     const response = await onRequestPost({request: identifyRequest(), env});
     assert.equal(response.status, 200);
@@ -72,13 +73,13 @@ test('returns partial readings and logs inferred values', async () => {
     first: async () => ({id: 'test-user'}),
     run: async () => { if (query.includes('INSERT INTO identification_logs')) logged = JSON.parse(values[7]); }
   })});
-  globalThis.fetch = async () => Response.json({candidates: [{content: {parts: [{text: JSON.stringify({game: 'Pokemon', language: 'th', set_name_local: 'ชุดตัวอย่าง', set_name_local_source: 'inferred', set_source: 'inferred_name', inferred_fields: ['set']})}]}}]});
+  globalThis.fetch = async () => Response.json({candidates: [{content: {parts: [{text: JSON.stringify({game: 'Pokemon', language: 'th', set_name: 'ชุดตัวอย่าง', inferred_fields: []})}]}}]});
   try {
     const response = await onRequestPost({request: identifyRequest(), env});
     const result = await response.json();
     assert.equal(response.status, 200);
     assert.equal(result.fields.setName, 'ชุดตัวอย่าง');
-    assert.deepEqual(result.fields.inferredFields, ['set']);
+    assert.deepEqual(result.fields.inferredFields, []);
     assert.equal(logged.normalized.setName, 'ชุดตัวอย่าง');
   } finally { globalThis.fetch = originalFetch; }
 });
