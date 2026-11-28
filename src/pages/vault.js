@@ -155,6 +155,19 @@ function detailMarkup(card, mode = 'item') {
       <p class="detail-note" id="vault-edit-message" role="status"></p></form>` : (privateMode ? privateInformation(card) : itemInformation(card, {showClassification: true}))}`;
 }
 
+function orderVaultSelection() {
+  const rows = [...document.querySelectorAll('.vault-select-row')];
+  rows.forEach((row, index) => row.style?.setProperty('--vault-order', index * 2));
+  const index = rows.findIndex(row => row.querySelector?.('.vault-row')?.dataset.cardId === selectedId);
+  document.querySelector('.vault-selected')?.style?.setProperty('--vault-order', index * 2 + 1);
+}
+
+function scrollToVaultDetail() {
+  if (window.matchMedia?.('(max-width: 760px)').matches) {
+    document.querySelector('.vault-detail')?.scrollIntoView({block: 'start', behavior: 'instant'});
+  }
+}
+
 function selectCard(id, mode = 'item') {
   const card = activeCards.find(item => item.id === id);
   if (!card) return;
@@ -173,6 +186,7 @@ function selectCard(id, mode = 'item') {
   document.querySelectorAll('.vault-row').forEach(row => {
     row.setAttribute('aria-pressed', String(row.dataset.cardId === id));
   });
+  orderVaultSelection();
 }
 
 window.__selectVault = async id => {
@@ -183,7 +197,10 @@ window.__selectVault = async id => {
     selectedId = '';
     document.querySelector('.vault-layout').classList.add('is-unselected');
     document.querySelectorAll('.vault-row').forEach(row => row.setAttribute('aria-pressed', 'false'));
-  } else selectCard(id);
+  } else {
+    selectCard(id);
+    scrollToVaultDetail();
+  }
 };
 
 function closeVaultMenuOnOutsideClick(event) {
@@ -253,6 +270,7 @@ window.__filterVault = () => {
   document.querySelector('.vault-layout').classList.toggle('is-empty', !matches.length);
   if (selectedId && matches.length && !matches.some(card => card.id === selectedId)) selectCard(matches[0].id);
   list.innerHTML = matches.length ? matches.map(selectableRow).join('') : '<div class="empty-state">No cards match those filters.</div>';
+  orderVaultSelection();
   stopImagePrefetch();
   stopImagePrefetch = prefetchNearbyImages(list);
   document.querySelectorAll('.vault-row').forEach(row => row.setAttribute('aria-pressed', String(row.dataset.cardId === selectedId)));
@@ -266,7 +284,10 @@ async function changeMode(mode) {
   const form = document.getElementById('vault-edit');
   if (form?.dataset.dirty === 'true' && !await confirmDiscard()) return;
   selectCard(selectedId, mode);
-  document.querySelector('#vault-edit input, #vault-edit select')?.focus();
+  if (mode.startsWith('edit-')) {
+    document.querySelector('#vault-edit input, #vault-edit select')?.focus({preventScroll: true});
+    scrollToVaultDetail();
+  }
 }
 
 window.__flipVault = async () => {

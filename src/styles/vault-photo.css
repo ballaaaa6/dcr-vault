@@ -37,3 +37,9 @@
 .vault-photo-toolbar{flex:none}
 
 @media(max-width:540px){.vault-photo-panel>.vault-photo-flip{top:29px}}
+
+@media(max-width:760px){
+  body:has(.vault-page) .site-header{position:static}
+  .vault-page:not(.sk-page) .vault-list{display:contents}
+  .vault-page:not(.sk-page) .vault-select-row,.vault-page:not(.sk-page) .vault-selected{order:var(--vault-order,0)}
+}
