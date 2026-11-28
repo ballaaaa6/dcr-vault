@@ -39,3 +39,5 @@
 .sk-auto-icon{display:inline-block;flex:none;width:20px;height:20px}.sk-auto .profile-avatar-button.sk-auto-control{border-radius:50%}.sk-auto .vault-row{overflow:hidden}.sk-auto .billing-price .sk-auto-text{width:2.2em}.sk-auto .billing-card-featured,.sk-page .billing-card-featured{border:1px solid var(--dcr-border);background:var(--dcr-white);box-shadow:none}.sk-auto .billing-badge{background:transparent}.sk-auto textarea{resize:none}.sk-auto .upload-field{border:0;background:linear-gradient(90deg,var(--dcr-red-light),var(--dcr-white),var(--dcr-red-light));background-size:200% 100%;animation:sk 1.2s infinite}.sk-auto .upload-field>*{visibility:hidden}
 
 .sk-auto{overflow-x:clip}.sk-auto .dropdown-menu,.sk-auto .vault-menu-options{display:none!important}
+
+@media(min-width:761px){.sk-page .intake-card .upload-grid{margin-bottom:0}}

@@ -1,4 +1,7 @@
 #
+## Add Card image and field spacing - 2026-11-28
+- Extend the image and details areas toward the aligned action row on desktop.
+
 ## Add Card bottom spacing - 2026-11-28
 - Reduce desktop panel bottom padding to bring the action row down and extend the image areas.
  Changelog
