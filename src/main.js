@@ -1,3 +1,4 @@
+import {initializeActionTooltips} from './components/action-tooltips.js';
 import {initializeCornerCloseAnimation} from './components/corner-close.js';
 import {initializeActionIcons} from './components/action-icons.js';
 import './styles/action-icons.css';
@@ -11,6 +12,7 @@ import {initializeTextCursor} from './utils/text-cursor.js';
 import './styles/image-loading.css';
 initializeCornerCloseAnimation();
 initializeActionIcons();
+initializeActionTooltips();
 initializeImageLoading();
 initializeTextCursor();
 window.addEventListener('vite:preloadError', event => {

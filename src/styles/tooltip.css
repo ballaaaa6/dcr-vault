@@ -21,3 +21,4 @@
   .cert-share-icon:hover::after{transform:translateX(-50%) scale(1);animation:cert-tooltip-shake .5s ease-in-out}
   .cert-share-icon:hover::before{transform:translateX(-50%) rotate(45deg) scale(1)}
 }
+.action-tooltip{position:fixed;z-index:1000;max-width:min(260px,calc(100vw - 16px));padding:7px 10px;border-radius:8px;background:var(--dcr-red);color:var(--dcr-white);font:400 var(--font-size-description)/1.35 var(--font-sans);text-align:center;pointer-events:none;box-shadow:var(--shadow)}
