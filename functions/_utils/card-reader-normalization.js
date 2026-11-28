@@ -22,7 +22,7 @@ export function normalizeCardReading(value) {
   if (setSource === 'inferred_name' && !inferredFields.includes('set')) inferredFields.push('set');
   const reading = {game: games.has(game) ? game : '', language: languages.has(language) ? language : '',
     year, releaseYear, yearSource: releaseYear ? 'release' : '',
-    setNameEn, setNameLocal, setNameEnSource, setNameLocalSource, setCode: clean(value.set_code, 32), setNameEnType: ['official', 'translation'].includes(value.set_name_en_type) ? value.set_name_en_type : '', setName, setSource,
+    setNameEn, setNameLocal, setNameEnSource, setNameLocalSource, setCode: clean(value.set_code, 32), setNameEnType: setNameEn && ['official', 'translation'].includes(value.set_name_en_type) ? value.set_name_en_type : '', setName, setSource,
     cardNumber: clean(value.card_number, 30), name: clean(value.name), rarity: clean(value.rarity, 80),
     category: clean(value.category, 40), colorElements: Array.isArray(value.color_element) ? value.color_element.map(item => clean(item, 40)).filter(Boolean).slice(0, 10) : [],
     subtypeDetail: clean(value.subtype_detail, 60), inferredFields};

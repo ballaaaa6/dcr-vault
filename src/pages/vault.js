@@ -286,7 +286,7 @@ window.__saveDetail = async (event, id) => {
     patch.sourceLanguage = languageCode(patch.sourceLanguage);
     patch.languageLabel = patch.sourceLanguage === 'en' ? '' : languageName(patch.sourceLanguage).toUpperCase();
     patch.inferredFields = (existing.inferredFields || []).filter(field => patch[field === 'set' ? 'setName' : field] === existing[field === 'set' ? 'setName' : field]);
-    if (patch.setName !== existing.setName) patch.setSource = '';
+    if (patch.setName !== existing.setName) Object.assign(patch, {setSource: '', setNameLocal: patch.setName, setNameLocalSource: '', setNameEn: '', setNameEnSource: '', setNameEnType: ''});
   }
   try {
     await updateCard(id, patch);

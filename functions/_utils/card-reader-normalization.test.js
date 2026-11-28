@@ -53,3 +53,11 @@ test('uses release year only and preserves local set fallback', () => {
   assert.equal(fallback.yearSource, '');
   assert.equal(normalizeCardReading({name: 'Card', set_code: 'ABC'}).setName, '');
 });
+
+test('keeps local set and English translation separate and ignores a type without a name', () => {
+  const reading = normalizeCardReading({name: 'Card', set_name_local: '拡張パック', set_name_local_source: 'inferred', set_name_en: 'Expansion Pack', set_name_en_type: 'translation', set_name_en_source: 'inferred'});
+  assert.equal(reading.setName, '拡張パック');
+  assert.equal(reading.setNameEnType, 'translation');
+  assert.equal(reading.setSource, 'inferred_name');
+  assert.equal(normalizeCardReading({name: 'Card', set_name_en_type: 'official'}).setNameEnType, '');
+});

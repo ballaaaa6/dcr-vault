@@ -1,5 +1,8 @@
 # Changelog
 
+## Set identification instructions - 2026-11-28
+- Clarify local set evidence, source fields and English name handling; clear stale set metadata when edited in Vault.
+
 ## Local set names and labels - 2026-11-28
 - Remove Series from intake, Vault and labels; identify the local set directly with Gemini.
 - Remove card catalog lookup and reference image endpoints from the app.

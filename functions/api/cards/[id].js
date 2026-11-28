@@ -72,6 +72,7 @@ function cleanPatch(input) {
     cardTypeLabel: ['card_type_label', 60], languageLabel: ['language_label', 60], series: ['series', 120],
     category: ['category', 40], pokemonTypes: ['pokemon_types', 120], trainerType: ['trainer_type', 60],
     subtypeDetail: ['subtype_detail', 60], setSource: ['set_source', 30],
+    setNameLocal: ['set_name_local', 120], setNameEn: ['set_name_en', 120], setNameLocalSource: ['set_name_local_source', 20], setNameEnSource: ['set_name_en_source', 20], setNameEnType: ['set_name_en_type', 20],
     energyKind: ['energy_kind', 40], energyType: ['energy_type', 40],
     sourceFinish: ['source_finish', 80], sourceLanguage: ['source_language', 20]};
   for (const [key, [column, limit]] of Object.entries(fields)) {
