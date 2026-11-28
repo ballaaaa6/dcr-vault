@@ -17,7 +17,7 @@ export function emptyPhotoMarkup() {
   return `<svg class="upload-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><path d="m4 17 5-5 3 3 3-3 5 5"></path></svg><strong>Click to upload</strong><span>or drag and drop</span><small>JPG, PNG or WebP · up to 10 MB</small>`;
 }
 
-export function searchMarkup() {
+export function searchMarkup(card = null) {
   return `
     <main class="app-page intake-page">
       <header class="page-heading"><h1>Add a card to your vault</h1><p class="page-description">Saved card details and photos stay private to your signed-in account.</p></header>
@@ -38,7 +38,7 @@ export function searchMarkup() {
             ${catalogField('name', 'Name', 'e.g. Charizard', {wide: true})}
             ${catalogField('rarity', 'Rarity', 'e.g. Rare', {wide: true})}
             <input type="hidden" id="m-cardTypeLabel"><input type="hidden" id="m-sourceLanguage"><input type="hidden" id="m-languageLabel"><input type="hidden" id="m-artist">
-            <div class="form-field"><div class="reading-label"><label for="m-grade-trigger">Condition / Grade <span class="required-mark" aria-hidden="true">*</span></label>${intakeTooltip('grade', 'Condition / Grade')}</div>${dropdown({id: 'm-grade', label: 'Condition / Grade', options: [['', 'Choose condition'], ...CONDITION_OPTIONS.map(value => [value, conditionOptionLabel(value)])], value: '', required: true})}</div>
+            <div class="form-field"><div class="reading-label"><label for="m-grade-trigger">Condition / Grade <span class="required-mark" aria-hidden="true">*</span></label>${intakeTooltip('grade', 'Condition / Grade')}</div>${dropdown({id: 'm-grade', label: 'Condition / Grade', options: [['', 'Choose condition'], ...CONDITION_OPTIONS.map(value => [value, conditionOptionLabel(value)])], value: card?.gradeLabel || '', required: true})}</div>
             <div class="form-field cert-field"><div class="reading-label"><label for="m-cert">Cert number <span class="required-mark" aria-hidden="true">*</span></label>${intakeTooltip('cert', 'Cert number')}</div><span class="cert-input-row">
               <input class="form-control" id="m-cert" inputmode="numeric" maxlength="8" pattern="[0-9]{1,8}" placeholder="1 to 8 digits" required>
               <button class="btn btn-ghost cert-random" data-cert-random type="button" aria-label="Generate an available Cert number">

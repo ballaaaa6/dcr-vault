@@ -40,7 +40,7 @@ export function search(card = null) {
   window.__intakeCatalogCard = null;
   window.__intakeIdentification = null;
   window.__intakeIdentityReviewRequired = false;
-  return searchMarkup();
+  return searchMarkup(card);
 }
 
 function setCertState(available, message, state = '') {
@@ -154,8 +154,6 @@ function initializeEditCard(card) {
     setName: card.setName, cardNumber: card.cardNumber, name: card.name, rarity: card.rarity,
     sourceLanguage: card.sourceLanguage, languageLabel: card.languageLabel, artist: card.artist, cert: card.certNumber};
   for (const [key, value] of Object.entries(fields)) document.getElementById(`m-${key}`).value = value || '';
-  const grade = document.querySelector(`[data-dropdown-value="${CSS.escape(card.gradeLabel || '')}"]`);
-  grade?.click();
   const cert = document.getElementById('m-cert');
   cert.readOnly = true;
   document.querySelector('[data-cert-random]').disabled = true;
