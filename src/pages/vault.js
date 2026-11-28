@@ -120,7 +120,7 @@ const privateKeys = ['buyPrice', 'buyCurrency', 'purchaseSource', 'seller', 'rec
 function privateInformation(card) {
   const price = card.buyPrice == null || card.buyPrice === '' ? '-' : `${card.buyPrice} ${card.buyCurrency || 'THB'}`;
   const fields = [['Buy price', price], ['Acquisition', card.purchaseSource], ['Seller', card.seller],
-    ['Date received', card.receivedDate], ['Storage location', card.storageLocation], ['Position', card.position], ['Showcases', getCollections().filter(group => group.cardIds.includes(card.id)).map(group => group.name).join(', ')], ['Notes', card.notes]];
+    ['Date received', card.receivedDate], ['Showcases', getCollections().filter(group => group.cardIds.includes(card.id)).map(group => group.name).join(', ')], ['Storage location', card.storageLocation], ['Position', card.position], ['Notes', card.notes]];
   if (card.boughtFrom) fields.push(['Bought from (previous)', card.boughtFrom]);
   return `<section class="cert-information vault-private"><h2>Private vault details</h2><dl>${fields.map(([label, value]) =>
     `<div><dt>${label}</dt><dd>${escapeHTML(value || '-')}</dd></div>`).join('')}</dl></section>`;

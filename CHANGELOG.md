@@ -1,5 +1,7 @@
 #
 
+- Place Showcases above Storage location and Position in Vault private details.
+
 - Place Showcases above Storage location in Vault private editing.
 
 - Use the shared dropdown for Vault acquisition selection.
