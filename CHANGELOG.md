@@ -1,5 +1,7 @@
 #
 
+- Apply the Home card border reveal to all six Add Card image upload fields.
+
 - Shorten card image tooltip guidance on Add Card.
 
 - Match certificate viewer copyright clearance to the page footer and give the remaining height to the image.

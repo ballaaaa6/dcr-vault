@@ -50,6 +50,9 @@
 .intake-card .section-heading h2,.intake-card .section-heading p,.intake-card .upload-label,.intake-card .form-field>label,.intake-card .reading-label>label,.intake-card .identification-notice{background:color-mix(in srgb,var(--dcr-white) 78%,transparent);box-shadow:0 0 10px 5px color-mix(in srgb,var(--dcr-white) 78%,transparent);border-radius:5px}
 .intake-card .upload-field{background:color-mix(in srgb,var(--dcr-white) 78%,transparent)}
 .intake-card .upload-field:hover,.intake-card .upload-field:focus-within,.intake-card .upload-field.is-dragging{background:var(--dcr-red-light)}
+.intake-card .upload-field::after{position:absolute;inset:0;content:'';border:1px solid var(--dcr-red);border-radius:inherit;clip-path:inset(0 100% 0 0);pointer-events:none;transition:clip-path .45s ease}
+.intake-card .upload-field:is(:hover,:focus-within,.is-dragging)::after{clip-path:inset(0)}
+@media(prefers-reduced-motion:reduce){.intake-card .upload-field::after{transition:none}}
 .intake-card .form-control{background-color:color-mix(in srgb,var(--dcr-white) 96%,transparent)}
 .intake-card .section-heading p,.intake-card .identification-notice,.intake-card .upload-preview{color:var(--dcr-text-secondary)}
 
@@ -63,6 +66,7 @@
 .upload-frame{position:relative;min-width:0}
 .upload-field{display:block;position:relative;aspect-ratio:3/4;max-height:340px;overflow:hidden;border:1px dashed var(--dcr-gray);border-radius:16px;background:var(--dcr-white);cursor:pointer;transition:border-color .2s,background .2s}
 .upload-field:hover,.upload-field:focus-within,.upload-field.is-dragging{border-color:var(--dcr-red);background:var(--dcr-red-light)}
+.intake-card .upload-field:is(:hover,:focus-within,.is-dragging){border-color:var(--dcr-gray)}
 .upload-field input{position:absolute;width:1px;height:1px;opacity:0}
 .upload-preview{display:flex;width:100%;height:100%;align-items:center;justify-content:center;flex-direction:column;gap:5px;padding:16px;color:var(--dcr-gray);text-align:center;font-size:var(--font-size-description)}
 .upload-preview strong{color:var(--dcr-black);font-size:var(--font-size-description)}
