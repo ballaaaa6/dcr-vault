@@ -20,6 +20,9 @@
 
 # Changelog
 
+## English card readings - 2026-11-28
+- Prefer official English equivalents for Gemini response values, preserving original values when unavailable, in identification and review.
+
 ## 2026-11-22 - Public certificate lookup
 - Allow anyone to search certificate details and photos without signing in, while keeping vault and account information private.
 - Enforce globally unique certificate numbers and skip conflicting imports. The migration stops if existing numbers conflict.
