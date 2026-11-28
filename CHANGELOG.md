@@ -1,4 +1,7 @@
-# Changelog
+#
+## Add Card bottom spacing - 2026-11-28
+- Reduce desktop panel bottom padding to bring the action row down and extend the image areas.
+ Changelog
 
 ## Add Card panel balance - 2026-11-28
 - Expand the image areas and bring the aligned action row closer to the panel bottoms.

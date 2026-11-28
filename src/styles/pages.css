@@ -226,6 +226,7 @@
 .surface-card,.list-row,.field-grid>*{min-width:0}
 .list-row>div{min-width:0;overflow-wrap:anywhere}
 .intake-page .intake-card{padding-bottom:var(--button-effect-space)}
+@media(min-width:761px){.intake-page .intake-card{padding-bottom:calc(var(--button-effect-space)/2)}}
 @media(max-width:540px){.form-toolbar>.form-field{flex:1 1 140px;max-width:none}.form-toolbar>.btn{max-width:100%}}
 
 /* Card reading review: preserve field dimensions while marking uncertain results. */
