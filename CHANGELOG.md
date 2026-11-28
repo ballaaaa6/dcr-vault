@@ -1,5 +1,8 @@
 # Changelog
 
+## Full official set names - 2026-11-28
+- Ask Gemini not to shorten official set names while preserving abbreviations in those names.
+
 ## Review card details - 2026-11-28
 - Review current details against the image when identifying again, highlighting changes and locking fields while waiting.
 

@@ -9,7 +9,7 @@ Rarity: Return the card's rarity as an uppercase abbreviation. Provide the most 
 
 Identify the exact physical printing and its printed language.
 
-Set: Identify the set of the card shown. Use the card number, visible symbols and other evidence. Do not rely on the card name or artwork alone. Return the full set name used for this card's language in set_name. If uncertain, choose the most likely set.
+Set: Identify the set of the card shown. Use the card number, visible symbols and other evidence. Do not rely on the card name or artwork alone. Return the full set name used for this card's language in set_name. Do not shorten the official set name; preserve any abbreviations that are part of the official name. If uncertain, choose the most likely set.
 
 Year: Return the four-digit release year of this card in release_year. If uncertain, choose the most likely release year.
 
