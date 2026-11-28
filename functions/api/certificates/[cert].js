@@ -8,7 +8,7 @@ export async function onRequestGet({env, params}) {
   const cert = normalizeCertNumber(params.cert);
   if (!cert) return error('Enter 1 to 8 digits for the certificate number.');
   const row = await env.DB.prepare(`SELECT id, cert_number, name, game, set_name, year, card_number,
-    rarity, grade_label, card_type_label, language_label, series, source_language, source_finish, catalog_card_id, source_set_id, source_card_id,
+    rarity, grade_label, card_type_label, language_label, source_language, source_finish,
     category, pokemon_types, trainer_type, energy_kind, color_elements, subtype_detail,
     EXISTS(SELECT 1 FROM card_images WHERE card_id = cards.id AND side = 'front') AS has_front,
     EXISTS(SELECT 1 FROM card_images WHERE card_id = cards.id AND side = 'back') AS has_back
@@ -17,9 +17,8 @@ export async function onRequestGet({env, params}) {
   const image = side => `/api/cards/${encodeURIComponent(row.id)}/images/${side}`;
   return json({card: {certNumber: row.cert_number, name: row.name, game: row.game, setName: row.set_name,
     year: row.year, cardNumber: row.card_number, rarity: row.rarity, gradeLabel: row.grade_label,
-    cardTypeLabel: row.card_type_label, languageLabel: row.language_label, series: row.series,
-    sourceLanguage: row.source_language, sourceFinish: row.source_finish, catalogCardId: row.catalog_card_id,
-    sourceSetId: row.source_set_id, sourceCardId: row.source_card_id,
+    cardTypeLabel: row.card_type_label, languageLabel: row.language_label,
+    sourceLanguage: row.source_language, sourceFinish: row.source_finish,
     category: row.category || '', colorElements: safeColors(row.color_elements), subtypeDetail: row.subtype_detail || '',
     backgroundType: vaultBackground({game: row.game, category: row.category, colorElements: safeColors(row.color_elements), subtypeDetail: row.subtype_detail, pokemonTypes: row.pokemon_types, trainerType: row.trainer_type, energyKind: row.energy_kind}),
     frontImage: row.has_front ? image('front') : '', backImage: row.has_back ? image('back') : ''}});

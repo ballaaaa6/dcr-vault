@@ -9,7 +9,7 @@ import {cardImageVariant} from '../utils/card-image-variant.js';
 
 export function certificateImages(card) {
   const actual = [['Front', card.frontImage], ['Back', card.backImage]].filter(([, url]) => url);
-  return actual.length ? actual : (card.referenceImage ? [['Front · catalog reference', card.referenceImage]] : []);
+  return actual;
 }
 
 function imageGallery(card) {

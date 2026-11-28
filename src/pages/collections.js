@@ -26,7 +26,7 @@ function editDialog(group) {
 function addDialog() {
   const group = current();
   const sorted = [...cards].sort((a, b) => compareVaultCards(a, b, 'date-desc'));
-  const rows = sorted.map(card => `<label>${heartCheckbox(`name="card" value="${esc(card.id)}" ${group.cardIds.includes(card.id) ? 'checked' : ''}`)}<span><strong>${esc(card.name)}</strong><small>Cert ${esc(card.certNumber || '')}</small></span><span class="label-card-image">${vaultImage({...card, referenceImage: card.frontImage || card.referenceImage, frontImage: card.referenceImage}, 'label-image-empty', 'No photo')}</span></label>`).join('');
+  const rows = sorted.map(card => `<label>${heartCheckbox(`name="card" value="${esc(card.id)}" ${group.cardIds.includes(card.id) ? 'checked' : ''}`)}<span><strong>${esc(card.name)}</strong><small>Cert ${esc(card.certNumber || '')}</small></span><span class="label-card-image">${vaultImage(card, 'label-image-empty', 'No photo')}</span></label>`).join('');
   openDialog('Choose from Vault', `<form id="collection-cards-form"><p class="muted label-dialog-description">Select the cards you want in this showcase.</p><div class="label-vault-toolbar"><label class="label-select-all">${heartCheckbox(`data-collection-select-all ${cards.length ? '' : 'disabled'}`)} Select all</label>${vaultSortSelect('collection-vault-sort')}</div><div class="label-vault-list">${rows || '<p>No cards in your vault.</p>'}</div><div class="label-controls label-vault-actions"><button class="btn btn-primary" type="submit">Save selection</button></div></form>`);
   updatePickerSelection();
 }

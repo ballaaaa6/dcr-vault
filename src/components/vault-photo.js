@@ -7,13 +7,13 @@ import {cardImageVariant} from '../utils/card-image-variant.js';
 const searchIcon = '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg>';
 
 function faces(card, isDialog = false) {
-  const front = card.referenceImage || card.frontImage;
-  const image = (url, side) => url ? `<img src="${escapeHTML(isDialog ? url : cardImageVariant(url, 'medium'))}" data-fallback="${escapeHTML(side === 'Front' && card.referenceImage ? (isDialog ? card.frontImage || '' : cardImageVariant(card.frontImage, 'medium')) : '')}" alt="${escapeHTML(card.name)} — ${side}" referrerpolicy="no-referrer"${isDialog || side === 'Back' ? ' loading="lazy"' : ' fetchpriority="high"'} decoding="async">` : '<span class="vault-detail-photo-empty">No front photo available</span>';
+  const front = card.frontImage;
+  const image = (url, side) => url ? `<img src="${escapeHTML(isDialog ? url : cardImageVariant(url, 'medium'))}" data-fallback="${escapeHTML('')}" alt="${escapeHTML(card.name)} — ${side}" referrerpolicy="no-referrer"${isDialog || side === 'Back' ? ' loading="lazy"' : ' fetchpriority="high"'} decoding="async">` : '<span class="vault-detail-photo-empty">No front photo available</span>';
   return `<div class="vault-photo-flipper"><div class="vault-photo-face">${image(front, 'Front')}</div><div class="vault-photo-face vault-photo-back">${image(card.backImage, 'Back')}</div></div>`;
 }
 
 export function vaultPhoto(card) {
-  const hasFront = Boolean(card.referenceImage || card.frontImage);
+  const hasFront = Boolean(card.frontImage);
   const disabled = !hasFront || !card.backImage ? ' disabled' : '';
   const flip = `<button class="vault-photo-flip" type="button" aria-label="Show back image"${disabled}>${switchIcon()}</button>`;
   const cert = normalizeCert(card.certNumber);

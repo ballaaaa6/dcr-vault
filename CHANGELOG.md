@@ -1,5 +1,9 @@
 # Changelog
 
+## Local set names and labels - 2026-11-28
+- Remove Series from intake, Vault and labels; identify the local set directly with Gemini.
+- Remove card catalog lookup and reference image endpoints from the app.
+
 ## Gemini 3.5 Flash-Lite high - 2026-11-27
 - Use Gemini 3.5 Flash-Lite with high thinking for card identification.
 

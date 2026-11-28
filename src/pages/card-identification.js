@@ -49,7 +49,7 @@ function applyReading(fields, id) {
   reading = {...fields, colorElements: [...(fields.colorElements || [])], inferredFields: [...(fields.inferredFields || [])]};
   for (const key of ['category', 'colorElements', 'subtypeDetail']) if (provenance[key] === 'user') reading[key] = previous[key];
   reading.inferredFields = reading.inferredFields.filter(key => provenance[key === 'set' ? 'setName' : key] !== 'user');
-  if (provenance.setName === 'user') reading.setSource = '';
+  if (provenance.setName === 'user') { reading.setSource = ''; reading.setNameLocal = previous.setNameLocal || ''; reading.setNameEn = ''; reading.setNameEnType = ''; reading.setNameEnSource = ''; reading.setNameLocalSource = ''; }
   const selectedGame = document.getElementById('m-game').value;
   if (provenance.game === 'user' && selectedGame && selectedGame !== fields.game) {
     reading.category = ''; reading.colorElements = []; reading.subtypeDetail = '';
@@ -58,7 +58,7 @@ function applyReading(fields, id) {
   window.__intakeIdentification = {...fields, sourceLanguage: fields.language};
   window.__intakeCatalogCard = null;
   const values = {game: fields.game, language: languageName(fields.language), sourceLanguage: fields.language,
-    name: fields.name, setName: fields.setName, year: fields.year, series: fields.series,
+    name: fields.name, setName: fields.setName, year: fields.year,
     cardNumber: fields.cardNumber, rarity: fields.rarity, cardTypeLabel: fields.game,
     languageLabel: fields.language === 'en' ? '' : languageName(fields.language).toUpperCase()};
   applied = {};
@@ -71,12 +71,12 @@ function applyReading(fields, id) {
     applied[key] = input.value;
     provenance[key] = input.value ? 'gemini' : 'unknown';
   }
-  const fieldStates = Object.fromEntries(['year', 'series', 'setName'].map(key => [key,
+  const fieldStates = Object.fromEntries(['year', 'setName'].map(key => [key,
     provenance[key] === 'user' ? 'user_preserved' : values[key] ? 'applied' : 'empty_reading']));
-  const displayed = Object.fromEntries(['name', 'setName', 'year', 'series', 'cardNumber', 'rarity'].map(key =>
+  const displayed = Object.fromEntries(['name', 'setName', 'year', 'cardNumber', 'rarity'].map(key =>
     [key, document.getElementById(`m-${key}`)?.value || '']));
   logIdentificationStage('browser', {yearSource: provenance.year === 'user' ? 'user' : fields.yearSource,
-    setValueSource: provenance.setName === 'user' ? 'user' : fields.setNameEn ? 'english' : fields.setNameLocal ? 'local' : '',
+    setValueSource: provenance.setName === 'user' ? 'user' : fields.setNameLocal ? 'local' : fields.setNameEn ? 'english' : '',
     values: displayed, fieldStates, provenance});
   window.dispatchEvent(new Event('intake-values-updated'));
   const panel = document.getElementById('identification-dialog-content');
@@ -135,7 +135,7 @@ document.addEventListener('input', event => {
     return;
   }
   const key = event.target.id?.replace(/^m-/, '');
-  if (!['game', 'language', 'name', 'setName', 'year', 'series', 'cardNumber', 'rarity'].includes(key)) return;
+  if (!['game', 'language', 'name', 'setName', 'year', 'cardNumber', 'rarity'].includes(key)) return;
   provenance[key] = 'user'; delete applied[key];
   if (key === 'game' && reading.game && event.target.value !== reading.game) {
     reading.category = ''; reading.colorElements = []; reading.subtypeDetail = '';
@@ -145,7 +145,7 @@ document.addEventListener('input', event => {
   }
   const inferred = key === 'setName' ? 'set' : key;
   reading.inferredFields = (reading.inferredFields || []).filter(field => field !== inferred);
-  if (key === 'setName') reading.setSource = '';
+  if (key === 'setName') { reading.setSource = ''; reading.setNameLocal = event.target.value.trim(); reading.setNameEn = ''; reading.setNameEnType = ''; reading.setNameEnSource = ''; reading.setNameLocalSource = ''; }
 });
 document.addEventListener('change', event => { if (event.target.matches('[data-upload-side="front"]')) invalidatePhoto(); });
 window.addEventListener('intake-front-image-cleared', invalidatePhoto);

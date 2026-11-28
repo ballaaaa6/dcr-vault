@@ -33,8 +33,7 @@ export function searchMarkup() {
             ${catalogField('game', 'Card game', 'Choose card game', {wide: true})}
             ${catalogField('language', 'Language', 'e.g. English')}
             ${catalogField('year', 'Year', 'e.g. 1999')}
-            ${catalogField('series', 'Series', 'e.g. Scarlet &amp; Violet', {required: false})}
-            ${catalogField('setName', 'Set', 'e.g. Base Set')}
+            ${catalogField('setName', 'Set', 'e.g. Base Set', {wide: true})}
             ${catalogField('cardNumber', 'Card number', 'e.g. 4', {wide: true})}
             ${catalogField('name', 'Name', 'e.g. Charizard', {wide: true})}
             ${catalogField('rarity', 'Rarity', 'e.g. Rare', {wide: true})}

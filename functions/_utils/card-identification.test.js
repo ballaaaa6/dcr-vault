@@ -22,7 +22,7 @@ function identifyRequest(again = false) {
 test('sends the image and new schema and preserves printed multilingual fields', async () => {
   const originalFetch = globalThis.fetch;
   let payload;
-  const sample = {game: 'One Piece', language: 'ja', release_year: '2023', series: '', set_name_en: 'Romance Dawn', set_name_en_source: 'inferred', set_code: 'OP01', set_source: 'inferred_name',
+  const sample = {game: 'One Piece', language: 'ja', release_year: '2023', series: '', set_name_en: 'Romance Dawn', set_name_en_source: 'inferred', set_name_local: 'ロマンスドーン', set_name_local_source: 'inferred', set_code: 'OP01', set_source: 'inferred_name',
     card_number: 'OP01-001', name: 'モンキー・D・ルフィ', rarity: 'L', category: 'Leader', color_element: ['Red', 'Green'], subtype_detail: '', inferred_fields: ['year']};
   globalThis.fetch = async (_url, init) => {
     payload = JSON.parse(init.body);
@@ -36,7 +36,8 @@ test('sends the image and new schema and preserves printed multilingual fields',
     assert.deepEqual(payload.generationConfig.thinkingConfig, {thinkingLevel: 'high'});
     assert.ok(payload.generationConfig.responseJsonSchema.properties.inferred_fields.items.enum.includes('rarity'));
     assert.equal('copyright_year' in payload.generationConfig.responseJsonSchema.properties, false);
-    assert.ok(payload.generationConfig.responseJsonSchema.required.includes('series_missing_reason'));
+    assert.ok(!payload.generationConfig.responseJsonSchema.required.includes('series'));
+    assert.ok(payload.generationConfig.responseJsonSchema.required.includes('set_missing_reason'));
     assert.deepEqual(payload.generationConfig.responseJsonSchema.required, Object.keys(payload.generationConfig.responseJsonSchema.properties));
     assert.equal(result.name, sample.name);
     assert.equal(result.cardNumber, sample.card_number);
@@ -59,8 +60,7 @@ test('logs model explanations and distinguishes rejected year from empty fields'
   try {
     const response = await onRequestPost({request: identifyRequest(), env});
     assert.equal(response.status, 200);
-    assert.equal(logged.raw.series_missing_reason, 'Printing is unclear');
-    assert.deepEqual(logged.fieldStates, {year: 'invalid_format', series: 'empty_from_model', setName: 'empty_from_model'});
+    assert.deepEqual(logged.fieldStates, {year: 'invalid_format', setName: 'empty_from_model'});
   } finally { globalThis.fetch = originalFetch; }
 });
 

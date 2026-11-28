@@ -23,17 +23,13 @@ Do not return treatments or finishes as rarity; interpret SP and Showcase in the
 
 Identify the exact physical printing and its printed language.
 
-Set: Return set_name_local as the full name of the exact set for this printing in the card's local language, when known. Return set_name_en as the full official English name of that same local set, or a faithful English translation when no official English name is known. Do not substitute the name of a different English set that contains the same card. Set set_name_en_type to official or translation when known; otherwise return an empty string. Copy set_code exactly as visible on the card. Do not guess a code or use the collector number as the set code unless it is visibly also the set code. For each nonempty set_name_en and set_name_local, mark its source as printed only if the full name is visibly printed on the card; mark it as inferred if supplied from knowledge. Otherwise use an empty source.
+Set: Identify the set of this exact printing using the card's language, collector number, visible set code and other evidence. Return the full set name used in this printing's market as set_name_local. For promos, reprints and special products identify the actual printing, not the original or a different-language release. If uncertain, leave it empty.
 
-Series: Series is the broader product series or group that the exact set belongs to. It is separate from the set name, although a series and a set may legitimately have the same name. For every game, identify the series of the actual printing using the visible language, set, code, number and other evidence together. Return the local official name or a clearly established local series name when reasonably confident. A generic game name alone, such as Pokemon, is not a series. Do not translate a series name yourself or substitute a different-language printing's series. If the series cannot be identified with reasonable confidence, leave it empty.
+If known, return an English name for the same set as set_name_en and mark it official or translation. Do not substitute a different English-language set containing the same card. If unknown, leave it empty. Copy set_code only when visible; do not guess it. Mark each set name as printed only if the full name is visible on the card; otherwise mark it inferred.
 
-For Japanese Pokemon, distinguish local series when applicable, including Neo, VS, Web, E, ADV, PCG, DP, DPt, LEGEND, XY and XY BREAK. Do not merge ADV with PCG or DPt with LEGEND merely because cards from those series may appear in related English sets. For Vanguard, identify the relevant local product series using the exact printing and product context. Product codes, format symbols, and anime titles can overlap; do not decide from one prefix alone. If the product series cannot be determined confidently, leave it empty. For promotional cards, reprints, anniversary products, and special sets, identify the actual printing. Do not assign the series of the original card merely because the artwork or collector number is similar.
+Year: Return release_year as the four-digit release year of this exact printing or local set, if known. Do not use a copyright year as the release year or infer release year from copyright alone. Use the card's visible language, name, set code, collector number and other evidence together with your knowledge to identify the exact set and release year. Do not invent values. Return an empty string when a field cannot be identified with reasonable confidence. Do not put codes or abbreviations in full set-name fields, except when they are part of the actual name. List knowledge-based set, release year and rarity in inferred_fields. Never identify condition, grade, finish, price or certificate number.
 
-Examples: An English Pokemon Base Set printing may have series "Base" and set "Base Set". A Thai Pokemon card in the Thai Mega series may have series "วิวัฒนาการเมก้า". A Japanese Pokemon LEGEND printing has series "ポケモンカードゲームLEGEND", not "HeartGold & SoulSilver". Do not use "Pokemon" as the series merely because the card is a Pokemon card.
-
-Year: Return release_year as the four-digit release year of this exact printing or local set, if known. Do not use a copyright year as the release year or infer release year from copyright alone. Use the card's visible language, name, set code, collector number and other evidence together with your knowledge to identify the exact set and release year. Do not invent values. Return an empty string when a field cannot be identified with reasonable confidence. Do not put codes or abbreviations in full set-name fields, except when they are part of the actual name. List knowledge-based series, set, release year and rarity in inferred_fields. Never identify condition, grade, finish, price or certificate number.
-
-For each empty release_year, series, or set (both set names empty), provide a concise English explanation in year_missing_reason, series_missing_reason, or set_missing_reason respectively. Describe the specific uncertainty or missing evidence; do not assert facts you cannot know. When the field has a value, return an empty reason. If the local set name is known but its English name is not, return the local name without inventing an English name.
+For each empty release_year or local set name, provide a concise English explanation in year_missing_reason or set_missing_reason respectively. Describe the specific uncertainty or missing evidence; do not assert facts you cannot know. When the field has a value, return an empty reason. If the local set name is known but its English name is not, return the local name without inventing an English name.
 
 For English text values intended for the form, capitalize the first letter of each word, for example "Neo" and "Scarlet & Violet". Preserve established spelling and capitalization of names, abbreviations and codes, such as McDonald's, XY, EX, and collector numbers. Preserve non-English scripts and copy collector numbers exactly; do not change internal capitalization of printed names or codes.
 
@@ -61,14 +57,14 @@ export const CARD_READING_SCHEMA = {
   properties: {
     game: {type: 'string', enum: ['', ...CARD_GAMES]},
     language: {type: 'string', enum: ['', 'en', 'ja', 'th', 'ko', 'zh-cn', 'zh-tw', 'de', 'fr', 'it', 'pt', 'es', 'id', 'nl', 'pl', 'ru']},
-    series: string, set_name_en: string, set_name_local: string, set_code: string,
+    set_name_en: string, set_name_local: string, set_code: string,
     set_name_en_source: {type: 'string', enum: ['', 'printed', 'inferred']}, set_name_local_source: {type: 'string', enum: ['', 'printed', 'inferred']},
     set_name_en_type: {type: 'string', enum: ['', 'official', 'translation']}, release_year: string,
-    year_missing_reason: string, series_missing_reason: string, set_missing_reason: string,
+    year_missing_reason: string, set_missing_reason: string,
     card_number: string, name: string, rarity: {type: 'string', description: 'Rarity code for the detected game, Promo for promotional printings, or empty when uncertain.'}, category: string,
     color_element: stringArray, subtype_detail: string,
-    inferred_fields: {type: 'array', items: {type: 'string', enum: ['series', 'set', 'year', 'rarity']}}
+    inferred_fields: {type: 'array', items: {type: 'string', enum: ['set', 'year', 'rarity']}}
   },
-  required: ['game', 'language', 'series', 'set_name_en', 'set_name_local', 'set_code', 'set_name_en_source', 'set_name_local_source', 'set_name_en_type', 'release_year', 'year_missing_reason', 'series_missing_reason', 'set_missing_reason', 'card_number', 'name',
+  required: ['game', 'language', 'set_name_en', 'set_name_local', 'set_code', 'set_name_en_source', 'set_name_local_source', 'set_name_en_type', 'release_year', 'year_missing_reason', 'set_missing_reason', 'card_number', 'name',
     'rarity', 'category', 'color_element', 'subtype_detail', 'inferred_fields']
 };

@@ -59,16 +59,16 @@ async function identifyWithGemini(image, contentType, env, userId, model) {
 }
 
 function readingFieldStates(raw, fields, failure) {
-  if (failure || !raw) return Object.fromEntries(['year', 'series', 'setName'].map(key => [key, failure ? 'request_failed' : 'no_reading']));
+  if (failure || !raw) return Object.fromEntries(['year', 'setName'].map(key => [key, failure ? 'request_failed' : 'no_reading']));
   const status = (source, result) => result ? 'returned' : source ? 'invalid_format' : 'empty_from_model';
-  return {year: status(raw.release_year, fields?.year), series: status(raw.series, fields?.series),
-    setName: status(raw.set_name_en || raw.set_name_local, fields?.setName)};
+  return {year: status(raw.release_year, fields?.year),
+    setName: status(raw.set_name_local, fields?.setName)};
 }
 
 function safeRawReading(value) {
   const keys = ['set_name_en', 'set_name_local', 'set_name_en_source', 'set_name_local_source', 'setNameEnSource', 'setNameLocalSource', 'set_code', 'set_name_en_type', 'release_year', 'copyright_year', 'setNameEn', 'setNameLocal', 'setNameEnType', 'releaseYear', 'copyrightYear', 'yearSource', 'game', 'set', 'set_source', 'card_number', 'color_element', 'subtype_detail', 'inferred_fields', 'setSource', 'colorElements', 'subtypeDetail', 'inferredFields', 'cardTypeLabel', 'languageLabel', 'series', 'category', 'trainerType', 'energyKind', 'energyType', 'formName', 'formSetName', 'formYear', 'formCardNumber', 'formRarity', 'name', 'englishName', 'setName', 'englishSetName', 'setCode', 'cardNumber', 'language', 'year',
     'rarity', 'hp', 'illustrator', 'types', 'stamp', 'setSymbol', 'copyrightText', 'identificationSummary', 'identityStatus', 'evidence', 'uncertainFields',
-    'year_missing_reason', 'series_missing_reason', 'set_missing_reason'];
+    'year_missing_reason', 'set_missing_reason'];
   if (!value || typeof value !== 'object') return {};
   const form = value.form && typeof value.form === 'object' ? Object.fromEntries(
     Object.entries(value.form).filter(([, item]) => typeof item === 'string').map(([key, item]) => [key, item.slice(0, 300)])) : undefined;

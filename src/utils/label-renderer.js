@@ -5,7 +5,7 @@ import frontMasterUrl from '../../dcr-tag-70x20/source/dcr-tag-front.svg?url';
 import backMasterUrl from '../../dcr-tag-70x20/source/dcr-tag-back.svg?url';
 import sheetMasterUrl from '../../dcr-tag-70x20/source/a4-40up-portrait.svg?url';
 import {CONDITION_OPTIONS} from './label-options.js';
-import {cardLabelMetadata, cardSeries} from './label-metadata.js';
+import {cardLabelMetadata} from './label-metadata.js';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 const XLINK_NS = 'http://www.w3.org/1999/xlink';
@@ -41,8 +41,7 @@ export function cardLabelData(card) {
   const metadata = cardLabelMetadata(card);
   return {
     year: String(card.year ?? '').trim(),
-    cardType: String(card.cardTypeLabel || (String(card.game || '').toLowerCase() === 'pokemon' ? 'POKÉMON' : card.game || '')).trim(),
-    series: String(card.series || cardSeries(card)).trim(),
+    cardType: String((String(card.game || '').toLowerCase() === 'pokemon' ? 'POKÉMON' : card.game) || card.cardTypeLabel || '').trim(),
     language: String(card.sourceLanguage || card.language || '').toLowerCase(),
     languageLabel: String(card.languageLabel || '').trim(),
     name: String(card.name ?? '').trim(),
@@ -58,7 +57,6 @@ function cleanLabelData(data) {
   return {
     year: String(data.year ?? '').trim(),
     cardType: String(data.cardType ?? '').trim().toLocaleUpperCase('en-US'),
-    series: String(data.series ?? '').trim().toLocaleUpperCase('en-US'),
     language: String(data.language ?? '').trim().toLowerCase(),
     languageLabel: String(data.languageLabel ?? '').trim().toLocaleUpperCase('en-US'),
     name: String(data.name ?? '').trim().toLocaleUpperCase('en-US'),
@@ -97,19 +95,11 @@ function shortenToFit(value, rightValue) {
   return result;
 }
 
-const LANGUAGE_LABELS = {en: '', th: 'THAI', ja: 'JAPANESE'};
-const SERIES_SHORT = {'SCARLET & VIOLET': 'SV', 'SWORD & SHIELD': 'SWSH', 'SUN & MOON': 'SM',
-  'MEGA EVOLUTION': 'MEGA', 'BLACK & WHITE': 'BW', 'DIAMOND & PEARL': 'DP',
-  'HEARTGOLD & SOULSILVER': 'HGSS', 'ADVANCED GENERATION': 'ADV'};
-
+const LANGUAGE_LABELS = {en: 'ENGLISH', th: 'THAI', ja: 'JAPANESE'};
 export function firstLine(value) {
-  const language = value.language === 'en' ? '' : value.languageLabel || LANGUAGE_LABELS[value.language] || value.language.toUpperCase();
+  const language = value.languageLabel || LANGUAGE_LABELS[value.language] || value.language.toUpperCase();
   if (!value.year || !value.cardType) return '';
-  const build = series => [value.year, value.cardType, language, series].filter(Boolean).join(' ');
-  const full = build(value.series);
-  if (!pairFitError('First line', 'card number', full, value.cardNumber)) return full;
-  const shortenedSeries = SERIES_SHORT[value.series] ? build(SERIES_SHORT[value.series]) : full;
-  return shortenToFit(shortenedSeries, value.cardNumber);
+  return shortenToFit([value.year, value.cardType, language].filter(Boolean).join(' '), value.cardNumber);
 }
 
 export function validateLabelData(data) {

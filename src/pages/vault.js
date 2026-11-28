@@ -31,7 +31,7 @@ let vaultBusy = false;
 let stopImagePrefetch = () => {};
 const publicFields = [
   ['name', 'Card name', 120], ['certNumber', 'Cert number', 8], ['game', 'Brand / Title', 30], ['year', 'Year', 4],
-  ['cardTypeLabel', 'Card type', 60], ['sourceLanguage', 'Language code', 20], ['series', 'Series', 120],
+  ['cardTypeLabel', 'Card type', 60], ['sourceLanguage', 'Language code', 20],
   ['setName', 'Set name', 120], ['category', 'Category', 40], ['colorElements', 'Colors / elements', 120], ['subtypeDetail', 'Subtype', 60], ['cardNumber', 'Card number', 30], ['rarity', 'Rarity', 80],
   ['gradeLabel', 'Condition', 60], ['sourceFinish', 'Finish', 80]
 ];

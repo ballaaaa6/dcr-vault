@@ -14,7 +14,7 @@ export function manageLocationCards(body, location, cards, save, back, isCollect
   const all = body.querySelector('[data-picker-all]');
   function render() {
     const sorted = [...cards].sort((a, b) => compareVaultCards(a, b, body.querySelector('#location-card-sort').value));
-    list.innerHTML = sorted.map(card => `<label>${heartCheckbox(`value="${esc(card.id)}" ${selected.has(card.id) ? 'checked' : ''}`)}<span><strong>${esc(card.name)}</strong><small>Cert ${esc(card.certNumber || '')}</small></span><span class="label-card-image">${vaultImage({...card, referenceImage: card.frontImage || card.referenceImage, frontImage: card.referenceImage}, 'label-image-empty', 'No photo')}</span></label>`).join('') || '<p>No cards in your vault.</p>';
+    list.innerHTML = sorted.map(card => `<label>${heartCheckbox(`value="${esc(card.id)}" ${selected.has(card.id) ? 'checked' : ''}`)}<span><strong>${esc(card.name)}</strong><small>Cert ${esc(card.certNumber || '')}</small></span><span class="label-card-image">${vaultImage(card, 'label-image-empty', 'No photo')}</span></label>`).join('') || '<p>No cards in your vault.</p>';
     all.checked = cards.length > 0 && selected.size === cards.length;
     all.indeterminate = selected.size > 0 && selected.size < cards.length;
     all.disabled = !cards.length;

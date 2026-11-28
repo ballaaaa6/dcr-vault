@@ -6,7 +6,7 @@ test('certificate images prefer only uploaded sides over catalog reference', () 
   assert.deepEqual(certificateImages({frontImage: '/front', referenceImage: '/reference'}), [['Front', '/front']]);
   assert.deepEqual(certificateImages({backImage: '/back', referenceImage: '/reference'}), [['Back', '/back']]);
   assert.deepEqual(certificateImages({frontImage: '/front', backImage: '/back'}), [['Front', '/front'], ['Back', '/back']]);
-  assert.deepEqual(certificateImages({referenceImage: '/reference'}), [['Front · catalog reference', '/reference']]);
+  assert.deepEqual(certificateImages({referenceImage: '/reference'}), []);
   assert.deepEqual(certificateImages({}), []);
 });
 
