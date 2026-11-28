@@ -1,5 +1,8 @@
 # Changelog
 
+## Card artwork identification - 2026-11-28
+- Use artwork and layout alongside printed evidence when identifying cards.
+
 ## Full official set names - 2026-11-28
 - Ask Gemini not to shorten official set names while preserving abbreviations in those names.
 
