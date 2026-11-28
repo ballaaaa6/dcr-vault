@@ -1,5 +1,8 @@
 # Changelog
 
+## Add Card action row clearance - 2026-11-28
+- Balance the space above and below the action row and align both buttons using matching panel clearance.
+
 ## Add Card action spacing - 2026-11-28
 - Match the spacing above both action areas so their buttons share the same vertical alignment.
 
