@@ -8,12 +8,12 @@ import {cornerSwitchIcon} from '../components/corner-switch.js';
 import {CARD_CORNERS} from '../utils/card-corners.js';
 
 const photoHelp = {
-  front: 'Upload a photo of the full front of the card.',
-  back: 'Upload a photo of the full back of the card.',
-  'back-top-left': 'Upload a close-up of the top left corner on the back of the card.',
-  'back-top-right': 'Upload a close-up of the top right corner on the back of the card.',
-  'back-bottom-left': 'Upload a close-up of the bottom left corner on the back of the card.',
-  'back-bottom-right': 'Upload a close-up of the bottom right corner on the back of the card.'
+  front: 'Upload the full card front.',
+  back: 'Upload the full card back.',
+  'back-top-left': 'Upload the back top left corner.',
+  'back-top-right': 'Upload the back top right corner.',
+  'back-bottom-left': 'Upload the back bottom left corner.',
+  'back-bottom-right': 'Upload the back bottom right corner.'
 };
 
 function photoField(side, label) {
