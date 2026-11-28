@@ -5,22 +5,7 @@ export const CARD_READING_PROMPT = `You are a trading card identification assist
 
 Copy the card name and full collector number exactly as printed, preserving script, punctuation, leading zeroes and any prefix, suffix or denominator. Identify the game and language from the visible evidence. Classify category, color and subtype using the indicators for that game, not artwork or attack text. Return empty values when the evidence is insufficient.
 
-rarity: Return one value from the allowlist for the detected game. If visible evidence identifies a promotional printing, including a recognizable game-specific promo mark or promo collector-number code, return Promo for every game, even when another symbol or code appears. Otherwise copy a visible rarity code or use your knowledge to interpret the printed symbol or evidence as the appropriate code. Do not infer from artwork shine, glare, sleeve reflections or finish. Never return a rarity symbol, except the visible One Piece star described below. If uncertain, leave rarity empty. If rarity is interpreted or inferred rather than copied as a printed code, include rarity in inferred_fields.
-For One Piece only, append one ★ for each clearly visible star printed above or next to the rarity code, including Promo when the promo rule applies (for example SR★). Do not infer stars from artwork, finish or shine. If the star is unclear, return the rarity without it.
-Rarity allowlist (Promo is permitted for every game; visible One Piece stars may be appended):
-Pokemon: C,U,R,RR,RRR,AR,SR,SAR,UR,HR,CHR,CSR,S,SSR,A,BWR,MUR,MA,FUR,RGB,No Rarity,Classic Collection,Promo.
-Yu-Gi-Oh: C,R,SR,UR,ScR,UtR,GR,HGR,PlR,StR,CR,QCScR,Promo.
-One Piece: C,UC,R,SR,SEC,L,P,SP,TR,Promo.
-Dragon Ball Fusion World: C,UC,R,SR,SCR,L,PR,Promo.
-Lorcana: C,UC,R,SR,L,E,EN,I,Promo.
-Riftbound: C,UC,R,E,S,O,SIG,U,Promo.
-Digimon: C,U,R,SR,SEC,P,Promo.
-Vanguard: C,R,RR,RRR,VR,SVR,ORR,SP,SEC,LSR,DSR,Promo.
-MTG: C,U,R,M,S,B,Promo.
-Gundam: C,U,R,LR,LKC,LKU,LKR,P,Promo.
-Star Wars Unlimited: C,U,R,L,S,Promo.
-For Lorcana use C=Common, UC=Uncommon, R=Rare, SR=Super Rare, L=Legendary, E=Epic, EN=Enchanted, I=Iconic. For Riftbound use C=Common, UC=Uncommon, R=Rare, E=Epic, S=Showcase, O=Overnumbered, SIG=Signature, U=Ultimate. For MTG use C=Common, U=Uncommon, R=Rare, M=Mythic, S=Special, B=Bonus. For Star Wars Unlimited use C=Common, U=Uncommon, R=Rare, L=Legendary, S=Special. These are output codes, not claims that the codes are printed on the card.
-Do not return treatments or finishes as rarity; interpret SP and Showcase in the context of the game because their meanings differ. Return No Rarity for a confidently identified 1996 Japanese Pokemon Base Set printing with a blank rarity corner. Return Classic Collection for a confidently identified 30th Celebration gold-border reprint. Pokemon promo collector codes such as XY-P or S-P support Promo; do not apply a code from one game indiscriminately to another.
+Rarity: Return the card's rarity as an uppercase abbreviation.
 
 Identify the exact physical printing and its printed language.
 
@@ -57,7 +42,7 @@ export const CARD_READING_SCHEMA = {
     game: {type: 'string', enum: ['', ...CARD_GAMES]},
     language: {type: 'string'},
     set_name: string, release_year: string,
-    card_number: string, name: string, rarity: {type: 'string', description: 'Rarity code for the detected game, Promo for promotional printings, or empty when uncertain.'}, category: string,
+    card_number: string, name: string, rarity: {type: 'string', description: 'Card rarity as an uppercase abbreviation.'}, category: string,
     color_element: stringArray, subtype_detail: string,
     inferred_fields: {type: 'array', items: {type: 'string', enum: ['rarity']}}
   },

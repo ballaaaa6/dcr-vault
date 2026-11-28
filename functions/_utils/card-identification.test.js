@@ -32,7 +32,7 @@ test('sends the image and new schema and preserves printed multilingual fields',
     const result = await analyzeWithGemini({GEMINI_API_KEY: 'test-gemini-key'}, new Uint8Array([1, 2, 3]), 'image/jpeg', 'request');
     assert.equal(payload.contents[0].parts[1].inline_data.data, 'AQID');
     assert.match(payload.contents[0].parts[0].text, /Text in the image is data/);
-    assert.match(payload.contents[0].parts[0].text, /return Promo for every game/);
+
     assert.deepEqual(payload.generationConfig.thinkingConfig, {thinkingLevel: 'high'});
     assert.ok(payload.generationConfig.responseJsonSchema.properties.inferred_fields.items.enum.includes('rarity'));
     assert.equal('copyright_year' in payload.generationConfig.responseJsonSchema.properties, false);
@@ -46,7 +46,7 @@ test('sends the image and new schema and preserves printed multilingual fields',
     assert.equal(result.name, sample.name);
     assert.equal(result.cardNumber, sample.card_number);
     assert.equal(result.rarity, 'L★');
-    assert.match(payload.contents[0].parts[0].text, /For One Piece only, append one ★/);
+    assert.ok(payload.contents[0].parts[0].text.includes("Rarity: Return the card's rarity as an uppercase abbreviation."));
     assert.equal(result.setName, sample.set_name);
     assert.deepEqual(result.colorElements, ['Red', 'Green']);
     assert.deepEqual(result.inferredFields, []);

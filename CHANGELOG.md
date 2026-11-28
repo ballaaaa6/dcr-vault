@@ -1,5 +1,8 @@
 # Changelog
 
+## Simplify rarity prompt - 2026-11-28
+- Ask Gemini for rarity as an uppercase abbreviation without game-specific prompt rules.
+
 ## Full language names - 2026-11-28
 - Use the full language name from card identification through saved cards and labels, while retaining compatibility with older language codes; remove Language code from Edit card details.
 
