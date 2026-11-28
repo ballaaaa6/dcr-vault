@@ -1,5 +1,7 @@
 #
 
+- Add heart selection and confirmed bulk deletion to Vault.
+
 - Match the Add Card upload border reveal to the existing dashed outline.
 
 - Apply the Home card border reveal to all six Add Card image upload fields.

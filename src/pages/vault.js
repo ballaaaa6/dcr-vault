@@ -13,6 +13,7 @@ import {mountCollectionInput, unmountCollectionInput} from '../components/vault-
 import {locationDialog, initializeLocations, setLocations, getLocations, setCollections, getCollections} from '../components/vault-locations.js';
 import {mountLocationInput, unmountLocationInput} from '../components/vault-location-input.js';
 import {listRow} from '../components/card-item.js';
+import {heartCheckbox} from '../components/heart-checkbox.js';
 import {vaultPhoto, initializeVaultPhoto} from '../components/vault-photo.js';
 import {itemInformation} from './verify.js';
 import {escapeHTML} from '../utils/format.js';
@@ -28,6 +29,8 @@ const currencies = ['THB', 'USD', 'JPY', 'EUR', 'GBP', 'AUD', 'CAD', 'CNY', 'HKD
 let activeCards = [];
 let selectedId = '';
 let vaultBusy = false;
+let bulkSelection = new Set();
+const selectableRow = card => `<div class="vault-select-row">${listRow(card)}<label class="vault-row-select">${heartCheckbox(`data-vault-select="${escapeHTML(card.id)}" aria-label="Select ${escapeHTML(card.name)} for deletion" ${bulkSelection.has(card.id) ? 'checked' : ''}`)}</label></div>`;
 let stopImagePrefetch = () => {};
 const publicFields = [
   ['name', 'Card name', 120], ['certNumber', 'Cert number', 8], ['game', 'Brand / Title', 120], ['year', 'Year', 4],
@@ -41,6 +44,7 @@ function editFields(card) {
 }
 export function vault(cards = [], locations = [], collections = []) {
   activeCards = cards;
+  bulkSelection = new Set();
   setLocations(locations);
   setCollections(collections);
   if (!cards.length) return `<main class="app-page vault-page"><header class="page-heading vault-heading"><h1>Vault</h1><a class="btn btn-primary vault-showcase" href="/showcase">${showcaseIcon()}<span>My Showcase</span></a></header><div class="vault-toolbar"><div id="location-filter-wrap">${vaultFilter()}</div></div><section class="surface-card empty-state"><p>Your private vault is ready for its first card.</p><a class="btn btn-primary" href="/archive">Add a card</a></section>${locationDialog()}</main>`;
@@ -48,7 +52,7 @@ export function vault(cards = [], locations = [], collections = []) {
   const sortedCards = [...cards].sort((a, b) => compareVaultCards(a, b, 'date-desc'));
   const focus = cards.find(card => card.id === params.get('id')) || sortedCards[0];
   selectedId = focus.id;
-  const rows = sortedCards.map(listRow).join('');
+  const rows = sortedCards.map(selectableRow).join('');
   return `
     <main class="app-page vault-page">
       <header class="page-heading vault-heading">
@@ -65,6 +69,7 @@ export function vault(cards = [], locations = [], collections = []) {
           <button class="search-button" type="submit">${searchIcon()}<span>Search</span></button>
         </div>
       </form>
+      <div class="vault-bulk-toolbar"><label class="label-select-all">${heartCheckbox('data-vault-select-all')} Select all</label><div class="vault-bulk-actions" hidden><button class="btn btn-primary" type="button" data-vault-bulk-delete></button><button class="btn btn-ghost" type="button" data-vault-bulk-cancel>Cancel</button></div></div>
       <div class="vault-layout">
         <section class="vault-list" id="vault-list" aria-label="Cards in your vault">${rows}</section>
         <div class="vault-selected" data-vault-art="${vaultBackground(focus)}">
@@ -73,7 +78,7 @@ export function vault(cards = [], locations = [], collections = []) {
         </div>
       </div>
       <dialog class="vault-delete-dialog two-choice-dialog" aria-labelledby="delete-card-title" aria-describedby="delete-card-description">
-        <h2 id="delete-card-title">Delete this card?</h2>
+        <button class="dialog-close" type="button" data-delete-close aria-label="Close">×</button><h2 id="delete-card-title">Delete this card?</h2>
         <p id="delete-card-description" class="two-choice-description">This will permanently delete the card and its photos. Its certificate number will be available for another card.</p>
         <p class="detail-note" data-delete-message role="status"></p>
         <div class="vault-delete-actions two-choice-actions"><button class="btn btn-ghost" type="button" data-delete-cancel autofocus>Cancel</button><button class="btn btn-primary" type="button" data-delete-confirm>Delete card</button></div>
@@ -197,6 +202,7 @@ export function initializeVault() {
     }
     return true;
   }, () => activeCards);
+  initializeBulkSelection();
   preloadSelectedBackgrounds(activeCards);
   stopImagePrefetch();
   stopImagePrefetch = prefetchNearbyImages(document.querySelector('#vault-list'));
@@ -235,10 +241,11 @@ window.__filterVault = () => {
   const count = document.getElementById('vault-count');
   document.querySelector('.vault-layout').classList.toggle('is-empty', !matches.length);
   if (selectedId && matches.length && !matches.some(card => card.id === selectedId)) selectCard(matches[0].id);
-  list.innerHTML = matches.length ? matches.map(listRow).join('') : '<div class="empty-state">No cards match those filters.</div>';
+  list.innerHTML = matches.length ? matches.map(selectableRow).join('') : '<div class="empty-state">No cards match those filters.</div>';
   stopImagePrefetch();
   stopImagePrefetch = prefetchNearbyImages(list);
   document.querySelectorAll('.vault-row').forEach(row => row.setAttribute('aria-pressed', String(row.dataset.cardId === selectedId)));
+  updateBulkSelection();
   count.textContent = `${matches.length} ${matches.length === 1 ? 'card' : 'cards'} shown · ${sort.startsWith('price') ? 'Prices are grouped by currency; no conversion is applied.' : 'Prices stay private to your account and never appear on labels.'}`;
 };
 
@@ -311,14 +318,88 @@ window.__saveDetail = async (event, id) => {
   } finally { vaultBusy = false; }
 };
 
+
+function updateBulkSelection() {
+  const boxes = [...document.querySelectorAll('[data-vault-select]')];
+  const all = document.querySelector('[data-vault-select-all]');
+  if (!all) return;
+  boxes.forEach(box => { box.checked = bulkSelection.has(box.dataset.vaultSelect); });
+  const checked = boxes.filter(box => box.checked).length;
+  all.checked = boxes.length > 0 && checked === boxes.length;
+  all.indeterminate = checked > 0 && checked < boxes.length;
+  all.disabled = !boxes.length || vaultBusy;
+  document.querySelector('.vault-bulk-actions').hidden = !bulkSelection.size;
+  document.querySelector('[data-vault-bulk-delete]').textContent = `Delete (${bulkSelection.size})`;
+}
+
+function initializeBulkSelection() {
+  const page = document.querySelector('.vault-page');
+  page?.addEventListener('change', event => {
+    const box = event.target;
+    if (box.matches('[data-vault-select]')) {
+      if (box.checked) bulkSelection.add(box.dataset.vaultSelect);
+      else bulkSelection.delete(box.dataset.vaultSelect);
+    } else if (box.matches('[data-vault-select-all]')) {
+      page.querySelectorAll('[data-vault-select]').forEach(item => {
+        if (box.checked) bulkSelection.add(item.dataset.vaultSelect);
+        else bulkSelection.delete(item.dataset.vaultSelect);
+      });
+    } else return;
+    updateBulkSelection();
+  });
+  page?.querySelector('[data-vault-bulk-cancel]')?.addEventListener('click', () => { bulkSelection.clear(); updateBulkSelection(); });
+  page?.querySelector('[data-vault-bulk-delete]')?.addEventListener('click', confirmBulkDelete);
+  updateBulkSelection();
+}
+
+function confirmBulkDelete() {
+  if (vaultBusy || !bulkSelection.size) return;
+  const dialog = document.querySelector('.vault-delete-dialog');
+  const count = bulkSelection.size;
+  dialog.querySelector('#delete-card-title').textContent = `Delete ${count} selected ${count === 1 ? 'card' : 'cards'}?`;
+  dialog.querySelector('#delete-card-description').textContent = 'This will permanently delete the selected cards and their photos. Their certificate numbers will be available for other cards.';
+  dialog.querySelector('[data-delete-message]').textContent = '';
+  dialog.querySelector('[data-delete-confirm]').textContent = `Delete (${count})`;
+  dialog.querySelector('[data-delete-cancel]').onclick = () => dialog.close();
+  dialog.querySelector('[data-delete-close]').onclick = () => dialog.close();
+  dialog.querySelector('[data-delete-confirm]').onclick = removeBulkCards;
+  dialog.oncancel = event => { if (vaultBusy) event.preventDefault(); };
+  dialog.onclick = event => { if (event.target === dialog && !vaultBusy) dialog.close(); };
+  dialog.showModal();
+}
+
+async function removeBulkCards() {
+  vaultBusy = true;
+  const dialog = document.querySelector('.vault-delete-dialog');
+  dialog.querySelectorAll('button').forEach(button => { button.disabled = true; });
+  const ids = [...bulkSelection];
+  const results = await Promise.allSettled(ids.map(id => deleteCard(id)));
+  const deleted = new Set(ids.filter((id, index) => results[index].status === 'fulfilled'));
+  activeCards = activeCards.filter(card => !deleted.has(card.id));
+  deleted.forEach(id => bulkSelection.delete(id));
+  vaultBusy = false;
+  dialog.querySelectorAll('button').forEach(button => { button.disabled = false; });
+  if (!activeCards.length) { dialog.close(); location.reload(); return; }
+  if (!activeCards.some(card => card.id === selectedId)) selectCard(activeCards[0].id);
+  window.__filterVault();
+  if (bulkSelection.size) {
+    dialog.querySelector('[data-delete-message]').textContent = `${deleted.size} deleted; ${bulkSelection.size} could not be deleted. Please try again.`;
+    dialog.querySelector('[data-delete-confirm]').textContent = `Retry (${bulkSelection.size})`;
+  } else dialog.close();
+}
+
 window.__deleteVault = id => {
   const dialog = document.querySelector('.vault-delete-dialog');
   const cancel = dialog.querySelector('[data-delete-cancel]');
   const confirmButton = dialog.querySelector('[data-delete-confirm]');
   if (vaultBusy) return;
   dialog.querySelector('[data-delete-message]').textContent = '';
+  dialog.querySelector('#delete-card-title').textContent = 'Delete this card?';
+  dialog.querySelector('#delete-card-description').textContent = 'This will permanently delete the card and its photos. Its certificate number will be available for another card.';
+  confirmButton.textContent = 'Delete card';
   document.querySelector('.vault-menu').open = false;
   cancel.onclick = () => dialog.close();
+  dialog.querySelector('[data-delete-close]').onclick = () => dialog.close();
   confirmButton.onclick = () => removeVaultCard(id);
   dialog.oncancel = event => { if (vaultBusy) event.preventDefault(); };
   dialog.onclick = event => { if (event.target === dialog && !vaultBusy) dialog.close(); };
@@ -334,6 +415,7 @@ async function removeVaultCard(id) {
     await deleteCard(id);
     dialog.close();
     activeCards = activeCards.filter(card => card.id !== id);
+    bulkSelection.delete(id);
     if (activeCards.length) { selectCard(activeCards[0].id); window.__filterVault(); }
     else location.reload();
   } catch (error) {

@@ -253,3 +253,8 @@
 
 .review-locked{opacity:.5;filter:grayscale(1);pointer-events:none}
 .identification-read-field.review-changed .form-control{border-color:var(--reading-review-yellow);box-shadow:0 0 0 1px var(--reading-review-yellow)}
+
+.vault-bulk-toolbar{display:flex;align-items:center;gap:12px;min-height:44px;margin-bottom:10px;flex-wrap:wrap}
+.vault-bulk-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.vault-bulk-actions[hidden]{display:none}
+.vault-bulk-actions .btn{padding:8px 14px}
+.vault-select-row{position:relative;min-width:0}.vault-row-select{position:absolute;z-index:1;top:8px;right:8px}.vault-select-row .vault-row{padding-right:38px}
