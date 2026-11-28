@@ -15,6 +15,8 @@ test('review sends the image and current details with review instructions', asyn
     assert.match(payload.contents[0].parts[0].text, /"cardNumber":"026"/);
     assert.match(payload.contents[0].parts[0].text, /artwork, layout, and visible symbols/);
     assert.match(payload.contents[0].parts[0].text, /Prioritize clearly visible text and card numbers over visual guesses/);
+    assert.match(payload.contents[0].parts[0].text, /use the full official name when identifiable/);
+    assert.match(payload.contents[0].parts[0].text, /Preserve abbreviations that are part of the official name/);
     assert.match(payload.contents[0].parts[0].text, /If unsure/);
     assert.equal(payload.contents[0].parts[1].inline_data.data, 'AQI=');
   } finally { globalThis.fetch = original; }

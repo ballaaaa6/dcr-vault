@@ -1,5 +1,8 @@
 # Changelog
 
+## Full set names in card reviews - 2026-11-28
+- Prefer identifiable full official set names during repeated card identification.
+
 ## Card game suffix cleanup - 2026-11-28
 - Remove generic card game suffixes from unmatched and ambiguous game names.
 
