@@ -1,6 +1,6 @@
 import {initializeIntakeNotifications} from './intake-notifications.js';
 import {showToast} from '../components/toast.js';
-import {createIntakeCard} from './search-save.js';
+import {createIntakeCard, updateIntakeCard} from './search-save.js';
 import {emptyPhotoMarkup, searchMarkup, validatePhoto} from './search-view.js';
 import './search-photo-preview.js';
 import {checkCert, deleteCardImage, uploadCardImage} from '../store/cards.js';
@@ -13,9 +13,12 @@ let certCheckTimer;
 let imageUrls = {};
 let uploadedSides = new Set();
 let statusObserver;
+let editCard = null;
+let removedSides = new Set();
 
 export function initializeSearchPage() {
-  document.getElementById('m-rarity').value = '';
+  if (editCard) initializeEditCard(editCard);
+  else document.getElementById('m-rarity').value = '';
   initializeCatalogSuggestions().catch(() => {
     const status = document.getElementById('manual-status');
     if (status) { status.dataset.state = 'error'; status.textContent = 'Card fields could not be loaded. Reload and try again.'; }
@@ -24,7 +27,9 @@ export function initializeSearchPage() {
   statusObserver = initializeIntakeNotifications();
 }
 
-export function search() {
+export function search(card = null) {
+  editCard = card;
+  removedSides = new Set();
   destroyCatalogSuggestions();
   releaseObjectUrls();
   resetCardIdentificationState();
@@ -144,9 +149,36 @@ function releaseObjectUrls() {
   imageUrls = {};
 }
 
+function initializeEditCard(card) {
+  const fields = {game: card.game, language: card.sourceLanguage || card.languageLabel, year: card.year,
+    setName: card.setName, cardNumber: card.cardNumber, name: card.name, rarity: card.rarity,
+    sourceLanguage: card.sourceLanguage, languageLabel: card.languageLabel, artist: card.artist, cert: card.certNumber};
+  for (const [key, value] of Object.entries(fields)) document.getElementById(`m-${key}`).value = value || '';
+  const grade = document.querySelector(`[data-dropdown-value="${CSS.escape(card.gradeLabel || '')}"]`);
+  grade?.click();
+  const cert = document.getElementById('m-cert');
+  cert.readOnly = true;
+  document.querySelector('[data-cert-random]').disabled = true;
+  document.querySelector('.page-heading h1').textContent = 'Change Card Details';
+  document.querySelector('.page-heading .page-description').textContent = `Your Cert ${card.certNumber} stays reserved for this card.`;
+  document.querySelector('#manual-submit span').textContent = 'Save changes';
+  for (const side of ['front', 'back']) {
+    if (!card[`${side}Image`]) continue;
+    const preview = document.querySelector(`[data-image-preview="${side}"]`);
+    const image = document.createElement('img');
+    image.src = card[`${side}Image`];
+    image.alt = `${side} photo preview`;
+    preview.replaceChildren(image);
+    preview.parentElement.classList.add('has-image');
+    document.querySelector(`[data-clear-image="${side}"]`).hidden = false;
+    document.querySelector(`[data-view-image="${side}"]`).hidden = false;
+  }
+}
+
 async function clearPhoto(side) {
   const input = document.querySelector(`[data-upload-side="${side}"]`);
-  if (window.__intakeSavedCard && uploadedSides.has(side)) {
+  if (editCard) removedSides.add(side);
+  if (!editCard && window.__intakeSavedCard && uploadedSides.has(side)) {
     try { await deleteCardImage(window.__intakeSavedCard.id, side); uploadedSides.delete(side); }
     catch (error) { document.getElementById('photo-status').textContent = error.message; return; }
   }
@@ -200,15 +232,22 @@ async function saveIntake() {
   button.querySelector('span').textContent = 'Saving…';
   updateSubmitState();
   try {
-    if (!window.__intakeSavedCard && certInput.dataset.certAvailable !== 'true' && !await checkCertInput()) { button.querySelector('span').textContent = 'Add card'; certInput.focus(); return; }
+    if (!editCard && !window.__intakeSavedCard && certInput.dataset.certAvailable !== 'true' && !await checkCertInput()) { button.querySelector('span').textContent = 'Add card'; certInput.focus(); return; }
     status.dataset.toastKey = 'save';
     status.dataset.state = 'pending';
-    status.textContent = 'Adding card to your vault…';
-    const card = window.__intakeSavedCard || await createIntakeCard(certNumber);
+    status.textContent = editCard ? 'Saving card changes…' : 'Adding card to your vault…';
+    const card = editCard ? await updateIntakeCard(editCard) : window.__intakeSavedCard || await createIntakeCard(certNumber);
     if (selectedPhotos().length) {
       status.textContent = 'Uploading selected photos…';
       const failed = await uploadPhotos(card);
       if (failed.length) { status.dataset.state = 'error'; status.textContent = `Card saved. Retry the photos that failed: ${failed.join('; ')}`; button.querySelector('span').textContent = 'Try again'; return; }
+    }
+    if (editCard) {
+      for (const side of removedSides) {
+        if (!selectedPhotos().some(photo => photo.side === side) && card[`${side}Image`]) await deleteCardImage(card.id, side);
+      }
+      location.href = `/vault?id=${encodeURIComponent(card.id)}`;
+      return;
     }
     completeIntake();
   } catch (error) {
@@ -251,6 +290,7 @@ document.addEventListener('change', event => {
   const input = event.target.closest('[data-upload-side]');
   if (!input) return;
   uploadedSides.delete(input.dataset.uploadSide);
+  if (editCard) removedSides.delete(input.dataset.uploadSide);
   try { updatePhotoPreview(input.dataset.uploadSide, validatePhoto(input)); document.getElementById('photo-status').textContent = ''; }
   catch (error) {
     input.value = '';

@@ -1,5 +1,7 @@
 #
 
+- Add Change Card Details to edit an existing card and its photos while retaining its reserved certificate.
+
 - Use the shared confirmation dialog for showcase deletion.
 
 - Add a corner delete button and confirmation to each showcase.

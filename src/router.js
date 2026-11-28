@@ -91,7 +91,12 @@ export async function render() {
     else if (path === '/gemini-usage') content = geminiUsage();
     else if (path === '/billing') content = billing();
     else if (path === '/profile') content = profile(user, await getCards());
-    else if (path === '/archive') content = search();
+    else if (path === '/archive') {
+      const editId = new URLSearchParams(location.search).get('edit');
+      const card = editId ? (await getCards()).find(item => item.id === editId) : null;
+      if (editId && !card) throw new Error('Card not found in your vault.');
+      content = search(card);
+    }
     else if (path === '/import') content = importPage(user);
     else if (path === '/verify' || isCertificate) content = await certificatePage();
     else if (['/vault', '/label'].includes(path)) content = await privatePage(path);

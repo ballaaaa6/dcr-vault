@@ -47,7 +47,7 @@ export async function initializeCatalogSuggestions() {
     const field = element.dataset.catalogMount;
     const root = createRoot(element);
     root.render(createElement(catalogSelect, {field, label: element.dataset.label, placeholder: element.dataset.placeholder,
-      maxLength: Number(element.dataset.maxlength), optionsFor, onEdit, onBlur: warnIfUnmatched}));
+      maxLength: Number(element.dataset.maxlength), initialValue: document.getElementById(`m-${field}`).value, optionsFor, onEdit, onBlur: warnIfUnmatched}));
     roots.push(root);
   });
 }

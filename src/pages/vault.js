@@ -133,7 +133,7 @@ function detailMarkup(card, mode = 'item') {
   const privateMode = mode === 'private' || mode === 'edit-private';
   return `<div class="vault-detail-controls"><button class="vault-edit-button vault-detail-flip" type="button" onclick="window.__flipVault()" aria-label="${privateMode ? 'Show item information' : 'Show private vault details'}">${switchIcon()}</button>
     <details class="vault-menu dropdown-control" data-dropdown-align="end"><summary class="vault-edit-button" aria-label="Card options">${optionsIcon()}</summary><div class="vault-menu-options dropdown-menu" role="menu">
-    <button type="button" role="menuitem" onclick="window.__editVault('card')">Edit card</button><button type="button" role="menuitem" onclick="window.__editVault('private')">Edit private</button><button class="vault-delete" type="button" role="menuitem" onclick="window.__deleteVault('${escapeHTML(card.id)}')">Delete card</button></div></details></div>
+    <button type="button" role="menuitem" onclick="window.__editVault('card')">Edit card</button><button type="button" role="menuitem" onclick="window.__editVault('private')">Edit private</button><button type="button" role="menuitem" onclick="window.__changeCardDetails()">Change Card Details</button><button class="vault-delete" type="button" role="menuitem" onclick="window.__deleteVault('${escapeHTML(card.id)}')">Delete card</button></div></details></div>
     ${editing ? `<form id="vault-edit" class="vault-edit" data-mode="${mode}" onsubmit="window.__saveDetail(event, '${escapeHTML(card.id)}')">
       <h2>${privateMode ? 'Private vault details' : 'Edit card details'}</h2>
       ${privateMode ? privateInputs(card) : `<div class="vault-edit-grid">${editFields(card)}</div>`}
@@ -257,6 +257,12 @@ window.__flipVault = async () => {
   animateActionIcon(document.querySelector('.vault-detail-flip'));
 };
 window.__editVault = mode => changeMode(`edit-${mode}`);
+window.__changeCardDetails = async () => {
+  if (vaultBusy) return;
+  const form = document.getElementById('vault-edit');
+  if (form?.dataset.dirty === 'true' && !await confirmDiscard()) return;
+  location.href = `/archive?edit=${encodeURIComponent(selectedId)}`;
+};
 window.__cancelVault = () => changeMode(document.getElementById('vault-edit')?.dataset.mode === 'edit-private' ? 'private' : 'item');
 
 window.__saveDetail = async (event, id) => {
